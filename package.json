@@ -19,7 +19,6 @@
   "dependencies": {
     "errorhandler": "^1.3.6",
     "express": "^4.12.4",
-    "normalize.css": "^3.0.3",
     "serve-index": "^1.6.4",
     "swig": "^1.4.2"
   }
