@@ -19,7 +19,6 @@ app.set('views', __dirname + '/public/views');
 app.engine('html', swig.renderFile);
 
 app.use('/public', express.static('public'));
-app.use('/node_modules', express.static('node_modules'));
 app.get('*', render('index'));
 
 switch (process.env.NODE_ENV) {
