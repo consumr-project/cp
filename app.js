@@ -10,6 +10,12 @@ var express = require('express'),
 
 var app = express();
 
+var render = function (file) {
+    return function (req, res) {
+        res.render(file);
+    };
+};
+
 app.set('view cache', true);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/public/views');
@@ -17,7 +23,7 @@ app.engine('html', swig.renderFile);
 
 app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
-app.get('/', function (req, res) { res.render('index'); });
+app.get('*', render('index'));
 app.use(not_found(app.get('views') + '404.html'));
 
 if (DEBUG) {
