@@ -2,7 +2,6 @@
 
 var express = require('express'),
     serve_index = require('serve-index'),
-    not_found = require('not-found'),
     error_handler = require('errorhandler'),
     swig = require('swig');
 
@@ -22,7 +21,6 @@ app.engine('html', swig.renderFile);
 app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
 app.get('*', render('index'));
-app.use(not_found(app.get('views') + '404.html'));
 
 switch (process.env.NODE_ENV) {
     case 'development':
