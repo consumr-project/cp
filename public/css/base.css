@@ -3,18 +3,23 @@
     letter-spacing: 1px;
 }
 
-body {
+html, body, [ng-view] {
+    height: 100%;
     cursor: default;
 }
 
 header {
+    padding: 20px 0;
+    position: absolute;
+    right: 0;
     text-align: right;
-    padding: 20px;
+    top: 0;
 }
 
 [ng-view] {
     max-width: 1000px;
-    margin: 10px auto;
+    margin: 0 auto;
+    position: relative;
 }
 
 text-logo {
@@ -50,4 +55,10 @@ text-logo {
 
 .link:not(:first-child) {
     margin-left: 20px;
+}
+
+.search-section {
+    position: relative;
+    top: 30%;
+    transform: translateY(-50%);
 }
