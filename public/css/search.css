@@ -6,7 +6,8 @@
 }
 
 .search tcp-loading svg {
-    display: none;
+    transition: opacity .4s;
+    opacity: 0;
 }
 
 .search input {
@@ -40,5 +41,5 @@
 }
 
 .search.searching tcp-loading svg {
-    display: initial;
+    opacity: 1;
 }
