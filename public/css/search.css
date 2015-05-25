@@ -2,6 +2,7 @@
     position: relative;
     top: 30%;
     transform: translateY(-50%);
+    transition: transform .4s;
 }
 
 .search input {
@@ -15,4 +16,21 @@
 
 .search separator {
     height: 4rem;
+    transition: height .4s;
+}
+
+.search text-logo {
+    transition: opacity .4s;
+}
+
+.search.ng-submitted.main {
+    transform: translateY(-230%);
+}
+
+.search.ng-submitted text-logo {
+    opacity: 0;
+}
+
+.search.ng-submitted separator {
+    height: 0;
 }
