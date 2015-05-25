@@ -28,15 +28,15 @@
     transition: opacity .4s;
 }
 
-.search.ng-submitted.main {
+.search.list-results.main {
     transform: translateY(-230%);
 }
 
-.search.ng-submitted text-logo {
+.search.list-results text-logo {
     opacity: 0;
 }
 
-.search.ng-submitted separator {
+.search.list-results separator {
     height: 0;
 }
 
