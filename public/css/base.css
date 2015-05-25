@@ -11,14 +11,19 @@ html, body, [ng-view] {
 header {
     padding: 20px 0;
     position: absolute;
-    right: 0;
+    right: 60px;
     text-align: right;
     top: 0;
 }
 
+separator {
+    display: block;
+}
+
 [ng-view] {
-    max-width: 1000px;
     margin: 0 auto;
+    max-width: 1000px;
+    padding: 60px;
     position: relative;
 }
 
@@ -35,13 +40,7 @@ text-logo {
     font-size: 2rem;
     outline: 0;
     padding: 3px;
-    transition: padding-left .2s;
     width: 100%;
-}
-
-.search:active,
-.search:focus {
-    padding-left: 10px;
 }
 
 .link {
@@ -61,4 +60,8 @@ text-logo {
     position: relative;
     top: 30%;
     transform: translateY(-50%);
+}
+
+.search-section separator {
+    height: 4rem;
 }
