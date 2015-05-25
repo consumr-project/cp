@@ -1,5 +1,6 @@
-<form ng-submit="search(searchText)" class="search main">
+<form ng-submit="search(searchText)" class="search main" ng-class="{searching: searching}">
     <text-logo>the consumer project</text-logo>
     <separator></separator>
     <input placeholder="search" ng-model="searchText" autofocus />
+    <tcp-loading><tcp-loading>
 </form>

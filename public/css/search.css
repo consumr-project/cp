@@ -5,6 +5,10 @@
     transition: transform .4s;
 }
 
+.search tcp-loading svg {
+    display: none;
+}
+
 .search input {
     border: 0;
     border-bottom: 2px solid black;
@@ -33,4 +37,8 @@
 
 .search.ng-submitted separator {
     height: 0;
+}
+
+.search.searching tcp-loading svg {
+    display: initial;
 }

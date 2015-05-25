@@ -49,3 +49,9 @@ input {
     font-style: italic;
     font-weight: 100;
 }
+
+tcp-loading svg {
+    height: 50px;
+    position: absolute;
+    width: 100%;
+}
