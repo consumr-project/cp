@@ -1,0 +1,48 @@
+body {
+    cursor: default;
+}
+
+header {
+    text-align: right;
+    padding: 20px;
+}
+
+[ng-view] {
+    max-width: 1000px;
+    margin: 10px auto;
+}
+
+.text {
+    letter-spacing: 1px;
+}
+
+.text.logo {
+    font-family: Times;
+    font-weight: normal;
+}
+
+.search {
+    border: 0;
+    border-bottom: 2px solid black;
+    outline: 0;
+    padding: 3px;
+    transition: padding-left .2s;
+    width: 100%;
+}
+
+.search:active,
+.search:focus {
+    padding-left: 10px;
+}
+
+.link {
+    background: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.link:not(:first-child) {
+    margin-left: 20px;
+}
