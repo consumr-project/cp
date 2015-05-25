@@ -1,0 +1,16 @@
+separator {
+    display: block;
+}
+
+.link {
+    background: transparent;
+    border: 0;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.link:not(:first-child) {
+    margin-left: 20px;
+}

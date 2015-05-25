@@ -1,0 +1,18 @@
+.search.main {
+    position: relative;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.search input {
+    border: 0;
+    border-bottom: 2px solid black;
+    font-size: 2rem;
+    outline: 0;
+    padding: 3px;
+    width: 100%;
+}
+
+.search separator {
+    height: 4rem;
+}
