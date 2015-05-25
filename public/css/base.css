@@ -3,12 +3,12 @@
     letter-spacing: 1px;
 }
 
-html, body, [ng-view] {
+html, body, div.main, [ng-view] {
     height: 100%;
     cursor: default;
 }
 
-[ng-view] {
+div.main {
     margin: 0 auto;
     max-width: 1000px;
     padding: 0 60px;
