@@ -10,7 +10,6 @@ html, body, [ng-view] {
 
 header {
     padding: 20px 0;
-    position: absolute;
     right: 60px;
     text-align: right;
     top: 0;
@@ -23,7 +22,7 @@ separator {
 [ng-view] {
     margin: 0 auto;
     max-width: 1000px;
-    padding: 60px;
+    padding: 0 60px;
     position: relative;
 }
 
