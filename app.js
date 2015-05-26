@@ -19,6 +19,13 @@ app.set('views', __dirname + '/public/views');
 app.engine('html', swig.renderFile);
 
 app.use('/public', express.static('public'));
+
+app.get('/follow', function (req, res) {
+    require('./app/actions/follow')(req.query.url, function (results) {
+        res.json(results);
+    });
+});
+
 app.get('*', render('index'));
 
 switch (process.env.NODE_ENV) {
