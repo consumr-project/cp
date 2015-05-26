@@ -2,8 +2,8 @@
 
 angular.module('tcp').config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider.when('/search', {
-        templateUrl: '/public/views/search.html',
-        controller: 'SearchController'
+        templateUrl: '/app/modules/search/search.html',
+        controller: 'searchController'
     });
 
     $locationProvider.html5Mode(true);

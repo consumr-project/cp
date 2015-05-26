@@ -15,9 +15,10 @@ var render = function (file) {
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/public/views');
+app.set('views', __dirname + '/app/modules');
 app.engine('html', swig.renderFile);
 
+app.use('/app', express.static('app'));
 app.use('/public', express.static('public'));
 
 app.get('/follow', function (req, res) {
@@ -26,10 +27,9 @@ app.get('/follow', function (req, res) {
     });
 });
 
-app.get('*', render('index'));
-
 switch (process.env.NODE_ENV) {
     case 'development':
+        app.use('/app', serve_index('app'));
         app.use('/public', serve_index('public'));
         app.use(error_handler());
         app.set('view cache', false);
@@ -37,4 +37,5 @@ switch (process.env.NODE_ENV) {
         break;
 }
 
+app.get('*', render('base/index'));
 app.listen(process.env.PORT || 3000);

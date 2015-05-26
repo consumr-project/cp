@@ -2,9 +2,9 @@
   "name": "the-consumer-project",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app"
+    "start": "node server"
   },
   "repository": {
     "type": "git",
