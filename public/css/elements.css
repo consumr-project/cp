@@ -11,6 +11,6 @@ separator {
     text-transform: uppercase;
 }
 
-.link:not(:first-child) {
+.link:not(:first-of-type) {
     margin-left: 20px;
 }

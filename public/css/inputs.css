@@ -1,0 +1,47 @@
+input,
+textarea {
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    font-weight: 100;
+    outline: 0;
+    padding: 3px;
+    resize: none;
+}
+
+input {
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-color: transparent;
+}
+
+form[entity-input] input,
+form[entity-input] textarea {
+    display: block;
+    margin: 15px 0;
+    width: 100%;
+}
+
+form[entity-input] textarea {
+    height: 200px;
+}
+
+::-webkit-input-placeholder {
+    color: rgb(194, 194, 194);
+    font-weight: 100;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: rgb(194, 194, 194);
+    font-weight: 100;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: rgb(194, 194, 194);
+    font-weight: 100;
+}
+
+:-ms-input-placeholder {
+    color: rgb(194, 194, 194);
+    font-weight: 100;
+}

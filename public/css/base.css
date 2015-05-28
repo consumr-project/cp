@@ -22,34 +22,6 @@ header {
     top: 0;
 }
 
-input {
-    font-weight: 100;
-}
-
-::-webkit-input-placeholder {
-    color: rgb(194, 194, 194);
-    font-style: italic;
-    font-weight: 100;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-    color: rgb(194, 194, 194);
-    font-style: italic;
-    font-weight: 100;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-    color: rgb(194, 194, 194);
-    font-style: italic;
-    font-weight: 100;
-}
-
-:-ms-input-placeholder {
-    color: rgb(194, 194, 194);
-    font-style: italic;
-    font-weight: 100;
-}
-
 tcp-loading svg {
     height: 50px;
     position: absolute;
