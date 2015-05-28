@@ -26,4 +26,11 @@ tcp-loading svg {
     height: 50px;
     position: absolute;
     width: 100%;
+    transition: opacity .4s;
+    opacity: 0;
+    max-width: 880px;
+}
+
+tcp-loading.show svg {
+    opacity: 1;
 }

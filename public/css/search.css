@@ -5,11 +5,6 @@
     transition: transform .4s;
 }
 
-.search tcp-loading svg {
-    transition: opacity .4s;
-    opacity: 0;
-}
-
 .search input {
     font-size: 2rem;
     width: 100%;
@@ -34,8 +29,4 @@
 
 .search.list-results separator {
     height: 0;
-}
-
-.search.searching tcp-loading svg {
-    opacity: 1;
 }

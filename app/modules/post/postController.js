@@ -1,4 +1,5 @@
 angular.module('tcp').controller('postController', ['$scope', 'postService', 'extract', function ($scope, postService, extract) {
+    $scope.loading = false;
     $scope.editing = true;
 
     // XXX - remove once done testing
@@ -6,7 +7,9 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
 
     $scope.fetchArticle = function () {
         if ($scope.url) {
+            $scope.loading = true;;
             extract.fetch($scope.url).then(function (article) {
+                $scope.loading = false;;
                 $scope.article = article;
             });
         }

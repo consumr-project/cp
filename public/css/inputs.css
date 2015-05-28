@@ -23,8 +23,12 @@ form[tcp-inputs]:not(.tcp-inputs-editing) textarea {
 form[tcp-inputs] input,
 form[tcp-inputs] textarea {
     display: block;
-    margin: 15px 0;
     width: 100%;
+}
+
+form[tcp-inputs] input:not(:first-of-type),
+form[tcp-inputs] textarea:not(:first-of-type) {
+    margin-top: 20px;
 }
 
 form[tcp-inputs] textarea {

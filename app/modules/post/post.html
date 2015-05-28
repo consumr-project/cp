@@ -1,9 +1,10 @@
-<form tcp-inputs="editing">
+<form tcp-inputs="editing" ng-class="{searching: loading}">
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
     <input placeholder="company" ng-model="company" autofocus />
     <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
+    <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
     <div class="post">
         <h1>{{article.title}}</h1>
