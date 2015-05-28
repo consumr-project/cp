@@ -1,4 +1,6 @@
 angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', function ($scope, wikipedia) {
+    $scope.editing = true;
+
     /**
      * @return {Boolean}
      */
@@ -14,5 +16,13 @@ angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', fu
                 }
             });
         }
+    };
+
+    $scope.edit = function () {
+        $scope.editing = true;
+    };
+
+    $scope.save = function () {
+        $scope.editing = false;
     };
 }]);

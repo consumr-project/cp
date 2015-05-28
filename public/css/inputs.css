@@ -15,14 +15,19 @@ input {
     border-left-color: transparent;
 }
 
-form[entity-input] input,
-form[entity-input] textarea {
+form[tcp-inputs]:not(.tcp-inputs-editing) input,
+form[tcp-inputs]:not(.tcp-inputs-editing) textarea {
+    border-color: transparent;
+}
+
+form[tcp-inputs] input,
+form[tcp-inputs] textarea {
     display: block;
     margin: 15px 0;
     width: 100%;
 }
 
-form[entity-input] textarea {
+form[tcp-inputs] textarea {
     height: 200px;
 }
 

@@ -1,5 +1,7 @@
-<form entity-input>
+<!-- <form entity&#45;input ng&#45;class="{editing: editing}" name="companyForm" tcp&#45;inputs="editing"> -->
+<form tcp-inputs="editing">
     <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyDescription()" />
     <textarea placeholder="description" ng-model="description"></textarea>
-    <button class="link">edit</button>
+    <button class="link" ng-if="editing" ng-click="save()">save</button>
+    <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 </form>
