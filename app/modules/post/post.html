@@ -1,0 +1,12 @@
+<form tcp-inputs="editing">
+    <button class="link" ng-if="editing" ng-click="save()">save</button>
+    <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
+
+    <input placeholder="company" ng-model="company" autofocus />
+    <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
+
+    <div class="post">
+        <h1>{{article.title}}</h1>
+        <div>{{article.content}}</div>
+    </div>
+</form>

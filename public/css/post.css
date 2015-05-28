@@ -1,0 +1,4 @@
+.post div {
+    overflow: scroll;
+    height: 500px;
+}
