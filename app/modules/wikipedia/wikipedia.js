@@ -1,4 +1,6 @@
-angular.module('wiki').service('wikipedia', ['$http', 'lodash', function ($http, _) {
+'use strict';
+
+angular.module('wikipedia', []).service('wikipedia', ['$http', 'lodash', function ($http, _) {
     /**
      * make a call to wikipedia's api
      * @param {Object} params
