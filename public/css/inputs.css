@@ -26,8 +26,9 @@ form[tcp-inputs] textarea {
     width: 100%;
 }
 
-form[tcp-inputs] input:not(:first-of-type),
-form[tcp-inputs] textarea:not(:first-of-type) {
+form[tcp-inputs] button + *,
+form[tcp-inputs] input + *,
+form[tcp-inputs] textarea + * {
     margin-top: 20px;
 }
 
