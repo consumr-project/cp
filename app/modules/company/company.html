@@ -1,5 +1,6 @@
 <form tcp-inputs="editing">
     <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyDescription()" />
+    <tcp-loading ng-class="{show: loading}"></tcp-loading>
     <textarea placeholder="description" ng-model="description"></textarea>
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>

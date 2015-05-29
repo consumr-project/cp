@@ -1,4 +1,5 @@
 angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', function ($scope, wikipedia) {
+    $scope.loading = false;
     $scope.editing = true;
 
     /**
@@ -9,13 +10,18 @@ angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', fu
     }
 
     $scope.fetchCompanyDescription = function () {
-        if (shouldFecthDescription()) {
-            wikipedia.extract($scope.name).then(function (page) {
-                if (page && page.extract && shouldFecthDescription()) {
-                    $scope.description = page.extract;
-                }
-            });
+        if (!shouldFecthDescription()) {
+            return;
         }
+
+        $scope.loading = true;
+        wikipedia.extract($scope.name).then(function (page) {
+            $scope.loading = false;
+
+            if (page && page.extract && shouldFecthDescription()) {
+                $scope.description = page.extract;
+            }
+        });
     };
 
     $scope.edit = function () {
