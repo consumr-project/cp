@@ -1,8 +1,19 @@
-angular.module('tcp').controller('postController', ['$scope', '$window', 'postService', 'extract', 'rangy', function ($scope, $window, postService, extract, rangy) {
-    var highlighter;
+angular.module('tcp').controller('postController', ['$scope', '$window', 'postService', 'extract', 'rangy', 'lodash', function ($scope, $window, postService, extract, rangy, _) {
+    var highlighter, selection;
 
     $scope.loading = false;
     $scope.editing = true;
+
+    $scope.selection = null;
+    $scope.showSelectionEditor = false;
+
+    /**
+     * generate a highlights storage key
+     * @return {String}
+     */
+    function key() {
+        return 'hi-' + $scope.url;
+    }
 
     $scope.initialize = function () {
         rangy.init();
@@ -14,12 +25,32 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         }));
     };
 
-    $scope.selectionMade = function () {
-        highlighter.highlightSelection('highlight');
+    $scope.saveSelection = function () {
+        selection = null;
+        localStorage.setItem(key(), highlighter.serialize());
+    };
+
+    /**
+     * removes the last selection object is it is set. selection object we
+     * want to keep must be serialized and unset from this var
+     */
+    $scope.selectionStarting = function () {
         $window.getSelection().removeAllRanges();
+        highlighter.removeHighlights([selection])
+    };
+
+    $scope.selectionMade = function () {
+        selection = highlighter.highlightSelection('highlight');
+        selection = selection[selection.length - 1];
+
+        $window.getSelection().removeAllRanges();
+        $scope.selection = selection;
+        $scope.showSelectionEditor = true;
     };
 
     $scope.fetchArticle = function () {
+        var highlights = localStorage.getItem(key());
+
         if (!$scope.url) {
             return;
         }
@@ -30,12 +61,19 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         extract.fetch($scope.url).then(function (article) {
             if (!article.ok) {
                 alert('Error loading article');
-            } else {
-                $scope.article = article;
             }
 
+            $scope.article = article;
             $scope.loading = false;
             $scope.$apply();
+
+            if (highlights) {
+                // $evalAsync makes it so the highlights appear right as the
+                // article appears
+                $scope.$evalAsync(function () {
+                    highlighter.deserialize(highlights);
+                });
+            }
         });
     };
 

@@ -6,8 +6,12 @@
     <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <div class="post animated fadeIn" ng-if="article" ng-mouseup="selectionMade()">
+    <div class="post animated fadeIn" ng-if="article" ng-mouseup="selectionMade()" ng-mousedown="selectionStarting()">
         <h1>{{article.title}}</h1>
         <div>{{article.content}}</div>
+    </div>
+
+    <div class="selection-editor" ng-click="saveSelection()">
+    save
     </div>
 </form>
