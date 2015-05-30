@@ -21,6 +21,8 @@ angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', fu
             if (page && page.extract && shouldFecthDescription()) {
                 $scope.description = page.extract;
             }
+
+            $scope.$apply();
         });
     };
 

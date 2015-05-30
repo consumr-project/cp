@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('extract', []).service('extract', ['$http', function ($http) {
+/* global reqwest */
+
+(function (store) {
     /**
      * @param {String} object
      * @return {Function}
      */
     function pluck(object) {
         return function (res) {
-            return res.data[object];
+            return res[object];
         };
     }
 
@@ -17,11 +19,9 @@ angular.module('extract', []).service('extract', ['$http', function ($http) {
      * @return {Promise<Object>}
      */
     function fetch(url) {
-        return $http.get('/extract?url=' + encodeURIComponent(url))
+        return reqwest({ url: '/extract?url=' + encodeURIComponent(url) })
             .then(pluck('response'));
     }
 
-    return {
-        fetch: fetch
-    };
-}]);
+    store.fetch = fetch;
+})(typeof window !== 'undefined' ? window.extract = {} : module.exports);

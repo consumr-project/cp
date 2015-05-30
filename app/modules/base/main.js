@@ -3,7 +3,9 @@
 (function () {
     var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp');
 
-    angular.module('tcp', ['ngRoute', 'firebase', 'wikipedia', 'extract', 'ngAria']);
+    angular.module('tcp', ['ngRoute', 'firebase', 'ngAria']);
+    angular.module('tcp').value('wikipedia', wikipedia);
+    angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('lodash', _);
     angular.module('tcp').value('store', store);
     angular.module('tcp').value('postStore', store.child('post'));

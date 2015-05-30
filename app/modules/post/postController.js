@@ -16,6 +16,7 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
         extract.fetch($scope.url).then(function (article) {
             $scope.loading = false;;
             $scope.article = article;
+            $scope.$apply();
         });
     };
 

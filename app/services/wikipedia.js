@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('wikipedia', []).service('wikipedia', ['$http', 'lodash', function ($http, _) {
+/* global reqwest, _ */
+
+(function (store) {
     /**
      * make a call to wikipedia's api
      * @param {Object} params
@@ -10,9 +12,12 @@ angular.module('wikipedia', []).service('wikipedia', ['$http', 'lodash', functio
         params.format = 'json';
         params.callback = 'JSON_CALLBACK';
 
-        return $http.jsonp('https://en.wikipedia.org/w/api.php?' + _.map(params, function (val, key) {
-            return [key, encodeURIComponent(val)].join('=');
-        }).join('&'));
+        return reqwest({
+            type: 'jsonp',
+            url: 'https://en.wikipedia.org/w/api.php?' + _.map(params, function (val, key) {
+                return [key, encodeURIComponent(val)].join('=');
+            }).join('&')
+        });
     }
 
     /**
@@ -22,10 +27,14 @@ angular.module('wikipedia', []).service('wikipedia', ['$http', 'lodash', functio
      */
     function best(object) {
         return function (res) {
-            var all = res.data.query[object],
+            var all = res.query[object],
                 best = {};
 
             for (var id in all) {
+                if (!all.hasOwnProperty(id)) {
+                    continue;
+                }
+
                 best = all[id];
                 best._matches = all;
                 break;
@@ -50,7 +59,5 @@ angular.module('wikipedia', []).service('wikipedia', ['$http', 'lodash', functio
         }).then(best('pages'));
     }
 
-    return {
-        extract: extract
-    };
-}]);
+    store.extract = extract;
+})(typeof window !== 'undefined' ? window.wikipedia = {} : module.exports);

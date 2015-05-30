@@ -20,6 +20,7 @@ app.engine('html', swig.renderFile);
 
 app.use('/app', express.static('app'));
 app.use('/public', express.static('public'));
+app.use('/node_modules', express.static('node_modules'));
 
 app.get('/extract', function (req, res) {
     require('./app/actions/extract')(req.query.url, function (results) {
