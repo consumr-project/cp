@@ -14,7 +14,11 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
         $scope.article = null;
 
         extract.fetch($scope.url).then(function (article) {
-            $scope.loading = false;;
+            if (!article.ok) {
+                alert('Error loading article');
+            }
+
+            $scope.loading = false;
             $scope.article = article;
             $scope.$apply();
         });
