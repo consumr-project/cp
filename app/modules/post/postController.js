@@ -48,6 +48,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
 
     $scope.saveSelection = function () {
         $scope.selection = null;
+        $scope.selectionAnchor = null;
         cacheHighlights();
     };
 

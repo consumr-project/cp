@@ -16,10 +16,12 @@
 }
 
 .selection-editor {
+    background-color: white;
+    border: 1px solid rgb(199, 199, 199);
+    box-shadow: 0 0 3px 1px rgb(199, 199, 199);
+    padding: 6px;
     position: absolute;
-    height: 10px;
-    width: 10px;
-    border: 1px solid black;
+    z-index: 1;
 }
 
 @media (min-width:600px) {
