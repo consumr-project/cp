@@ -15,6 +15,27 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         return 'hi-' + $scope.url;
     }
 
+    /**
+     * @return {Boolean}
+     */
+    function cacheHighlights() {
+        localStorage.setItem(key(), highlighter.serialize());
+        return localStorage.hasOwnProperty(key());
+    }
+
+    /**
+     * @return {Boolean}
+     */
+    function restoreCachedHighlights() {
+        var highlights = localStorage.getItem(key());
+
+        if (highlights) {
+            highlighter.deserialize(highlights);
+        }
+
+        return !!highlights;
+    }
+
     $scope.initialize = function () {
         rangy.init();
 
@@ -27,7 +48,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
 
     $scope.saveSelection = function () {
         $scope.selection = null;
-        localStorage.setItem(key(), highlighter.serialize());
+        cacheHighlights();
     };
 
     /**
@@ -38,6 +59,10 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         highlighter.removeHighlights([$scope.selection])
         $window.getSelection().removeAllRanges();
         $scope.selection = null;
+
+        // removing the selection may have removed a previsouly selected
+        // highlight that we should restore
+        restoreCachedHighlights();
     };
 
     $scope.selectionMade = function () {
@@ -50,8 +75,6 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     };
 
     $scope.fetchArticle = function () {
-        var highlights = localStorage.getItem(key());
-
         if (!$scope.url) {
             return;
         }
@@ -68,13 +91,9 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
             $scope.loading = false;
             $scope.$apply();
 
-            if (highlights) {
-                // $evalAsync makes it so the highlights appear right as the
-                // article appears
-                $scope.$evalAsync(function () {
-                    highlighter.deserialize(highlights);
-                });
-            }
+            // $evalAsync makes it so the highlights appear right as the
+            // article appears
+            $scope.$evalAsync(restoreCachedHighlights);
         });
     };
 
