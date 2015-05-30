@@ -8,6 +8,8 @@
 .search input {
     font-size: 2rem;
     width: 100%;
+    border: 0;
+    border-bottom: 2px solid black;
 }
 
 .search separator {

@@ -17,7 +17,7 @@ angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', fu
         $scope.loading = true;
         wikipedia.extract($scope.name).then(function (page) {
             if (page && page.extract && shouldFecthDescription()) {
-                $scope.description = page.extract;
+                $scope.description = page.extract.replace('\n', '\n\n');
             }
 
             $scope.loading = false;
