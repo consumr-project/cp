@@ -1,9 +1,11 @@
 angular.module('tcp').controller('postController', ['$scope', '$window', 'postService', 'extract', 'rangy', 'lodash', function ($scope, $window, postService, extract, rangy, _) {
-    var highlighter, selection;
+    var highlighter;
 
     $scope.loading = false;
     $scope.editing = true;
+
     $scope.selection = null;
+    $scope.selectionAnchor = null;
 
     /**
      * generate a highlights storage key
@@ -24,7 +26,6 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     };
 
     $scope.saveSelection = function () {
-        selection = null;
         $scope.selection = null;
         localStorage.setItem(key(), highlighter.serialize());
     };
@@ -34,19 +35,18 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
      * want to keep must be serialized and unset from this var
      */
     $scope.selectionStarting = function () {
+        highlighter.removeHighlights([$scope.selection])
         $window.getSelection().removeAllRanges();
         $scope.selection = null;
-        highlighter.removeHighlights([selection])
     };
 
     $scope.selectionMade = function () {
-        selection = highlighter.highlightSelection('highlight');
-        selection = selection[selection.length - 1];
-        $window.getSelection().removeAllRanges();
+        var selections = highlighter.highlightSelection('highlight'),
+            selection = selections[selections.length - 1];
 
-        if (selection) {
-            $scope.selection = selection.getHighlightElements()[0];
-        }
+        $scope.selection = selection;
+        $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
+        $window.getSelection().removeAllRanges();
     };
 
     $scope.fetchArticle = function () {
