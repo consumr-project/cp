@@ -1,5 +1,6 @@
 .post {
     transition: padding .3s;
+    padding-bottom: 20px;
 }
 
 .post div {
