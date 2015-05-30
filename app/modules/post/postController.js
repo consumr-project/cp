@@ -3,9 +3,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
 
     $scope.loading = false;
     $scope.editing = true;
-
     $scope.selection = null;
-    $scope.showSelectionEditor = false;
 
     /**
      * generate a highlights storage key
@@ -27,6 +25,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
 
     $scope.saveSelection = function () {
         selection = null;
+        $scope.selection = null;
         localStorage.setItem(key(), highlighter.serialize());
     };
 
@@ -36,16 +35,18 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
      */
     $scope.selectionStarting = function () {
         $window.getSelection().removeAllRanges();
+        $scope.selection = null;
         highlighter.removeHighlights([selection])
     };
 
     $scope.selectionMade = function () {
         selection = highlighter.highlightSelection('highlight');
         selection = selection[selection.length - 1];
-
         $window.getSelection().removeAllRanges();
-        $scope.selection = selection;
-        $scope.showSelectionEditor = true;
+
+        if (selection) {
+            $scope.selection = selection.getHighlightElements()[0];
+        }
     };
 
     $scope.fetchArticle = function () {
