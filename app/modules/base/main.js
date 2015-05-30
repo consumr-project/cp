@@ -7,6 +7,7 @@
     angular.module('tcp').value('wikipedia', wikipedia);
     angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('lodash', _);
+    angular.module('tcp').value('rangy', rangy);
     angular.module('tcp').value('store', store);
     angular.module('tcp').value('postStore', store.child('post'));
     angular.module('tcp').value('userStore', store.child('user'));

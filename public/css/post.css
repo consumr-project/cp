@@ -5,3 +5,12 @@
 .post div {
     white-space: pre-line;
 }
+
+.post .highlight {
+    background-color: rgb(255, 254, 196);
+}
+
+::selection {
+    background: rgb(255, 254, 196);
+    text-shadow: none;
+}

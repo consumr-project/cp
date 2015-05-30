@@ -1,4 +1,4 @@
-<form tcp-inputs="editing">
+<form tcp-inputs="editing" ng-init="initialize()">
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
@@ -6,7 +6,7 @@
     <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <div class="post animated fadeIn" ng-if="article">
+    <div class="post animated fadeIn" ng-if="article" ng-mouseup="selectionMade()">
         <h1>{{article.title}}</h1>
         <div>{{article.content}}</div>
     </div>

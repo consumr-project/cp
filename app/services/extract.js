@@ -39,7 +39,7 @@
     function clean(article) {
         var sections = article.content.split('\n');
 
-        sections.forEach(function (section, index) {
+        sections = _.filter(sections, function (section, index) {
             switch (_.trim(section).toLowerCase()) {
                 case 'subscribe':
                 case 'loading...':
@@ -48,9 +48,10 @@
                 case 'preface':
                 case 'supported by':
                 case 'continue reading the main story':
-                    sections.splice(index, 1);
-                    break;
+                    return false;
             }
+
+            return true;
         });
 
         article.content = sections.join('\n\n');

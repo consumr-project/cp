@@ -1,6 +1,23 @@
-angular.module('tcp').controller('postController', ['$scope', 'postService', 'extract', function ($scope, postService, extract) {
+angular.module('tcp').controller('postController', ['$scope', '$window', 'postService', 'extract', 'rangy', function ($scope, $window, postService, extract, rangy) {
+    var highlighter;
+
     $scope.loading = false;
     $scope.editing = true;
+
+    $scope.initialize = function () {
+        rangy.init();
+
+        highlighter = rangy.createHighlighter();
+        highlighter.addClassApplier(rangy.createClassApplier('highlight', {
+            ignoreWhiteSpace: true,
+            tagNames: ['span']
+        }));
+    };
+
+    $scope.selectionMade = function () {
+        highlighter.highlightSelection('highlight');
+        $window.getSelection().removeAllRanges();
+    };
 
     $scope.fetchArticle = function () {
         if (!$scope.url) {
