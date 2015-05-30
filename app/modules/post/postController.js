@@ -16,10 +16,11 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
         extract.fetch($scope.url).then(function (article) {
             if (!article.ok) {
                 alert('Error loading article');
+            } else {
+                $scope.article = article;
             }
 
             $scope.loading = false;
-            $scope.article = article;
             $scope.$apply();
         });
     };
