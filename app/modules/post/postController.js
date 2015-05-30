@@ -2,9 +2,6 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
     $scope.loading = false;
     $scope.editing = true;
 
-    // XXX - remove once done testing
-    $scope.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
-
     $scope.fetchArticle = function () {
         if (!$scope.url) {
             return;
@@ -32,4 +29,9 @@ angular.module('tcp').controller('postController', ['$scope', 'postService', 'ex
     $scope.save = function () {
         $scope.editing = false;
     };
+
+    // XXX - remove once done testing
+    $scope.company = 'Hormel';
+    $scope.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
+    $scope.fetchArticle();
 }]);

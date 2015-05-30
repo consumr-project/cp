@@ -32,4 +32,8 @@ angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', fu
     $scope.save = function () {
         $scope.editing = false;
     };
+
+    // XXX - remove once done testing
+    $scope.name = 'Hormel';
+    $scope.fetchCompanyDescription();
 }]);
