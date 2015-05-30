@@ -34,14 +34,16 @@ div.main {
     font-family: 'Raleway';
     margin: 0 auto;
     max-width: 1000px;
-    padding: 0 60px;
+    min-width: 300px;
+    transition: padding .3s;
+    padding: 0 20px;
     position: relative;
 }
 
 header {
     padding: 20px 0;
     right: 60px;
-    text-align: right;
+    text-align: center;
     top: 0;
 }
 
@@ -56,4 +58,14 @@ tcp-loading svg {
 
 tcp-loading.show svg {
     opacity: 1;
+}
+
+@media (min-width:600px) {
+    div.main {
+        padding: 0 60px;
+    }
+
+    header {
+        text-align: right;
+    }
 }

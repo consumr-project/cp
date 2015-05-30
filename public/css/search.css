@@ -1,4 +1,4 @@
-.search.main {
+.search {
     position: relative;
     top: 30%;
     transform: translateY(-50%);
@@ -13,7 +13,7 @@
 }
 
 .search separator {
-    height: 4rem;
+    height: 2rem;
     transition: height .4s;
 }
 
@@ -21,8 +21,8 @@
     transition: opacity .4s;
 }
 
-.search.list-results.main {
-    transform: translateY(-230%);
+.search.list-results {
+    transform: translateY(-140%);
 }
 
 .search.list-results text-logo {
@@ -31,4 +31,14 @@
 
 .search.list-results separator {
     height: 0;
+}
+
+@media (min-width:600px) {
+    .search separator {
+        height: 4rem;
+    }
+
+    .search.list-results {
+        transform: translateY(-230%);
+    }
 }

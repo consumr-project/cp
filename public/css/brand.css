@@ -1,6 +1,12 @@
 text-logo {
     display: inline-block;
-    font-size: 5rem;
+    font-size: 3rem;
     font-family: Times;
     font-weight: normal;
+}
+
+@media (min-width:600px) {
+    text-logo {
+        font-size: 5rem;
+    }
 }
