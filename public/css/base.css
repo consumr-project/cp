@@ -1,3 +1,21 @@
+/* latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), url(http://fonts.gstatic.com/s/raleway/v9/QAUlVt1jXOgQavlW5wEfxQLUuEpTyoUstqEm5AMlJo4.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Raleway Bold'), local('Raleway-Bold'), url(http://fonts.gstatic.com/s/raleway/v9/JbtMzqLaYbbbCL9X6EvaIwzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 * {
     box-sizing: border-box;
     letter-spacing: 1px;
@@ -13,6 +31,7 @@ html, body, div.main, [ng-view] {
 }
 
 div.main {
+    font-family: 'Raleway';
     margin: 0 auto;
     max-width: 1000px;
     padding: 0 60px;
@@ -27,12 +46,12 @@ header {
 }
 
 tcp-loading svg {
-    height: 50px;
-    position: absolute;
-    width: 100%;
-    transition: opacity .4s;
+    height: 10px;
     opacity: 0;
-    max-width: 880px;
+    position: relative;
+    top: -5px;
+    transition: opacity .4s;
+    width: 100%;
 }
 
 tcp-loading.show svg {
