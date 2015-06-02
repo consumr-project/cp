@@ -65,7 +65,9 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     $scope.selectionStarting = function () {
         highlighter.removeHighlights([$scope.selection])
         $window.getSelection().removeAllRanges();
+
         $scope.selection = null;
+        $scope.selectionAnchor = null;
         $scope.selectedTag = null;
 
         // removing the selection may have removed a previsouly selected
