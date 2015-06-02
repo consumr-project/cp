@@ -11,7 +11,8 @@
         <div>{{article.content}}</div>
     </div>
 
-    <div class="selection-editor" ng-click="saveSelection()" tcp-tooltip="selectionAnchor">
-    save
+    <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
+        <select ng-options="tag.label for tag in availalbePostTags track by tag.id"
+            ng-change="saveSelection()" ng-model="selectedTag"></select>
     </div>
 </form>

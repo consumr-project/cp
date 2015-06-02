@@ -6,6 +6,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
 
     $scope.selection = null;
     $scope.selectionAnchor = null;
+    $scope.selectedTag = null;
 
     /**
      * generate a highlights storage key
@@ -47,8 +48,13 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     };
 
     $scope.saveSelection = function () {
+        if (!$scope.selectedTag) {
+            return;
+        }
+
         $scope.selection = null;
         $scope.selectionAnchor = null;
+        $scope.selectedTag = null;
         cacheHighlights();
     };
 
@@ -60,6 +66,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         highlighter.removeHighlights([$scope.selection])
         $window.getSelection().removeAllRanges();
         $scope.selection = null;
+        $scope.selectedTag = null;
 
         // removing the selection may have removed a previsouly selected
         // highlight that we should restore
@@ -70,9 +77,11 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         var selections = highlighter.highlightSelection('highlight'),
             selection = selections[selections.length - 1];
 
-        $scope.selection = selection;
-        $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
-        $window.getSelection().removeAllRanges();
+        if (selection && selection.getText() && selection.getText().trim()) {
+            $scope.selection = selection;
+            $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
+            $window.getSelection().removeAllRanges();
+        }
     };
 
     $scope.fetchArticle = function () {
@@ -110,4 +119,10 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     $scope.company = 'Hormel';
     $scope.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
     $scope.fetchArticle();
+    $scope.availalbePostTags = [
+        {
+            id: 1,
+            label: 'Fishing'
+        }
+    ];
 }]);

@@ -14,3 +14,27 @@ separator {
 .link:not(:first-of-type) {
     margin-left: 20px;
 }
+
+.arrow {
+    position: relative;
+    background: #fff;
+    border: 1px solid #C7C7C7;
+    box-sizing: border-box;
+    box-shadow: 0 0 3px 1px rgb(199, 199, 199);
+}
+
+.arrow-down::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: -10px;
+    bottom: -19px;
+    left: 50%;
+    box-sizing: border-box;
+    border: 10px solid black;
+    border-color: transparent transparent white white;
+    transform-origin: 0 0;
+    transform: rotate(-45deg);
+    box-shadow: -3px 3px 3px 0 rgb(199, 199, 199);
+}
