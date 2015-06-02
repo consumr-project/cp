@@ -12,7 +12,17 @@
     </div>
 
     <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
-        <select ng-options="tag.label for tag in availalbePostTags track by tag.id"
-            ng-change="saveSelection()" ng-model="selectedTag"></select>
+        <span>This affects</span>
+        <select ng-model="selectionData.tag" ng-change="saveSelection()"
+            ng-options="tag.label for tag in availalbePostTags track by tag.id">
+            <option value="">[choose tag]</option>
+        </select>
+        <span>in a</span>
+        <select ng-model="selectionData.way" ng-change="saveSelection()">
+            <option value="">[choose way]</option>
+            <option value="pos">Positive</option>
+            <option value="neg">Negative</option>
+        </select>
+        <span>way</span>
     </div>
 </form>

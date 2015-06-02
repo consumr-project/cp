@@ -1,12 +1,17 @@
-angular.module('tcp').controller('postController', ['$scope', '$window', 'postService', 'extract', 'rangy', 'lodash', function ($scope, $window, postService, extract, rangy, _) {
+angular.module('tcp').controller('postController', ['$scope', '$window', '$timeout', 'postService', 'extract', 'rangy', 'lodash', function ($scope, $window, $timeout, postService, extract, rangy, _) {
     var highlighter;
 
     $scope.loading = false;
     $scope.editing = true;
 
-    $scope.selection = null;
-    $scope.selectionAnchor = null;
-    $scope.selectedTag = null;
+    function clear() {
+        $scope.selection = null;
+        $scope.selectionAnchor = null;
+
+        $timeout(function () {
+            $scope.selectionData = null;
+        });
+    }
 
     /**
      * generate a highlights storage key
@@ -48,13 +53,11 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
     };
 
     $scope.saveSelection = function () {
-        if (!$scope.selectedTag) {
+        if (!$scope.selectionData || !$scope.selectionData.way || !$scope.selectionData.tag) {
             return;
         }
 
-        $scope.selection = null;
-        $scope.selectionAnchor = null;
-        $scope.selectedTag = null;
+        clear();
         cacheHighlights();
     };
 
@@ -66,9 +69,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         highlighter.removeHighlights([$scope.selection])
         $window.getSelection().removeAllRanges();
 
-        $scope.selection = null;
-        $scope.selectionAnchor = null;
-        $scope.selectedTag = null;
+        clear();
 
         // removing the selection may have removed a previsouly selected
         // highlight that we should restore
@@ -125,6 +126,14 @@ angular.module('tcp').controller('postController', ['$scope', '$window', 'postSe
         {
             id: 1,
             label: 'Fishing'
-        }
+        },
+        {
+            id: 2,
+            label: 'Human rights'
+        },
+        {
+            id: 3,
+            label: 'Labor'
+        },
     ];
 }]);

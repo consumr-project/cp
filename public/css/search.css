@@ -6,6 +6,7 @@
 }
 
 .search input {
+    outline: 0;
     font-size: 2rem;
     width: 100%;
     border: 0;
