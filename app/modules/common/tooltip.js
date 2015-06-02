@@ -1,14 +1,18 @@
 'use strict';
 
-angular.module('tcp').directive('tcpTooltip', ['lodash', function (_) {
+angular.module('tcp').directive('tcpTooltip', ['lodash', '$window', function (_, $window) {
+    var win = angular.element($window);
+
     return {
         scope: {
             'anchor': '=tcpTooltip'
         },
         link: function (scope, elem, attrs) {
-            var pos, stop, displayTooltipDebounced, $anchor;
+            var pos, stop, displayTooltipDebounced, displayTooltipReposition, $anchor;
 
-            function displayTooltip() {
+            function displayTooltip(immediate) {
+                var loc = {};
+
                 $anchor = $(scope.anchor);
                 pos = $anchor.offset()
 
@@ -21,17 +25,23 @@ angular.module('tcp').directive('tcpTooltip', ['lodash', function (_) {
                 pos.top -= elem.height();
                 pos.top -= 30;
 
-                elem.css({
+                loc = {
                     display: 'block',
-                    top: pos.top - 10,
+                    top: pos.top,
                     left: pos.left,
-                    opacity: 0
-                });
+                    opacity: 1
+                };
 
-                return elem.animate({
-                    opacity: 1,
-                    top: pos.top
-                }, 300);
+                if (!immediate) {
+                    elem.css({
+                        display: 'block',
+                        top: pos.top - 10,
+                        left: pos.left,
+                        opacity: 0
+                    });
+                }
+
+                return immediate ? elem.css(loc) : elem.animate(loc, 300);
             }
 
             function hideTooltip() {
@@ -43,8 +53,16 @@ angular.module('tcp').directive('tcpTooltip', ['lodash', function (_) {
             }
 
             displayTooltipDebounced = _.debounce(displayTooltip, 250);
+            displayTooltipReposition = _.debounce(displayTooltip.bind(null, true), 50);
+
             stop = scope.$watch('anchor', function () {
-                return !scope.anchor ? hideTooltip() : displayTooltipDebounced();
+                if (scope.anchor) {
+                    displayTooltipDebounced();
+                    win.on('resize', displayTooltipReposition);
+                } else {
+                    hideTooltip();
+                    win.off('resize', displayTooltipReposition);
+                }
             });
 
             scope.$on('$destroy', stop);
