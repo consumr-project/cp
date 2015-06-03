@@ -15,7 +15,7 @@
             }).join('&');
         }
 
-        return reqwest({ url, url });
+        return reqwest({ url: url });
     }
 
     store.get = get;

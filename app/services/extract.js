@@ -1,6 +1,6 @@
 'use strict';
 
-/* global _ */
+/* global api, _ */
 
 (function (store) {
     /**
