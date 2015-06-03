@@ -1,6 +1,6 @@
 'use strict';
 
-/* global reqwest, _ */
+/* global _ */
 
 (function (store) {
     /**
@@ -9,13 +9,13 @@
      * @return {Promise<Object>}
      */
     function fetch(url) {
-        return reqwest({ url: '/extract?url=' + encodeURIComponent(url) })
+        return api.get('/extract', { url: url })
             .then(normalize)
             .then(clean);
     }
 
     /**
-     * takes a reqwest response object and returns a normalize article object
+     * takes a api response object and returns a normalize article object
      * @param {Object} res
      * @return {Object}
      */
