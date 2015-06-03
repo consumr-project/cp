@@ -13,4 +13,10 @@
     angular.module('tcp').value('userStore', store.child('user'));
     angular.module('tcp').value('companyStore', store.child('company'));
     angular.module('tcp').value('tagStore', store.child('tag'));
+
+    if (!window.DEBUGGING) {
+        angular.module('tcp').config(['$compileProvider', function ($compileProvider) {
+              $compileProvider.debugInfoEnabled(false);
+        }]);
+    }
 })();
