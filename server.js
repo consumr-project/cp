@@ -28,12 +28,6 @@ app.get('/extract', function (req, res) {
     });
 });
 
-app.get('/follow', function (req, res) {
-    require('./app/actions/follow')(req.query.url, function (results) {
-        res.json(results);
-    });
-});
-
 switch (process.env.NODE_ENV) {
     case 'development':
         app.use('/app', serve_index('app'));

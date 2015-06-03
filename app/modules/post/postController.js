@@ -105,6 +105,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
                 alert('Error loading article');
             }
 
+            $scope.url = decodeURIComponent(article.source);
             $scope.article = article;
             $scope.loading = false;
             $scope.$apply();
