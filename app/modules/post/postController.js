@@ -35,6 +35,11 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
     function restoreCachedHighlights() {
         var highlights = localStorage.getItem(key());
 
+        // XXX
+        if (!highlights) {
+            highlights = 'type:textContent|782$936$1$highlight$|1469$1522$2$highlight$|1822$2054$4$highlight$';
+        }
+
         if (highlights) {
             highlighter.deserialize(highlights);
         }
