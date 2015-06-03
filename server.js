@@ -3,6 +3,7 @@
 var express = require('express'),
     serve_index = require('serve-index'),
     error_handler = require('errorhandler'),
+    favicon = require('serve-favicon'),
     swig = require('swig');
 
 var app = express();
@@ -21,6 +22,7 @@ app.engine('html', swig.renderFile);
 app.use('/app', express.static('app'));
 app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
+app.use(favicon(__dirname + '/public/images/favicon.png'));
 
 app.get('/extract', function (req, res) {
     require('./app/actions/extract')(req.query.url, function (results) {
