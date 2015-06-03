@@ -56,5 +56,20 @@
         <script src="/app/modules/post/postController.js"></script>
         <script src="/app/modules/post/postService.js"></script>
         <script src="/app/modules/company/companyController.js"></script>
+
+        {% if debugging %}
+        <script src="/node_modules/ng-stats/dist/ng-stats.min.js"></script>
+        <script>
+        $(function () {
+            showAngularStats({
+                position: 'bottomright',
+                digestTimeThreshold: 16,
+                autoload: true,
+                logDigest: true,
+                logWatches: true
+            });
+        });
+        </script>
+        {% endif %}
     </body>
 </html>

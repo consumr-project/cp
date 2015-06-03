@@ -7,9 +7,9 @@ var express = require('express'),
 
 var app = express();
 
-var render = function (file) {
+var render = function (file, params) {
     return function (req, res) {
-        res.render(file);
+        res.render(file, params);
     };
 };
 
@@ -38,5 +38,8 @@ switch (process.env.NODE_ENV) {
         break;
 }
 
-app.get('*', render('base/index'));
+app.get('*', render('base/index', {
+    debugging: process.env.NODE_ENV === 'development'
+}));
+
 app.listen(process.env.PORT || 3000);
