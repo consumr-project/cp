@@ -75,6 +75,24 @@ angular.module('tcp').controller('postController', [
             return !!highlights;
         }
 
+        /**
+         * @param {rangy.Highlight} selection
+         */
+        function showSelection(selection) {
+            var tag, way;
+
+            if (!selection) {
+                return;
+            }
+
+            tag = _.find($scope.availalbePostTags, { id: selection.$tag });
+            way = _.find($scope.availalbePostWays, { id: selection.$way });
+
+            $scope.selection = selection;
+            $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
+            $scope.selectionData = { tag: tag, way: way };
+        }
+
         $scope.initialize = function () {
             highlighter = postService.getHighlighter();
         };
@@ -111,8 +129,7 @@ angular.module('tcp').controller('postController', [
                 selection = selections[selections.length - 1];
 
             if (selection && selection.getText() && selection.getText().trim()) {
-                $scope.selection = selection;
-                $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
+                showSelection(selection);
                 $window.getSelection().removeAllRanges();
             }
         };
@@ -142,21 +159,7 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.showAnnotations = function (ev) {
-            var hi, tag, way;
-
-            if (!ev.target.classList.contains('highlight')) {
-                return;
-            }
-
-            hi = highlighter.getHighlightForElement(ev.target);
-            tag = _.find($scope.availalbePostTags, { id: hi.$tag });
-            way = _.find($scope.availalbePostWays, { id: hi.$way });
-
-            if (!hi) {
-                return;
-            }
-
-            console.log(hi, tag, way);
+            showSelection(highlighter.getHighlightForElement(ev.target));
         };
 
         $scope.edit = function () {
