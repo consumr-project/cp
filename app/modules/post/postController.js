@@ -57,7 +57,7 @@ angular.module('tcp').controller('postController', [
 
             // XXX
             if (!highlights) {
-                highlights = '[{"id":2,"start":769,"end":1116,"type":"highlight","container":null,"tag":1,"way":1},{"id":3,"start":529,"end":614,"type":"highlight","container":null,"tag":3,"way":2}]';
+                highlights = '[{"id":2,"start":769,"end":1116,"type":"highlight","tag":1,"way":1},{"id":3,"start":529,"end":614,"type":"highlight","tag":3,"way":2}]';
             }
 
             if (highlights) {

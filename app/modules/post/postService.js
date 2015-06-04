@@ -15,7 +15,6 @@ angular.module('tcp').service('postService', [
                     start: hi.characterRange.start,
                     end: hi.characterRange.end,
                     type: hi.classApplier.className,
-                    container: hi.containerElementId,
                     tag: hi.$tag,
                     way: hi.$way,
                 };
@@ -34,7 +33,7 @@ angular.module('tcp').service('postService', [
                     hi.end,
                     hi.id,
                     hi.type,
-                    hi.container
+                    null
                 ].join('$');
             })).join('|');
         }
