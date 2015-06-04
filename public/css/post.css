@@ -4,6 +4,7 @@
 }
 
 .post div {
+    outline: 0;
     white-space: pre-line;
 }
 

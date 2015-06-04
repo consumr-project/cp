@@ -13,6 +13,17 @@ angular.module('tcp').controller('postController', [
         $scope.loading = false;
         $scope.editing = true;
 
+        $scope.availalbePostWays = [
+            {
+                id: 1,
+                label: 'Positive'
+            },
+            {
+                id: 2,
+                label: 'Negative'
+            }
+        ];
+
         function clear() {
             $scope.selection = null;
             $scope.selectionAnchor = null;
@@ -46,11 +57,19 @@ angular.module('tcp').controller('postController', [
 
             // XXX
             if (!highlights) {
-                highlights = '[{"id":1,"start":503,"end":767,"type":"highlight","container":null}]';
+                highlights = '[{"id":2,"start":769,"end":1116,"type":"highlight","container":null,"tag":1,"way":1},{"id":3,"start":529,"end":614,"type":"highlight","container":null,"tag":3,"way":2}]';
             }
 
             if (highlights) {
                 highlighter.deserialize(postService.deserializeHighlights(highlighter, highlights));
+
+                // populate highlights with tag and way info
+                _.each(JSON.parse(highlights), function (hi) {
+                    _.where(highlighter.highlights, { id: hi.id }).forEach(function (highlight) {
+                        highlight.$tag = hi.tag;
+                        highlight.$way = hi.way;
+                    });
+                });
             }
 
             return !!highlights;
@@ -64,6 +83,9 @@ angular.module('tcp').controller('postController', [
             if (!$scope.selectionData || !$scope.selectionData.way || !$scope.selectionData.tag) {
                 return;
             }
+
+            $scope.selection.$tag = $scope.selectionData.tag.id;
+            $scope.selection.$way = $scope.selectionData.way.id;
 
             clear();
             cacheHighlights();
@@ -117,6 +139,24 @@ angular.module('tcp').controller('postController', [
                 // article appears
                 $scope.$evalAsync(restoreCachedHighlights);
             });
+        };
+
+        $scope.showAnnotations = function (ev) {
+            var hi, tag, way;
+
+            if (!ev.target.classList.contains('highlight')) {
+                return;
+            }
+
+            hi = highlighter.getHighlightForElement(ev.target);
+            tag = _.find($scope.availalbePostTags, { id: hi.$tag });
+            way = _.find($scope.availalbePostWays, { id: hi.$way });
+
+            if (!hi) {
+                return;
+            }
+
+            console.log(hi, tag, way);
         };
 
         $scope.edit = function () {

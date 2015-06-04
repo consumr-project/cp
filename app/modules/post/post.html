@@ -6,9 +6,9 @@
     <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <div class="post animated fadeIn" ng-if="article" ng-mouseup="selectionMade()" ng-mousedown="selectionStarting()">
+    <div class="post animated fadeIn" ng-if="article">
         <h1>{{article.title}}</h1>
-        <div>{{article.content}}</div>
+        <div ng-mouseup="selectionMade()" ng-mousedown="selectionStarting()" ng-click="showAnnotations($event)">{{article.content}}</div>
     </div>
 
     <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
@@ -18,10 +18,9 @@
             <option value="">[choose tag]</option>
         </select>
         <span>in a</span>
-        <select ng-model="selectionData.way" ng-change="saveSelection()">
+        <select ng-model="selectionData.way" ng-change="saveSelection()"
+            ng-options="tag.label for tag in availalbePostWays track by tag.id">
             <option value="">[choose way]</option>
-            <option value="pos">Positive</option>
-            <option value="neg">Negative</option>
         </select>
         <span>way</span>
     </div>

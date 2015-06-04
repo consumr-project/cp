@@ -68,6 +68,7 @@ angular.module('tcp').directive('tcpTooltip', [
                     }
                 });
 
+                elem.css({ opacity: 0 });
                 scope.$on('$destroy', stop);
             }
         };
