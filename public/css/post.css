@@ -9,6 +9,7 @@
 
 .post .highlight {
     background-color: rgb(255, 254, 196);
+    cursor: pointer;
 }
 
 ::selection {

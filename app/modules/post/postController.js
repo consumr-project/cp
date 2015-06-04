@@ -1,4 +1,6 @@
-angular.module('tcp').controller('postController', ['$scope', '$window', '$timeout', 'postService', 'extract', 'rangy', 'lodash', function ($scope, $window, $timeout, postService, extract, rangy, _) {
+angular.module('tcp').controller('postController', ['$scope', '$window', '$timeout', 'postService', 'extract', 'lodash', function ($scope, $window, $timeout, postService, extract, _) {
+    'use strict';
+
     var highlighter;
 
     $scope.loading = false;
@@ -25,7 +27,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
      * @return {Boolean}
      */
     function cacheHighlights() {
-        localStorage.setItem(key(), highlighter.serialize());
+        localStorage.setItem(key(), postService.serializeHighlights(highlighter));
         return localStorage.hasOwnProperty(key());
     }
 
@@ -37,24 +39,18 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
 
         // XXX
         if (!highlights) {
-            highlights = 'type:textContent|782$936$1$highlight$|1469$1522$2$highlight$|1822$2054$4$highlight$';
+            highlights = '[{"id":1,"start":503,"end":767,"type":"highlight","container":null}]';
         }
 
         if (highlights) {
-            highlighter.deserialize(highlights);
+            highlighter.deserialize(postService.deserializeHighlights(highlighter, highlights));
         }
 
         return !!highlights;
     }
 
     $scope.initialize = function () {
-        rangy.init();
-
-        highlighter = rangy.createHighlighter();
-        highlighter.addClassApplier(rangy.createClassApplier('highlight', {
-            ignoreWhiteSpace: true,
-            tagNames: ['span']
-        }));
+        highlighter = postService.getHighlighter();
     };
 
     $scope.saveSelection = function () {
