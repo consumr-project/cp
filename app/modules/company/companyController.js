@@ -1,41 +1,45 @@
-angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', function ($scope, wikipedia) {
-    'use strict';
+angular.module('tcp').controller('companyController', [
+    '$scope',
+    'wikipedia',
+    function ($scope, wikipedia) {
+        'use strict';
 
-    $scope.loading = false;
-    $scope.editing = true;
+        $scope.loading = false;
+        $scope.editing = true;
 
-    /**
-     * @return {Boolean}
-     */
-    function shouldFecthDescription() {
-        return $scope.name && !$scope.description;
-    }
-
-    $scope.fetchCompanyDescription = function () {
-        if (!shouldFecthDescription()) {
-            return;
+        /**
+         * @return {Boolean}
+         */
+        function shouldFecthDescription() {
+            return $scope.name && !$scope.description;
         }
 
-        $scope.loading = true;
-        wikipedia.extract($scope.name).then(function (page) {
-            if (page && page.extract && shouldFecthDescription()) {
-                $scope.description = page.extract.replace('\n', '\n\n');
+        $scope.fetchCompanyDescription = function () {
+            if (!shouldFecthDescription()) {
+                return;
             }
 
-            $scope.loading = false;
-            $scope.$apply();
-        });
-    };
+            $scope.loading = true;
+            wikipedia.extract($scope.name).then(function (page) {
+                if (page && page.extract && shouldFecthDescription()) {
+                    $scope.description = page.extract.replace('\n', '\n\n');
+                }
 
-    $scope.edit = function () {
-        $scope.editing = true;
-    };
+                $scope.loading = false;
+                $scope.$apply();
+            });
+        };
 
-    $scope.save = function () {
-        $scope.editing = false;
-    };
+        $scope.edit = function () {
+            $scope.editing = true;
+        };
 
-    // XXX - remove once done testing
-    $scope.name = 'Hormel';
-    $scope.fetchCompanyDescription();
-}]);
+        $scope.save = function () {
+            $scope.editing = false;
+        };
+
+        // XXX - remove once done testing
+        $scope.name = 'Hormel';
+        $scope.fetchCompanyDescription();
+    }
+]);
