@@ -4,6 +4,11 @@ angular.module('tcp').config([
     function ($routeProvider, $locationProvider) {
         'use strict';
 
+        $routeProvider.when('/', {
+            templateUrl: '/app/modules/search/search.html',
+            controller: 'searchController'
+        });
+
         $routeProvider.when('/search', {
             templateUrl: '/app/modules/search/search.html',
             controller: 'searchController'
@@ -17,6 +22,10 @@ angular.module('tcp').config([
         $routeProvider.when('/add-post', {
             templateUrl: '/app/modules/post/post.html',
             controller: 'postController'
+        });
+
+        $routeProvider.otherwise({
+            templateUrl: '/app/modules/base/404.html',
         });
 
         $locationProvider.html5Mode(true);
