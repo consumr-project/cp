@@ -1,6 +1,7 @@
-'use strict';
-
+/* global Firebase, wikipedia, extract, _, rangy */
 (function () {
+    'use strict';
+
     var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp');
 
     angular.module('tcp', ['ngRoute', 'ngAria']);

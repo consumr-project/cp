@@ -1,6 +1,6 @@
-'use strict';
-
 angular.module('tcp').directive('tcpTooltip', ['lodash', '$window', function (_, $window) {
+    'use strict';
+
     var win = angular.element($window);
 
     return {
@@ -13,14 +13,14 @@ angular.module('tcp').directive('tcpTooltip', ['lodash', '$window', function (_,
             function displayTooltip(immediate) {
                 var loc = {};
 
-                $anchor = $(scope.anchor);
-                pos = $anchor.offset()
+                $anchor = angular.element(scope.anchor);
+                pos = $anchor.offset();
 
                 pos.left += $anchor.outerWidth() / 2;
                 pos.left -= elem.outerWidth() / 2;
 
                 // XXX wft?
-                pos.left -= parseInt($('.main').css('margin-left'));
+                pos.left -= parseInt(angular.element('.main').css('margin-left'));
 
                 pos.top -= elem.height();
                 pos.top -= 30;

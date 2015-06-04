@@ -1,6 +1,6 @@
-'use strict';
-
 angular.module('tcp').controller('searchController', ['$scope', '$routeParams', '$timeout', function ($scope, $routeParams, $timeout) {
+    'use strict';
+
     $scope.listResults = false;
     $scope.searching = false;
 

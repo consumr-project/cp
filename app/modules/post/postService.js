@@ -1,4 +1,6 @@
-angular.module('tcp').service('postService', ['lodash', function (_) {
+angular.module('tcp').service('postService', ['lodash', 'rangy', function (_, rangy) {
+    'use strict';
+
     /**
      * @param {rangy.Highlighter} highlighter
      * @return {Object[]}
@@ -50,7 +52,7 @@ angular.module('tcp').service('postService', ['lodash', function (_) {
         return highlighter;
     }
 
-    return window.postService = {
+    return {
         getHighlighter: getHighlighter,
         deserializeHighlights: deserializeHighlights,
         serializeHighlights: serializeHighlights,

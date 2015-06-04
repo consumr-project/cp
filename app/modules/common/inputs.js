@@ -1,13 +1,12 @@
-'use strict';
-
 angular.module('tcp').directive('tcpInputs', function () {
+    'use strict';
+
     return {
         scope: {
             'editing': '=tcpInputs'
         },
         link: function (scope, elem, attrs) {
             scope.$watch(attrs.tcpInputs, function (editing) {
-                window.elem=elem
                 if (editing) {
                     elem.addClass('tcp-inputs-editing');
                     elem.find('textarea').attr('readonly', false);

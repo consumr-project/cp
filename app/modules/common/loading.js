@@ -1,6 +1,6 @@
-'use strict';
-
 angular.module('tcp').directive('tcpLoading', function () {
+    'use strict';
+
     return {
         template:
             '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 14 32 1" width="32" height="1" preserveAspectRatio="none" class="tcp-loading">' +

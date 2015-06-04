@@ -67,7 +67,7 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
      * want to keep must be serialized and unset from this var
      */
     $scope.selectionStarting = function () {
-        highlighter.removeHighlights([$scope.selection])
+        highlighter.removeHighlights([$scope.selection]);
         $window.getSelection().removeAllRanges();
 
         clear();
@@ -93,12 +93,12 @@ angular.module('tcp').controller('postController', ['$scope', '$window', '$timeo
             return;
         }
 
-        $scope.loading = true;;
+        $scope.loading = true;
         $scope.article = null;
 
         extract.fetch($scope.url).then(function (article) {
             if (!article.ok) {
-                alert('Error loading article');
+                $window.alert('Error loading article');
             }
 
             $scope.url = decodeURIComponent(article.source);

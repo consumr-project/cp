@@ -1,4 +1,6 @@
 angular.module('tcp').controller('companyController', ['$scope', 'wikipedia', function ($scope, wikipedia) {
+    'use strict';
+
     $scope.loading = false;
     $scope.editing = true;
 
