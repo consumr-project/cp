@@ -25,6 +25,22 @@
     z-index: 1;
 }
 
+.tags {
+    height: 50px;
+}
+
+.tag {
+    border: 1px solid red;
+    background-color: red;
+    display: inline-block;
+    padding: 1px 4px;
+    font-size: 11px;
+    color: white;
+    border-radius: 2px;
+    margin: 0 2px 2px 0;
+    text-transform: lowercase;
+}
+
 @media (min-width:600px) {
     .post {
         padding: 30px 0 60px 0;

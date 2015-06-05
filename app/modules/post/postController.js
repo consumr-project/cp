@@ -13,6 +13,11 @@ angular.module('tcp').controller('postController', [
         $scope.loading = false;
         $scope.editing = true;
 
+        $scope.selection = null;
+        $scope.selectionAnchor = null;
+        $scope.selectionData = null;
+        $scope.selectionTags = null;
+
         $scope.availalbePostWays = [
             {
                 id: 1,
@@ -41,6 +46,14 @@ angular.module('tcp').controller('postController', [
             return 'hi-' + $scope.url;
         }
 
+        function summaryzeHighlights() {
+            var tags = _.pluck(_.map(highlighter.highlights, getTag), 'tag');
+
+            $scope.selectionTags = _.sortBy(_.uniq(tags, function (tag) {
+                return tag.id;
+            }), 'label');
+        }
+
         /**
          * @return {Boolean}
          */
@@ -50,9 +63,10 @@ angular.module('tcp').controller('postController', [
         }
 
         /**
+         * @param {Boolean} [skipSummary] (default: false)
          * @return {Boolean}
          */
-        function restoreCachedHighlights() {
+        function restoreCachedHighlights(skipSummary) {
             var highlights = localStorage.getItem(key());
 
             // XXX
@@ -72,25 +86,35 @@ angular.module('tcp').controller('postController', [
                 });
             }
 
+            if (skipSummary !== true) {
+                summaryzeHighlights();
+            }
+
             return !!highlights;
+        }
+
+        /**
+         * @param {rangy.Highlight} selection
+         * @return {Object}
+         */
+        function getTag(selection) {
+            return {
+                tag: _.find($scope.availalbePostTags, { id: selection.$tag }),
+                way: _.find($scope.availalbePostWays, { id: selection.$way })
+            };
         }
 
         /**
          * @param {rangy.Highlight} selection
          */
         function showSelection(selection) {
-            var tag, way;
-
             if (!selection) {
                 return;
             }
 
-            tag = _.find($scope.availalbePostTags, { id: selection.$tag });
-            way = _.find($scope.availalbePostWays, { id: selection.$way });
-
             $scope.selection = selection;
             $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
-            $scope.selectionData = { tag: tag, way: way };
+            $scope.selectionData = getTag(selection);
         }
 
         $scope.initialize = function () {
@@ -107,6 +131,7 @@ angular.module('tcp').controller('postController', [
 
             clear();
             cacheHighlights();
+            summaryzeHighlights();
         };
 
         /**
@@ -121,7 +146,7 @@ angular.module('tcp').controller('postController', [
 
             // removing the selection may have removed a previsouly selected
             // highlight that we should restore
-            restoreCachedHighlights();
+            restoreCachedHighlights(true);
         };
 
         $scope.selectionMade = function () {
