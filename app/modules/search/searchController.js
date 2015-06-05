@@ -18,14 +18,6 @@ angular.module('tcp').controller('searchController', [
             }, 3000);
         };
 
-        // cleared search field -> go back to full search view
-        $scope.$watch('searchText', function (val) {
-            if (!val) {
-                $scope.listResults = false;
-                $scope.searching = false;
-            }
-        });
-
         // loading url with q parameter
         if ($routeParams.q) {
             $scope.searchText = $routeParams.q;
