@@ -6,33 +6,36 @@ angular.module('tcp').service('postService', [
 
         /**
          * @param {rangy.Highlighter} highlighter
-         * @return {String}
+         * @return {Object[]}
          */
         function serializeHighlights(highlighter) {
-            return JSON.stringify([highlighter.serialize(), _.map(highlighter.highlights, function (hi) {
+            return JSON.stringify(_.map(highlighter.highlights, function (hi) {
                 return {
                     id: hi.id,
+                    start: hi.characterRange.start,
+                    end: hi.characterRange.end,
+                    type: hi.classApplier.className,
                     tag: hi.$tag,
-                    way: hi.$way
+                    way: hi.$way,
                 };
-            })]);
+            }));
         }
 
         /**
          * @param {rangy.Highlighter} highlighter
          * @param {String} highlights
+         * @return {Object[]}
          */
         function deserializeHighlights(highlighter, highlights) {
-            var parts = JSON.parse(highlights);
-            highlighter.deserialize(parts[0]);
-            _.each(highlighter.highlights, function (hi) {
-                var tag = _.find(parts[1], {id: hi.id});
-
-                if (tag) {
-                    hi.$tag = tag.tag;
-                    hi.$way = tag.way;
-                }
-            });
+            return [getHighlighter().serialize()].concat(_.map(JSON.parse(highlights), function (hi) {
+                return [
+                    hi.start,
+                    hi.end,
+                    hi.id,
+                    hi.type,
+                    null
+                ].join('$');
+            })).join('|');
         }
 
         /**
