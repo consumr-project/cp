@@ -1,4 +1,4 @@
-/* global Firebase, wikipedia, extract, _, highlighter */
+/* global Firebase, wikipedia, extract, _, highlighter, google */
 (function () {
     'use strict';
 
@@ -9,6 +9,7 @@
     angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('lodash', _);
     angular.module('tcp').value('highlighter', highlighter);
+    angular.module('tcp').value('google', google);
     angular.module('tcp').value('store', store);
     angular.module('tcp').value('postStore', store.child('post'));
     angular.module('tcp').value('userStore', store.child('user'));
