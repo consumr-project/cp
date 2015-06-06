@@ -12,6 +12,7 @@ angular.module('tcp').controller('postController', [
 
         $scope.loading = false;
         $scope.editing = true;
+        $scope.showcasing = false;
 
         $scope.selection = null;
         $scope.selectionAnchor = null;
@@ -30,6 +31,7 @@ angular.module('tcp').controller('postController', [
         ];
 
         function clear() {
+            $scope.showcasing = false;
             $scope.selection = null;
             $scope.selectionAnchor = null;
 
@@ -100,8 +102,12 @@ angular.module('tcp').controller('postController', [
             }
 
             $scope.selection = selection;
-            $scope.selectionAnchor = selection && selection.getHighlightElements()[0];
+            $scope.selectionAnchor = selection.getHighlightElements()[0];
             $scope.selectionData = getTag(selection);
+
+            $scope.showcasing = true;
+            angular.element('#postContent .showcased').removeClass('showcased');
+            angular.element(selection.getHighlightElements()).addClass('showcased');
         }
 
         $scope.initialize = function () {

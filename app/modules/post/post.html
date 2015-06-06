@@ -11,7 +11,7 @@
             class="tag animated flipInX">{{::tag.label}}</div>
     </div>
 
-    <div class="post animated fadeIn" ng-if="post">
+    <div class="post animated fadeIn" ng-if="post" ng-class="{showcasing: showcasing}">
         <h1>{{::post.title}}</h1>
         <div id="postContent"
             ng-mouseup="selectionMade()"

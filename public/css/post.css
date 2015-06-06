@@ -5,12 +5,21 @@
 
 .post div {
     outline: 0;
+    transition: color .3s;
     white-space: pre-line;
+}
+
+.post.showcasing div {
+    color: rgba(0, 0, 0, 0.2);
 }
 
 .post .highlight {
     background-color: rgb(255, 254, 196);
     cursor: pointer;
+}
+
+.post .highlight.showcased {
+    color: black;
 }
 
 ::selection {
