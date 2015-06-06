@@ -1,4 +1,4 @@
-/* global Firebase, wikipedia, extract, _, rangy */
+/* global Firebase, wikipedia, extract, _, highlighter */
 (function () {
     'use strict';
 
@@ -8,7 +8,7 @@
     angular.module('tcp').value('wikipedia', wikipedia);
     angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('lodash', _);
-    angular.module('tcp').value('rangy', rangy);
+    angular.module('tcp').value('highlighter', highlighter);
     angular.module('tcp').value('store', store);
     angular.module('tcp').value('postStore', store.child('post'));
     angular.module('tcp').value('userStore', store.child('user'));

@@ -1,8 +1,8 @@
-'use strict';
-
-/* global api, _ */
-
 (function (store) {
+    'use strict';
+
+    /* global api, _ */
+
     /**
      * extract a page's content
      * @param {String} url

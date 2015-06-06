@@ -2,13 +2,13 @@ angular.module('tcp').controller('postController', [
     '$scope',
     '$window',
     '$timeout',
-    'postService',
+    'highlighter',
     'extract',
     'lodash',
-    function ($scope, $window, $timeout, postService, extract, _) {
+    function ($scope, $window, $timeout, highlighter, extract, _) {
         'use strict';
 
-        var highlighter, showcasing_tag_id;
+        var pen, showcasing_tag_id;
 
         $scope.loading = false;
         $scope.editing = true;
@@ -50,7 +50,7 @@ angular.module('tcp').controller('postController', [
         }
 
         function summaryzeHighlights() {
-            var tags = _.pluck(_.map(highlighter.highlights, getTag), 'tag');
+            var tags = _.pluck(_.map(pen.highlights, getTag), 'tag');
 
             $scope.selectionTags = _.sortBy(_.uniq(tags, function (tag) {
                 return tag.id;
@@ -61,7 +61,7 @@ angular.module('tcp').controller('postController', [
          * @return {Boolean}
          */
         function cacheHighlights() {
-            localStorage.setItem(key(), postService.serializeHighlights(highlighter));
+            localStorage.setItem(key(), highlighter.serialize(pen));
             return localStorage.hasOwnProperty(key());
         }
 
@@ -73,7 +73,7 @@ angular.module('tcp').controller('postController', [
             var highlights = localStorage.getItem(key());
 
             if (highlights) {
-                postService.deserializeHighlights(highlighter, highlights);
+                highlighter.deserialize(pen, highlights);
             }
 
             if (skipSummary !== true) {
@@ -128,7 +128,7 @@ angular.module('tcp').controller('postController', [
         }
 
         $scope.initialize = function () {
-            highlighter = postService.getHighlighter();
+            pen = highlighter.create();
         };
 
         $scope.saveSelection = function () {
@@ -149,7 +149,7 @@ angular.module('tcp').controller('postController', [
          * want to keep must be serialized and unset from this var
          */
         $scope.selectionStarting = function () {
-            highlighter.removeHighlights([$scope.selection]);
+            pen.removeHighlights([$scope.selection]);
             $window.getSelection().removeAllRanges();
 
             clear();
@@ -160,7 +160,7 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.selectionMade = function () {
-            var selections = highlighter.highlightSelection('highlight', {containerElementId: 'postContent'}),
+            var selections = pen.highlightSelection('highlight', {containerElementId: 'postContent'}),
                 selection = selections[selections.length - 1];
 
             if (selection && selection.getText() && selection.getText().trim()) {
@@ -174,6 +174,7 @@ angular.module('tcp').controller('postController', [
                 return;
             }
 
+            clear();
             $scope.loading = true;
             $scope.post = null;
 
@@ -194,7 +195,7 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.showAnnotations = function (ev) {
-            showSelection(highlighter.getHighlightForElement(ev.target));
+            showSelection(pen.getHighlightForElement(ev.target));
         };
 
         $scope.showcaseHighlightsByTag = function (tag_id) {
@@ -203,7 +204,7 @@ angular.module('tcp').controller('postController', [
                 showcase(false);
             } else {
                 showcasing_tag_id = tag_id;
-                showcase(_.chain(highlighter.highlights)
+                showcase(_.chain(pen.highlights)
                     .where({ $tag: tag_id })
                     .map(getHighlightElements)
                     .flatten()

@@ -1,8 +1,8 @@
-'use strict';
-
-/* global reqwest, _ */
-
 (function (store) {
+    'use strict';
+
+    /* global reqwest, _ */
+
     /**
      * @param {String} url
      * @param {Object} [params]

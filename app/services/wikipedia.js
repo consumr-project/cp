@@ -1,8 +1,8 @@
-'use strict';
-
-/* global reqwest, _ */
-
 (function (store) {
+    'use strict';
+
+    /* global reqwest, _ */
+
     /**
      * make a call to wikipedia's api
      * @param {Object} params
