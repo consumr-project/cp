@@ -8,6 +8,7 @@
 
     <div class="tags">
         <div ng-repeat="tag in selectionTags track by tag.id"
+            ng-click="showcaseHighlightsByTag(tag.id)"
             class="tag animated flipInX">{{::tag.label}}</div>
     </div>
 

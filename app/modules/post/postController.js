@@ -8,7 +8,7 @@ angular.module('tcp').controller('postController', [
     function ($scope, $window, $timeout, postService, extract, _) {
         'use strict';
 
-        var highlighter;
+        var highlighter, showcasing_tag_id;
 
         $scope.loading = false;
         $scope.editing = true;
@@ -31,6 +31,7 @@ angular.module('tcp').controller('postController', [
         ];
 
         function clear() {
+            showcasing_tag_id = null;
             $scope.showcasing = false;
             $scope.selection = null;
             $scope.selectionAnchor = null;
@@ -95,6 +96,24 @@ angular.module('tcp').controller('postController', [
 
         /**
          * @param {rangy.Highlight} selection
+         * @return {Node[]}
+         */
+        function getHighlightElements(selection) {
+            return selection.getHighlightElements();
+        }
+
+        /**
+         * @param {Boolean|Node[]} if false, no showcase. if Node[], showcase
+         * those elements
+         */
+        function showcase(elements) {
+            angular.element('#postContent .showcased').removeClass('showcased');
+            angular.element(elements).addClass('showcased');
+            $scope.showcasing = !!elements;
+        }
+
+        /**
+         * @param {rangy.Highlight} selection
          */
         function showSelection(selection) {
             if (!selection) {
@@ -105,9 +124,7 @@ angular.module('tcp').controller('postController', [
             $scope.selectionAnchor = selection.getHighlightElements()[0];
             $scope.selectionData = getTag(selection);
 
-            $scope.showcasing = true;
-            angular.element('#postContent .showcased').removeClass('showcased');
-            angular.element(selection.getHighlightElements()).addClass('showcased');
+            showcase(selection.getHighlightElements());
         }
 
         $scope.initialize = function () {
@@ -178,6 +195,20 @@ angular.module('tcp').controller('postController', [
 
         $scope.showAnnotations = function (ev) {
             showSelection(highlighter.getHighlightForElement(ev.target));
+        };
+
+        $scope.showcaseHighlightsByTag = function (tag_id) {
+            if (tag_id === showcasing_tag_id) {
+                clear();
+                showcase(false);
+            } else {
+                showcasing_tag_id = tag_id;
+                showcase(_.chain(highlighter.highlights)
+                    .where({ $tag: tag_id })
+                    .map(getHighlightElements)
+                    .flatten()
+                    .value());
+            }
         };
 
         $scope.edit = function () {
