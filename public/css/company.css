@@ -1,0 +1,12 @@
+.company-form img {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+@media (min-width:600px) {
+    .company-form img {
+        float: right;
+        width: 350px;
+        margin: 0 0 10px 10px;
+    }
+}

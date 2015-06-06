@@ -14,7 +14,7 @@
 
     <div class="post animated fadeIn" ng-if="post" ng-class="{showcasing: showcasing}">
         <h1>{{::post.title}}</h1>
-        <div id="postContent"
+        <div class="pre" id="postContent"
             ng-mouseup="selectionMade()"
             ng-mousedown="selectionStarting()"
             ng-click="showAnnotations($event)"

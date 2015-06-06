@@ -8,25 +8,48 @@ angular.module('tcp').controller('companyController', [
         $scope.editing = true;
 
         /**
-         * @return {Boolean}
+         * @param {String} url
+         * @param {Function} [callback]
+         * @return {Image}
          */
-        function shouldFecthDescription() {
-            return $scope.name && !$scope.description;
+        function preload(url, callback) {
+            var img = new Image();
+            img.onload = callback;
+            img.onerror = callback;
+            img.src = url;
+            return img;
         }
 
-        $scope.fetchCompanyDescription = function () {
-            if (!shouldFecthDescription()) {
-                return;
-            }
+        $scope.fetchCompanyInformation = function () {
+            var has_desc, has_logo;
 
             $scope.loading = true;
+            $scope.logo = null;
+            $scope.description = null;
+
             wikipedia.extract($scope.name).then(function (page) {
-                if (page && page.extract && shouldFecthDescription()) {
-                    $scope.description = page.extract.replace('\n', '\n\n');
+                $scope.description = page && page.extract ?
+                    page.extract.replace('\n', '\n\n') : '';
+
+                has_desc = true;
+                $scope.loading = !(has_desc && has_logo);
+                $scope.$apply();
+            });
+
+            google.images($scope.name + ' company logo').then(function (res) {
+                var logo = res && res.responseData && res.responseData.results ?
+                    res.responseData.results[0].url : '';
+
+                if (!logo) {
+                    return;
                 }
 
-                $scope.loading = false;
-                $scope.$apply();
+                preload(logo, function () {
+                    has_logo = true;
+                    $scope.logo = logo;
+                    $scope.loading = !(has_desc && has_logo);
+                    $scope.$apply();
+                });
             });
         };
 
@@ -40,6 +63,6 @@ angular.module('tcp').controller('companyController', [
 
         // XXX - remove once done testing
         $scope.name = 'Hormel';
-        $scope.fetchCompanyDescription();
+        $scope.fetchCompanyInformation();
     }
 ]);

@@ -2,6 +2,10 @@ separator {
     display: block;
 }
 
+.pre {
+    white-space: pre-line;
+}
+
 .link {
     background: transparent;
     border: 0;

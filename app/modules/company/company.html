@@ -1,8 +1,10 @@
-<form tcp-inputs="editing">
+<form tcp-inputs="editing" class="company-form">
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
-    <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyDescription()" />
-    <textarea placeholder="description" ng-model="description"></textarea>
+    <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyInformation()" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
+
+    <img ng-show="logo" class="animated fadeIn" ng-src="{{logo}}" />
+    <div ng-show="description" class="pre animated fadeIn">{{description}}</div>
 </form>

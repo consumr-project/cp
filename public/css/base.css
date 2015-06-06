@@ -3,6 +3,11 @@
     letter-spacing: 1px;
 }
 
+::selection {
+    background: rgb(255, 254, 196);
+    text-shadow: none;
+}
+
 html, body, div.main, [ng-view] {
     height: 100%;
     cursor: default;

@@ -6,7 +6,6 @@
 .post div {
     outline: 0;
     transition: color .3s;
-    white-space: pre-line;
 }
 
 .post.showcasing div {
@@ -20,11 +19,6 @@
 
 .post .highlight.showcased {
     color: black;
-}
-
-::selection {
-    background: rgb(255, 254, 196);
-    text-shadow: none;
 }
 
 .selection-editor {
