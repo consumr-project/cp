@@ -69,21 +69,8 @@ angular.module('tcp').controller('postController', [
         function restoreCachedHighlights(skipSummary) {
             var highlights = localStorage.getItem(key());
 
-            // XXX
-            if (!highlights) {
-                highlights = '[{"id":2,"start":769,"end":1116,"type":"highlight","tag":1,"way":1},{"id":3,"start":529,"end":614,"type":"highlight","tag":3,"way":2}]';
-            }
-
             if (highlights) {
-                highlighter.deserialize(postService.deserializeHighlights(highlighter, highlights));
-
-                // populate highlights with tag and way info
-                _.each(JSON.parse(highlights), function (hi) {
-                    _.where(highlighter.highlights, { id: hi.id }).forEach(function (highlight) {
-                        highlight.$tag = hi.tag;
-                        highlight.$way = hi.way;
-                    });
-                });
+                postService.deserializeHighlights(highlighter, highlights);
             }
 
             if (skipSummary !== true) {
@@ -150,7 +137,7 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.selectionMade = function () {
-            var selections = highlighter.highlightSelection('highlight'),
+            var selections = highlighter.highlightSelection('highlight', {containerElementId: 'postContent'}),
                 selection = selections[selections.length - 1];
 
             if (selection && selection.getText() && selection.getText().trim()) {
@@ -159,26 +146,26 @@ angular.module('tcp').controller('postController', [
             }
         };
 
-        $scope.fetchArticle = function () {
+        $scope.fetchPost = function () {
             if (!$scope.url) {
                 return;
             }
 
             $scope.loading = true;
-            $scope.article = null;
+            $scope.post = null;
 
-            extract.fetch($scope.url).then(function (article) {
-                if (!article.ok) {
-                    $window.alert('Error loading article');
+            extract.fetch($scope.url).then(function (post) {
+                if (!post.ok) {
+                    $window.alert('Error loading post');
                 }
 
-                $scope.url = decodeURIComponent(article.source);
-                $scope.article = article;
+                $scope.url = decodeURIComponent(post.source);
+                $scope.post = post;
                 $scope.loading = false;
                 $scope.$apply();
 
                 // $evalAsync makes it so the highlights appear right as the
-                // article appears
+                // post appears
                 $scope.$evalAsync(restoreCachedHighlights);
             });
         };
@@ -198,7 +185,7 @@ angular.module('tcp').controller('postController', [
         // XXX - remove once done testing
         $scope.company = 'Hormel';
         $scope.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
-        $scope.fetchArticle();
+        $scope.fetchPost();
         $scope.availalbePostTags = [
             {
                 id: 1,

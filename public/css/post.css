@@ -30,15 +30,16 @@
 }
 
 .tag {
-    border: 1px solid red;
-    background-color: red;
+    border: 1px solid rgb(80, 60, 255);
+    background-color: rgb(112, 127, 255);
     display: inline-block;
-    padding: 1px 4px;
+    padding: 1px 5px;
     font-size: 11px;
     color: white;
     border-radius: 2px;
     margin: 0 2px 2px 0;
     text-transform: lowercase;
+
 }
 
 @media (min-width:600px) {

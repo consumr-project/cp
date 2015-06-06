@@ -6,7 +6,7 @@ angular.module('tcp').service('postService', [
 
         /**
          * @param {rangy.Highlighter} highlighter
-         * @return {Object[]}
+         * @return {String}
          */
         function serializeHighlights(highlighter) {
             return JSON.stringify(_.map(highlighter.highlights, function (hi) {
@@ -15,6 +15,7 @@ angular.module('tcp').service('postService', [
                     start: hi.characterRange.start,
                     end: hi.characterRange.end,
                     type: hi.classApplier.className,
+                    container: hi.containerElementId,
                     tag: hi.$tag,
                     way: hi.$way,
                 };
@@ -24,18 +25,34 @@ angular.module('tcp').service('postService', [
         /**
          * @param {rangy.Highlighter} highlighter
          * @param {String} highlights
-         * @return {Object[]}
          */
         function deserializeHighlights(highlighter, highlights) {
-            return [getHighlighter().serialize()].concat(_.map(JSON.parse(highlights), function (hi) {
+            function serializeSingleHighlight(hi) {
                 return [
                     hi.start,
                     hi.end,
                     hi.id,
                     hi.type,
-                    null
+                    hi.container
                 ].join('$');
-            })).join('|');
+            }
+
+            var p_highlights = JSON.parse(highlights),
+                d_highlights = [getHighlighter().serialize()]
+                    .concat(_.map(p_highlights, serializeSingleHighlight))
+                    .join('|');
+
+            highlighter.deserialize(d_highlights);
+
+            // populate highlights with tag and way info
+            _.each(p_highlights, function (hi) {
+                var highlight = _.find(highlighter.highlights, {id: hi.id});
+
+                if (highlight) {
+                    highlight.$tag = hi.tag;
+                    highlight.$way = hi.way;
+                }
+            });
         }
 
         /**

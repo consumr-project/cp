@@ -3,7 +3,7 @@
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
     <input placeholder="company" ng-model="company" autofocus />
-    <input placeholder="url" ng-model="url" ng-blur="fetchArticle()" value="http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html" />
+    <input placeholder="url" ng-model="url" ng-blur="fetchPost()" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
     <div class="tags">
@@ -11,12 +11,13 @@
             class="tag animated flipInX">{{::tag.label}}</div>
     </div>
 
-    <div class="post animated fadeIn" ng-if="article">
-        <h1>{{::article.title}}</h1>
-        <div ng-mouseup="selectionMade()"
+    <div class="post animated fadeIn" ng-if="post">
+        <h1>{{::post.title}}</h1>
+        <div id="postContent"
+            ng-mouseup="selectionMade()"
             ng-mousedown="selectionStarting()"
             ng-click="showAnnotations($event)"
-        >{{::article.content}}</div>
+        >{{::post.content}}</div>
     </div>
 
     <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
