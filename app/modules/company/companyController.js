@@ -69,6 +69,7 @@ angular.module('tcp').controller('companyController', [
         $scope.save = function () {
             $scope.loading = true;
             entity.upsert(companyStore, $scope.company).then(function () {
+                utils.state('company', $scope.company.guid);
                 $scope.loading = false;
                 $scope.editing = false;
                 $scope.$apply();

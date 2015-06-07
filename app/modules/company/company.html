@@ -6,7 +6,7 @@
 
     <section class="content">
         <div class="company-summary">
-            <input placeholder="name" class="tcp-input-is-header" autofocus
+            <input placeholder="{{loading ? 'loading' : 'name'}}" class="tcp-input-is-header" autofocus
                 ng-change="changed = true" ng-blur="fetchCompanyInformation()"
                 ng-model="company.name" />
 

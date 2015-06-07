@@ -39,6 +39,19 @@
             .replace(/[^a-zA-Z\d-]/g, '');
     }
 
+    /**
+     * history.pushState helper
+     * @param {String} category
+     * @param {String} id
+     * @return {String} url
+     */
+    function state(category, id) {
+        var url = '/' + category + '/' + id;
+        history.pushState(category + id, null, url);
+        return url;
+    }
+
+    store.state = state;
     store.semiguid = semiguid;
     store.preload = preload;
     store.opCallback = opCallback;
