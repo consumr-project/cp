@@ -14,5 +14,20 @@
         return img;
     }
 
+    /**
+     * nothing
+     */
+    function noop() {
+    }
+
+    /**
+     * @param {Function} callback
+     * @return {Function}
+     */
+    function opCallback(callback) {
+        return callback || noop;
+    }
+
     store.preload = preload;
+    store.opCallback = opCallback;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);
