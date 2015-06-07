@@ -208,6 +208,7 @@ angular.module('tcp').controller('postController', [
                 clear();
                 showcase(false);
             } else {
+                clear();
                 showcasing_tag_id = tag_id;
                 showcase(_.chain(pen.highlights)
                     .where({ $tag: tag_id })
