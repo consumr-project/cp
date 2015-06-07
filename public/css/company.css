@@ -1,10 +1,10 @@
 .company-form img {
-    margin-bottom: 10px;
-    width: 100%;
+    display: none;
 }
 
 @media (min-width:600px) {
     .company-form img {
+        display: initial;
         float: right;
         width: 350px;
         margin: 0 0 10px 10px;
