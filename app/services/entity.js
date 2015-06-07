@@ -18,7 +18,7 @@
                 .update(entity, def.resolve);
         } else {
             if (entity.name && !entity.guid) {
-                entity.giud = utils.semiguid(entity.name);
+                entity.guid = utils.semiguid(entity.name);
             }
 
             push = store.push(entity, function () {
