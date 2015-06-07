@@ -2,6 +2,20 @@
     'use strict';
 
     /* global reqwest, _ */
+    var url = 'https://en.wikipedia.org/w/api.php?';
+
+    var extract_delim = '\n',
+        extract_ref = '^';
+
+    /**
+     * @param {Object}
+     * @return {String}
+     */
+    function stringify(params) {
+        return _.map(params, function (val, key) {
+            return [key, encodeURIComponent(val)].join('=');
+        }).join('&');
+    }
 
     /**
      * make a call to wikipedia's api
@@ -14,9 +28,7 @@
 
         return reqwest({
             type: 'jsonp',
-            url: 'https://en.wikipedia.org/w/api.php?' + _.map(params, function (val, key) {
-                return [key, encodeURIComponent(val)].join('=');
-            }).join('&')
+            url: url + stringify(params)
         });
     }
 
@@ -37,6 +49,12 @@
 
                 best = all[id];
                 best._matches = all;
+
+                // extract without references
+                best.extract_no_refs = _.filter(best.extract.split(extract_delim), function (line) {
+                    return line && line.charAt(0) !== extract_ref;
+                }).join(extract_delim);
+
                 break;
             }
 

@@ -17,8 +17,8 @@ angular.module('tcp').controller('companyController', [
             $scope.company.description = null;
 
             wikipedia.extract($scope.name).then(function (page) {
-                $scope.company.description = page && page.extract ?
-                    page.extract.replace('\n', '\n\n') : '';
+                $scope.company.description = page && page.extract_no_refs ?
+                    page.extract_no_refs.replace('\n', '\n\n') : '';
 
                 has_desc = true;
                 $scope.loading = !(has_desc && has_logo);
@@ -51,7 +51,7 @@ angular.module('tcp').controller('companyController', [
         };
 
         // XXX - remove once done testing
-        $scope.name = 'Hormel';
+        $scope.name = 'Trader Joe\'s';
         $scope.fetchCompanyInformation();
     }
 ]);
