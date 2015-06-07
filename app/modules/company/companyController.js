@@ -1,25 +1,13 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
     'wikipedia',
-    function ($scope, wikipedia) {
+    'utils',
+    function ($scope, wikipedia, utils) {
         'use strict';
 
         $scope.company = {};
         $scope.loading = false;
         $scope.editing = true;
-
-        /**
-         * @param {String} url
-         * @param {Function} [callback]
-         * @return {Image}
-         */
-        function preload(url, callback) {
-            var img = new Image();
-            img.onload = callback;
-            img.onerror = callback;
-            img.src = url;
-            return img;
-        }
 
         $scope.fetchCompanyInformation = function () {
             var has_desc, has_logo;
@@ -45,7 +33,7 @@ angular.module('tcp').controller('companyController', [
                     return;
                 }
 
-                preload(logo, function () {
+                utils.preload(logo, function () {
                     has_logo = true;
                     $scope.company.logo = logo;
                     $scope.loading = !(has_desc && has_logo);
