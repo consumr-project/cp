@@ -2,11 +2,24 @@
     display: none;
 }
 
+.company-form .separator {
+    height: 1rem;
+}
+
 @media (min-width:600px) {
     .company-form img {
         display: initial;
         float: right;
-        width: 200px;
-        margin: 0 0 20px 20px;
+        max-height: 250px;
+        max-width: 250px;
+        margin: 0 0 30px 30px;
+    }
+
+    .company-form .separator {
+        height: 2rem;
+    }
+
+    .company-summary {
+        min-height: 320px;
     }
 }
