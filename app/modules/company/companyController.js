@@ -1,9 +1,8 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
     'wikipedia',
-    'google',
     'utils',
-    function ($scope, wikipedia, google, utils) {
+    function ($scope, wikipedia, utils) {
         'use strict';
 
         $scope.company = {};
@@ -31,10 +30,7 @@ angular.module('tcp').controller('companyController', [
         function getLogo(callback) {
             callback = utils.opCallback(callback);
 
-            google.images($scope.name + ' company logo').then(function (res) {
-                var logo = res && res.responseData && res.responseData.results ?
-                    res.responseData.results[0].url : '';
-
+            wikipedia.image($scope.name).then(function (logo) {
                 if (logo) {
                     utils.preload(logo, function () {
                         callback();

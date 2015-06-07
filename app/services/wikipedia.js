@@ -1,8 +1,11 @@
 (function (store) {
     'use strict';
 
-    /* global reqwest, _ */
+    /* global reqwest, Q, _ */
     var url = 'https://en.wikipedia.org/w/api.php?';
+
+    var extract_logo = /Infobox[\s+\S+]+\|\s?logo\s{0,}=\s{0,}\[{0,}(.+:[\w\d\s.]+)/,
+        extract_image = /Infobox[\s+\S+]+\|\s?image\s{0,}=\s{0,}\[{0,}(.+:[\w\d\s.]+)/;
 
     var extract_delim = '\n',
         extract_ref = '^';
@@ -84,5 +87,76 @@
         }).then(best('pages'));
     }
 
+    /**
+     * get a page's revisions
+     * @param {String} title
+     * @return {Promise<Object>}
+     */
+    function revisions(title) {
+        return api({
+            action: 'query',
+            prop: 'revisions',
+            rvprop: 'content',
+            titles: title
+        }).then(best('pages'));
+    }
+
+    /**
+     * get an image's/file's information (url)
+     * @param {String} file
+     * @return {Promise<Object>}
+     */
+    function imageinfo(file) {
+        return api({
+            action: 'query',
+            prop: 'imageinfo',
+            iiprop: 'url',
+            titles: file
+        }).then(best('pages'));
+    }
+
+    /**
+     * get a page's main image
+     * @param {String} title
+     * @return {Promise<Object>}
+     */
+    function image(title) {
+        var def = Q.defer(),
+            req = revisions(title);
+
+        function revolveWithUrl(res) {
+            def.resolve(res.imageinfo[0].url);
+        }
+
+        req.then(function (res) {
+            var file;
+
+            if (!res || !res.revisions) {
+                def.resolve(null);
+                return;
+            }
+
+            file = res.revisions[0]['*'].match(extract_logo) ||
+                   res.revisions[0]['*'].match(extract_image);
+
+            if (!file) {
+                def.resolve(null);
+                return;
+            }
+
+            file = file[1]
+                .replace(/ /g, '_')
+                .replace(/\s/g, '');
+
+            return imageinfo(file)
+                .then(revolveWithUrl);
+        });
+
+        return def.promise;
+    }
+
     store.extract = extract;
+    store.revisions = revisions;
+    store.imageinfo = imageinfo;
+    store.image = image;
 })(typeof window !== 'undefined' ? window.wikipedia = {} : module.exports);
