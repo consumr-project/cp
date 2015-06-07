@@ -43,7 +43,6 @@ section.actions {
     text-align: center;
     top: auto;
     width: 100%;
-    z-index: 1;
 }
 
 section.actions::before {
