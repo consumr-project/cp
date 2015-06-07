@@ -4,8 +4,8 @@
     /* global reqwest, Q, _ */
     var url = 'https://en.wikipedia.org/w/api.php?';
 
-    var extract_logo = /Infobox[\s+\S+]+\|\s?logo\s{0,}=\s{0,}\[{0,}(.+:[\w\d\s.]+)/,
-        extract_image = /Infobox[\s+\S+]+\|\s?image\s{0,}=\s{0,}\[{0,}(.+:[\w\d\s.]+)/;
+    var extract_logo = /Infobox[\s+\S+]+\|\s?logo\s{0,}=\s{0,}\[{0,}(.+:[-\w\d\s.]+)/,
+        extract_image = /Infobox[\s+\S+]+\|\s?image\s{0,}=\s{0,}\[{0,}(.+:[-\w\d\s.]+)/;
 
     var extract_delim = '\n',
         extract_ref = '^';
@@ -125,7 +125,7 @@
             req = revisions(title);
 
         function revolveWithUrl(res) {
-            def.resolve(res.imageinfo[0].url);
+            def.resolve(res.imageinfo ? res.imageinfo[0].url : null);
         }
 
         req.then(function (res) {
