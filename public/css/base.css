@@ -55,6 +55,10 @@ section.actions::before {
     width: 100%;
 }
 
+section.content {
+    padding-bottom: 80px;
+}
+
 tcp-loading svg {
     height: 10px;
     opacity: 0;
@@ -107,5 +111,9 @@ img {
 
     section.actions::before {
         display: none;
+    }
+
+    section.content {
+        padding-bottom: 0;
     }
 }

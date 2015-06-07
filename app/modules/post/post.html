@@ -4,24 +4,26 @@
         <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
     </section>
 
-    <input placeholder="company" ng-model="company" autofocus class="tcp-input-is-header" />
-    <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" class="tcp-input-is-annotation" />
-    <tcp-loading ng-class="{show: loading}"></tcp-loading>
+    <section class="content">
+        <input placeholder="company" ng-model="company" autofocus class="tcp-input-is-header" />
+        <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" class="tcp-input-is-annotation" />
+        <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <div class="tags">
-        <div ng-repeat="tag in selectionTags track by tag.id"
-            ng-click="showcaseHighlightsByTag(tag.id)"
-            class="tag animated flipInX">{{::tag.label}}</div>
-    </div>
+        <div class="tags">
+            <div ng-repeat="tag in selectionTags track by tag.id"
+                ng-click="showcaseHighlightsByTag(tag.id)"
+                class="tag animated flipInX">{{::tag.label}}</div>
+        </div>
 
-    <div class="post animated fadeIn" ng-if="post.content || post.title" ng-class="{showcasing: showcasing}">
-        <h1>{{post.title}}</h1>
-        <div class="pre" id="postContent"
-            ng-mouseup="selectionMade()"
-            ng-mousedown="selectionStarting()"
-            ng-click="showAnnotations($event)"
-        >{{post.content}}</div>
-    </div>
+        <div class="post animated fadeIn" ng-if="post.content || post.title" ng-class="{showcasing: showcasing}">
+            <h1>{{post.title}}</h1>
+            <div class="pre" id="postContent"
+                ng-mouseup="selectionMade()"
+                ng-mousedown="selectionStarting()"
+                ng-click="showAnnotations($event)"
+            >{{post.content}}</div>
+        </div>
+    </section>
 
     <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
         <span>This effects</span>

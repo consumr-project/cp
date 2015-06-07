@@ -4,11 +4,13 @@
         <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
     </section>
 
-    <input placeholder="name" class="tcp-input-is-header" autofocus
-        ng-blur="fetchCompanyInformation()" ng-model="name" />
+    <section class="content">
+        <input placeholder="name" class="tcp-input-is-header" autofocus
+            ng-blur="fetchCompanyInformation()" ng-model="name" />
 
-    <tcp-loading ng-class="{show: loading}"></tcp-loading>
+        <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <img ng-show="company.logo" class="animated fadeIn" ng-src="{{company.logo}}" />
-    <div ng-show="company.description" class="pre animated fadeIn">{{company.description}}</div>
+        <img ng-show="company.logo" class="animated fadeIn" ng-src="{{company.logo}}" />
+        <div ng-show="company.description" class="pre animated fadeIn">{{company.description}}</div>
+    </section>
 </form>
