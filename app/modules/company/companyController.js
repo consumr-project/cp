@@ -1,13 +1,17 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
+    '$routeParams',
     'wikipedia',
     'utils',
-    function ($scope, wikipedia, utils) {
+    'entity',
+    'companyStore',
+    function ($scope, $routeParams, wikipedia, utils, entity, companyStore) {
         'use strict';
 
         $scope.company = {};
         $scope.loading = false;
-        $scope.editing = true;
+        $scope.editing = false;
+        $scope.changed = false;
 
         /**
          * @param {Function} [callback]
@@ -15,7 +19,7 @@ angular.module('tcp').controller('companyController', [
         function getExtract(callback) {
             callback = utils.opCallback(callback);
 
-            wikipedia.extract($scope.name).then(function (page) {
+            wikipedia.extract($scope.company.name).then(function (page) {
                 $scope.company.description = page && page.extract_no_refs ?
                     page.extract_no_refs.replace('\n', '\n\n') : '';
 
@@ -30,7 +34,7 @@ angular.module('tcp').controller('companyController', [
         function getLogo(callback) {
             callback = utils.opCallback(callback);
 
-            wikipedia.image($scope.name).then(function (logo) {
+            wikipedia.image($scope.company.name).then(function (logo) {
                 if (logo) {
                     utils.preload(logo, function () {
                         callback();
@@ -44,12 +48,17 @@ angular.module('tcp').controller('companyController', [
         }
 
         $scope.fetchCompanyInformation = function () {
+            if (!$scope.changed) {
+                return;
+            }
+
             $scope.loading = true;
             $scope.company.logo = null;
             $scope.company.description = null;
 
             getLogo(getExtract.bind(null, function () {
                 $scope.loading = false;
+                $scope.changed = false;
             }));
         };
 
@@ -58,11 +67,26 @@ angular.module('tcp').controller('companyController', [
         };
 
         $scope.save = function () {
-            $scope.editing = false;
+            $scope.loading = true;
+            entity.upsert(companyStore, $scope.company).then(function () {
+                $scope.loading = false;
+                $scope.editing = false;
+                $scope.$apply();
+            });
         };
 
-        // XXX - remove once done testing
-        $scope.name = 'Trader Joe\'s';
-        $scope.fetchCompanyInformation();
+        $scope.initialize = function () {
+            if (!$routeParams.guid) {
+                $scope.editing = true;
+                return;
+            }
+
+            $scope.loading = true;
+            entity.get(companyStore, $routeParams.guid).then(function (company) {
+                $scope.company = company;
+                $scope.loading = false;
+                $scope.$apply();
+            });
+        };
     }
 ]);

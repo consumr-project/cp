@@ -28,6 +28,18 @@
         return callback || noop;
     }
 
+    /**
+     * a semi-globally unique id
+     * @param {String} str
+     * @return {String}
+     */
+    function semiguid(str) {
+        return str.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^a-zA-Z\d-]/g, '');
+    }
+
+    store.semiguid = semiguid;
     store.preload = preload;
     store.opCallback = opCallback;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);

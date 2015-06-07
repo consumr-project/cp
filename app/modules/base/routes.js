@@ -14,7 +14,7 @@ angular.module('tcp').config([
             controller: 'searchController'
         });
 
-        $routeProvider.when('/add-company', {
+        $routeProvider.when('/company/:guid?', {
             templateUrl: '/app/modules/company/company.html',
             controller: 'companyController'
         });
