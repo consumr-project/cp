@@ -1,3 +1,11 @@
+button {
+    transition: color .3s;
+}
+
+button[disabled] {
+    color: rgb(144, 144, 144);
+}
+
 input,
 textarea {
     border: 1px solid rgb(205, 205, 205);

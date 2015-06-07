@@ -1,7 +1,7 @@
 <form tcp-inputs="editing" class="company-form" ng-init="initialize()">
     <section class="actions">
-        <button class="link" ng-if="editing" ng-click="save()">save</button>
-        <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
+        <button class="link" ng-disabled="loading" ng-if="editing" ng-click="save()">save</button>
+        <button class="link" ng-disabled="loading" ng-if="!editing" ng-click="edit()">edit</button>
     </section>
 
     <section class="content">
