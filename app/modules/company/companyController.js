@@ -4,6 +4,7 @@ angular.module('tcp').controller('companyController', [
     function ($scope, wikipedia) {
         'use strict';
 
+        $scope.company = {};
         $scope.loading = false;
         $scope.editing = true;
 
@@ -24,11 +25,11 @@ angular.module('tcp').controller('companyController', [
             var has_desc, has_logo;
 
             $scope.loading = true;
-            $scope.logo = null;
-            $scope.description = null;
+            $scope.company.logo = null;
+            $scope.company.description = null;
 
             wikipedia.extract($scope.name).then(function (page) {
-                $scope.description = page && page.extract ?
+                $scope.company.description = page && page.extract ?
                     page.extract.replace('\n', '\n\n') : '';
 
                 has_desc = true;
@@ -46,7 +47,7 @@ angular.module('tcp').controller('companyController', [
 
                 preload(logo, function () {
                     has_logo = true;
-                    $scope.logo = logo;
+                    $scope.company.logo = logo;
                     $scope.loading = !(has_desc && has_logo);
                     $scope.$apply();
                 });

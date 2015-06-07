@@ -5,6 +5,6 @@
     <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyInformation()" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
-    <img ng-show="logo" class="animated fadeIn" ng-src="{{logo}}" />
-    <div ng-show="description" class="pre animated fadeIn">{{description}}</div>
+    <img ng-show="company.logo" class="animated fadeIn" ng-src="{{company.logo}}" />
+    <div ng-show="company.description" class="pre animated fadeIn">{{company.description}}</div>
 </form>
