@@ -2,7 +2,9 @@
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
-    <input placeholder="name" ng-model="name" autofocus ng-blur="fetchCompanyInformation()" />
+    <input placeholder="name" class="tcp-input-is-header" autofocus
+        ng-blur="fetchCompanyInformation()" ng-model="name" />
+
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
     <img ng-show="company.logo" class="animated fadeIn" ng-src="{{company.logo}}" />

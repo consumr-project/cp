@@ -33,6 +33,14 @@
     }
 
     /**
+     * @param {String} line
+     * @return {Boolean}
+     */
+    function isNotReference(line) {
+        return line && line.charAt(0) !== extract_ref;
+    }
+
+    /**
      * @param {String} object name of object you want to get out of
      * res.data.query response object
      * @return {Function} function that get's that object once called
@@ -51,9 +59,8 @@
                 best._matches = all;
 
                 // extract without references
-                best.extract_no_refs = _.filter(best.extract.split(extract_delim), function (line) {
-                    return line && line.charAt(0) !== extract_ref;
-                }).join(extract_delim);
+                best.extract_no_refs = best.extract && _.filter(best.extract.split(extract_delim),
+                    isNotReference).join(extract_delim);
 
                 break;
             }

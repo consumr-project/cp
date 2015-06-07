@@ -2,8 +2,8 @@
     <button class="link" ng-if="editing" ng-click="save()">save</button>
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
-    <input placeholder="company" ng-model="company" autofocus />
-    <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" />
+    <input placeholder="company" ng-model="company" autofocus class="tcp-input-is-header" />
+    <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" class="tcp-input-is-annotation" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
     <div class="tags">
