@@ -58,7 +58,6 @@ angular.module('tcp').controller('companyController', [
 
             getLogo(getExtract.bind(null, function () {
                 $scope.loading = false;
-                $scope.changed = false;
             }));
         };
 
@@ -77,6 +76,7 @@ angular.module('tcp').controller('companyController', [
                 utils.state('company', $scope.company.guid);
                 $scope.loading = false;
                 $scope.editing = false;
+                $scope.changed = false;
                 $scope.$apply();
             });
         };
