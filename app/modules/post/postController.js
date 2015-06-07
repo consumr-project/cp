@@ -10,6 +10,7 @@ angular.module('tcp').controller('postController', [
 
         var pen, showcasing_tag_id;
 
+        $scope.post = {};
         $scope.loading = false;
         $scope.editing = true;
         $scope.showcasing = false;
@@ -46,7 +47,7 @@ angular.module('tcp').controller('postController', [
          * @return {String}
          */
         function key() {
-            return 'hi-' + $scope.url;
+            return 'hi-' + $scope.post.url;
         }
 
         function summaryzeHighlights() {
@@ -170,21 +171,25 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.fetchPost = function () {
-            if (!$scope.url) {
+            if (!$scope.post.url) {
                 return;
             }
 
             clear();
             $scope.loading = true;
-            $scope.post = null;
 
-            extract.fetch($scope.url).then(function (post) {
+            $scope.post.title = null;
+            $scope.post.content = null;
+
+            extract.fetch($scope.post.url).then(function (post) {
                 if (!post.ok) {
                     $window.alert('Error loading post');
                 }
 
-                $scope.url = decodeURIComponent(post.source);
-                $scope.post = post;
+                $scope.post.url = decodeURIComponent(post.source);
+                $scope.post.title = post.title;
+                $scope.post.content = post.content;
+
                 $scope.loading = false;
                 $scope.$apply();
 
@@ -222,7 +227,7 @@ angular.module('tcp').controller('postController', [
 
         // XXX - remove once done testing
         $scope.company = 'Hormel';
-        $scope.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
+        $scope.post.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
         $scope.fetchPost();
         $scope.availalbePostTags = [
             {

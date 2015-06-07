@@ -3,7 +3,7 @@
     <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
 
     <input placeholder="company" ng-model="company" autofocus />
-    <input placeholder="url" ng-model="url" ng-blur="fetchPost()" />
+    <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" />
     <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
     <div class="tags">
@@ -12,13 +12,13 @@
             class="tag animated flipInX">{{::tag.label}}</div>
     </div>
 
-    <div class="post animated fadeIn" ng-if="post" ng-class="{showcasing: showcasing}">
-        <h1>{{::post.title}}</h1>
+    <div class="post animated fadeIn" ng-if="post.content || post.title" ng-class="{showcasing: showcasing}">
+        <h1>{{post.title}}</h1>
         <div class="pre" id="postContent"
             ng-mouseup="selectionMade()"
             ng-mousedown="selectionStarting()"
             ng-click="showAnnotations($event)"
-        >{{::post.content}}</div>
+        >{{post.content}}</div>
     </div>
 
     <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
