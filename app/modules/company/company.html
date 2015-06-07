@@ -1,6 +1,8 @@
 <form tcp-inputs="editing" class="company-form">
-    <button class="link" ng-if="editing" ng-click="save()">save</button>
-    <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
+    <section class="actions">
+        <button class="link" ng-if="editing" ng-click="save()">save</button>
+        <button class="link" ng-if="!editing" ng-click="edit()">edit</button>
+    </section>
 
     <input placeholder="name" class="tcp-input-is-header" autofocus
         ng-blur="fetchCompanyInformation()" ng-model="name" />

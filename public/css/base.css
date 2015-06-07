@@ -34,6 +34,27 @@ header {
     top: 0;
 }
 
+section.actions {
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    padding: 20px 0;
+    position: fixed;
+    text-align: center;
+    top: auto;
+    width: 100%;
+    z-index: 1;
+}
+
+section.actions::before {
+    border-top: 1px solid rgb(221, 221, 221);
+    bottom: 40px;
+    content: "\00a0";
+    left: 0;
+    position: fixed;
+    width: 100%;
+}
+
 tcp-loading svg {
     height: 10px;
     opacity: 0;
@@ -74,5 +95,17 @@ img {
 
     header {
         text-align: right;
+    }
+
+    section.actions {
+        left: auto;
+        position: absolute;
+        text-align: left;
+        top: 0;
+        width: 0;
+    }
+
+    section.actions::before {
+        display: none;
     }
 }
