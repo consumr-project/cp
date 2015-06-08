@@ -2,6 +2,7 @@
     <section class="actions">
         <button class="link" ng-disabled="loading" ng-if="editing" ng-click="save()">save</button>
         <button class="link" ng-disabled="loading" ng-if="!editing" ng-click="edit()">edit</button>
+        <a      class="link" ng-disabled="loading" ng-if="company.guid" href="/company/{{company.guid}}/post">add post</a>
     </section>
 
     <section class="content">

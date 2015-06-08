@@ -9,14 +9,35 @@
 .link {
     background: transparent;
     border: 0;
+    color: black;
     font-size: 1rem;
     margin: 0;
     padding: 0;
+    text-decoration: none;
     text-transform: uppercase;
 }
 
-.link:not(:first-of-type) {
+.link[ng-if],
+.link[ng-show] {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+/* .link:not(:first-of-type) { */
+.link:not(:first-child) {
     margin-left: 20px;
+}
+
+/* .link:not(:first-of-type)::before { */
+.link:not(:first-child)::before {
+    content: "";
+    border-right: 1px solid rgb(199, 199, 199);
+    position: relative;
+    left: -12px;
 }
 
 .arrow {

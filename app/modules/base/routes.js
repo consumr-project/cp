@@ -19,7 +19,7 @@ angular.module('tcp').config([
             controller: 'companyController'
         });
 
-        $routeProvider.when('/add-post', {
+        $routeProvider.when('/company/:guid/post/:id?', {
             templateUrl: '/app/modules/post/post.html',
             controller: 'postController'
         });

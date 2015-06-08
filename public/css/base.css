@@ -42,6 +42,7 @@ section.actions {
     position: fixed;
     text-align: center;
     top: auto;
+    white-space: nowrap;
     width: 100%;
 }
 
@@ -101,11 +102,12 @@ img {
     }
 
     section.actions {
-        left: auto;
+        float: left;
+        height: 0;
+        padding-left: 60px;
         position: absolute;
-        text-align: left;
         top: 0;
-        width: 0;
+        width: auto;
     }
 
     section.actions::before {

@@ -1,7 +1,9 @@
+a,
 button {
     transition: color .3s;
 }
 
+a,
 button[disabled] {
     color: rgb(144, 144, 144);
 }
@@ -41,7 +43,6 @@ form[tcp-inputs] textarea {
     width: 100%;
 }
 
-form[tcp-inputs] button + *,
 form[tcp-inputs] input + *,
 form[tcp-inputs] textarea + * {
     margin-top: 20px;
