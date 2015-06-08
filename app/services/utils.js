@@ -36,6 +36,7 @@
     function semiguid(str) {
         return str.toLowerCase()
             .replace(/ /g, '-')
+            .replace(/-+/g, '-')
             .replace(/[^a-zA-Z\d-]/g, '');
     }
 
@@ -46,7 +47,7 @@
      * @return {String} url
      */
     function state(category, id) {
-        var url = '/' + category + '/' + id;
+        var url = '/' + [].splice.call(arguments, 0).join('/');
         history.pushState(category + id, null, url);
         return url;
     }

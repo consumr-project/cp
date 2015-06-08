@@ -1,18 +1,21 @@
 angular.module('tcp').controller('postController', [
     '$scope',
+    '$routeParams',
     '$window',
     '$timeout',
     'highlighter',
     'extract',
     'lodash',
-    function ($scope, $window, $timeout, highlighter, extract, _) {
+    'companyStore',
+    'postStore',
+    function ($scope, $routeParams, $window, $timeout, highlighter, extract, _, companyStore, postStore) {
         'use strict';
 
         var pen, showcasing_tag_id;
 
         $scope.post = {};
         $scope.loading = false;
-        $scope.editing = true;
+        $scope.editing = false;
         $scope.showcasing = false;
 
         $scope.selection = null;
@@ -20,6 +23,7 @@ angular.module('tcp').controller('postController', [
         $scope.selectionData = null;
         $scope.selectionTags = null;
 
+        // XXX - get real tag ways
         $scope.availalbePostWays = [
             {
                 id: 1,
@@ -29,6 +33,22 @@ angular.module('tcp').controller('postController', [
                 id: 2,
                 label: 'Negative'
             }
+        ];
+
+        // XXX - get real tags
+        $scope.availalbePostTags = [
+            {
+                id: 1,
+                label: 'Fishing'
+            },
+            {
+                id: 2,
+                label: 'Human rights'
+            },
+            {
+                id: 3,
+                label: 'Labor'
+            },
         ];
 
         function clear() {
@@ -56,6 +76,14 @@ angular.module('tcp').controller('postController', [
             $scope.selectionTags = _.sortBy(_.uniq(tags, function (tag) {
                 return tag.id;
             }), 'label');
+        }
+
+        /**
+         * @return {Boolean}
+         */
+        function uncacheHighlights() {
+            localStorage.removeItem(key());
+            return !localStorage.hasOwnProperty(key());
         }
 
         /**
@@ -130,6 +158,28 @@ angular.module('tcp').controller('postController', [
 
         $scope.initialize = function () {
             pen = highlighter.create();
+
+            $scope.loading = true;
+            $scope.editing = !$routeParams.guid;
+
+            entity.get(companyStore, $routeParams.companyGuid).then(function (company) {
+                $scope.company = company;
+
+                // no post guid, adding a new post
+                if (!$routeParams.guid) {
+                    $scope.editing = true;
+                    $scope.loading = false;
+                    $scope.$apply()
+                    return;
+                }
+
+                // post guid, editing a post
+                entity.get(postStore, $routeParams.guid).then(function (post) {
+                    $scope.post = post;
+                    $scope.loading = false;
+                    $scope.$apply();
+                });
+            });
         };
 
         $scope.saveSelection = function () {
@@ -223,26 +273,18 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.save = function () {
-            $scope.editing = false;
-        };
+            clear();
+            uncacheHighlights();
 
-        // XXX - remove once done testing
-        $scope.company = 'Hormel';
-        $scope.post.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
-        $scope.fetchPost();
-        $scope.availalbePostTags = [
-            {
-                id: 1,
-                label: 'Fishing'
-            },
-            {
-                id: 2,
-                label: 'Human rights'
-            },
-            {
-                id: 3,
-                label: 'Labor'
-            },
-        ];
+            $scope.loading = true;
+            $scope.post.companyId = $scope.company.__id;
+
+            entity.upsert(postStore, $scope.post).then(function () {
+                utils.state('company', $scope.company.guid, 'post', $scope.post.guid);
+                $scope.loading = false;
+                $scope.editing = false;
+                $scope.$apply();
+            });
+        };
     }
 ]);
