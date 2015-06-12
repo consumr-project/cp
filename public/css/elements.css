@@ -63,3 +63,16 @@
     transform: rotate(-45deg);
     box-shadow: -3px 3px 3px 0 rgb(199, 199, 199);
 }
+
+.highlight-link {
+    position: relative;
+}
+
+.highlight-link:hover::before {
+    background-color: rgb(110, 132, 245);
+    content: "";
+    height: 100%;
+    left: -11px;
+    position: absolute;
+    width: 3px;
+}
