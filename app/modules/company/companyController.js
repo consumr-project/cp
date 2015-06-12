@@ -5,10 +5,13 @@ angular.module('tcp').controller('companyController', [
     'utils',
     'entity',
     'companyStore',
-    function ($scope, $routeParams, wikipedia, utils, entity, companyStore) {
+    'postStore',
+    function ($scope, $routeParams, wikipedia, utils, entity, companyStore, postStore) {
         'use strict';
 
+        $scope.posts = [];
         $scope.company = {};
+
         $scope.loading = false;
         $scope.editing = false;
         $scope.changed = false;
@@ -91,6 +94,14 @@ angular.module('tcp').controller('companyController', [
             entity.get(companyStore, $routeParams.guid).then(function (company) {
                 $scope.company = company;
                 $scope.loading = false;
+                $scope.showRecentPosts();
+                $scope.$apply();
+            });
+        };
+
+        $scope.showRecentPosts = function () {
+            entity.get(postStore, {companyId: $scope.company.__id}).then(function (posts) {
+                $scope.posts = posts;
                 $scope.$apply();
             });
         };

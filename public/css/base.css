@@ -113,8 +113,4 @@ img {
     section.actions::before {
         display: none;
     }
-
-    section.content {
-        padding-bottom: 0;
-    }
 }

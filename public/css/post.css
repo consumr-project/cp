@@ -44,6 +44,33 @@
 
 }
 
+.post-summary {
+    color: initial;
+    display: block;
+    text-decoration: none;
+}
+
+.post-summary:not(:last-child) {
+    border-bottom: 1px solid rgb(232, 232, 232);
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+}
+
+.post-summary .title {
+    font-weight: 600;
+}
+
+.post-summary .url {
+    color: rgb(205, 205, 205);
+    font-size: .9rem;
+    font-weight: 100;
+    padding: 1px 0 3px 0;
+}
+
+.post-summary .content {
+    font-size: .9rem;
+}
+
 @media (min-width:600px) {
     .post {
         padding: 10px 0 60px 0;

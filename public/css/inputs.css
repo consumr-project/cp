@@ -3,7 +3,7 @@ button {
     transition: color .3s;
 }
 
-a,
+a[disabled],
 button[disabled] {
     color: rgb(144, 144, 144);
 }

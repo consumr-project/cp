@@ -1,7 +1,17 @@
 (function (store) {
     'use strict';
 
-    /* global Q, utils */
+    /* global Q, utils, _ */
+
+    /**
+     * @param {Object} entity
+     * @param {String} id
+     * @return {Object}
+     */
+    function tag(entity, id) {
+        entity.__id = id;
+        return entity;
+    }
 
     /**
      * @param {Firebase} store
@@ -32,21 +42,39 @@
 
     /**
      * @param {Firebase} store
-     * @param {String} guid
+     * @param {String|Object} guid|search
      * @return {Promise}
      */
     function get(store, guid) {
-        var def = Q.defer();
+        var def = Q.defer(),
+            search;
 
-        store
-            .orderByChild('guid')
-            .equalTo(guid)
-            .limitToFirst(1)
-            .on('child_added', function (res) {
-                var entity = res.val();
-                entity.__id = res.key();
-                def.resolve(entity);
+        if (_.isPlainObject(guid)) {
+            search = store.orderByChild('guid');
+            _.map(guid, function (val, key) {
+                search.equalTo(val, key);
             });
+        } else {
+            search = store
+                .orderByChild('guid')
+                .equalTo(guid)
+                .limitToFirst(1);
+        };
+
+        search.on('value', function (res) {
+            var entity = res.val(),
+                id = _.keys(entity)[0];
+
+            if (!entity) {
+                return;
+            }
+
+            def.resolve(
+                _.isPlainObject(guid) ?
+                _.map(entity, tag) :
+                tag(entity[id], id)
+            );
+        });
 
         return def.promise;
     }
