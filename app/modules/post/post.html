@@ -10,7 +10,7 @@
         <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
         <div class="tags">
-            <div ng-repeat="tag in selectionTags track by tag.id"
+            <div ng-repeat="tag in selection.tags track by tag.id"
                 ng-click="showcaseHighlightsByTag(tag.id)"
                 class="tag animated flipInX">{{::tag.label}}</div>
         </div>
@@ -25,14 +25,14 @@
         </div>
     </section>
 
-    <div class="selection-editor arrow arrow-down" tcp-tooltip="selectionAnchor">
+    <div class="selection-editor arrow arrow-down" tcp-tooltip="selection.anchor">
         <span>This effects</span>
-        <select ng-model="selectionData.tag" ng-change="saveSelection()"
+        <select ng-model="selection.data.tag" ng-change="saveSelection()"
             ng-options="tag.label for tag in availalbePostTags track by tag.id">
             <option value="">[choose tag]</option>
         </select>
         <span>in a</span>
-        <select ng-model="selectionData.way" ng-change="saveSelection()"
+        <select ng-model="selection.data.way" ng-change="saveSelection()"
             ng-options="tag.label for tag in availalbePostWays track by tag.id">
             <option value="">[choose way]</option>
         </select>

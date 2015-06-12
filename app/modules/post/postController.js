@@ -13,15 +13,13 @@ angular.module('tcp').controller('postController', [
 
         var pen, showcasing_tag_id;
 
+        $scope.company = {};
         $scope.post = {};
+        $scope.selection = {};
+
         $scope.loading = false;
         $scope.editing = false;
         $scope.showcasing = false;
-
-        $scope.selection = null;
-        $scope.selectionAnchor = null;
-        $scope.selectionData = null;
-        $scope.selectionTags = null;
 
         // XXX - get real tag ways
         $scope.availalbePostWays = [
@@ -54,11 +52,12 @@ angular.module('tcp').controller('postController', [
         function clear() {
             showcasing_tag_id = null;
             $scope.showcasing = false;
-            $scope.selection = null;
-            $scope.selectionAnchor = null;
+
+            $scope.selection.highlight = null;
+            $scope.selection.anchor = null;
 
             $timeout(function () {
-                $scope.selectionData = null;
+                $scope.selection.data = null;
             });
         }
 
@@ -73,7 +72,7 @@ angular.module('tcp').controller('postController', [
         function summaryzeHighlights() {
             var tags = _.pluck(_.map(pen.highlights, getTag), 'tag');
 
-            $scope.selectionTags = _.sortBy(_.uniq(tags, function (tag) {
+            $scope.selection.tags = _.sortBy(_.uniq(tags, function (tag) {
                 return tag.id;
             }), 'label');
         }
@@ -149,9 +148,9 @@ angular.module('tcp').controller('postController', [
                 return;
             }
 
-            $scope.selection = selection;
-            $scope.selectionAnchor = selection.getHighlightElements()[0];
-            $scope.selectionData = getTag(selection);
+            $scope.selection.highlight = selection;
+            $scope.selection.anchor = selection.getHighlightElements()[0];
+            $scope.selection.data = getTag(selection);
 
             showcase(selection.getHighlightElements());
         }
@@ -184,12 +183,12 @@ angular.module('tcp').controller('postController', [
         };
 
         $scope.saveSelection = function () {
-            if (!$scope.selectionData || !$scope.selectionData.way || !$scope.selectionData.tag) {
+            if (!$scope.selection.data || !$scope.selection.data.way || !$scope.selection.data.tag) {
                 return;
             }
 
-            $scope.selection.$tag = $scope.selectionData.tag.id;
-            $scope.selection.$way = $scope.selectionData.way.id;
+            $scope.selection.highlight.$tag = $scope.selection.data.tag.id;
+            $scope.selection.highlight.$way = $scope.selection.data.way.id;
 
             clear();
             cacheHighlights();
@@ -201,7 +200,7 @@ angular.module('tcp').controller('postController', [
          * want to keep must be serialized and unset from this var
          */
         $scope.selectionStarting = function () {
-            pen.removeHighlights([$scope.selection]);
+            pen.removeHighlights([$scope.selection.highlight]);
             $window.getSelection().removeAllRanges();
 
             clear();
