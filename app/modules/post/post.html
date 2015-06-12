@@ -25,17 +25,8 @@
         </div>
     </section>
 
-    <div class="selection-editor arrow arrow-down" tcp-tooltip="selection.anchor">
-        <span>This effects</span>
-        <select ng-model="selection.data.tag" ng-change="saveSelection()"
-            ng-options="tag.label for tag in availalbePostTags track by tag.id">
-            <option value="">[choose tag]</option>
-        </select>
-        <span>in a</span>
-        <select ng-model="selection.data.way" ng-change="saveSelection()"
-            ng-options="tag.label for tag in availalbePostWays track by tag.id">
-            <option value="">[choose way]</option>
-        </select>
-        <span>way</span>
-    </div>
+    <ng-include tcp-tooltip="selection.anchor"
+        class="selection-editor arrow arrow-down"
+        src="'/app/modules/post/selection-editor-tooltip.html'">
+    </ng-include>
 </form>
