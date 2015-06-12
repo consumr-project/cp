@@ -52,7 +52,9 @@
         if (_.isPlainObject(guid)) {
             search = store.orderByChild('guid');
             _.map(guid, function (val, key) {
-                search.equalTo(val, key);
+                search = store
+                    .orderByChild(key)
+                    .equalTo(val);
             });
         } else {
             search = store
