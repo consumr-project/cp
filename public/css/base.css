@@ -4,6 +4,10 @@
     word-break: break-word;
 }
 
+input {
+    word-break: initial;
+}
+
 ::selection {
     background: rgb(255, 254, 196);
     text-shadow: none;
