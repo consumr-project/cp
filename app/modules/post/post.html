@@ -6,7 +6,7 @@
 
     <section class="content">
         <input placeholder="{{loading ? 'loading' : 'company name'}}" ng-model="company.name" autofocus class="tcp-input-is-header" />
-        <input placeholder="url" ng-model="post.url" ng-blur="fetchPost()" class="tcp-input-is-annotation" />
+        <input placeholder="url" ng-if="company" ng-model="post.url" ng-blur="fetchPost()" class="tcp-input-is-annotation animated fadeIn" />
         <tcp-loading ng-class="{show: loading}"></tcp-loading>
 
         <div class="tags">
