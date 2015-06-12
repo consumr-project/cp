@@ -1,5 +1,5 @@
 .post {
-    transition: padding .3s;
+    transition: padding .3s, color .3s;
     padding-bottom: 20px;
 }
 
@@ -12,12 +12,8 @@
     color: rgba(0, 0, 0, 0.2);
 }
 
-.post .highlight {
-    background-color: rgb(255, 254, 196);
-    cursor: pointer;
-}
-
-.post .highlight.showcased {
+.post.showcasing .highlight.showcased {
+    background-color: rgb(255, 255, 226);
     color: black;
 }
 

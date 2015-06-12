@@ -178,6 +178,7 @@ angular.module('tcp').controller('postController', [
                     $scope.post = post;
                     $scope.loading = false;
                     $scope.$apply();
+                    $scope.$evalAsync(restoreCachedHighlights);
                 });
             });
         };
