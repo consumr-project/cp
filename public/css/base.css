@@ -20,7 +20,7 @@ html, body, div.main, [ng-view] {
 div.main {
     font-family: 'Raleway', sans-serif;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 900px;
     min-width: 300px;
     transition: padding .3s;
     padding: 0 20px;
