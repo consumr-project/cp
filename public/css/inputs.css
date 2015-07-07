@@ -21,12 +21,12 @@ form[tcp-inputs] textarea {
     transition: padding .3s, border .3s, margin .3s, color .3s, font .3s;
 }
 
-form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input-is-annotation {
+form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input--annotation {
     color: rgb(182, 182, 182);
     margin-top: initial;
 }
 
-form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input-is-header {
+form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input--header {
     font-size: 3rem;
 }
 
@@ -45,7 +45,7 @@ form[tcp-inputs] textarea {
 
 form[tcp-inputs] input[type=text] + *,
 form[tcp-inputs] textarea + * {
-    margin-top: 20px;
+    margin: 10px 0;
 }
 
 form[tcp-inputs] textarea {
