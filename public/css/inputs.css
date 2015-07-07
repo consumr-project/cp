@@ -8,7 +8,7 @@ button[disabled] {
     color: rgb(144, 144, 144);
 }
 
-input,
+input[type=text],
 textarea {
     border: 1px solid rgb(205, 205, 205);
     font-weight: 100;
@@ -16,40 +16,53 @@ textarea {
     resize: none;
 }
 
-form[tcp-inputs] input,
+form[tcp-inputs] input[type=text],
 form[tcp-inputs] textarea {
     transition: padding .3s, border .3s, margin .3s, color .3s, font .3s;
 }
 
-form[tcp-inputs]:not(.tcp-inputs-editing) input.tcp-input-is-annotation {
+form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input-is-annotation {
     color: rgb(182, 182, 182);
     margin-top: initial;
 }
 
-form[tcp-inputs]:not(.tcp-inputs-editing) input.tcp-input-is-header {
+form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text].tcp-input-is-header {
     font-size: 3rem;
 }
 
-form[tcp-inputs]:not(.tcp-inputs-editing) input,
+form[tcp-inputs]:not(.tcp-inputs-editing) input[type=text],
 form[tcp-inputs]:not(.tcp-inputs-editing) textarea {
     border-color: transparent;
     font-weight: normal;
     padding-left: 0;
 }
 
-form[tcp-inputs] input,
+form[tcp-inputs] input[type=text],
 form[tcp-inputs] textarea {
     display: block;
     width: 100%;
 }
 
-form[tcp-inputs] input + *,
+form[tcp-inputs] input[type=text] + *,
 form[tcp-inputs] textarea + * {
     margin-top: 20px;
 }
 
 form[tcp-inputs] textarea {
     height: 200px;
+}
+
+form[tcp-inputs] input[type=button],
+form[tcp-inputs] input[type=submit] {
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid rgb(150, 150, 150);
+    box-shadow: 0 0 0 1px rgb(195, 195, 195);
+    color: black;
+    font-size: .8rem;
+    padding: 6px 14px;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 ::-webkit-input-placeholder {

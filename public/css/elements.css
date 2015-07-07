@@ -2,6 +2,14 @@
     height: 1rem;
 }
 
+.separator-2 {
+    height: 2rem;
+}
+
+.separator-5 {
+    height: 5rem;
+}
+
 .pre {
     white-space: pre-line;
 }

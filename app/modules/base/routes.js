@@ -4,6 +4,11 @@ angular.module('tcp').config([
     function ($routeProvider, $locationProvider) {
         'use strict';
 
+        $routeProvider.when('/dev/guide', {
+            templateUrl: '/app/modules/dev/guide.html',
+            controller: 'devController'
+        });
+
         $routeProvider.when('/', {
             templateUrl: '/app/modules/search/search.html',
             controller: 'searchController'
