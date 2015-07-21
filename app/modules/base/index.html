@@ -9,21 +9,10 @@
         <title>the consumer project</title>
         <base href="/">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="/public/css/text.css">
         <link rel="stylesheet" href="/node_modules/normalize.css/normalize.css">
         <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
 
         <link rel="stylesheet" href="/public/css/base.css">
-        <link rel="stylesheet" href="/public/css/indexes.css">
-        <link rel="stylesheet" href="/public/css/brand.css">
-        <link rel="stylesheet" href="/public/css/inputs.css">
-        <link rel="stylesheet" href="/public/css/elements.css">
-        <link rel="stylesheet" href="/public/css/dev.css">
-
-        <!-- for views -->
-        <link rel="stylesheet" href="/public/css/search.css">
-        <link rel="stylesheet" href="/public/css/post.css">
-        <link rel="stylesheet" href="/public/css/company.css">
 
         <!-- vendor -->
         <script src="/node_modules/reqwest/reqwest.min.js"></script>
@@ -39,13 +28,7 @@
         <script src="/node_modules/q/q.js"></script>
     </head>
     <body ng-app="tcp" ng-strict-di>
-        <div class="main">
-            <header>
-                <button class="link">log in</button>
-                <button class="link">sign up</button>
-            </header>
-            <div ng-view></div>
-        </div>
+        <div ng-view></div>
 
         {% if debugging %}
         <script src="/node_modules/ng-stats/dist/ng-stats.min.js"></script>
@@ -72,15 +55,6 @@
         <script src="/app/services/utils.js"></script>
         <script src="/app/services/entity.js"></script>
         <script src="/app/modules/base/main.js"></script>
-        <script src="/app/modules/search/searchController.js"></script>
         <script src="/app/modules/base/routes.js"></script>
-        <script src="/app/modules/common/loading.js"></script>
-        <script src="/app/modules/common/tooltip.js"></script>
-        <script src="/app/modules/common/summary.js"></script>
-        <script src="/app/modules/common/inputs.js"></script>
-        <script src="/app/modules/common/markdown-viewer.js"></script>
-        <script src="/app/modules/post/postController.js"></script>
-        <script src="/app/modules/company/companyController.js"></script>
-        <script src="/app/modules/dev/devController.js"></script>
     </body>
 </html>

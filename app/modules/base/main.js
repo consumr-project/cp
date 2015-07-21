@@ -12,10 +12,10 @@
     angular.module('tcp').value('utils', utils);
     angular.module('tcp').value('entity', entity);
     angular.module('tcp').value('store', store);
-    angular.module('tcp').value('postStore', store.child('post'));
-    angular.module('tcp').value('userStore', store.child('user'));
-    angular.module('tcp').value('companyStore', store.child('company'));
-    angular.module('tcp').value('tagStore', store.child('tag'));
+    // angular.module('tcp').value('postStore', store.child('post'));
+    // angular.module('tcp').value('userStore', store.child('user'));
+    // angular.module('tcp').value('companyStore', store.child('company'));
+    // angular.module('tcp').value('tagStore', store.child('tag'));
 
     if (!window.DEBUGGING) {
         angular.module('tcp').config(['$compileProvider', function ($compileProvider) {
