@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "NODE_ENV=development node server",
     "dev": "DEBUG=* NODE_ENV=development node server"
   },
   "repository": {
