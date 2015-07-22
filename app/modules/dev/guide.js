@@ -14,7 +14,7 @@ angular.module('tcp').controller('guideController', [
             $scope.counter++;
         };
 
-        for (var i = 0; i < 30; i++)
+        for (var i = 0; i < 3; i++)
             $scope.addTag();
     }
 ]);
