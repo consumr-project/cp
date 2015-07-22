@@ -1,8 +1,20 @@
 <section>
-    <h1 ng-init="counter=42">indicator</h1>
+    <h1>tag</h1>
 
     <div guide-controls>
-        <button ng-click="counter=counter+1">increment counter</button>
+        <button ng-click="addTag()">add tag</button>
+    </div>
+
+    <div markup>
+        <tag ng-repeat="tag in tags" label="{{::tag.label}}"></tag>
+    </div>
+</section>
+
+<section>
+    <h1>indicator</h1>
+
+    <div guide-controls>
+        <button ng-click="incrementCounter()">increment counter</button>
     </div>
 
     <div markup>

@@ -7,7 +7,8 @@ angular.module('tcp').config([
 
         if (DEBUGGING) {
             $routeProvider.when('/guide', {
-                templateUrl: '/app/modules/dev/guide.html'
+                templateUrl: '/app/modules/dev/guide.html',
+                controller: 'guideController'
             });
         }
 
