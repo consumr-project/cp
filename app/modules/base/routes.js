@@ -1,12 +1,15 @@
 angular.module('tcp').config([
     '$routeProvider',
     '$locationProvider',
-    function ($routeProvider, $locationProvider) {
+    'DEBUGGING',
+    function ($routeProvider, $locationProvider, DEBUGGING) {
         'use strict';
 
-        $routeProvider.when('/guide', {
-            templateUrl: '/app/modules/base/guide.html'
-        });
+        if (DEBUGGING) {
+            $routeProvider.when('/guide', {
+                templateUrl: '/app/modules/dev/guide.html'
+            });
+        }
 
         // $routeProvider.when('/search', {
         //     templateUrl: '/app/modules/search/search.html',

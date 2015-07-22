@@ -1,0 +1,19 @@
+[markup] {
+    border-radius: 2px;
+    border: 1px solid rgb(234, 234, 234);
+    overflow: hidden;
+    padding: 10px 10px 0 10px;
+}
+
+[markup] pre {
+    background-color: rgb(249, 249, 249);
+    cursor: default;
+    font-family: monospace;
+    line-height: 16px;
+    margin: 15px -10px 0 -10px;
+    padding: 10px;
+}
+
+[guide-controls] {
+    margin-bottom: 20px;
+}

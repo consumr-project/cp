@@ -60,5 +60,10 @@
 
         <script src="/app/modules/common/indicator.js"></script>
         <link rel="stylesheet" href="/app/modules/common/indicator.css">
+
+        {% if debugging %}
+        <script src="/app/modules/dev/markup.js"></script>
+        <link rel="stylesheet" href="/app/modules/dev/guide.css">
+        {% endif %}
     </body>
 </html>

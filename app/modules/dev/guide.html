@@ -1,0 +1,13 @@
+<section>
+    <h1 ng-init="counter=42">indicator</h1>
+
+    <div guide-controls>
+        <button ng-click="counter=counter+1">increment counter</button>
+    </div>
+
+    <div markup>
+        <indicator type="counter" value="counter"></indicator>
+        <indicator type="highlights" value="counter"></indicator>
+        <indicator type="useful" value="counter"></indicator>
+    </div>
+</section>

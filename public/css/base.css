@@ -29,6 +29,7 @@ html, body {
 body {
     max-width: 800px;
     margin: 0 auto;
+    padding: 10px 20px 60px 20px;
 }
 
 ::selection {
