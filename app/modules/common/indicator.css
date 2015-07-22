@@ -1,0 +1,41 @@
+.indicator {
+    cursor: default;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.indicator.indicator-highlights,
+.indicator.indicator-counter {
+    padding: 5px;
+    min-width: 26px;
+}
+
+.indicator.indicator-highlights {
+    background-color: rgb(253, 226, 72);
+    border: 1px solid rgb(252, 220, 41);
+}
+
+.indicator.indicator-counter {
+    background-color: rgb(232, 38, 59);
+    border-radius: 50%;
+    border: 1px solid rgb(224, 0, 24);
+    color: white;
+}
+
+.indicator.indicator-useful::before {
+    background-image: url(/app/modules/common//indicators/heart.svg);
+    background-position: 0;
+    content: '';
+    display: inline-block;
+    height: 23px;
+    margin-right: 3px;
+    position: relative;
+    top: 8px;
+    width: 24px;
+}
+
+.indicator + .indicator {
+    margin-left: 10px;
+}

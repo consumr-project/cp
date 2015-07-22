@@ -21,6 +21,16 @@ body * {
     word-break: break-word;
 }
 
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 ::selection {
     background: rgb(255, 254, 196);
     text-shadow: none;

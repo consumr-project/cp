@@ -4,10 +4,9 @@ angular.module('tcp').config([
     function ($routeProvider, $locationProvider) {
         'use strict';
 
-        // $routeProvider.when('/', {
-        //     templateUrl: '/app/modules/search/search.html',
-        //     controller: 'searchController'
-        // });
+        $routeProvider.when('/guide', {
+            templateUrl: '/app/modules/base/guide.html'
+        });
 
         // $routeProvider.when('/search', {
         //     templateUrl: '/app/modules/search/search.html',
