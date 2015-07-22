@@ -6,7 +6,8 @@ angular.module('tcp').controller('guideController', [
 
         $scope.addTag = function () {
             $scope.tags.push({
-                label: 'Tag #' + ($scope.tags.length + 1)
+                label: 'Tag #' + ($scope.tags.length + 1),
+                type: Math.random() > .5 ? 'good' : 'bad'
             });
         };
 

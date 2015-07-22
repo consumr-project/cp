@@ -6,7 +6,17 @@
     display: inline-block;
     font-size: 13px;
     margin-bottom: 6px;
-    margin-left: 5px;
+    margin-right: 5px;
     padding: 6px 11px;
     text-transform: uppercase;
+}
+
+.tag.good {
+    border-color: rgb(73, 152, 138);
+    color: rgb(73, 152, 138);
+}
+
+.tag.bad {
+    border-color: rgb(232, 38, 59);
+    color: rgb(232, 38, 59);
 }
