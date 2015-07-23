@@ -63,3 +63,9 @@ toc .toc--item {
 toc .toc--item:hover {
     background-color: whitesmoke;
 }
+
+toc .toc--item:active,
+toc .toc--item:focus {
+    background-color: whitesmoke;
+    outline: 0;
+}
