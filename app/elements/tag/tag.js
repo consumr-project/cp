@@ -1,4 +1,6 @@
 angular.module('tcp').directive('tag', function () {
+    'use strict';
+
     return {
         replace: true,
         transclude: true,
