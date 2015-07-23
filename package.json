@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=development node server",
-    "dev": "DEBUG=* NODE_ENV=development node server"
+    "start": "make build && NODE_ENV=development node server",
+    "dev":   "make build && NODE_ENV=development DEBUG=* node server"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,8 @@
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4",
     "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "cssnext": "^1.8.1"
   }
 }

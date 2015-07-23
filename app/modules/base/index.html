@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
         <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
 
-        <link rel="stylesheet" href="app/modules/base/main.css">
+        <link rel="stylesheet" href="static/site.css">
 
         <!-- vendor -->
         <script src="node_modules/reqwest/reqwest.min.js"></script>
@@ -47,26 +47,19 @@
         </script>
         {% endif %}
 
-        <!-- app -->
         <script src="app/services/api.js"></script>
         <script src="app/services/extract.js"></script>
         <script src="app/services/wikipedia.js"></script>
         <script src="app/services/highlighter.js"></script>
         <script src="app/services/utils.js"></script>
         <script src="app/services/entity.js"></script>
+
         <script src="app/modules/base/main.js"></script>
         <script src="app/modules/base/routes.js"></script>
 
         <script src="app/elements/indicator/indicator.js"></script>
-        <link rel="stylesheet" href="app/elements/indicator/indicator.css">
-
         <script src="app/elements/tag/tag.js"></script>
-        <link rel="stylesheet" href="app/elements/tag/tag.css">
-
         <script src="app/elements/key/key.js"></script>
-        <link rel="stylesheet" href="app/elements/key/key.css">
-
-        <link rel="stylesheet" href="app/elements/button/button.css">
 
         {% if debugging %}
         <script src="app/modules/dev/guide.js"></script>
