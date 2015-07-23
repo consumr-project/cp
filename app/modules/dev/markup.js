@@ -59,12 +59,14 @@ angular.module('tcp').directive('markup', function () {
     return {
         restrict: 'A',
         compile: function (elem, attrs) {
-            var snippet = document.createElement('pre'),
-                node = elem[0];
+            var node = elem[0],
+                snippet = document.createElement('pre'),
+                content = removeLeadingWhitespace(node.innerHTML);
 
-            snippet.innerText = removeLeadingWhitespace(node.innerHTML);
-
-            node.appendChild(snippet);
+            return function () {
+                node.appendChild(snippet);
+                snippet.innerText = content;
+            };
         }
     };
 });

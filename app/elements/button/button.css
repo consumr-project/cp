@@ -1,14 +1,36 @@
+:root {
+    --inline-element-gutter: 6px;
+    --inline-element-horizontal-padding: 11px;
+    --inline-element-vertical-padding: 6px;
+}
+
 button {
     background-color: rgb(51, 185, 230);
-    border-radius: 17px;
-    border: 1px solid rgb(136, 213, 239);
+    border-color: rgb(39, 164, 207);
     color: white;
-    padding: 7px 12px;
-    text-transform: uppercase;
 }
 
 /* see .is-clickable */
 button:active {
     transform: scale(.985);
-    opacity: .9;
+}
+
+button,
+.tag {
+    border-width: 2px;
+    border-style: solid;
+    padding: var(--inline-element-vertical-padding) var(--inline-element-horizontal-padding);
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 15px;
+    font-size: var(--font-size-normal);
+    margin-bottom: var(--inline-element-gutter);
+    margin-right: var(--inline-element-gutter);
+}
+
+buttons,
+tags {
+    display: inline-block;
+    font-size: 0;
+    margin-bottom: -var(--inline-element-gutter);
 }

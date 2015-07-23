@@ -10,5 +10,4 @@
 
 .is-clickable:active {
     transform: scale(.985);
-    opacity: .9;
 }

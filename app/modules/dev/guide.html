@@ -2,8 +2,10 @@
     <h1>button</h1>
 
     <div markup>
-        <button>follow</button>
-        <button>+</button>
+        <buttons>
+            <button>follow</button>
+            <button>+</button>
+        </buttons>
     </div>
 </section>
 
@@ -24,7 +26,11 @@
     </div>
 
     <div markup>
-        <tag ng-repeat="tag in tags" class="{{::tag.type}}" label="{{::tag.label}}"></tag>
+        <tags>
+            <tag class="bad" label="illegal fishing"></tag>
+            <tag class="good" label="enviroenvironmental awareness"></tag>
+            <tag ng-repeat="tag in tags" class="{{::tag.type}}" label="{{::tag.label}}"></tag>
+        </tags>
     </div>
 </section>
 
