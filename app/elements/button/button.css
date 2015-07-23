@@ -3,22 +3,11 @@ button {
     border-radius: 17px;
     border: 1px solid rgb(136, 213, 239);
     color: white;
-    font-size: 12px;
     padding: 7px 12px;
     text-transform: uppercase;
 }
 
-.is-non-selectable {
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-}
-
-.is-clickable {
-    cursor: pointer;
-}
-
-.is-clickable:active,
+/* see .is-clickable */
 button:active {
     transform: scale(.985);
     opacity: .9;

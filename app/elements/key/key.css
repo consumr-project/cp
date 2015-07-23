@@ -1,6 +1,5 @@
 .key {
     display: inline-block;
-    font-size: 14px;
     margin-right: 15px;
     font-weight: bold;
 }
@@ -14,17 +13,17 @@
 }
 
 .key.good {
-    color: rgb(73, 152, 138);
+    color: var(--color-good);
 }
 
 .key.good::before {
-    background-color: rgb(73, 152, 138);
+    background-color: var(--color-good);
 }
 
 .key.bad {
-    color: rgb(232, 38, 59);
+    color: var(--color-bad);
 }
 
 .key.bad::before {
-    background-color: rgb(232, 38, 59);
+    background-color: var(--color-bad);
 }

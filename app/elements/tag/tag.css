@@ -3,7 +3,6 @@
     border-style: solid;
     border-width: 2px;
     display: inline-block;
-    font-size: 13px;
     margin-bottom: 6px;
     margin-right: 5px;
     padding: 6px 11px;
@@ -11,11 +10,11 @@
 }
 
 .tag.good {
-    border-color: rgb(73, 152, 138);
-    color: rgb(73, 152, 138);
+    border-color: var(--color-good);
+    color: var(--color-good);
 }
 
 .tag.bad {
-    border-color: rgb(232, 38, 59);
-    color: rgb(232, 38, 59);
+    border-color: var(--color-bad);
+    color: var(--color-bad);
 }

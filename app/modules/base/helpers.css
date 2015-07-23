@@ -1,0 +1,14 @@
+.is-non-selectable {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.is-clickable {
+    cursor: pointer;
+}
+
+.is-clickable:active {
+    transform: scale(.985);
+    opacity: .9;
+}
