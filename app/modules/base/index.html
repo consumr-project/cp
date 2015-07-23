@@ -9,30 +9,29 @@
         <title>the consumer project</title>
         <base href="/">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link rel="stylesheet" href="/node_modules/normalize.css/normalize.css">
-        <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
+        <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+        <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
 
-        <link rel="stylesheet" href="/public/css/base.css">
-        <link rel="stylesheet" href="/public/css/indicators.css">
+        <link rel="stylesheet" href="app/modules/base/main.css">
 
         <!-- vendor -->
-        <script src="/node_modules/reqwest/reqwest.min.js"></script>
-        <script src="/node_modules/rangy/lib/rangy-core.js"></script>
-        <script src="/node_modules/rangy/lib/rangy-classapplier.js"></script>
-        <script src="/node_modules/rangy/lib/rangy-highlighter.js"></script>
-        <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="/node_modules/lodash/index.js"></script>
-        <script src="/node_modules/angular/angular.min.js"></script>
-        <script src="/node_modules/angular-route/angular-route.min.js"></script>
-        <script src="/node_modules/angular-aria/angular-aria.min.js"></script>
-        <script src="/node_modules/firebase-bower/firebase.js"></script>
-        <script src="/node_modules/q/q.js"></script>
+        <script src="node_modules/reqwest/reqwest.min.js"></script>
+        <script src="node_modules/rangy/lib/rangy-core.js"></script>
+        <script src="node_modules/rangy/lib/rangy-classapplier.js"></script>
+        <script src="node_modules/rangy/lib/rangy-highlighter.js"></script>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="node_modules/lodash/index.js"></script>
+        <script src="node_modules/angular/angular.min.js"></script>
+        <script src="node_modules/angular-route/angular-route.min.js"></script>
+        <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+        <script src="node_modules/firebase-bower/firebase.js"></script>
+        <script src="node_modules/q/q.js"></script>
     </head>
     <body ng-app="tcp" ng-strict-di>
         <div ng-view></div>
 
         {% if debugging %}
-        <script src="/node_modules/ng-stats/dist/ng-stats.min.js"></script>
+        <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
         <script>
         DEBUGGING = true;
 
@@ -49,30 +48,30 @@
         {% endif %}
 
         <!-- app -->
-        <script src="/app/services/api.js"></script>
-        <script src="/app/services/extract.js"></script>
-        <script src="/app/services/wikipedia.js"></script>
-        <script src="/app/services/highlighter.js"></script>
-        <script src="/app/services/utils.js"></script>
-        <script src="/app/services/entity.js"></script>
-        <script src="/app/modules/base/main.js"></script>
-        <script src="/app/modules/base/routes.js"></script>
+        <script src="app/services/api.js"></script>
+        <script src="app/services/extract.js"></script>
+        <script src="app/services/wikipedia.js"></script>
+        <script src="app/services/highlighter.js"></script>
+        <script src="app/services/utils.js"></script>
+        <script src="app/services/entity.js"></script>
+        <script src="app/modules/base/main.js"></script>
+        <script src="app/modules/base/routes.js"></script>
 
-        <script src="/app/elements/indicator/indicator.js"></script>
-        <link rel="stylesheet" href="/app/elements/indicator/indicator.css">
+        <script src="app/elements/indicator/indicator.js"></script>
+        <link rel="stylesheet" href="app/elements/indicator/indicator.css">
 
-        <script src="/app/elements/tag/tag.js"></script>
-        <link rel="stylesheet" href="/app/elements/tag/tag.css">
+        <script src="app/elements/tag/tag.js"></script>
+        <link rel="stylesheet" href="app/elements/tag/tag.css">
 
-        <script src="/app/elements/key/key.js"></script>
-        <link rel="stylesheet" href="/app/elements/key/key.css">
+        <script src="app/elements/key/key.js"></script>
+        <link rel="stylesheet" href="app/elements/key/key.css">
 
-        <link rel="stylesheet" href="/app/elements/button/button.css">
+        <link rel="stylesheet" href="app/elements/button/button.css">
 
         {% if debugging %}
-        <script src="/app/modules/dev/guide.js"></script>
-        <script src="/app/modules/dev/markup.js"></script>
-        <link rel="stylesheet" href="/app/modules/dev/guide.css">
+        <script src="app/modules/dev/guide.js"></script>
+        <script src="app/modules/dev/markup.js"></script>
+        <link rel="stylesheet" href="app/modules/dev/guide.css">
         {% endif %}
     </body>
 </html>
