@@ -2,6 +2,7 @@
     display: inline-block;
     font-weight: bold;
     height: 26px;
+    line-height: calc(var(--font-size-normal) - 2);
     text-align: center;
     vertical-align: middle;
 }

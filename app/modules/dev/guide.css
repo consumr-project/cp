@@ -17,3 +17,7 @@
 [guide-controls] {
     margin-bottom: 20px;
 }
+
+h1[guide-section] {
+    margin: 20px 0;
+}
