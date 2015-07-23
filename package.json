@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "make build && NODE_ENV=development node server",
-    "dev":   "make build && NODE_ENV=development DEBUG=* node server"
+    "start": "make run"
   },
   "repository": {
     "type": "git",
