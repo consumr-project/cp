@@ -1,4 +1,4 @@
-.indicator {
+indicator {
     display: inline-block;
     font-weight: bold;
     height: 26px;
@@ -7,25 +7,25 @@
     vertical-align: middle;
 }
 
-.indicator.indicator-highlights,
-.indicator.indicator-counter {
+indicator.indicator-highlights,
+indicator.indicator-counter {
     padding: 5px;
     min-width: 26px;
 }
 
-.indicator.indicator-highlights {
+indicator.indicator-highlights {
     background-color: rgb(253, 226, 72);
     border: 1px solid rgb(252, 220, 41);
 }
 
-.indicator.indicator-counter {
+indicator.indicator-counter {
     background-color: rgb(232, 38, 59);
     border-radius: 50%;
     border: 1px solid rgb(224, 0, 24);
     color: white;
 }
 
-.indicator.indicator-useful::before {
+indicator.indicator-useful::before {
     background-image: url(/app/elements/indicator/images/heart.svg);
     background-position: 0;
     box-sizing: border-box;
@@ -38,11 +38,11 @@
     width: 24px;
 }
 
-.indicator + .indicator {
+indicator + indicator {
     margin-left: 10px;
 }
 
-.tag .indicator {
+tag indicator {
     position: absolute;
     right: -12px;
     top: -14px;

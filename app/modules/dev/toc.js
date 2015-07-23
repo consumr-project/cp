@@ -15,7 +15,7 @@ angular.module('tcp').directive('toc', function () {
                     .text(label)
                     .appendTo($items)
                     .addClass('toc--item')
-                    .attr('tabIndex', '0')
+                    .attr('tabindex', '0')
                     .on('click keypress', function () {
                         $body.animate({
                             scrollTop: $this.offset().top - 30

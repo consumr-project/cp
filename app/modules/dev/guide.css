@@ -8,6 +8,7 @@
 
 [markup] pre {
     background-color: rgb(249, 249, 249);
+    border: none;
     font-family: monospace;
     line-height: 16px;
     margin: 15px -10px 0 -10px;

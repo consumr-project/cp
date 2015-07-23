@@ -2,11 +2,14 @@ angular.module('tcp').directive('tag', function () {
     'use strict';
 
     return {
-        replace: true,
         transclude: true,
-        template: '<div class="tag is-clickable is-non-selectable" tabindex="0">{{::label}}<ng-transclude></ng-transclude></div>',
+        template: '{{::label}}<ng-transclude></ng-transclude>',
         scope: {
             label: '@'
+        },
+        link: function (scope, elem) {
+            elem.attr('tabindex', '0');
+            elem.addClass('is-clickable is-non-selectable');
         }
     };
 });

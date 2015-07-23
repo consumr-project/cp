@@ -1,13 +1,13 @@
-.tag {
+tag {
     display: inline-block;
 }
 
-.tag.good {
+tag.good {
     border-color: var(--color-good);
     color: var(--color-good);
 }
 
-.tag.bad {
+tag.bad {
     border-color: var(--color-bad);
     color: var(--color-bad);
 }

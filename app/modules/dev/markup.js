@@ -61,11 +61,16 @@ angular.module('tcp').directive('markup', function () {
         compile: function (elem, attrs) {
             var node = elem[0],
                 snippet = document.createElement('pre'),
+                snippetContent = document.createElement('code'),
                 content = removeLeadingWhitespace(node.innerHTML);
 
             return function () {
+                snippet.appendChild(snippetContent);
                 node.appendChild(snippet);
-                snippet.innerText = content;
+
+                Rainbow.color(content, 'html', function (code) {
+                    snippetContent.innerHTML = code;
+                });
             };
         }
     };
