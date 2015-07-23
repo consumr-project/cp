@@ -2,7 +2,9 @@
     display: inline-block;
     font-size: 12px;
     font-weight: bold;
+    height: 26px;
     text-align: center;
+    vertical-align: middle;
 }
 
 .indicator.indicator-highlights,
@@ -26,12 +28,13 @@
 .indicator.indicator-useful::before {
     background-image: url(/app/modules/common//indicators/heart.svg);
     background-position: 0;
+    box-sizing: border-box;
     content: '';
     display: inline-block;
-    height: 23px;
-    margin-right: 3px;
+    height: 100%;
+    margin-right: 6px;
     position: relative;
-    top: 8px;
+    vertical-align: middle;
     width: 24px;
 }
 
