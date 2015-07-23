@@ -1,7 +1,7 @@
 angular.module('tcp').directive('indicator', function () {
     return {
         replace: true,
-        template: '<div>{{value}}</div>',
+        template: '<div class="is-clickable">{{value}}</div>',
         scope: {
             value: '='
         },
