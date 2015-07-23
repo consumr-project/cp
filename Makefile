@@ -10,7 +10,7 @@ install:
 	npm install
 
 deploy:
-	git push origin heroku
+	git push heroku master
 
 run: build
 	node server
