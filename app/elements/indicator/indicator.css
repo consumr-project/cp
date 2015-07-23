@@ -41,3 +41,10 @@
 .indicator + .indicator {
     margin-left: 10px;
 }
+
+.tag .indicator {
+    position: absolute;
+    right: -12px;
+    top: -14px;
+    transform: scale(.9);
+}
