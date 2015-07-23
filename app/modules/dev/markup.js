@@ -1,6 +1,8 @@
 angular.module('tcp').directive('markup', function () {
     'use strict';
 
+    /* global Rainbow */
+
     /**
      * @param {String} str
      * @return {String}

@@ -5,13 +5,13 @@ angular.module('tcp').directive('toc', function () {
         template: '<div class="toc--items"></div>',
         link: function (scope, elem) {
             var $items = elem.find('.toc--items'),
-                $body = $('html, body');
+                $body = angular.element('html, body');
 
-            $('[guide-section]').each(function () {
-                var $this = $(this),
+            angular.element('[guide-section]').each(function () {
+                var $this = angular.element(this),
                     label = $this.text();
 
-                $('<div></div>')
+                angular.element('<div></div>')
                     .text(label)
                     .appendTo($items)
                     .addClass('toc--item')

@@ -61,7 +61,7 @@
                 .orderByChild('guid')
                 .equalTo(guid)
                 .limitToFirst(1);
-        };
+        }
 
         search.on('value', function (res) {
             var entity = res.val(),

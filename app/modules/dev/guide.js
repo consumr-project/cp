@@ -10,7 +10,7 @@ angular.module('tcp').controller('guideController', [
             $scope.tags.push({
                 counter: parseInt(Math.random() * 100),
                 label: 'Tag #' + ($scope.tags.length + 1),
-                type: Math.random() > .5 ? 'good' : 'bad'
+                type: Math.random() > 0.5 ? 'good' : 'bad'
             });
         };
 
@@ -18,7 +18,8 @@ angular.module('tcp').controller('guideController', [
             $scope.counter++;
         };
 
-        for (var i = 0; i < 2; i++)
+        for (var i = 0; i < 2; i++) {
             $scope.addTag();
+        }
     }
 ]);
