@@ -9,7 +9,7 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0;
+    margin: 10px 0;
 }
 
 h1 {
@@ -30,4 +30,23 @@ h3 {
 h4 {
     font-size: 12px;
     line-height: 14px;
+}
+
+a,
+a:visited {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.subtitle {
+    color: gray;
+    font-weight: 500;
 }

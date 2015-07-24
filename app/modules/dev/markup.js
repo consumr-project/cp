@@ -1,4 +1,4 @@
-angular.module('tcp').directive('markup', function () {
+angular.module('tcp').directive('markup', ['$compile', function ($compile) {
     'use strict';
 
     /* global Rainbow */
@@ -66,14 +66,19 @@ angular.module('tcp').directive('markup', function () {
                 snippetContent = document.createElement('code'),
                 content = removeLeadingWhitespace(node.innerHTML);
 
-            return function () {
+            return function (scope) {
+                if (attrs.output) {
+                    content = scope.$eval(attrs.output);
+                    node.innerHTML = '';
+                }
+
                 snippet.appendChild(snippetContent);
                 node.appendChild(snippet);
 
-                Rainbow.color(content, 'html', function (code) {
+                Rainbow.color(content, attrs.lang || 'html', function (code) {
                     snippetContent.innerHTML = code;
                 });
             };
         }
     };
-});
+}]);

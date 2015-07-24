@@ -6,6 +6,33 @@ angular.module('tcp').controller('guideController', [
         $scope.counter = 42;
         $scope.tags = [];
 
+        $scope.articles = [
+            {
+                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
+                source: 'bloomberg.com',
+                release_date: '12 July, 2015',
+                useful_counter: 43,
+                url: '#',
+                external_url: '#'
+            },
+            {
+                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
+                source: 'bloomberg.com',
+                release_date: '12 July, 2015',
+                useful_counter: 43,
+                url: '#',
+                external_url: '#'
+            },
+            {
+                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
+                source: 'bloomberg.com',
+                release_date: '12 July, 2015',
+                useful_counter: 43,
+                url: '#',
+                external_url: '#'
+            }
+        ];
+
         $scope.addTag = function () {
             $scope.tags.push({
                 counter: parseInt(Math.random() * 100),

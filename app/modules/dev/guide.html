@@ -1,6 +1,15 @@
 <toc class="animated fadeIn"></toc>
 
 <section>
+    <h1 guide-section>articles</h1>
+
+    <div markup>
+        <article ng-repeat="article in articles" info="article" short="true"></article>
+    </div>
+    <div markup output="articles | json" lang="javascript"></div>
+</section>
+
+<section>
     <h1 guide-section>avatar</h1>
 
     <div markup>
