@@ -17,4 +17,4 @@ make deploy
 
 ### thanks
 
-* Edward Boatman for the [avatar icon](https://thenounproject.com/search/?q=face&i=67226)
+* Edward Boatman for the [face icon](https://thenounproject.com/search/?q=face&i=67226)
