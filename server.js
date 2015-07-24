@@ -31,14 +31,12 @@ app.get('/extract', function (req, res) {
     });
 });
 
-switch (process.env.NODE_ENV) {
-    case 'development':
-        app.use('/app', serve_index('app'));
-        app.use('/public', serve_index('public'));
-        app.use(error_handler());
-        app.set('view cache', false);
-        swig.setDefaults({ cache: false });
-        break;
+if (process.env.NODE_ENV === 'development' || !!process.env.DEBUG) {
+    app.use('/app', serve_index('app'));
+    app.use('/public', serve_index('public'));
+    app.use(error_handler());
+    app.set('view cache', false);
+    swig.setDefaults({ cache: false });
 }
 
 app.get('*', render('base/index', {

@@ -14,3 +14,7 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 make deploy
 ```
+
+### thanks
+
+* Edward Boatman for the [avatar icon](https://thenounproject.com/search/?q=face&i=67226)
