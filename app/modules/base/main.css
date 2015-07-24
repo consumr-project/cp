@@ -53,5 +53,6 @@ body * {
 @import url("../../elements/key/key.css");
 @import url("../../elements/tag/tag.css");
 @import url("../../elements/button/button.css");
+@import url("../../elements/button/groups-of.css");
 @import url("../../elements/indicator/indicator.css");
 @import url("../../elements/avatar/avatar.css");

@@ -20,18 +20,8 @@ tag {
     border-radius: 15px;
     border-style: solid;
     border-width: 2px;
-    font-size: var(--font-size-normal);
-    margin-bottom: var(--inline-element-gutter);
-    margin-right: var(--inline-element-gutter);
     padding: var(--inline-element-vertical-padding) var(--inline-element-horizontal-padding);
     position: relative;
     text-align: center;
     text-transform: uppercase;
-}
-
-buttons,
-tags {
-    display: inline-block;
-    font-size: 0;
-    margin-bottom: -var(--inline-element-gutter);
 }

@@ -1,0 +1,15 @@
+avatar,
+button,
+tag {
+    font-size: var(--font-size-normal);
+    margin-bottom: var(--inline-element-gutter);
+    margin-right: var(--inline-element-gutter);
+}
+
+avatars,
+buttons,
+tags {
+    display: inline-block;
+    font-size: 0;
+    margin-bottom: -var(--inline-element-gutter);
+}

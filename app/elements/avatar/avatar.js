@@ -6,8 +6,10 @@ angular.module('tcp').directive('avatar', function () {
     }
 
     return {
-        template: '<div class="avatar--image"></div>',
+        template: '<div class="avatar--image animated fadeIn"></div>',
         link: function (scope, elem, attrs) {
+            var title = [];
+
             elem.attr('tabindex', '0');
             elem.addClass('is-clickable is-non-selectable');
 
@@ -16,16 +18,20 @@ angular.module('tcp').directive('avatar', function () {
             }
 
             if (attrs.name) {
+                title.push(attrs.name);
                 angular.element('<div class="avatar--name"></div>')
                     .text(attrs.name)
                     .appendTo(elem);
             }
 
             if (attrs.title) {
+                title.push(attrs.title);
                 angular.element('<div class="avatar--title"></div>')
                     .text(attrs.title)
                     .appendTo(elem);
             }
+
+            elem.attr('title', title.join(' - '));
         }
     };
 });
