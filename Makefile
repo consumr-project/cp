@@ -46,6 +46,6 @@ run: build
 	node server
 
 clean:
-	rm -r static
+	-rm -r static
 
 build: clean build-css build-js
