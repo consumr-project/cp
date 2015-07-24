@@ -42,7 +42,7 @@ switch (process.env.NODE_ENV) {
 }
 
 app.get('*', render('base/index', {
-    debugging: process.env.NODE_ENV === 'development'
+    debugging: !!process.env.DEBUG
 }));
 
 app.listen(process.env.PORT || 3000);
