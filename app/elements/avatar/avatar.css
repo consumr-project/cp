@@ -1,5 +1,7 @@
 avatar {
     display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .avatar--image {
