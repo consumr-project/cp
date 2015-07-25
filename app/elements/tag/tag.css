@@ -11,3 +11,20 @@ tag.bad {
     border-color: var(--color-bad);
     color: var(--color-bad);
 }
+
+tags {
+    width: 100%;
+}
+
+tags .tags--tags {
+    transition: height .3s, opacity .3s;
+}
+
+tags button {
+    margin-bottom: 15px;
+}
+
+tags button .tags--label {
+    margin-left: 15px;
+    text-transform: lowercase;
+}
