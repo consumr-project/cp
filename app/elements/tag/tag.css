@@ -2,6 +2,10 @@ tag {
     display: inline-block;
 }
 
+tag * {
+    vertical-align: text-top;
+}
+
 tag.good {
     border-color: var(--color-good);
     color: var(--color-good);

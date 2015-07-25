@@ -6,8 +6,9 @@
 
 .is-clickable {
     cursor: pointer;
+    transition: transform .1s;
 }
 
 .is-clickable:active {
-    transform: scale(.985);
+    transform: scale(.99);
 }

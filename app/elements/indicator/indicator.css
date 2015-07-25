@@ -23,6 +23,9 @@ indicator.indicator-counter {
     border-radius: 50%;
     border: 1px solid rgb(224, 0, 24);
     color: white;
+    height: 30px;
+    padding: 7px 0 0 0;
+    width: 30px;
 }
 
 indicator.indicator-useful::before {

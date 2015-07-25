@@ -14,6 +14,10 @@ tags {
     margin-bottom: -var(--inline-element-gutter);
 }
 
+tags ng-transclude {
+    font-size: 0;
+}
+
 avatars *,
 buttons *,
 tags * {
