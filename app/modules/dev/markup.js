@@ -67,15 +67,15 @@ angular.module('tcp').directive('markup', ['$compile', function ($compile) {
                 content = removeLeadingWhitespace(node.innerHTML);
 
             return function (scope) {
-                if (attrs.output) {
-                    content = scope.$eval(attrs.output);
+                if (attrs.eval) {
+                    content = scope.$eval(attrs.eval);
                     node.innerHTML = '';
                 }
 
                 snippet.appendChild(snippetContent);
                 node.appendChild(snippet);
 
-                Rainbow.color(content, attrs.lang || 'html', function (code) {
+                Rainbow.color(content, attrs.markup || 'html', function (code) {
                     snippetContent.innerHTML = code;
                 });
             };

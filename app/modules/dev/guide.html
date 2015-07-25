@@ -1,4 +1,15 @@
-<toc class="animated fadeIn"></toc>
+<toc></toc>
+
+<section>
+    <h1 guide-section>icons</h1>
+
+    <div class="guide-large-icons">
+        <div ng-repeat="icon in icons">
+            <span class="icon-{{icon.properties.name}}"></span>
+            <span class="icons--label">.icon-{{icon.properties.name}}</span>
+        </div>
+    </div>
+</section>
 
 <section>
     <h1 guide-section>articles</h1>
@@ -6,7 +17,7 @@
     <div markup>
         <article ng-repeat="article in articles" info="article" short="true"></article>
     </div>
-    <div markup output="articles | json" lang="javascript"></div>
+    <div markup="javascript" eval="articles | json"></div>
 </section>
 
 <section>
@@ -90,7 +101,9 @@
     <div markup>
         <buttons>
             <button>follow</button>
-            <button>+</button>
+            <button class="icon-plus"></button>
+            <button class="inverted inlined icon-menu"></button>
+            <button class="text inlined icon-menu"></button>
         </buttons>
     </div>
 </section>

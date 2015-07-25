@@ -10,6 +10,24 @@ button {
     color: white;
 }
 
+button.text {
+    background-color: white;
+    border-color: white;
+    color: black;
+}
+
+button.inverted {
+    background-color: white;
+    border-color: white;
+    color: rgb(51, 185, 230);
+}
+
+button.inlined {
+    font-size: 29px;
+    height: 32px;
+    padding: 0;
+}
+
 /* see .is-clickable */
 button:active {
     transform: scale(.985);
@@ -24,4 +42,9 @@ tag {
     position: relative;
     text-align: center;
     text-transform: uppercase;
+}
+
+button[class^=icon-] {
+    padding: calc(var(--inline-element-vertical-padding) + 1) calc(var(--inline-element-vertical-padding) + 1) calc(var(--inline-element-vertical-padding) + 2) calc(var(--inline-element-vertical-padding) + 2);
+    border-radius: 50%;
 }

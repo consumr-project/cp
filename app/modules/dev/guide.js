@@ -1,6 +1,7 @@
 angular.module('tcp').controller('guideController', [
     '$scope',
-    function ($scope) {
+    '$http',
+    function ($scope, $http) {
         'use strict';
 
         $scope.counter = 42;
@@ -48,5 +49,9 @@ angular.module('tcp').controller('guideController', [
         for (var i = 0; i < 2; i++) {
             $scope.addTag();
         }
+
+        $http.get('/public/icons/selection.json').then(function (res) {
+            $scope.icons = res.data.icons;
+        });
     }
 ]);

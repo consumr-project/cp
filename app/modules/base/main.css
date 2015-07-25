@@ -56,4 +56,5 @@ body * {
 @import url("../../elements/button/groups-of.css");
 @import url("../../elements/indicator/indicator.css");
 @import url("../../elements/avatar/avatar.css");
+@import url("../../../public/icons/style.css");
 @import url("../article/article.css");
