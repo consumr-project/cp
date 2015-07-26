@@ -7,9 +7,15 @@ built_css = $(built_dir)/site.css
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
+ifdef DEBUG
+	css_options = $(shell test -z "$DEBUG" || echo "--sourcemap")
+else
+	css_options =
+endif
+
 build-css:
 	./node_modules/.bin/cssnext app/modules/base/main.css $(built_css) \
-		--compress --sourcemap
+		--compress $(css_options)
 
 build-js:
 	echo "" > $(built_vendor_js)

@@ -1,9 +1,10 @@
 # the consumer project
 
-local installation
+local installation. declaring `DEBUG=*` will enable sourcemaps for `build` and
+server logging and client side perf for `run`.
 
 ```bash
-make build
+DEBUG=* make build
 DEBUG=* make run
 ```
 
