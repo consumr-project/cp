@@ -6,6 +6,10 @@
     padding: 15px 10px 0 10px;
 }
 
+[markup] + [markup] {
+    margin-top: -20px;
+}
+
 [markup] pre {
     background-color: rgb(249, 249, 249);
     border: none;
