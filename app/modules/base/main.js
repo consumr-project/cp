@@ -2,9 +2,14 @@
 (function () {
     'use strict';
 
-    var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp');
+    var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp'),
+        deps = ['ngRoute', 'ngAria'];
 
-    angular.module('tcp', ['ngRoute', 'ngAria']);
+    if (window.DEBUGGING) {
+        deps.push('rector');
+    }
+
+    angular.module('tcp', deps);
     angular.module('tcp').constant('DEBUGGING', !!window.DEBUGGING);
     angular.module('tcp').value('wikipedia', wikipedia);
     angular.module('tcp').value('extract', extract);

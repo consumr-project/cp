@@ -38,6 +38,7 @@
     "Rainbow": "ccampbell/rainbow",
     "cssnext": "^1.8.1",
     "jsmin": "^1.0.1",
-    "ng-stats": "^2.2.0"
+    "ng-stats": "^2.2.0",
+    "rector": "minond/rector"
   }
 }

@@ -1,29 +1,19 @@
-<toc></toc>
+<rector-toc></rector-toc>
 
-<section>
-    <h1 guide-section>icons</h1>
+<rector-section>
+    <rector-section-label>articles</rector-section-label>
 
-    <div class="guide-large-icons">
-        <div ng-repeat="icon in icons">
-            <span class="icon-{{icon.properties.name}}"></span>
-            <span class="icons--label">.icon-{{icon.properties.name}}</span>
-        </div>
-    </div>
-</section>
-
-<section>
-    <h1 guide-section>articles</h1>
-
-    <div markup>
+    <rector-markup>
         <article ng-repeat="article in articles" info="article" short="true"></article>
-    </div>
-    <div markup="javascript" eval="articles | json"></div>
-</section>
+    </rector-markup>
 
-<section>
-    <h1 guide-section>avatar</h1>
+    <rector-markup rector-markup-continuation rector-lang="javascript" rector-eval="articles | json"></rector-markup>
+</rector-section>
 
-    <div markup>
+<rector-section>
+    <rector-section-label>avatar</rector-section-label>
+
+    <rector-markup class="guide-block-avatars">
         <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
 
         <avatar name="Albert Einstein" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
@@ -31,9 +21,9 @@
         <avatar name="Albert Einstein"></avatar>
 
         <avatar title="Theoretical Physicist"></avatar>
-    </div>
+    </rector-markup>
 
-    <div markup>
+    <rector-markup>
         <avatars>
             <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
 
@@ -43,26 +33,26 @@
 
             <avatar title="Theoretical Physicist"></avatar>
         </avatars>
-    </div>
-</section>
+    </rector-markup>
+</rector-section>
 
-<section>
-    <h1 guide-section>key</h1>
+<rector-section>
+    <rector-section-label>key</rector-section-label>
 
-    <div markup>
+    <rector-markup>
         <key label="good stuff" class="good"></key>
         <key label="bad stuff" class="bad"></key>
-    </div>
-</section>
+    </rector-markup>
+</rector-section>
 
-<section>
-    <h1 guide-section>tag</h1>
+<rector-section>
+    <rector-section-label>tag</rector-section-label>
 
-    <div guide-controls>
+    <rector-section-controls>
         <button ng-click="addTag()">add tag</button>
-    </div>
+    </rector-section-controls>
 
-    <div markup>
+    <rector-markup>
         <tags>
             <tag class="bad" label="illegal fishing">
                 <indicator type="counter" value="54"></indicator>
@@ -78,51 +68,50 @@
                 <indicator type="counter" value="::tag.counter"></indicator>
             </tag>
         </tags>
-    </div>
-</section>
+    </rector-markup>
+</rector-section>
 
-<section>
-    <h1 guide-section>indicator</h1>
+<rector-section>
+    <rector-section-label>indicator</rector-section-label>
 
-    <div guide-controls>
+    <rector-section-controls>
         <button ng-click="incrementCounter()">increment counter</button>
-    </div>
+    </rector-section-controls>
 
-    <div markup>
+    <rector-markup>
         <indicator type="counter" value="counter"></indicator>
         <indicator type="highlights" value="counter"></indicator>
         <indicator type="useful" value="counter"></indicator>
-    </div>
-</section>
+    </rector-markup>
+</rector-section>
 
-<section>
-    <h1 guide-section>button</h1>
+<rector-section>
+    <rector-section-label>button</rector-section-label>
 
-    <div markup>
+    <rector-markup>
         <buttons>
             <button>follow</button>
-            <button class="icon-plus"></button>
             <button class="inverted inlined icon-menu"></button>
             <button class="text inlined icon-menu"></button>
         </buttons>
-    </div>
-</section>
+    </rector-markup>
+</rector-section>
 
-<section>
-    <h1 guide-section>type</h1>
+<rector-section>
+    <rector-section-label>type</rector-section-label>
 
-    <div markup>
-        <a href="#nowhere">a link</a>
-    </div>
+    <rector-markup>
+        <a href="#">a link</a>
+    </rector-markup>
 
-    <div markup>
+    <rector-markup>
         <h1>Header 1</h1>
         <h2>Header 2</h2>
         <h3>Header 3</h3>
         <h4>Header 4</h4>
-    </div>
+    </rector-markup>
 
-    <div markup>
+    <rector-markup>
         <p>Habitant morbi tristique senectus et netus et malesuada fames
             ac turpis egestas. Duis ultricies urna. Etiam enim urna, pharetra
             suscipit, varius et, congue quis, odio. Donec lobortis, elit
@@ -136,5 +125,16 @@
             tempor non, posuere nec, libero. Vestibulum vel ipsum. Praesent
             congue justo et nunc. Vestibulum nec felis vitae nisl pharetra
             sollicitudin.  Quisque.</p>
+    </rector-markup>
+</rector-section>
+
+<rector-section rector-section-stand-alone>
+    <rector-section-label>icons</rector-section-label>
+
+    <div class="guide-large-icons">
+        <div ng-repeat="icon in icons">
+            <span class="icon-{{icon.properties.name}}"></span>
+            <span class="icons--label">.icon-{{icon.properties.name}}</span>
+        </div>
     </div>
-</section>
+</rector-section>
