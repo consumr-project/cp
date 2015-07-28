@@ -1,7 +1,9 @@
 :root {
     --inline-element-gutter: 6px;
-    --inline-element-horizontal-padding: 11px;
-    --inline-element-vertical-padding: 6px;
+    --inline-element-top-padding: 6px;
+    --inline-element-bottom-padding: 5px;
+    --inline-element-right-padding: 11px;
+    --inline-element-left-padding: 11px;
 }
 
 button {
@@ -38,13 +40,21 @@ tag {
     border-radius: 15px;
     border-style: solid;
     border-width: 1px;
-    padding: var(--inline-element-vertical-padding) var(--inline-element-horizontal-padding);
+    padding:
+        var(--inline-element-top-padding)
+        var(--inline-element-right-padding)
+        var(--inline-element-bottom-padding)
+        var(--inline-element-left-padding);
     position: relative;
     text-align: center;
     text-transform: uppercase;
 }
 
 button[class^=icon-] {
-    padding: calc(var(--inline-element-vertical-padding) + 1) calc(var(--inline-element-vertical-padding) + 1) calc(var(--inline-element-vertical-padding) + 2) calc(var(--inline-element-vertical-padding) + 2);
     border-radius: 50%;
+    padding:
+        calc(var(--inline-element-top-padding) + 1)
+        calc(var(--inline-element-right-padding) + 1)
+        calc(var(--inline-element-bottom-padding) + 2)
+        calc(var(--inline-element-left-padding) + 2);
 }

@@ -39,11 +39,3 @@ avatars .avatar--name,
 avatars .avatar--title {
     display: none;
 }
-
-[markup] > avatar {
-    display: block;
-}
-
-[markup] > avatar + avatar {
-    margin-top: 15px;
-}

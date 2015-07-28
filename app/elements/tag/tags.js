@@ -15,7 +15,7 @@ angular.module('tcp').directive('tags', function () {
     return {
         transclude: true,
         template: [
-            '<button class="text inlined" ng-click="toggleTags()">',
+            '<button class="text" ng-click="toggleTags()">',
                 '<span class="icon-plus"></span>',
                 '<span class="tags--label"">tags</span>',
             '</button>',
