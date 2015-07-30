@@ -17,10 +17,10 @@ angular.module('tcp').config([
         //     controller: 'searchController'
         // });
 
-        $routeProvider.when('/company/:guid?', {
-            templateUrl: '/app/modules/company/company.html',
-            controller: 'companyController'
-        });
+        // $routeProvider.when('/company/:guid?', {
+        //     templateUrl: '/app/modules/company/company.html',
+        //     controller: 'companyController'
+        // });
 
         // $routeProvider.when('/company/:companyGuid/post/:guid?', {
         //     templateUrl: '/app/modules/post/post.html',
