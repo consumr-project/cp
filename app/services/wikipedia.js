@@ -65,6 +65,9 @@
                 best.extract_no_refs = best.extract && _.filter(best.extract.split(extract_delim),
                     isNotReference).join(extract_delim);
 
+                best.extract_no_ref_parts = !best.extract_no_refs ? [] :
+                    best.extract_no_refs.split(extract_delim);
+
                 break;
             }
 

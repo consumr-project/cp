@@ -1,1 +1,2 @@
-<input type="text" ng-model="company.name" />
+<input type="text" ng-model="company.name" ng-model-options="{ updateOn: 'blur' }" />
+<p ng-repeat="paragraph in company.$descriptionParts">{{paragraph}}</p>
