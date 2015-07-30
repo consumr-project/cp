@@ -9,6 +9,7 @@
     transition: transform .1s;
 }
 
+button:active,
 .is-clickable:active {
-    transform: scale(.99);
+    transform: translateY(1px);
 }
