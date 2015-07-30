@@ -14,7 +14,7 @@ else
 endif
 
 build-css:
-	./node_modules/.bin/cssnext app/modules/base/main.css $(built_css) \
+	./node_modules/.bin/cssnext app/elements/main.css $(built_css) \
 		--compress $(css_options)
 
 build-js:

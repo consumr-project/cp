@@ -1,0 +1,52 @@
+:root {
+    --font-height-normal: 16px;
+    --font-size-normal: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 37px;
+}
+
+h2 {
+    font-size: 21px;
+    line-height: 23px;
+}
+
+h3 {
+    font-size: 17px;
+    line-height: 19px;
+}
+
+h4 {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+a,
+a:visited {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.subtitle {
+    color: gray;
+    font-weight: 500;
+}
