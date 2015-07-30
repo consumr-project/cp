@@ -7,7 +7,7 @@ angular.module('tcp').config([
 
         if (DEBUGGING) {
             $routeProvider.when('/guide', {
-                templateUrl: '/app/modules/dev/guide.html',
+                templateUrl: '/app/modules/dev/index.html',
                 controller: 'guideController'
             });
         }
@@ -17,10 +17,10 @@ angular.module('tcp').config([
         //     controller: 'searchController'
         // });
 
-        // $routeProvider.when('/company/:guid?', {
-        //     templateUrl: '/app/modules/company/company.html',
-        //     controller: 'companyController'
-        // });
+        $routeProvider.when('/company/:guid?', {
+            templateUrl: '/app/modules/company/company.html',
+            controller: 'companyController'
+        });
 
         // $routeProvider.when('/company/:companyGuid/post/:guid?', {
         //     templateUrl: '/app/modules/post/post.html',
