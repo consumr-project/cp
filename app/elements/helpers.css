@@ -13,3 +13,11 @@ button:active,
 .is-clickable:active {
     transform: translateY(1px);
 }
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}

@@ -4,6 +4,11 @@
 @import url("./colors.css");
 @import url("./type.css");
 
+:root {
+    --body-padding-top: 10px;
+}
+
+
 @font-face {
     font-family: 'Raleway';
     font-style: normal;
@@ -32,7 +37,7 @@ body {
     line-height: var(--font-height-normal);
     margin: 0 auto;
     max-width: 800px;
-    padding: 10px 20px 60px 20px;
+    padding: var(--body-padding-top) 20px 60px 20px;
 }
 
 body * {
@@ -46,10 +51,34 @@ body * {
     text-shadow: none;
 }
 
+.tcp-logo {
+    font-size: 20px;
+    font-family: "Times New Roman";
+}
+
+header {
+    margin-top: -var(--body-padding-top);
+    margin-bottom: var(--body-padding-top);
+    padding: 15px 0;
+    text-align: center;
+}
+
+header span {
+    display: inline-block;
+    margin-top: 7px;
+}
+
+header *,
+header button {
+    vertical-align: middle;
+    margin: 0;
+}
+
 @media (min-width:600px) {
 }
 
 @import url("./helpers.css");
+@import url("./input/text.css");
 @import url("./key/key.css");
 @import url("./tag/tag.css");
 @import url("./button/button.css");

@@ -1,0 +1,21 @@
+input:not([type]),
+input:not([type="text"]),
+input:not([type="number"]),
+input:not([type="date"]),
+input:not([type="email"]),
+input:not([type="time"]),
+input:not([type="datetime"]) {
+    padding: 3px 7px;
+    transition: padding .1s;
+    width: 100%;
+}
+
+input:not([type]):focus,
+input:not([type="text"]):focus,
+input:not([type="number"]):focus,
+input:not([type="date"]):focus,
+input:not([type="email"]):focus,
+input:not([type="time"]):focus,
+input:not([type="datetime"]):focus {
+    padding-left: 14px;
+}

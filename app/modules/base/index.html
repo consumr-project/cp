@@ -14,6 +14,12 @@
         <script src="static/vendor.js"></script>
     </head>
     <body ng-app="tcp" ng-strict-di>
+        <header>
+            <button class="left inverted inlined icon-menu"></button>
+            <span class="tcp-logo">the consumer project</span>
+            <button class="icon-plus right"></button>
+        </header>
+
         <div ng-view></div>
 
         {% if debugging %}
@@ -50,6 +56,7 @@
         <script src="app/elements/tag/tags.js"></script>
 
         <script src="app/modules/article/article.js"></script>
+        <script src="app/modules/company/companyController.js"></script>
 
         {% if debugging %}
         <script src="node_modules/Rainbow/js/rainbow.min.js"></script>

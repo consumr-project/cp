@@ -47,9 +47,10 @@ tag {
 
 button[class^=icon-] {
     border-radius: 50%;
-    padding:
-        calc(var(--inline-element-top-padding) + 1)
-        calc(var(--inline-element-right-padding) + 1)
-        calc(var(--inline-element-bottom-padding) + 2)
-        calc(var(--inline-element-left-padding) + 2);
+    padding: 7px 5pt 7px 7px;
+    /* padding: */
+    /*     calc(var(--inline-element-top-padding) + 1) */
+    /*     calc(var(--inline-element-right-padding) + 1) */
+    /*     calc(var(--inline-element-bottom-padding) + 2) */
+    /*     calc(var(--inline-element-left-padding) + 2); */
 }
