@@ -64,6 +64,10 @@ header .tcp-logo {
 }
 
 @media (min-width:600px) {
+    header {
+        margin-bottom: calc(var(--body-padding-top) * 5);
+    }
+
     header .tcp-logo {
         margin-top: 7px;
     }

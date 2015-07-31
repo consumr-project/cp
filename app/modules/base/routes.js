@@ -12,10 +12,10 @@ angular.module('tcp').config([
             });
         }
 
-        // $routeProvider.when('/search', {
-        //     templateUrl: '/app/modules/search/search.html',
-        //     controller: 'searchController'
-        // });
+        $routeProvider.when('/', {
+            templateUrl: '/app/modules/home/index.html',
+            controller: 'homeController'
+        });
 
         $routeProvider.when('/company/:guid?', {
             templateUrl: '/app/modules/company/index.html',
