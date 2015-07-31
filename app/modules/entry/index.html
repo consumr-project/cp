@@ -1,3 +1,16 @@
 <input type="text" ng-model="entry.article.external_url" ng-model-options="{ updateOn: 'blur' }" />
+
+<br>
 <h1>{{entry.article.title}}</h1>
-<p ng-repeat="paragraph in entry.article.$contentParts">{{::paragraph}}</p>
+
+<div class="right">
+    <indicator ng-if="entry.article.highlights.length" type="highlights" value="entry.article.highlights.length"></indicator>
+    <indicator ng-if="entry.article.useful_counter" type="useful" value="entry.article.useful_counter"></indicator>
+</div>
+
+<br>
+<br>
+<br>
+
+<p highlighter="entry.article.highlights"
+    ng-repeat="paragraph in entry.article.$contentParts">{{::paragraph}}</p>

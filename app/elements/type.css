@@ -5,13 +5,6 @@
 
 p {
     font-weight: 300;
-}
-
-h1 + p {
-    margin-top: 60px;
-}
-
-p + p {
     margin-top: 25px;
 }
 

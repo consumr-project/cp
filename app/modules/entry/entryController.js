@@ -27,5 +27,7 @@ angular.module('tcp').controller('entryController', [
         });
 
         $scope.entry.article.url = '';
+        $scope.entry.article.highlights = [1, 2, 3, 4, 5, 6];
+        $scope.entry.article.useful_counter = 15;
     }
 ]);
