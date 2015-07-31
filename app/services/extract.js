@@ -53,6 +53,26 @@
                     return false;
             }
 
+            // intro sentence with just the title and source
+            if (article.title.indexOf(section) === 0) {
+                return false;
+            }
+
+            // known sentences
+            if (
+                section.indexOf('A version of this article appears in') === 0
+            ) {
+                return false;
+            }
+
+            // By <Author>
+            if (
+                section.indexOf('By ') === 0 &&
+                section.split(' ').length < 5
+            ) {
+                return false;
+            }
+
             return true;
         });
 
