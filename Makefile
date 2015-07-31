@@ -7,10 +7,12 @@ built_css = $(built_dir)/site.css
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
+css_options =
+build_vars =
+
 ifdef DEBUG
-	css_options = $(shell test -z "$DEBUG" || echo "--sourcemap")
-else
-	css_options =
+	css_options = --sourcemap
+	build_vars = "DEBUG=*"
 endif
 
 build-css:
@@ -53,5 +55,8 @@ run: build
 
 clean:
 	-rm -r static
+
+watcher:
+	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build"
 
 build: clean build-css build-js
