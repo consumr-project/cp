@@ -3,6 +3,10 @@
     --font-size-normal: 16px;
 }
 
+p {
+    font-weight: 300;
+}
+
 h1,
 h2,
 h3,
@@ -44,6 +48,11 @@ a:visited {
 
 .lowercase {
     text-transform: lowercase;
+}
+
+.title,
+.title a {
+    color: #313131;
 }
 
 .subtitle {
