@@ -1,6 +1,6 @@
 avatar,
 button,
-tag {
+.tag-elem {
     font-size: var(--font-size-normal);
     margin-bottom: var(--inline-element-gutter);
     margin-right: var(--inline-element-gutter);

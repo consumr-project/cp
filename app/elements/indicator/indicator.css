@@ -45,9 +45,9 @@ indicator + indicator {
     margin-left: 10px;
 }
 
-tag indicator {
-    position: absolute;
-    right: -12px;
-    top: -14px;
+.tag-elem indicator {
+    position: relative;
+    right: 4px;
+    top: -22px;
     transform: scale(.9);
 }

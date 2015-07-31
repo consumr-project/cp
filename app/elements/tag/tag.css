@@ -1,17 +1,21 @@
-tag {
+.tag-elem {
     display: inline-block;
 }
 
-tag * {
+.tag-elem * {
     vertical-align: text-top;
 }
 
-tag.good {
+.tag-elem ng-transclude {
+    position: absolute;
+}
+
+.tag-elem.good {
     border-color: var(--color-good);
     color: var(--color-good);
 }
 
-tag.bad {
+.tag-elem.bad {
     border-color: var(--color-bad);
     color: var(--color-bad);
 }

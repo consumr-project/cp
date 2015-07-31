@@ -9,11 +9,11 @@ button {
 }
 
 button,
-tag {
+.tag-elem {
     border-radius: 200px;
     border-style: solid;
     border-width: 1px;
-    padding: 11px 17px;
+    padding: 10px 17px;
     position: relative;
     text-align: center;
     text-transform: uppercase;
