@@ -2,6 +2,7 @@ angular.module('tcp').directive('article', function () {
     'use strict';
 
     return {
+        replace: true,
         templateUrl: '/app/modules/article/article.html',
         scope: {
             info: '='

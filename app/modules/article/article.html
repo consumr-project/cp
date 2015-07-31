@@ -1,6 +1,30 @@
-<div class="article-short" ng-if="::isShort">
-    <h2 class="title"><a href="{{::info.url}}">{{::info.title}}</a></h2>
-    <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source}}</a></h3>
-    <indicator type="useful" value="::info.useful_counter"></indicator>
-    <h3 class="uppercase subtitle">{{::info.release_date}}</h3>
+<div class="article">
+    <div class="article--short-content" ng-if="::isShort">
+        <h2 class="title"><a href="{{::info.url}}">{{::info.title}}</a></h2>
+        <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source}}</a></h3>
+        <indicator type="useful" value="::info.useful_counter"></indicator>
+        <h3 class="uppercase subtitle">{{::info.release_date}}</h3>
+    </div>
+    <div class="article--full-content" ng-if="::!isShort">
+        <h1>{{::info.title}}</h1>
+
+        <div ng-if="info.images.length">
+            <img class="block" ng-repeat="image in info.images" ng-src="{{image.src}}" />
+            <br>
+        </div>
+
+        <div class="right" ng-if="info.content">
+            <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
+            <indicator ng-if="info.useful_counter" type="useful" value="info.useful_counter"></indicator>
+        </div>
+
+        <br>
+        <div id="entryArticleContent"
+            highlighter="info.highlights"
+            highlighter-on-highlight="highlighterOnHighlight({highlight: highlight})"
+            highlighter-on-highlight-click="highlighterOnHighlightClick({highlight: highlight, target: target})"
+        >
+            <p ng-repeat="paragraph in info.$contentParts">{{::paragraph}}</p>
+        </div>
+    </div>
 </div>

@@ -1,23 +1,2 @@
 <input type="text" class="block" ng-model="entry.article.external_url" ng-model-options="{ updateOn: 'blur' }" />
-
-<br>
-<h1>{{entry.article.title}}</h1>
-
-<div ng-if="entry.article.images.length">
-    <img class="block" ng-repeat="image in entry.article.images" ng-src="{{image.src}}" />
-    <br>
-</div>
-
-<div class="right" ng-if="entry.article.content">
-    <indicator ng-if="entry.article.highlights.length" type="highlights" value="entry.article.highlights.length"></indicator>
-    <indicator ng-if="entry.article.useful_counter" type="useful" value="entry.article.useful_counter"></indicator>
-</div>
-
-<br>
-<div id="entryArticleContent"
-    highlighter="entry.article.highlights"
-    highlighter-on-highlight="highlighterOnHighlight({highlight: highlight})"
-    highlighter-on-highlight-click="highlighterOnHighlightClick({highlight: highlight, target: target})"
->
-    <p ng-repeat="paragraph in entry.article.$contentParts">{{::paragraph}}</p>
-</div>
+<article info="entry.article"></article>
