@@ -57,6 +57,6 @@ clean:
 	-rm -r static
 
 watcher:
-	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build"
+	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build-css"
 
 build: clean build-css build-js
