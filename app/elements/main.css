@@ -36,21 +36,15 @@ body * {
     text-shadow: none;
 }
 
-.tcp-logo {
-    font-size: 20px;
-    font-family: "Times New Roman";
+footer {
+    height: 50px;
 }
 
 header {
     margin-top: -var(--body-padding-top);
-    margin-bottom: var(--body-padding-top);
+    margin-bottom: calc(var(--body-padding-top) * 2);
     padding: 15px 0;
     text-align: center;
-}
-
-header span {
-    display: inline-block;
-    margin-top: 11px;
 }
 
 header *,
@@ -59,7 +53,24 @@ header button {
     margin: 0;
 }
 
+header .tcp-logo {
+    margin-top: 11px;
+}
+
+.tcp-logo {
+    display: inline-block;
+    font-family: "Times New Roman";
+    font-size: 20px;
+}
+
 @media (min-width:600px) {
+    header .tcp-logo {
+        margin-top: 7px;
+    }
+
+    .tcp-logo {
+        font-size: 30px;
+    }
 }
 
 @import url("./helpers.css");
