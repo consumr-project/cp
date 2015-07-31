@@ -50,6 +50,8 @@
                 case 'preface':
                 case 'supported by':
                 case 'continue reading the main story':
+                case 'continue reading the main story video':
+                case 'the new york times':
                     return false;
             }
 
@@ -78,6 +80,9 @@
 
         article.content = sections.join(param_delim);
         article.content_parts = sections;
+
+        article.title = article.title
+            .replace(/ - The New York Times$/, '');
 
         return article;
     }

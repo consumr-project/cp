@@ -21,3 +21,8 @@ button:active,
 .left {
     float: left;
 }
+
+.block {
+    display: block;
+    width: 100%;
+}

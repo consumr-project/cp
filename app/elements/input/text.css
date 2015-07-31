@@ -7,7 +7,6 @@ input[type="time"],
 input[type="datetime"] {
     padding: 3px 7px;
     transition: padding .1s;
-    width: 100%;
     word-break: normal;
 }
 

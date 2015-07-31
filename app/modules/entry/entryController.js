@@ -22,6 +22,10 @@ angular.module('tcp').controller('entryController', [
         };
 
         $scope.$watch('entry.article.external_url', function (url) {
+            if (!url) {
+                return;
+            }
+
             // XXX catch
             // XXX error state
             extract.fetch(url).then(function (article) {
