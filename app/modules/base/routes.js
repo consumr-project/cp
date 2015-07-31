@@ -22,10 +22,10 @@ angular.module('tcp').config([
             controller: 'companyController'
         });
 
-        // $routeProvider.when('/company/:companyGuid/post/:guid?', {
-        //     templateUrl: '/app/modules/post/post.html',
-        //     controller: 'postController'
-        // });
+        $routeProvider.when('/company/:companyGuid/entry/:guid?', {
+            templateUrl: '/app/modules/entry/index.html',
+            controller: 'entryController'
+        });
 
         $routeProvider.otherwise({
             templateUrl: '/app/modules/base/404.html',
