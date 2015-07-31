@@ -55,17 +55,23 @@
     }
 
     /**
+     * @param {String} className
      * @return {rangy.Highlighter}
      */
-    function create() {
+    function create(className) {
         var highlighter;
 
         rangy.init();
         highlighter = rangy.createHighlighter();
-        highlighter.addClassApplier(rangy.createClassApplier('highlight', {
+
+        highlighter.addClassApplier(rangy.createClassApplier(className, {
             ignoreWhiteSpace: true,
             tagNames: ['span']
         }));
+
+        highlighter.highlight = function (extra) {
+            return highlighter.highlightSelection(className, extra);
+        };
 
         return highlighter;
     }

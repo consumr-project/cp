@@ -19,3 +19,8 @@ article[short] indicator {
     right: 10px;
     top: -5px;
 }
+
+.article--highlight {
+    background: rgb(255, 254, 196);
+    text-shadow: none;
+}

@@ -12,5 +12,10 @@
 <br>
 <br>
 
-<p highlighter="entry.article.highlights"
-    ng-repeat="paragraph in entry.article.$contentParts">{{::paragraph}}</p>
+<div id="entryArticleContent"
+    highlighter="entry.article.highlights"
+    highlighter-on-highlight="highlighterOnHighlight({highlight: highlight})"
+    highlighter-on-highlight-click="highlighterOnHighlightClick({highlight: highlight, target: target})"
+>
+    <p ng-repeat="paragraph in entry.article.$contentParts">{{::paragraph}}</p>
+</div>

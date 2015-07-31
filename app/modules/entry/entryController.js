@@ -9,6 +9,18 @@ angular.module('tcp').controller('entryController', [
             article: {}
         };
 
+        $scope.highlighterOnHighlight = function (args) {
+            var highlight = args.highlight;
+            console.log(highlight);
+        };
+
+        $scope.highlighterOnHighlightClick = function (args) {
+            var highlight = args.highlight,
+                target = args.target;
+
+            console.log(highlight, target);
+        };
+
         $scope.$watch('entry.article.external_url', function (url) {
             // XXX catch
             // XXX error state
