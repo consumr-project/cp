@@ -25,12 +25,6 @@ app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(favicon(__dirname + '/public/images/favicon.png'));
 
-app.get('/extract', function (req, res) {
-    require('./app/actions/extract')(req.query.url, function (results) {
-        res.json(results);
-    });
-});
-
 if (process.env.NODE_ENV === 'development' || !!process.env.DEBUG) {
     app.use('/app', serve_index('app'));
     app.use('/public', serve_index('public'));

@@ -8,10 +8,10 @@
     <div class="article--full-content" ng-if="::!isShort">
         <h1>{{::info.title}}</h1>
 
-        <div ng-if="info.images.length">
-            <img class="block" ng-repeat="image in info.images" ng-src="{{image.src}}" />
-            <br>
-        </div>
+        <!-- <div ng&#45;if="info.images.length"> -->
+        <!--     <img class="block" ng&#45;repeat="src in info.images" ng&#45;src="{{src}}" /> -->
+        <!--     <br> -->
+        <!-- </div> -->
 
         <div class="right" ng-if="info.content">
             <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
@@ -24,7 +24,7 @@
             highlighter-on-highlight="highlighterOnHighlight({highlight: highlight})"
             highlighter-on-highlight-click="highlighterOnHighlightClick({highlight: highlight, target: target})"
         >
-            <p ng-repeat="paragraph in info.$contentParts">{{::paragraph}}</p>
+            <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
         </div>
     </div>
 </div>
