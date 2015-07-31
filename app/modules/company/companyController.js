@@ -12,6 +12,8 @@ angular.module('tcp').controller('companyController', [
                 return;
             }
 
+            // XXX catch
+            // XXX error state
             wikipedia.extract(name).then(function (extract) {
                 $scope.company.description = extract.extract_no_refs;
                 $scope.company.$descriptionParts = extract.extract_no_ref_parts;

@@ -7,6 +7,10 @@ p {
     font-weight: 300;
 }
 
+p + p {
+    margin-top: 25px;
+}
+
 h1,
 h2,
 h3,

@@ -3,6 +3,8 @@
 
     /* global api, _ */
 
+    var param_delim = '\n\n';
+
     /**
      * extract a page's content
      * @param {String} url
@@ -54,7 +56,9 @@
             return true;
         });
 
-        article.content = sections.join('\n\n');
+        article.content = sections.join(param_delim);
+        article.content_parts = sections;
+
         return article;
     }
 
