@@ -4,6 +4,7 @@ built_dir = static
 built_vendor_js = $(built_dir)/vendor.js
 built_css = $(built_dir)/site.css
 
+js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
@@ -58,5 +59,8 @@ clean:
 
 watcher:
 	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build-css"
+
+lint:
+	$(js_hint) --config conf/jshint.json --reporter unix --show-non-errors app
 
 build: clean build-css build-js

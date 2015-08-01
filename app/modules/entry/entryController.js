@@ -53,7 +53,7 @@ angular.module('tcp').controller('entryController', [
             if (run_apply !== false) {
                 $scope.$apply();
             }
-        }
+        };
 
         $scope.removeHighlight = function () {
             if ($scope.highlight.editing) {
@@ -86,7 +86,7 @@ angular.module('tcp').controller('entryController', [
             $scope.highlight.node = highlight.getHighlightElements()[0];
             $scope.highlight.on = !!$scope.highlight.node;
 
-            $scope.$apply()
+            $scope.$apply();
         };
 
         $scope.onHighlightClick = function (args) {
@@ -98,7 +98,7 @@ angular.module('tcp').controller('entryController', [
             $scope.highlight.node = highlight.getHighlightElements()[0];
             $scope.highlight.on = !!$scope.highlight.node;
 
-            $scope.$apply()
+            $scope.$apply();
         };
 
         $scope.$watch('entry.article.external_url', function (url) {

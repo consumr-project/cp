@@ -1,8 +1,8 @@
 angular.module('tcp').directive('avatar', function () {
     'use strict';
 
-    function url(url) {
-        return ['url(', url, ')'].join('');
+    function url(url_str) {
+        return ['url(', url_str, ')'].join('');
     }
 
     return {

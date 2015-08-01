@@ -37,6 +37,7 @@
   "devDependencies": {
     "Rainbow": "ccampbell/rainbow",
     "cssnext": "^1.8.1",
+    "jshint": "^2.8.0",
     "jsmin": "^1.0.1",
     "ng-stats": "^2.2.0",
     "rector": "minond/rector"
