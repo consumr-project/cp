@@ -1,7 +1,8 @@
 angular.module('tcp').directive('highlighter', [
+    '$window',
     '$document',
     'highlighter',
-    function ($document, highlighter) {
+    function ($window, $document, highlighter) {
         'use strict';
 
         var DEFAULT_HIGHLIGHT_CLASS_NAME = 'article--highlight';
@@ -54,7 +55,7 @@ angular.module('tcp').directive('highlighter', [
                     });
 
                     if (highlights.length) {
-                        console.log("S")
+                        $window.getSelection().removeAllRanges();
                         scope.highlighterOnHighlight(eventPackage(ev, highlights[0]));
                     }
                 }
