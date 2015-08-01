@@ -23,4 +23,5 @@
 .article--highlight {
     background: rgb(255, 254, 196);
     text-shadow: none;
+    cursor: pointer;
 }

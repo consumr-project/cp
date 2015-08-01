@@ -10,7 +10,8 @@
     anchored-placement="top"
     anchored-top-offset="-10"
 >
-    <popover-item ng-click="saveHighlight()">Highlight</popover-item>
+    <popover-item ng-show="!highlight.editing" ng-click="saveHighlight()">Highlight</popover-item>
+    <popover-item ng-show="highlight.editing" ng-click="removeHighlight()">Remove</popover-item>
 </popover>
 
 <article

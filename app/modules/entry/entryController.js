@@ -19,17 +19,31 @@ angular.module('tcp').controller('entryController', [
             api: {}
         };
 
-        $scope.cleanHighlightState = function () {
+        /**
+         * @param {Boolean} [run_apply] (default: true)
+         */
+        $scope.cleanHighlightState = function (run_apply) {
             if ($scope.highlight.current) {
                 $scope.highlight.api.remove($scope.highlight.current);
             }
 
+            $scope.highlight.editing = null;
             $scope.highlight.current = null;
             $scope.highlight.node = null;
             $scope.highlight.on = null;
 
-            $scope.$apply();
+            if (run_apply !== false) {
+                $scope.$apply();
+            }
         }
+
+        $scope.removeHighlight = function () {
+            if ($scope.highlight.editing) {
+                $scope.highlight.api.remove($scope.highlight.editing);
+            }
+
+            $scope.cleanHighlightState(false);
+        };
 
         $scope.saveHighlight = function () {
             if ($scope.highlight.current) {
@@ -58,7 +72,14 @@ angular.module('tcp').controller('entryController', [
 
         $scope.onHighlightClick = function (args) {
             var highlight = args.highlight;
-            console.log(highlight);
+
+            $scope.cleanHighlightState();
+
+            $scope.highlight.editing = highlight;
+            $scope.highlight.node = highlight.getHighlightElements()[0];
+            $scope.highlight.on = !!$scope.highlight.node;
+
+            $scope.$apply()
         };
 
         $scope.$watch('entry.article.external_url', function (url) {
