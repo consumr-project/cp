@@ -1,6 +1,7 @@
 :root {
     --font-height-normal: 18px;
     --font-size-normal: 16px;
+    --font-size-small: 13px;
 }
 
 p {

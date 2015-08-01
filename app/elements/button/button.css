@@ -4,8 +4,8 @@
 
 button {
     background-color: #F7F7F7;
-    border-color: #DCDCDC;
-    color: #353535;
+    border-color: var(--color-std-border-color);
+    color: var(--color-std-text-color);
 }
 
 button,
