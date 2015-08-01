@@ -69,9 +69,16 @@ angular.module('tcp').directive('anchored', [
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
 
                 elem.css('position', 'absolute');
+                elem.hide();
 
                 function hide() {
-                    elem.hide();
+                    if (elem.is(':visible')) {
+                        elem.animate({
+                            opacity: 0
+                        }, elem.hide.bind(elem));
+                    } else {
+                        elem.hide();
+                    }
                 }
 
                 function show() {

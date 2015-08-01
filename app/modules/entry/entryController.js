@@ -20,8 +20,11 @@ angular.module('tcp').controller('entryController', [
         };
 
         $scope.saveHighlight = function () {
+            if ($scope.highlight.current) {
+                $scope.entry.article.highlights.push($scope.highlight.current);
+            }
+
             $scope.highlight.on = false;
-            $scope.entry.article.highlights.push($scope.highlight.current);
             $scope.highlight.current = null;
         };
 
