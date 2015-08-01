@@ -12,20 +12,28 @@ angular.module('tcp').controller('entryController', [
             }
         };
 
+        $scope.highlight = {
+            on: null,
+            node: null,
+        };
+
         $scope.onFoundUseful = function () {
             $scope.entry.article.useful_counter++;
         };
 
         $scope.onHighlight = function (args) {
-            $scope.entry.article.highlights.push(args.highlight);
+            var highlight = args.highlight;
+
+            $scope.highlight.node = highlight.getHighlightElements()[0];
+            $scope.highlight.on = !!$scope.highlight.node;
+
+            $scope.entry.article.highlights.push(highlight);
             $scope.$apply()
         };
 
         $scope.onHighlightClick = function (args) {
-            var highlight = args.highlight,
-                target = args.target;
-
-            console.log(highlight, target);
+            var highlight = args.highlight;
+            console.log(highlight);
         };
 
         $scope.$watch('entry.article.external_url', function (url) {

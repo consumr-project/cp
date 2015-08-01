@@ -61,7 +61,7 @@ angular.module('tcp').directive('highlighter', [
 
                     if (highlight && highlight.getText()) {
                         $window.getSelection().removeAllRanges();
-                        scope.highlighterOnHighlight(eventPackage(ev, highlights[0]));
+                        scope.highlighterOnHighlight(eventPackage(ev, highlight));
                     }
                 }
 
