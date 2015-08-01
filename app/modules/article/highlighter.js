@@ -12,6 +12,7 @@ angular.module('tcp').directive('highlighter', [
                 highlighterApi: '=',
                 highlighterOnHighlight: '&',
                 highlighterOnHighlightClick: '&',
+                highlighterOnNonHighlightClick: '&',
                 highlighterClassName: '@'
             },
             link: function (scope, elem) {
@@ -38,7 +39,7 @@ angular.module('tcp').directive('highlighter', [
                 function eventPackage(ev, highlight) {
                     return {
                         $event: ev,
-                        highlight: highlight || pen.getHighlightForElement(ev.target),
+                        highlight: highlight !== undefined ? highlight : pen.getHighlightForElement(ev.target),
                         pen: pen,
                         target: ev.target
                     };
@@ -47,6 +48,8 @@ angular.module('tcp').directive('highlighter', [
                 function handleElementClick(ev) {
                     if (angular.element(ev.target).hasClass(class_name)) {
                         scope.highlighterOnHighlightClick(eventPackage(ev));
+                    } else {
+                        scope.highlighterOnNonHighlightClick(eventPackage(ev, null));
                     }
                 }
 
@@ -76,7 +79,7 @@ angular.module('tcp').directive('highlighter', [
                     $document.off('mouseup', handleDocumentMouseUp);
                 }
 
-                elem.on('click', handleElementClick);
+                elem.on('mousedown', handleElementClick);
                 $document.on('mouseup', handleDocumentMouseUp);
                 scope.$on('$destroy', unhandleDocumentMouseUp);
             }

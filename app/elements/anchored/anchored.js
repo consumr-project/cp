@@ -77,7 +77,7 @@ angular.module('tcp').directive('anchored', [
 
                 function hide() {
                     if (elem.is(':visible')) {
-                        elem.animate({
+                        elem.stop().animate({
                             opacity: 0
                         }, elem.hide.bind(elem));
                     } else {
@@ -109,7 +109,7 @@ angular.module('tcp').directive('anchored', [
                             opacity: 0
                         });
 
-                        elem.animate({
+                        elem.stop().animate({
                             opacity: 1,
                             top: coor.top,
                             left: coor.left,
@@ -129,7 +129,7 @@ angular.module('tcp').directive('anchored', [
                 }
 
                 function unlistenToResizes() {
-                    animate.element($window).off('resize', debouncedHandleUpdate);
+                    angular.element($window).off('resize', debouncedHandleUpdate);
                 }
 
                 validate(attrs);

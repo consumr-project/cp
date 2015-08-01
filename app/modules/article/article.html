@@ -24,6 +24,7 @@
             highlighter-api="highlighterApi"
             highlighter-on-highlight="onHighlight({highlight: highlight})"
             highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
+            highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
         >
             <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
         </div>

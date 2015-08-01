@@ -9,6 +9,7 @@ angular.module('tcp').directive('article', function () {
             onFoundUseful: '&',
             onHighlight: '&',
             onHighlightClick: '&',
+            onNonHighlightClick: '&',
             info: '='
         },
         link: function (scope, elem, attr) {

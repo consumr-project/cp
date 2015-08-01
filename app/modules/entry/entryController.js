@@ -19,6 +19,18 @@ angular.module('tcp').controller('entryController', [
             api: {}
         };
 
+        $scope.cleanHighlightState = function () {
+            if ($scope.highlight.current) {
+                $scope.highlight.api.remove($scope.highlight.current);
+            }
+
+            $scope.highlight.current = null;
+            $scope.highlight.node = null;
+            $scope.highlight.on = null;
+
+            $scope.$apply();
+        }
+
         $scope.saveHighlight = function () {
             if ($scope.highlight.current) {
                 $scope.entry.article.highlights.push($scope.highlight.current);
@@ -35,9 +47,7 @@ angular.module('tcp').controller('entryController', [
         $scope.onHighlight = function (args) {
             var highlight = args.highlight;
 
-            if ($scope.highlight.current) {
-                $scope.highlight.api.remove($scope.highlight.current);
-            }
+            $scope.cleanHighlightState();
 
             $scope.highlight.current = highlight;
             $scope.highlight.node = highlight.getHighlightElements()[0];
