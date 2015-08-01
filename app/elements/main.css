@@ -88,7 +88,6 @@ header .tcp-logo {
 }
 
 @import url("./helpers.css");
-@import url("./animations.css");
 @import url("./input/text.css");
 @import url("./key/key.css");
 @import url("./tag/tag.css");
