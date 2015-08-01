@@ -76,13 +76,6 @@ angular.module('tcp').directive('anchored', [
                 elem.hide();
 
                 function hide() {
-                    // if (elem.is(':visible')) {
-                    //     elem.stop().animate({
-                    //         opacity: 0
-                    //     }, elem.hide.bind(elem));
-                    // } else {
-                    //     elem.hide();
-                    // }
                     elem.hide();
                 }
 

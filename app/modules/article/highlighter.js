@@ -7,6 +7,8 @@ angular.module('tcp').directive('highlighter', [
 
         var DEFAULT_HIGHLIGHT_CLASS_NAME = 'article--highlight';
 
+        var NODE_IGNORE_MOUSE_EVENTS = ['INPUT', 'BUTTON'];
+
         return {
             scope: {
                 highlighterApi: '=',
@@ -56,12 +58,12 @@ angular.module('tcp').directive('highlighter', [
                 function handleDocumentMouseUp(ev) {
                     var highlights, highlight;
 
-                    switch (ev.target.nodeName) {
-                        case 'INPUT':
-                        case 'BUTTON':
-                            return;
+                    // user is doing something unrelated to highlighting
+                    if (NODE_IGNORE_MOUSE_EVENTS.indexOf(ev.target.nodeName) !== -1) {
+                        return;
                     }
 
+                    // this element is already highlighted
                     if (pen.getHighlightForElement(ev.target)) {
                         return;
                     }
