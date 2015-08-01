@@ -54,4 +54,5 @@
     store.fetch = fetch;
     store.TYPE_VIDEO = 'video';
     store.TYPE_ARTICLE = 'article';
+    store.TYPE_PHOTO = 'photo';
 })(typeof window !== 'undefined' ? window.extract = {} : module.exports);

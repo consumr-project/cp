@@ -1,7 +1,7 @@
 <div class="entry">
     <h1>{{::info.title}}</h1>
     <br>
-    <div ng-bind-html="::info.html"></div>
+    <img src="{{::info.src}}" />
     <br>
     <div class="right">
         <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>

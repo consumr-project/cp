@@ -25,3 +25,9 @@
     text-shadow: none;
     cursor: pointer;
 }
+
+.entry img,
+.entry iframe {
+    text-align: center;
+    width: 100%;
+}
