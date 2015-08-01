@@ -13,10 +13,12 @@
         <!--     <br> -->
         <!-- </div> -->
 
-        <div class="right-align" ng-if="info.content">
+        <div class="right-align">
             <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
             <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
         </div>
+
+        <h5>Published on {{::info.release_date | date: 'mediumDate'}}</h5>
 
         <div id="entryArticleContent"
             highlighter="info.highlights"

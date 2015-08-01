@@ -1,10 +1,11 @@
 <div class="video">
     <h1>{{::info.title}}</h1>
     <br>
-    <div ng-bind-html="info.html"></div>
+    <div ng-bind-html="::info.html"></div>
     <br>
-    <div class="right" ng-if="info.content">
+    <div class="right">
         <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
     </div>
+    <h5>Published on {{::info.release_date | date: 'mediumDate'}}</h5>
     <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
 </div>
