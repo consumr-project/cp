@@ -15,14 +15,14 @@
 
         <div class="right" ng-if="info.content">
             <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
-            <indicator ng-if="info.useful_counter" type="useful" value="info.useful_counter"></indicator>
+            <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
         </div>
 
         <br>
         <div id="entryArticleContent"
             highlighter="info.highlights"
-            highlighter-on-highlight="highlighterOnHighlight({highlight: highlight})"
-            highlighter-on-highlight-click="highlighterOnHighlightClick({highlight: highlight, target: target})"
+            highlighter-on-highlight="onHighlight({highlight: highlight})"
+            highlighter-on-highlight-click="onHighlightClick({highlight: highlight, target: target})"
         >
             <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
         </div>

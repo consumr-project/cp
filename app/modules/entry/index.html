@@ -1,2 +1,7 @@
 <input type="text" class="block" ng-model="entry.article.external_url" ng-model-options="{ updateOn: 'blur' }" />
-<article info="entry.article"></article>
+<article
+    info="entry.article"
+    on-found-useful="onFoundUseful()"
+    on-highlight="onHighlight({highlight: highlight})"
+    on-highlight-click="onHighlightClick({highlight: highlight, target: target})"
+></article>

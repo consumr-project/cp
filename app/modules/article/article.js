@@ -5,6 +5,9 @@ angular.module('tcp').directive('article', function () {
         replace: true,
         templateUrl: '/app/modules/article/article.html',
         scope: {
+            onFoundUseful: '&',
+            onHighlight: '&',
+            onHighlightClick: '&',
             info: '='
         },
         link: function (scope, elem, attr) {

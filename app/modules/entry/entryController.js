@@ -6,15 +6,23 @@ angular.module('tcp').controller('entryController', [
         'use strict';
 
         $scope.entry = {
-            article: {}
+            article: {
+                url: '',
+                highlights: [],
+                useful_counter: 0
+            }
         };
 
-        $scope.highlighterOnHighlight = function (args) {
-            var highlight = args.highlight;
-            console.log(highlight);
+        $scope.onFoundUseful = function () {
+            $scope.entry.article.useful_counter++;
         };
 
-        $scope.highlighterOnHighlightClick = function (args) {
+        $scope.onHighlight = function (args) {
+            $scope.entry.article.highlights.push(args.highlight);
+            $scope.$apply()
+        };
+
+        $scope.onHighlightClick = function (args) {
             var highlight = args.highlight,
                 target = args.target;
 
@@ -46,9 +54,5 @@ angular.module('tcp').controller('entryController', [
                 $scope.$apply();
             });
         });
-
-        $scope.entry.article.url = '';
-        $scope.entry.article.highlights = [1, 2, 3, 4, 5, 6];
-        $scope.entry.article.useful_counter = 15;
     }
 ]);

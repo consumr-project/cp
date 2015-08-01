@@ -9,6 +9,10 @@ angular.module('tcp').directive('indicator', function () {
         link: function (scope, elem, attrs) {
             elem.attr('tabindex', '0');
             elem.addClass('is-clickable is-non-selectable indicator-' + attrs.type);
+
+            if (attrs.type === 'useful' && scope.value === 0) {
+                scope.value = '';
+            }
         }
     };
 });

@@ -43,11 +43,18 @@ angular.module('tcp').directive('highlighter', [
                 }
 
                 function handleDocumentMouseUp(ev) {
+                    switch (ev.target.nodeName) {
+                        case 'INPUT':
+                        case 'BUTTON':
+                            return;
+                    }
+
                     var highlights = pen.highlight({
                         containerElementId: id
                     });
 
                     if (highlights.length) {
+                        console.log("S")
                         scope.highlighterOnHighlight(eventPackage(ev, highlights[0]));
                     }
                 }
