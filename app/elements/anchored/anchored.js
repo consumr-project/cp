@@ -1,11 +1,16 @@
 angular.module('tcp').directive('anchored', [
     '$document',
-    function ($document) {
+    '$window',
+    'lodash',
+    function ($document, $window, _) {
         'use strict';
 
         var PLACEMENT_TOP = 'top';
 
         var ANIMATION_NUDGE_OFFSET = 10;
+
+        var STATE_ON = {},
+            STATE_OFF = {};
 
         /**
          * @param {Object} attrs
@@ -64,6 +69,9 @@ angular.module('tcp').directive('anchored', [
                 element: '=anchoredElement'
             },
             link: function (scope, elem, attrs) {
+                var debouncedHandleUpdate = _.debounce(handleUpdate, 100),
+                    state;
+
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT_TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
@@ -72,6 +80,8 @@ angular.module('tcp').directive('anchored', [
                 elem.hide();
 
                 function hide() {
+                    state = STATE_OFF;
+
                     if (elem.is(':visible')) {
                         elem.animate({
                             opacity: 0
@@ -89,17 +99,27 @@ angular.module('tcp').directive('anchored', [
                         attrs
                     );
 
-                    elem.show().css({
-                        top: coor.initialTop,
-                        left: coor.initialLeft,
-                        opacity: 0
-                    });
+                    if (state === STATE_ON) {
+                        elem.css({
+                            opacity: 1,
+                            top: coor.top,
+                            left: coor.left,
+                        });
+                    } else {
+                        state = STATE_ON;
 
-                    elem.animate({
-                        opacity: 1,
-                        top: coor.top,
-                        left: coor.left,
-                    });
+                        elem.show().css({
+                            top: coor.initialTop,
+                            left: coor.initialLeft,
+                            opacity: 0
+                        });
+
+                        elem.animate({
+                            opacity: 1,
+                            top: coor.top,
+                            left: coor.left,
+                        });
+                    }
                 }
 
                 function handleUpdate() {
@@ -110,7 +130,13 @@ angular.module('tcp').directive('anchored', [
                     }
                 }
 
+                function unlistenToResizes() {
+                    animate.element($window).off('resize', debouncedHandleUpdate);
+                }
+
                 validate(attrs);
+                angular.element($window).on('resize', debouncedHandleUpdate);
+                scope.$on('$destroy', unlistenToResizes);
                 scope.$watch('show', handleUpdate);
                 scope.$watch('element', handleUpdate);
             }
