@@ -5,6 +5,7 @@ angular.module('tcp').directive('article', function () {
         replace: true,
         templateUrl: '/app/modules/article/article.html',
         scope: {
+            highlighterApi: '=',
             onFoundUseful: '&',
             onHighlight: '&',
             onHighlightClick: '&',

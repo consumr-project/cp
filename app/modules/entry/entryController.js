@@ -15,6 +15,14 @@ angular.module('tcp').controller('entryController', [
         $scope.highlight = {
             on: null,
             node: null,
+            current: null,
+            api: {}
+        };
+
+        $scope.saveHighlight = function () {
+            $scope.highlight.on = false;
+            $scope.entry.article.highlights.push($scope.highlight.current);
+            $scope.highlight.current = null;
         };
 
         $scope.onFoundUseful = function () {
@@ -24,10 +32,14 @@ angular.module('tcp').controller('entryController', [
         $scope.onHighlight = function (args) {
             var highlight = args.highlight;
 
+            if ($scope.highlight.current) {
+                $scope.highlight.api.remove($scope.highlight.current);
+            }
+
+            $scope.highlight.current = highlight;
             $scope.highlight.node = highlight.getHighlightElements()[0];
             $scope.highlight.on = !!$scope.highlight.node;
 
-            $scope.entry.article.highlights.push(highlight);
             $scope.$apply()
         };
 

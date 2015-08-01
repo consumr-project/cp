@@ -9,6 +9,7 @@ angular.module('tcp').directive('highlighter', [
 
         return {
             scope: {
+                highlighterApi: '=',
                 highlighterOnHighlight: '&',
                 highlighterOnHighlightClick: '&',
                 highlighterClassName: '@'
@@ -20,6 +21,12 @@ angular.module('tcp').directive('highlighter', [
 
                 if (!id) {
                     console.warn('Missing `id` on', elem);
+                }
+
+                if (scope.highlighterApi) {
+                    scope.highlighterApi.remove = function (highlight) {
+                        return pen.removeHighlights([highlight]);
+                    };
                 }
 
                 /**

@@ -10,10 +10,12 @@
     anchored-show="highlight.on"
     anchored-placement="top"
     anchored-top-offset="-10"
+    ng-click="saveHighlight()"
 >Highlight</div>
 
 <article
     info="entry.article"
+    highlighter-api="highlight.api"
     on-found-useful="onFoundUseful()"
     on-highlight="onHighlight({highlight: highlight})"
     on-highlight-click="onHighlightClick({highlight: highlight})"
