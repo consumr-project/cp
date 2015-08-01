@@ -24,13 +24,3 @@
     background: rgb(255, 254, 196);
     text-shadow: none;
 }
-
-.article--tag-editor {
-    background-color: white;
-    border-radius: 2px;
-    border: 1px solid var(--color-std-border-color);
-    box-shadow: 0 0 0 1px var(--color-std-shadow-color);
-    font-size: var(--font-size-small);
-    padding: 10px;
-    z-index: 10;
-}

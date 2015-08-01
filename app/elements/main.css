@@ -63,6 +63,10 @@ header .tcp-logo {
     font-size: 20px;
 }
 
+[ng-click] {
+    cursor: pointer;
+}
+
 @media (min-width:600px) {
     header {
         margin-bottom: calc(var(--body-padding-top) * 5);
@@ -91,5 +95,6 @@ header .tcp-logo {
 @import url("./button/groups-of.css");
 @import url("./indicator/indicator.css");
 @import url("./avatar/avatar.css");
+@import url("./popover/popover.css");
 @import url("../../public/icons/style.css");
 @import url("../modules/article/article.css");

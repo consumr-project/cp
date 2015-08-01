@@ -3,15 +3,15 @@
 <br>
 <br>
 
-<div
-    class="article--tag-editor"
+<popover
     anchored
     anchored-element="highlight.node"
     anchored-show="highlight.on"
     anchored-placement="top"
     anchored-top-offset="-10"
-    ng-click="saveHighlight()"
->Highlight</div>
+>
+    <popover-item ng-click="saveHighlight()">Highlight</popover-item>
+</popover>
 
 <article
     info="entry.article"
