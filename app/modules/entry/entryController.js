@@ -124,6 +124,7 @@ angular.module('tcp').controller('entryController', [
                 $scope.entry.article.content = article.content;
                 $scope.entry.article.contentParts = article.contentParts;
                 $scope.entry.article.keywords = article.keywords;
+                $scope.entry.article.highlights = [];
 
                 $scope.$apply();
             });

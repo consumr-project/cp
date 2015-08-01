@@ -13,12 +13,11 @@
         <!--     <br> -->
         <!-- </div> -->
 
-        <div class="right" ng-if="info.content">
+        <div class="right-align" ng-if="info.content">
             <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
             <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
         </div>
 
-        <br>
         <div id="entryArticleContent"
             highlighter="info.highlights"
             highlighter-api="highlighterApi"
@@ -27,6 +26,12 @@
             highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
         >
             <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
+        </div>
+
+        <br>
+
+        <div>
+            <tag ng-repeat="keyword in info.keywords" label="{{::keyword}}" class="keyword"></tag>
         </div>
     </div>
 </div>

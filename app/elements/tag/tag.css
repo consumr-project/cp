@@ -20,6 +20,15 @@
     color: var(--color-bad);
 }
 
+.tag-elem.keyword {
+    background-color: rgba(245, 245, 245, 0.76);
+    border-radius: 2px;
+    border: 1px solid #B3B3B3;
+    color: #525252;
+    font-size: 12px;
+    padding: 2px 6px;
+}
+
 tags {
     width: 100%;
 }
