@@ -118,42 +118,36 @@ angular.module('tcp').controller('entryController', [
             // XXX catch
             // XXX error state
             extract.fetch(url).then(function (article) {
+                var entry_key;
+
                 if (!article) {
                     return;
                 }
 
                 switch (article.media.type) {
                     case 'video':
+                        entry_key = 'video';
                         $scope.entry.is_video = true;
-                        $scope.entry.video.content = article.content;
-                        $scope.entry.video.contentParts = article.contentParts;
-                        $scope.entry.video.description = article.description;
-                        $scope.entry.video.external_url = article.url;
-                        $scope.entry.video.external_url = article.url;
                         $scope.entry.video.html = $sce.trustAsHtml(article.media.html);
-                        $scope.entry.video.keywords = article.keywords;
-                        $scope.entry.video.release_date = new Date(article.published);
-                        $scope.entry.video.release_date = new Date(article.published);
-                        $scope.entry.video.source = article.provider_url || article.provider_name;
-                        $scope.entry.video.title = article.title;
-                        $scope.entry.video.useful_counter = 0;
                         break;
 
                     default:
-                        $scope.entry.is_article = !article.media.type;
-                        $scope.entry.article.content = article.content;
-                        $scope.entry.article.contentParts = article.contentParts;
-                        $scope.entry.article.description = article.description;
-                        $scope.entry.article.external_url = article.url;
+                        entry_key = 'article';
+                        $scope.entry.is_article = true;
                         $scope.entry.article.highlights = [];
                         $scope.entry.article.images = article.images;
                         $scope.entry.article.keywords = article.keywords;
-                        $scope.entry.article.release_date = new Date(article.published);
-                        $scope.entry.article.source = article.provider_url || article.provider_name;
-                        $scope.entry.article.title = article.title;
-                        $scope.entry.article.useful_counter = 0;
                         break;
                 }
+
+                $scope.entry[entry_key].content = article.content;
+                $scope.entry[entry_key].contentParts = article.contentParts;
+                $scope.entry[entry_key].description = article.description;
+                $scope.entry[entry_key].external_url = article.url;
+                $scope.entry[entry_key].release_date = new Date(article.published);
+                $scope.entry[entry_key].source = article.provider_url;
+                $scope.entry[entry_key].title = article.title;
+                $scope.entry[entry_key].useful_counter = 0;
 
                 $scope.$apply();
             });
