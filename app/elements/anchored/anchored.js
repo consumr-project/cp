@@ -12,6 +12,14 @@ angular.module('tcp').directive('anchored', [
          * @throws {Error}
          */
         function validate(attrs) {
+            if (isNaN(attrs.anchoredTopOffset)) {
+                throw new Error('Invalid top offset: ' + attrs.anchoredTopOffset);
+            }
+
+            if (isNaN(attrs.anchoredLeftOffset)) {
+                throw new Error('Invalid top offset: ' + attrs.anchoredLeftOffset);
+            }
+
             switch (attrs.anchoredPlacement) {
                 case PLACEMENT_TOP:
                     break;
@@ -25,18 +33,23 @@ angular.module('tcp').directive('anchored', [
          * @param {PLACEMENT_*} placement
          * @param {jQuery.element} anchorTo
          * @param {jQuery.element} anchorElement
+         * @param {Object} attrs
          */
-        function getCoordinates(placement, anchorTo, anchorElement) {
+        function getCoordinates(placement, anchorTo, anchorElement, attrs) {
             var coors = {},
                 total_width = $document.width(),
                 offset = anchorTo.offset(),
-                height = anchorElement.height(),
-                width = anchorElement.width();
+                height = anchorElement.outerHeight(),
+                width = anchorElement.outerWidth();
 
             switch (placement) {
                 case PLACEMENT_TOP:
                     coors.top = offset.top - height;
                     coors.left = total_width / 2 - width / 2;
+
+                    coors.top += attrs.anchoredTopOffset;
+                    coors.left += attrs.anchoredLeftOffset;
+
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top - ANIMATION_NUDGE_OFFSET;
                     break;
@@ -52,6 +65,9 @@ angular.module('tcp').directive('anchored', [
             },
             link: function (scope, elem, attrs) {
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT_TOP;
+                attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
+                attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
+
                 elem.css('position', 'absolute');
 
                 function hide() {
@@ -62,7 +78,8 @@ angular.module('tcp').directive('anchored', [
                     var coor = getCoordinates(
                         attrs.anchoredPlacement,
                         angular.element(scope.element),
-                        elem
+                        elem,
+                        attrs
                     );
 
                     elem.show().css({
