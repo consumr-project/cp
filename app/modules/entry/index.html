@@ -16,6 +16,7 @@
 
 <article
     info="entry.article"
+    ng-if="!entry.article.$loading"
     highlighter-api="highlight.api"
     on-found-useful="onFoundUseful()"
     on-highlight="onHighlight({highlight: highlight})"
