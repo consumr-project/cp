@@ -9,13 +9,8 @@ angular.module('tcp').controller('entryController', [
         $scope.entry = {
             is_article: false,
             is_video: false,
-
             video: {},
-
-            article: {
-                highlights: [],
-                useful_counter: 0
-            }
+            article: {}
         };
 
         $scope.highlight = {
@@ -85,6 +80,7 @@ angular.module('tcp').controller('entryController', [
         };
 
         $scope.onFoundUseful = function () {
+            $scope.entry.video.useful_counter++;
             $scope.entry.article.useful_counter++;
         };
 
@@ -140,6 +136,7 @@ angular.module('tcp').controller('entryController', [
                         $scope.entry.video.release_date = new Date(article.published);
                         $scope.entry.video.source = article.provider_url || article.provider_name;
                         $scope.entry.video.title = article.title;
+                        $scope.entry.video.useful_counter = 0;
                         break;
 
                     default:
@@ -154,6 +151,7 @@ angular.module('tcp').controller('entryController', [
                         $scope.entry.article.release_date = new Date(article.published);
                         $scope.entry.article.source = article.provider_url || article.provider_name;
                         $scope.entry.article.title = article.title;
+                        $scope.entry.article.useful_counter = 0;
                         break;
                 }
 
@@ -162,6 +160,8 @@ angular.module('tcp').controller('entryController', [
         });
 
         $scope.entry.article.external_url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
+        $scope.entry.article.external_url = 'http://www.bbc.com/news/world-europe-33739851';
+        $scope.entry.article.external_url = 'https://vimeo.com/channels/staffpicks/133217402';
         $scope.entry.article.external_url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
     }
 ]);

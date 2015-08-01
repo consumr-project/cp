@@ -5,7 +5,8 @@ angular.module('tcp').directive('video', function () {
         replace: true,
         templateUrl: '/app/modules/article/video.html',
         scope: {
-            info: '='
+            info: '=',
+            onFoundUseful: '&'
         }
     };
 });
