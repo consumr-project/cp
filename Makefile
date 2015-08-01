@@ -36,6 +36,8 @@ build-js:
 	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/angular/angular.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
+	cat node_modules/angular-animate/angular-animate.min.js >> $(built_vendor_js)
+	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/angular-route/angular-route.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/angular-aria/angular-aria.min.js >> $(built_vendor_js)

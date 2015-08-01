@@ -3,7 +3,7 @@
     'use strict';
 
     var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp'),
-        deps = ['ngRoute', 'ngAria'];
+        deps = ['ngRoute', 'ngAria', 'ngAnimate'];
 
     if (window.DEBUGGING) {
         deps.push('rector');

@@ -1,0 +1,13 @@
+.animate-fade-in-out.ng-enter, .animate-fade-in-out.ng-leave {
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s;
+}
+
+.animate-fade-in-out.ng-enter,
+.animate-fade-in-out.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+.animate-fade-in-out.ng-leave,
+.animate-fade-in-out.ng-enter.ng-enter-active {
+    opacity: 1;
+}

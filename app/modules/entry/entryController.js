@@ -108,11 +108,13 @@ angular.module('tcp').controller('entryController', [
 
             // XXX catch
             // XXX error state
+            $scope.entry.article.$loading = true;
             extract.fetch(url).then(function (article) {
                 if (!article) {
                     return;
                 }
 
+                $scope.entry.article.$loading = false;
                 $scope.entry.article.external_url = article.url;
                 $scope.entry.article.release_date = new Date(article.published);
                 $scope.entry.article.source = article.provider_url || article.provider_name;
