@@ -7,7 +7,6 @@ angular.module('tcp').controller('entryController', [
 
         $scope.entry = {
             article: {
-                url: '',
                 highlights: [],
                 useful_counter: 0
             }
@@ -54,5 +53,7 @@ angular.module('tcp').controller('entryController', [
                 $scope.$apply();
             });
         });
+
+        $scope.entry.article.external_url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
     }
 ]);
