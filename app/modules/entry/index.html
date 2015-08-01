@@ -14,9 +14,14 @@
     <popover-item ng-show="highlight.editing" ng-click="removeHighlight()">Remove</popover-item>
 </popover>
 
+<video
+    info="entry.video"
+    ng-if="entry.is_video"
+></video>
+
 <article
     info="entry.article"
-    ng-if="!entry.article.$loading"
+    ng-if="entry.is_article"
     class="animated fadeIn"
     highlighter-api="highlight.api"
     on-found-useful="onFoundUseful()"

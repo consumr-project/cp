@@ -33,7 +33,7 @@
                 url: url
             })
         }).then(function (article) {
-            node.innerHTML = article.content;
+            node.innerHTML = article.content || article.description;
 
             article.orig_content = article.content;
             article.orig_images = article.images;
@@ -46,7 +46,6 @@
             article.images = _(article.images).filter(function (article) {
                 return article.width > 500;
             }).pluck('url').uniq().value();
-            // _.pluck(article.images, 'url');
 
             return article;
         });

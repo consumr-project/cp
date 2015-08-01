@@ -1,11 +1,17 @@
 angular.module('tcp').controller('entryController', [
     '$scope',
     '$routeParams',
+    '$sce',
     'extract',
-    function ($scope, $routeParams, extract) {
+    function ($scope, $routeParams, $sce, extract) {
         'use strict';
 
         $scope.entry = {
+            is_article: false,
+            is_video: false,
+
+            video: {},
+
             article: {
                 highlights: [],
                 useful_counter: 0
@@ -18,6 +24,11 @@ angular.module('tcp').controller('entryController', [
             current: null,
             api: {}
         };
+
+        function resetEntry() {
+            $scope.entry.is_article = false;
+            $scope.entry.is_video = false;
+        }
 
         /**
          * @param {Highlight} highlight
@@ -106,30 +117,51 @@ angular.module('tcp').controller('entryController', [
                 return;
             }
 
+            resetEntry();
+
             // XXX catch
             // XXX error state
-            $scope.entry.article.$loading = true;
             extract.fetch(url).then(function (article) {
                 if (!article) {
                     return;
                 }
 
-                $scope.entry.article.$loading = false;
-                $scope.entry.article.external_url = article.url;
-                $scope.entry.article.release_date = new Date(article.published);
-                $scope.entry.article.source = article.provider_url || article.provider_name;
-                $scope.entry.article.title = article.title;
-                $scope.entry.article.description = article.description;
-                $scope.entry.article.images = article.images;
-                $scope.entry.article.content = article.content;
-                $scope.entry.article.contentParts = article.contentParts;
-                $scope.entry.article.keywords = article.keywords;
-                $scope.entry.article.highlights = [];
+                switch (article.media.type) {
+                    case 'video':
+                        $scope.entry.is_video = true;
+                        $scope.entry.video.content = article.content;
+                        $scope.entry.video.contentParts = article.contentParts;
+                        $scope.entry.video.description = article.description;
+                        $scope.entry.video.external_url = article.url;
+                        $scope.entry.video.external_url = article.url;
+                        $scope.entry.video.html = $sce.trustAsHtml(article.media.html);
+                        $scope.entry.video.keywords = article.keywords;
+                        $scope.entry.video.release_date = new Date(article.published);
+                        $scope.entry.video.release_date = new Date(article.published);
+                        $scope.entry.video.source = article.provider_url || article.provider_name;
+                        $scope.entry.video.title = article.title;
+                        break;
+
+                    default:
+                        $scope.entry.is_article = !article.media.type;
+                        $scope.entry.article.content = article.content;
+                        $scope.entry.article.contentParts = article.contentParts;
+                        $scope.entry.article.description = article.description;
+                        $scope.entry.article.external_url = article.url;
+                        $scope.entry.article.highlights = [];
+                        $scope.entry.article.images = article.images;
+                        $scope.entry.article.keywords = article.keywords;
+                        $scope.entry.article.release_date = new Date(article.published);
+                        $scope.entry.article.source = article.provider_url || article.provider_name;
+                        $scope.entry.article.title = article.title;
+                        break;
+                }
 
                 $scope.$apply();
             });
         });
 
         $scope.entry.article.external_url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
+        $scope.entry.article.external_url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
     }
 ]);

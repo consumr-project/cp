@@ -57,6 +57,10 @@ header .tcp-logo {
     margin-top: 11px;
 }
 
+iframe {
+    width: 100%;
+}
+
 .tcp-logo {
     display: inline-block;
     font-family: "Times New Roman";

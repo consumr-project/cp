@@ -1,0 +1,6 @@
+<div class="video">
+    <h1>{{::info.title}}</h1>
+    <br>
+    <div ng-bind-html="info.html"></div>
+    <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
+</div>
