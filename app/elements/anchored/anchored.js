@@ -9,9 +9,6 @@ angular.module('tcp').directive('anchored', [
 
         var ANIMATION_NUDGE_OFFSET = 10;
 
-        var STATE_ON = {},
-            STATE_OFF = {};
-
         /**
          * @param {Object} attrs
          * @throws {Error}
@@ -69,8 +66,7 @@ angular.module('tcp').directive('anchored', [
                 element: '=anchoredElement'
             },
             link: function (scope, elem, attrs) {
-                var debouncedHandleUpdate = _.debounce(handleUpdate, 100),
-                    state;
+                var debouncedHandleUpdate = _.debounce(handleUpdate.bind(null, true), 100);
 
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT_TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
@@ -80,8 +76,6 @@ angular.module('tcp').directive('anchored', [
                 elem.hide();
 
                 function hide() {
-                    state = STATE_OFF;
-
                     if (elem.is(':visible')) {
                         elem.animate({
                             opacity: 0
@@ -91,7 +85,10 @@ angular.module('tcp').directive('anchored', [
                     }
                 }
 
-                function show() {
+                /**
+                 * @param {Boolean} [now] (default: false) no animation
+                 */
+                function show(now) {
                     var coor = getCoordinates(
                         attrs.anchoredPlacement,
                         angular.element(scope.element),
@@ -99,15 +96,13 @@ angular.module('tcp').directive('anchored', [
                         attrs
                     );
 
-                    if (state === STATE_ON) {
+                    if (now === true) {
                         elem.css({
                             opacity: 1,
                             top: coor.top,
                             left: coor.left,
                         });
                     } else {
-                        state = STATE_ON;
-
                         elem.show().css({
                             top: coor.initialTop,
                             left: coor.initialLeft,
@@ -122,11 +117,14 @@ angular.module('tcp').directive('anchored', [
                     }
                 }
 
-                function handleUpdate() {
+                /**
+                 * @param {Boolean} [now] @see show
+                 */
+                function handleUpdate(now) {
                     if (!scope.show || !scope.element) {
                         hide();
                     } else {
-                        show();
+                        show(now);
                     }
                 }
 
