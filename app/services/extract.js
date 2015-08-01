@@ -52,4 +52,6 @@
     }
 
     store.fetch = fetch;
+    store.TYPE_VIDEO = 'video';
+    store.TYPE_ARTICLE = 'article';
 })(typeof window !== 'undefined' ? window.extract = {} : module.exports);

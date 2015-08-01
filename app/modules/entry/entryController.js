@@ -125,12 +125,13 @@ angular.module('tcp').controller('entryController', [
                 }
 
                 switch (article.media.type) {
-                    case 'video':
+                    case extract.TYPE_VIDEO:
                         entry_key = 'video';
                         $scope.entry.is_video = true;
                         $scope.entry.video.html = $sce.trustAsHtml(article.media.html);
                         break;
 
+                    case extract.TYPE_ARTICLE:
                     default:
                         entry_key = 'article';
                         $scope.entry.is_article = true;
