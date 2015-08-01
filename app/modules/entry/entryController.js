@@ -20,6 +20,24 @@ angular.module('tcp').controller('entryController', [
         };
 
         /**
+         * @param {Highlight} highlight
+         */
+        function keepHighlight(highlight) {
+            $scope.entry.article.highlights.push(highlight);
+        }
+
+        /**
+         * @param {Highlight} highlight
+         */
+        function unkeepHighlight(highlight) {
+            var offset = $scope.entry.article.highlights.indexOf(highlight);
+
+            if (offset !== -1) {
+                $scope.entry.article.highlights.splice(offset, 1);
+            }
+        }
+
+        /**
          * @param {Boolean} [run_apply] (default: true)
          */
         $scope.cleanHighlightState = function (run_apply) {
@@ -40,6 +58,7 @@ angular.module('tcp').controller('entryController', [
         $scope.removeHighlight = function () {
             if ($scope.highlight.editing) {
                 $scope.highlight.api.remove($scope.highlight.editing);
+                unkeepHighlight($scope.highlight.editing);
             }
 
             $scope.cleanHighlightState(false);
@@ -47,11 +66,11 @@ angular.module('tcp').controller('entryController', [
 
         $scope.saveHighlight = function () {
             if ($scope.highlight.current) {
-                $scope.entry.article.highlights.push($scope.highlight.current);
+                keepHighlight($scope.highlight.current);
+                $scope.highlight.current = null;
             }
 
-            $scope.highlight.on = false;
-            $scope.highlight.current = null;
+            $scope.cleanHighlightState(false);
         };
 
         $scope.onFoundUseful = function () {
