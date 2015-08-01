@@ -115,8 +115,8 @@ angular.module('tcp').controller('entryController', [
 
             resetEntry();
 
-            // XXX catch
             // XXX error state
+            // XXX loading state
             extract.fetch(url).then(function (article) {
                 var entry_key;
 
