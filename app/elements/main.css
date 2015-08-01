@@ -77,6 +77,12 @@ header .tcp-logo {
     }
 }
 
+@media print {
+    header {
+        display: none;
+    }
+}
+
 @import url("./helpers.css");
 @import url("./input/text.css");
 @import url("./key/key.css");
