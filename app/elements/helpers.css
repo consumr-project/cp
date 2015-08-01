@@ -4,16 +4,6 @@
     -webkit-user-select: none;
 }
 
-.is-clickable {
-    cursor: pointer;
-    transition: transform .1s;
-}
-
-button:active,
-.is-clickable:active {
-    transform: translateY(1px);
-}
-
 .right {
     float: right;
 }
