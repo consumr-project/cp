@@ -8,9 +8,18 @@
     <div class="article--full-content" ng-if="::!isShort">
         <h1 class="site-content">{{::info.title}}</h1>
 
-        <img ng-if="::info.images.length" ng-src="{{::info.images[0]}}" />
+        <img ng-if="header_image" ng-src="{{header_image}}" />
 
         <div class="site-content">
+            <div class="article--sub-images center-align animated fadeIn" ng-if="info.images.length > 1">
+                <hr>
+                <img ng-click="selectHeaderImage(image)" ng-repeat="image in ::info.images"
+                    ng-src="{{::image}}" />
+                <hr>
+                <br>
+                <br>
+            </div>
+
             <table class="full-span">
                 <tr>
                     <td>

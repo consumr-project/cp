@@ -29,7 +29,7 @@
 .entry img,
 .entry iframe {
     display: block;
-    margin: 20px auto 10px auto;
+    margin: 20px auto;
     text-align: center;
     width: 100vw;
 }
@@ -40,4 +40,21 @@
 
 .entry iframe {
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
+}
+
+.entry .article--sub-images img {
+    display: inline;
+    margin: 5px;
+    vertical-align: middle;
+    width: 30%;
+}
+
+.entry .article--sub-images {
+    display: none;
+}
+
+@media (min-width:600px) {
+    .entry .article--sub-images {
+        display: block;
+    }
 }
