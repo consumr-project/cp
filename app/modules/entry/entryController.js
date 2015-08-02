@@ -145,6 +145,7 @@ angular.module('tcp').controller('entryController', [
                         break;
 
                     case extract.TYPE_ARTICLE:
+                        /* falls through */
                     default:
                         entry_key = 'article';
                         $scope.entry.is_article = true;
