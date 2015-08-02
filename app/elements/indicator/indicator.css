@@ -35,10 +35,18 @@ indicator.indicator-useful::before {
     content: '';
     display: inline-block;
     height: 100%;
-    margin-right: 6px;
     position: relative;
     vertical-align: middle;
     width: 24px;
+}
+
+indicator.indicator-useful span {
+    padding-left: 6px;
+}
+
+indicator.indicator-useful .indicator-useful--value-,
+indicator.indicator-useful .indicator-useful--value-0 {
+    display: none;
 }
 
 indicator + indicator {
