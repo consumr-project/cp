@@ -1,12 +1,18 @@
 <div class="entry">
     <h1>{{::info.title}}</h1>
-    <br>
+
     <img src="{{::info.src}}" />
-    <br>
-    <br>
-    <div class="right-align">
-        <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
-    </div>
-    <div ng-include="'/app/modules/article/citation.html'"></div>
-    <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
+
+    <table class="full-span">
+        <tr>
+            <td>
+                <div ng-include="'/app/modules/article/citation.html'"></div>
+            </td>
+            <td class="right-align">
+                <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+            </td>
+        </tr>
+    </table>
+
+    <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
 </div>

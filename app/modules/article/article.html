@@ -8,17 +8,19 @@
     <div class="article--full-content" ng-if="::!isShort">
         <h1>{{::info.title}}</h1>
 
-        <!-- <div ng&#45;if="info.images.length"> -->
-        <!--     <img class="block" ng&#45;repeat="src in info.images" ng&#45;src="{{src}}" /> -->
-        <!--     <br> -->
-        <!-- </div> -->
+        <img ng-if="::info.images.length" class="block margin-bottom-small" ng-src="{{::info.images[0]}}" />
 
-        <div class="right-align">
-            <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
-            <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
-        </div>
-
-        <div ng-include="'/app/modules/article/citation.html'"></div>
+        <table class="full-span">
+            <tr>
+                <td>
+                    <div ng-include="'/app/modules/article/citation.html'"></div>
+                </td>
+                <td class="right-align">
+                    <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
+                    <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+                </td>
+            </tr>
+        </table>
 
         <div id="entryArticleContent"
             highlighter="info.highlights"
@@ -27,13 +29,13 @@
             highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
             highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
         >
-            <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
+            <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
         </div>
 
         <br>
 
         <div>
-            <tag ng-repeat="keyword in info.keywords" label="{{::keyword}}" class="keyword"></tag>
+            <tag ng-repeat="keyword in ::info.keywords" label="{{::keyword}}" class="keyword"></tag>
         </div>
     </div>
 </div>
