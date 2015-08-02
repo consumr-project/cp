@@ -154,12 +154,14 @@ angular.module('tcp').controller('entryController', [
                         break;
                 }
 
+                $scope.entry[entry_key].authors = article.authors;
                 $scope.entry[entry_key].content = article.content;
                 $scope.entry[entry_key].contentParts = article.contentParts;
                 $scope.entry[entry_key].description = article.description;
                 $scope.entry[entry_key].external_url = article.url;
                 $scope.entry[entry_key].release_date = new Date(article.published);
-                $scope.entry[entry_key].source = article.provider_url;
+                $scope.entry[entry_key].source_display = article.provider_display;
+                $scope.entry[entry_key].source_name = article.provider_name;
                 $scope.entry[entry_key].title = article.title;
                 $scope.entry[entry_key].useful_counter = 0;
 

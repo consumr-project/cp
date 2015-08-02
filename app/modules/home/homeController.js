@@ -7,7 +7,7 @@ angular.module('tcp').controller('homeController', [
         $scope.articles = [
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -15,7 +15,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -23,7 +23,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -31,7 +31,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -39,7 +39,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -47,7 +47,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -55,7 +55,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -63,7 +63,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -71,7 +71,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -79,7 +79,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -87,7 +87,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',
@@ -95,7 +95,7 @@ angular.module('tcp').controller('homeController', [
             },
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source: 'bloomberg.com',
+                source_display: 'bloomberg.com',
                 release_date: '12 July, 2015',
                 useful_counter: 43,
                 url: '#',

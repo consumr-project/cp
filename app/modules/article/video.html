@@ -3,9 +3,9 @@
     <br>
     <div ng-bind-html="::info.html"></div>
     <br>
-    <div class="right">
+    <div class="right-align">
         <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
     </div>
-    <h5>Published on {{::info.release_date | date: 'mediumDate'}}</h5>
+    <div ng-include="'/app/modules/article/citation.html'"></div>
     <p ng-repeat="paragraph in info.contentParts">{{::paragraph}}</p>
 </div>

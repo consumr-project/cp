@@ -1,7 +1,7 @@
 <div class="article">
     <div class="article--short-content" ng-if="::isShort">
         <h2 class="title"><a href="{{::info.url}}">{{::info.title}}</a></h2>
-        <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source}}</a></h3>
+        <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source_display}}</a></h3>
         <indicator type="useful" value="::info.useful_counter"></indicator>
         <h3 class="uppercase subtitle">{{::info.release_date}}</h3>
     </div>
@@ -18,7 +18,7 @@
             <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
         </div>
 
-        <h5>Published on {{::info.release_date | date: 'mediumDate'}}</h5>
+        <div ng-include="'/app/modules/article/citation.html'"></div>
 
         <div id="entryArticleContent"
             highlighter="info.highlights"
