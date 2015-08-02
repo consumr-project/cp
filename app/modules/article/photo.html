@@ -1,18 +1,20 @@
 <div class="entry">
-    <h1>{{::info.title}}</h1>
+    <h1 class="site-content">{{::info.title}}</h1>
 
     <img src="{{::info.src}}" />
 
-    <table class="full-span">
-        <tr>
-            <td>
-                <div ng-include="'/app/modules/article/citation.html'"></div>
-            </td>
-            <td class="right-align">
-                <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
-            </td>
-        </tr>
-    </table>
+    <div class="site-content">
+        <table class="full-span">
+            <tr>
+                <td>
+                    <div ng-include="'/app/modules/article/citation.html'"></div>
+                </td>
+                <td class="right-align">
+                    <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+                </td>
+            </tr>
+        </table>
 
-    <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
+        <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
+    </div>
 </div>

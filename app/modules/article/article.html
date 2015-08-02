@@ -1,4 +1,4 @@
-<div class="article">
+<div class="entry article">
     <div class="article--short-content" ng-if="::isShort">
         <h2 class="title"><a href="{{::info.url}}">{{::info.title}}</a></h2>
         <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source_display}}</a></h3>
@@ -6,36 +6,38 @@
         <h3 class="uppercase subtitle">{{::info.release_date}}</h3>
     </div>
     <div class="article--full-content" ng-if="::!isShort">
-        <h1>{{::info.title}}</h1>
+        <h1 class="site-content">{{::info.title}}</h1>
 
-        <img ng-if="::info.images.length" class="block margin-bottom-small" ng-src="{{::info.images[0]}}" />
+        <img ng-if="::info.images.length" ng-src="{{::info.images[0]}}" />
 
-        <table class="full-span">
-            <tr>
-                <td>
-                    <div ng-include="'/app/modules/article/citation.html'"></div>
-                </td>
-                <td class="right-align">
-                    <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
-                    <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
-                </td>
-            </tr>
-        </table>
+        <div class="site-content">
+            <table class="full-span">
+                <tr>
+                    <td>
+                        <div ng-include="'/app/modules/article/citation.html'"></div>
+                    </td>
+                    <td class="right-align">
+                        <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
+                        <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+                    </td>
+                </tr>
+            </table>
 
-        <div id="entryArticleContent"
-            highlighter="info.highlights"
-            highlighter-api="highlighterApi"
-            highlighter-on-highlight="onHighlight({highlight: highlight})"
-            highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
-            highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
-        >
-            <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
-        </div>
+            <div id="entryArticleContent"
+                highlighter="info.highlights"
+                highlighter-api="highlighterApi"
+                highlighter-on-highlight="onHighlight({highlight: highlight})"
+                highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
+                highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
+            >
+                <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
+            </div>
 
-        <br>
+            <br>
 
-        <div>
-            <tag ng-repeat="keyword in ::info.keywords" label="{{::keyword}}" class="keyword"></tag>
+            <div>
+                <tag ng-repeat="keyword in ::info.keywords" label="{{::keyword}}" class="keyword"></tag>
+            </div>
         </div>
     </div>
 </div>

@@ -28,6 +28,16 @@
 
 .entry img,
 .entry iframe {
+    display: block;
+    margin: 20px auto 10px auto;
     text-align: center;
-    width: 100%;
+    width: 100vw;
+}
+
+.entry img {
+    max-width: 1200px;
+}
+
+.entry iframe {
+    max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
