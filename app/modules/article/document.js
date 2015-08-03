@@ -5,7 +5,7 @@ angular.module('tcp').directive('document', function () {
         replace: true,
         templateUrl: '/app/modules/article/document.html',
         scope: {
-            info: '=',
+            entry: '=',
             onFoundUseful: '&'
         }
     };

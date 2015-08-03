@@ -1,19 +1,19 @@
 <div class="entry article">
     <div class="article--short-content" ng-if="::isShort">
-        <h2 class="title"><a href="{{::info.url}}">{{::info.title}}</a></h2>
-        <h3 class="uppercase"><a class="subtitle" href="{{::info.external_url}}">{{::info.source_display}}</a></h3>
-        <indicator type="useful" value="::info.useful_counter"></indicator>
-        <h3 class="uppercase subtitle">{{::info.release_date}}</h3>
+        <h2 class="title"><a href="{{::entry.url}}">{{::entry.title}}</a></h2>
+        <h3 class="uppercase"><a class="subtitle" href="{{::entry.external_url}}">{{::entry.source_display}}</a></h3>
+        <indicator type="useful" value="::entry.useful_counter"></indicator>
+        <h3 class="uppercase subtitle">{{::entry.release_date}}</h3>
     </div>
     <div class="article--full-content" ng-if="::!isShort">
-        <h1 class="site-content">{{::info.title}}</h1>
+        <h1 class="site-content">{{::entry.title}}</h1>
 
         <img ng-if="header_image" ng-src="{{header_image}}" />
 
         <div class="site-content">
-            <div class="article--sub-images center-align animated fadeIn" ng-if="info.images.length > 1">
+            <div class="article--sub-images center-align animated fadeIn" ng-if="entry.images.length > 1">
                 <hr>
-                <img ng-click="selectHeaderImage(image)" ng-repeat="image in ::info.images"
+                <img ng-click="selectHeaderImage(image)" ng-repeat="image in ::entry.images"
                     ng-src="{{::image}}" />
                 <hr>
                 <br>
@@ -26,26 +26,26 @@
                         <div ng-include="'/app/modules/article/citation.html'"></div>
                     </td>
                     <td class="right-align">
-                        <indicator ng-if="info.highlights.length" type="highlights" value="info.highlights.length"></indicator>
-                        <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+                        <indicator ng-if="entry.highlights.length" type="highlights" value="entry.highlights.length"></indicator>
+                        <indicator ng-click="onFoundUseful()" type="useful" value="entry.useful_counter"></indicator>
                     </td>
                 </tr>
             </table>
 
             <div id="entryArticleContent"
-                highlighter="info.highlights"
+                highlighter="entry.highlights"
                 highlighter-api="highlighterApi"
                 highlighter-on-highlight="onHighlight({highlight: highlight})"
                 highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
                 highlighter-on-non-highlight-click="onNonHighlightClick({highlight: highlight})"
             >
-                <p ng-repeat="paragraph in ::info.contentParts track by $index">{{::paragraph}}</p>
+                <p ng-repeat="paragraph in ::entry.contentParts track by $index">{{::paragraph}}</p>
             </div>
 
             <br>
 
             <div>
-                <tag ng-repeat="keyword in ::info.keywords" label="{{::keyword}}" class="keyword"></tag>
+                <tag ng-repeat="keyword in ::entry.keywords" label="{{::keyword}}" class="keyword"></tag>
             </div>
         </div>
     </div>

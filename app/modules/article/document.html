@@ -1,7 +1,7 @@
 <div class="entry document">
-    <h1 class="site-content">{{::info.title}}</h1>
+    <h1 class="site-content">{{::entry.title}}</h1>
 
-    <div ng-bind-html="::info.html"></div>
+    <div ng-bind-html="::entry.html"></div>
 
     <div class="site-content">
         <table class="full-span">
@@ -10,7 +10,7 @@
                     <div ng-include="'/app/modules/article/citation.html'"></div>
                 </td>
                 <td class="right-align">
-                    <indicator ng-click="onFoundUseful()" type="useful" value="info.useful_counter"></indicator>
+                    <indicator ng-click="onFoundUseful()" type="useful" value="entry.useful_counter"></indicator>
                 </td>
             </tr>
         </table>

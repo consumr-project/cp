@@ -17,25 +17,25 @@
 </popover>
 
 <document
-    info="entry"
+    entry="entry"
     ng-if="entry.type === type.rich"
     on-found-useful="onFoundUseful()"
 ></document>
 
 <video
-    info="entry"
+    entry="entry"
     ng-if="entry.type === type.video"
     on-found-useful="onFoundUseful()"
 ></video>
 
 <photo
-    info="entry"
+    entry="entry"
     ng-if="entry.type === type.photo"
     on-found-useful="onFoundUseful()"
 ></photo>
 
 <article
-    info="entry"
+    entry="entry"
     ng-if="entry.type === type.article"
     class="animated fadeIn"
     highlighter-api="highlight.api"

@@ -10,13 +10,13 @@ angular.module('tcp').directive('article', function () {
             onHighlight: '&',
             onHighlightClick: '&',
             onNonHighlightClick: '&',
-            info: '='
+            entry: '='
         },
         link: function (scope, elem, attr) {
             scope.isShort = attr.short;
         },
         controller: ['$scope', function ($scope) {
-            $scope.header_image = $scope.info.images && $scope.info.images[0];
+            $scope.header_image = $scope.entry.images && $scope.entry.images[0];
 
             $scope.selectHeaderImage = function (image) {
                 $scope.header_image = image;
