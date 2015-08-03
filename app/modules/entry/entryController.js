@@ -6,18 +6,13 @@ angular.module('tcp').controller('entryController', [
     function ($scope, $routeParams, $sce, extract) {
         'use strict';
 
-        $scope.entry = {
-            url: '',
+        $scope.entry = resetEntry();
 
-            is_article: false,
-            is_document: false,
-            is_photo: false,
-            is_video: false,
-
-            article: {},
-            document: {},
-            photo: {},
-            video: {}
+        $scope.type = {
+            article: extract.TYPE_ARTICLE,
+            photo: extract.TYPE_PHOTO,
+            rich: extract.TYPE_RICH,
+            video: extract.TYPE_VIDEO
         };
 
         $scope.highlight = {
@@ -27,28 +22,32 @@ angular.module('tcp').controller('entryController', [
             api: {}
         };
 
+        /**
+         * @return {Object}
+         */
         function resetEntry() {
-            $scope.entry.is_article = false;
-            $scope.entry.is_document = false;
-            $scope.entry.is_photo = false;
-            $scope.entry.is_video = false;
+            $scope.entry = {
+                url: $scope.entry ? $scope.entry.url : ''
+            };
+
+            return $scope.entry;
         }
 
         /**
          * @param {Highlight} highlight
          */
         function keepHighlight(highlight) {
-            $scope.entry.article.highlights.push(highlight);
+            $scope.entry.highlights.push(highlight);
         }
 
         /**
          * @param {Highlight} highlight
          */
         function unkeepHighlight(highlight) {
-            var offset = $scope.entry.article.highlights.indexOf(highlight);
+            var offset = $scope.entry.highlights.indexOf(highlight);
 
             if (offset !== -1) {
-                $scope.entry.article.highlights.splice(offset, 1);
+                $scope.entry.highlights.splice(offset, 1);
             }
         }
 
@@ -89,9 +88,7 @@ angular.module('tcp').controller('entryController', [
         };
 
         $scope.onFoundUseful = function () {
-            $scope.entry.article.useful_counter++;
-            $scope.entry.photo.useful_counter++;
-            $scope.entry.video.useful_counter++;
+            $scope.entry.useful_counter++;
         };
 
         $scope.onHighlight = function (args) {
@@ -128,52 +125,26 @@ angular.module('tcp').controller('entryController', [
             // XXX error state
             // XXX loading state
             extract.fetch(url).then(function (article) {
-                var entry_key;
-
                 if (!article) {
                     return;
                 }
 
-                switch (article.media.type) {
-                    case extract.TYPE_VIDEO:
-                        entry_key = 'video';
-                        $scope.entry.is_video = true;
-                        $scope.entry.video.html = $sce.trustAsHtml(article.media.html);
-                        break;
-
-                    case extract.TYPE_PHOTO:
-                        entry_key = 'photo';
-                        $scope.entry.is_photo = true;
-                        $scope.entry.photo.src= article.media.url;
-                        break;
-
-                    case extract.TYPE_RICH:
-                        entry_key = 'document';
-                        $scope.entry.is_document = true;
-                        $scope.entry.document.html = $sce.trustAsHtml(article.media.html);
-                        break;
-
-                    case extract.TYPE_ARTICLE:
-                        /* falls through */
-                    default:
-                        entry_key = 'article';
-                        $scope.entry.is_article = true;
-                        $scope.entry.article.highlights = [];
-                        $scope.entry.article.images = article.images;
-                        $scope.entry.article.keywords = article.keywords;
-                        break;
-                }
-
-                $scope.entry[entry_key].authors = article.authors;
-                $scope.entry[entry_key].content = article.content;
-                $scope.entry[entry_key].contentParts = article.contentParts;
-                $scope.entry[entry_key].description = article.description;
-                $scope.entry[entry_key].external_url = article.url;
-                $scope.entry[entry_key].release_date = article.published ? new Date(article.published) : null;
-                $scope.entry[entry_key].source_display = article.provider_display;
-                $scope.entry[entry_key].source_name = article.provider_name;
-                $scope.entry[entry_key].title = article.title;
-                $scope.entry[entry_key].useful_counter = 0;
+                $scope.entry.authors = article.authors;
+                $scope.entry.content = article.content;
+                $scope.entry.contentParts = article.contentParts;
+                $scope.entry.description = article.description;
+                $scope.entry.external_url = article.url;
+                $scope.entry.highlights = [];
+                $scope.entry.html = $sce.trustAsHtml(article.media.html);
+                $scope.entry.images = article.images;
+                $scope.entry.keywords = article.keywords;
+                $scope.entry.release_date = article.published ? new Date(article.published) : null;
+                $scope.entry.source_display = article.provider_display;
+                $scope.entry.source_name = article.provider_name;
+                $scope.entry.src = article.media.url;
+                $scope.entry.title = article.title;
+                $scope.entry.type = article.media.type || extract.TYPE_ARTICLE;
+                $scope.entry.useful_counter = 0;
 
                 $scope.$apply();
             });
