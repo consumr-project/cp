@@ -34,16 +34,17 @@
     width: 100vw;
 }
 
-.entry img {
-    max-width: 1200px;
+.entry img,
+.entry.document iframe {
+    max-width: 1100px;
 }
 
-.entry iframe {
+.entry:not(.document) iframe {
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
 
 .entry.document iframe {
-    height: 75vh;
+    height: 70vh;
 }
 
 .entry .article--sub-images img {

@@ -1,6 +1,8 @@
 (function (store) {
     'use strict';
 
+    /* global _ */
+
     /**
      * @param {String} url
      * @param {Function} [callback]
@@ -52,6 +54,22 @@
         return url;
     }
 
+    /**
+     * @param {String} tag
+     * @param {Object} [props]
+     * @return {String}
+     */
+    function html(tag, props) {
+        return [
+            '<', tag, props ? ' ' : '',
+                _.map(props, function (val, key) {
+                    return key + '="' + val + '"';
+                }).join(' '),
+            '></', tag, '>'
+        ].join('');
+    }
+
+    store.html = html;
     store.state = state;
     store.semiguid = semiguid;
     store.preload = preload;

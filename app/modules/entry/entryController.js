@@ -150,7 +150,7 @@ angular.module('tcp').controller('entryController', [
                     case extract.TYPE_RICH:
                         entry_key = 'document';
                         $scope.entry.is_document = true;
-                        $scope.entry.document.html= article.media.html;
+                        $scope.entry.document.html = $sce.trustAsHtml(article.media.html);
                         break;
 
                     case extract.TYPE_ARTICLE:
@@ -169,7 +169,7 @@ angular.module('tcp').controller('entryController', [
                 $scope.entry[entry_key].contentParts = article.contentParts;
                 $scope.entry[entry_key].description = article.description;
                 $scope.entry[entry_key].external_url = article.url;
-                $scope.entry[entry_key].release_date = new Date(article.published);
+                $scope.entry[entry_key].release_date = article.published ? new Date(article.published) : null;
                 $scope.entry[entry_key].source_display = article.provider_display;
                 $scope.entry[entry_key].source_name = article.provider_name;
                 $scope.entry[entry_key].title = article.title;
@@ -185,6 +185,10 @@ angular.module('tcp').controller('entryController', [
         $scope.entry.url = 'http://imgur.com/gallery/lQBqnIa';
         $scope.entry.url = 'https://vimeo.com/channels/staffpicks/133217402';
         $scope.entry.url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
+        $scope.entry.url = 'https://www.oasis-open.org/spectools/docs/wd-spectools-word-sample-04.doc';
+        $scope.entry.url = 'http://video.ch9.ms/build/2011/slides/TOOL-532T_Sutter.pptx';
+        $scope.entry.url = 'http://newteach.pbworks.com/f/ele+newsletter.docx';
+        $scope.entry.url = 'http://learn.bankofamerica.com/content/excel/Wedding_Budget_Planner_Spreadsheet.xlsx';
         $scope.entry.url = 'https://bitcoin.org/bitcoin.pdf';
     }
 ]);
