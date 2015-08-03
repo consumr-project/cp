@@ -15,6 +15,6 @@
             </tr>
         </table>
 
-        <p ng-repeat="paragraph in ::info.contentParts">{{::paragraph}}</p>
+        <p ng-repeat="paragraph in ::info.contentParts track by $index">{{::paragraph}}</p>
     </div>
 </div>
