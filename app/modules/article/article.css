@@ -42,6 +42,10 @@
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
 
+.entry.document iframe {
+    height: 75vh;
+}
+
 .entry .article--sub-images img {
     display: inline;
     margin: 5px;

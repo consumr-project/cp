@@ -10,10 +10,12 @@ angular.module('tcp').controller('entryController', [
             url: '',
 
             is_article: false,
+            is_document: false,
             is_photo: false,
             is_video: false,
 
             article: {},
+            document: {},
             photo: {},
             video: {}
         };
@@ -27,8 +29,9 @@ angular.module('tcp').controller('entryController', [
 
         function resetEntry() {
             $scope.entry.is_article = false;
-            $scope.entry.is_video = false;
+            $scope.entry.is_document = false;
             $scope.entry.is_photo = false;
+            $scope.entry.is_video = false;
         }
 
         /**
@@ -144,6 +147,12 @@ angular.module('tcp').controller('entryController', [
                         $scope.entry.photo.src= article.media.url;
                         break;
 
+                    case extract.TYPE_RICH:
+                        entry_key = 'document';
+                        $scope.entry.is_document = true;
+                        $scope.entry.document.html= article.media.html;
+                        break;
+
                     case extract.TYPE_ARTICLE:
                         /* falls through */
                     default:
@@ -171,10 +180,11 @@ angular.module('tcp').controller('entryController', [
         });
 
         $scope.entry.url = 'http://www.nytimes.com/2015/05/28/world/asia/chinas-high-hopes-for-growing-those-rubber-tree-plants.html';
-        // $scope.entry.url = 'http://www.bbc.com/news/world-europe-33739851';
-        // $scope.entry.url = 'https://www.flickr.com/photos/mr3zo00oz/5584870916/in/photolist-9vvVxS-deQWpH-2ND7vr-5Hrfq8-5Jj57H-6yN5T6-7fyLU-pGzmVp-5B37Zu-fvsdww-5iMEmH-73nCZt-aMk7cR-6FkUha-7pSZRU-78TdxQ-bvLqxJ-AxVud-aTPSxk-9yn9Xp-4BUac-g2ZTRu-deQWmG-bs8WbE-fbdcog-kEN49s-5TT6vV-6dGGZk-aDHn3j-4y1sXk-8rEgN-2S8gVd-6dvtQC-4rfZ8h-5tJpnw-4exoM6-7adYrP-6NX4em-8nDsgD-8QwTKz-cdPiKU-7DM9jj-o3Essy-54v7jN-mdtBdy-deQWkH-sm1k2-bfpAEe-6fubgq-7X5CfS';
-        // $scope.entry.url = 'http://imgur.com/gallery/lQBqnIa';
-        // $scope.entry.url = 'https://vimeo.com/channels/staffpicks/133217402';
-        // $scope.entry.url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
+        $scope.entry.url = 'http://www.bbc.com/news/world-europe-33739851';
+        $scope.entry.url = 'https://www.flickr.com/photos/mr3zo00oz/5584870916/in/photolist-9vvVxS-deQWpH-2ND7vr-5Hrfq8-5Jj57H-6yN5T6-7fyLU-pGzmVp-5B37Zu-fvsdww-5iMEmH-73nCZt-aMk7cR-6FkUha-7pSZRU-78TdxQ-bvLqxJ-AxVud-aTPSxk-9yn9Xp-4BUac-g2ZTRu-deQWmG-bs8WbE-fbdcog-kEN49s-5TT6vV-6dGGZk-aDHn3j-4y1sXk-8rEgN-2S8gVd-6dvtQC-4rfZ8h-5tJpnw-4exoM6-7adYrP-6NX4em-8nDsgD-8QwTKz-cdPiKU-7DM9jj-o3Essy-54v7jN-mdtBdy-deQWkH-sm1k2-bfpAEe-6fubgq-7X5CfS';
+        $scope.entry.url = 'http://imgur.com/gallery/lQBqnIa';
+        $scope.entry.url = 'https://vimeo.com/channels/staffpicks/133217402';
+        $scope.entry.url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
+        $scope.entry.url = 'https://bitcoin.org/bitcoin.pdf';
     }
 ]);

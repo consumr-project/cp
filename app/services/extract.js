@@ -55,4 +55,5 @@
     store.TYPE_VIDEO = 'video';
     store.TYPE_ARTICLE = 'article';
     store.TYPE_PHOTO = 'photo';
+    store.TYPE_RICH = 'rich';
 })(typeof window !== 'undefined' ? window.extract = {} : module.exports);
