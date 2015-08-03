@@ -32,3 +32,11 @@
 .full-span {
     width: 100%;
 }
+
+.error-message {
+    background-color: var(--color-error-background-color);
+    border-radius: 2px;
+    border: 1px solid var(--color-error-border-color);
+    color: var(--color-error-text-color);
+    padding: 15px;
+}

@@ -44,3 +44,11 @@
     on-highlight-click="onHighlightClick({highlight: highlight})"
     on-non-highlight-click="cleanHighlightState()"
 ></article>
+
+<div class="site-content" ng-if="entry.type === type.error">
+    <div class="error-message">
+        <b>Error:</b>
+        <span>{{::entry.error_message}}</span>
+        <span>({{::entry.error_code}})</span>
+    </div>
+</div>

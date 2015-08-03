@@ -94,4 +94,5 @@
     store.TYPE_ARTICLE = 'article';
     store.TYPE_PHOTO = 'photo';
     store.TYPE_RICH = 'rich';
+    store.TYPE_ERROR = 'error';
 })(typeof window !== 'undefined' ? window.extract = {} : module.exports);

@@ -1,12 +1,17 @@
 :root {
-    --color-good: rgb(73, 152, 138);
     --color-bad: rgb(232, 38, 59);
+    --color-good: rgb(73, 152, 138);
     --color-link: rgb(45, 130, 176);
 
     --color-separator: rgb(236, 236, 236);
 
+    --color-std-background-color: white;
     --color-std-border-color: #DCDCDC;
-    --color-std-text-color: #353535;
-    --color-std-shadow-color: #BFBFBF;
     --color-std-hover-background-color: #F7F7F7;
+    --color-std-shadow-color: #BFBFBF;
+    --color-std-text-color: #353535;
+
+    --color-error-background-color: #FFE0E0;
+    --color-error-border-color: #B33838;
+    --color-error-text-color: #B33838;
 }
