@@ -54,6 +54,9 @@ deploy:
 run: build
 	node server
 
+reset: clean
+	-rm -r node_modules
+
 clean:
 	-rm -r static
 
