@@ -40,22 +40,22 @@
     }
 
     /**
-     * updates article object to work as a microsoft document
-     * @param {Object} article
+     * updates content object to work as a microsoft document
+     * @param {Object} content
      * @return {Object}
      */
-    function microsoft_media(article) {
-        if (!article.type && is_microsoft_extension(article.url)) {
-            article.media = {
+    function microsoft_media(content) {
+        if (!content.type && is_microsoft_extension(content.url)) {
+            content.media = {
                 type: store.TYPE_RICH,
                 html: utils.html('iframe', {
                     src: 'https://view.officeapps.live.com/op/view.aspx?src=' +
-                        article.url
+                        content.url
                 })
             };
         }
 
-        return article;
+        return content;
     }
 
     function is_microsoft_extension(name) {
@@ -66,26 +66,26 @@
     }
 
     /**
-     * article content cleanup and nomalization
-     * @param {Object} article
+     * content content cleanup and nomalization
+     * @param {Object} content
      * @return {Object}
      */
-    function normalize(article) {
-        node.innerHTML = article.content || article.description;
+    function normalize(content) {
+        node.innerHTML = content.content || content.description;
 
-        article.orig_content = article.content;
-        article.orig_images = article.images;
-        article.orig_keywords = article.keywords;
+        content.orig_content = content.content;
+        content.orig_images = content.images;
+        content.orig_keywords = content.keywords;
 
-        article.content = _.trim(node.innerText);
-        article.contentParts = article.content.split('\n');
-        article.keywords = _.pluck(article.keywords, 'name');
+        content.content = _.trim(node.innerText);
+        content.contentParts = content.content.split('\n');
+        content.keywords = _.pluck(content.keywords, 'name');
 
-        article.images = _(article.images).filter(function (article) {
-            return article.width > 500;
+        content.images = _(content.images).filter(function (content) {
+            return content.width > 500;
         }).pluck('url').uniq().value();
 
-        return article;
+        return content;
     }
 
     store.fetch = fetch;

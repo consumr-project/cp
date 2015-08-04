@@ -5,7 +5,7 @@ angular.module('tcp').directive('highlighter', [
     function ($window, $document, highlighter) {
         'use strict';
 
-        var DEFAULT_HIGHLIGHT_CLASS_NAME = 'article--highlight';
+        var DEFAULT_HIGHLIGHT_CLASS_NAME = 'highlight--inline-item';
 
         var NODE_IGNORE_MOUSE_EVENTS = ['INPUT', 'BUTTON'];
 

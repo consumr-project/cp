@@ -1,26 +1,26 @@
-.article .article--short-content {
+.entry.article.summary {
     display: block;
     margin: 20px 0;
     padding-top: 10px;
 }
 
-.article .article--short-content:first-of-type {
+.entry.article.summary:first-of-type {
     padding-top: 0;
     margin-top: 0;
 }
 
-.article + .article {
+.entry.article + .entry.article {
     border-top: 1px solid var(--color-separator);
 }
 
-.article .article--short-content indicator {
+.entry.article.summary indicator {
     float: right;
     position: relative;
     right: 10px;
     top: -5px;
 }
 
-.article--highlight {
+.highlight--inline-item {
     background: rgb(255, 254, 196);
     text-shadow: none;
     cursor: pointer;
@@ -35,31 +35,31 @@
 }
 
 .entry img,
-.entry.document iframe {
+.entry.rich iframe {
     max-width: 1100px;
 }
 
-.entry:not(.document) iframe {
+.entry:not(.rich) iframe {
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
 
-.entry.document iframe {
+.entry.rich iframe {
     height: 70vh;
 }
 
-.entry .article--sub-images img {
+.entry--sub-images img {
     display: inline;
     margin: 5px;
     vertical-align: middle;
     width: 30%;
 }
 
-.entry .article--sub-images {
+.entry--sub-images {
     display: none;
 }
 
 @media (min-width:600px) {
-    .entry .article--sub-images {
+    .entry--sub-images {
         display: block;
     }
 }

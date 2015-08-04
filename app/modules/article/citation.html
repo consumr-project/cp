@@ -1,7 +1,0 @@
-<div>
-    <span ng-repeat="author in entry.authors">
-        <a href="{{::author.url}}">{{::author.name}}</a><span>,</span>
-    </span>
-    <span>{{::entry.source_name}}{{::entry.release_date ? ',' : ''}}</span>
-    <span ng-if="::entry.release_date">{{::entry.release_date | date: 'mediumDate'}}</span>
-</div>
