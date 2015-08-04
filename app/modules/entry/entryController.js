@@ -180,10 +180,10 @@ angular.module('tcp').controller('entryController', [
         $scope.entry.url = 'http://imgur.com/gallery/lQBqnIa';
         $scope.entry.url = 'https://vimeo.com/channels/staffpicks/133217402';
         $scope.entry.url = 'https://www.youtube.com/watch?v=pDVmldTurqk';
-        // $scope.entry.url = 'https://www.oasis-open.org/spectools/docs/wd-spectools-word-sample-04.doc';
-        // $scope.entry.url = 'http://video.ch9.ms/build/2011/slides/TOOL-532T_Sutter.pptx';
-        // $scope.entry.url = 'http://newteach.pbworks.com/f/ele+newsletter.docx';
-        // $scope.entry.url = 'http://learn.bankofamerica.com/content/excel/Wedding_Budget_Planner_Spreadsheet.xlsx';
-        // $scope.entry.url = 'https://bitcoin.org/bitcoin.pdf';
+        $scope.entry.url = 'https://www.oasis-open.org/spectools/docs/wd-spectools-word-sample-04.doc';
+        $scope.entry.url = 'http://video.ch9.ms/build/2011/slides/TOOL-532T_Sutter.pptx';
+        $scope.entry.url = 'http://newteach.pbworks.com/f/ele+newsletter.docx';
+        $scope.entry.url = 'http://learn.bankofamerica.com/content/excel/Wedding_Budget_Planner_Spreadsheet.xlsx';
+        $scope.entry.url = 'https://bitcoin.org/bitcoin.pdf';
     }
 ]);

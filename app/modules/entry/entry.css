@@ -30,21 +30,18 @@
 .entry iframe {
     display: block;
     margin: 20px auto;
+    max-width: 1100px;
     text-align: center;
     width: 100vw;
 }
 
-.entry img,
-.entry.rich iframe {
-    max-width: 1100px;
-}
-
-.entry:not(.rich) iframe {
-    max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
-}
-
 .entry.rich iframe {
     height: 70vh;
+}
+
+.entry.video iframe {
+    height: 50vw;
+    max-height: 550px;
 }
 
 .entry--sub-images img {
