@@ -3,7 +3,7 @@ angular.module('tcp').directive('entry', function () {
 
     return {
         replace: true,
-        templateUrl: '/app/modules/entry/entry.html',
+        templateUrl: '/app/elements/entry/entry.html',
         scope: {
             highlighterApi: '=',
             onFoundUseful: '&',
