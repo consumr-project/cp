@@ -91,7 +91,7 @@ angular.module('tcp').directive('anchored', [
                     );
 
                     if (now === true) {
-                        elem.css({
+                        elem.show().css({
                             opacity: 1,
                             top: coor.top,
                             left: coor.left,

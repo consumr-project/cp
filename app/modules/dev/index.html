@@ -9,6 +9,31 @@
         <message type="success">this is a success message</message>
     </rector-markup>
 
+    <h1>popover</h1>
+    <rector-markup>
+        <popover>
+            <popover-item>Option #1</popover-item>
+            <popover-item>Option #2</popover-item>
+            <popover-item>Option #3</popover-item>
+            <popover-item>Option #4</popover-item>
+            <popover-item>Option #5</popover-item>
+        </popover>
+    </rector-markup>
+
+    <h1>anchor</h1>
+    <rector-markup>
+        <button data-guide-menu-button ng-click="toggleMenu()">toggle menu</button>
+
+        <popover
+            anchored
+            anchored-element="'[data-guide-menu-button]'"
+            anchored-show="menu.show"
+        >
+            <popover-item>Option #1</popover-item>
+            <popover-item>Option #2</popover-item>
+        </popover>
+    </rector-markup>
+
     <h1>avatar</h1>
     <rector-markup class="guide-block-avatars">
         <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>

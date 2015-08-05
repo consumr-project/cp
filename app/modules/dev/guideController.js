@@ -7,6 +7,14 @@ angular.module('tcp').controller('guideController', [
         $scope.counter = 42;
         $scope.tags = [];
 
+        $scope.menu = {
+            show: false
+        };
+
+        $scope.toggleMenu = function () {
+            $scope.menu.show = !$scope.menu.show;
+        };
+
         $scope.articles = [
             {
                 title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
