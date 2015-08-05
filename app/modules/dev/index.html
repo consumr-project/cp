@@ -1,18 +1,15 @@
-<rector-toc></rector-toc>
+<!-- <rector&#45;toc></rector&#45;toc> -->
 
-<!-- <rector&#45;section> -->
-<!--     <rector&#45;section&#45;label>articles</rector&#45;section&#45;label> -->
-<!--  -->
-<!--     <rector&#45;markup> -->
-<!--         <article ng&#45;repeat="article in articles" entry="article" short="true"></article> -->
-<!--     </rector&#45;markup> -->
-<!--  -->
-<!--     <rector&#45;markup rector&#45;markup&#45;continuation rector&#45;lang="javascript" rector&#45;eval="articles | json"></rector&#45;markup> -->
-<!-- </rector&#45;section> -->
+<div class="site-content">
+    <h1>message</h1>
+    <rector-markup>
+        <message type="error">this is an error message</message>
+        <message type="warn">this is a warning message</message>
+        <message type="info">this is an information message</message>
+        <message type="success">this is a success message</message>
+    </rector-markup>
 
-<rector-section>
-    <rector-section-label>avatar</rector-section-label>
-
+    <h1>avatar</h1>
     <rector-markup class="guide-block-avatars">
         <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
 
@@ -22,7 +19,6 @@
 
         <avatar title="Theoretical Physicist"></avatar>
     </rector-markup>
-
     <rector-markup>
         <avatars>
             <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
@@ -34,24 +30,17 @@
             <avatar title="Theoretical Physicist"></avatar>
         </avatars>
     </rector-markup>
-</rector-section>
 
-<rector-section>
-    <rector-section-label>key</rector-section-label>
-
+    <h1>key</h1>
     <rector-markup>
         <key label="good stuff" class="good"></key>
         <key label="bad stuff" class="bad"></key>
     </rector-markup>
-</rector-section>
 
-<rector-section>
-    <rector-section-label>tag</rector-section-label>
-
+    <h1>tag</h1>
     <rector-section-controls>
         <button ng-click="addTag()">add tag</button>
     </rector-section-controls>
-
     <rector-markup>
         <tags>
             <tag class="bad" label="illegal fishing">
@@ -69,25 +58,18 @@
             </tag>
         </tags>
     </rector-markup>
-</rector-section>
 
-<rector-section>
-    <rector-section-label>indicator</rector-section-label>
-
+    <h1>indicator</h1>
     <rector-section-controls>
         <button ng-click="incrementCounter()">increment counter</button>
     </rector-section-controls>
-
     <rector-markup>
         <indicator type="counter" value="counter"></indicator>
         <indicator type="highlights" value="counter"></indicator>
         <indicator type="useful" value="counter"></indicator>
     </rector-markup>
-</rector-section>
 
-<rector-section>
-    <rector-section-label>button</rector-section-label>
-
+    <h1>button</h1>
     <rector-markup>
         <buttons>
             <button>follow</button>
@@ -98,22 +80,17 @@
             <button class="icon-clock"></button>
         </buttons>
     </rector-markup>
-</rector-section>
 
-<rector-section>
-    <rector-section-label>type</rector-section-label>
-
+    <h1>type</h1>
     <rector-markup>
         <a href="#">a link</a>
     </rector-markup>
-
     <rector-markup>
         <h1>Header 1</h1>
         <h2>Header 2</h2>
         <h3>Header 3</h3>
         <h4>Header 4</h4>
     </rector-markup>
-
     <rector-markup>
         <p>Habitant morbi tristique senectus et netus et malesuada fames
             ac turpis egestas. Duis ultricies urna. Etiam enim urna, pharetra
@@ -129,15 +106,25 @@
             congue justo et nunc. Vestibulum nec felis vitae nisl pharetra
             sollicitudin.  Quisque.</p>
     </rector-markup>
-</rector-section>
 
-<rector-section rector-section-stand-alone>
-    <rector-section-label>icons</rector-section-label>
+    <h1>articles</h1>
+    <rector-markup>
+        <entry ng-repeat="article in articles"
+            model="article"
+            type="article"
+            summary="true">
+        </entry>
+    </rector-markup>
+    <rector-markup rector-markup-continuation
+        rector-lang="javascript"
+        rector-eval="articles | json">
+    </rector-markup>
 
+    <h1>icons</h1>
     <div class="guide-large-icons">
         <div ng-repeat="icon in icons">
             <span class="icon-{{icon.properties.name}}"></span>
             <span class="icons--label">.icon-{{icon.properties.name}}</span>
         </div>
     </div>
-</rector-section>
+</div>
