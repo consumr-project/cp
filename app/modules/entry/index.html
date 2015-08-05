@@ -28,10 +28,8 @@
     on-non-highlight-click="cleanHighlightState()"
 ></entry>
 
-<div class="site-content" ng-if="entry.type === type.error">
-    <div class="error-message">
-        <b>Error:</b>
-        <span>{{::entry.error_message}}</span>
-        <span>({{::entry.error_code}})</span>
-    </div>
-</div>
+<message
+    class="site-element animated fadeIn"
+    ng-if="entry.type === type.error"
+    type="error"
+>{{::entry.error_message}} ({{::entry.error_code}})</message>

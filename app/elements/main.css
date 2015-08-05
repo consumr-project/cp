@@ -31,6 +31,11 @@ body {
     padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
 }
 
+.site-element {
+    margin: 0 auto;
+    max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
+}
+
 body * {
     box-sizing: border-box;
     letter-spacing: 1px;
@@ -124,5 +129,6 @@ hr {
 @import url("./indicator/indicator.css");
 @import url("./avatar/avatar.css");
 @import url("./popover/popover.css");
+@import url("./message/message.css");
 @import url("../../public/icons/style.css");
 @import url("../modules/entry/entry.css");

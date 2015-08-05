@@ -14,4 +14,16 @@
     --color-error-background-color: #FFE0E0;
     --color-error-border-color: #B33838;
     --color-error-text-color: #B33838;
+
+    --color-warn-background-color: #FDFFCC;
+    --color-warn-border-color: #E2CD32;
+    --color-warn-text-color: #525252;
+
+    --color-info-background-color: #D6DFFF;
+    --color-info-border-color: #8CA5FF;
+    --color-info-text-color: #191919;
+
+    --color-success-background-color: #DBFFE2;
+    --color-success-border-color: #59D671;
+    --color-success-text-color: #191919;
 }
