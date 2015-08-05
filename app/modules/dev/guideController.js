@@ -11,8 +11,24 @@ angular.module('tcp').controller('guideController', [
             show: false
         };
 
+        $scope.highlight = {
+            count: 0,
+            api: {}
+        };
+
         $scope.toggleMenu = function () {
             $scope.menu.show = !$scope.menu.show;
+        };
+
+        $scope.onHighlight = function () {
+            $scope.highlight.count++;
+            $scope.$apply();
+        };
+
+        $scope.onHighlightClick = function (args) {
+            $scope.highlight.api.remove(args.highlight);
+            $scope.highlight.count--;
+            $scope.$apply();
         };
 
         $scope.articles = [
