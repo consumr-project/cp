@@ -16,7 +16,7 @@ angular.module('tcp').directive('message', [
             transclude: true,
 
             template: [
-                '<div class="message-elem">',
+                '<div class="message-elem animated fadeIn">',
                     '<b class="message-elem__title"></b>',
                     '<ng-transclude></ng-transclude>',
                 '</div>',
