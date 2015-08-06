@@ -1,4 +1,8 @@
 :root {
+    --font-height-normal: 18px;
+    --font-size-normal: 16px;
+    --font-size-small: 13px;
+
     --color-bad: rgb(232, 38, 59);
     --color-good: rgb(73, 152, 138);
     --color-link: rgb(45, 130, 176);
@@ -26,4 +30,9 @@
     --color-success-background-color: #DBFFE2;
     --color-success-border-color: #59D671;
     --color-success-text-color: #191919;
+
+    --body-padding-top: 10px;
+    --content-horizontal-padding: 20px;
+    --content-max-width: 800px;
+    --inline-element-gutter: 6px;
 }
