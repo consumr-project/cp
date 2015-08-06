@@ -6,7 +6,7 @@ angular.module('tcp').directive('avatar', function () {
     }
 
     return {
-        template: '<div class="avatar--image animated fadeIn"></div>',
+        template: '<div class="avatar__image animated fadeIn"></div>',
         link: function (scope, elem, attrs) {
             var title = [];
 
@@ -14,19 +14,19 @@ angular.module('tcp').directive('avatar', function () {
             elem.addClass('is-non-selectable');
 
             if (attrs.image) {
-                elem.find('.avatar--image').css('background-image', url(attrs.image));
+                elem.find('.avatar__image').css('background-image', url(attrs.image));
             }
 
             if (attrs.name) {
                 title.push(attrs.name);
-                angular.element('<div class="avatar--name"></div>')
+                angular.element('<div class="avatar__name"></div>')
                     .text(attrs.name)
                     .appendTo(elem);
             }
 
             if (attrs.title) {
                 title.push(attrs.title);
-                angular.element('<div class="avatar--title"></div>')
+                angular.element('<div class="avatar__title"></div>')
                     .text(attrs.title)
                     .appendTo(elem);
             }

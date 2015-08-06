@@ -17,14 +17,14 @@ angular.module('tcp').directive('tags', function () {
         template: [
             '<button class="text" ng-click="toggleTags()">',
                 '<span class="icon-plus"></span>',
-                '<span class="tags--label"">tags</span>',
+                '<span class="tags__label">tags</span>',
             '</button>',
-            '<div class="tags--tags">',
+            '<div class="tags__tags">',
                 '<ng-transclude></ng-transclude>',
             '</div>'
         ].join(''),
         link: function (scope, elem) {
-            var $tags = elem.find('.tags--tags'),
+            var $tags = elem.find('.tags__tags'),
                 state = STATE_SHOWING,
                 height;
 

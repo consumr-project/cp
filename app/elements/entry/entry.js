@@ -15,8 +15,8 @@ angular.module('tcp').directive('entry', function () {
         link: function (scope, elem, attr) {
             scope.is_summary = attr.summary;
             scope.is_full = !attr.summary;
-            scope.entry_view = attr.summary ? 'summary' : 'full';
-            scope.entry_type = attr.type;
+            elem.addClass('entry--' + (attr.summary ? 'summary' : 'full'));
+            elem.addClass('entry--' + attr.type);
         },
         controller: ['$scope', function ($scope) {
             $scope.header_image = '';

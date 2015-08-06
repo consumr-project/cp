@@ -1,4 +1,4 @@
-<div class="entry {{entry_type}} {{entry_view}}">
+<div class="entry">
     <div ng-if="::is_summary">
         <h2 class="title"><a href="{{::model.url}}">{{::model.title}}</a></h2>
         <h3 class="uppercase"><a class="subtitle" href="{{::model.external_url}}">{{::model.source_display}}</a></h3>
@@ -12,7 +12,7 @@
         <div ng-if="model.html" ng-bind-html="::model.html"></div>
 
         <div class="site-content">
-            <div class="entry--sub-images center-align animated fadeIn" ng-if="model.images.length > 1">
+            <div class="entry__sub-images center-align animated fadeIn" ng-if="model.images.length > 1">
                 <hr>
                 <img ng-click="selectHeaderImage(image)" ng-repeat="image in ::model.images" ng-src="{{::image}}" />
                 <hr>

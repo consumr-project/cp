@@ -4,7 +4,7 @@ avatar {
     white-space: nowrap;
 }
 
-.avatar--image {
+.avatar__image {
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 200px;
@@ -14,28 +14,28 @@ avatar {
     width: 40px;
 }
 
-.avatar--name {
+.avatar__name {
     font-weight: bold;
 }
 
-.avatar--image {
+.avatar__image {
     background-image: url("/app/elements/avatar/avatar.svg");
 }
 
-.avatar--image,
-.avatar--name,
-.avatar--title {
+.avatar__image,
+.avatar__name,
+.avatar__title {
     display: inline-block;
     vertical-align: middle;
 }
 
-.avatar--image + .avatar--name,
-.avatar--image + .avatar--title,
-.avatar--name + .avatar--title {
+.avatar__image + .avatar__name,
+.avatar__image + .avatar__title,
+.avatar__name + .avatar__title {
     margin-left: 10px;
 }
 
-avatars .avatar--name,
-avatars .avatar--title {
+avatars .avatar__name,
+avatars .avatar__title {
     display: none;
 }

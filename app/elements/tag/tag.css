@@ -33,7 +33,7 @@ tags {
     width: 100%;
 }
 
-tags .tags--tags {
+tags .tags__tags {
     transition: height .3s, opacity .3s;
 }
 
@@ -41,7 +41,7 @@ tags button {
     margin-bottom: 15px;
 }
 
-tags button .tags--label {
+tags button .tags__label {
     margin-left: 15px;
     text-transform: lowercase;
 }

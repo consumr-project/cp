@@ -1,7 +1,3 @@
-[guide-controls] {
-    margin-bottom: 20px;
-}
-
 .guide-block-avatars avatar {
     display: block;
 }
@@ -30,7 +26,7 @@
     margin-right: 10px;
 }
 
-.guide-large-icons .icons--label {
+.guide-large-icons .icons__label {
     background-color: #F3F3F3;
     border-radius: 2px;
     font-family: monospace;
