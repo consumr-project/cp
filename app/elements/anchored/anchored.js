@@ -10,8 +10,11 @@
  * @attribute {Number} anchoredLeftOffset pixels element should be left/right
  * anchor
  *
+ * @attribute {Number} anchoredAnimationOffset slide in animation offset.
+ * (default: ANIMATION_NUDGE_OFFSET)
+ *
  * @attribute {String} anchoredPlacement element location relative to anchor.
- * Options: @see PLACEMENT
+ * Options: @see PLACEMENT (default: PLACEMENT.TOP)
  *
  * @attribute {Boolean} anchoredCentered center the anchored element
  * horizontally if placement eq bottom or top. ignored if placement is left
@@ -91,7 +94,7 @@ angular.module('tcp').directive('anchored', [
                         total_width / 2 - width / 2;
 
                     coors.initialLeft = coors.left;
-                    coors.initialTop = coors.top - ANIMATION_NUDGE_OFFSET;
+                    coors.initialTop = coors.top - attrs.anchoredAnimationOffset;
                     break;
 
                 case PLACEMENT.BOTTOM:
@@ -100,20 +103,20 @@ angular.module('tcp').directive('anchored', [
                         total_width / 2 - width / 2;
 
                     coors.initialLeft = coors.left;
-                    coors.initialTop = coors.top + ANIMATION_NUDGE_OFFSET;
+                    coors.initialTop = coors.top + attrs.anchoredAnimationOffset;
                     break;
 
                 case PLACEMENT.RIGHT:
                     coors.top = offset.top;
                     coors.left = offset.left + offset_width;
-                    coors.initialLeft = coors.left + ANIMATION_NUDGE_OFFSET;
+                    coors.initialLeft = coors.left + attrs.anchoredAnimationOffset;
                     coors.initialTop = coors.top;
                     break;
 
                 case PLACEMENT.LEFT:
                     coors.top = offset.top;
                     coors.left = offset.left - width;
-                    coors.initialLeft = coors.left - ANIMATION_NUDGE_OFFSET;
+                    coors.initialLeft = coors.left - attrs.anchoredAnimationOffset;
                     coors.initialTop = coors.top;
                     break;
             }
@@ -137,6 +140,7 @@ angular.module('tcp').directive('anchored', [
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT.TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
+                attrs.anchoredAnimationOffset = parseFloat(attrs.anchoredAnimationOffset) || ANIMATION_NUDGE_OFFSET;
                 attrs.anchoredCentered = 'anchoredCentered' in attrs;
 
                 elem.css('position', 'absolute');
