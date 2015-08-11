@@ -45,7 +45,7 @@ angular.module('tcp').directive('anchored', [
             switch (attrs.anchoredPlacement) {
                 case PLACEMENT.BOTTOM:
                 // case PLACEMENT.LEFT:
-                // case PLACEMENT.RIGHT:
+                case PLACEMENT.RIGHT:
                 case PLACEMENT.TOP:
                     break;
 
@@ -90,6 +90,17 @@ angular.module('tcp').directive('anchored', [
 
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top + ANIMATION_NUDGE_OFFSET;
+                    break;
+
+                case PLACEMENT.RIGHT:
+                    coors.top = offset.top;
+                    coors.left = offset.left + offset_width;
+
+                    coors.top += attrs.anchoredTopOffset;
+                    coors.left += attrs.anchoredLeftOffset;
+
+                    coors.initialLeft = coors.left + ANIMATION_NUDGE_OFFSET;
+                    coors.initialTop = coors.top;
                     break;
             }
 
