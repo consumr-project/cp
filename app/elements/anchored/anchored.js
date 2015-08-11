@@ -20,7 +20,7 @@ angular.module('tcp').directive('anchored', [
     function ($document, $window, _) {
         'use strict';
 
-        var PLACEMENT {
+        var PLACEMENT = {
             BOTTOM: 'bottom',
             LEFT: 'left',
             RIGHT: 'right',
