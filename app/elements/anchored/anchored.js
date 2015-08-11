@@ -55,6 +55,17 @@ angular.module('tcp').directive('anchored', [
         }
 
         /**
+         * @param {Object} holder
+         * @param {String} prop
+         * @param {Number} addition
+         */
+        function sumIfPresent(holder, prop, addition) {
+            if (prop in holder) {
+                holder[prop] += addition;
+            }
+        }
+
+        /**
          * @param {PLACEMENT_*} placement
          * @param {jQuery.element} anchorTo
          * @param {jQuery.element} anchorElement
@@ -73,10 +84,6 @@ angular.module('tcp').directive('anchored', [
                 case PLACEMENT.TOP:
                     coors.top = offset.top - height;
                     coors.left = total_width / 2 - width / 2;
-
-                    coors.top += attrs.anchoredTopOffset;
-                    coors.left += attrs.anchoredLeftOffset;
-
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top - ANIMATION_NUDGE_OFFSET;
                     break;
@@ -84,10 +91,6 @@ angular.module('tcp').directive('anchored', [
                 case PLACEMENT.BOTTOM:
                     coors.top = offset.top + offset_height;
                     coors.left = total_width / 2 - width / 2;
-
-                    coors.top += attrs.anchoredTopOffset;
-                    coors.left += attrs.anchoredLeftOffset;
-
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top + ANIMATION_NUDGE_OFFSET;
                     break;
@@ -95,10 +98,6 @@ angular.module('tcp').directive('anchored', [
                 case PLACEMENT.RIGHT:
                     coors.top = offset.top;
                     coors.left = offset.left + offset_width;
-
-                    coors.top += attrs.anchoredTopOffset;
-                    coors.left += attrs.anchoredLeftOffset;
-
                     coors.initialLeft = coors.left + ANIMATION_NUDGE_OFFSET;
                     coors.initialTop = coors.top;
                     break;
@@ -106,14 +105,15 @@ angular.module('tcp').directive('anchored', [
                 case PLACEMENT.LEFT:
                     coors.top = offset.top;
                     coors.left = offset.left - width;
-
-                    coors.top += attrs.anchoredTopOffset;
-                    coors.left += attrs.anchoredLeftOffset;
-
                     coors.initialLeft = coors.left - ANIMATION_NUDGE_OFFSET;
                     coors.initialTop = coors.top;
                     break;
             }
+
+            sumIfPresent(coors, 'top', attrs.anchoredTopOffset);
+            sumIfPresent(coors, 'initialTop', attrs.anchoredTopOffset);
+            sumIfPresent(coors, 'left', attrs.anchoredLeftOffset);
+            sumIfPresent(coors, 'initialLeft', attrs.anchoredLeftOffset);
 
             return coors;
         }
