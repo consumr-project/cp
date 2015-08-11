@@ -43,6 +43,9 @@ angular.module('tcp').directive('anchored', [
             }
 
             switch (attrs.anchoredPlacement) {
+                case PLACEMENT.BOTTOM:
+                // case PLACEMENT.LEFT:
+                // case PLACEMENT.RIGHT:
                 case PLACEMENT.TOP:
                     break;
 
@@ -61,6 +64,8 @@ angular.module('tcp').directive('anchored', [
             var coors = {},
                 total_width = $document.width(),
                 offset = anchorTo.offset(),
+                offset_height = anchorTo.outerHeight(),
+                offset_width = anchorTo.outerWidth(),
                 height = anchorElement.outerHeight(),
                 width = anchorElement.outerWidth();
 
@@ -74,6 +79,17 @@ angular.module('tcp').directive('anchored', [
 
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top - ANIMATION_NUDGE_OFFSET;
+                    break;
+
+                case PLACEMENT.BOTTOM:
+                    coors.top = offset.top + offset_height;
+                    coors.left = total_width / 2 - width / 2;
+
+                    coors.top += attrs.anchoredTopOffset;
+                    coors.left += attrs.anchoredLeftOffset;
+
+                    coors.initialLeft = coors.left;
+                    coors.initialTop = coors.top + ANIMATION_NUDGE_OFFSET;
                     break;
             }
 
@@ -149,8 +165,8 @@ angular.module('tcp').directive('anchored', [
                 validate(attrs);
                 angular.element($window).on('resize', debouncedHandleUpdate);
                 scope.$on('$destroy', unlistenToResizes);
-                scope.$watch('show', handleUpdate);
-                scope.$watch('element', handleUpdate);
+                scope.$watch('show', handleUpdate.bind(null, false));
+                scope.$watch('element', handleUpdate.bind(null, false));
             }
         };
     }
