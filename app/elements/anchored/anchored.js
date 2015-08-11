@@ -1,19 +1,19 @@
 /**
- * @attribute anchoredShow {Boolean} show/hide toggle
+ * @attribute {Boolean} anchoredShow show/hide toggle
  *
- * @attribute anchoredElement {Node|String} node or node selector to anchor
+ * @attribute {Node|String} anchoredElement node or node selector to anchor
  * element to
  *
- * @attribute anchoredTopOffset {Number} pixels element should be above/below
+ * @attribute {Number} anchoredTopOffset pixels element should be above/below
  * anchor
  *
- * @attribute anchoredLeftOffset {Number} pixels element should be left/right
+ * @attribute {Number} anchoredLeftOffset pixels element should be left/right
  * anchor
  *
- * @attribute anchoredPlacement {String} element location relative to anchor.
+ * @attribute {String} anchoredPlacement element location relative to anchor.
  * Options: @see PLACEMENT
  *
- * @attribute anchoredCentered {Boolean} center the anchored element
+ * @attribute {Boolean} anchoredCentered center the anchored element
  * horizontally if placement eq bottom or top. ignored if placement is left
  * or right
  */
