@@ -12,6 +12,10 @@
  *
  * @attribute anchoredPlacement {String} element location relative to anchor.
  * Options: @see PLACEMENT
+ *
+ * @attribute anchoredCentered {Boolean} center the anchored element
+ * horizontally if placement eq bottom or top. ignored if placement is left
+ * or right
  */
 angular.module('tcp').directive('anchored', [
     '$document',
@@ -83,14 +87,18 @@ angular.module('tcp').directive('anchored', [
             switch (placement) {
                 case PLACEMENT.TOP:
                     coors.top = offset.top - height;
-                    coors.left = total_width / 2 - width / 2;
+                    coors.left = !attrs.anchoredCentered ? offset.left :
+                        total_width / 2 - width / 2;
+
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top - ANIMATION_NUDGE_OFFSET;
                     break;
 
                 case PLACEMENT.BOTTOM:
                     coors.top = offset.top + offset_height;
-                    coors.left = total_width / 2 - width / 2;
+                    coors.left = !attrs.anchoredCentered ? offset.left :
+                        total_width / 2 - width / 2;
+
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top + ANIMATION_NUDGE_OFFSET;
                     break;
@@ -129,6 +137,7 @@ angular.module('tcp').directive('anchored', [
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT.TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
+                attrs.anchoredCentered = 'anchoredCentered' in attrs;
 
                 elem.css('position', 'absolute');
                 elem.hide();
