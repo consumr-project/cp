@@ -4,21 +4,24 @@
  * @attribute {Node|String} anchoredElement node or node selector to anchor
  * element to
  *
- * @attribute {Number} anchoredTopOffset pixels element should be above/below
+ * @attribute {Number} [anchoredTopOffset] pixels element should be above/below
  * anchor
  *
- * @attribute {Number} anchoredLeftOffset pixels element should be left/right
+ * @attribute {Number} [anchoredLeftOffset] pixels element should be left/right
  * anchor
  *
- * @attribute {Number} anchoredAnimationOffset slide in animation offset.
+ * @attribute {Number} [anchoredAnimationOffset] slide in animation offset.
  * (default: ANIMATION_NUDGE_OFFSET)
  *
- * @attribute {String} anchoredPlacement element location relative to anchor.
+ * @attribute {String} [anchoredPlacement] element location relative to anchor.
  * Options: @see PLACEMENT (default: PLACEMENT.TOP)
  *
- * @attribute {Boolean} anchoredCentered center the anchored element
+ * @attribute {Boolean} [anchoredAutoHide] hide the anchored element if user
+ * clicked outside of the trigger or itself (default: false)
+ *
+ * @attribute {Boolean} [anchoredCentered] center the anchored element
  * horizontally if placement eq bottom or top. ignored if placement is left
- * or right
+ * or right (default: false)
  */
 angular.module('tcp').directive('anchored', [
     '$document',
@@ -142,6 +145,7 @@ angular.module('tcp').directive('anchored', [
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
                 attrs.anchoredAnimationOffset = parseFloat(attrs.anchoredAnimationOffset) || ANIMATION_NUDGE_OFFSET;
                 attrs.anchoredCentered = 'anchoredCentered' in attrs;
+                attrs.anchoredAutoHide = 'anchoredAutoHide' in attrs;
 
                 elem.css('position', 'absolute');
                 elem.hide();
@@ -183,7 +187,8 @@ angular.module('tcp').directive('anchored', [
                 }
 
                 /**
-                 * @param {Boolean} [now] @see show
+                 * @param {Boolean} [now]
+                 * @see show()
                  */
                 function handleUpdate(now) {
                     if (!scope.show || !scope.element) {
@@ -193,15 +198,51 @@ angular.module('tcp').directive('anchored', [
                     }
                 }
 
+                /**
+                 * hides the anchored element if user clicked outside
+                 * @param {Event} ev
+                 * @see hide()
+                 */
+                function handleClick(ev) {
+                    var target = angular.element(ev.target),
+                        element = angular.element(scope.element);
+
+                    if (
+                        // is not the trigger element
+                        !target.is(element) &&
+                        // and is not a child of the trigger element
+                        !element.has(target).length &&
+                        // and is not the anchored element
+                        !elem.is(target).length &&
+                        // and is not a child of the anchored element
+                        !elem.has(target).length
+                    ) {
+                        hide();
+                        scope.show = false;
+                        scope.$apply();
+                    }
+                }
+
                 function unlistenToResizes() {
                     angular.element($window).off('resize', debouncedHandleUpdate);
                 }
 
+                function unlistenToClicks() {
+                    angular.element($document).off('click', handleClick);
+                }
+
                 validate(attrs);
-                angular.element($window).on('resize', debouncedHandleUpdate);
-                scope.$on('$destroy', unlistenToResizes);
+
                 scope.$watch('show', handleUpdate.bind(null, false));
                 scope.$watch('element', handleUpdate.bind(null, false));
+
+                angular.element($window).on('resize', debouncedHandleUpdate);
+                scope.$on('$destroy', unlistenToResizes);
+
+                if (attrs.anchoredAutoHide) {
+                    angular.element($document).on('click', handleClick);
+                    scope.$on('$destroy', unlistenToClicks);
+                }
             }
         };
     }
