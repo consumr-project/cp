@@ -1,3 +1,18 @@
+/**
+ * @attribute anchoredShow {Boolean} show/hide toggle
+ *
+ * @attribute anchoredElement {Node|String} node or node selector to anchor
+ * element to
+ *
+ * @attribute anchoredTopOffset {Number} pixels element should be above/below
+ * anchor
+ *
+ * @attribute anchoredLeftOffset {Number} pixels element should be left/right
+ * anchor
+ *
+ * @attribute anchoredPlacement {String} element location relative to anchor.
+ * Options: @see PLACEMENT
+ */
 angular.module('tcp').directive('anchored', [
     '$document',
     '$window',
@@ -5,7 +20,12 @@ angular.module('tcp').directive('anchored', [
     function ($document, $window, _) {
         'use strict';
 
-        var PLACEMENT_TOP = 'top';
+        var PLACEMENT {
+            BOTTOM: 'bottom',
+            LEFT: 'left',
+            RIGHT: 'right',
+            TOP: 'top'
+        };
 
         var ANIMATION_NUDGE_OFFSET = 10;
 
@@ -23,7 +43,7 @@ angular.module('tcp').directive('anchored', [
             }
 
             switch (attrs.anchoredPlacement) {
-                case PLACEMENT_TOP:
+                case PLACEMENT.TOP:
                     break;
 
                 default:
@@ -45,7 +65,7 @@ angular.module('tcp').directive('anchored', [
                 width = anchorElement.outerWidth();
 
             switch (placement) {
-                case PLACEMENT_TOP:
+                case PLACEMENT.TOP:
                     coors.top = offset.top - height;
                     coors.left = total_width / 2 - width / 2;
 
@@ -68,7 +88,7 @@ angular.module('tcp').directive('anchored', [
             link: function (scope, elem, attrs) {
                 var debouncedHandleUpdate = _.debounce(handleUpdate.bind(null, true), 100);
 
-                attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT_TOP;
+                attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT.TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
 
