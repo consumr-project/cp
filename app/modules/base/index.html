@@ -14,11 +14,14 @@
         <script src="static/vendor.js"></script>
     </head>
     <body ng-app="tcp" ng-strict-di>
-        <header>
-            <button class="left inverted inlined icon-menu"></button>
-            <span class="tcp-logo">the consumer project</span>
-            <button class="icon-plus right"></button>
-        </header>
+        <div ng-controller="adminController">
+            <div ng-include="'app/modules/admin/login.html'"></div>
+            <header>
+                <button ng-click="loginPopover.show()" class="left inverted inlined icon-menu"></button>
+                <span class="tcp-logo">the consumer project</span>
+                <button class="icon-plus right"></button>
+            </header>
+        </div>
 
         <div ng-view></div>
 
@@ -63,6 +66,7 @@
         <script src="app/elements/entry/entry.js"></script>
         <script src="app/elements/entry/highlighter.js"></script>
 
+        <script src="app/modules/admin/adminController.js"></script>
         <script src="app/modules/home/homeController.js"></script>
         <script src="app/modules/entry/entryController.js"></script>
         <script src="app/modules/company/companyController.js"></script>

@@ -25,6 +25,10 @@ body {
     padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
 }
 
+.site-content--no-header {
+    padding-top: 105px;
+}
+
 .site-element {
     margin: 0 auto;
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);

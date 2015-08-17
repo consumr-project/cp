@@ -8,6 +8,7 @@ input[type="datetime"] {
     padding: 3px 7px;
     transition: padding .1s;
     word-break: normal;
+    font-size: var(--font-size-normal);
 }
 
 input:not([type]):focus,

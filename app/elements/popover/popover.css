@@ -16,3 +16,20 @@
 .popover__item:hover {
     background-color: var(--color-std-hover-background-color);
 }
+
+.popover--fullscreen {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+
+    background-color: rgba(255, 255, 255, 0.97);
+    border: none;
+    box-shadow: none;
+    display: none;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    transition: opacity .4s;
+    width: 100%;
+}

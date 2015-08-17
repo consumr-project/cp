@@ -4,6 +4,10 @@ button {
     color: var(--color-std-text-color);
 }
 
+button * {
+    vertical-align: middle;
+}
+
 button,
 .tag-elem {
     border-radius: 200px;
@@ -42,4 +46,14 @@ button.icon-menu::before {
     left: .5px;
     position: relative;
     top: -1px;
+}
+
+button.button--social-linkedin {
+    background-color: #0077B5;
+    color: white;
+}
+
+button.button--social-linkedin img {
+    height: 19px;
+    width: 20px;
 }
