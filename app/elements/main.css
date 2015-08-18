@@ -26,7 +26,7 @@ body {
 }
 
 .site-content--no-header {
-    padding-top: 105px;
+    padding-top: calc(var(--body-padding-top) * 2);
 }
 
 .site-element {
@@ -100,7 +100,10 @@ hr {
 
 @media (min-width:600px) {
     header {
-        margin-bottom: calc(var(--body-padding-top) * 5);
+    }
+
+    .site-content--no-header {
+        padding-top: calc(var(--body-padding-top) * 5);
     }
 
     header .tcp-logo {
