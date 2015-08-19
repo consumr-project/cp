@@ -19,18 +19,7 @@ button,
     text-transform: uppercase;
 }
 
-button.icon-plus {
-    font-size: 27px;
-    padding: 7px 8px 4px 8px;
-}
-
-button.icon-plus::before {
-    content: "+";
-    left: .5px;
-    position: relative;
-    top: -5px;
-}
-
+button.icon-plus,
 button.icon-newspaper,
 button.icon-clock,
 button.icon-heart,
@@ -39,6 +28,7 @@ button.icon-menu {
     padding: 8px;
 }
 
+button.icon-plus::before,
 button.icon-newspaper::before,
 button.icon-clock::before,
 button.icon-heart::before,
