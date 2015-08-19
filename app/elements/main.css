@@ -100,6 +100,7 @@ hr {
 
 @media (min-width:600px) {
     header {
+        margin-bottom: calc(var(--body-padding-top) * 5);
     }
 
     .site-content--no-header {
