@@ -18,12 +18,12 @@ var Firebase = require('firebase'),
 var app = express(),
     config = require('acm');
 
-var auth_cookie = config.get('session.auth.cookie'),
+var auth_callback_url = config.get('session.auth.callback_url'),
+    auth_cookie = config.get('session.auth.cookie'),
     firebase_url = config.get('firebase.url'),
     firebase_secret = config.get('firebase.secret'),
     linkedin_client_id = config.get('linkedin.client_id'),
-    linkedin_client_secret = config.get('linkedin.client_secret'),
-    linkedin_callback_url = config.get('linkedin.callback_url');
+    linkedin_client_secret = config.get('linkedin.client_secret');
 
 var token = new FirebaseToken(firebase_secret);
 
@@ -64,7 +64,7 @@ passport.deserializeUser(function (user, done) {
 passport.use(new LinkedInStrategy({
     consumerKey: linkedin_client_id,
     consumerSecret: linkedin_client_secret,
-    callbackURL: linkedin_callback_url
+    callbackURL: auth_callback_url
 }, function (access, refresh, profile, done) {
     return done(null, {
         accessToken: access || '',

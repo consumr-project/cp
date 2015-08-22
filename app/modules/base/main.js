@@ -18,6 +18,9 @@
         }
     }, TCP_BUILD_CONFIG.auth.url);
 
+    // XXX
+    window.auth=auth;
+
     if (window.DEBUGGING) {
         deps.push('rector');
     }

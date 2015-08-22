@@ -57,7 +57,7 @@ deploy:
 	git push heroku master
 
 run: build
-	node server --linkedin.callback_url http://localhost:3000/auth/linkedin/callback
+	node server
 
 reset: clean
 	-rm -r node_modules

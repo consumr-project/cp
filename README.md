@@ -24,10 +24,10 @@ expected configuration variables:
 - `debug` (default: `false`)
 - `firebase.secret`
 - `firebase.url` (in: `config/`)
-- `linkedin.callback_url`
 - `linkedin.client_id`
 - `linkedin.client_secret`
 - `port` (default: `3000`)
+- `session.auth.callback_url` (in: `config/`)
 - `session.auth.cookie` (in: `config/`)
 - `session.auth.url` (in: `config/`)
 
