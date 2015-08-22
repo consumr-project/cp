@@ -1,9 +1,22 @@
-/* global Firebase, wikipedia, extract, _, highlighter, google, utils, entity */
+/* global TCP_BUILD_CONFIG, Firebase, wikipedia, extract, _, highlighter, google, utils, entity */
 (function () {
     'use strict';
 
-    var store = new Firebase('https://aryel---rtfm.firebaseio.com/tcp'),
+    var store = new Firebase(TCP_BUILD_CONFIG.firebase.url),
         deps = ['ngRoute', 'ngAria'];
+
+    var auth = new FirebasePassportLogin(store, function (err, user) {
+        debugger
+        if (err) {
+            console.log('error');
+            console.log(err);
+        } else if (user) {
+            console.log('login');
+            console.log(user);
+        } else {
+            console.log('logout');
+        }
+    }, TCP_BUILD_CONFIG.auth.url);
 
     if (window.DEBUGGING) {
         deps.push('rector');

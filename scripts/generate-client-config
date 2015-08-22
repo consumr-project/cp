@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var config = require('acm');
+
+console.log({
+    firebase: {
+        url: config.get('firebase.url')
+    },
+    auth: {
+        url: config.get('session.auth.url')
+    }
+});

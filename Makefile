@@ -22,6 +22,9 @@ build-css:
 
 build-js:
 	echo "" > $(built_vendor_js)
+	echo "var TCP_BUILD_CONFIG = " >> $(built_vendor_js)
+	./scripts/generate-client-config >> $(built_vendor_js)
+	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/reqwest/reqwest.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/rangy/lib/rangy-core.js >> $(built_vendor_js)
@@ -44,6 +47,8 @@ build-js:
 	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
+	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(built_vendor_js)
+	$(js_sep) >> $(built_vendor_js)
 
 install:
 	npm install
@@ -52,7 +57,7 @@ deploy:
 	git push heroku master
 
 run: build
-	node server
+	node server --linkedin.callback_url http://localhost:3000/auth/linkedin/callback
 
 reset: clean
 	-rm -r node_modules
@@ -64,6 +69,6 @@ watcher:
 	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build-css"
 
 lint:
-	$(js_hint) --config conf/jshint.json --reporter unix --show-non-errors app
+	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app
 
 build: clean build-css build-js

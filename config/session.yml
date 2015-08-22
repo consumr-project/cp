@@ -1,0 +1,5 @@
+secret: 'tcp'
+
+auth:
+  cookie: 'tcpLL'
+  url: 'http://localhost:3000/auth/'

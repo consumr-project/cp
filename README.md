@@ -16,6 +16,21 @@ heroku config:set DEBUG=*
 make deploy
 ```
 
+### configuration
+
+configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
+expected configuration variables:
+
+- `debug` (default: `false`)
+- `firebase.secret`
+- `firebase.url` (in: `config/`)
+- `linkedin.callback_url`
+- `linkedin.client_id`
+- `linkedin.client_secret`
+- `port` (default: `3000`)
+- `session.auth.cookie` (in: `config/`)
+- `session.auth.url` (in: `config/`)
+
 ### thanks
 
 * Edward Boatman for the [face icon](https://thenounproject.com/search/?q=face&i=67226)
