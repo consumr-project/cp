@@ -1,10 +1,15 @@
 angular.module('tcp').controller('adminController', [
     '$scope',
-    function ($scope) {
+    'Auth',
+    function ($scope, Auth) {
         'use strict';
 
         $scope.loginPopover = {
-            showMoreOptions: false
+            showMoreOptions: false,
+            linkedinLogin: function () {
+                $scope.loginPopover.hide();
+                return Auth.login('linkedin');
+            }
         };
     }
 ]);

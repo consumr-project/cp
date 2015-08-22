@@ -6,7 +6,6 @@
         deps = ['ngRoute', 'ngAria'];
 
     var auth = new FirebasePassportLogin(store, function (err, user) {
-        debugger
         if (err) {
             console.log('error');
             console.log(err);
@@ -31,6 +30,7 @@
     angular.module('tcp').value('utils', utils);
     angular.module('tcp').value('entity', entity);
     angular.module('tcp').value('store', store);
+    angular.module('tcp').value('Auth', auth);
     // angular.module('tcp').value('postStore', store.child('post'));
     // angular.module('tcp').value('userStore', store.child('user'));
     // angular.module('tcp').value('companyStore', store.child('company'));
@@ -40,5 +40,7 @@
         angular.module('tcp').config(['$compileProvider', function ($compileProvider) {
               $compileProvider.debugInfoEnabled(false);
         }]);
+    } else {
+        window.Auth = auth;
     }
 })();
