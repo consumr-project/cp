@@ -11,7 +11,7 @@
         <br>
         <br>
 
-        <button>Follow</button>
+        <button ng-click="user.followersCount=user.followersCount+1">Follow</button>
 
         <br>
         <br>
@@ -25,8 +25,8 @@
                 <th>Elsewhere</th>
             </tr>
             <tr>
-                <td class="center-align">145</td>
-                <td class="center-align">453</td>
+                <td class="center-align">{{::user.followingCount || 'none'}}</td>
+                <td class="center-align">{{user.followersCount || 'none'}}</td>
                 <td class="center-align">
                     <a ng-if="::user.linkedinUrl" href="{{::user.linkedinUrl}}" target="_blank">
                         <img src="/public/images/linkedin.png" style="height: 20px; width: 20px" />
