@@ -2,7 +2,12 @@
 
 'use strict';
 
-var config = require('acm');
+var config = require('acm'),
+    varname = process.argv[2];
+
+if (varname) {
+    console.log('var %s =', varname);
+}
 
 console.log({
     firebase: {
@@ -12,3 +17,7 @@ console.log({
         url: config.get('session.auth.url')
     }
 });
+
+if (varname) {
+    console.log(';');
+}

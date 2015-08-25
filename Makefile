@@ -22,8 +22,7 @@ build-css:
 
 build-js:
 	echo "" > $(built_vendor_js)
-	echo "var TCP_BUILD_CONFIG = " >> $(built_vendor_js)
-	./scripts/generate-client-config >> $(built_vendor_js)
+	./scripts/generate-client-config TCP_BUILD_CONFIG >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/reqwest/reqwest.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
