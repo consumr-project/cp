@@ -2,7 +2,8 @@
 
 var FirebaseToken = require('firebase-token-generator'),
     LinkedInStrategy = require('passport-linkedin').Strategy,
-    passport = require('passport');
+    passport = require('passport'),
+    md5 = require('md5');
 
 /**
  * @param {express} app
@@ -33,14 +34,16 @@ module.exports = function (app, config, firebase) {
      * @param {Function} done
      */
     function loginHandler(access, refresh, profile, done) {
+        var guid = md5(profile.provider + profile.id);
+
         return done(null, {
-            accessToken: access || '',
-            displayName: profile.name,
-            id: profile.id,
-            provider: profile.provider,
-            refreshToken: refresh || '',
-            thirdPartyUserData: profile._json,
-            uid: profile.provider + ':' + profile.id
+            accessToken: access,
+            fullName: profile.displayName,
+            guid: guid,
+            linkedinId: profile.id,
+            loginProvider: profile.provider,
+            refreshToken: refresh,
+            uid: guid
         });
     }
 
@@ -65,7 +68,7 @@ module.exports = function (app, config, firebase) {
                 var tok;
 
                 firebase.child('oAuthToken')
-                    .child(user.uid)
+                    .child(user.guid)
                     .set(user.accessToken);
 
                 if (user) {
@@ -75,7 +78,14 @@ module.exports = function (app, config, firebase) {
                 firebase.child(req.signedCookies[auth_cookie])
                     .set(tok);
 
-                // res.send('done');
+                firebase.child('user')
+                    .child(user.guid)
+                    .set({
+                        fullName: user.fullName,
+                        guid: user.guid,
+                        linkedinId: user.linkedinId,
+                        loginProvider: user.loginProvider
+                    });
             });
         })(req, res, next);
     }

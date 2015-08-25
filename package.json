@@ -33,6 +33,7 @@
     "firebase-token-generator": "^2.0.0",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
+    "md5": "^2.0.0",
     "normalize.css": "^3.0.3",
     "passport": "^0.3.0",
     "passport-linkedin": "^0.1.3",

@@ -22,19 +22,17 @@
     }
 
     angular.module('tcp', deps);
+
     angular.module('tcp').constant('DEBUGGING', !!window.DEBUGGING);
-    angular.module('tcp').value('wikipedia', wikipedia);
-    angular.module('tcp').value('extract', extract);
-    angular.module('tcp').value('lodash', _);
-    angular.module('tcp').value('highlighter', highlighter);
-    angular.module('tcp').value('utils', utils);
-    angular.module('tcp').value('entity', entity);
-    angular.module('tcp').value('store', store);
+    angular.module('tcp').constant('CONFIG', TCP_BUILD_CONFIG);
+
     angular.module('tcp').value('Auth', auth);
-    // angular.module('tcp').value('postStore', store.child('post'));
-    // angular.module('tcp').value('userStore', store.child('user'));
-    // angular.module('tcp').value('companyStore', store.child('company'));
-    // angular.module('tcp').value('tagStore', store.child('tag'));
+    angular.module('tcp').value('extract', extract);
+    angular.module('tcp').value('highlighter', highlighter);
+    angular.module('tcp').value('lodash', _);
+    angular.module('tcp').value('Store', store);
+    angular.module('tcp').value('utils', utils);
+    angular.module('tcp').value('wikipedia', wikipedia);
 
     if (!window.DEBUGGING) {
         angular.module('tcp').config(['$compileProvider', function ($compileProvider) {
