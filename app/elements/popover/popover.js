@@ -17,7 +17,6 @@ angular.module('tcp').directive('popover', ['$document', function ($document) {
             var api;
 
             function hide() {
-                console.log("S");
                 elem.hide();
             }
 
