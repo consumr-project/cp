@@ -2,9 +2,12 @@
 angular.module('tcp').service('Auth', [
     'DEBUGGING',
     'CONFIG',
+    'logger',
     'store',
-    function (DEBUGGING, CONFIG, store) {
+    function (DEBUGGING, CONFIG, logger, store) {
         'use strict';
+
+        var log = logger('auth');
 
         var PROVIDER = {
             LINKEDIN: 'linkedin'
@@ -16,16 +19,16 @@ angular.module('tcp').service('Auth', [
 
         var auth = new FirebasePassportLogin(store, function (err, user) {
             if (err && err.code !== ERROR.EXPIRED_TOKEN) {
-                console.error('login error', err);
+                log.error('login error', err);
                 Auth.USER = null;
             } else if (err) {
-                console.info('session timeout');
+                log('session timeout');
                 Auth.USER = null;
             } else if (user) {
-                console.info('user login', user);
+                log('user login', user);
                 Auth.USER = user;
             } else {
-                console.info('user logout');
+                log('user logout');
                 Auth.USER = null;
             }
         }, CONFIG.auth.url);

@@ -74,4 +74,5 @@
     store.semiguid = semiguid;
     store.preload = preload;
     store.opCallback = opCallback;
+    store.noop = noop;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);
