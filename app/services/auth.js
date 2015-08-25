@@ -1,24 +1,32 @@
 /* global FirebasePassportLogin */
 angular.module('tcp').service('Auth', [
+    'DEBUGGING',
     'CONFIG',
     'store',
-    function (CONFIG, store) {
+    function (DEBUGGING, CONFIG, store) {
         'use strict';
 
         var PROVIDER = {
-            linkedin: 'linkedin'
+            LINKEDIN: 'linkedin'
+        };
+
+        var ERROR = {
+            EXPIRED_TOKEN: 'EXPIRED_TOKEN'
         };
 
         var auth = new FirebasePassportLogin(store, function (err, user) {
-            if (err) {
-                Auth.USER = null;
+            if (err && err.code !== ERROR.EXPIRED_TOKEN) {
                 console.error('login error', err);
-            } else if (user) {
-                Auth.USER = user;
-                console.info('user login', user);
-            } else {
                 Auth.USER = null;
+            } else if (err) {
+                console.info('session timeout');
+                Auth.USER = null;
+            } else if (user) {
+                console.info('user login', user);
+                Auth.USER = user;
+            } else {
                 console.info('user logout');
+                Auth.USER = null;
             }
         }, CONFIG.auth.url);
 
@@ -32,6 +40,10 @@ angular.module('tcp').service('Auth', [
          */
         function login(provider) {
             return auth.login(provider);
+        }
+
+        if (DEBUGGING) {
+            window.Auth = Auth;
         }
 
         return Auth;
