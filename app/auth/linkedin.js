@@ -65,7 +65,7 @@ module.exports = function (app, config, firebase) {
     function linkedinCallback(req, res, next) {
         passport.authenticate('linkedin', function (err, user, info) {
             firebase.auth(firebase_secret, function (err, data) {
-                var tok;
+                var tok, ref;
 
                 firebase.child('oAuthToken')
                     .child(user.guid)
@@ -78,14 +78,13 @@ module.exports = function (app, config, firebase) {
                 firebase.child(req.signedCookies[auth_cookie])
                     .set(tok);
 
-                firebase.child('user')
+                ref = firebase.child('user')
                     .child(user.guid)
-                    .set({
-                        fullName: user.fullName,
-                        guid: user.guid,
-                        linkedinId: user.linkedinId,
-                        loginProvider: user.loginProvider
-                    });
+
+                ref.child('fullName').set(user.fullName);
+                ref.child('guid').set(user.guid);
+                ref.child('linkedinId').set(user.linkedinId);
+                ref.child('loginProvider').set(user.loginProvider);
             });
         })(req, res, next);
     }
