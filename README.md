@@ -1,5 +1,10 @@
 # the consumer project
 
+A crowd sourced platform to help us all learn a little bit more about the
+things we buy, sell, and consume every day.
+
+### usage
+
 local installation. declaring `DEBUG=*` will enable sourcemaps for `build` and
 server logging and client side perf for `run`.
 
