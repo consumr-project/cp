@@ -69,10 +69,20 @@
         ].join('');
     }
 
+    /**
+     * @param {String} text
+     * @return {String}
+     */
+    function summaryze(text) {
+        var paragraphs = text.split('\n');
+        return paragraphs[0];
+    }
+
     store.html = html;
     store.state = state;
     store.semiguid = semiguid;
     store.preload = preload;
     store.opCallback = opCallback;
     store.noop = noop;
+    store.summaryze = summaryze;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);

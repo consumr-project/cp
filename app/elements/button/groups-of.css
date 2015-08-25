@@ -6,6 +6,10 @@ button,
     margin-right: var(--inline-element-gutter);
 }
 
+avatar.avatar--block {
+    margin: 0;
+}
+
 avatars,
 buttons,
 tags {

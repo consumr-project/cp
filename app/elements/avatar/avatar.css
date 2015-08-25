@@ -14,6 +14,10 @@ avatar {
     width: 40px;
 }
 
+avatar.avatar--block {
+    text-align: center;
+}
+
 .avatar__name {
     font-weight: bold;
 }
@@ -27,6 +31,24 @@ avatar {
 .avatar__title {
     display: inline-block;
     vertical-align: middle;
+}
+
+avatar.avatar--block .avatar__image {
+    height: 100px;
+    margin: 0 auto;
+    width: 100px;
+}
+
+avatar.avatar--block .avatar__name,
+avatar.avatar--block .avatar__title {
+    margin: 15px 0 0 0;
+    white-space: pre-wrap;
+}
+
+avatar.avatar--block .avatar__image,
+avatar.avatar--block .avatar__name,
+avatar.avatar--block .avatar__title {
+    display: block;
 }
 
 .avatar__image + .avatar__name,

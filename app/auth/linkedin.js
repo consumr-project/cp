@@ -24,7 +24,17 @@ module.exports = function (app, config, firebase) {
     linkedin = new LinkedInStrategy({
         consumerKey: linkedin_client_id,
         consumerSecret: linkedin_client_secret,
-        callbackURL: auth_callback_url
+        callbackURL: auth_callback_url,
+        profileFields: [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'headline',
+            'summary',
+            'picture-url',
+            'public-profile-url'
+        ]
     }, loginHandler);
 
     /**
@@ -38,11 +48,16 @@ module.exports = function (app, config, firebase) {
 
         return done(null, {
             accessToken: access,
+            avatarUrl: profile._json.pictureUrl,
+            email: profile._json.emailAddress,
             fullName: profile.displayName,
             guid: guid,
             linkedinId: profile.id,
+            linkedinUrl: profile._json.publicProfileUrl,
             loginProvider: profile.provider,
             refreshToken: refresh,
+            summary: profile._json.summary,
+            title: profile._json.headline,
             uid: guid
         });
     }
@@ -72,19 +87,24 @@ module.exports = function (app, config, firebase) {
                     .set(user.accessToken);
 
                 if (user) {
-                    tok = token.createToken(user);
+                    tok = token.createToken({ uid: user.uid });
                 }
 
                 firebase.child(req.signedCookies[auth_cookie])
                     .set(tok);
 
                 ref = firebase.child('user')
-                    .child(user.guid)
+                    .child(user.guid);
 
+                ref.child('avatarUrl').set(user.avatarUrl);
+                ref.child('email').set(user.email);
                 ref.child('fullName').set(user.fullName);
                 ref.child('guid').set(user.guid);
                 ref.child('linkedinId').set(user.linkedinId);
+                ref.child('linkedinUrl').set(user.linkedinUrl);
                 ref.child('loginProvider').set(user.loginProvider);
+                ref.child('summary').set(user.summary);
+                ref.child('title').set(user.title);
             });
         })(req, res, next);
     }

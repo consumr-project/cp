@@ -1,0 +1,33 @@
+<div class="site-content" ng-if="user.guid" class="animated fadeIn">
+
+    <br>
+    <br>
+
+    <center>
+        <avatar class="avatar--block" title="{{::user.shortSummary}}" name="{{::user.fullName}}" image="{{::user.avatarUrl}}"></avatar>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <button>Follow</button>
+    </center>
+
+    <!-- <table> -->
+    <!--     <tr> -->
+    <!--         <th>Following</th> -->
+    <!--         <th>Followers</th> -->
+    <!--         <th>Elsewhere</th> -->
+    <!--     </tr> -->
+    <!--     <tr> -->
+    <!--         <td>145</td> -->
+    <!--         <td>453</td> -->
+    <!--         <td> -->
+    <!--             <a ng&#45;if="::user.linkedinUrl" href="{{::user.linkedinUrl}}" target="_blank"> -->
+    <!--                 <img src="/public/images/linkedin.png" /> -->
+    <!--             </a> -->
+    <!--         </td> -->
+    <!--     </tr> -->
+    <!-- </table> -->
+</div>

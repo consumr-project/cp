@@ -17,6 +17,11 @@ angular.module('tcp').config([
             controller: 'homeController'
         });
 
+        $routeProvider.when('/user/:guid', {
+            templateUrl: '/app/modules/user/index.html',
+            controller: 'userController'
+        });
+
         $routeProvider.when('/company/:guid?', {
             templateUrl: '/app/modules/company/index.html',
             controller: 'companyController'
