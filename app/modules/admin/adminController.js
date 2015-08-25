@@ -8,7 +8,7 @@ angular.module('tcp').controller('adminController', [
             showMoreOptions: false,
             linkedinLogin: function () {
                 $scope.loginPopover.hide();
-                return Auth.login('linkedin');
+                return Auth.login(Auth.PROVIDER.linkedin);
             }
         };
     }
