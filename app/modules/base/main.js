@@ -1,4 +1,4 @@
-/* global TCP_BUILD_CONFIG, Firebase, wikipedia, extract, _, highlighter, google, utils, entity */
+/* global TCP_BUILD_CONFIG, Firebase, FirebasePassportLogin, wikipedia, extract, _, highlighter, google, utils, entity */
 (function () {
     'use strict';
 
