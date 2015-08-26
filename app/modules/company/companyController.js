@@ -14,6 +14,11 @@ angular.module('tcp').controller('companyController', [
         $scope.company = {};
         $scope.error = null;
 
+        function normalizeCompany() {
+            $scope.company.$summaryParts = !$scope.company.summary ? [] :
+                $scope.company.summary.split('\n');
+        }
+
         /**
          * @param {String} name of company
          * @return {Promise}
@@ -27,7 +32,15 @@ angular.module('tcp').controller('companyController', [
             // XXX loading state
             return wikipedia.extract(name).then(function (extract) {
                 $scope.company.summary = extract.extract_no_refs;
-                $scope.company.$summaryParts = extract.extract_no_ref_parts;
+                normalizeCompany();
+                $scope.$apply();
+            });
+        }
+
+        function loadCompanyInformation() {
+            entity.get(companyStore, $routeParams.guid).then(function (ref) {
+                $scope.company = ref.val();
+                normalizeCompany();
                 $scope.$apply();
             });
         }
@@ -65,6 +78,8 @@ angular.module('tcp').controller('companyController', [
 
         if (!$routeParams.guid) {
             $scope.$watch('company.name', fetchCompanySummary);
+        } else {
+            loadCompanyInformation();
         }
     }
 ]);
