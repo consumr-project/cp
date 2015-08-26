@@ -17,9 +17,20 @@
         <div ng-controller="adminController">
             <div ng-include="'app/modules/admin/login.html'"></div>
             <header>
-                <button ng-click="loginPopover.show()" class="left inverted inlined icon-menu"></button>
+                <button ng-click="settings.show=true" class="left inverted inlined icon-menu"></button>
                 <span class="tcp-logo">the consumer project</span>
                 <button class="icon-plus right"></button>
+
+                <popover
+                    anchored
+                    anchored-element="'header .icon-menu'"
+                    anchored-show="settings.show"
+                    anchored-placement="bottom"
+                    anchored-top-offset="10"
+                    anchored-auto-hide="true"
+                >
+                    <popover-item ng-click="settings.login()">Login</popover-item>
+                </popover>
             </header>
         </div>
 
