@@ -4,14 +4,15 @@ angular.module('tcp').service('Auth', [
     'CONFIG',
     'logger',
     'store',
+    'utils',
     'lodash',
-    function (DEBUGGING, CONFIG, logger, store, _) {
+    function (DEBUGGING, CONFIG, logger, store, utils, _) {
         'use strict';
 
         var Auth, auth;
 
         var log = logger('auth'),
-            events = {};
+            events = utils.createListener();
 
         var EVENT = {
             LOGIN: 'login',
@@ -28,61 +29,32 @@ angular.module('tcp').service('Auth', [
             EXPIRED_TOKEN: 'EXPIRED_TOKEN'
         };
 
-        Auth = {
+        Auth = events.listener({
             PROVIDER: PROVIDER,
+            EVENT: EVENT,
             login: login,
-            logout: logout,
-            on: addListener
-        };
+            logout: logout
+        });
 
         auth = new FirebasePassportLogin(store, function (err, user) {
             if (err && err.code !== ERROR.EXPIRED_TOKEN) {
                 log.error('login error', err);
                 Auth.USER = null;
-                triggerListeners(EVENT.ERROR);
+                events.trigger(EVENT.ERROR);
             } else if (err) {
                 log('session timeout');
                 Auth.USER = null;
-                triggerListeners(EVENT.TIMEOUT);
+                events.trigger(EVENT.TIMEOUT);
             } else if (user) {
                 log('user login', user);
                 Auth.USER = user;
-                triggerListeners(EVENT.LOGIN);
+                events.trigger(EVENT.LOGIN);
             } else {
                 log('user logout');
                 Auth.USER = null;
-                triggerListeners(EVENT.LOGOUT);
+                events.trigger(EVENT.LOGOUT);
             }
         }, CONFIG.auth.url);
-
-        /**
-         * @param {String} name
-         * @param {Array} args
-         */
-        function triggerListeners(name, args) {
-            _.each(events[name], function (fn) {
-                fn.apply(null, args || []);
-            });
-        }
-
-        /**
-         * @param {String} name
-         * @param {Function} handler
-         * @return {Function} remove listener
-         */
-        function addListener(name, handler) {
-            if (!(name in events)) {
-                events[name] = [];
-            }
-
-            events[name].push(handler);
-
-            return function () {
-                _.remove(events[name], function (fn) {
-                    return handler === fn;
-                });
-            };
-        }
 
         /**
          * @param {String} provider

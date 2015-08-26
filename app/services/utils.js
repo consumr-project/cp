@@ -82,11 +82,65 @@
         return paragraphs[0];
     }
 
+    /**
+     * @return {Object}
+     */
+    function createListener() {
+        var events = {};
+
+        /**
+         * @param {String} name
+         * @param {Array} args
+         */
+        function trigger(name, args) {
+            _.each(events[name], function (fn) {
+                fn.apply(null, args || []);
+            });
+        }
+
+        /**
+         * @param {String} name
+         * @param {Function} handler
+         * @return {Function} remove listener
+         */
+        function on(name, handler) {
+            if (!(name in events)) {
+                events[name] = [];
+            }
+
+            events[name].push(handler);
+
+            return function () {
+                _.remove(events[name], function (fn) {
+                    return handler === fn;
+                });
+            };
+        }
+
+        /**
+         * injects an object with event listener functions
+         * @param {Object} obj
+         * @return {Object}
+         */
+        function listener(obj) {
+            obj.on = on;
+            obj.trigger = trigger;
+            return obj;
+        }
+
+        return {
+            listener: listener,
+            on: on,
+            trigger: trigger,
+        };
+    }
+
+    store.createListener = createListener;
     store.html = html;
-    store.state = state;
-    store.semiguid = semiguid;
-    store.preload = preload;
-    store.opCallback = opCallback;
     store.noop = noop;
+    store.opCallback = opCallback;
+    store.preload = preload;
+    store.semiguid = semiguid;
+    store.state = state;
     store.summaryze = summaryze;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);

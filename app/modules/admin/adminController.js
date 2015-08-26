@@ -32,11 +32,11 @@ angular.module('tcp').controller('adminController', [
             Auth.logout();
         };
 
-        Auth.on('login', function () {
+        Auth.on(Auth.EVENT.LOGIN, function () {
             $scope.state.loggedIn = true;
         });
 
-        Auth.on('logout', function () {
+        Auth.on(Auth.EVENT.LOGOUT, function () {
             $scope.state.loggedIn = false;
         });
     }
