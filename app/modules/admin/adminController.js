@@ -32,6 +32,11 @@ angular.module('tcp').controller('adminController', [
             Auth.logout();
         };
 
+        $scope.profile = function () {
+            location.href = '/user/' + Auth.USER.uid;
+            $scope.loginPopover.showLoginScreen = false;
+        };
+
         Auth.on(Auth.EVENT.LOGIN, function () {
             $scope.state.loggedIn = true;
         });

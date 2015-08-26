@@ -30,6 +30,7 @@
                     anchored-auto-hide="true"
                 >
                     <popover-item ng-if="!state.loggedIn" ng-click="login()">Login</popover-item>
+                    <popover-item ng-if="state.loggedIn" ng-click="profile()">Profile</popover-item>
                     <popover-item ng-if="state.loggedIn" ng-click="logout()">Logout</popover-item>
                 </popover>
             </header>
