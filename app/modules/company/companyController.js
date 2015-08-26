@@ -15,6 +15,10 @@ angular.module('tcp').controller('companyController', [
         $scope.error = null;
 
         function normalizeCompany() {
+            if (!$scope.company) {
+                return;
+            }
+
             $scope.company.$summaryParts = !$scope.company.summary ? [] :
                 $scope.company.summary.split('\n');
         }
@@ -41,6 +45,11 @@ angular.module('tcp').controller('companyController', [
             entity.get(companyStore, $routeParams.guid).then(function (ref) {
                 $scope.company = ref.val();
                 normalizeCompany();
+
+                if (!$scope.company) {
+                    $scope.error = 'company not found';
+                }
+
                 $scope.$apply();
             });
         }
