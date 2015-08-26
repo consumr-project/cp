@@ -3,10 +3,6 @@
 
     /* global Q, _ */
 
-    var FIELD_CREATED_DATE = 'createdDate',
-        FIELD_MODIFIED_DATE = 'modifiedDate',
-        FIELD_GUID = 'guid';
-
     /**
      * @param {Firebase} store
      * @param {String|Object} guid|search
@@ -21,31 +17,45 @@
     /**
      * @param {Firebase} store
      * @param {Object} data
+     * @param {Array} [fields]
      * @return {Promise}
      */
-    function put(store, data) {
+    function put(store, data, fields) {
         var def = Q.defer(),
             now = (new Date()).valueOf(),
             ref;
 
-        if (!data[FIELD_GUID]) {
-            def.reject(new Error('Missing required property: ' + FIELD_GUID));
-        } else {
-            ref = store.child(data[FIELD_GUID]);
+        fields = fields || _.keys(data);
 
-            _.each(data, function (val, key) {
-                ref.child(key).set(val);
+        if (!data.guid) {
+            def.reject(new Error('Missing required property: guid'));
+        } else {
+            ref = store.child(data.guid);
+
+            _.each(fields, function (field) {
+                ref.child(field).set(data[field] || '');
             });
 
-            ref.child(FIELD_CREATED_DATE).set(data.createdDate || now);
-            ref.child(FIELD_MODIFIED_DATE).set(now, function (err) {
+            ref.child('modifiedDate').set(now, function (err) {
                 if (err) {
                     def.reject(err);
                 } else {
                     def.resolve(ref);
                 }
             });
+
+            if (!data.createdDate) {
+                ref.child('createdDate').once('value', function (createdDate) {
+                    if (!createdDate.val()) {
+                        ref.child('createdDate').set(now);
+                    }
+                });
+            } else {
+                ref.child('createdDate').set(data.createdDate);
+            }
         }
+
+        return def.promise;
     }
 
     store.get = get;

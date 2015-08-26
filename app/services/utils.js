@@ -50,7 +50,11 @@
      */
     function state(category, id) {
         var url = '/' + [].splice.call(arguments, 0).join('/');
-        history.pushState(category + id, null, url);
+
+        if (location.pathname !== url) {
+            history.pushState(url, null, url);
+        }
+
         return url;
     }
 

@@ -1,26 +1,70 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
     '$routeParams',
+    'utils',
     'wikipedia',
-    function ($scope, $routeParams, wikipedia) {
+    'companyStore',
+    'entity',
+    'logger',
+    function ($scope, $routeParams, utils, wikipedia, companyStore, entity, logger) {
         'use strict';
 
-        $scope.company = {};
+        var log = logger('company');
 
-        $scope.$watch('company.name', function (name) {
+        $scope.company = {};
+        $scope.error = null;
+
+        /**
+         * @param {String} name of company
+         * @return {Promise}
+         */
+        function fetchCompanySummary(name) {
             if (!name) {
                 return;
             }
 
             // XXX error state
             // XXX loading state
-            wikipedia.extract(name).then(function (extract) {
-                $scope.company.description = extract.extract_no_refs;
-                $scope.company.$descriptionParts = extract.extract_no_ref_parts;
+            return wikipedia.extract(name).then(function (extract) {
+                $scope.company.summary = extract.extract_no_refs;
+                $scope.company.$summaryParts = extract.extract_no_ref_parts;
                 $scope.$apply();
             });
-        });
+        }
 
-        $scope.company.name = 'Trader Joe\'s';
+        function saveSuccessHandler() {
+            var guid = $scope.company.guid;
+            utils.state(companyStore.key(), guid);
+            log('saved', guid);
+        }
+
+        function saveErrorHandler(err) {
+            $scope.error = 'there was an error saving this company, please try again.'
+            log.error('save error', err);
+        }
+
+        $scope.save = function () {
+            $scope.error = null;
+
+            // invalid
+            if (!$scope.company.name) {
+                $scope.error = 'a company name is required';
+                log.info('company name is required');
+                return;
+            }
+
+            // first save
+            if (!$scope.company.guid) {
+                $scope.company.guid = utils.semiguid($scope.company.name);
+            }
+
+            entity.put(companyStore, $scope.company, ['name', 'summary'])
+                .then(saveSuccessHandler)
+                .catch(saveErrorHandler);
+        };
+
+        if (!$routeParams.guid) {
+            $scope.$watch('company.name', fetchCompanySummary);
+        }
     }
 ]);
