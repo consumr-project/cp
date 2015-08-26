@@ -14,6 +14,7 @@
     angular.module('tcp').constant('DEBUGGING', !!window.DEBUGGING);
     angular.module('tcp').constant('CONFIG', TCP_BUILD_CONFIG);
 
+    angular.module('tcp').value('companyStore', store.child('company'));
     angular.module('tcp').value('entity', entity);
     angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('highlighter', highlighter);
