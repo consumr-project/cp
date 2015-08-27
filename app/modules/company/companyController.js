@@ -1,12 +1,13 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
     '$routeParams',
+    'Auth',
     'utils',
     'wikipedia',
     'companyStore',
     'entity',
     'logger',
-    function ($scope, $routeParams, utils, wikipedia, companyStore, entity, logger) {
+    function ($scope, $routeParams, Auth, utils, wikipedia, companyStore, entity, logger) {
         'use strict';
 
         var log = logger('company');
@@ -68,7 +69,12 @@ angular.module('tcp').controller('companyController', [
         $scope.save = function () {
             $scope.error = null;
 
-            // invalid
+            if (!Auth.USER) {
+                $scope.error = 'you must be logged in to add or edit companies';
+                log.info('login required for action');
+                return;
+            }
+
             if (!$scope.company.name) {
                 $scope.error = 'a company name is required';
                 log.info('company name is required');
