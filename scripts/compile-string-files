@@ -44,7 +44,6 @@ console.log('window.%s.get = %s;', varname, function (path, data) {
         fn = parts.pop(),
         name = parts.join('/');
 
-console.log(path);
     if (!(fn in this[name])) {
         throw new Error('i18n key does not exists: ' + path);
     }
