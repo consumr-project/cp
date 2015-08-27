@@ -20,6 +20,7 @@ heroku config:set LINKEDIN_CLIENT_SECRET=`echo $LINKEDIN_CLIENT_SECRET`
 heroku config:set LINKEDIN_CLIENT_ID=`echo $LINKEDIN_CLIENT_ID`
 heroku config:set FIREBASE_SECRET=`echo $FIREBASE_SECRET`
 heroku config:set SESSION_AUTH_CALLBACK_URL=http://the-consumer-project.herokuapp.com/auth/linkedin/callback
+heroku config:set SESSION_AUTH_URL=http://the-consumer-project.herokuapp.com/auth
 heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 make deploy
