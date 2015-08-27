@@ -39,12 +39,12 @@ function generateSectionName(file, extra) {
 }
 
 console.log('window.%s = %s;', varname, mf.functions());
-console.log('window.%s.get = %s;', varname, function (path, args) {
+console.log('window.%s.get = %s;', varname, function (path, data) {
     var parts = path.split('/'),
         fn = parts.pop(),
         name = parts.join('/');
 
-    return this[name][fn].apply(this, args);
+    return this[name][fn](data);
 }.toString());
 
 glob(fileglob, function (err, files) {

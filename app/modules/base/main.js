@@ -1,4 +1,4 @@
-/* global TCP_BUILD_CONFIG, Firebase, wikipedia, extract, _, highlighter, google, utils, entity */
+/* global TCP_BUILD_CONFIG, Firebase, wikipedia, extract, _, highlighter, google, utils, entity, i18n */
 (function () {
     'use strict';
 
@@ -18,6 +18,7 @@
     angular.module('tcp').value('entity', entity);
     angular.module('tcp').value('extract', extract);
     angular.module('tcp').value('highlighter', highlighter);
+    angular.module('tcp').value('i18n', i18n);
     angular.module('tcp').value('lodash', _);
     angular.module('tcp').value('store', store);
     angular.module('tcp').value('userStore', store.child('user'));
