@@ -1,24 +1,23 @@
 <popover class="popover--fullscreen" popover-api="loginPopover" ng-init="loginPopover.showMoreOptions = false">
     <div class="site-content site-content--no-header">
-        <h2>Welcome to The Consumer Project</h2>
-        <p>A crowd sourced platform to help us all learn a little bit more
-            about the things we buy, sell, and consume every day.</p>
+        <h2 i18n="common/welcome"></h2>
+        <p i18n="common/intro"></p>
 
         <br>
 
         <button class="button--social-linkedin" ng-click="linkedinLogin()">
             <img src="public/images/linkedin.png" />
-            <span>Sign in with LinkedIn</span>
+            <span i18n="common/signInWithService" data="{service: 'LinkedIn'}"></span>
         </button>
-        <button ng-click="loginPopover.showMoreOptions = true">More Options</button>
+        <button ng-click="loginPopover.showMoreOptions = true" i18n="common/moreOptions"></button>
 
         <br>
         <br>
 
-        <a ng-click="loginPopover.hide()">Reminde me later</a>
+        <a ng-click="loginPopover.hide()" i18n="common/remindLater"></a>
 
         <div ng-show="loginPopover.showMoreOptions" class="animated fadeInUp">
-            <p>Enter your email address to sign in or create an account</p>
+            <p i18n="common/signInWithEmail"></p>
             <input class="large" type="text" placeholder="you@email.com" />
         </div>
     </div>

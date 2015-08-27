@@ -4,10 +4,12 @@ angular.module('tcp').controller('userController', [
     'userStore',
     'entity',
     'utils',
-    function ($scope, $routeParams, userStore, entity, utils) {
+    'i18n',
+    function ($scope, $routeParams, userStore, entity, utils, i18n) {
         'use strict';
 
         $scope.user = {};
+        $scope.i18n = i18n;
 
         entity.get(userStore, $routeParams.guid).then(function (ref) {
             $scope.user = ref.val();
