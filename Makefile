@@ -49,6 +49,9 @@ build-js:
 	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 
+build-strings:
+	./scripts/compile-string-files en config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
+
 install:
 	npm install
 
@@ -62,7 +65,7 @@ reset: clean
 	-rm -r node_modules
 
 clean:
-	-rm -r static
+	-rm -r $(built_dir)
 
 watcher:
 	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build-css"
@@ -70,4 +73,4 @@ watcher:
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app
 
-build: clean build-css build-js
+build: clean build-css build-js build-strings

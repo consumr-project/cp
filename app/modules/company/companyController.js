@@ -62,7 +62,7 @@ angular.module('tcp').controller('companyController', [
         }
 
         function saveErrorHandler(err) {
-            $scope.error = 'there was an error saving this company, please try again.'
+            $scope.error = 'there was an error saving this company, please try again.';
             log.error('save error', err);
         }
 

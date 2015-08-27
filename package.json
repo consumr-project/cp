@@ -31,9 +31,11 @@
     "firebase-bower": "git+https://git@github.com/minond/firebase-bower.git#v2.2.6-npm",
     "firebase-passport-login": "rigidflame/firebase-passport-login#e6afd6b6e8a16c609dde804f1cf8dbe90b599a39",
     "firebase-token-generator": "^2.0.0",
+    "glob": "^5.0.14",
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "md5": "^2.0.0",
+    "messageformat": "^0.2.2",
     "normalize.css": "^3.0.3",
     "passport": "^0.3.0",
     "passport-linkedin": "^0.1.3",
@@ -42,7 +44,8 @@
     "reqwest": "git+https://git@github.com/ded/reqwest.git#v1.1.5",
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "yamljs": "^0.2.3"
   },
   "devDependencies": {
     "Rainbow": "ccampbell/rainbow",

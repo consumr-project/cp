@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var mf;
+
+var MessageFormat = require('messageformat').MessageFormat,
+    fs = require('fs'),
+    path = require('path'),
+    yaml = require('yamljs'),
+    glob = require('glob');
+
+var each = require('lodash/collection/each');
+
+var locale = process.argv[2],
+    fileglob = process.argv[3],
+    fileextra = process.argv[4],
+    varname = process.argv[5] || 'i18n';
+
+if (!fileglob || !locale) {
+    console.log('Usage: %s %s <locale> <fileglob> <fileextra> [varname=i18n]',
+        process.argv[0], process.argv[1]);
+
+    process.exit(1);
+}
+
+mf = new MessageFormat(locale);
+
+/**
+ * converts config/i18n/en/common.yml to common
+ * @param {String} file
+ * @param {String} exit
+ * @return {String}
+ */
+function generateSectionName(file, extra) {
+    return file
+        .substr(0, file.lastIndexOf('.'))
+        .replace(extra, '');
+}
+
+console.log('window.%s = %s;', varname, mf.functions());
+console.log('window.%s.get = %s;', varname, function (path, args) {
+    var parts = path.split('/'),
+        fn = parts.pop(),
+        name = parts.join('/');
+
+    return this[name][fn].apply(this, args);
+}.toString());
+
+glob(fileglob, function (err, files) {
+    each(files, function (file) {
+        var name = generateSectionName(file, fileextra),
+            contents = fs.readFileSync(file).toString(),
+            parsed = yaml.parse(contents);
+
+        console.log('%s["%s"] =', varname, name);
+        console.log(mf.precompileObject(parsed));
+        console.log(';');
+    });
+});
