@@ -10,6 +10,9 @@ if (varname) {
 }
 
 console.log({
+    embedly: {
+        key: config.get('embedly.api.key')
+    },
     firebase: {
         url: config.get('firebase.url')
     },

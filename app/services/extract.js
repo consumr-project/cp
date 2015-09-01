@@ -4,7 +4,7 @@
     /* global reqwest, _, utils */
 
     var api_url = 'http://api.embed.ly/1/extract?',
-        api_key = 'a219d61c774a44b9b0b414d69b0df88d';
+        api_key = TCP_BUILD_CONFIG.embedly.key;
 
     var node = document.createElement('div');
 
