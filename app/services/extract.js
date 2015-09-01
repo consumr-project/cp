@@ -1,7 +1,7 @@
 (function (store) {
     'use strict';
 
-    /* global reqwest, _, utils */
+    /* global TCP_BUILD_CONFIG, reqwest, _, utils */
 
     var api_url = 'http://api.embed.ly/1/extract?',
         api_key = TCP_BUILD_CONFIG.embedly.key;

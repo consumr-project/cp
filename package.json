@@ -36,6 +36,7 @@
     "lodash": "^3.9.3",
     "md5": "^2.0.0",
     "messageformat": "^0.2.2",
+    "moment": "^2.10.6",
     "normalize.css": "^3.0.3",
     "passport": "^0.3.0",
     "passport-linkedin": "^0.1.3",

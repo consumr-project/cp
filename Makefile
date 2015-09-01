@@ -48,6 +48,8 @@ build-js:
 	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
+	$(js_min) node_modules/moment/min/moment-with-locales.min.js >> $(built_vendor_js)
+	$(js_sep) >> $(built_vendor_js)
 
 build-strings:
 	./scripts/compile-string-files en config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
