@@ -10,6 +10,9 @@ if (varname) {
 }
 
 console.log({
+    locate: {
+        dateFormat: config.get('locale.dateFormat')
+    },
     embedly: {
         key: config.get('embedly.api.key')
     },
