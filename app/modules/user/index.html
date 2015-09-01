@@ -18,16 +18,16 @@
         <br>
         <br>
 
-        <table>
+        <table class="table--content center-align">
             <tr>
                 <th i18n="common/following"></th>
                 <th i18n="common/followers"></th>
                 <th i18n="common/elsewhere"></th>
             </tr>
             <tr>
-                <td class="center-align">{{::user.followingCount || i18n.get('common/none')}}</td>
-                <td class="center-align">{{user.followersCount || i18n.get('common/none')}}</td>
-                <td class="center-align">
+                <td>{{::user.followingCount || i18n.get('common/none')}}</td>
+                <td>{{user.followersCount || i18n.get('common/none')}}</td>
+                <td>
                     <a ng-if="::user.linkedinUrl" href="{{::user.linkedinUrl}}" target="_blank">
                         <img src="/public/images/linkedin.png" style="height: 20px; width: 20px" />
                     </a>
