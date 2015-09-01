@@ -39,8 +39,8 @@ expected configuration variables:
 - `linkedin.client_secret`
 - `port` (default: `3000`)
 - `session.auth.callback_url` (in: `config/`)
-- `session.auth.cookie` (in: `config/`)
 - `session.auth.url` (in: `config/`)
+- `session.cookie` (in: `config/`)
 
 ### thanks
 

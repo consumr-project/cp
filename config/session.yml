@@ -1,6 +1,6 @@
 secret: 'tcp'
+cookie: 'tcpLL'
 
 auth:
-  cookie: 'tcpLL'
   url: 'http://localhost:3000/auth/'
   callback_url: 'http://localhost:3000/auth/linkedin/callback'

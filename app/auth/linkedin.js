@@ -14,7 +14,7 @@ module.exports = function (app, config, firebase) {
     var token, linkedin;
 
     var auth_callback_url = config.get('session.auth.callback_url'),
-        auth_cookie = config.get('session.auth.cookie'),
+        auth_cookie = config.get('session.cookie'),
         firebase_secret = config.get('firebase.secret'),
         linkedin_client_id = config.get('linkedin.client_id'),
         linkedin_client_secret = config.get('linkedin.client_secret');
