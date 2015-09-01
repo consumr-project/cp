@@ -18,9 +18,6 @@ console.log({
     },
     firebase: {
         url: config.get('firebase.url')
-    },
-    auth: {
-        url: config.get('session.auth.url')
     }
 });
 

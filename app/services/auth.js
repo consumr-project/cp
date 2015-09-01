@@ -54,7 +54,7 @@ angular.module('tcp').service('Auth', [
                 Auth.USER = null;
                 events.trigger(EVENT.LOGOUT);
             }
-        }, CONFIG.auth.url);
+        }, '/auth/');
 
         /**
          * @param {String} provider

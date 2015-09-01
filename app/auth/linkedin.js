@@ -13,18 +13,18 @@ var FirebaseToken = require('firebase-token-generator'),
 module.exports = function (app, config, firebase) {
     var token, linkedin;
 
-    var auth_callback_url = config.get('session.auth.callback_url'),
-        auth_cookie = config.get('session.cookie'),
-        firebase_secret = config.get('firebase.secret'),
+    var firebase_secret = config.get('firebase.secret'),
         linkedin_client_id = config.get('linkedin.client_id'),
-        linkedin_client_secret = config.get('linkedin.client_secret');
+        linkedin_client_secret = config.get('linkedin.client_secret'),
+        session_cookie = config.get('session.cookie'),
+        session_domain = config.get('session.domain');
 
     token = new FirebaseToken(firebase_secret);
 
     linkedin = new LinkedInStrategy({
         consumerKey: linkedin_client_id,
         consumerSecret: linkedin_client_secret,
-        callbackURL: auth_callback_url,
+        callbackURL: session_domain + 'auth/linkedin/callback',
         profileFields: [
             'id',
             'first-name',
@@ -68,7 +68,7 @@ module.exports = function (app, config, firebase) {
      * @param {Function} next
      */
     function linkedinLogin(req, res, next) {
-        res.cookie(auth_cookie, req.query.oAuthTokenPath, { signed: true });
+        res.cookie(session_cookie, req.query.oAuthTokenPath, { signed: true });
         passport.authenticate('linkedin', { state: '_____' })(req, res, next);
     }
 
@@ -90,7 +90,7 @@ module.exports = function (app, config, firebase) {
                     tok = token.createToken({ uid: user.uid });
                 }
 
-                firebase.child(req.signedCookies[auth_cookie])
+                firebase.child(req.signedCookies[session_cookie])
                     .set(tok);
 
                 ref = firebase.child('user')
