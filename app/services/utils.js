@@ -43,6 +43,16 @@
     }
 
     /**
+     * location.href helper
+     * @param {String} category
+     * @param {String} id
+     * @return {String} url
+     */
+    function href(category, id) {
+        location.href = '/' + [].splice.call(arguments, 0).join('/');
+    }
+
+    /**
      * history.pushState helper
      * @param {String} category
      * @param {String} id
@@ -136,6 +146,7 @@
     }
 
     store.createListener = createListener;
+    store.href = href;
     store.html = html;
     store.noop = noop;
     store.opCallback = opCallback;

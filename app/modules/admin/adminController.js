@@ -1,7 +1,8 @@
 angular.module('tcp').controller('adminController', [
     '$scope',
     'Auth',
-    function ($scope, Auth) {
+    'utils',
+    function ($scope, Auth, utils) {
         'use strict';
 
         $scope.state = {
@@ -33,8 +34,8 @@ angular.module('tcp').controller('adminController', [
         };
 
         $scope.profile = function () {
-            location.href = '/user/' + Auth.USER.uid;
             $scope.loginPopover.showLoginScreen = false;
+            utils.href('user', Auth.USER.uid);
         };
 
         Auth.on(Auth.EVENT.LOGIN, function () {
