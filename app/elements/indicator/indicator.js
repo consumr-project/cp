@@ -7,7 +7,6 @@ angular.module('tcp').directive('indicator', function () {
             value: '='
         },
         link: function (scope, elem, attrs) {
-            elem.attr('tabindex', '0');
             elem.addClass('is-non-selectable indicator--' + attrs.type);
         }
     };

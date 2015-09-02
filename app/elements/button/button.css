@@ -19,6 +19,10 @@ button,
     text-transform: uppercase;
 }
 
+button.icon-plus::before {
+    transform: scale(.8);
+}
+
 button.icon-plus,
 button.icon-newspaper,
 button.icon-clock,

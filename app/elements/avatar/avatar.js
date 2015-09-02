@@ -10,9 +10,6 @@ angular.module('tcp').directive('avatar', function () {
         link: function (scope, elem, attrs) {
             var title = [];
 
-            elem.attr('tabindex', '0');
-            elem.addClass('is-non-selectable');
-
             if (attrs.image) {
                 elem.find('.avatar__image').css('background-image', url(attrs.image));
             }

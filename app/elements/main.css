@@ -50,6 +50,7 @@ footer {
 }
 
 header {
+    height: 50px;
     margin-bottom: calc(var(--body-padding-top) * 2);
     margin-left: auto;
     margin-right: auto;
@@ -62,10 +63,6 @@ header *,
 header button {
     vertical-align: middle;
     margin: 0;
-}
-
-header .tcp-logo {
-    margin-top: 11px;
 }
 
 .tcp-logo {
@@ -121,10 +118,6 @@ table.table--bordered td {
 
     .site-content--no-header {
         padding-top: calc(var(--body-padding-top) * 5);
-    }
-
-    header .tcp-logo {
-        margin-top: 7px;
     }
 
     .tcp-logo {
