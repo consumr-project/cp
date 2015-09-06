@@ -1,17 +1,24 @@
 .PHONY: build deploy install run
 
 built_dir = static
+built_app_js = $(built_dir)/app.js
 built_vendor_js = $(built_dir)/vendor.js
 built_css = $(built_dir)/site.css
 
+npm = npm
+tsd = ./node_modules/.bin/tsd
+tsc = ./node_modules/.bin/tsc
+browserify = ./node_modules/.bin/browserify
 js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
+ts_options =
 css_options =
 build_vars =
 
 ifdef DEBUG
+	ts_options = --sourceMap
 	css_options = --sourcemap
 	build_vars = "DEBUG=*"
 endif
@@ -19,6 +26,10 @@ endif
 build-css:
 	./node_modules/.bin/cssnext app/elements/main.css $(built_css) \
 		--compress $(css_options)
+
+build-ts:
+	-$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options)
+	$(browserify) static/modules/base/main.js -o $(built_app_js)
 
 build-js:
 	echo "" > $(built_vendor_js)
@@ -55,7 +66,8 @@ build-strings:
 	./scripts/compile-string-files en config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
 
 install:
-	npm install
+	$(npm) install
+	$(tsd) install
 
 deploy:
 	git push heroku master
@@ -64,7 +76,7 @@ run: build
 	node server
 
 reset: clean
-	-rm -r node_modules
+	-rm -r node_modules typings
 
 clean:
 	-rm -r $(built_dir)
@@ -75,4 +87,4 @@ watcher:
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app
 
-build: clean build-css build-js build-strings
+build: clean build-css build-js build-ts build-strings

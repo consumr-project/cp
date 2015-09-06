@@ -50,10 +50,13 @@
   },
   "devDependencies": {
     "Rainbow": "ccampbell/rainbow",
+    "browserify": "^11.0.1",
     "cssnext": "^1.8.1",
     "jshint": "^2.8.0",
     "jsmin": "^1.0.1",
     "ng-stats": "^2.2.0",
-    "rector": "minond/rector"
+    "rector": "minond/rector",
+    "tsd": "^0.6.4",
+    "typescript": "^1.6.0-beta"
   }
 }
