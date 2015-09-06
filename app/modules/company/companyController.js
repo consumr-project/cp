@@ -83,7 +83,7 @@ angular.module('tcp').controller('companyController', [
 
             // first save
             if (!$scope.company.guid) {
-                $scope.company.guid = utils.semiguid($scope.company.name);
+                $scope.company.guid = utils.simplify($scope.company.name);
             }
 
             entity.put(companyStore, $scope.company, ['name', 'summary'])

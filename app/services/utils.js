@@ -35,7 +35,7 @@
      * @param {String} str
      * @return {String}
      */
-    function semiguid(str) {
+    function simplify(str) {
         return str.toLowerCase()
             .replace(/ /g, '-')
             .replace(/-+/g, '-')
@@ -151,7 +151,7 @@
     store.noop = noop;
     store.opCallback = opCallback;
     store.preload = preload;
-    store.semiguid = semiguid;
+    store.simplify = simplify;
     store.state = state;
     store.summaryze = summaryze;
 })(typeof window !== 'undefined' ? window.utils = {} : module.exports);
