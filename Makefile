@@ -49,8 +49,6 @@ build-js:
 	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/jquery/dist/jquery.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
-	$(js_min) node_modules/lodash/index.js >> $(built_vendor_js)
-	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/angular/angular.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/angular-route/angular-route.min.js >> $(built_vendor_js)

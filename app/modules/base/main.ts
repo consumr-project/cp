@@ -3,7 +3,9 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
 /// <reference path="../../../typings/tcp.d.ts"/>
 /// <reference path="../../../typings/i18n.d.ts"/>
+/// <reference path="../../../typings/lodash/lodash.d.ts"/>
 
+import * as _ from 'lodash';
 import * as utils from '../../services/utils';
 
 declare var entity: Object;
@@ -34,7 +36,7 @@ module tcp {
         .value('extract', extract) // global
         .value('highlighter', highlighter) // global
         .value('i18n', i18n) // global
-        .value('lodash', _) // global
+        .value('lodash', _)
         .value('moment', moment) // global
         .value('store', store)
         .value('userStore', store.child('user'))
