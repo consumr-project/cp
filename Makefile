@@ -30,7 +30,8 @@ build-css:
 		--compress $(css_options)
 
 build-ts:
-	./scripts/generate-client-config --typings $(global_config_varname) >> typings/tcp.d.ts
+	./scripts/generate-client-config --typings $(global_config_varname) > typings/tcp.d.ts
+	./scripts/compile-string-files --typings i18n > typings/i18n.d.ts
 	$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options)
 	$(browserify) static/modules/base/main.js -o $(built_app_js)
 
@@ -66,7 +67,7 @@ build-js:
 	$(js_sep) >> $(built_vendor_js)
 
 build-strings:
-	./scripts/compile-string-files en config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
+	./scripts/compile-string-files en i18n config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
 
 install:
 	$(npm) install

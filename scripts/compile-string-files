@@ -12,10 +12,17 @@ var MessageFormat = require('messageformat').MessageFormat,
 
 var each = require('lodash/collection/each');
 
+var action = process.argv[2],
+    varname = process.argv[3];
+
 var locale = process.argv[2],
-    fileglob = process.argv[3],
-    fileextra = process.argv[4],
-    varname = process.argv[5] || 'i18n';
+    fileglob = process.argv[4],
+    fileextra = process.argv[5];
+
+if (action === '--typings') {
+    console.log('declare var %s: any;', varname);
+    process.exit(0);
+}
 
 if (!fileglob || !locale) {
     console.log('Usage: %s %s <locale> <fileglob> <fileextra> [varname=i18n]',
