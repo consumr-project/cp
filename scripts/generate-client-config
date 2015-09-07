@@ -3,24 +3,27 @@
 'use strict';
 
 var config = require('acm'),
-    varname = process.argv[2];
+    action = process.argv[2],
+    varname = process.argv[3];
 
-if (varname) {
-    console.log('var %s =', varname);
-}
+switch (action) {
+    case '--typings':
+        console.log('declare var %s: {', varname);
+        console.log('    embedly: { key: string; };');
+        console.log('    firebase: { url: string; };');
+        console.log('    locale: { dateFormat: string; };');
+        console.log('};');
+        break;
 
-console.log({
-    locate: {
-        dateFormat: config.get('locale.dateFormat')
-    },
-    embedly: {
-        key: config.get('embedly.api.key')
-    },
-    firebase: {
-        url: config.get('firebase.url')
-    }
-});
+    case '--config':
+        varname && console.log('var %s =', varname);
 
-if (varname) {
-    console.log(';');
+        console.log({
+            embedly: { key: config.get('embedly.api.key') },
+            firebase: { url: config.get('firebase.url') },
+            locate: { dateFormat: config.get('locale.dateFormat') }
+        });
+
+        varname && console.log(';');
+        break;
 }

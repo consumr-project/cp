@@ -1,12 +1,15 @@
 /// <reference path="../../../typings/firebase/firebase.d.ts"/>
 /// <reference path="../../../typings/moment/moment.d.ts"/>
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../../../typings/tcp.d.ts"/>
 
 import * as utils from '../../services/utils';
 
-declare var TCP_BUILD_CONFIG: {
-    firebase: { url: string; };
-};
+declare var entity: Object;
+declare var extract: Object;
+declare var highlighter: Object;
+declare var i18n: Object;
+declare var wikipedia: Object;
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;

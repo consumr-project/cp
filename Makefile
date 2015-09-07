@@ -17,6 +17,8 @@ ts_options =
 css_options =
 build_vars =
 
+global_config_varname = TCP_BUILD_CONFIG
+
 ifdef DEBUG
 	ts_options = --sourceMap
 	css_options = --sourcemap
@@ -28,12 +30,13 @@ build-css:
 		--compress $(css_options)
 
 build-ts:
-	-$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options)
+	./scripts/generate-client-config --typings $(global_config_varname) >> typings/tcp.d.ts
+	$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options)
 	$(browserify) static/modules/base/main.js -o $(built_app_js)
 
 build-js:
 	echo "" > $(built_vendor_js)
-	./scripts/generate-client-config TCP_BUILD_CONFIG >> $(built_vendor_js)
+	./scripts/generate-client-config --config $(global_config_varname) >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	cat node_modules/reqwest/reqwest.min.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
