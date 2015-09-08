@@ -7,11 +7,11 @@
 
 import * as _ from 'lodash';
 import * as utils from '../../services/utils';
+import * as wikipedia from '../../services/wikipedia';
 
 declare var entity: Object;
 declare var extract: Object;
 declare var highlighter: Object;
-declare var wikipedia: Object;
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
@@ -41,7 +41,7 @@ module tcp {
         .value('store', store)
         .value('userStore', store.child('user'))
         .value('utils', utils)
-        .value('wikipedia', wikipedia); // global
+        .value('wikipedia', wikipedia);
 
     angular.module('tcp').config([
         '$routeProvider',

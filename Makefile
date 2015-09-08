@@ -13,6 +13,7 @@ js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
+browserify_options =
 ts_options =
 css_options =
 build_vars =
@@ -20,6 +21,7 @@ build_vars =
 global_config_varname = TCP_BUILD_CONFIG
 
 ifdef DEBUG
+	browserify_options = --debug
 	ts_options = --sourceMap
 	css_options = --sourcemap
 	build_vars = "DEBUG=*"
@@ -32,8 +34,8 @@ build-css:
 build-ts:
 	./scripts/generate-client-config --typings $(global_config_varname) > typings/tcp.d.ts
 	./scripts/compile-string-files --typings i18n > typings/i18n.d.ts
-	$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options)
-	$(browserify) static/modules/base/main.js -o $(built_app_js)
+	$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options) --rootDir ./
+	$(browserify) static/app/modules/base/main.js -o $(built_app_js) $(browserify_options)
 
 build-js:
 	echo "" > $(built_vendor_js)
