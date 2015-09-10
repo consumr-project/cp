@@ -26,7 +26,6 @@ declare interface ApiResponsePayload {
     url: string;
 }
 
-/* export enum TYPE { ARTICLE, ERROR, PHOTO, RICH, VIDEO }; */
 export class TYPE {
     static ARTICLE: string = 'article';
     static ERROR: string = 'error';
