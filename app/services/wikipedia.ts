@@ -2,6 +2,7 @@
 /// <reference path="../../typings/q/Q.d.ts"/>
 
 import * as _ from 'lodash';
+import * as utils from './utils';
 var request = require('reqwest');
 
 declare function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
@@ -33,12 +34,6 @@ const EXTRACT_IMAGE: RegExp = /Infobox[\s+\S+]+\|\s?image\s{0,}=\s{0,}\[{0,}(.+:
 const EXTRACT_DELIM: string = '\n';
 const EXTRACT_REF: string = '^';
 
-function stringify(params: any): string {
-    return _.map(params, function (val: string, key: string): string {
-        return [key, encodeURIComponent(val)].join('=');
-    }).join('&');
-}
-
 /**
  * make a call to wikipedia's api
  */
@@ -48,7 +43,7 @@ function api(params: ApiRequestPayload): Q.Promise<ApiResponsePayload> {
 
     return reqwest<ApiResponsePayload>({
         type: 'jsonp',
-        url: URL + stringify(params)
+        url: URL + utils.stringify(params)
     });
 }
 
@@ -56,7 +51,7 @@ function isNotReference(line: string): Boolean {
     return line && line.charAt(0) !== EXTRACT_REF;
 }
 
-function best(object: string): (value: ApiResponsePayload) => ApiResponsePayload {
+function best(object: string): (value: any) => ApiResponsePayload {
     return function (res: any): ApiResponsePayload {
         var all: Array<ApiResponsePayload> = res.query[object],
             best: ApiResponsePayload = {};

@@ -9,11 +9,11 @@ angular.module('tcp').controller('entryController', [
         $scope.entry = resetEntry();
 
         $scope.type = {
-            article: extract.TYPE_ARTICLE,
-            error: extract.TYPE_ERROR,
-            photo: extract.TYPE_PHOTO,
-            rich: extract.TYPE_RICH,
-            video: extract.TYPE_VIDEO
+            article: extract.TYPE.ARTICLE,
+            error: extract.TYPE.ERROR,
+            photo: extract.TYPE.PHOTO,
+            rich: extract.TYPE.RICH,
+            video: extract.TYPE.VIDEO
         };
 
         $scope.highlight = {
@@ -29,7 +29,7 @@ angular.module('tcp').controller('entryController', [
          */
         function populateError(content) {
             $scope.entry.ok = false;
-            $scope.entry.type = extract.TYPE_ERROR;
+            $scope.entry.type = extract.TYPE.ERROR;
             $scope.entry.error_code = content.error_code;
             $scope.entry.error_message = content.error_message;
             return $scope.entry;
@@ -55,7 +55,7 @@ angular.module('tcp').controller('entryController', [
             $scope.entry.source_name = content.provider_name;
             $scope.entry.src = content.media.url;
             $scope.entry.title = content.title;
-            $scope.entry.type = content.media.type || extract.TYPE_ARTICLE;
+            $scope.entry.type = content.media.type || extract.TYPE.ARTICLE;
             $scope.entry.useful_counter = 0;
             return $scope.entry;
         }
@@ -163,7 +163,7 @@ angular.module('tcp').controller('entryController', [
             // XXX full error state
             // XXX loading state
             extract.fetch(url).then(function (content) {
-                if (!content || content.type === extract.TYPE_ERROR) {
+                if (!content || content.type === extract.TYPE.ERROR) {
                     populateError(content);
                 } else {
                     populateEntry(content);

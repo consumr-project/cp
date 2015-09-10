@@ -42,7 +42,13 @@ export function state(category: string, id: string): string {
     return url;
 }
 
-export function html(tag: string, props?: Array<Object>): string {
+export function stringify(params: any): string {
+    return _.map(params, function (val: string, key: string): string {
+        return [key, encodeURIComponent(val)].join('=');
+    }).join('&');
+}
+
+export function html(tag: string, props?: any): string {
     return [
         '<', tag, props ? ' ' : '',
             _.map(props, function (val, key) {
