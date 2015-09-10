@@ -2,8 +2,10 @@
 /// <reference path="../../typings/q/Q.d.ts"/>
 
 import * as _ from 'lodash';
+var request = require('reqwest');
 
 declare function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
+declare function require(pac: string): any;
 
 declare interface ApiRequestPayload {
     action: string;
