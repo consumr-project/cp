@@ -2,7 +2,7 @@
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 /// <reference path="../../typings/q/Q.d.ts"/>
 
-import * as _ from 'lodash';
+import {filter} from 'lodash';
 import * as utils from './utils';
 import reqwest = require('reqwest');
 
@@ -63,7 +63,7 @@ function best(object: string): (value: any) => ApiResponsePayload {
             best._matches = all;
 
             // extract without references
-            best.extract_no_refs = best.extract && _.filter(best.extract.split(EXTRACT_DELIM),
+            best.extract_no_refs = best.extract && filter(best.extract.split(EXTRACT_DELIM),
                 isNotReference).join(EXTRACT_DELIM);
 
             break;

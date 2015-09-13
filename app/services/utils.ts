@@ -1,6 +1,6 @@
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 
-import * as _ from 'lodash';
+import {map, each, remove} from 'lodash';
 
 const M_SPACES: RegExp = / /g;
 const M_DASHES: RegExp = /-+/g;
@@ -43,7 +43,7 @@ export function state(category: string, id: string): string {
 }
 
 export function stringify(params: any): string {
-    return _.map(params, function (val: string, key: string): string {
+    return map(params, function (val: string, key: string): string {
         return [key, encodeURIComponent(val)].join('=');
     }).join('&');
 }
@@ -51,7 +51,7 @@ export function stringify(params: any): string {
 export function html(tag: string, props?: any): string {
     return [
         '<', tag, props ? ' ' : '',
-            _.map(props, function (val, key) {
+            map(props, function (val, key) {
                 return key + '="' + val + '"';
             }).join(' '),
         '></', tag, '>'
@@ -67,7 +67,7 @@ export function createListener(): Object {
     var events: Object = {};
 
     function trigger(name: string, args: Array<any>) {
-        _.each(events[name], function (fn: Function) {
+        each(events[name], function (fn: Function) {
             fn.apply(null, args || []);
         });
     }
@@ -80,7 +80,7 @@ export function createListener(): Object {
         events[name].push(handler);
 
         return function () {
-            _.remove(events[name], function (fn) {
+            remove(events[name], function (fn) {
                 return handler === fn;
             });
         };
