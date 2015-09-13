@@ -1,6 +1,6 @@
+/// <reference path="../../config/typings.d.ts"/>
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 /// <reference path="../../typings/q/Q.d.ts"/>
-/// <reference path="../../config/typings.d.ts"/>
 
 import * as _ from 'lodash';
 import * as utils from './utils';

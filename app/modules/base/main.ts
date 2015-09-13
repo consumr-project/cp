@@ -1,9 +1,9 @@
-/// <reference path="../../../typings/firebase/firebase.d.ts"/>
-/// <reference path="../../../typings/moment/moment.d.ts"/>
 /// <reference path="../../../typings/angularjs/angular.d.ts"/>
-/// <reference path="../../../typings/tcp.d.ts"/>
+/// <reference path="../../../typings/firebase/firebase.d.ts"/>
 /// <reference path="../../../typings/i18n.d.ts"/>
 /// <reference path="../../../typings/lodash/lodash.d.ts"/>
+/// <reference path="../../../typings/moment/moment.d.ts"/>
+/// <reference path="../../../typings/tcp.d.ts"/>
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
