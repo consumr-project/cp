@@ -9,9 +9,9 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
+import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
 
-declare var entity: Object;
 declare var highlighter: Object;
 
 module tcp {
@@ -33,7 +33,7 @@ module tcp {
 
     angular.module('tcp')
         .value('companyStore', store.child('company'))
-        .value('entity', entity) // global
+        .value('entity', entity)
         .value('extract', extract)
         .value('highlighter', highlighter) // global
         .value('i18n', i18n) // global
