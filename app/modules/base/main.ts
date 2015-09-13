@@ -6,6 +6,7 @@
 /// <reference path="../../../typings/lodash/lodash.d.ts"/>
 
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as extract from '../../services/extract';
@@ -36,8 +37,8 @@ module tcp {
         .value('extract', extract)
         .value('highlighter', highlighter) // global
         .value('i18n', i18n) // global
-        .value('lodash', _) //global
-        .value('moment', moment) // global
+        .value('lodash', _)
+        .value('moment', moment)
         .value('store', store)
         .value('userStore', store.child('user'))
         .value('utils', utils)
