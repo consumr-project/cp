@@ -3,6 +3,8 @@
 A crowd sourced platform to help us all learn a little bit more about the
 things we buy, sell, and consume every day.
 
+[![Build Status](https://travis-ci.org/minond/the-consumer-project.svg)](https://travis-ci.org/minond/the-consumer-project)
+
 ### usage
 
 local installation. declaring `DEBUG=*` will enable sourcemaps for `build` and
