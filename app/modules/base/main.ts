@@ -36,7 +36,7 @@ module tcp {
         .value('extract', extract)
         .value('highlighter', highlighter) // global
         .value('i18n', i18n) // global
-        .value('lodash', _)
+        .value('lodash', _) //global
         .value('moment', moment) // global
         .value('store', store)
         .value('userStore', store.child('user'))

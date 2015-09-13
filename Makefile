@@ -41,8 +41,6 @@ build-js:
 	echo "" > $(built_vendor_js)
 	./scripts/generate-client-config --config $(global_config_varname) >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
-	cat node_modules/reqwest/reqwest.min.js >> $(built_vendor_js)
-	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/rangy/lib/rangy-core.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 	$(js_min) node_modules/rangy/lib/rangy-classapplier.js >> $(built_vendor_js)

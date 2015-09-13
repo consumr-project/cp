@@ -1,16 +1,14 @@
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 /// <reference path="../../typings/q/Q.d.ts"/>
 /// <reference path="../../typings/tcp.d.ts"/>
+/// <reference path="../../config/typings.d.ts"/>
 
 import * as _ from 'lodash';
 import * as utils from './utils';
-var request = require('reqwest');
+import reqwest = require('reqwest');
 
 type ImageDescription = { width: number; url: string; };
 type MediaDescription = { type: TYPE; html: string; };
-
-declare function require(pac: string): any;
-declare function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
 
 declare interface ApiResponsePayload {
     content: string;
