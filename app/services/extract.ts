@@ -7,8 +7,15 @@ import * as _ from 'lodash';
 import * as utils from './utils';
 import reqwest = require('reqwest');
 
-type ImageDescription = { width: number; url: string; };
-type MediaDescription = { type: TYPE; html: string; };
+declare interface MediaDescription {
+    type: TYPE;
+    html: string;
+}
+
+declare interface ImageDescription {
+    width: number;
+    url: string;
+}
 
 declare interface ApiResponsePayload {
     content: string;
