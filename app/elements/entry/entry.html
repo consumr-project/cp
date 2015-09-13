@@ -12,7 +12,7 @@
         <div ng-if="model.html" ng-bind-html="::model.html"></div>
 
         <div class="site-content">
-            <div class="entry__sub-images center-align animated fadeIn" ng-if="model.images.length > 1">
+            <div class="entry__sub-images center-align animated fadeIn desktop-only" ng-if="model.images.length > 1">
                 <hr>
                 <img ng-click="selectHeaderImage(image)" ng-repeat="image in ::model.images" ng-src="{{::image}}" />
                 <hr>

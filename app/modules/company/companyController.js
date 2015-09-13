@@ -35,7 +35,15 @@ angular.module('tcp').controller('companyController', [
 
             // XXX error state
             // XXX loading state
-            return wikipedia.extract(name).then(function (extract) {
+            wikipedia.image(name).then(function (image) {
+                $scope.company.image = image;
+                normalizeCompany();
+                $scope.$apply();
+            });
+
+            // XXX error state
+            // XXX loading state
+            wikipedia.extract(name).then(function (extract) {
                 $scope.company.summary = extract.extract_no_refs;
                 normalizeCompany();
                 $scope.$apply();
@@ -86,7 +94,7 @@ angular.module('tcp').controller('companyController', [
                 $scope.company.guid = utils.simplify($scope.company.name);
             }
 
-            entity.put(companyStore, $scope.company, ['name', 'summary'])
+            entity.put(companyStore, $scope.company, ['name', 'summary', 'image'])
                 .then(saveSuccessHandler)
                 .catch(saveErrorHandler);
         };

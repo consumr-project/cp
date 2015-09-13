@@ -50,13 +50,3 @@
     vertical-align: top;
     width: 30%;
 }
-
-.entry__sub-images {
-    display: none;
-}
-
-@media (min-width:600px) {
-    .entry__sub-images {
-        display: block;
-    }
-}

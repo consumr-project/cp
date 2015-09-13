@@ -42,3 +42,13 @@
 .full-span {
     width: 100%;
 }
+
+.desktop-only {
+    display: none;
+}
+
+@media (min-width:600px) {
+    .desktop-only {
+        display: initial;
+    }
+}
