@@ -11,8 +11,7 @@ import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
-
-declare var highlighter: Object;
+import * as highlighter from '../../services/highlighter';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
@@ -35,7 +34,7 @@ module tcp {
         .value('companyStore', store.child('company'))
         .value('entity', entity)
         .value('extract', extract)
-        .value('highlighter', highlighter) // global
+        .value('highlighter', highlighter)
         .value('i18n', i18n) // global
         .value('lodash', _)
         .value('moment', moment)
