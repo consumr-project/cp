@@ -27,6 +27,13 @@ ifdef DEBUG
 	build_vars = "DEBUG=*"
 endif
 
+run: clean build server
+
+build: clean build-css build-js build-ts build-strings build-bundle
+
+build-strings:
+	./scripts/compile-string-files en i18n config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
+
 build-css:
 	./node_modules/.bin/cssnext app/elements/main.css $(built_css) \
 		--compress $(css_options)
@@ -35,6 +42,8 @@ build-ts:
 	./scripts/generate-client-config --typings $(global_config_varname) > typings/tcp.d.ts
 	./scripts/compile-string-files --typings i18n > typings/i18n.d.ts
 	$(tsc) app/modules/base/main.ts --outDir $(built_dir) --module commonjs $(ts_options) --rootDir ./
+
+build-bundle:
 	$(browserify) static/app/modules/base/main.js -o $(built_app_js) $(browserify_options)
 
 build-js:
@@ -64,9 +73,6 @@ build-js:
 	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(built_vendor_js)
 	$(js_sep) >> $(built_vendor_js)
 
-build-strings:
-	./scripts/compile-string-files en i18n config/i18n/en/* config/i18n/en/ > $(built_dir)/en.js
-
 install:
 	$(npm) install
 	$(tsd) install
@@ -74,7 +80,7 @@ install:
 deploy:
 	git push heroku master
 
-run: build
+server:
 	node server
 
 reset: clean
@@ -83,10 +89,5 @@ reset: clean
 clean:
 	-rm -r $(built_dir)
 
-watcher:
-	fswatch -r app | xargs -n1 sh -c "$(build_vars) make build-css"
-
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app
-
-build: clean build-css build-js build-ts build-strings
