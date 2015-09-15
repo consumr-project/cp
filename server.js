@@ -22,7 +22,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/app/modules');
 app.engine('html', swig.renderFile);
 
-app.use('/static', express.static('static'));
+app.use('/build', express.static('build'));
 app.use('/app', express.static('app'));
 app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
