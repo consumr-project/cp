@@ -2,36 +2,72 @@
 
 'use strict';
 
-var mf;
-
 var MessageFormat = require('messageformat').MessageFormat,
+    program = require('commander');
+
+var path = require('path'),
     fs = require('fs'),
-    path = require('path'),
     yaml = require('yamljs'),
-    glob = require('glob');
+    glob = require('glob'),
+    each = require('lodash/collection/each');
 
-var each = require('lodash/collection/each');
+program
+    .option('-l --locale <name>', 'name of the locale to compile')
+    .option('-v --var <name>', 'i18n variable name', 'i18n');
 
-var action = process.argv[2],
-    varname = process.argv[3];
+program
+    .command('typings')
+    .description('generate a .d.ts file')
+    .action(typingsCommand);
 
-var locale = process.argv[2],
-    fileglob = process.argv[4],
-    fileextra = process.argv[5];
+program
+    .command('functions')
+    .description('generate the base i18n variable')
+    .action(functionsCommand);
 
-if (action === '--typings') {
-    console.log('declare var %s: any;', varname);
-    process.exit(0);
+program
+    .command('generate')
+    .description('generate locate strings object')
+    .option('--strings_file <file>', 'strings file match')
+    .option('--strings_extra <str>', 'strings file non-file name match')
+    .action(generateCommand);
+
+function typingsCommand() {
+    console.log('declare var %s: any;', program['var']);
 }
 
-if (!fileglob || !locale) {
-    console.log('Usage: %s %s <locale> <fileglob> <fileextra> [varname=i18n]',
-        process.argv[0], process.argv[1]);
-
-    process.exit(1);
+function functionsCommand() {
+    var mf = new MessageFormat(program.locale);
+    console.log('window.%s = %s;', program['var'], mf.functions());
+    console.log('window.%s.get = %s;', program['var'], i18nGetFunction.toString());
 }
 
-mf = new MessageFormat(locale);
+function generateCommand(options) {
+    var mf = new MessageFormat(program.locale);
+    glob(options.strings_file, function (err, files) {
+        each(files, function (file) {
+            var name = generateSectionName(file, options.strings_extra),
+                contents = fs.readFileSync(file).toString(),
+                parsed = yaml.parse(contents);
+
+            console.log('%s["%s"] =', program['var'], name);
+            console.log(mf.precompileObject(parsed));
+            console.log(';');
+        });
+    });
+}
+
+function i18nGetFunction (path, data) {
+    var parts = path.split('/'),
+        fn = parts.pop(),
+        name = parts.join('/');
+
+    if (!(fn in this[name])) {
+        throw new Error('i18n key does not exists: ' + path);
+    }
+
+    return this[name][fn](data);
+}
 
 /**
  * converts config/i18n/en/common.yml to common
@@ -45,27 +81,4 @@ function generateSectionName(file, extra) {
         .replace(extra, '');
 }
 
-console.log('window.%s = %s;', varname, mf.functions());
-console.log('window.%s.get = %s;', varname, function (path, data) {
-    var parts = path.split('/'),
-        fn = parts.pop(),
-        name = parts.join('/');
-
-    if (!(fn in this[name])) {
-        throw new Error('i18n key does not exists: ' + path);
-    }
-
-    return this[name][fn](data);
-}.toString());
-
-glob(fileglob, function (err, files) {
-    each(files, function (file) {
-        var name = generateSectionName(file, fileextra),
-            contents = fs.readFileSync(file).toString(),
-            parsed = yaml.parse(contents);
-
-        console.log('%s["%s"] =', varname, name);
-        console.log(mf.precompileObject(parsed));
-        console.log(';');
-    });
-});
+program.parse(process.argv);

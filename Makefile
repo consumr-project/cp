@@ -4,6 +4,7 @@ build_dir = build
 build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
+typings_dir = typings
 
 npm = npm
 tsd = ./node_modules/.bin/tsd
@@ -19,6 +20,8 @@ css_options =
 build_vars =
 
 global_config_varname = TCP_BUILD_CONFIG
+i18n_varname = i18n
+i18n_locale_arguments = --locale $(1) --strings_file config/i18n/$(1)/* --strings_extra config/i18n/$(1)/
 
 ifdef DEBUG
 	browserify_options = --debug
@@ -32,15 +35,16 @@ run: clean build server
 build: clean build-css build-js build-ts build-strings build-bundle
 
 build-strings:
-	./scripts/compile-string-files en i18n config/i18n/en/* config/i18n/en/ > $(build_dir)/en.js
+	./scripts/compile-string-files functions --var $(i18n_varname) --locale en > $(build_dir)/i18n.js
+	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/en.js
 
 build-css:
 	./node_modules/.bin/cssnext app/elements/main.css $(build_css) \
 		--compress $(css_options)
 
 build-ts:
-	./scripts/generate-client-config --typings $(global_config_varname) > typings/tcp.d.ts
-	./scripts/compile-string-files --typings i18n > typings/i18n.d.ts
+	./scripts/generate-client-config --typings $(global_config_varname) > $(typings_dir)/tcp.d.ts
+	./scripts/compile-string-files typings --var $(i18n_varname) > $(typings_dir)/i18n.d.ts
 	$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
@@ -78,7 +82,7 @@ server:
 	node server
 
 reset: clean
-	-rm -r node_modules typings
+	-rm -r node_modules $(typings_dir)
 
 clean:
 	-rm -r $(build_dir)

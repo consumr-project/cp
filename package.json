@@ -51,6 +51,7 @@
   "devDependencies": {
     "Rainbow": "ccampbell/rainbow",
     "browserify": "^11.0.1",
+    "commander": "^2.8.1",
     "cssnext": "^1.8.1",
     "jshint": "^2.8.0",
     "jsmin": "^1.0.1",
