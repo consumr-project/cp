@@ -9,6 +9,10 @@ const M_NON_LETTERS: RegExp = /[^a-zA-Z\d-]/g;
 export function noop() {
 }
 
+export function newNoop(): Function {
+    return function () {};
+}
+
 export function preload(url: string, callback: any | Function):HTMLImageElement {
     var img: HTMLImageElement = new Image();
     img.onload = callback;

@@ -12,6 +12,7 @@ import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
 import * as highlighter from '../../services/highlighter';
+import logger from '../../services/logger';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
@@ -37,6 +38,7 @@ module tcp {
         .value('highlighter', highlighter)
         .value('i18n', i18n) // global
         .value('lodash', _)
+        .value('logger', logger(DEBUGGING))
         .value('moment', moment)
         .value('store', store)
         .value('userStore', store.child('user'))

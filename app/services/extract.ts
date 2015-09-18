@@ -4,7 +4,7 @@
 /// <reference path="../../typings/tcp.d.ts"/>
 
 import * as _ from 'lodash';
-import * as utils from './utils';
+import {stringify, html} from './utils';
 import reqwest = require('reqwest');
 
 declare interface MediaDescription {
@@ -50,7 +50,7 @@ let node = document.createElement('div');
 export function fetch(url: string): Q.Promise<ApiResponsePayload> {
     return reqwest<ApiResponsePayload>({
         type: 'jsonp',
-        url: URL + utils.stringify({
+        url: URL + stringify({
             callback: 'JSON_CALLBACK',
             key: KEY,
             maxheight: 1000,
@@ -86,9 +86,8 @@ function microsoft_media(content: ApiResponsePayload): ApiResponsePayload {
     if (!content.type && is_microsoft_extension(content.url)) {
         content.media = {
             type: TYPE.RICH,
-            html: utils.html('iframe', {
-                src: 'https://view.officeapps.live.com/op/view.aspx?src=' +
-                    content.url
+            html: html('iframe', {
+                src: `https://view.officeapps.live.com/op/view.aspx?src=${content.url}`
             })
         };
     }

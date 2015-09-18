@@ -3,7 +3,7 @@
 /// <reference path="../../typings/q/Q.d.ts"/>
 
 import {filter} from 'lodash';
-import * as utils from './utils';
+import {stringify} from './utils';
 import reqwest = require('reqwest');
 
 declare interface ApiRequestPayload {
@@ -41,7 +41,7 @@ function api(params: ApiRequestPayload): Q.Promise<ApiResponsePayload> {
 
     return reqwest<ApiResponsePayload>({
         type: 'jsonp',
-        url: URL + utils.stringify(params)
+        url: URL + stringify(params)
     });
 }
 
