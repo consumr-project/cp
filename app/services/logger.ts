@@ -1,15 +1,15 @@
 import {newNoop} from './utils';
 
-interface LogFunction {
+export interface LogFunction {
     (...args: Array<any>): void;
 }
 
-interface Logger {
-    <LogFunction>();
-    error<LogFunction>();
-    info<LogFunction>();
-    log<LogFunction>();
-    warn<LogFunction>();
+export interface Logger {
+    <LogFunction>(...args: Array<any>);
+    error<LogFunction>(...args: Array<any>);
+    info<LogFunction>(...args: Array<any>);
+    log<LogFunction>(...args: Array<any>);
+    warn<LogFunction>(...args: Array<any>);
 }
 
 function label(name: string): string {

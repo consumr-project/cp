@@ -50,3 +50,15 @@ declare module "rangy" {
         highlight(options?: HighlightOptions): Highlight;
     }
 }
+
+interface FirebasePassportLoginError extends Error {
+    code: string;
+}
+
+interface FirebasePassportLoginStatic {
+    new (store: Firebase, hanlder: (err: FirebasePassportLoginError, user: any) => void, rootUrl: string);
+    login(string): void;
+    logout(): void;
+}
+
+declare var FirebasePassportLogin: FirebasePassportLoginStatic;

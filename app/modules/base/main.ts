@@ -13,11 +13,16 @@ import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
 import * as highlighter from '../../services/highlighter';
 import logger from '../../services/logger';
+import {Session, session as startSession} from '../../services/auth';
+
+// TODO remove once adminController imports new auth service
+import {EVENT as AuthEvent, PROVIDER as AuthProvider} from '../../services/auth';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
     var store: Firebase = new Firebase(TCP_BUILD_CONFIG.firebase.url),
+        session: Session = startSession('/auth/', store, DEBUGGING),
         deps: Array<string> = ['ngRoute', 'ngAria'];
 
     if (DEBUGGING) {
@@ -31,7 +36,12 @@ module tcp {
         .constant('DEBUGGING', DEBUGGING)
         .constant('CONFIG', TCP_BUILD_CONFIG);
 
+    // TODO remove once adminController imports new auth service
+    (<any>session).EVENT = AuthEvent;
+    (<any>session).PROVIDER = AuthProvider;
+
     angular.module('tcp')
+        .value('Auth', session)
         .value('companyStore', store.child('company'))
         .value('entity', entity)
         .value('extract', extract)

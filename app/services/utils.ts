@@ -6,6 +6,12 @@ const M_SPACES: RegExp = / /g;
 const M_DASHES: RegExp = /-+/g;
 const M_NON_LETTERS: RegExp = /[^a-zA-Z\d-]/g;
 
+export interface Listener {
+    trigger(name: any, args?: Array<any>);
+    on(name: any, handler: Function): Function;
+    listener?: (obj: any) => any;
+}
+
 export function noop() {
 }
 
@@ -67,16 +73,16 @@ export function summaryze(text: string): string {
     return paragraphs[0];
 }
 
-export function createListener(): Object {
+export function createListener(): Listener {
     var events: Object = {};
 
-    function trigger(name: string, args: Array<any>) {
+    function trigger(name: any, args?: Array<any>) {
         each(events[name], function (fn: Function) {
             fn.apply(null, args || []);
         });
     }
 
-    function on(name: string, handler: Function): Function {
+    function on(name: any, handler: Function): Function {
         if (!(name in events)) {
             events[name] = [];
         }
