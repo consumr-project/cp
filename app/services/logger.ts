@@ -6,10 +6,10 @@ export interface LogFunction {
 
 export interface Logger {
     <LogFunction>(...args: Array<any>);
-    error<LogFunction>(...args: Array<any>);
-    info<LogFunction>(...args: Array<any>);
-    log<LogFunction>(...args: Array<any>);
-    warn<LogFunction>(...args: Array<any>);
+    error: LogFunction;
+    info: LogFunction;
+    log: LogFunction;
+    warn: LogFunction;
 }
 
 function label(name: string): string {
