@@ -2,6 +2,7 @@
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 /// <reference path="../../typings/q/Q.d.ts"/>
 
+import * as Q from 'q';
 import {keys, each} from 'lodash';
 
 export function get(store: Firebase, guid: string): Q.Promise<any> {

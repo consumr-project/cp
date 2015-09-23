@@ -2,11 +2,12 @@
 /// <reference path="../../typings/lodash/lodash.d.ts"/>
 /// <reference path="../../typings/q/Q.d.ts"/>
 
+import * as Q from 'q';
 import {filter} from 'lodash';
 import {stringify} from './utils';
 import reqwest = require('reqwest');
 
-declare interface ApiRequestPayload {
+interface ApiRequestPayload {
     action: string;
     callback?: string;
     exintro?: string;
@@ -16,7 +17,7 @@ declare interface ApiRequestPayload {
     titles?: string;
 }
 
-declare interface ApiResponsePayload {
+interface ApiResponsePayload {
     _matches?: Array<ApiResponsePayload>;
     extract?: string;
     extract_no_refs?: string;
