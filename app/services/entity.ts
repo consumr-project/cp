@@ -7,7 +7,7 @@ import {keys, each} from 'lodash';
 
 export function get(store: Firebase, guid: string): Q.Promise<any> {
     var def: Q.Deferred<any> = Q.defer();
-    store.child(guid).once('value', def.resolve, def.reject);
+    store.child(guid).once('value', (ref) => def.resolve(ref.val()), def.reject);
     return def.promise;
 }
 

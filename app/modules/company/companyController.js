@@ -51,8 +51,8 @@ angular.module('tcp').controller('companyController', [
         }
 
         function loadCompanyInformation() {
-            entity.get(companyStore, $routeParams.guid).then(function (ref) {
-                $scope.company = ref.val();
+            entity.get(companyStore, $routeParams.guid).then(function (company) {
+                $scope.company = company;
                 normalizeCompany();
 
                 if (!$scope.company) {
