@@ -4,10 +4,11 @@ angular.module('tcp').controller('companyController', [
     'Auth',
     'utils',
     'wikipedia',
+    'companies',
     'companyStore',
     'entity',
     'logger',
-    function ($scope, $routeParams, Auth, utils, wikipedia, companyStore, entity, logger) {
+    function ($scope, $routeParams, Auth, utils, wikipedia, companies, companyStore, entity, logger) {
         'use strict';
 
         var log = logger('company');
@@ -51,7 +52,7 @@ angular.module('tcp').controller('companyController', [
         }
 
         function loadCompanyInformation() {
-            entity.get(companyStore, $routeParams.guid).then(function (company) {
+            companies.get($routeParams.guid).then(function (company) {
                 $scope.company = company;
                 normalizeCompany();
 
@@ -93,6 +94,13 @@ angular.module('tcp').controller('companyController', [
             if (!$scope.company.guid) {
                 $scope.company.guid = utils.simplify($scope.company.name);
             }
+
+            companies.set($scope.company.guid, {
+                guid: $scope.company.guid,
+                image: $scope.company.image,
+                name: $scope.company.name,
+                summary: $scope.company.summary
+            });
 
             entity.put(companyStore, $scope.company, ['name', 'summary', 'image'])
                 .then(saveSuccessHandler)

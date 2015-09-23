@@ -1,17 +1,16 @@
 angular.module('tcp').controller('userController', [
     '$scope',
     '$routeParams',
-    'userStore',
-    'entity',
+    'users',
     'utils',
     'i18n',
-    function ($scope, $routeParams, userStore, entity, utils, i18n) {
+    function ($scope, $routeParams, users, utils, i18n) {
         'use strict';
 
         $scope.user = {};
         $scope.i18n = i18n;
 
-        entity.get(userStore, $routeParams.guid).then(function (user) {
+        users.get($routeParams.guid).then(function (user) {
             $scope.user = user;
             $scope.$apply();
         });

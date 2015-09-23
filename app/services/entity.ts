@@ -4,6 +4,12 @@
 
 import * as Q from 'q';
 import {keys, each} from 'lodash';
+import {LocalStorageCache} from './cache';
+
+export function cache<T>(label: string, store: Firebase): LocalStorageCache<T> {
+    var child = store.child(label);
+    return new LocalStorageCache<T>((id) => get(child, id), `entity:${label}`);
+}
 
 export function get(store: Firebase, guid: string): Q.Promise<any> {
     var def: Q.Deferred<any> = Q.defer();
