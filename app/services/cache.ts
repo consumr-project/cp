@@ -2,9 +2,18 @@
 
 import * as Q from 'q';
 
-type LoaderFunction<T> = (id: string) => Q.Promise<T>;
-type CacheItem<T> = { val: T, ttt: number };
-type CacheDict<T> = { [id: string]: CacheItem<T> };
+interface LoaderFunction<T> {
+    (id: string): Q.Promise<T>;
+}
+
+interface CacheItem<T> {
+    val: T;
+    ttt: number;
+}
+
+interface CacheDict<T> {
+    [id: string]: CacheItem<T>;
+}
 
 interface AsyncStorageEngine {
     setItem(id: string, val: any);
