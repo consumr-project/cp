@@ -23,18 +23,15 @@ export class Cache<T> {
 
     queueRemoval(id: string): void {
         clearTimeout(this.timers[id]);
-        this.timers[id] = setTimeout(() => {
-            delete this.memory[id];
-            this.write();
-        }, this.ttl);
-    }
-
-    write(): void {
-        // pass
+        this.timers[id] = setTimeout(() => this.remove(id), this.ttl);
     }
 
     has(id: string): Boolean {
         return id in this.memory && this.memory[id].ttt > Date.now();
+    }
+
+    remove(id: string): void {
+        delete this.memory[id];
     }
 
     set(id: string, val: T): T {
@@ -61,6 +58,11 @@ export class AsyncStorageCache<T> extends Cache<T> {
         this.storage = storage;
         this.key = key;
         this.memory = this.read();
+    }
+
+    remove(id: string): void {
+        super.remove(id);
+        this.write();
     }
 
     set(id: string, val: T): T {
