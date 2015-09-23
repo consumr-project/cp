@@ -19,6 +19,18 @@ export class Cache<T> {
 
     constructor(loader: LoaderFunction<T>) {
         this.loader = loader;
+
+        for (var id in this.memory) {
+            if (!this.memory.hasOwnProperty(id)) {
+                continue;
+            }
+
+            if (this.has(id)) {
+                this.queueRemoval(id);
+            } else {
+                this.remove(id);
+            }
+        }
     }
 
     queueRemoval(id: string): void {
