@@ -75,10 +75,11 @@ export class AsyncStorageCache<T> extends Cache<T> {
     key: string;
 
     constructor(loader: LoaderFunction<T>, storage: AsyncStorageEngine, key: string = 'AsyncStorageEngine') {
-        super(loader);
+        this.loader = loader;
         this.storage = storage;
         this.key = key;
         this.memory = this.read();
+        super(loader);
     }
 
     remove(id: string): void {
