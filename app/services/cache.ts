@@ -34,18 +34,20 @@ export class Cache<T> {
     }
 
     has(id: string): Boolean {
-        return id in this.memory && this.memory[id].ttt < Date.now();
+        return id in this.memory && this.memory[id].ttt > Date.now();
     }
 
     set(id: string, val: T): T {
         var ttt = this.ttl + Date.now();
         this.memory[id] = { val, ttt };
+        this.queueRemoval(id);
         return val;
     }
 
     get(id: string): Q.Promise<T> {
         var def: Q.Deferred<T> = Q.defer<T>();
         def.resolve(this.memory[id].val);
+        this.queueRemoval(id);
         return def.promise;
     }
 }
