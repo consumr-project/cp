@@ -1,12 +1,10 @@
-/// <reference path="../../../typings/angularjs/angular.d.ts"/>
-/// <reference path="../../../typings/firebase/firebase.d.ts"/>
 /// <reference path="../../../typings/i18n.d.ts"/>
-/// <reference path="../../../typings/lodash/lodash.d.ts"/>
-/// <reference path="../../../typings/moment/moment.d.ts"/>
 /// <reference path="../../../typings/tcp.d.ts"/>
+/// <reference path="../../../typings/tsd.d.ts"/>
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as d3 from 'd3';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
@@ -43,6 +41,7 @@ module tcp {
     angular.module('tcp')
         .value('Auth', session)
         .value('companyStore', store.child('company'))
+        .value('d3', d3)
         .value('entity', entity)
         .value('extract', extract)
         .value('highlighter', highlighter)

@@ -25,6 +25,9 @@
     },
     "q/Q.d.ts": {
       "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
+    },
+    "d3/d3.d.ts": {
+      "commit": "09e37435ffb2c56a6f908081194a74756f24f99d"
     }
   }
 }
