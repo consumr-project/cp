@@ -1,6 +1,4 @@
-/// <reference path="../../typings/firebase/firebase.d.ts"/>
-/// <reference path="../../typings/lodash/lodash.d.ts"/>
-/// <reference path="../../typings/q/Q.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import * as Q from 'q';
 import {keys, each} from 'lodash';

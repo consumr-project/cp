@@ -1,7 +1,4 @@
-/// <reference path="../../config/typings.d.ts"/>
-/// <reference path="../../typings/lodash/lodash.d.ts"/>
-/// <reference path="../../typings/q/Q.d.ts"/>
-/// <reference path="../../typings/tcp.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import * as _ from 'lodash';
 import {stringify, html} from './utils';

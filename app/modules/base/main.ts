@@ -1,6 +1,4 @@
-/// <reference path="../../../typings/i18n.d.ts"/>
-/// <reference path="../../../typings/tcp.d.ts"/>
-/// <reference path="../../../typings/tsd.d.ts"/>
+/// <reference path="../../typings.d.ts"/>
 
 import * as _ from 'lodash';
 import * as moment from 'moment';

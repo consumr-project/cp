@@ -1,5 +1,4 @@
-/// <reference path="../../typings/lodash/lodash.d.ts"/>
-/// <reference path="../../config/typings.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import {map, find} from 'lodash';
 import rangy = require('rangy');

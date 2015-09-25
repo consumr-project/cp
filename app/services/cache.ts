@@ -1,4 +1,4 @@
-/// <reference path="../../typings/tsd.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import * as Q from 'q';
 

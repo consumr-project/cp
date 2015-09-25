@@ -1,5 +1,4 @@
-/// <reference path="../../typings/firebase/firebase.d.ts"/>
-/// <reference path="../../config/typings.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import {Listener, createListener} from './utils';
 import {Logger} from './logger';

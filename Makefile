@@ -43,8 +43,6 @@ build-css:
 		--compress $(css_options)
 
 build-ts:
-	./scripts/generate-client-config --typings $(global_config_varname) > $(typings_dir)/tcp.d.ts
-	./scripts/compile-string-files typings --var $(i18n_varname) > $(typings_dir)/i18n.d.ts
 	$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
@@ -52,7 +50,7 @@ build-bundle:
 
 build-js:
 	echo "" > $(build_vendor_js)
-	./scripts/generate-client-config --config $(global_config_varname) >> $(build_vendor_js)
+	./scripts/generate-client-config $(global_config_varname) >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/jquery/dist/jquery.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)

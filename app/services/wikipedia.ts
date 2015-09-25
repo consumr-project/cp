@@ -1,6 +1,4 @@
-/// <reference path="../../config/typings.d.ts"/>
-/// <reference path="../../typings/lodash/lodash.d.ts"/>
-/// <reference path="../../typings/q/Q.d.ts"/>
+/// <reference path="../typings.d.ts"/>
 
 import * as Q from 'q';
 import {filter} from 'lodash';

@@ -1,4 +1,13 @@
+/// <reference path="../typings/tsd.d.ts"/>
+
 declare function require(mod: string): any;
+declare var i18n: any;
+
+declare var TCP_BUILD_CONFIG: {
+    embedly: { key: string; };
+    firebase: { url: string; };
+    locale: { dateFormat: string; };
+};
 
 declare module "reqwest" {
     function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
