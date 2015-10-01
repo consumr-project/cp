@@ -38,8 +38,7 @@ module tcp {
 
     angular.module('tcp')
         .value('Auth', session)
-        .value('companies', entity.cache('company', store))
-        .value('companyStore', store.child('company'))
+        .value('companies', entity.bind('company', store))
         .value('d3', d3)
         .value('entity', entity)
         .value('extract', extract)
@@ -49,8 +48,7 @@ module tcp {
         .value('logger', logger)
         .value('moment', moment)
         .value('store', store)
-        .value('userStore', store.child('user'))
-        .value('users', entity.cache('user', store))
+        .value('users', entity.bind('user', store))
         .value('utils', utils)
         .value('wikipedia', wikipedia);
 

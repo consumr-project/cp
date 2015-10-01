@@ -4,9 +4,34 @@ import * as Q from 'q';
 import {keys, each} from 'lodash';
 import {LocalStorageCache} from './cache';
 
-export function cache<T>(label: string, store: Firebase): LocalStorageCache<T> {
-    var child = store.child(label);
-    return new LocalStorageCache<T>((id) => get(child, id), `entity:${label}`);
+export interface Collection<T> {
+    label: string;
+    get(guid: string): Q.Promise<T>;
+    put(data: any, fields?: Array<string>): Q.Promise<T>;
+}
+
+function getData(data: any, fields?: Array<string>): any {
+    let newData: any = {};
+    each(fields || keys(data), field => newData[field] = data[field]);
+    return newData;
+}
+
+export function bind<T>(label: string, store: Firebase): Collection<T> {
+    var child = store.child(label),
+        cache = new LocalStorageCache<T>((id) => get(child, id), `entity:${label}`);
+
+    return {
+        label: label,
+
+        get: function (guid: string): Q.Promise<T> {
+            return cache.get(guid);
+        },
+
+        put: function (data: any, fields?: Array<string>): Q.Promise<T> {
+            return put(child, data, fields).then(() =>
+                cache.set(data.guid, getData(data, fields)));
+        }
+    };
 }
 
 export function get(store: Firebase, guid: string): Q.Promise<any> {
@@ -27,12 +52,9 @@ export function put(store: Firebase, data: any, fields?: Array<string>): Q.Promi
 
     ref = store.child(data.guid);
     fields = fields || keys(data);
+    each(fields, (field) => ref.child(field).set(data[field] || ''));
 
-    each(fields, function (field) {
-        ref.child(field).set(data[field] || '');
-    });
-
-    ref.child('modifiedDate').set(now, function (err) {
+    ref.child('modifiedDate').set(now, (err) => {
         if (err) {
             def.reject(err);
         } else {
@@ -43,7 +65,7 @@ export function put(store: Firebase, data: any, fields?: Array<string>): Q.Promi
     if (data.createdDate) {
         ref.child('createdDate').set(data.createdDate);
     } else {
-        ref.child('createdDate').once('value', function (createdDate) {
+        ref.child('createdDate').once('value', (createdDate) => {
             if (!createdDate.val()) {
                 ref.child('createdDate').set(now);
             }

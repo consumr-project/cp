@@ -5,10 +5,9 @@ angular.module('tcp').controller('companyController', [
     'utils',
     'wikipedia',
     'companies',
-    'companyStore',
     'entity',
     'logger',
-    function ($scope, $routeParams, Auth, utils, wikipedia, companies, companyStore, entity, logger) {
+    function ($scope, $routeParams, Auth, utils, wikipedia, companies, entity, logger) {
         'use strict';
 
         var log = logger('company');
@@ -66,7 +65,7 @@ angular.module('tcp').controller('companyController', [
 
         function saveSuccessHandler() {
             var guid = $scope.company.guid;
-            utils.state(companyStore.key(), guid);
+            utils.state(companies.label, guid);
             log('saved', guid);
         }
 
@@ -95,14 +94,7 @@ angular.module('tcp').controller('companyController', [
                 $scope.company.guid = utils.simplify($scope.company.name);
             }
 
-            companies.set($scope.company.guid, {
-                guid: $scope.company.guid,
-                image: $scope.company.image,
-                name: $scope.company.name,
-                summary: $scope.company.summary
-            });
-
-            entity.put(companyStore, $scope.company, ['name', 'summary', 'image'])
+            companies.put($scope.company, ['name', 'summary', 'image'])
                 .then(saveSuccessHandler)
                 .catch(saveErrorHandler);
         };
