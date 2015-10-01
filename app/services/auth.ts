@@ -1,8 +1,7 @@
 /// <reference path="../typings.d.ts"/>
 
 import {Listener, createListener} from './utils';
-import {Logger} from './logger';
-import logger from './logger';
+import {Logger, default as logger} from './logger';
 
 const ERROR_EXPIRED_TOKEN: string = 'EXPIRED_TOKEN';
 
@@ -23,8 +22,8 @@ export interface Session extends Listener {
     logout(): void;
 }
 
-export function session(root: string, store: Firebase, debugging: Boolean = false): Session {
-    var log: Logger = logger(debugging)('auth'),
+export function session(root: string, store: Firebase): Session {
+    var log: Logger = logger('auth'),
         events: Listener = createListener(),
         session: Session = events.listener({}),
         auth: FirebasePassportLoginStatic;

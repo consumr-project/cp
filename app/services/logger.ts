@@ -1,5 +1,9 @@
 import {newNoop} from './utils';
 
+export interface LogGeneratorFunction {
+    (name: string): Logger;
+}
+
 export interface LogFunction {
     (...args: Array<any>): void;
 }
@@ -27,7 +31,7 @@ function logFn(name: string, fn: string): LogFunction {
     };
 }
 
-export default function factory(enabled: Boolean = true): (name: string) => Logger {
+export function factory(enabled: Boolean = true): LogGeneratorFunction {
     return function (name: string): Logger {
         var log = <Logger>(enabled ? logFn(name, 'info') : newNoop());
 
@@ -39,3 +43,10 @@ export default function factory(enabled: Boolean = true): (name: string) => Logg
         return log;
     };
 };
+
+var logger: LogGeneratorFunction = (function () {
+    const create = factory((<any>window).DEBUGGING);
+    return name => create(name);
+})();
+
+export default logger = logger;

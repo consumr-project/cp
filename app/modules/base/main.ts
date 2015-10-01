@@ -18,7 +18,7 @@ module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
     var store: Firebase = new Firebase(TCP_BUILD_CONFIG.firebase.url),
-        session: Session = startSession('/auth/', store, DEBUGGING),
+        session: Session = startSession('/auth/', store),
         deps: Array<string> = ['ngRoute', 'ngAria'];
 
     if (DEBUGGING) {
@@ -46,7 +46,7 @@ module tcp {
         .value('highlighter', highlighter)
         .value('i18n', i18n) // global
         .value('lodash', _)
-        .value('logger', logger(DEBUGGING))
+        .value('logger', logger)
         .value('moment', moment)
         .value('store', store)
         .value('userStore', store.child('user'))
