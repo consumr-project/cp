@@ -44,7 +44,7 @@ export function factory(enabled: Boolean = true): LogGeneratorFunction {
     };
 };
 
-var logger: LogGeneratorFunction = (function () {
+export var logger: LogGeneratorFunction = (function () {
     const create = factory((<any>window).DEBUGGING);
     return name => create(name);
 })();

@@ -1,7 +1,7 @@
 /// <reference path="../typings.d.ts"/>
 
 import {Listener, createListener} from './utils';
-import {Logger, default as logger} from './logger';
+import {Logger, logger} from './logger';
 
 const ERROR_EXPIRED_TOKEN: string = 'EXPIRED_TOKEN';
 
