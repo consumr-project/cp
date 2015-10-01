@@ -63,6 +63,11 @@ export class Cache<T> {
     }
 
     get(id: string): Q.Promise<T> {
+        return this.has(id) ? this.deferredGet(id) :
+            this.loader(id).then((val: T) => this.set(id, val));
+    }
+
+    private deferredGet(id: string): Q.Promise<T> {
         var def: Q.Deferred<T> = Q.defer<T>();
         def.resolve(this.memory[id].val);
         this.queueRemoval(id);
@@ -105,10 +110,5 @@ export class AsyncStorageCache<T> extends Cache<T> {
 export class LocalStorageCache<T> extends AsyncStorageCache<T> {
     constructor(loader: LoaderFunction<T>, key: string = 'LocalStorageCache') {
         super(loader, localStorage, key);
-    }
-
-    get(id: string): Q.Promise<T> {
-        return this.has(id) ? super.get(id) :
-            this.loader(id).then((val: T) => super.set(id, val));
     }
 }
