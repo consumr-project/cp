@@ -1,6 +1,5 @@
 /// <reference path="../typings/tsd.d.ts"/>
 
-declare function require(mod: string): any;
 declare var i18n: any;
 
 declare var TCP_BUILD_CONFIG: {

@@ -2,7 +2,7 @@
 
 import * as Q from 'q';
 import {keys, each} from 'lodash';
-import {LocalStorageCache} from './cache';
+import {LocalStorageCache} from 'jtils/dist/cache';
 
 export interface Collection<T> {
     label: string;

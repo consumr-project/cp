@@ -34,6 +34,7 @@
     "firebase-token-generator": "^2.0.0",
     "glob": "^5.0.14",
     "jquery": "^2.1.4",
+    "jtils": "minond/jtils#eb599d487894292b55b449904a1ee949eca3c807",
     "lodash": "^3.9.3",
     "md5": "^2.0.0",
     "messageformat": "^0.2.2",
