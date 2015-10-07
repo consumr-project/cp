@@ -8,7 +8,7 @@ interface LoaderFunction<T> {
 
 interface CacheItem<T> {
     val: T;
-    ttt: number;
+    ttl: number;
 }
 
 interface CacheDict<T> {
@@ -35,20 +35,20 @@ export class Cache<T> {
             }
 
             if (this.has(id)) {
-                this.queueRemoval(id);
+                this.queueRemoval(id, this.memory[id].ttl - Date.now());
             } else {
                 this.remove(id);
             }
         }
     }
 
-    queueRemoval(id: string): void {
+    queueRemoval(id: string, ttl: number = this.ttl): void {
         clearTimeout(this.timers[id]);
-        this.timers[id] = setTimeout(() => this.remove(id), this.ttl);
+        this.timers[id] = setTimeout(() => this.remove(id), ttl);
     }
 
     has(id: string): Boolean {
-        return id in this.memory && this.memory[id].ttt > Date.now();
+        return id in this.memory && this.memory[id].ttl > Date.now();
     }
 
     remove(id: string): void {
@@ -56,8 +56,8 @@ export class Cache<T> {
     }
 
     set(id: string, val: T): T {
-        var ttt = this.ttl + Date.now();
-        this.memory[id] = { val, ttt };
+        var ttl = this.ttl + Date.now();
+        this.memory[id] = { val, ttl };
         this.queueRemoval(id);
         return val;
     }
@@ -70,7 +70,11 @@ export class Cache<T> {
     private deferredGet(id: string): Q.Promise<T> {
         var def: Q.Deferred<T> = Q.defer<T>();
         def.resolve(this.memory[id].val);
+
+        // reset removal and reset die time
+        this.memory[id].ttl = this.ttl + Date.now();
         this.queueRemoval(id);
+
         return def.promise;
     }
 }
