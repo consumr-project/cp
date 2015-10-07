@@ -7,17 +7,17 @@
 
         <button class="button--social-linkedin" ng-click="linkedinLogin()">
             <img src="public/images/linkedin.png" />
-            <span i18n="common/signInWithService" data="{service: 'LinkedIn'}"></span>
+            <span i18n="admin/signInWithService" data="{service: 'LinkedIn'}"></span>
         </button>
-        <button ng-click="loginPopover.showMoreOptions = true" i18n="common/moreOptions"></button>
+        <button ng-click="loginPopover.showMoreOptions = true" i18n="admin/moreOptions"></button>
 
         <br>
         <br>
 
-        <a ng-click="loginPopover.hide()" i18n="common/remindLater"></a>
+        <a ng-click="loginPopover.hide()" i18n="admin/remindLater"></a>
 
         <div ng-show="loginPopover.showMoreOptions" class="animated fadeInUp">
-            <p i18n="common/signInWithEmail"></p>
+            <p i18n="admin/signInWithEmail"></p>
             <input class="large" type="text" placeholder="you@email.com" />
         </div>
     </div>

@@ -21,7 +21,7 @@ build_vars =
 
 global_config_varname = TCP_BUILD_CONFIG
 i18n_varname = i18n
-i18n_locale_arguments = --locale $(1) --strings_file config/i18n/$(1)/* --strings_extra config/i18n/$(1)/
+i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
 
 ifdef DEBUG
 	browserify_options = --debug

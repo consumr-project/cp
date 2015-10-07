@@ -1,26 +1,5 @@
-# common
 none: none
 
 # brand
 welcome: Welcome to The Consumer Project
 intro: A crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.
-
-# actions
-save: Save
-login: Login
-logout: Logout
-follow: Follow
-
-# places
-profile: Profile
-
-# login
-moreOptions: More Options
-remindLater: Remind me later
-signInWithService: Sign in with {service}
-signInWithEmail: Enter your email address to sign in or create an account
-
-# user page
-following: Following
-followers: Followers
-elsewhere: Elsewhere

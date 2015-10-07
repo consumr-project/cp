@@ -1,0 +1,11 @@
+# login
+moreOptions: More Options
+remindLater: Remind me later
+signInWithService: Sign in with {service}
+signInWithEmail: Enter your email address to sign in or create an account
+
+# actions
+save: Save
+login: Login
+logout: Logout
+follow: Follow

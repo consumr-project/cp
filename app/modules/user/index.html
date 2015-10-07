@@ -11,7 +11,7 @@
         <br>
         <br>
 
-        <button ng-click="user.followersCount=user.followersCount+1" i18n="common/follow"></button>
+        <button ng-click="user.followersCount=user.followersCount+1" i18n="admin/follow"></button>
 
         <br>
         <br>
@@ -20,9 +20,9 @@
 
         <table class="table--content center-align">
             <tr>
-                <th i18n="common/following"></th>
-                <th i18n="common/followers"></th>
-                <th i18n="common/elsewhere"></th>
+                <th i18n="user/following"></th>
+                <th i18n="user/followers"></th>
+                <th i18n="user/elsewhere"></th>
             </tr>
             <tr>
                 <td>{{::user.followingCount || i18n.get('common/none')}}</td>
