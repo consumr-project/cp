@@ -6,7 +6,9 @@
         <message type="error">{{::error}}</message>
     </section>
 
-    <p ng-if="company.image" class="right animated fadeIn desktop-only"><img ng-src="{{::company.image}}" /></p>
+    <img ng-if="company.image" ng-src="{{::company.image}}"
+        class="animated fadeIn desktop-only company--logo" />
+
     <p ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
 
     <br>
