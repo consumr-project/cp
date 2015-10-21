@@ -44,5 +44,6 @@ expected configuration variables:
 
 ### thanks
 
-* Edward Boatman for the [face icon](https://thenounproject.com/search/?q=face&i=67226)
-* Austin Condiff for the [hamburger menu icon](https://thenounproject.com/search/?q=hamburger&i=70916)
+* Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
+* Austin Condiff for the [menu](https://thenounproject.com/search/?q=hamburger&i=70916) icon
+* Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon

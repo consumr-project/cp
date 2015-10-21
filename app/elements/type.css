@@ -1,8 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 body,
-body *,
-.copy {
+body * {
     cursor: default;
     font-family: 'Roboto', sans-serif;
     font-size: var(--font-size-normal);
@@ -10,8 +9,14 @@ body *,
 
 p,
 .copy {
+    font-size: var(--font-size-normal);
     font-weight: 300;
     line-height: var(--font-height-normal);
+}
+
+.copy--large {
+    font-size: 30px;
+    line-height: 40px;
 }
 
 p {

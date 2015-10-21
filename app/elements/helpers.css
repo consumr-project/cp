@@ -41,6 +41,10 @@
     display: none;
 }
 
+.header-spacing--top {
+    margin-top: 50px;
+}
+
 @media (min-width:600px) {
     .desktop-only {
         display: initial;

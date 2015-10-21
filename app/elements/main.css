@@ -52,7 +52,6 @@ header {
     max-width: var(--content-max-width);
     padding: 15px var(--content-horizontal-padding);
     position: relative;
-    text-align: center;
 }
 
 header *,
@@ -69,7 +68,7 @@ header button {
 }
 
 .tcp-logo {
-    height: 35px;
+    height: 30px;
 }
 
 [ng-click] {

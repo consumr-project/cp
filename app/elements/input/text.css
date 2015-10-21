@@ -25,9 +25,13 @@ input[type="datetime"]:focus {
     padding-left: 14px;
 }
 
-input.search {
+input.search,
+input.search:focus {
+    background-image: url(/public/images/magnifying-class.svg);
+    background-position: 9px 6px;
+    background-repeat: no-repeat;
+    background-size: 22px;
     border-radius: 100px;
     height: 34px;
-    padding-left: 14px;
-    width: 500px;
+    padding-left: 38px;
 }
