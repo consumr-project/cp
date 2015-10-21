@@ -5,10 +5,14 @@ input[type="date"],
 input[type="email"],
 input[type="time"],
 input[type="datetime"] {
+    cursor: text;
+    font-size: var(--font-size-normal);
     padding: 3px 7px;
+    border: 1px solid var(--color-std-border-color);
+    text-align: left;
+    outline: 0;
     transition: padding .1s;
     word-break: normal;
-    font-size: var(--font-size-normal);
 }
 
 input:not([type]):focus,
@@ -19,4 +23,11 @@ input[type="email"]:focus,
 input[type="time"]:focus,
 input[type="datetime"]:focus {
     padding-left: 14px;
+}
+
+input.search {
+    border-radius: 100px;
+    height: 34px;
+    padding-left: 14px;
+    width: 500px;
 }
