@@ -1,5 +1,5 @@
 :root {
-    --font-height-normal: 18px;
+    --font-height-normal: 30px;
     --font-size-normal: 16px;
     --font-size-small: 13px;
 
@@ -34,6 +34,6 @@
 
     --body-padding-top: 10px;
     --content-horizontal-padding: 20px;
-    --content-max-width: 800px;
+    --content-max-width: 700px;
     --inline-element-gutter: 6px;
 }

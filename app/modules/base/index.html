@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>the consumer project</title>
+        <title>consumr project</title>
         <base href="/">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 
@@ -19,13 +19,13 @@
         <div ng-controller="adminController">
             <div ng-include="'app/modules/admin/login.html'"></div>
             <header>
-                <i ng-click="loginPopover.showLoginScreen=true" class="left v-center-align icon-menu"></i>
-                <span class="tcp-logo v-center-align">the consumer project</span>
-                <i class="right v-center-align icon-plus"></i>
+                <img class="tcp-logo" src="public/images/consumrproject-text.png" />
+                <img class="menu-logo" src="public/images/hamburger-menu.png"
+                    ng-click="loginPopover.showLoginScreen = true" />
 
                 <popover
                     anchored
-                    anchored-element="'header .icon-menu'"
+                    anchored-element="'header .menu-logo'"
                     anchored-show="loginPopover.showLoginScreen"
                     anchored-placement="bottom"
                     anchored-top-offset="10"

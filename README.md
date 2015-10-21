@@ -45,3 +45,4 @@ expected configuration variables:
 ### thanks
 
 * Edward Boatman for the [face icon](https://thenounproject.com/search/?q=face&i=67226)
+* Austin Condiff for the [hamburger menu icon](https://thenounproject.com/search/?q=hamburger&i=70916)

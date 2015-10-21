@@ -28,12 +28,6 @@
     text-align: center;
 }
 
-.v-center-align {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 .block {
     display: block;
     width: 100%;

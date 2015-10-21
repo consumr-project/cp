@@ -1,5 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,200,100);
-
 @import url("../../node_modules/normalize.css/normalize.css");
 @import url("../../node_modules/animate.css/animate.min.css");
 
@@ -12,10 +10,6 @@ html, body {
 }
 
 body {
-    cursor: default;
-    font-family: 'Raleway', sans-serif;
-    font-size: var(--font-size-normal);
-    line-height: var(--font-height-normal);
     padding-bottom: 60px;
 }
 
@@ -54,8 +48,10 @@ header {
     margin-bottom: calc(var(--body-padding-top) * 2);
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
     max-width: var(--content-max-width);
     padding: 15px var(--content-horizontal-padding);
+    position: relative;
     text-align: center;
 }
 
@@ -65,10 +61,15 @@ header button {
     margin: 0;
 }
 
+.menu-logo {
+    height: 28px;
+    position: absolute;
+    right: var(--content-horizontal-padding);
+    transform: translateY(3px);
+}
+
 .tcp-logo {
-    display: inline-block;
-    font-family: "Times New Roman";
-    font-size: 20px;
+    height: 35px;
 }
 
 [ng-click] {
@@ -118,10 +119,6 @@ table.table--bordered td {
 
     .site-content--no-header {
         padding-top: calc(var(--body-padding-top) * 5);
-    }
-
-    .tcp-logo {
-        font-size: 30px;
     }
 }
 
