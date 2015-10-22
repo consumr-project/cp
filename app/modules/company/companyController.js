@@ -5,9 +5,8 @@ angular.module('tcp').controller('companyController', [
     'utils',
     'wikipedia',
     'companies',
-    'entity',
     'logger',
-    function ($scope, $routeParams, Auth, utils, wikipedia, companies, entity, logger) {
+    function ($scope, $routeParams, Auth, utils, wikipedia, companies, logger) {
         'use strict';
 
         var log = logger('company');

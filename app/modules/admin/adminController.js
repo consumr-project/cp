@@ -2,10 +2,12 @@ angular.module('tcp').controller('adminController', [
     '$scope',
     'Auth',
     'utils',
-    function ($scope, Auth, utils) {
+    'users',
+    'lodash',
+    function ($scope, Auth, utils, users, _) {
         'use strict';
 
-        $scope.state = {
+        $scope.session = {
             loggedIn: false
         };
 
@@ -30,16 +32,21 @@ angular.module('tcp').controller('adminController', [
         //     Auth.logout();
         // };
 
-        // $scope.profile = function () {
-        //     utils.href('user', Auth.USER.uid);
-        // };
+        $scope.profile = function () {
+            utils.href('user', Auth.USER.uid);
+        };
 
         Auth.on(Auth.EVENT.LOGIN, function () {
-            $scope.state.loggedIn = true;
+            users.get(Auth.USER.uid).then(function (user) {
+              _.extend(Auth.USER, user);
+              $scope.session.userAvatarUrl = user.avatarUrl;
+              $scope.session.loggedIn = true;
+              $scope.$apply();
+            });
         });
 
         Auth.on(Auth.EVENT.LOGOUT, function () {
-            $scope.state.loggedIn = false;
+            $scope.session.loggedIn = false;
         });
     }
 ]);

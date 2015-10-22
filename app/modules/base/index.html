@@ -20,7 +20,14 @@
             <div ng-include="'app/modules/admin/login.html'"></div>
             <header>
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
-                <button class="right" ng-click="login()" i18n="admin/singInUp"></button>
+
+                <button ng-if="!session.loggedIn" class="right" ng-click="login()"
+                    i18n="admin/singInUp"></button>
+
+                {% raw %}
+                <avatar ng-if="session.loggedIn" class="right" ng-click="profile()"
+                    image="{{session.userAvatarUrl}}"></avatar>
+                {% endraw %}
             </header>
         </div>
 
