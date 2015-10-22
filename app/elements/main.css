@@ -60,13 +60,6 @@ header button {
     margin: 0;
 }
 
-.menu-logo {
-    height: 28px;
-    position: absolute;
-    right: var(--content-horizontal-padding);
-    transform: translateY(3px);
-}
-
 .tcp-logo {
     height: 30px;
 }

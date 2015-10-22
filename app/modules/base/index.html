@@ -20,21 +20,7 @@
             <div ng-include="'app/modules/admin/login.html'"></div>
             <header>
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
-                <img class="menu-logo" src="public/images/hamburger-menu.png"
-                    ng-click="loginPopover.showLoginScreen = true" />
-
-                <popover
-                    anchored
-                    anchored-element="'header .menu-logo'"
-                    anchored-show="loginPopover.showLoginScreen"
-                    anchored-placement="bottom"
-                    anchored-top-offset="10"
-                    anchored-auto-hide="true"
-                >
-                    <popover-item ng-if="!state.loggedIn" ng-click="login()" i18n="admin/login"></popover-item>
-                    <popover-item ng-if="state.loggedIn" ng-click="profile()" i18n="pages/profile"></popover-item>
-                    <popover-item ng-if="state.loggedIn" ng-click="logout()" i18n="admin/logout"></popover-item>
-                </popover>
+                <button class="right" ng-click="login()" i18n="admin/singInUp"></button>
             </header>
         </div>
 

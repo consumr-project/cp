@@ -1,7 +1,8 @@
 avatar,
 button,
 .tag-elem {
-    font-size: var(--font-size-normal);
+    font-size: var(--font-size-small);
+    line-height: initial;
     margin-bottom: var(--inline-element-gutter);
     margin-right: var(--inline-element-gutter);
 }

@@ -11,6 +11,7 @@ indicator.indicator--highlights,
 indicator.indicator--counter {
     padding: 5px;
     min-width: 26px;
+    box-shadow: 0 0 5px 1px #E2E2E2;
 }
 
 indicator.indicator--highlights {

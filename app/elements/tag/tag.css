@@ -40,8 +40,3 @@ tags .tags__tags {
 tags button {
     margin-bottom: 15px;
 }
-
-tags button .tags__label {
-    margin-left: 15px;
-    text-transform: lowercase;
-}

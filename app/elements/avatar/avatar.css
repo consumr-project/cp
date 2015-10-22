@@ -48,7 +48,12 @@ avatar.avatar--block .avatar__title {
 avatar.avatar--block .avatar__image,
 avatar.avatar--block .avatar__name,
 avatar.avatar--block .avatar__title {
+    margin-top: 30px;
     display: block;
+}
+
+avatar.avatar--block .avatar__title {
+    text-align: left;
 }
 
 .avatar__image + .avatar__name,

@@ -10,7 +10,6 @@ angular.module('tcp').controller('adminController', [
         };
 
         $scope.loginPopover = {
-            showLoginScreen: false,
             showMoreOptions: false,
 
             // from popover api
@@ -24,19 +23,16 @@ angular.module('tcp').controller('adminController', [
         };
 
         $scope.login = function () {
-            $scope.loginPopover.showLoginScreen = false;
             $scope.loginPopover.show();
         };
 
-        $scope.logout = function () {
-            $scope.loginPopover.showLoginScreen = false;
-            Auth.logout();
-        };
+        // $scope.logout = function () {
+        //     Auth.logout();
+        // };
 
-        $scope.profile = function () {
-            $scope.loginPopover.showLoginScreen = false;
-            utils.href('user', Auth.USER.uid);
-        };
+        // $scope.profile = function () {
+        //     utils.href('user', Auth.USER.uid);
+        // };
 
         Auth.on(Auth.EVENT.LOGIN, function () {
             $scope.state.loggedIn = true;

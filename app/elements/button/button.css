@@ -5,6 +5,7 @@ button {
 }
 
 button * {
+    cursor: pointer;
     vertical-align: middle;
 }
 
@@ -16,7 +17,6 @@ button,
     padding: 10px 17px;
     position: relative;
     text-align: center;
-    text-transform: uppercase;
 }
 
 button.icon-plus::before {
@@ -40,6 +40,16 @@ button.icon-menu::before {
     left: .5px;
     position: relative;
     top: -1px;
+}
+
+button.button--link {
+    background-color: initial;
+    border-color: transparent;
+    color: var(--color-link);
+}
+
+button.button--slim {
+    padding: 0;
 }
 
 button.button--social-linkedin {
