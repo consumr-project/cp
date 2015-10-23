@@ -18,7 +18,7 @@ angular.module('tcp').controller('navigationController', [
                     args.push(additional());
                 }
 
-                utils.href.apply(null, args);
+                utils.state.apply(null, args);
             }
         }
 
