@@ -17,12 +17,13 @@
     </head>
     <body ng-app="tcp" ng-controller="navigationController" ng-strict-di>
         <div ng-controller="adminController">
-            <div ng-include="'app/modules/admin/login.html'"></div>
+            <div ng-include="'app/modules/home/login.html'"></div>
 
             <header class="site-content">
                 <br>
 
-                <img class="tcp-logo" src="public/images/consumrproject-text.png" />
+                <img class="tcp-logo" src="public/images/consumrproject-text.png"
+                    ng-click="nav.home()" />
 
                 <button ng-if="!session.loggedIn" ng-click="login()"
                     i18n="admin/singInUp" class="right animated fadeIn"></button>
@@ -31,8 +32,10 @@
                     image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
 
                 <button class="search right margin-right-small animated fadeIn screen-small-only"></button>
-                <input class="search right margin-right-small animated fadeIn desktop-only"
-                    type="text" placeholder="search" tabindex="1" />
+                <form class="desktop-only">
+                    <input class="search right margin-right-small animated fadeIn"
+                        type="text" placeholder="search" tabindex="1" />
+                </form>
 
                 <br>
                 <br>
@@ -46,9 +49,9 @@
                 anchored-top-offset="10"
                 anchored-auto-hide="true"
             >
-                <popover-item ng-click="nav.company()" i18n="admin/addCompany"></popover-item>
+                <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/addCompany"></popover-item>
                 <popover-separator></popover-separator>
-                <popover-item ng-click="nav.profile()" i18n="pages/profile"></popover-item>
+                <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>
                 <popover-item ng-click="logout()" i18n="admin/logout">Option #5</popover-item>
             </popover>
         </div>

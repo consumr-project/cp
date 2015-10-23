@@ -10,7 +10,7 @@ angular.module('tcp').controller('navigationController', [
          * @param {Function} [additional]
          * @return {Function}
          */
-        function href(base, additional) {
+        function state(base, additional) {
             return function () {
                 var args = [base];
 
@@ -23,8 +23,9 @@ angular.module('tcp').controller('navigationController', [
         }
 
         $scope.nav = {
-            company: href('company'),
-            profile: href('user', function () { return Auth.USER.uid })
+            home: state(''),
+            company: state('company'),
+            profile: state('user', function () { return Auth.USER.uid })
         };
     }
 ]);
