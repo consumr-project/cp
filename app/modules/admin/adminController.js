@@ -37,11 +37,6 @@ angular.module('tcp').controller('adminController', [
             $scope.actions.show = false;
         };
 
-        $scope.profile = function () {
-            utils.href('user', Auth.USER.uid);
-            $scope.actions.show = false;
-        };
-
         Auth.on(Auth.EVENT.LOGIN, function () {
             users.get(Auth.USER.uid).then(function (user) {
               _.extend(Auth.USER, user);

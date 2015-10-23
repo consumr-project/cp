@@ -15,7 +15,7 @@
         <script src="build/i18n.js"></script>
         <script src="build/en.js"></script>
     </head>
-    <body ng-app="tcp" ng-strict-di>
+    <body ng-app="tcp" ng-controller="navigationController" ng-strict-di>
         <div ng-controller="adminController">
             <div ng-include="'app/modules/admin/login.html'"></div>
 
@@ -37,7 +37,9 @@
                 anchored-top-offset="10"
                 anchored-auto-hide="true"
             >
-                <popover-item ng-click="profile()" i18n="pages/profile"></popover-item>
+                <popover-item ng-click="nav.company()" i18n="admin/addCompany"></popover-item>
+                <popover-separator></popover-separator>
+                <popover-item ng-click="nav.profile()" i18n="pages/profile"></popover-item>
                 <popover-item ng-click="logout()" i18n="admin/logout">Option #5</popover-item>
             </popover>
         </div>
@@ -79,6 +81,7 @@
         <script src="app/elements/entry/highlighter.js"></script>
 
         <script src="app/modules/admin/adminController.js"></script>
+        <script src="app/modules/admin/navigationController.js"></script>
         <script src="app/modules/home/homeController.js"></script>
         <script src="app/modules/entry/entryController.js"></script>
         <script src="app/modules/company/companyController.js"></script>
