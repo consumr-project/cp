@@ -48,6 +48,10 @@ footer.site-content {
     height: 50px;
 }
 
+header.site-content {
+    margin-bottom: calc(var(--body-padding-top) * 5);
+}
+
 header *,
 header button {
     vertical-align: middle;
@@ -96,16 +100,6 @@ table.table--bordered td {
 .company--logo {
     height: 30px;
     margin-top: 30px;
-}
-
-@media (min-width:600px) {
-    header.site-content {
-        margin-bottom: calc(var(--body-padding-top) * 5);
-    }
-
-    .site-content--no-header {
-        padding-top: calc(var(--body-padding-top) * 5);
-    }
 }
 
 @media print {

@@ -31,11 +31,11 @@
                 <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
                     image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
 
-                <button class="search right margin-right-small animated fadeIn screen-small-only"></button>
-                <form class="desktop-only">
-                    <input class="search right margin-right-small animated fadeIn"
-                        type="text" placeholder="search" tabindex="1" />
-                </form>
+                <button class="search right margin-right-small animated fadeIn screen-small-only"
+                    ng-click="nav.search()"></button>
+
+                <div class="desktop-only right margin-right-small"
+                    ng-include="'/app/modules/home/search.html'"></div>
 
                 <br>
                 <br>
@@ -96,6 +96,7 @@
         <script src="app/modules/admin/adminController.js"></script>
         <script src="app/modules/admin/navigationController.js"></script>
         <script src="app/modules/home/homeController.js"></script>
+        <script src="app/modules/search/searchController.js"></script>
         <script src="app/modules/entry/entryController.js"></script>
         <script src="app/modules/company/companyController.js"></script>
         <script src="app/modules/user/userController.js"></script>

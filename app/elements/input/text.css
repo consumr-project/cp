@@ -39,4 +39,5 @@ input.search,
 input.search:focus {
     border-radius: 100px;
     padding-left: var(--computed-button-height);
+    width: 100%;
 }

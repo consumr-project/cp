@@ -72,6 +72,11 @@ module tcp {
                 controller: 'homeController'
             });
 
+            $routeProvider.when('/search', {
+                templateUrl: '/app/modules/search/index.html',
+                controller: 'searchController'
+            });
+
             $routeProvider.when('/user/:guid', {
                 templateUrl: '/app/modules/user/index.html',
                 controller: 'userController'
