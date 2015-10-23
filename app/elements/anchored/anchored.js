@@ -37,7 +37,9 @@ angular.module('tcp').directive('anchored', [
             TOP: 'top'
         };
 
-        var ANIMATION_NUDGE_OFFSET = 10;
+        var ANIMATION_NUDGE_OFFSET = 10,
+            ANIMATION_IN_TIME = 250,
+            ANIMATION_OUT_TIME = 100;
 
         /**
          * @param {Object} attrs
@@ -151,7 +153,9 @@ angular.module('tcp').directive('anchored', [
                 elem.hide();
 
                 function hide() {
-                    elem.hide();
+                    elem.animate({ opacity: 0 }, ANIMATION_OUT_TIME, function () {
+                        elem.hide();
+                    });
                 }
 
                 /**
@@ -182,7 +186,7 @@ angular.module('tcp').directive('anchored', [
                             opacity: 1,
                             top: coor.top,
                             left: coor.left,
-                        });
+                        }, ANIMATION_IN_TIME);
                     }
                 }
 
