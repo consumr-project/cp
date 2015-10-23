@@ -13,6 +13,7 @@ angular.module('tcp').controller('companyController', [
 
         $scope.company = {};
         $scope.error = null;
+        $scope.existing = !!$routeParams.guid;
 
         function normalizeCompany() {
             if (!$scope.company) {
@@ -93,7 +94,7 @@ angular.module('tcp').controller('companyController', [
                 $scope.company.guid = utils.simplify($scope.company.name);
             }
 
-            companies.put($scope.company, ['name', 'summary', 'image'])
+            companies.put($scope.company, ['name', 'summary', 'image', 'guid'])
                 .then(saveSuccessHandler)
                 .catch(saveErrorHandler);
         };

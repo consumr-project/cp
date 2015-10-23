@@ -1,16 +1,23 @@
 <div class="site-content">
-    <input class="block" type="text" ng-model="company.name" ng-model-options="{ updateOn: 'blur' }" autofocus="true" />
+    <h1 ng-if="existing">{{company.name}}</h1>
 
-    <section ng-if="error">
+    <section ng-if="!existing">
+        <input class="block" type="text" autofocus="true"
+            ng-model="company.name" ng-model-options="{ updateOn: 'blur' }" />
+
         <br>
-        <message type="error">{{::error}}</message>
+        <button class="right" ng-click="save()">Save</button>
+        <br>
+        <br>
+
+        <section ng-if="error">
+            <br>
+            <message type="error">{{::error}}</message>
+        </section>
     </section>
 
-    <img ng-if="company.image" ng-src="{{::company.image}}"
+    <img ng-if="company.image" ng-src="{{company.image}}"
         class="animated fadeIn desktop-only company--logo" />
 
     <p ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
-
-    <br>
-    <button class="right" ng-click="save()">Save</button>
 </div>
