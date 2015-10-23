@@ -58,6 +58,10 @@ a:visited {
     text-decoration: none;
 }
 
+a * {
+    cursor: pointer;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
