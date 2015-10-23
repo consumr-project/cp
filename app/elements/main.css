@@ -19,7 +19,11 @@ body {
     padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
 }
 
-.site-content--no-header {
+.site-content.site-content--span {
+    max-width: none;
+}
+
+.site-content.site-content--no-header {
     padding-top: calc(var(--body-padding-top) * 2);
 }
 
@@ -43,15 +47,9 @@ footer {
     height: 50px;
 }
 
-header {
-    height: 50px;
-    margin-bottom: calc(var(--body-padding-top) * 2);
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    max-width: var(--content-max-width);
-    padding: 15px var(--content-horizontal-padding);
-    position: relative;
+header.site-content {
+    margin-bottom: 50px;
+    margin-top: 20px;
 }
 
 header *,
@@ -110,7 +108,7 @@ table.table--bordered td {
 }
 
 @media (min-width:600px) {
-    header {
+    header.site-content {
         margin-bottom: calc(var(--body-padding-top) * 5);
     }
 

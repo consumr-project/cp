@@ -18,7 +18,7 @@
     <body ng-app="tcp" ng-strict-di>
         <div ng-controller="adminController">
             <div ng-include="'app/modules/admin/login.html'"></div>
-            <header>
+            <header class="site-content site-content--span">
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
 
                 <button ng-if="!session.loggedIn" class="right" ng-click="login()"
