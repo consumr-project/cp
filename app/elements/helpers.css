@@ -45,6 +45,8 @@
     margin-top: 50px;
 }
 
+.margin-right-small { margin-right: 15px; }
+
 @media (min-width:600px) {
     .desktop-only {
         display: initial;
