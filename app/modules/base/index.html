@@ -30,8 +30,9 @@
                 <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
                     image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
 
-                <input class="search right margin-right-small" type="text"
-                    placeholder="search" tabindex="1" />
+                <button class="search right margin-right-small animated fadeIn screen-small-only"></button>
+                <input class="search right margin-right-small animated fadeIn desktop-only"
+                    type="text" placeholder="search" tabindex="1" />
 
                 <br>
                 <br>

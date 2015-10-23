@@ -2,6 +2,8 @@ button {
     background-color: #F7F7F7;
     border-color: var(--color-std-border-color);
     color: var(--color-std-text-color);
+    min-height: var(--computed-button-height);
+    min-width: var(--computed-button-height);
 }
 
 button * {

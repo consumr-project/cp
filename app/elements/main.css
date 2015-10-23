@@ -57,6 +57,7 @@ header button {
 header .tcp-logo {
     height: 30px;
     margin-top: 5px;
+    position: absolute;
 }
 
 [ng-click] {

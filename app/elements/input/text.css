@@ -25,13 +25,18 @@ input[type="datetime"]:focus {
     padding-left: 14px;
 }
 
+.search,
 input.search,
 input.search:focus {
     background-image: url(/public/images/magnifying-class.svg);
-    background-position: 9px 6px;
+    background-position: 10px;
     background-repeat: no-repeat;
-    background-size: 22px;
+    background-size: 16px;
+    height: var(--computed-button-height);
+}
+
+input.search,
+input.search:focus {
     border-radius: 100px;
-    height: 37px; /* button's height */
-    padding-left: 38px;
+    padding-left: var(--computed-button-height);
 }

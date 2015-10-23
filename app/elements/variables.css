@@ -40,4 +40,6 @@
     --content-horizontal-padding: 20px;
     --content-max-width: 700px;
     --inline-element-gutter: 6px;
+
+    --computed-button-height: 37px;
 }

@@ -47,7 +47,16 @@
 
 .margin-right-small { margin-right: 15px; }
 
+.screen-small-only {
+    display: initial;
+}
+
+
 @media (min-width:600px) {
+    .screen-small-only {
+        display: none;
+    }
+
     .desktop-only {
         display: initial;
     }
