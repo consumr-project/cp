@@ -9,9 +9,13 @@
 }
 
 .popover__item {
-    font-size: var(--font-size-small);
     padding: 10px 20px;
     transition: background-color .3s;
+}
+
+.popover__item,
+.popover__item * {
+    font-size: var(--font-size-small);
 }
 
 .popover__item:hover {
@@ -30,4 +34,10 @@
     top: 0px;
     transition: opacity .3s;
     width: 100%;
+}
+
+popover-separator {
+    border-top: 1px solid var(--color-std-thin-border-color);
+    display: block;
+    margin: 5px 0;
 }

@@ -58,8 +58,9 @@ header button {
     margin: 0;
 }
 
-.tcp-logo {
+header .tcp-logo {
     height: 30px;
+    margin-top: 5px;
 }
 
 [ng-click] {

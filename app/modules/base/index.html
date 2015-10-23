@@ -22,8 +22,8 @@
             <header class="site-content">
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
 
-                <button ng-if="!session.loggedIn" class="right" ng-click="login()"
-                    i18n="admin/singInUp"></button>
+                <button ng-if="!session.loggedIn" ng-click="login()"
+                    i18n="admin/singInUp" class="right animated fadeIn"></button>
 
                 <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
                     image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
