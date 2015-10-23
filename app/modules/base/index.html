@@ -35,6 +35,7 @@
                     ng-click="nav.search()"></button>
 
                 <div class="desktop-only right margin-right-small"
+                    ng-if="!nav.search.included"
                     ng-include="'/app/modules/home/search.html'"></div>
 
                 <br>

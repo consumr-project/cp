@@ -1,9 +1,28 @@
 angular.module('tcp').controller('navigationController', [
+    '$rootScope',
     '$scope',
+    '$location',
     'Auth',
     'utils',
-    function ($scope, Auth, utils) {
+    function ($rootScope, $scope, $location, Auth, utils) {
         'use strict';
+
+        /**
+         * include search bar in header?
+         * @return {Boolean}
+         */
+        function includeSearch() {
+            var path = $location.path().substr(1);
+            return ['', 'search'].indexOf(path) !== -1;
+        }
+
+        /**
+         * are we running a search right now?
+         * @return {Boolean}
+         */
+        function activeSearch() {
+            return $location.path().substr(1) === 'search';
+        }
 
         /**
          * @param {String} base
@@ -27,5 +46,12 @@ angular.module('tcp').controller('navigationController', [
             company: state('company'),
             profile: state('user', function () { return Auth.USER.uid })
         };
+
+        $rootScope.$on('$locationChangeStart', function () {
+            $scope.nav.search = {
+                active: activeSearch(),
+                included: includeSearch()
+            };
+        });
     }
 ]);

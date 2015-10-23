@@ -11,8 +11,11 @@ angular.module('tcp').controller('searchController', [
          * @param {String} query
          * @param {jQuery.Event} [ev]
          */
-         window.$location=$location
         $scope.search = function (query, ev) {
+            if (!query && ev && ev.target && ev.target.elements && ev.target.elements.q) {
+                query = ev.target.elements.q.value;
+            }
+
             $location
                 .url('/search')
                 .search({ q: query });
