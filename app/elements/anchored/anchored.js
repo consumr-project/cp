@@ -32,6 +32,7 @@ angular.module('tcp').directive('anchored', [
 
         var PLACEMENT = {
             BOTTOM: 'bottom',
+            BOTTOM_RIGHT: 'bottom-right',
             LEFT: 'left',
             RIGHT: 'right',
             TOP: 'top'
@@ -56,6 +57,7 @@ angular.module('tcp').directive('anchored', [
 
             switch (attrs.anchoredPlacement) {
                 case PLACEMENT.BOTTOM:
+                case PLACEMENT.BOTTOM_RIGHT:
                 case PLACEMENT.LEFT:
                 case PLACEMENT.RIGHT:
                 case PLACEMENT.TOP:
@@ -86,11 +88,12 @@ angular.module('tcp').directive('anchored', [
         function getCoordinates(placement, anchorTo, anchorElement, attrs) {
             var coors = {},
                 total_width = $document.width(),
-                offset = anchorTo.offset(),
-                offset_height = anchorTo.outerHeight(),
-                offset_width = anchorTo.outerWidth(),
                 height = anchorElement.outerHeight(),
                 width = anchorElement.outerWidth();
+
+            var offset = anchorTo.offset(),
+                offset_height = anchorTo.outerHeight(),
+                offset_width = anchorTo.outerWidth();
 
             switch (placement) {
                 case PLACEMENT.TOP:
@@ -106,6 +109,14 @@ angular.module('tcp').directive('anchored', [
                     coors.top = offset.top + offset_height;
                     coors.left = !attrs.anchoredCentered ? offset.left :
                         total_width / 2 - width / 2;
+
+                    coors.initialLeft = coors.left;
+                    coors.initialTop = coors.top + attrs.anchoredAnimationOffset;
+                    break;
+
+                case PLACEMENT.BOTTOM_RIGHT:
+                    coors.top = offset.top + offset_height;
+                    coors.left = offset.left - width + offset_width;
 
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top + attrs.anchoredAnimationOffset;
