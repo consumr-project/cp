@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "make run"
+    "start": "make install run"
   },
   "repository": {
     "type": "git",
