@@ -5,6 +5,10 @@
     padding: 15px;
 }
 
+.message-elem * {
+    font-size: var(--font-size-small);
+}
+
 .message-elem + .message-elem {
     margin-top: 10px;
 }

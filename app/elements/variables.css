@@ -3,6 +3,9 @@
     --font-size-normal: 16px;
     --font-size-small: 13px;
 
+    --font-height-h1: 37px;
+    --font-size-h1: 35px;
+
     --color-bad: rgb(232, 38, 59);
     --color-good: rgb(73, 152, 138);
     --color-link: rgb(45, 130, 176);

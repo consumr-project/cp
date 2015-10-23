@@ -52,6 +52,11 @@ avatar.avatar--block .avatar__title {
     display: block;
 }
 
+avatar.avatar--block .avatar__name {
+    font-size: var(--font-size-h1);
+    line-height: var(--font-height-h1);
+}
+
 avatar.avatar--block .avatar__title {
     text-align: left;
 }
