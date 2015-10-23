@@ -2,13 +2,14 @@
     background-color: white;
     border-radius: 2px;
     border: 1px solid var(--color-std-border-color);
-    box-shadow: 0 0 0 1px var(--color-std-shadow-color);
+    box-shadow: 0 0 5px 3px var(--color-std-shadow-color);
     display: inline-block;
     font-size: var(--font-size-small);
     z-index: 10;
 }
 
 .popover__item {
+    font-size: var(--font-size-small);
     padding: 10px 20px;
     transition: background-color .3s;
 }

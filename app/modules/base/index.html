@@ -18,17 +18,28 @@
     <body ng-app="tcp" ng-strict-di>
         <div ng-controller="adminController">
             <div ng-include="'app/modules/admin/login.html'"></div>
+
             <header class="site-content">
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
 
                 <button ng-if="!session.loggedIn" class="right" ng-click="login()"
                     i18n="admin/singInUp"></button>
 
-                {% raw %}
-                <avatar ng-if="session.loggedIn" class="right" ng-click="profile()"
-                    image="{{session.userAvatarUrl}}"></avatar>
-                {% endraw %}
+                <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
+                    image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
             </header>
+
+            <popover
+                anchored
+                anchored-element="{% raw %}'[data-main-user-avatar]'{% endraw %}"
+                anchored-show="actions.show"
+                anchored-placement="bottom"
+                anchored-top-offset="10"
+                anchored-auto-hide="true"
+            >
+                <popover-item ng-click="profile()" i18n="pages/profile"></popover-item>
+                <popover-item ng-click="logout()" i18n="admin/logout">Option #5</popover-item>
+            </popover>
         </div>
 
         <div ng-view></div>

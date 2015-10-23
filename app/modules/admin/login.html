@@ -1,22 +1,22 @@
-<popover class="popover--fullscreen" popover-api="loginPopover" ng-init="loginPopover.showMoreOptions = false">
+<popover class="popover--fullscreen" popover-api="login" ng-init="more = false">
     <div class="site-content site-content--no-header">
         <h2 i18n="common/welcome"></h2>
         <p i18n="common/intro"></p>
 
         <br>
 
-        <button class="button--social-linkedin" ng-click="linkedinLogin()">
+        <button class="button--social-linkedin" ng-click="withLinkedin()">
             <img src="public/images/linkedin.png" />
             <span i18n="admin/signInWithService" data="{service: 'LinkedIn'}"></span>
         </button>
-        <button ng-click="loginPopover.showMoreOptions = true" i18n="admin/moreOptions"></button>
+        <button ng-click="more = true" i18n="admin/moreOptions"></button>
 
         <br>
         <br>
 
-        <button class="button--link" ng-click="loginPopover.hide()" i18n="admin/remindLater"></button>
+        <button class="button--link" ng-click="login.hide()" i18n="admin/remindLater"></button>
 
-        <div ng-show="loginPopover.showMoreOptions" class="animated fadeInUp">
+        <div ng-show="more" class="animated fadeInUp">
             <p i18n="admin/signInWithEmail"></p>
             <input class="large" type="text" placeholder="you@email.com" />
         </div>

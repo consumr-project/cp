@@ -11,29 +11,35 @@ angular.module('tcp').controller('adminController', [
             loggedIn: false
         };
 
-        $scope.loginPopover = {
-            showMoreOptions: false,
+        $scope.actions = {
+            show: null
+        };
 
-            // from popover api
+        $scope.login = {
+            more: false,
+
+            // from popover
             hide: null,
             show: null
         };
 
-        $scope.linkedinLogin = function () {
-            $scope.loginPopover.hide();
+        $scope.withLinkedin = function () {
+            $scope.login.hide();
             return Auth.login(Auth.PROVIDER.LINKEDIN);
         };
 
         $scope.login = function () {
-            $scope.loginPopover.show();
+            $scope.login.show();
         };
 
-        // $scope.logout = function () {
-        //     Auth.logout();
-        // };
+        $scope.logout = function () {
+            Auth.logout();
+            $scope.actions.show = false;
+        };
 
         $scope.profile = function () {
             utils.href('user', Auth.USER.uid);
+            $scope.actions.show = false;
         };
 
         Auth.on(Auth.EVENT.LOGIN, function () {
