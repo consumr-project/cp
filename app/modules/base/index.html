@@ -20,6 +20,8 @@
             <div ng-include="'app/modules/admin/login.html'"></div>
 
             <header class="site-content">
+                <br>
+
                 <img class="tcp-logo" src="public/images/consumrproject-text.png" />
 
                 <button ng-if="!session.loggedIn" ng-click="login()"
@@ -27,6 +29,9 @@
 
                 <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
                     image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
+
+                <br>
+                <br>
             </header>
 
             <popover

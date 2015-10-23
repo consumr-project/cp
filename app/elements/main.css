@@ -48,11 +48,6 @@ footer.site-content {
     height: 50px;
 }
 
-header.site-content {
-    margin-bottom: 50px;
-    margin-top: 20px;
-}
-
 header *,
 header button {
     vertical-align: middle;
