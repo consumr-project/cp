@@ -1,12 +1,13 @@
 angular.module('tcp').controller('companyController', [
     '$scope',
     '$routeParams',
+    '$location',
     'Auth',
     'utils',
     'wikipedia',
     'companies',
     'logger',
-    function ($scope, $routeParams, Auth, utils, wikipedia, companies, logger) {
+    function ($scope, $routeParams, $location, Auth, utils, wikipedia, companies, logger) {
         'use strict';
 
         var log = logger('company');
@@ -65,7 +66,8 @@ angular.module('tcp').controller('companyController', [
 
         function saveSuccessHandler() {
             var guid = $scope.company.guid;
-            utils.state(companies.label, guid);
+            $location.url('/company/' + guid);
+            $scope.$apply();
             log('saved', guid);
         }
 

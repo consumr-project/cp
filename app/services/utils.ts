@@ -38,20 +38,6 @@ export function simplify(str: string): string {
         .replace(M_NON_LETTERS, '');
 }
 
-export function href(category: string, id: string): string {
-    return location.href = '/' + [].splice.call(arguments, 0).join('/');
-}
-
-export function state(category: string, id: string): string {
-    var url: string = '/' + [].splice.call(arguments, 0).join('/');
-
-    if (location.pathname !== url) {
-        history.pushState(url, null, url);
-    }
-
-    return url;
-}
-
 export function stringify(params: any): string {
     return map(params, function (val: string, key: string): string {
         return [key, encodeURIComponent(val)].join('=');

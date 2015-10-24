@@ -3,8 +3,7 @@ angular.module('tcp').controller('navigationController', [
     '$scope',
     '$location',
     'Auth',
-    'utils',
-    function ($rootScope, $scope, $location, Auth, utils) {
+    function ($rootScope, $scope, $location, Auth) {
         'use strict';
 
         /**
@@ -29,7 +28,7 @@ angular.module('tcp').controller('navigationController', [
          * @param {Function} [additional]
          * @return {Function}
          */
-        function state(base, additional) {
+        function url(base, additional) {
             return function () {
                 var args = [base];
 
@@ -37,14 +36,14 @@ angular.module('tcp').controller('navigationController', [
                     args.push(additional());
                 }
 
-                utils.state.apply(null, args);
+                $location.url(args.join('/'));
             }
         }
 
         $scope.nav = {
-            home: state(''),
-            company: state('company'),
-            profile: state('user', function () { return Auth.USER.uid })
+            home: url('/'),
+            company: url('/company'),
+            profile: url('/user', function () { return Auth.USER.uid })
         };
 
         $rootScope.$on('$locationChangeStart', function () {
