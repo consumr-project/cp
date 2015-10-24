@@ -16,7 +16,7 @@
         <script src="build/en.js"></script>
     </head>
     <body ng-app="tcp" ng-controller="navigationController" ng-strict-di>
-        <div ng-controller="adminController">
+        <div ng-controller="adminController" ng-cloak>
             <div ng-include="'app/modules/home/login.html'"></div>
 
             <header class="site-content">
@@ -53,11 +53,11 @@
                 <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/addCompany"></popover-item>
                 <popover-separator></popover-separator>
                 <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>
-                <popover-item ng-click="logout()" i18n="admin/logout">Option #5</popover-item>
+                <popover-item ng-click="logout()" i18n="admin/logout"></popover-item>
             </popover>
         </div>
 
-        <div ng-view ng-cloak></div>
+        <div ng-view></div>
 
         <footer class="site-content">
         </footer>
