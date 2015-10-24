@@ -1,8 +1,8 @@
 angular.module('tcp').controller('searchController', [
     '$scope',
     '$routeParams',
-    '$location',
-    function ($scope, $routeParams, $location) {
+    'NavigationService',
+    function ($scope, $routeParams, NavigationService) {
         'use strict';
 
         $scope.query = $routeParams.q;
@@ -16,9 +16,7 @@ angular.module('tcp').controller('searchController', [
                 query = ev.target.elements.q.value;
             }
 
-            $location
-                .url('/search')
-                .search({ q: query });
+            NavigationService.search(query);
 
             if (ev) {
                 ev.preventDefault();

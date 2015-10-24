@@ -40,6 +40,15 @@ angular.module('tcp').service('NavigationService', ['$location', function ($loca
         user: withoid(BASES.USER),
 
         /**
+         * go to search
+         * @param {String} query
+         */
+        search: function (query) {
+            $location.url('/search')
+                .search({ q: query });
+        },
+
+        /**
          * are you in one of these pages?
          * @param {String[]} pages
          * @return {Boolean}
