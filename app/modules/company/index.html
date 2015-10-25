@@ -3,7 +3,7 @@
 
     <section ng-if="!existing">
         <input class="block" type="text" autofocus="true"
-            ng-model="company.name" ng-model-options="{ updateOn: 'blur' }" />
+            ng-model="company.name" ng-model-options="{ debounce: 300 }" />
 
         <br>
         <button class="right" ng-click="save()">Save</button>
