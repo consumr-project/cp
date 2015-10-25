@@ -101,11 +101,6 @@ table.table--bordered td {
     border: 1px solid var(--color-std-border-color);
 }
 
-.company--logo {
-    height: 30px;
-    margin-top: 30px;
-}
-
 @media print {
     header {
         display: none;
