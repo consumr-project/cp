@@ -1,4 +1,4 @@
-.PHONY: build deploy install run
+.PHONY: build install run
 
 build_dir = build
 build_app_js = $(build_dir)/app.js
@@ -73,7 +73,7 @@ install:
 	$(npm) install
 	$(tsd) install
 
-deploy:
+deploy-heroku:
 	git push heroku master
 
 server:

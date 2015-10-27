@@ -15,7 +15,24 @@ DEBUG=* make build
 DEBUG=* make run
 ```
 
-deploying to heroku (in development mode):
+### configuration
+
+configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
+expected configuration variables:
+
+- `debug` (default: `false`)
+- `embedly.api_key`
+- `firebase.secret`
+- `firebase.url` (in: `config/firebase.yml`)
+- `linkedin.client_id`
+- `linkedin.client_secret`
+- `port` (default: `3000`)
+- `session.cookie` (in: `config/session.yml`)
+- `session.domain` (in: `config/session.yml`)
+
+### deploying to heroku
+
+the following enviroment variables are needed to run the web client:
 
 ```bash
 heroku config:set LINKEDIN_CLIENT_SECRET=`echo $LINKEDIN_CLIENT_SECRET`
@@ -23,24 +40,16 @@ heroku config:set LINKEDIN_CLIENT_ID=`echo $LINKEDIN_CLIENT_ID`
 heroku config:set FIREBASE_SECRET=`echo $FIREBASE_SECRET`
 heroku config:set EMBEDLY_API_KEY=`echo $EMBEDLY_API_KEY`
 heroku config:set SESSION_DOMAIN=http://the-consumer-project.herokuapp.com/
-heroku config:set NPM_CONFIG_PRODUCTION=false
-heroku config:set DEBUG=*
-make deploy
 ```
 
-### configuration
+build and run application in debug mode:
 
-configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
-expected configuration variables:
+```
+heroku config:set NPM_CONFIG_PRODUCTION=false
+heroku config:set DEBUG=*
+```
 
-- `debug` (default: `false`)
-- `firebase.secret`
-- `firebase.url` (in: `config/`)
-- `linkedin.client_id`
-- `linkedin.client_secret`
-- `port` (default: `3000`)
-- `session.cookie` (in: `config/`)
-- `session.domain` (in: `config/`)
+finally, push to heroku (`make deploy-heroku` or `git push heroku origin`)
 
 ### thanks
 
