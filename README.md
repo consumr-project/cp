@@ -7,13 +7,9 @@ things we buy, sell, and consume every day.
 
 ### usage
 
-local installation. declaring `DEBUG=*` will enable sourcemaps for `build` and
-server logging and client side perf for `run`.
-
-```bash
-DEBUG=* make build
-DEBUG=* make run
-```
+`make build server` will install depedencies, compile source, and start a web
+server. declaring `DEBUG=*` will enable sourcemaps for `build` and server
+logging and client side perf for `server`.
 
 ### configuration
 
