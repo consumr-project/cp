@@ -6,6 +6,7 @@ import {LocalStorageCache} from 'jtils/dist/cache';
 
 export interface Collection<T> {
     label: string;
+    store: Firebase,
     get(guid: string): Q.Promise<T>;
     put(data: any, fields?: Array<string>): Q.Promise<T>;
 }
@@ -22,6 +23,7 @@ export function bind<T>(label: string, store: Firebase): Collection<T> {
 
     return {
         label: label,
+        store: store,
 
         get: function (guid: string): Q.Promise<T> {
             return cache.get(guid);

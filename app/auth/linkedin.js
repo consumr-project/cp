@@ -13,11 +13,11 @@ var FirebaseToken = require('firebase-token-generator'),
 module.exports = function (app, config, firebase) {
     var token, linkedin;
 
-    var firebase_secret = config.get('firebase.secret'),
-        linkedin_client_id = config.get('linkedin.client_id'),
-        linkedin_client_secret = config.get('linkedin.client_secret'),
-        session_cookie = config.get('session.cookie'),
-        session_domain = config.get('session.domain');
+    var firebase_secret = config('firebase.secret'),
+        linkedin_client_id = config('linkedin.client_id'),
+        linkedin_client_secret = config('linkedin.client_secret'),
+        session_cookie = config('session.cookie'),
+        session_domain = config('session.domain');
 
     token = new FirebaseToken(firebase_secret);
 

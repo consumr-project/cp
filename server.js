@@ -15,7 +15,7 @@ var express = require('express'),
 
 app = express();
 config = require('acm');
-fb = new Firebase(config.get('firebase.url'));
+fb = new Firebase(config('firebase.url'));
 
 app.set('view cache', true);
 app.set('view engine', 'html');
@@ -28,7 +28,7 @@ app.use('/public', express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(favicon(__dirname + '/public/images/favicon.png'));
 
-if (process.env.NODE_ENV === 'development' || !!config.get('debug')) {
+if (process.env.NODE_ENV === 'development' || !!config('debug')) {
     app.use('/app', serve_index('app'));
     app.use('/public', serve_index('public'));
     app.use(error_handler());
@@ -37,16 +37,16 @@ if (process.env.NODE_ENV === 'development' || !!config.get('debug')) {
 }
 
 app.use(body_parser.json());
-app.use(cookie_parser(config.get('session.secret')));
-app.use(session({ secret: config.get('session.secret') }));
+app.use(cookie_parser(config('session.secret')));
+app.use(session({ secret: config('session.secret') }));
 
 require('./app/auth/main')(app);
 require('./app/auth/linkedin')(app, config, fb);
 
 app.get('*', function (req, res) {
     res.render('base/index', {
-        debugging: !!config.get('debug')
+        debugging: !!config('debug')
     });
 });
 
-app.listen(config.get('port') || 3000);
+app.listen(config('port') || 3000);
