@@ -31,11 +31,11 @@ expected configuration variables:
 the following enviroment variables are needed to run the web client:
 
 ```bash
-heroku config:set LINKEDIN_CLIENT_SECRET=`echo $LINKEDIN_CLIENT_SECRET`
-heroku config:set LINKEDIN_CLIENT_ID=`echo $LINKEDIN_CLIENT_ID`
-heroku config:set FIREBASE_SECRET=`echo $FIREBASE_SECRET`
-heroku config:set EMBEDLY_API_KEY=`echo $EMBEDLY_API_KEY`
-heroku config:set SESSION_DOMAIN=http://the-consumer-project.herokuapp.com/
+heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
+heroku config:set LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
+heroku config:set FIREBASE_SECRET=$(echo $FIREBASE_SECRET)
+heroku config:set EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
+heroku config:set SESSION_DOMAIN=$(heroku apps:info -s | grep web-url | sed 's/web-url=//')
 ```
 
 build and run application in debug mode:
