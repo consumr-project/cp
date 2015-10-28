@@ -22,7 +22,12 @@
             <header class="site-content">
                 <br>
 
-                <img class="tcp-logo" src="public/images/consumrproject-text.png"
+                <img class="tcp-logo desktop-only"
+                    src="public/images/consumrproject-text.png"
+                    ng-click="nav.home()" />
+
+                <img class="tcp-logo screen-small-only"
+                    src="public/images/consumrproject-stamp.png"
                     ng-click="nav.home()" />
 
                 <button ng-if="!session.loggedIn" ng-click="login()"
