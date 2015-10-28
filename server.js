@@ -24,13 +24,13 @@ app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
 app.use('/app', express.static('app'));
-app.use('/public', express.static('public'));
+app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
-app.use(favicon(__dirname + '/public/images/favicon.png'));
+app.use(favicon(__dirname + '/assets/images/favicon.png'));
 
 if (process.env.NODE_ENV === 'development' || !!config('debug')) {
     app.use('/app', serve_index('app'));
-    app.use('/public', serve_index('public'));
+    app.use('/assets', serve_index('assets'));
     app.use(error_handler());
     app.set('view cache', false);
     swig.setDefaults({ cache: false });

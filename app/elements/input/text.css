@@ -28,7 +28,7 @@ input[type="datetime"]:focus {
 .search,
 input.search,
 input.search:focus {
-    background-image: url(/public/images/magnifying-class.svg);
+    background-image: url(/assets/images/magnifying-class.svg);
     background-position: 10px;
     background-repeat: no-repeat;
     background-size: 16px;
