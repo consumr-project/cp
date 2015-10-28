@@ -5,9 +5,12 @@ var firebase, elasticsearch;
 var Firebase = require('firebase');
 var ElasticsearchClient = require('elasticsearchclient');
 
-var config = require('acm');
-var log = require('debug')('service');
-var indexer = require('./src/indexer');
+var config = require('acm'),
+    debug = require('debug'),
+    log = debug('service');
+
+var indexer = require('./src/indexer'),
+    searcher = require('./src/searcher');
 
 log('firebase application %s', config('firebase.url'));
 log('elasticsearch host %s', config('elasticsearch.host'));
@@ -19,4 +22,6 @@ elasticsearch = new ElasticsearchClient({
     port: config('elasticsearch.port')
 });
 
+log('starting indexer and searcher jobs');
 indexer(elasticsearch, firebase, 'company', ['name', 'summary']);
+searcher(elasticsearch, firebase);
