@@ -1,4 +1,23 @@
 <section class="site-content">
     <div ng-include="'/app/modules/home/search.html'"></div>
-    <p>searching for <i>{{query}}</i>...</p>
+
+    <section ng-if="loading">
+        <p>searching for <i>{{query}}</i>...</p>
+    </section>
+
+    <section ng-if="!loading">
+        <div style="margin-top: 25px;" class="copy" ng-repeat="(type, hits) in results">
+            <ul>
+                <li>
+                    <span>{{type}}</span>
+                    <ol>
+                        <li ng-repeat="hit in hits">
+                            <a ng-href="/{{type}}/{{hit._id}}">{{hit._source.name}}</a>
+                            <span>{{hit._score}}</span>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+    </section>
 </section>
