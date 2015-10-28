@@ -5,30 +5,3 @@
 .guide-block-avatars avatar + avatar {
     margin-top: 15px;
 }
-
-.guide-large-icons {
-    margin-top: 20px;
-    margin-bottom: 60px;
-}
-
-.guide-large-icons > div {
-    display: inline-block;
-    width: 33%;
-    margin-bottom: 15px;
-}
-
-.guide-large-icons span {
-    vertical-align: middle;
-}
-
-.guide-large-icons [class^=icon-] {
-    font-size: 30px;
-    margin-right: 10px;
-}
-
-.guide-large-icons .icons__label {
-    background-color: #F3F3F3;
-    border-radius: 2px;
-    font-family: monospace;
-    padding: 3px;
-}
