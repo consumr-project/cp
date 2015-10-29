@@ -23,5 +23,6 @@ elasticsearch = new ElasticsearchClient({
 });
 
 log('starting indexer and searcher jobs');
+indexer(elasticsearch, firebase, 'user', ['fullName']);
 indexer(elasticsearch, firebase, 'company', ['name', 'summary']);
 searcher(elasticsearch, firebase);

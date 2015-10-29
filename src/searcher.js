@@ -73,4 +73,4 @@ module.exports = function (elasticsearch, firebase) {
     var ref = firebase.child(BASE);
     ref.on('child_added', runSearch(elasticsearch, ref));
     return ref;
-}
+};

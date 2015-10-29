@@ -77,8 +77,9 @@ function indexRemove(elasticsearch, type) {
  */
 module.exports = function (elasticsearch, firebase, type, fields) {
     var ref = firebase.child(type);
+    log('binding to %s', type);
     ref.on('child_added', indexUpsert(elasticsearch, type, fields));
     ref.on('child_changed', indexUpsert(elasticsearch, type, fields));
     ref.on('child_removed', indexRemove(elasticsearch, type));
     return ref;
-}
+};
