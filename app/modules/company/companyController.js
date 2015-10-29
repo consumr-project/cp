@@ -51,8 +51,12 @@ angular.module('tcp').controller('companyController', [
             });
         }
 
-        function loadCompanyInformation(id) {
-            companies.get(id).then(function (company) {
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        function load(id) {
+            return companies.get(id).then(function (company) {
                 $scope.company = company;
                 normalizeCompany();
 
@@ -103,19 +107,18 @@ angular.module('tcp').controller('companyController', [
 
         $scope.companyPage = function () {
             if ($routeParams.guid) {
-                loadCompanyInformation($routeParams.guid);
+                load($routeParams.guid);
             } else {
                 $scope.$watch('company.name', fetchCompanySummary);
             }
         };
 
+        $scope.loadCompany = function (id) {
+            load(id);
+        }
+
         $scope.gotoCompany = function (id) {
             NavigationService.company(id);
         };
-
-        $scope.loadCompany = function (id) {
-            console.log(id)
-            loadCompanyInformation(id);
-        }
     }
 ]);

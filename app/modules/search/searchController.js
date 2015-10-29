@@ -4,7 +4,8 @@ angular.module('tcp').service('SearchService', [
     'store',
     'lodash',
     function ($q, store, lodash) {
-        var COMPANY = { _type: 'company' };
+        var COMPANY = { _type: 'company' },
+            USER = { _type: 'user' };
 
         return {
             entity: entity,
@@ -43,6 +44,7 @@ angular.module('tcp').service('SearchService', [
                         results = JSON.parse(results);
                         results.$all = results.hits.hits;
                         results.$companies = lodash.where(results.hits.hits, COMPANY);
+                        results.$users = lodash.where(results.hits.hits, USER);
 
                         resolve(results);
                     }
@@ -80,6 +82,7 @@ angular.module('tcp').controller('searchController', [
             SearchService.entity(query).then(function (res) {
                 $scope.loading = false;
                 $scope.results.company = res.$companies;
+                $scope.results.user = res.$users;
             });
         };
 

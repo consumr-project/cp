@@ -1,9 +1,22 @@
 <section class="site-content">
     <div ng-include="'/app/modules/home/search.html'"></div>
 
+    <section class="copy margin-top-xlarge" ng-if="results.user">
+        <div
+            class="entity entity--summary animated fadeIn"
+            ng-repeat="hit in results.user"
+            ng-controller="userController"
+            ng-init="loadUser(hit._id)"
+            ng-click="gotoUser(hit._id)"
+        >
+            <h3>{{::user.fullName}}</h3>
+            <p>{{::user.summary | limitTo : 300}}...</p>
+        </div>
+    </section>
+
     <section class="copy margin-top-xlarge" ng-if="results.company">
         <div
-            class="company company--summary animated fadeIn"
+            class="entity entity--summary animated fadeIn"
             ng-repeat="hit in results.company"
             ng-controller="companyController"
             ng-init="loadCompany(hit._id)"
