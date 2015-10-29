@@ -1,2 +1,5 @@
 host: localhost
 port: 9200
+
+query:
+  fuzziness: 0.6

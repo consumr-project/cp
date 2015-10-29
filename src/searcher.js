@@ -2,6 +2,8 @@
 
 var BASE = 'search';
 
+var config = require('acm');
+
 var debug = require('debug'),
     log = debug('searcher'),
     error = debug('searcher:error');
@@ -13,8 +15,9 @@ var debug = require('debug'),
 function query(str) {
     return {
         query: {
-            query_string: {
-                query: str
+            fuzzy_like_this: {
+                fuzziness: config('elasticsearch.query.fuzziness'),
+                like_text: str
             }
         }
     };
