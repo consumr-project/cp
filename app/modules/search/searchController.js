@@ -86,10 +86,8 @@ angular.module('tcp').controller('searchController', [
             }
         };
 
-        $scope.$watch('query', function () {
-            if ($scope.query) {
-                $scope.search($scope.query);
-            }
-        });
+        if ($scope.query && NavigationService.oneOf([NavigationService.BASES.SEARCH])) {
+            $scope.search($scope.query);
+        }
     }
 ]);

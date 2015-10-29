@@ -6,6 +6,7 @@
     </section>
 
     <section ng-if="!loading">
+        <p>results for <i>{{query}}</i>...</p>
         <div style="margin-top: 25px;" class="copy" ng-repeat="(type, hits) in results">
             <ul>
                 <li>
