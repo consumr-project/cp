@@ -102,6 +102,11 @@ table.table--bordered td {
     border: 1px solid var(--color-std-border-color);
 }
 
+.company.company--summary + .company.company--summary {
+    border-top: 1px solid var(--color-std-thin-border-color);
+    padding-top: var(--spacing-small);
+}
+
 .company.company--summary:hover h3 {
     text-decoration: underline;
 }
