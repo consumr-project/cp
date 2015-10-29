@@ -1,28 +1,32 @@
 <section class="site-content">
     <div ng-include="'/app/modules/home/search.html'"></div>
 
-    <section class="copy margin-top-xlarge" ng-if="results.user">
+    <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.user.length">
+        <h2 i18n="pages/users" class="margin-bottom-large"></h2>
+
         <div
-            class="entity entity--summary animated fadeIn"
+            class="entity entity--summary"
             ng-repeat="hit in results.user"
             ng-controller="userController"
             ng-init="loadUser(hit._id)"
             ng-click="gotoUser(hit._id)"
         >
-            <h3>{{::user.fullName}}</h3>
+            <h3 class="take-space">{{::user.fullName}}</h3>
             <p>{{::user.summary | limitTo : 300}}...</p>
         </div>
     </section>
 
-    <section class="copy margin-top-xlarge" ng-if="results.company">
+    <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.company.length">
+        <h2 i18n="pages/companies" class="margin-bottom-large"></h2>
+
         <div
-            class="entity entity--summary animated fadeIn"
+            class="entity entity--summary"
             ng-repeat="hit in results.company"
             ng-controller="companyController"
             ng-init="loadCompany(hit._id)"
             ng-click="gotoCompany(hit._id)"
         >
-            <h3>{{::company.name}}</h3>
+            <h3 class="take-space">{{::company.name}}</h3>
             <p>{{::company.summary | limitTo : 300}}...</p>
         </div>
     </section>
