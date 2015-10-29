@@ -64,7 +64,8 @@ header .tcp-logo {
     position: absolute;
 }
 
-[ng-click] {
+[ng-click],
+[ng-click] * {
     cursor: pointer;
     transition: transform .1s;
 }
@@ -99,6 +100,14 @@ table.table--content td {
 table.table--bordered th,
 table.table--bordered td {
     border: 1px solid var(--color-std-border-color);
+}
+
+.company.company--summary:hover h3 {
+    text-decoration: underline;
+}
+
+.company.company--summary p {
+    min-height: 150px;
 }
 
 @media print {

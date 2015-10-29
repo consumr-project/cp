@@ -20,7 +20,7 @@ p,
 }
 
 p {
-    margin-top: 25px;
+    margin-top: var(--spacing-medium);
 }
 
 h1,

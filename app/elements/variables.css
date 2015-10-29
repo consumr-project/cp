@@ -38,8 +38,13 @@
 
     --body-padding-top: 10px;
     --content-horizontal-padding: 20px;
-    --content-max-width: 700px;
     --inline-element-gutter: 6px;
 
+    --spacing-small: 15px;
+    --spacing-medium: 25px;
+    --spacing-large: 35px;
+    --spacing-xlarge: 45px;
+
+    --content-max-width: 700px;
     --computed-button-height: 37px;
 }

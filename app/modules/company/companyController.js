@@ -51,8 +51,8 @@ angular.module('tcp').controller('companyController', [
             });
         }
 
-        function loadCompanyInformation() {
-            companies.get($routeParams.guid).then(function (company) {
+        function loadCompanyInformation(id) {
+            companies.get(id).then(function (company) {
                 $scope.company = company;
                 normalizeCompany();
 
@@ -101,10 +101,21 @@ angular.module('tcp').controller('companyController', [
                 .catch(saveErrorHandler);
         };
 
-        if (!$routeParams.guid) {
-            $scope.$watch('company.name', fetchCompanySummary);
-        } else {
-            loadCompanyInformation();
+        $scope.companyPage = function () {
+            if ($routeParams.guid) {
+                loadCompanyInformation($routeParams.guid);
+            } else {
+                $scope.$watch('company.name', fetchCompanySummary);
+            }
+        };
+
+        $scope.gotoCompany = function (id) {
+            NavigationService.company(id);
+        };
+
+        $scope.loadCompany = function (id) {
+            console.log(id)
+            loadCompanyInformation(id);
         }
     }
 ]);

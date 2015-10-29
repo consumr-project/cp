@@ -1,24 +1,16 @@
 <section class="site-content">
     <div ng-include="'/app/modules/home/search.html'"></div>
 
-    <section ng-if="loading">
-        <p>searching for <i>{{query}}</i>...</p>
-    </section>
-
-    <section ng-if="!loading">
-        <p>results for <i>{{query}}</i>...</p>
-        <div style="margin-top: 25px;" class="copy" ng-repeat="(type, hits) in results">
-            <ul>
-                <li>
-                    <span>{{type}}</span>
-                    <ol>
-                        <li ng-repeat="hit in hits">
-                            <a ng-href="/{{type}}/{{hit._id}}">{{hit._source.name}}</a>
-                            <span>{{hit._score}}</span>
-                        </li>
-                    </ol>
-                </li>
-            </ul>
+    <section class="copy margin-top-xlarge" ng-if="results.company">
+        <div
+            class="company company--summary animated fadeIn"
+            ng-repeat="hit in results.company"
+            ng-controller="companyController"
+            ng-init="loadCompany(hit._id)"
+            ng-click="gotoCompany(hit._id)"
+        >
+            <h3>{{::company.name}}</h3>
+            <p>{{::company.summary | limitTo : 300}}...</p>
         </div>
     </section>
 </section>
