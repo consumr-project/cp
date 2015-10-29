@@ -60,7 +60,7 @@ angular.module('tcp').controller('searchController', [
     function ($scope, $routeParams, NavigationService, SearchService) {
         'use strict';
 
-        $scope.query = $routeParams.q;
+        $scope.query = '';
         $scope.results = {};
 
         /**
@@ -68,8 +68,9 @@ angular.module('tcp').controller('searchController', [
          * @param {jQuery.Event} [ev]
          */
         $scope.search = function (query, ev) {
-            if (!query && ev && ev.target && ev.target.elements && ev.target.elements.q) {
+            if (ev) {
                 query = ev.target.elements.q.value;
+                ev.preventDefault();
             }
 
             $scope.loading = true;
@@ -80,14 +81,15 @@ angular.module('tcp').controller('searchController', [
                 $scope.loading = false;
                 $scope.results.company = res.$companies;
             });
-
-            if (ev) {
-                ev.preventDefault();
-            }
         };
 
-        if ($scope.query && NavigationService.oneOf([NavigationService.BASES.SEARCH])) {
-            $scope.search($scope.query);
+        if (NavigationService.oneOf([NavigationService.BASES.SEARCH])) {
+            $scope.query = $routeParams.q;
+            $scope.$watch('query', function () {
+                if ($scope.query) {
+                    $scope.search($scope.query);
+                }
+            });
         }
     }
 ]);
