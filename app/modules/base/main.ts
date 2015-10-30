@@ -40,7 +40,7 @@ module tcp {
 
     angular.module('tcp')
         .value('Auth', session)
-        .value('LocalStorageListCache', LocalStorageListCache)
+        .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('companies', entity.bind('company', store))
         .value('d3', d3)
         .value('entity', entity)
