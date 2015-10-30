@@ -31,6 +31,7 @@ angular.module('tcp').controller('searchController', [
                 $scope.loading = false;
                 $scope.results.company = lodash.where(res.hits.hits, COMPANY);
                 $scope.results.user = lodash.where(res.hits.hits, USER);
+                $scope.$apply();
             });
         };
 
