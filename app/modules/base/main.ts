@@ -10,6 +10,7 @@ import * as extract from '../../services/extract';
 import * as highlighter from '../../services/highlighter';
 import logger from '../../services/logger';
 import Search from '../../services/search';
+import {LocalStorageListCache} from 'jtils/dist/cache';
 import {Session, session as startSession} from '../../services/auth';
 
 // TODO remove once adminController imports new auth service
@@ -39,6 +40,7 @@ module tcp {
 
     angular.module('tcp')
         .value('Auth', session)
+        .value('LocalStorageListCache', LocalStorageListCache)
         .value('companies', entity.bind('company', store))
         .value('d3', d3)
         .value('entity', entity)

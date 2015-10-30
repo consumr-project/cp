@@ -50,9 +50,10 @@
 }
 
 .margin-bottom-large { margin-bottom: var(--spacing-large); }
+.margin-bottom-xsmall { margin-bottom: var(--spacing-xsmall); }
+.margin-right-small { margin-right: var(--spacing-small); }
 .margin-top-medium { margin-top: var(--spacing-medium); }
 .margin-top-xlarge { margin-top: var(--spacing-xlarge); }
-.margin-right-small { margin-right: var(--spacing-small); }
 
 .screen-small-only {
     display: initial;

@@ -3,7 +3,14 @@
 
     <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.empty">
         <center>
-            <h2 i18n="common/no-results" data="{query: query}"></h2>
+            <h2 i18n="common/no_results" data="{query: query}"></h2>
+
+            <h4 ng-if="searches.length" i18n="common/recent_searches"
+                class="margin-bottom-large"></h4>
+
+            <div ng-repeat="query in searches" class="margin-bottom-xsmall">
+                <a ng-click="search(query)">{{query}}</a>
+            </div>
         </center>
     </section>
 
