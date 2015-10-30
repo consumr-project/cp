@@ -9,6 +9,7 @@ import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
 import * as highlighter from '../../services/highlighter';
 import logger from '../../services/logger';
+import Search from '../../services/search';
 import {Session, session as startSession} from '../../services/auth';
 
 // TODO remove once adminController imports new auth service
@@ -47,6 +48,7 @@ module tcp {
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
+        .value('search', new Search(store.child('search')))
         .value('store', store)
         .value('users', entity.bind('user', store))
         .value('utils', utils)
