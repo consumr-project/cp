@@ -1,6 +1,12 @@
 <section class="site-content">
     <div ng-include="'/app/modules/home/search.html'"></div>
 
+    <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.empty">
+        <center>
+            <h2 i18n="common/no-results" data="{query: query}"></h2>
+        </center>
+    </section>
+
     <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.user.length">
         <h2 i18n="pages/users" class="margin-bottom-large"></h2>
 

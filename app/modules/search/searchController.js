@@ -29,6 +29,7 @@ angular.module('tcp').controller('searchController', [
             NavigationService.search(query);
             search.search('entity', '', query).then(function (res) {
                 $scope.loading = false;
+                $scope.results.empty = !res.hits.hits.length;
                 $scope.results.company = lodash.where(res.hits.hits, COMPANY);
                 $scope.results.user = lodash.where(res.hits.hits, USER);
                 $scope.$apply();

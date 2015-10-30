@@ -6,15 +6,6 @@ angular.module('tcp').directive('i18n', [
         'use strict';
 
         /**
-         * @param {String} [data]
-         * @return {Object}
-         */
-        function getData(data) {
-            /* jshint evil: true */
-            return eval(['(', data || '{}', ')'].join(''));
-        }
-
-        /**
          * @param {String} date
          * @return {Number|String}
          */
@@ -30,7 +21,7 @@ angular.module('tcp').directive('i18n', [
                     date = attrs.date;
 
                 if (key) {
-                    elem.text(i18n.get(key, getData(data)));
+                    elem.text(i18n.get(key, scope.$eval(data)));
                 } else if (date) {
                     elem.text(moment(getDate(date)).format(format));
                 }
