@@ -42,7 +42,7 @@ function indexUpsert(elasticsearch, type, fields) {
         var key = ref.key(),
             val = ref.val();
 
-        var data = pick(ref.val(), function (val, key) {
+        var data = pick(val, function (val, key) {
             return contains(fields, key);
         });
 
