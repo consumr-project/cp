@@ -46,7 +46,9 @@
 }
 
 .take-space::after {
-  content: '\00a0';
+    content: '\00a0';
+    display: inline-block;
+    width: 0;
 }
 
 .margin-bottom-large { margin-bottom: var(--spacing-large); }
