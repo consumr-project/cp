@@ -38,7 +38,7 @@ header .tcp-logo {
 
 header .tcp-logo.screen-small-only {
     height: 37px;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 [ng-click],
