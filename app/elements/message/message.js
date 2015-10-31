@@ -3,14 +3,6 @@ angular.module('tcp').directive('message', [
     function (_) {
         'use strict';
 
-        var TRANSITION_END = [
-            'webkitTransitionEnd',
-            'otransitionend',
-            'oTransitionEnd',
-            'msTransitionEnd',
-            'transitionend'
-        ].join(' ');
-
         return {
             replace: true,
             transclude: true,

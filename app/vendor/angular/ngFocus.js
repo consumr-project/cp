@@ -1,4 +1,6 @@
 angular.module('tcp').directive('ngFocus', ['$timeout', function($timeout) {
+    'use strict';
+
     return {
         link: function ( scope, element, attrs ) {
             scope.$watch( attrs.ngFocus, function ( val ) {

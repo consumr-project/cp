@@ -43,29 +43,34 @@ angular.module('tcp').directive('anchored', [
             ANIMATION_OUT_TIME = 100;
 
         /**
+         * @param {Boolean} test
+         * @param {String} message
+         * @throws {Error}
+         */
+        function assert(test, message) {
+            if (!test) {
+                throw new Error(message);
+            }
+        }
+
+        /**
          * @param {Object} attrs
          * @throws {Error}
          */
         function validate(attrs) {
-            if (isNaN(attrs.anchoredTopOffset)) {
-                throw new Error('Invalid top offset: ' + attrs.anchoredTopOffset);
-            }
+            assert(!isNaN(attrs.anchoredTopOffset),
+                'Invalid top offset: ' + attrs.anchoredTopOffset);
 
-            if (isNaN(attrs.anchoredLeftOffset)) {
-                throw new Error('Invalid top offset: ' + attrs.anchoredLeftOffset);
-            }
+            assert(!isNaN(attrs.anchoredLeftOffset),
+                'Invalid top offset: ' + attrs.anchoredLeftOffset);
 
-            switch (attrs.anchoredPlacement) {
-                case PLACEMENT.BOTTOM:
-                case PLACEMENT.BOTTOM_RIGHT:
-                case PLACEMENT.LEFT:
-                case PLACEMENT.RIGHT:
-                case PLACEMENT.TOP:
-                    break;
-
-                default:
-                    throw new Error('Invalid placement: ' + attrs.anchoredPlacement);
-            }
+            assert(_.contains([
+                PLACEMENT.BOTTOM,
+                PLACEMENT.BOTTOM_RIGHT,
+                PLACEMENT.LEFT,
+                PLACEMENT.RIGHT,
+                PLACEMENT.TOP
+            ], attrs.anchoredPlacement), 'Invalid placement: ' + attrs.anchoredPlacement);
         }
 
         /**

@@ -8,7 +8,7 @@ angular.module('tcp').directive('timeline', [
             transclude: true,
             template: '<div></div>',
 
-            link: function (scope, elem, attr) {
+            link: function () {
                 console.log(d3);
             }
         };

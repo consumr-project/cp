@@ -115,7 +115,7 @@ angular.module('tcp').controller('companyController', [
 
         $scope.loadCompany = function (id) {
             load(id);
-        }
+        };
 
         $scope.gotoCompany = function (id) {
             NavigationService.company(id);

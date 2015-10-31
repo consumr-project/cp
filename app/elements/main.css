@@ -111,10 +111,6 @@ table.table--bordered td {
     text-decoration: underline;
 }
 
-.entity.entity--summary p {
-    min-height: 150px;
-}
-
 @media print {
     header {
         display: none;

@@ -1,7 +1,6 @@
 angular.module('tcp').controller('guideController', [
     '$scope',
-    '$http',
-    function ($scope, $http) {
+    function ($scope) {
         'use strict';
 
         $scope.counter = 42;

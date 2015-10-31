@@ -78,8 +78,8 @@ module.exports = function (app, config, firebase) {
      * @param {Function} next
      */
     function linkedinCallback(req, res, next) {
-        passport.authenticate('linkedin', function (err, user, info) {
-            firebase.auth(firebase_secret, function (err, data) {
+        passport.authenticate('linkedin', function (err, user) {
+            firebase.auth(firebase_secret, function (err) {
                 var tok, ref;
 
                 firebase.child('oAuthToken')

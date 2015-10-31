@@ -1,4 +1,4 @@
-angular.module('tcp').directive('popover', ['$document', function ($document) {
+angular.module('tcp').directive('popover', [function () {
     'use strict';
 
     var TRANSITION_END = [
