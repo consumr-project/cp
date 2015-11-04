@@ -3,6 +3,7 @@
 var FirebaseToken = require('firebase-token-generator'),
     LinkedInStrategy = require('passport-linkedin').Strategy,
     passport = require('passport'),
+    getset = require('deep-get-set'),
     md5 = require('md5');
 
 /**
@@ -32,6 +33,7 @@ module.exports = function (app, config, firebase) {
             'email-address',
             'headline',
             'summary',
+            'positions',
             'picture-url',
             'public-profile-url'
         ]
@@ -51,6 +53,7 @@ module.exports = function (app, config, firebase) {
             avatarUrl: profile._json.pictureUrl,
             email: profile._json.emailAddress,
             fullName: profile.displayName,
+            companyName: getset(profile._json, 'positions.values.0.company.name'),
             guid: guid,
             linkedinId: profile.id,
             linkedinUrl: profile._json.publicProfileUrl,
@@ -99,6 +102,7 @@ module.exports = function (app, config, firebase) {
                 ref.child('avatarUrl').set(user.avatarUrl);
                 ref.child('email').set(user.email);
                 ref.child('fullName').set(user.fullName);
+                ref.child('companyName').set(user.companyName);
                 ref.child('guid').set(user.guid);
                 ref.child('linkedinId').set(user.linkedinId);
                 ref.child('linkedinUrl').set(user.linkedinUrl);

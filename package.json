@@ -25,6 +25,7 @@
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.3.5",
     "d3": "^3.5.6",
+    "deep-get-set": "^0.1.1",
     "errorhandler": "^1.3.6",
     "express": "^4.12.4",
     "express-session": "^1.11.3",
