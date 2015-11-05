@@ -8,14 +8,14 @@ things we buy, sell, and consume every day.
 ### usage
 
 `make build server` will install depedencies, compile source, and start a web
-server. declaring `DEBUG=*` will enable sourcemaps for `build` and server
-logging and client side perf for `server`.
+server.
 
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
-expected configuration variables. `DEBUG` to run in debug mode. `PORT` to run
-web server in a port other than `3000`. see `config/` directory and
+expected configuration variables. `DEBUG` to run (server and client logs) and
+build (source maps) in debug mode. `PORT` to run web server in a port other
+than `3000`. see `config/` directory and
 [auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku).
 for additional configuration options (linkedin, firebase, etc.)
 
