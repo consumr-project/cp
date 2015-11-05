@@ -18,24 +18,16 @@ expected configuration variables:
 
 - `debug` (default: `false`)
 - `embedly.api_key`
-- `firebase.secret`
 - `firebase.url` (in: `config/firebase.yml`)
-- `linkedin.client_id`
-- `linkedin.client_secret`
 - `port` (default: `3000`)
-- `session.cookie` (in: `config/session.yml`)
-- `session.domain` (in: `config/session.yml`)
 
 ### deploying to heroku
 
-the following enviroment variables are needed to run the web client:
+the following enviroment variables are needed to run:
 
 ```bash
 heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
-heroku config:set LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
-heroku config:set FIREBASE_SECRET=$(echo $FIREBASE_SECRET)
 heroku config:set EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
-heroku config:set SESSION_DOMAIN=$(heroku apps:info -s | grep web-url | sed 's/web-url=//')
 ```
 
 build and run application in debug mode:
