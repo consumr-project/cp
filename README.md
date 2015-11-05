@@ -14,17 +14,15 @@ logging and client side perf for `server`.
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
-expected configuration variables:
-
-- `debug` (default: `false`)
-- `embedly.api_key`
-- `firebase.url` (in: `config/firebase.yml`)
-- `port` (default: `3000`)
+expected configuration variables. `DEBUG` to run in debug mode. `PORT` to run
+web server in a port other than `3000`. see `config/` directory and
+[auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku).
+for additional configuration options (linkedin, firebase, etc.)
 
 ### deploying to heroku
 
-first, push the configuration required by the
-[auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku)
+first, update required configuration items and push them to heroku. finally,
+deploy to heroku by running `make deploy-heroku` or `git push heroku origin`
 
 to build and run application in debug mode:
 
@@ -32,8 +30,6 @@ to build and run application in debug mode:
 heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 ```
-
-finally, push to heroku (`make deploy-heroku` or `git push heroku origin`)
 
 ### thanks
 
