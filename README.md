@@ -23,13 +23,10 @@ expected configuration variables:
 
 ### deploying to heroku
 
-the following enviroment variables are needed to run:
+first, push the configuration required by the
+[auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku)
 
-```bash
-heroku config:set EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
-```
-
-build and run application in debug mode:
+to build and run application in debug mode:
 
 ```
 heroku config:set NPM_CONFIG_PRODUCTION=false
