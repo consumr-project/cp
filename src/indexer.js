@@ -10,13 +10,14 @@ var debug = require('debug'),
     error = debug('indexer:error');
 
 /**
+ * @param {String} action
  * @param {String} type of index
  * @param {String} key of document
  * @return {Function}
  */
-function logIndexed(type, key) {
+function logIndexed(action, type, key) {
     return function () {
-        log('indexed %s/%s/%s', INDEX, type, key);
+        log('%s %s/%s/%s', action, INDEX, type, key);
     };
 }
 
@@ -47,7 +48,7 @@ function indexUpsert(elasticsearch, type, fields) {
         });
 
         elasticsearch.index(INDEX, type, data, key)
-            .on('data', logIndexed(type, key))
+            .on('data', logIndexed('indexed', type, key))
             .on('error', logErrored(type, key))
             .exec();
 
@@ -63,8 +64,13 @@ function indexUpsert(elasticsearch, type, fields) {
 function indexRemove(elasticsearch, type) {
     return function (ref) {
         var key = ref.key();
+
+        elasticsearch.deleteDocument(INDEX, type, key)
+            .on('data', logIndexed('deleted', type, key))
+            .on('error', logErrored(type, key))
+            .exec();
+
         log('remove %s/%s/%s', INDEX, type, key);
-        error('indexRemove function has not been implemented');
     };
 }
 
