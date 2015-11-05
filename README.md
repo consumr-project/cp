@@ -24,7 +24,7 @@ for additional configuration options (linkedin, firebase, embedly, etc.)
 first, update required configuration items and push them to heroku. finally,
 deploy to heroku by running `make deploy-heroku` or `git push heroku origin`
 
-```base
+```bash
 heroku config:set EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
 ```
 
