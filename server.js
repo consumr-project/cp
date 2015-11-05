@@ -40,8 +40,8 @@ app.use(body_parser.json());
 app.use(cookie_parser(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
-require('./app/auth/main')(app);
-require('./app/auth/linkedin')(app, config, fb);
+require('./node_modules/auth-service/src/main')(app);
+require('./node_modules/auth-service/src/linkedin')(app, config, fb);
 
 app.get('*', function (req, res) {
     res.render('base/index', {

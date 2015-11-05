@@ -66,7 +66,7 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(build_vendor_js)
+	$(js_min) node_modules/auth-service/node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 
 install:
