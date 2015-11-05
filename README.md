@@ -26,7 +26,6 @@ expected configuration variables:
 the following enviroment variables are needed to run:
 
 ```bash
-heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
 heroku config:set EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
 ```
 
