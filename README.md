@@ -5,6 +5,9 @@ things we buy, sell, and consume every day.
 
 ### usage
 
+this service is meant to be imported into the
+[web-client](https://github.com/consumr-project/web-client)
+
 ```js
 /**
  * app: express
