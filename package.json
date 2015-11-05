@@ -1,0 +1,27 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/consumr-project/auth-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/consumr-project/auth-service/issues"
+  },
+  "homepage": "https://github.com/consumr-project/auth-service",
+  "dependencies": {
+    "deep-get-set": "^0.1.1",
+    "firebase-passport-login": "rigidflame/firebase-passport-login#e6afd6b6e8a16c609dde804f1cf8dbe90b599a39",
+    "firebase-token-generator": "^2.0.0",
+    "md5": "^2.0.0",
+    "passport": "^0.3.0",
+    "passport-linkedin": "^0.1.3"
+  }
+}
