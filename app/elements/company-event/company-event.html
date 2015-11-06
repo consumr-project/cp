@@ -2,13 +2,13 @@
     <h2 i18n="company/add_event"></h2>
 
     <label i18n="company/field_url"></label>
-    <input type="text" ng-model="source1" autofocus="true" />
+    <input type="text" ng-model="ev.sources[0]" autofocus="true" />
     <label i18n="company/field_name"></label>
-    <input type="text" />
+    <input type="text" ng-model="ev.title" />
     <label i18n="company/field_date"></label>
-    <input type="date" />
+    <input type="date" ng-model="ev.$date" />
     <label i18n="company/field_quote"></label>
-    <textarea></textarea>
+    <textarea>{{ev.description}}</textarea>
 
     <button class="right margin-top-small" i18n="admin/save"></button>
 

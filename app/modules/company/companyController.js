@@ -17,9 +17,9 @@ angular.module('tcp').controller('companyController', [
         $scope.existing = !!$routeParams.guid;
 
         $scope.addEvent = {};
-        // setTimeout(function () {
-        // $scope.addEvent.show();
-        // }, 100);
+        setTimeout(function () {
+        $scope.addEvent.show();
+        }, 100);
 
         function normalizeCompany() {
             if (!$scope.company) {
