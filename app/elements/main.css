@@ -118,7 +118,8 @@ table.table--bordered td {
 
 .company__event textarea {
     height: 150px;
-    width: 500px;
+    max-width: var(--content-medium-width);
+    width: 70vw;
 }
 
 @media print {

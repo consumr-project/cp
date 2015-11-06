@@ -1,0 +1,6 @@
+# add event popup
+add_event: Add event
+field_url: url
+field_name: name
+field_date: date
+field_quote: quote
