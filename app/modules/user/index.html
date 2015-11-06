@@ -1,22 +1,9 @@
 <div class="site-content" ng-if="user.guid" class="animated fadeIn">
-
-    <br>
-    <br>
-
-    <center>
+    <center class="margin-top-large">
         <avatar class="avatar--block" title="{{::user.shortSummary}}" name="{{::user.fullName}}" image="{{::user.avatarUrl}}"></avatar>
 
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <button ng-click="user.followersCount=user.followersCount+1" i18n="admin/follow"></button>
-
-        <br>
-        <br>
-        <br>
-        <br>
+        <button ng-click="user.followersCount=user.followersCount+1"
+          class="margin-top-xlarge margin-bottom-xlarge" i18n="admin/follow"></button>
 
         <table class="table--content center-align">
             <tr>
