@@ -2,10 +2,14 @@
     background-color: white;
     border-radius: 2px;
     border: 1px solid var(--color-std-border-color);
-    box-shadow: 0 0 5px 3px var(--color-std-shadow-color);
     display: inline-block;
     font-size: var(--font-size-small);
+    transition: opacity .3s;
     z-index: 10;
+}
+
+.popover:not(.popover--with-backdrop) {
+    box-shadow: 0 0 5px 3px var(--color-std-shadow-color);
 }
 
 .popover__item {
@@ -32,8 +36,26 @@
     height: 100%;
     position: fixed;
     top: 0;
-    transition: opacity .3s;
     width: 100%;
+}
+
+.popover__backdrop {
+    background: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transition: opacity .3s;
+    width: 100vw;
+    z-index: 1;
+}
+
+.popover--with-content {
+    left: 50%;
+    padding: 10px 25px 25px 25px;
+    position: fixed;
+    top: 10vh;
+    transform: translateX(-50%);
 }
 
 popover-separator {

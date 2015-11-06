@@ -1,27 +1,19 @@
-input:not([type]),
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="email"],
-input[type="time"],
-input[type="datetime"] {
+textarea,
+input:not([type="checkbox"]),
+input:not([type="radio"]) {
+    border: 1px solid var(--color-std-border-color);
     cursor: text;
     font-size: var(--font-size-normal);
     padding: 3px 7px;
-    border: 1px solid var(--color-std-border-color);
     text-align: left;
     outline: 0;
     transition: padding .1s;
     word-break: normal;
 }
 
-input:not([type]):focus,
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-input[type="email"]:focus,
-input[type="time"]:focus,
-input[type="datetime"]:focus {
+textarea:focus,
+input:not([type="checkbox"]):focus,
+input:not([type="radio"]):focus {
     padding-left: 14px;
 }
 
@@ -40,4 +32,23 @@ input.search:focus {
     border-radius: 100px;
     padding-left: var(--computed-button-height);
     width: 100%;
+}
+
+form label {
+    text-transform: uppercase;
+}
+
+.form--listed label {
+    display: block;
+    font-size: var(--font-size-small);
+    padding: 5px 0;
+}
+
+.form--listed label:not(:first-child) {
+    margin-top: var(--spacing-xsmall);
+}
+
+.form--listed input,
+.form--listed textarea {
+    min-width: 100%;
 }

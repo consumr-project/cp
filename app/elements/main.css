@@ -116,6 +116,11 @@ table.table--bordered td {
     text-decoration: underline;
 }
 
+.company__event textarea {
+    height: 150px;
+    width: 500px;
+}
+
 @media print {
     header {
         display: none;
