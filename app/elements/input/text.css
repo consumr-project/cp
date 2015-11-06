@@ -34,6 +34,12 @@ input.search:focus {
     width: 100%;
 }
 
+form h1,
+form h2,
+form h3,
+form h4,
+form h5,
+form h6,
 form label {
     text-transform: uppercase;
 }
