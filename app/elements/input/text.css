@@ -59,6 +59,10 @@ form label {
     text-transform: uppercase;
 }
 
+form h2 {
+    margin-bottom: var(--spacing-medium);
+}
+
 .form--listed label {
     display: block;
     font-size: var(--font-size-small);
