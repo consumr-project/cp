@@ -13,6 +13,25 @@ angular.module('tcp').directive('i18n', [
             return isFinite(date) ? +date : date;
         }
 
+        /**
+         * jQuery.prop/text helper
+         * @param {jQuery} elem
+         * @param {String} prop
+         * @param {String} value
+         */
+        function setProp(elem, prop, value) {
+            switch (prop) {
+                case 'text':
+                case 'innerText':
+                    elem.text(value);
+                    break;
+
+                default:
+                    elem.prop(prop, value);
+                    break;
+            }
+        }
+
         return {
             link: function (scope, elem, attrs) {
                 var format = attrs.format || CONFIG.locate.dateFormat,
@@ -21,11 +40,10 @@ angular.module('tcp').directive('i18n', [
                     data = attrs.data,
                     date = attrs.date;
 
-                if (key) {
-                    elem.prop(prop, i18n.get(key, scope.$eval(data)));
-                } else if (date) {
-                    elem.prop(prop, moment(getDate(date)).format(format));
-                }
+                setProp(elem, prop, key ?
+                    i18n.get(key, scope.$eval(data)) :
+                    moment(getDate(date)).format(format)
+                );
             }
         };
     }
