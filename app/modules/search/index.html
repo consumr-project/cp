@@ -9,7 +9,9 @@
                 class="margin-bottom-large"></h4>
 
             <div ng-repeat="query in searches"
-                class="margin-bottom-xsmall animated fadeInUp animation-delay-{{$index}}">
+                class="margin-bottom-xsmall animated fadeInUp"
+                style="animation-delay: .{{$index}}s"
+            >
                 <a ng-click="search(query)">{{query}}</a>
             </div>
         </center>
