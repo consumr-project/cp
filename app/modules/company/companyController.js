@@ -18,7 +18,7 @@ angular.module('tcp').controller('companyController', [
 
         $scope.addEvent = {};
         setTimeout(function () {
-        $scope.addEvent.show();
+        if ($scope.addEvent.show) $scope.addEvent.show();
         }, 100);
 
         function normalizeCompany() {
