@@ -8,7 +8,8 @@
             <h4 ng-if="searches.length" i18n="common/recent_searches"
                 class="margin-bottom-large"></h4>
 
-            <div ng-repeat="query in searches" class="margin-bottom-xsmall">
+            <div ng-repeat="query in searches"
+                class="margin-bottom-xsmall animated fadeInUp animation-delay-{{$index}}">
                 <a ng-click="search(query)">{{query}}</a>
             </div>
         </center>
