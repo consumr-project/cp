@@ -15,11 +15,7 @@ angular.module('tcp').controller('companyController', [
         $scope.company = {};
         $scope.error = null;
         $scope.existing = !!$routeParams.guid;
-
-        $scope.addEvent = {};
-        setTimeout(function () {
-        if ($scope.addEvent.show) $scope.addEvent.show();
-        }, 100);
+        $scope.vm = { add_event: {} };
 
         function normalizeCompany() {
             if (!$scope.company) {
@@ -39,17 +35,11 @@ angular.module('tcp').controller('companyController', [
                 return;
             }
 
-            // XXX error state
-            // XXX loading state
-            wikipedia.image(name).then(function (image) {
-                $scope.company.image = image;
-                normalizeCompany();
-                $scope.$apply();
-            });
+            $scope.vm.fetchingCompanySummary = true;
 
             // XXX error state
-            // XXX loading state
             wikipedia.extract(name).then(function (extract) {
+                $scope.vm.fetchingCompanySummary = false;
                 $scope.company.summary = extract.extract_no_refs;
                 normalizeCompany();
                 $scope.$apply();

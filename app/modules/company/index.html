@@ -1,9 +1,10 @@
 <div class="site-content" ng-init="companyPage()">
-    <h1 ng-if="existing">{{company.name}}</h1>
+    <h1 class="take-space" ng-if="existing">{{company.name}}</h1>
 
     <section ng-if="!existing">
         <input class="block" type="text" autofocus="true"
             i18n="company/name_placeholder" prop="placeholder"
+            ng-class="{ loading: vm.fetchingCompanySummary }"
             ng-model="company.name" ng-model-options="{ debounce: 300 }" />
 
         <section ng-if="error" class="margin-top-small">
@@ -11,13 +12,19 @@
         </section>
 
         <div class="right-align margin-top-small margin-bottom-medium">
-            <button ng-click="save()">Save</button>
+            <button ng-click="save()" i18n="admin/save"></button>
         </div>
     </section>
 
-    <popover popover-backdrop popover-api="addEvent" class="popover--with-content">
-        <company-event></company-event>
-    </popover>
+    <section ng-if="existing">
+        <div class="right-align margin-top-small margin-bottom-medium">
+            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>
+        </div>
+
+        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">
+            <company-event on-cancel="vm.add_event.hide()"></company-event>
+        </popover>
+    </section>
 
     <p ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
 </div>

@@ -22,6 +22,27 @@ angular.module('tcp').directive('popover', [function () {
         'transitionend'
     ].join(' ');
 
+    /**
+     * @param {Object} obj
+     * @param {String} property path
+     * @param {*} [val]
+     * @return {*}
+     */
+    function deep(obj, prop, val) {
+        var parts = prop.split('.'),
+            ref = obj;
+
+        for (var i = 0, len = parts.length; i < len; i++) {
+            if (!(parts[i] in ref)) {
+                return;
+            }
+
+            ref = ref[parts[i]];
+        }
+
+        return val === undefined ? ref : ref = val;
+    }
+
     return {
         replace: true,
         transclude: true,
@@ -39,7 +60,7 @@ angular.module('tcp').directive('popover', [function () {
             }
 
             if (attrs.popoverApi) {
-                api = scope[attrs.popoverApi] = scope[attrs.popoverApi] || {};
+                api = deep(scope, attrs.popoverApi, deep(scope, attrs.popoverApi) || {});
                 api.hide = apiHide;
                 api.show = apiShow;
             }

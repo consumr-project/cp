@@ -5,6 +5,7 @@ signInWithService: Sign in with {service}
 signInWithEmail: Enter your email address to sign in or create an account
 
 # actions
+cancel: Cancel
 save: Save
 logout: Logout
 follow: Follow

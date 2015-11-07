@@ -6,10 +6,11 @@ angular.module('tcp').directive('companyEvent', [
         return {
             replace: true,
             templateUrl: '/app/elements/company-event/company-event.html',
+            scope: {
+                onCancel: '&'
+            },
             controller: ['$scope', function ($scope) {
-                $scope.vm = {
-                    loading: false
-                };
+                $scope.vm = {};
 
                 $scope.ev = {
                     title: '',
@@ -27,7 +28,10 @@ angular.module('tcp').directive('companyEvent', [
                         return;
                     }
 
+                    $scope.vm.fetchingArticle = true;
+
                     extract.fetch(source).then(function (content) {
+                        $scope.vm.fetchingArticle = false;
                         $scope.ev.title = content.title;
                         $scope.ev.description = content.description;
                         $scope.ev.date = content.published;
