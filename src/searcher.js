@@ -1,7 +1,5 @@
 'use strict'
 
-var BASE = 'search';
-
 var config = require('acm');
 
 var debug = require('debug'),
@@ -72,7 +70,7 @@ function runSearch(elasticsearch, firebase) {
  * @return {Firebase}
  */
 module.exports = function (elasticsearch, firebase) {
-    var ref = firebase.child(BASE);
+    var ref = firebase.child(config('firebase.search_collection'));
     ref.on('child_added', runSearch(elasticsearch, ref));
     return ref;
 };
