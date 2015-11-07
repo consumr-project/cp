@@ -6,6 +6,14 @@
 angular.module('tcp').directive('popover', [function () {
     'use strict';
 
+    var ACTION_SHOW = {
+        opacity: 1
+    };
+
+    var ACTION_HIDE = {
+        opacity: 0
+    };
+
     var TRANSITION_END = [
         'webkitTransitionEnd',
         'otransitionend',
@@ -36,36 +44,54 @@ angular.module('tcp').directive('popover', [function () {
                 api.show = apiShow;
             }
 
+            hide();
+
+            /**
+             * sets initial hidden state
+             */
             function hide() {
                 backdrop.hide();
                 elem.hide();
+                elem.css({ opacity: 0 });
+            }
+
+            /**
+             * starts to hide an element
+             * @param {jQuery} elem
+             */
+            function elemHide(elem) {
+                elem.css(ACTION_HIDE)
+                    .one(TRANSITION_END, hide);
+            }
+
+            /**
+             * starts to show an element
+             * @param {jQuery} elem
+             */
+            function elemShow(elem, delay) {
+                elem.off(TRANSITION_END, hide)
+                    .show();
+
+                setTimeout(function () {
+                    elem.off(TRANSITION_END, hide)
+                        .css(ACTION_SHOW);
+                }, delay);
             }
 
             function apiHide() {
-                backdrop.css({ opacity: 0 })
-                    .one(TRANSITION_END, hide);
-
-                elem.css({ opacity: 0 })
-                    .one(TRANSITION_END, hide);
-
+                elemHide(backdrop);
+                elemHide(elem);
                 return api;
             }
 
             function apiShow() {
                 scope.$eval(attrs.ngInit);
 
-                backdrop.show()
-                    .off(TRANSITION_END, hide)
-                    .css({ opacity: 1 });
-
-                elem.show()
-                    .off(TRANSITION_END, hide)
-                    .css({ opacity: 1 });
+                elemShow(backdrop, 10);
+                elemShow(elem, 70);
 
                 return api;
             }
-
-            hide();
         }
     };
 }]);
