@@ -1,3 +1,5 @@
+/* globals $ */
+
 /**
  * @attribute {Object} popoverApi reference to populate with show/hide api
  *
@@ -102,15 +104,15 @@ angular.module('tcp').directive('popover', [function () {
             function apiHide() {
                 elemHide(backdrop);
                 elemHide(elem);
+                $('body').css({overflowY: 'initial'});
                 return api;
             }
 
             function apiShow() {
                 scope.$eval(attrs.ngInit);
-
                 elemShow(backdrop, 10);
                 elemShow(elem, 70);
-
+                $('body').css({overflowY: 'hidden'});
                 return api;
             }
         }
