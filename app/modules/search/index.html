@@ -10,9 +10,9 @@
 
             <div ng-repeat="query in searches"
                 class="margin-bottom-xsmall animated fadeInUp"
-                style="animation-delay: .{{$index}}s"
+                style="animation-delay: .{{::$index}}s"
             >
-                <a ng-click="search(query)">{{query}}</a>
+                <a ng-click="search(query)">{{::query}}</a>
             </div>
         </center>
     </section>

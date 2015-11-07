@@ -11,6 +11,13 @@ input:not([type="radio"]) {
     word-break: normal;
 }
 
+input:not([type="checkbox"]),
+input:not([type="radio"]) {
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+}
+
 textarea:focus,
 input:not([type="checkbox"]):focus,
 input:not([type="radio"]):focus {
@@ -29,6 +36,7 @@ input.search:focus {
 
 input.search,
 input.search:focus {
+    border-color: var(--color-std-border-color);
     border-radius: 100px;
     padding-left: var(--computed-button-height);
     width: 100%;

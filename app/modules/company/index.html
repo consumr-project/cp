@@ -3,6 +3,7 @@
 
     <section ng-if="!existing">
         <input class="block" type="text" autofocus="true"
+            i18n="company/name_placeholder" prop="placeholder"
             ng-model="company.name" ng-model-options="{ debounce: 300 }" />
 
         <section ng-if="error" class="margin-top-small">

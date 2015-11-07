@@ -17,13 +17,14 @@ angular.module('tcp').directive('i18n', [
             link: function (scope, elem, attrs) {
                 var format = attrs.format || CONFIG.locate.dateFormat,
                     key = attrs.i18n || attrs.str,
+                    prop = attrs.prop || 'innerText',
                     data = attrs.data,
                     date = attrs.date;
 
                 if (key) {
-                    elem.text(i18n.get(key, scope.$eval(data)));
+                    elem.prop(prop, i18n.get(key, scope.$eval(data)));
                 } else if (date) {
-                    elem.text(moment(getDate(date)).format(format));
+                    elem.prop(prop, moment(getDate(date)).format(format));
                 }
             }
         };
