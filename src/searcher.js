@@ -6,6 +6,8 @@ var debug = require('debug'),
     log = debug('searcher'),
     error = debug('searcher:error');
 
+var query_ttl = config('firebase.query_ttl');
+
 /**
  * @param {String} str
  * @return {Object}
@@ -61,6 +63,9 @@ function runSearch(elasticsearch, firebase) {
             type: val.type,
             body: query(val.query)
         }).then(updateReference(firebase, key), logErrored(val, key));
+
+        log('cleaning up in %sms', query_ttl);
+        setTimeout(ref.ref().remove.bind(ref.ref()), query_ttl);
     };
 }
 
