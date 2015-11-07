@@ -47,10 +47,12 @@ function indexUpsert(elasticsearch, type, fields) {
             return contains(fields, key);
         });
 
-        elasticsearch.index(INDEX, type, data, key)
-            .on('data', logIndexed('indexed', type, key))
-            .on('error', logErrored(type, key))
-            .exec();
+        elasticsearch.index({
+            index: INDEX,
+            type: type,
+            id: key,
+            body: data
+        }).then(logIndexed('indexed', type, key), logErrored(type, key));
 
         log('upsert %s/%s/%s', INDEX, type, key);
     };
@@ -65,10 +67,11 @@ function indexRemove(elasticsearch, type) {
     return function (ref) {
         var key = ref.key();
 
-        elasticsearch.deleteDocument(INDEX, type, key)
-            .on('data', logIndexed('deleted', type, key))
-            .on('error', logErrored(type, key))
-            .exec();
+        elasticsearch.delete({
+            index: INDEX,
+            type: type,
+            id: key
+        }).then(logIndexed('deleted', type, key), logErrored(type, key));
 
         log('remove %s/%s/%s', INDEX, type, key);
     };

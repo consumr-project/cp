@@ -16,7 +16,7 @@ function query(str) {
     return {
         query: {
             fuzzy_like_this: {
-                fuzziness: config('elasticsearch.query.fuzziness'),
+                fuzziness: config('elasticsearch.fuzziness'),
                 like_text: str
             }
         }
@@ -31,7 +31,7 @@ function query(str) {
 function updateReference(ref, key) {
     return function (value) {
         log('responding to %s', key);
-        ref.child(key).set(value);
+        ref.child(key).set(JSON.stringify(value));
     };
 }
 
@@ -58,10 +58,11 @@ function runSearch(elasticsearch, firebase) {
             key = ref.key();
 
         log('querying %s', key);
-        elasticsearch.search(val.index, val.type, query(val.query))
-            .on('data', updateReference(firebase, key))
-            .on('error', logErrored(val, key))
-            .exec();
+        elasticsearch.search({
+            index: val.index,
+            type: val.type,
+            body: query(val.query)
+        }).then(updateReference(firebase, key), logErrored(val, key));
     };
 }
 

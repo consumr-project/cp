@@ -11,7 +11,7 @@
   "dependencies": {
     "acm": "^2.0.1",
     "debug": "^2.2.0",
-    "elasticsearchclient": "^0.5.3",
+    "elasticsearch": "^9.0.0",
     "firebase": "^2.3.1",
     "lodash": "^3.10.1"
   }
