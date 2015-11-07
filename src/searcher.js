@@ -37,12 +37,13 @@ function updateReference(ref, key) {
 
 /**
  * @param {Object} search
- * @parma {String} key
+ * @param {String} key
+ * @return {Function(Error)}
  */
 function logErrored(search, key) {
-    return function () {
-        error('errored on %s {index: %s, type: %s, query: %s}',
-            key, search.index, search.type, search.query);
+    return function (err) {
+        error('errored on %s {index: %s, type: %s, query: %s}: [%s]',
+            key, search.index, search.type, search.query, err);
     };
 }
 

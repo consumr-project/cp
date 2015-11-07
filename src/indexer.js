@@ -24,11 +24,11 @@ function logIndexed(action, type, key) {
 /**
  * @param {String} type of index
  * @param {String} key of document
- * @return {Function}
+ * @return {Function(Error)}
  */
 function logErrored(type, key) {
-    return function () {
-        error('error %s/%s/%s', INDEX, type, key);
+    return function (err) {
+        error('error %s/%s/%s: [%s]', INDEX, type, key, err);
     };
 }
 
