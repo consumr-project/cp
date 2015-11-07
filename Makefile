@@ -1,5 +1,7 @@
 es_version = 1.7.3
 
+run: install service
+
 clean:
 	-rm -r node_modules
 	-rm -r build
@@ -19,4 +21,5 @@ es:
         unzip build/elasticsearch-$(es_version).zip -d build/elasticsearch-$(es_version); fi
 	build/elasticsearch-$(es_version)/elasticsearch-$(es_version)/bin/elasticsearch
 
-run: install service
+deploy-heroku:
+	git push heroku master
