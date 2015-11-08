@@ -26,6 +26,10 @@ avatar.avatar--block {
     background-image: url("/app/elements/avatar/avatar.svg");
 }
 
+.avatar__summary {
+    display: none;
+}
+
 .avatar__image,
 .avatar__name,
 .avatar__title {
@@ -40,14 +44,15 @@ avatar.avatar--block .avatar__image {
 }
 
 avatar.avatar--block .avatar__name,
-avatar.avatar--block .avatar__title {
+avatar.avatar--block .avatar__title,
+avatar.avatar--block .avatar__summary {
     margin: 15px 0 0 0;
     white-space: pre-wrap;
 }
 
 avatar.avatar--block .avatar__image,
 avatar.avatar--block .avatar__name,
-avatar.avatar--block .avatar__title {
+avatar.avatar--block .avatar__summary {
     margin-top: 30px;
     display: block;
 }
@@ -57,7 +62,8 @@ avatar.avatar--block .avatar__name {
     line-height: var(--font-height-h1);
 }
 
-avatar.avatar--block .avatar__title {
+avatar.avatar--block .avatar__summary {
+    display: block;
     text-align: left;
 }
 

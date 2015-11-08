@@ -1,6 +1,8 @@
 <div class="site-content" ng-if="user.guid" class="animated fadeIn">
     <center class="margin-top-large">
-        <avatar class="avatar--block" title="{{::user.shortSummary}}" name="{{::user.fullName}}" image="{{::user.avatarUrl}}"></avatar>
+        <avatar class="avatar--block" summary="{{::user.shortSummary}}"
+          title="{{::user.title}}" name="{{::user.fullName}}"
+          image="{{::user.avatarUrl}}"></avatar>
 
         <button ng-click="user.followersCount=user.followersCount+1"
           class="margin-top-xlarge margin-bottom-xlarge" i18n="admin/follow"></button>

@@ -23,8 +23,14 @@ angular.module('tcp').directive('avatar', function () {
 
             if (attrs.title) {
                 title.push(attrs.title);
-                angular.element('<div class="avatar__title copy"></div>')
+                angular.element('<div class="avatar__title"></div>')
                     .text(attrs.title)
+                    .appendTo(elem);
+            }
+
+            if (attrs.summary) {
+                angular.element('<div class="avatar__summary copy"></div>')
+                    .text(attrs.summary)
                     .appendTo(elem);
             }
 
