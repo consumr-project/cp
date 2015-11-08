@@ -95,7 +95,7 @@ angular.module('tcp').controller('companyController', [
                 $scope.company.guid = utils.simplify($scope.company.name);
             }
 
-            companies.put($scope.company, ['name', 'summary', 'image', 'guid'])
+            companies.put($scope.company, ['name', 'summary', 'guid'])
                 .then(saveSuccessHandler)
                 .catch(saveErrorHandler);
         };
