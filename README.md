@@ -3,7 +3,7 @@
 A crowd sourced platform to help us all learn a little bit more about the
 things we buy, sell, and consume every day.
 
-[![Build Status](https://travis-ci.org/minond/the-consumer-project.svg)](https://travis-ci.org/minond/the-consumer-project)
+[![Build Status](https://travis-ci.org/consumr-project/web-client.svg)](https://travis-ci.org/consumr-project/web-client)
 
 ### usage
 
