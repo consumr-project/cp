@@ -3,6 +3,27 @@ angular.module('tcp').directive('companyEvent', [
     function (extract) {
         'use strict';
 
+        /**
+         * @param {Object} ref
+         * @param {Object} data
+         */
+        function populateEvent(ref, data) {
+            ref.title = data.title;
+            ref.description = data.description;
+            ref.date = data.published;
+            ref.$date = new Date(data.published);
+        }
+
+        /**
+         * @param {Object} ref
+         */
+        function clearEvent(ref) {
+            delete ref.title;
+            delete ref.description;
+            delete ref.date;
+            delete ref.$date;
+        }
+
         return {
             replace: true,
             templateUrl: '/app/elements/company-event/company-event.html',
@@ -29,13 +50,11 @@ angular.module('tcp').directive('companyEvent', [
                     }
 
                     $scope.vm.fetchingArticle = true;
+                    clearEvent($scope.ev);
 
                     extract.fetch(source).then(function (content) {
                         $scope.vm.fetchingArticle = false;
-                        $scope.ev.title = content.title;
-                        $scope.ev.description = content.description;
-                        $scope.ev.date = content.published;
-                        $scope.ev.$date = new Date(content.published);
+                        populateEvent($scope.ev, content);
                         $scope.$apply();
                     });
                 });
