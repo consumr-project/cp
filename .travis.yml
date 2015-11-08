@@ -8,4 +8,4 @@ before_script:
   - make install
 
 script:
-  - make build
+  - make build test

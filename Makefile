@@ -1,15 +1,17 @@
-.PHONY: build install run
+.PHONY: build install run test
 
 build_dir = build
 build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
 typings_dir = typings
+test_dir = test
 
 npm = npm
 tsd = ./node_modules/.bin/tsd
 tsc = ./node_modules/.bin/tsc
 browserify = ./node_modules/.bin/browserify
+mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
@@ -34,6 +36,9 @@ ifdef DEBUG
 endif
 
 run: clean build server
+
+test:
+	$(mocha) test/**/*.js
 
 build: clean build-css build-js build-ts build-strings build-bundle
 
