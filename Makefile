@@ -19,6 +19,9 @@ ts_options =
 css_options =
 build_vars =
 
+vendor_local_fb_passport = node_modules/firebase-passport-login/client/firebase-passport-login.js
+vendor_external_fb_passport = node_modules/auth-service/node_modules/firebase-passport-login/client/firebase-passport-login.js
+
 global_config_varname = TCP_BUILD_CONFIG
 i18n_varname = i18n
 i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
@@ -66,7 +69,9 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/firebase-passport-login/client/firebase-passport-login.js >> $(build_vendor_js)
+	if [ -f $(vendor_external_fb_passport) ]; \
+		then $(js_min) $(vendor_external_fb_passport) >> $(build_vendor_js); \
+		else $(js_min) $(vendor_local_fb_passport) >> $(build_vendor_js); fi
 	$(js_sep) >> $(build_vendor_js)
 
 install:
