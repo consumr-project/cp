@@ -43,7 +43,7 @@ angular.module('tcp').directive('companyEvent', [
          */
         function getKeyword(source) {
             return source in keywords_cache.memory ?
-                keywords_cache.memory[source].val : undefine;
+                keywords_cache.memory[source].val : undefined;
         }
 
         /**
