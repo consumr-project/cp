@@ -19,7 +19,7 @@ angular.module('tcp').controller('companyController', [
 
         // XXX
         setTimeout(function () {
-          if ($scope.vm.add_event) { $scope.vm.add_event.show(); }
+          if ($scope.vm.add_event.show) { $scope.vm.add_event.show(); }
         }, 100);
 
         function normalizeCompany() {
