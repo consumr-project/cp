@@ -18,10 +18,12 @@
     </section>
 
     <section class="margin-top-medium" ng-if="ev.keywords.length">
-        <label i18n="company/section_keywords"
-            data="{ count: ev.keywords.length }"></label>
+        <label>
+            <span i18n="company/section_keywords"></span>
+            <span>({{ev.keywords.length}})</span>
+        </label>
         <tags class="keywords">
-            <tag ng-repeat="keyword in ev.keywords" label="{{keyword}}"
+            <tag ng-repeat="keyword in ev.keywords" label="{{::keyword}}"
                 class="keyword animated fadeIn"></tag>
         </tags>
     </section>

@@ -64,10 +64,14 @@ form h2 {
 }
 
 .form--listed label {
-    color: var(--color-std-text-color);
     display: block;
-    font-size: var(--font-size-small);
     padding: 5px 0;
+}
+
+.form--listed label,
+.form--listed label * {
+    color: var(--color-std-text-color);
+    font-size: var(--font-size-small);
 }
 
 .form--listed label:not(:first-child) {
