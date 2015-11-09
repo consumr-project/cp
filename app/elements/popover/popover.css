@@ -53,6 +53,7 @@
 .popover--with-content {
     left: 50%;
     max-height: 80vh;
+    width: var(--content-max-width);
     overflow-y: scroll;
     padding: 10px 25px 25px 25px;
     position: fixed;
@@ -66,7 +67,7 @@ popover-separator {
     margin: 5px 0;
 }
 
-@media (max-width:600px) {
+@media (--media-content-max-width) {
     .popover--with-content {
         height: 100vh;
         max-height: none;

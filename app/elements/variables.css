@@ -50,3 +50,6 @@
     --content-medium-width: 500px;
     --computed-button-height: 37px;
 }
+
+@custom-media --media-content-max-width (max-width: 700px);
+@custom-media --media-small-screens (min-width: 600px);
