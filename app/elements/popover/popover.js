@@ -69,6 +69,10 @@ angular.module('tcp').directive('popover', [function () {
 
             hide();
 
+            scope.$on('$destroy', function () {
+              backdrop.remove();
+            });
+
             /**
              * sets initial hidden state
              */
