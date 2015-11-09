@@ -1,27 +1,27 @@
-describe('tag', function () {
+describe('keyword', function () {
     'use strict';
 
     var assert = require('assert');
-    var tag = require('../../../build/app/services/tag');
+    var keyword = require('../../../build/app/services/keyword');
 
     it('extracts strings', function () {
-        assert(tag.get('test') === 'test');
+        assert(keyword.get('test') === 'test');
     });
 
     it('extracts plain objects', function () {
-        assert(tag.get({label: 'test'}, 'label') === 'test');
+        assert(keyword.get({label: 'test'}, 'label') === 'test');
     });
 
     it('extracts "class" objects', function () {
-        assert(tag.get(new function () { this.label = 'test'; }, 'label') === 'test');
+        assert(keyword.get(new function () { this.label = 'test'; }, 'label') === 'test');
     });
 
     it('normalizes strings', function () {
-        assert.deepEqual(tag.normalize(['a', 'b', 'c']), ['a', 'b', 'c']);
+        assert.deepEqual(keyword.normalize(['a', 'b', 'c']), ['a', 'b', 'c']);
     });
 
     it('normalizes objects', function () {
-        assert.deepEqual(tag.normalize([
+        assert.deepEqual(keyword.normalize([
             { label: 'a' },
             { label: 'b' },
             { label: 'c' }
@@ -29,7 +29,7 @@ describe('tag', function () {
     });
 
     it('normalizes strings and objects', function () {
-        assert.deepEqual(tag.normalize([
+        assert.deepEqual(keyword.normalize([
             { label: 'a' },
             'b',
             { label: 'c' }
@@ -37,10 +37,10 @@ describe('tag', function () {
     });
 
     it('sorts in alphabetical order', function () {
-        assert.deepEqual(tag.normalize(['c', 'b', 'a']), ['a', 'b', 'c']);
+        assert.deepEqual(keyword.normalize(['c', 'b', 'a']), ['a', 'b', 'c']);
     });
 
     it('returns lower cased words', function () {
-        assert.deepEqual(tag.normalize(['C', 'B', 'A']), ['a', 'b', 'c']);
+        assert.deepEqual(keyword.normalize(['C', 'B', 'A']), ['a', 'b', 'c']);
     });
 });

@@ -8,7 +8,7 @@ import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
 import * as highlighter from '../../services/highlighter';
-import * as tag from '../../services/tag';
+import * as keyword from '../../services/keyword';
 import logger from '../../services/logger';
 import Search from '../../services/search';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
@@ -54,7 +54,7 @@ module tcp {
         .value('moment', moment)
         .value('search', new Search(store.child('search')))
         .value('store', store)
-        .value('tag', tag)
+        .value('keyword', keyword)
         .value('users', entity.bind('user', store))
         .value('utils', utils)
         .value('wikipedia', wikipedia);
