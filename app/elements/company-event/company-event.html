@@ -11,6 +11,20 @@
     <label i18n="company/field_quote"></label>
     <textarea>{{ev.description}}</textarea>
 
+    <section class="margin-top-medium">
+        <label>additional sources</label>
+        <input ng-repeat="source in _.range(ev.sources.length + 1) track by $index"
+            ng-model="ev.sources[$index]" />
+    </section>
+
+    <section class="margin-top-medium" ng-if="ev.keywords.length">
+        <label>keywords ({{ev.keywords.length}})</label>
+        <tags class="keywords">
+            <tag ng-repeat="keyword in ev.keywords" label="{{keyword}}"
+                class="keyword animated fadeIn"></tag>
+        </tags>
+    </section>
+
     <button class="right margin-top-small" i18n="admin/save"></button>
     <button class="right margin-top-small button--link" ng-click="onCancel()"
         i18n="admin/cancel"></button>

@@ -37,6 +37,15 @@ tags .tags__tags {
     transition: height .3s, opacity .3s;
 }
 
+tags.keywords .tags__tags {
+    max-height: 75px;
+    overflow-y: scroll;
+}
+
+tags.keywords button {
+    display: none;
+}
+
 tags button {
     margin-bottom: 15px;
 }

@@ -39,4 +39,8 @@ describe('tag', function () {
     it('sorts in alphabetical order', function () {
         assert.deepEqual(tag.normalize(['c', 'b', 'a']), ['a', 'b', 'c']);
     });
+
+    it('returns lower cased words', function () {
+        assert.deepEqual(tag.normalize(['C', 'B', 'A']), ['a', 'b', 'c']);
+    });
 });

@@ -2,7 +2,7 @@
 
 'use strict';
 
-import {uniq, map, isString} from 'lodash';
+import {invoke, uniq, map, isString} from 'lodash';
 
 type TagMaybe = { label?: string } | string;
 
@@ -11,5 +11,5 @@ export function get(tag: TagMaybe, label_prop: string): string {
 }
 
 export function normalize(list: TagMaybe[], label_prop: string = 'name'): string[] {
-    return uniq(map(list, tag => get(tag, label_prop))).sort();
+    return invoke(uniq(map(list, tag => get(tag, label_prop))), 'toLowerCase').sort();
 }
