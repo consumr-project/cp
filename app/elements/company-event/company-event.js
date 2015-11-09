@@ -1,6 +1,7 @@
 angular.module('tcp').directive('companyEvent', [
     'extract',
-    function (extract) {
+    'tag',
+    function (extract, tag) {
         'use strict';
 
         /**
@@ -24,41 +25,41 @@ angular.module('tcp').directive('companyEvent', [
             delete ref.$date;
         }
 
+        function controller($scope) {
+            $scope.vm = {};
+
+            $scope.ev = {
+                title: '',
+                sources: [],
+            };
+
+            // XXX
+            setTimeout(function () {
+            $scope.ev.sources.push('http://www.bbc.com/news/world-europe-34742273');
+            $scope.$apply();
+            }, 500);
+
+            $scope.$watch('ev.sources[0]', function (source) {
+                if (!source) {
+                    return;
+                }
+
+                $scope.vm.fetchingArticle = true;
+                clearEvent($scope.ev);
+
+                extract.fetch(source).then(function (content) {
+                    $scope.vm.fetchingArticle = false;
+                    populateEvent($scope.ev, content);
+                    $scope.$apply();
+                });
+            });
+        }
+
         return {
             replace: true,
             templateUrl: '/app/elements/company-event/company-event.html',
-            scope: {
-                onCancel: '&'
-            },
-            controller: ['$scope', function ($scope) {
-                $scope.vm = {};
-
-                $scope.ev = {
-                    title: '',
-                    sources: [],
-                };
-
-                // XXX
-                setTimeout(function () {
-                $scope.ev.sources.push('http://www.bbc.com/news/world-europe-34742273');
-                $scope.$apply();
-                }, 500);
-
-                $scope.$watch('ev.sources[0]', function (source) {
-                    if (!source) {
-                        return;
-                    }
-
-                    $scope.vm.fetchingArticle = true;
-                    clearEvent($scope.ev);
-
-                    extract.fetch(source).then(function (content) {
-                        $scope.vm.fetchingArticle = false;
-                        populateEvent($scope.ev, content);
-                        $scope.$apply();
-                    });
-                });
-            }]
+            scope: { onCancel: '&' },
+            controller: ['$scope', controller]
         };
     }
 ]);
