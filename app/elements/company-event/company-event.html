@@ -12,13 +12,14 @@
     <textarea>{{ev.description}}</textarea>
 
     <section class="margin-top-medium">
-        <label>additional sources</label>
+        <label i18n="company/section_add_sources"></label>
         <input ng-repeat="source in _.range(ev.sources.length + 1) track by $index"
             ng-model="ev.sources[$index]" />
     </section>
 
     <section class="margin-top-medium" ng-if="ev.keywords.length">
-        <label>keywords ({{ev.keywords.length}})</label>
+        <label i18n="company/section_keywords"
+            data="{ count: ev.keywords.length }"></label>
         <tags class="keywords">
             <tag ng-repeat="keyword in ev.keywords" label="{{keyword}}"
                 class="keyword animated fadeIn"></tag>

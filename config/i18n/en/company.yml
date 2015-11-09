@@ -6,3 +6,6 @@ field_url: url
 field_name: name
 field_date: date
 field_quote: quote
+
+section_keywords: keywords ({count})
+section_add_sources: additional sources
