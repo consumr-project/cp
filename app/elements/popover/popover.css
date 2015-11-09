@@ -65,3 +65,12 @@ popover-separator {
     display: block;
     margin: 5px 0;
 }
+
+@media (max-width:600px) {
+    .popover--with-content {
+        height: 100vh;
+        max-height: none;
+        top: 0px;
+        width: 100vw;
+    }
+}
