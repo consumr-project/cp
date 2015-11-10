@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var firebase, elasticsearch;
 
 var Firebase = require('firebase');

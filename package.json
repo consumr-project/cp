@@ -13,6 +13,7 @@
     "debug": "^2.2.0",
     "elasticsearch": "^9.0.0",
     "firebase": "^2.3.1",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "newrelic": "^1.23.1"
   }
 }
