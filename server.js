@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var app, config, fb;
 
 var Firebase = require('firebase');
