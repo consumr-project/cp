@@ -1,0 +1,26 @@
+{
+  "name": "extract-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/consumr-project/extract-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/consumr-project/extract-service/issues"
+  },
+  "homepage": "https://github.com/consumr-project/extract-service",
+  "devDependencies": {
+    "express": "^4.13.3"
+  },
+  "dependencies": {
+    "acm": "^2.0.1",
+    "request": "^2.65.0"
+  }
+}
