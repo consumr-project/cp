@@ -1,4 +1,4 @@
-angular.module('tcp').controller('companyController', [
+angular.module('tcp').controller('CompanyController', [
     '$scope',
     '$routeParams',
     'NavigationService',

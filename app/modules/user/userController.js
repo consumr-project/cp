@@ -1,4 +1,4 @@
-angular.module('tcp').controller('userController', [
+angular.module('tcp').controller('UserController', [
     '$scope',
     '$routeParams',
     'NavigationService',

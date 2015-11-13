@@ -1,4 +1,4 @@
-angular.module('tcp').controller('guideController', [
+angular.module('tcp').controller('GuideController', [
     '$scope',
     function ($scope) {
         'use strict';

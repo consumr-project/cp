@@ -1,5 +1,5 @@
 <section class="site-content">
-    <div ng-include="'/app/modules/home/search.html'"></div>
+    <div ng-include="'/app/modules/search/search.html'"></div>
 
     <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.empty">
         <center>
@@ -23,7 +23,7 @@
         <div
             class="entity entity--summary"
             ng-repeat="hit in results.user"
-            ng-controller="userController"
+            ng-controller="UserController"
             ng-init="loadUser(hit._id)"
             ng-click="gotoUser(hit._id)"
         >
@@ -38,7 +38,7 @@
         <div
             class="entity entity--summary"
             ng-repeat="hit in results.company"
-            ng-controller="companyController"
+            ng-controller="CompanyController"
             ng-init="loadCompany(hit._id)"
             ng-click="gotoCompany(hit._id)"
         >

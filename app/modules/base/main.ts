@@ -12,7 +12,7 @@ import Search from '../../services/search';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 import {Session, session as startSession} from '../../services/auth';
 
-// TODO remove once adminController imports new auth service
+// TODO remove once AdminController imports new auth service
 import {EVENT as AuthEvent, PROVIDER as AuthProvider} from '../../services/auth';
 
 module tcp {
@@ -33,7 +33,7 @@ module tcp {
         .constant('DEBUGGING', DEBUGGING)
         .constant('CONFIG', TCP_BUILD_CONFIG);
 
-    // TODO remove once adminController imports new auth service
+    // TODO remove once AdminController imports new auth service
     (<any>session).EVENT = AuthEvent;
     (<any>session).PROVIDER = AuthProvider;
 
@@ -57,6 +57,10 @@ module tcp {
         .value('utils', utils)
         .value('wikipedia', wikipedia);
 
+    // values from route resolve
+    angular.module('tcp')
+        .value('show_add_event', false);
+
     angular.module('tcp').config([
         '$routeProvider',
         '$locationProvider',
@@ -67,29 +71,28 @@ module tcp {
 
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
-                    templateUrl: '/app/modules/dev/index.html',
-                    controller: 'guideController'
+                    templateUrl: '/app/modules/guide/index.html',
+                    controller: 'GuideController'
                 });
             }
 
             $routeProvider.when('/', {
-                templateUrl: '/app/modules/home/index.html',
-                controller: 'homeController'
+                templateUrl: '/app/modules/home/index.html'
             });
 
             $routeProvider.when('/search', {
                 templateUrl: '/app/modules/search/index.html',
-                controller: 'searchController'
+                controller: 'SearchController'
             });
 
             $routeProvider.when('/user/:guid', {
                 templateUrl: '/app/modules/user/index.html',
-                controller: 'userController'
+                controller: 'UserController'
             });
 
             $routeProvider.when('/company/:guid?', {
                 templateUrl: '/app/modules/company/index.html',
-                controller: 'companyController',
+                controller: 'CompanyController',
                 resolve: {
                     show_add_event: () => false
                 }
@@ -97,7 +100,7 @@ module tcp {
 
             $routeProvider.when('/company/:guid/event/:eventGuid?', {
                 templateUrl: '/app/modules/company/index.html',
-                controller: 'companyController',
+                controller: 'CompanyController',
                 resolve: {
                     show_add_event: () => true
                 }

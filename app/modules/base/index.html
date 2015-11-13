@@ -15,8 +15,8 @@
         <script src="build/i18n.js"></script>
         <script src="build/en.js"></script>
     </head>
-    <body ng-app="tcp" ng-controller="navigationController" ng-strict-di>
-        <div ng-controller="adminController" ng-cloak>
+    <body ng-app="tcp" ng-controller="NavigationController" ng-strict-di>
+        <div ng-controller="AdminController" ng-cloak>
             <div ng-include="'app/modules/home/login.html'"></div>
 
             <header class="site-content">
@@ -41,7 +41,7 @@
 
                 <div class="desktop-only right margin-right-small"
                     ng-if="!nav.search.included"
-                    ng-include="'/app/modules/home/search.html'"></div>
+                    ng-include="'/app/modules/search/search.html'"></div>
 
                 <br>
                 <br>
@@ -97,13 +97,12 @@
         <script src="app/elements/i18n/i18n.js"></script>
         <script src="app/elements/company-event/company-event.js"></script>
 
-        <script src="app/modules/admin/adminController.js"></script>
-        <script src="app/modules/admin/navigationController.js"></script>
+        <script src="app/modules/admin/AdminController.js"></script>
+        <script src="app/modules/admin/NavigationController.js"></script>
         <script src="app/modules/admin/NavigationService.js"></script>
-        <script src="app/modules/home/homeController.js"></script>
-        <script src="app/modules/search/searchController.js"></script>
-        <script src="app/modules/company/companyController.js"></script>
-        <script src="app/modules/user/userController.js"></script>
+        <script src="app/modules/search/SearchController.js"></script>
+        <script src="app/modules/company/CompanyController.js"></script>
+        <script src="app/modules/user/UserController.js"></script>
         <script src="app/vendor/angular/ngFocus.js"></script>
 
         {% if debugging %}
@@ -113,7 +112,7 @@
         <script src="node_modules/Rainbow/js/language/html.js"></script>
         <link rel="stylesheet" href="node_modules/Rainbow/themes/github.css">
 
-        <script src="app/modules/dev/guideController.js"></script>
+        <script src="app/modules/guide/GuideController.js"></script>
         <link rel="stylesheet" href="app/elements/guide.css">
 
         <script src="node_modules/rector/rector.js"></script>

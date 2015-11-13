@@ -1,4 +1,4 @@
-angular.module('tcp').controller('searchController', [
+angular.module('tcp').controller('SearchController', [
     '$scope',
     '$routeParams',
     'RecentSearches',

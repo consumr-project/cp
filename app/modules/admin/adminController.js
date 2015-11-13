@@ -1,4 +1,4 @@
-angular.module('tcp').controller('adminController', [
+angular.module('tcp').controller('AdminController', [
     '$scope',
     'Auth',
     'utils',

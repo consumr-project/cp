@@ -1,4 +1,4 @@
-angular.module('tcp').controller('navigationController', [
+angular.module('tcp').controller('NavigationController', [
     '$rootScope',
     '$scope',
     'Auth',
