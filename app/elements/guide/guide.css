@@ -1,7 +1,0 @@
-.guide-block-avatars avatar {
-    display: block;
-}
-
-.guide-block-avatars avatar + avatar {
-    margin-top: 15px;
-}
