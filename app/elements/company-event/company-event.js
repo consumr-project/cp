@@ -1,10 +1,10 @@
 angular.module('tcp').directive('companyEvent', [
     '$q',
+    '$http',
     'lodash',
     'utils',
-    'extract',
     'keyword',
-    function ($q, _, utils, extract, keyword, events, companyEvents) {
+    function ($q, $http, _, utils, keyword, events, companyEvents) {
         'use strict';
 
         function controller($scope) {
@@ -36,13 +36,21 @@ $scope.$apply();
             }
 
             /**
+             * @param {String} url
+             * @return {Promise}
+             */
+            function extractPage(url) {
+                return $http.get('/extract/page?url=' + encodeURIComponent(url));
+            }
+
+            /**
              * @param {Source} source
-             * @return {Promise<extract.ApiResponsePayload>}
+             * @return {Promise<extract.PageExtract>}
              */
             function fetchContent(source) {
-                return extract.fetch(source.url).then(function (content) {
-                    content.$source = source;
-                    return content;
+                return extractPage(source.url).then(function (content) {
+                    content.data.$source = source;
+                    return content.data;
                 });
             }
 
@@ -73,7 +81,7 @@ $scope.$apply();
 
             /**
              * @param {Event} ev
-             * @param {extract.ApiResponsePayload} [content]
+             * @param {extract.PageExtract} [content]
              * @param {Boolean} [overwrite] (default: false)
              */
             function populateEvent(ev, content, overwrite) {
@@ -92,7 +100,7 @@ $scope.$apply();
 
             /**
              * @param {Source} source
-             * @param {extract.ApiResponsePayload} content
+             * @param {extract.PageExtract} content
              * @return {Source}
              */
             function populateSource(source, content) {

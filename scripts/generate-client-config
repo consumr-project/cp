@@ -8,7 +8,6 @@ var config = require('acm'),
 varname && console.log('var %s =', varname);
 
 console.log({
-    embedly: { key: config('embedly.api_key') },
     firebase: { url: config('firebase.url') },
     locate: { dateFormat: config('locale.dateFormat') }
 });

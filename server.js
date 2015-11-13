@@ -44,6 +44,7 @@ app.use(session({ secret: config('session.secret') }));
 
 require('./node_modules/auth-service/src/main')(app);
 require('./node_modules/auth-service/src/linkedin')(app, config, fb);
+app.use('/extract', require('./node_modules/extract-service/service'));
 
 app.get('*', function (req, res) {
     res.render('base/index', {
