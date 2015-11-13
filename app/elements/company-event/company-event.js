@@ -1,147 +1,126 @@
 angular.module('tcp').directive('companyEvent', [
+    '$q',
     'lodash',
+    'utils',
     'extract',
     'keyword',
-    'Cache',
-    function (_, extract, keyword, Cache) {
+    function ($q, _, utils, extract, keyword, events, companyEvents) {
         'use strict';
 
-        var keywords_cache = new Cache();
-
-        /**
-         * @param {extract.ApiResponsePayload}
-         */
-        function normalizeContent(content) {
-            content.keywords = content.keywords || [];
-            content.entities = content.entities || [];
-        }
-
-        /**
-         * @param {String} url
-         * @param {extract.ApiResponsePayload} content
-         * @return {String[]}
-         */
-        function cacheKeywords(url, content) {
-            var list = content.entities.concat(content.keywords),
-                keywords = keyword.normalize(list, 'name');
-
-            keywords_cache.set(url, keywords);
-            return keywords;
-        }
-
-        /**
-         * @param {String} source
-         * @return {Boolean}
-         */
-        function uncachedKeyword(source) {
-            return !keywords_cache.has(source);
-        }
-
-        /**
-         * @param {String} source
-         * @return {String}
-         */
-        function getKeyword(source) {
-            return source in keywords_cache.memory ?
-                keywords_cache.memory[source].val : undefined;
-        }
-
-        /**
-         * @param {Object} ref
-         */
-        function populateEventKeywords(ref) {
-            ref.keywords = keyword.normalize(_.chain(ref.sources)
-                .filter()
-                .filter(keywords_cache.has.bind(keywords_cache))
-                .map(getKeyword)
-                .flatten()
-                .value()
-            );
-        }
-
-        /**
-         * @param {Object} ref
-         * @param {extract.ApiResponsePayload} content
-         */
-        function populateEvent(ref, content) {
-            ref.title = content.title;
-            ref.description = content.description;
-            ref.date = content.published;
-            ref.$date = new Date(content.published);
-        }
-
-        /**
-         * @param {Object} ref
-         */
-        function clearEvent(ref) {
-            delete ref.title;
-            delete ref.description;
-            delete ref.date;
-            delete ref.$date;
-        }
-
         function controller($scope) {
-            var orig_source;
+            var prev_sources;
 
             $scope.vm = {};
-            $scope._ = { range: _.range };
 
             $scope.ev = {
                 title: '',
                 sources: [],
             };
 
-            // XXX
-            setTimeout(function () {
-            $scope.ev.sources.push('http://www.bbc.com/news/world-europe-34742273');
-            $scope.ev.sources.push('http://www.bbc.com/news/world-australia-34762988');
-            $scope.ev.sources.push('http://www.bbc.com/news/world-europe-34759570');
-            $scope.$apply();
-            }, 500);
+            $scope.save = save;
+            $scope.$watch('ev.sources', fetchSources, true);
 
-            $scope.$watchCollection('ev.sources', function (sources) {
-                var source;
+// XXX // $scope._ = { range: _.range };
+window.ev=$scope.ev;
+setTimeout(function () {
+$scope.ev.sources.push({url: 'http://www.bbc.com/news/world-europe-34742273'});
+// $scope.ev.sources.push({url: 'http://www.bbc.com/news/world-australia-34762988'});
+// $scope.ev.sources.push({url: 'http://www.bbc.com/news/world-europe-34759570'});
+$scope.$apply();
+}, 500);
 
-                if (!sources.length) {
-                    return;
+            function save() {
+                // events.put($scope.ev, ['date', 'description', 'keywords', 'sources', 'title'])
+                //     .then(function () { $scope.onSave(); })
+                //     .catch(function () { console.error('error saving', $scope.ev); });
+            }
+
+            /**
+             * @param {Source} source
+             * @return {Promise<extract.ApiResponsePayload>}
+             */
+            function fetchContent(source) {
+                return extract.fetch(source.url).then(function (content) {
+                    content.$source = source;
+                    return content;
+                });
+            }
+
+            /**
+             * @param {Boolean} [loading] (false: false, *: true)
+             */
+            function isLoading(loading) {
+                $scope.vm.fetchingSource = loading !== false;
+            }
+
+            /**
+             * @param {Source[]} update
+             * @param {Source[]} prev
+             */
+            function fetchSources(update, prev) {
+                $q.all(
+                    _(update)
+                        .difference(prev)
+                        .each(isLoading)
+                        .map(fetchContent)
+                        .value()
+                ).then(function (contents) {
+                    isLoading(false);
+                    _.each(contents, populateSourceFromContent);
+                    populateEvent($scope.ev, contents[0]);
+                    console.log(contents[0])
+                });
+            }
+
+            /**
+             * @param {Event} ev
+             * @param {extract.ApiResponsePayload} [content]
+             * @param {Boolean} [overwrite] (default: false)
+             */
+            function populateEvent(ev, content, overwrite) {
+                function get(ev_field, content_field) {
+                    var orig_val = ev[ev_field];
+                    return orig_val && !overwrite ? orig_val :
+                        content[content_field || ev_field];
                 }
 
-                source = _.head(sources);
-                $scope.ev.sources = _.filter($scope.ev.sources);
-                populateEventKeywords($scope.ev);
+                content = utils.def(content, {});
 
-                if (orig_source !== source) {
-                    orig_source = source;
+                ev.title = get('title');
+                ev.date = get('date', 'published');
+                ev.$date = new Date(get('date', 'published'));
+            }
 
-                    $scope.vm.fetchingArticle = true;
-                    clearEvent($scope.ev);
+            /**
+             * @param {Source} source
+             * @param {extract.ApiResponsePayload} content
+             * @return {Source}
+             */
+            function populateSource(source, content) {
+                source.title = content.title;
+                source.date = content.published;
+                source.$date = new Date(content.published);
+                source.description = content.description;
+            }
 
-                    extract.fetch(source).then(function (content) {
-                        $scope.vm.fetchingArticle = false;
-                        normalizeContent(content);
-                        cacheKeywords(source, content);
-                        populateEvent($scope.ev, content);
-                        populateEventKeywords($scope.ev);
-                        $scope.$apply();
-                    });
-                }
-
-                _.chain(sources).tail().filter().filter(uncachedKeyword).each(function (source) {
-                    extract.fetch(source).then(function (content) {
-                        normalizeContent(content);
-                        cacheKeywords(source, content);
-                        populateEventKeywords($scope.ev);
-                        $scope.$apply();
-                    });
-                }).value();
-            });
+            /**
+             * @param {Source} source
+             * @return {Source}
+             */
+            function populateSourceFromContent(content) {
+                return populateSource(content.$source, content);
+            }
         }
 
         return {
             replace: true,
             templateUrl: '/app/elements/company-event/company-event.html',
-            scope: { onCancel: '&' },
-            controller: ['$scope', controller]
+            controller: ['$scope', controller],
+            scope: {
+                tiedTo: '=',
+                onCancel: '&',
+                onSave: '&'
+            }
         };
     }
 ]);

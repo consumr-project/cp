@@ -2,10 +2,16 @@ name_placeholder: Company name
 
 # add event popup
 add_event: Add event
-field_url: url
-field_name: name
-field_date: date
-field_quote: quote
+add_source: Add another source
+source_title: Source {number}
 
-section_keywords: keywords
-section_add_sources: additional sources
+field_source: Official source url
+field_sentiment: Choose which sentiment best describes the event
+field_topic: Choose which topic best describes the event
+field_title: Title of the event
+field_date: Event date
+field_tied_to: "Companies & Countries involved in the event"
+field_tags: Tags
+field_title: Title
+field_pub_date: Publication date
+field_quote: Quote (limit {limit} characters)

@@ -2,6 +2,7 @@
 
 /**
  * @attribute {Object} popoverApi reference to populate with show/hide api
+ *                      - showNow: show immediatelly
  *
  * @attribute {Boolean} popoverBackdrop include a backdrop element
  */
@@ -67,7 +68,11 @@ angular.module('tcp').directive('popover', [function () {
                 api.show = apiShow;
             }
 
-            hide();
+            if (api && api.showNow) {
+                apiShow();
+            } else {
+                hide();
+            }
 
             scope.$on('$destroy', function () {
               backdrop.remove();

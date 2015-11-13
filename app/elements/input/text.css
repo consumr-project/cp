@@ -11,13 +11,6 @@ input:not([type="radio"]) {
     word-break: normal;
 }
 
-input:not([type="checkbox"]),
-input:not([type="radio"]) {
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: transparent;
-}
-
 textarea:focus,
 input:not([type="checkbox"]):focus,
 input:not([type="radio"]):focus {

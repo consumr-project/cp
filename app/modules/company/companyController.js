@@ -7,7 +7,8 @@ angular.module('tcp').controller('companyController', [
     'wikipedia',
     'companies',
     'logger',
-    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger) {
+    'show_add_event',
+    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger, show_add_event) {
         'use strict';
 
         var log = logger('company');
@@ -16,11 +17,6 @@ angular.module('tcp').controller('companyController', [
         $scope.error = null;
         $scope.existing = !!$routeParams.guid;
         $scope.vm = { add_event: {} };
-
-        // XXX
-        setTimeout(function () {
-          if ($scope.vm.add_event.show) { $scope.vm.add_event.show(); }
-        }, 100);
 
         function normalizeCompany() {
             if (!$scope.company) {
@@ -108,6 +104,7 @@ angular.module('tcp').controller('companyController', [
         $scope.companyPage = function () {
             if ($routeParams.guid) {
                 load($routeParams.guid);
+                $scope.vm.add_event.showNow = show_add_event;
             } else {
                 $scope.$watch('company.name', fetchCompanySummary);
             }

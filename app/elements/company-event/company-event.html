@@ -1,73 +1,64 @@
 <form class="company__event form--listed">
     <h2 i18n="company/add_event"></h2>
 
-    <label i18n="company/field_url"></label>
-    <input type="text" ng-model="ev.sources[0]" autofocus="true"
-        ng-class="{ loading: vm.fetchingArticle }" />
-    <label i18n="company/field_name"></label>
-    <input type="text" ng-model="ev.title" />
-    <label i18n="company/field_date"></label>
-    <input type="date" ng-model="ev.$date" />
-    <label i18n="company/field_quote"></label>
-    <textarea>{{ev.description}}</textarea>
-
-    <section class="margin-top-medium">
-        <label i18n="company/section_add_sources"></label>
-        <input ng-repeat="source in _.range(ev.sources.length + 1) track by $index"
-            ng-model="ev.sources[$index]" />
+    <section>
+        <label i18n="company/field_source"></label>
+        <input type="text" ng-model="ev.sources[0].url" autofocus="true"
+            ng-class="{ loading: vm.fetchingSource }" />
     </section>
 
-    <section class="margin-top-medium" ng-if="ev.keywords.length">
-        <label>
-            <span i18n="company/section_keywords"></span>
-            <span>({{ev.keywords.length}})</span>
-        </label>
-        <tags class="keywords">
-            <tag ng-repeat="keyword in ev.keywords" label="{{::keyword}}"
-                class="keyword animated fadeIn"></tag>
-        </tags>
+    <section>
+        <label i18n="company/field_sentiment"></label>
     </section>
 
-    <button class="right margin-top-small" i18n="admin/save"></button>
+    <section>
+        <label i18n="company/field_topic"></label>
+    </section>
+
+    <section>
+        <label i18n="company/field_title"></label>
+        <input type="text" ng-model="ev.title" />
+
+        <label i18n="company/field_date"></label>
+        <input type="date" ng-model="ev.$date" />
+
+        <label i18n="company/field_tied_to"></label>
+
+        <label i18n="company/field_tags"></label>
+    </section>
+
+    <section>
+        <div ng-repeat="source in ev.sources">
+            <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>
+
+            <label i18n="company/field_source"></label>
+            <input type="text" ng-model="source.url" />
+            <label i18n="company/field_title"></label>
+            <input type="text" ng-model="source.title" />
+            <label i18n="company/field_pub_date"></label>
+            <input type="date" ng-model="source.$date" />
+            <textarea i18n="company/field_quote" data="{limit: 500}"
+                prop="placeholder">{{source.description}}</textarea>
+        </div>
+    </section>
+    <!-- <section class="margin&#45;top&#45;medium"> -->
+    <!--     <label i18n="company/section_add_sources"></label> -->
+    <!--     <!&#45;&#45; <input ng&#38;#45;repeat="source in _.range(ev.sources.length + 1) track by $index" &#45;&#45;> -->
+    <!--     <!&#45;&#45;     ng&#38;#45;model="ev.sources[$index]" /> &#45;&#45;> -->
+    <!-- </section> -->
+    <!--  -->
+    <!-- <section class="margin&#45;top&#45;medium" ng&#45;if="ev.keywords.length"> -->
+    <!--     <label> -->
+    <!--         <span i18n="company/section_keywords"></span> -->
+    <!--         <span>({{ev.keywords.length}})</span> -->
+    <!--     </label> -->
+    <!--     <tags class="keywords"> -->
+    <!--         <tag ng&#45;repeat="keyword in ev.keywords" label="{{::keyword}}" -->
+    <!--             class="keyword animated fadeIn"></tag> -->
+    <!--     </tags> -->
+    <!-- </section> -->
+
+    <button class="right margin-top-small" ng-click="save()" i18n="admin/save"></button>
     <button class="right margin-top-small button--link" ng-click="onCancel()"
         i18n="admin/cancel"></button>
-
-<!-- <table> -->
-<!--     <tr> -->
-<!--         <td> -->
-<!--         type -->
-<!--         </td> -->
-<!--         <td> -->
-<!--             <div style="display: inline&#45;block; margin: 0 3px 0 0; height: 30px; width: 30px; border&#45;radius: 30px; background&#45;color: blue"></div> -->
-<!--             <div style="display: inline&#45;block; margin: 0 3px 0 0; height: 30px; width: 30px; border&#45;radius: 30px; background&#45;color: green"></div> -->
-<!--             <div style="display: inline&#45;block; margin: 0 3px 0 0; height: 30px; width: 30px; border&#45;radius: 30px; background&#45;color: red"></div> -->
-<!--             <div style="display: inline&#45;block; margin: 0 3px 0 0; height: 30px; width: 30px; border&#45;radius: 30px; background&#45;color: gray"></div> -->
-<!--         </td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--         <td> -->
-<!--         tags -->
-<!--         </td> -->
-<!--         <td> -->
-<!--             <tag class="bad" label="illegal fishing"></tag> -->
-<!--             <tag class="bad" label="illegal fishing"></tag> -->
-<!--         </td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--         <td> -->
-<!--         companies/countries -->
-<!--         </td> -->
-<!--         <td> -->
-<!--             <select multiple="true"> -->
-<!--                 <option>USA</option> -->
-<!--                 <option>Walmart</option> -->
-<!--             </select> -->
-<!--         </td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--         <td colspan="2" class="right&#45;align"> -->
-<!-- <button>add source</button> -->
-<!--         </td> -->
-<!--     </tr> -->
-<!-- </table> -->
 </form>

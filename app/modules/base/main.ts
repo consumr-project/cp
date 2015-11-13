@@ -44,8 +44,10 @@ module tcp {
         .value('Cache', Cache)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('companies', entity.bind('company', store))
+        .value('companyEvents', entity.bind('company-events', store))
         .value('d3', d3)
         .value('entity', entity)
+        .value('events', entity.bind('event', store))
         .value('extract', extract)
         .value('highlighter', highlighter)
         .value('i18n', i18n) // global
@@ -91,12 +93,18 @@ module tcp {
 
             $routeProvider.when('/company/:guid?', {
                 templateUrl: '/app/modules/company/index.html',
-                controller: 'companyController'
+                controller: 'companyController',
+                resolve: {
+                    show_add_event: () => false
+                }
             });
 
-            $routeProvider.when('/company/:companyGuid/entry/:guid?', {
-                templateUrl: '/app/modules/entry/index.html',
-                controller: 'entryController'
+            $routeProvider.when('/company/:guid/event/:eventGuid?', {
+                templateUrl: '/app/modules/company/index.html',
+                controller: 'companyController',
+                resolve: {
+                    show_add_event: () => true
+                }
             });
 
             $routeProvider.otherwise({

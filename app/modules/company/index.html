@@ -22,7 +22,11 @@
         </div>
 
         <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">
-            <company-event on-cancel="vm.add_event.hide()"></company-event>
+            <company-event
+                on-save="vm.add_event.hide()"
+                on-cancel="vm.add_event.hide()"
+                tied-to="{companies: [company.guid]}"
+            ></company-event>
         </popover>
     </section>
 

@@ -19,6 +19,10 @@ export function newNoop(): Function {
     return function () {};
 }
 
+export function def<T>(check: T, def_val: T): T {
+  return check !== undefined ? check : def_val;
+}
+
 export function preload(url: string, callback: any | Function):HTMLImageElement {
     var img: HTMLImageElement = new Image();
     img.onload = callback;
