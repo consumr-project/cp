@@ -68,7 +68,6 @@ $scope.$apply();
                     isLoading(false);
                     _.each(contents, populateSourceFromContent);
                     populateEvent($scope.ev, contents[0]);
-                    console.log(contents[0])
                 });
             }
 
