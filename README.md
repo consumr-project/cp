@@ -23,7 +23,7 @@ heroku ps:scale worker=1
 
 point to elasticsearch instance:
 
-```
+```bash
 heroku config:set ELASTICSEARCH_HOST=$(echo $CP_FACET_FLOW_ES_HOST)
 ```
 
