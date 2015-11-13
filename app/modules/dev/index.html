@@ -8,14 +8,12 @@
     <rector-markup>
         <form class="form--listed">
             <h2 i18n="company/add_event"></h2>
-            <label i18n="company/field_url"></label>
+            <label i18n="company/field_source"></label>
             <input type="text" ng-model="source1" autofocus="true" />
-            <label i18n="company/field_name"></label>
+            <label i18n="company/field_title"></label>
             <input type="text" />
             <label i18n="company/field_date"></label>
             <input type="date" />
-            <label i18n="company/field_quote"></label>
-            <textarea></textarea>
         </form>
     </rector-markup>
 
@@ -77,33 +75,6 @@
         <message type="warn">this is a warning message</message>
         <message type="info">this is an information message</message>
         <message type="success">this is a success message</message>
-    </rector-markup>
-
-    <h1>highlighter</h1>
-    <p>select to highlight and click to remove. number of highlights: <b>{{highlight.count}}</b></p>
-    <rector-markup>
-        <div id="guide__highlighter"
-            highlighter="highlights"
-            highlighter-api="highlight.api"
-            highlighter-on-highlight="onHighlight({highlight: highlight})"
-            highlighter-on-highlight-click="onHighlightClick({highlight: highlight})"
-        >
-            <p>Sed nibh. Nam non turpis. Maecenas fermentum nibh in est.
-                Pellentesque habitant morbi tristique senectus et netus et
-                malesuada fames ac turpis egestas.</p>
-
-            <p>Duis sagittis fermentum nunc. Nullam elementum erat. Quisque
-                dapibus, augue nec dapibus bibendum, velit enim scelerisque
-                sem, accumsan suscipit lectus odio ac justo. Fusce in felis a
-                enim rhoncus placerat. Cras nec eros et mi egestas facilisis.
-                In hendrerit tincidunt neque. Maecenas tellus. Fusce
-                sollicitudin molestie dui. Sed magna orci, accumsan nec,
-                viverra non, pharetra id, dui.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam
-                placerat mi vitae felis. In porta, quam sit amet sodales
-                elementum, elit dolor aliquam.</p>
-        </div>
     </rector-markup>
 
     <h1>popover</h1>

@@ -7,7 +7,6 @@ import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
 import * as extract from '../../services/extract';
-import * as highlighter from '../../services/highlighter';
 import * as keyword from '../../services/keyword';
 import logger from '../../services/logger';
 import Search from '../../services/search';
@@ -49,7 +48,6 @@ module tcp {
         .value('entity', entity)
         .value('events', entity.bind('event', store))
         .value('extract', extract)
-        .value('highlighter', highlighter)
         .value('i18n', i18n) // global
         .value('lodash', _)
         .value('logger', logger)
