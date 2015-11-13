@@ -2,7 +2,6 @@
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import * as d3 from 'd3';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
@@ -44,7 +43,6 @@ module tcp {
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('companies', entity.bind('company', store))
         .value('companyEvents', entity.bind('company-events', store))
-        .value('d3', d3)
         .value('entity', entity)
         .value('events', entity.bind('event', store))
         .value('extract', extract)
