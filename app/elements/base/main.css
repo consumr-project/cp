@@ -1,5 +1,5 @@
-@import url("../../node_modules/normalize.css/normalize.css");
-@import url("../../node_modules/animate.css/animate.min.css");
+@import url("../../../node_modules/normalize.css/normalize.css");
+@import url("../../../node_modules/animate.css/animate.min.css");
 
 @import url("./variables.css");
 @import url("./type.css");
@@ -129,12 +129,12 @@ table.table--bordered td {
 }
 
 @import url("./helpers.css");
-@import url("./input/text.css");
-@import url("./key/key.css");
-@import url("./tag/tag.css");
-@import url("./button/button.css");
-@import url("./button/groups-of.css");
-@import url("./indicator/indicator.css");
-@import url("./avatar/avatar.css");
-@import url("./popover/popover.css");
-@import url("./message/message.css");
+@import url("../input/text.css");
+@import url("../key/key.css");
+@import url("../tag/tag.css");
+@import url("../button/button.css");
+@import url("../button/groups-of.css");
+@import url("../indicator/indicator.css");
+@import url("../avatar/avatar.css");
+@import url("../popover/popover.css");
+@import url("../message/message.css");
