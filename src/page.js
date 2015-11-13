@@ -39,9 +39,9 @@ function parse(body) {
 /**
  * @param {http.Request} req
  * @param {http.Response} res
- * @param {Function} done
+ * @param {Function} next
  */
-module.exports = function (req, res, done) {
+module.exports = function (req, res, next) {
     request({
         uri: EMBED_URL,
         qs: query(req)
@@ -54,6 +54,8 @@ module.exports = function (req, res, done) {
             }
         }
 
-        done(err);
+        if (err) {
+            next(err);
+        }
     })
 };
