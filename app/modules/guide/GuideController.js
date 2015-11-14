@@ -10,52 +10,9 @@ angular.module('tcp').controller('GuideController', [
             show: false
         };
 
-        $scope.highlight = {
-            count: 0,
-            api: {}
-        };
-
         $scope.toggleMenu = function () {
             $scope.menu.show = !$scope.menu.show;
         };
-
-        $scope.onHighlight = function () {
-            $scope.highlight.count++;
-            $scope.$apply();
-        };
-
-        $scope.onHighlightClick = function (args) {
-            $scope.highlight.api.remove(args.highlight);
-            $scope.highlight.count--;
-            $scope.$apply();
-        };
-
-        $scope.articles = [
-            {
-                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source_display: 'bloomberg.com',
-                release_date: '12 July, 2015',
-                useful_counter: 43,
-                url: '#',
-                external_url: '#'
-            },
-            {
-                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source_display: 'bloomberg.com',
-                release_date: '12 July, 2015',
-                useful_counter: 43,
-                url: '#',
-                external_url: '#'
-            },
-            {
-                title: 'Trader Joe\'s names as one of the most ethical companies in the world.',
-                source_display: 'bloomberg.com',
-                release_date: '12 July, 2015',
-                useful_counter: 43,
-                url: '#',
-                external_url: '#'
-            }
-        ];
 
         $scope.addTag = function () {
             $scope.tags.push({
