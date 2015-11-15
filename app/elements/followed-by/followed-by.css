@@ -1,0 +1,5 @@
+.followed-by span {
+    color: var(--color-light-text-color);
+    font-size: var(--font-size-small);
+    outline: none;
+}

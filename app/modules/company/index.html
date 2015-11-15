@@ -7,10 +7,6 @@
             ng-class="{ loading: vm.fetchingCompanySummary }"
             ng-model="company.name" ng-model-options="{ debounce: 300 }" />
 
-        <section ng-if="error" class="margin-top-small">
-            <message type="error">{{::error}}</message>
-        </section>
-
         <div class="right-align margin-top-small margin-bottom-medium">
             <button ng-click="save()" i18n="admin/save"></button>
         </div>
@@ -30,5 +26,13 @@
         </popover>
     </section>
 
-    <p ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
+    <p class="animated fadeIn" ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
+
+    <section ng-if="existing && company.$loaded" class="margin-top-xlarge">
+        <followed-by
+            users="company.followedBy"
+            on-start-following="onStartFollowing()"
+            on-stop-following="onStopFollowing()"
+        ></followed-by>
+    </section>
 </div>

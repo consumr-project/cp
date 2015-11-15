@@ -7,14 +7,14 @@ angular.module('tcp').controller('CompanyController', [
     'wikipedia',
     'companies',
     'logger',
+    'lodash',
     'show_add_event',
-    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger, show_add_event) {
+    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger, _, show_add_event) {
         'use strict';
 
         var log = logger('company');
 
         $scope.company = {};
-        $scope.error = null;
         $scope.existing = !!$routeParams.guid;
         $scope.vm = { add_event: {} };
 
@@ -23,6 +23,7 @@ angular.module('tcp').controller('CompanyController', [
                 return;
             }
 
+            $scope.company.followedBy = $scope.company.followedBy || [];
             $scope.company.$summaryParts = !$scope.company.summary ? [] :
                 $scope.company.summary.split('\n');
         }
@@ -54,10 +55,11 @@ angular.module('tcp').controller('CompanyController', [
         function load(id) {
             return companies.get(id).then(function (company) {
                 $scope.company = company;
+                $scope.company.$loaded = true;
                 normalizeCompany();
 
                 if (!$scope.company) {
-                    $scope.error = 'company not found';
+                    log.error('company not found');
                 }
 
                 $scope.$apply();
@@ -72,21 +74,42 @@ angular.module('tcp').controller('CompanyController', [
         }
 
         function saveErrorHandler(err) {
-            $scope.error = 'there was an error saving this company, please try again.';
             log.error('save error', err);
         }
 
-        $scope.save = function () {
-            $scope.error = null;
-
+        $scope.onStopFollowing = function () {
             if (!Auth.USER) {
-                $scope.error = 'you must be logged in to add or edit companies';
+                log.error('you must be logged in to follow companies');
+                return;
+            }
+
+            if (_.contains($scope.company.followedBy, Auth.USER.uid)) {
+                $scope.company.followedBy = _.without($scope.company.followedBy, Auth.USER.uid);
+                companies.store.child($scope.company.guid).child('followedBy')
+                    .set($scope.company.followedBy);
+            }
+        };
+
+        $scope.onStartFollowing = function () {
+            if (!Auth.USER) {
+                log.error('you must be logged in to follow companies');
+                return;
+            }
+
+            if (!_.contains($scope.company.followedBy, Auth.USER.uid)) {
+                $scope.company.followedBy.push(Auth.USER.uid);
+                companies.store.child($scope.company.guid).child('followedBy')
+                    .set($scope.company.followedBy);
+            }
+        };
+
+        $scope.save = function () {
+            if (!Auth.USER) {
                 log.info('login required for action');
                 return;
             }
 
             if (!$scope.company.name) {
-                $scope.error = 'a company name is required';
                 log.info('company name is required');
                 return;
             }
@@ -94,9 +117,11 @@ angular.module('tcp').controller('CompanyController', [
             // first save
             if (!$scope.company.guid) {
                 $scope.company.guid = utils.simplify($scope.company.name);
+                $scope.company.createdBy = Auth.USER.guid;
+                $scope.company.followedBy = [Auth.USER.guid];
             }
 
-            companies.put($scope.company, ['name', 'summary', 'guid'])
+            companies.put($scope.company, ['name', 'summary', 'guid', 'createdBy', 'followedBy'])
                 .then(saveSuccessHandler)
                 .catch(saveErrorHandler);
         };

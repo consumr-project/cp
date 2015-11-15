@@ -1,3 +1,9 @@
 profile: Profile
 users: Users
 companies: Companies
+
+# followed by directive
+followed_by_others: This page is being followed by {count} {count, plural, one {person} other {people}}.
+followed_by_you: This page is being followed by you.
+followed_by_you_and_others: This page is being followed by you and {countMinusOne} other {countMinusOne, plural, one {person} other {people}}.
+followed_by_none: This page is not being followed.

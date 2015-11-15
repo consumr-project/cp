@@ -23,7 +23,7 @@ export function bind<T>(label: string, store: Firebase): Collection<T> {
 
     return {
         label: label,
-        store: store,
+        store: child,
 
         get: function (guid: string): Q.Promise<T> {
             return cache.get(guid);
@@ -56,7 +56,7 @@ export function put(store: Firebase, data: any, fields?: Array<string>): Q.Promi
     fields = fields || keys(data);
     each(fields, (field) => ref.child(field).set(data[field] || ''));
 
-    ref.child('modifiedDate').set(now, (err) => {
+    ref.child('dateModified').set(now, (err) => {
         if (err) {
             def.reject(err);
         } else {
@@ -64,12 +64,12 @@ export function put(store: Firebase, data: any, fields?: Array<string>): Q.Promi
         }
     });
 
-    if (data.createdDate) {
-        ref.child('createdDate').set(data.createdDate);
+    if (data.dateCreated) {
+        ref.child('dateCreated').set(data.dateCreated);
     } else {
-        ref.child('createdDate').once('value', (createdDate) => {
-            if (!createdDate.val()) {
-                ref.child('createdDate').set(now);
+        ref.child('dateCreated').once('value', (dateCreated) => {
+            if (!dateCreated.val()) {
+                ref.child('dateCreated').set(now);
             }
         });
     }
