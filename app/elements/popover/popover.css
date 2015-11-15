@@ -68,6 +68,10 @@ popover-separator {
 }
 
 @media (--media-content-max-width) {
+    .popover__backdrop {
+        display: none !important;
+    }
+
     .popover--with-content {
         height: 100vh;
         max-height: none;
