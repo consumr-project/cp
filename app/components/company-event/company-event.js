@@ -121,7 +121,7 @@ $scope.$apply();
 
         return {
             replace: true,
-            templateUrl: '/app/elements/company-event/company-event.html',
+            templateUrl: '/app/components/company-event/company-event.html',
             controller: ['$scope', controller],
             scope: {
                 tiedTo: '=',
