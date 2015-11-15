@@ -20,6 +20,3 @@ es:
 	if [ ! -d build/elasticsearch-$(es_version) ]; then \
         unzip build/elasticsearch-$(es_version).zip -d build/elasticsearch-$(es_version); fi
 	build/elasticsearch-$(es_version)/elasticsearch-$(es_version)/bin/elasticsearch
-
-deploy-heroku:
-	git push heroku master

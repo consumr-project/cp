@@ -16,6 +16,7 @@ documentation
 ### deploying to heroku
 
 this is a background process, so no need to make heroku bing to web ports:
+
 ```bash
 heroku ps:scale web=0
 heroku ps:scale worker=1
@@ -33,6 +34,8 @@ to build and run application in debug mode:
 heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 ```
+
+### thanks
 
 development (free) elasticsearch hosting provided by
 [facet flow](https://facetflow.com/)
