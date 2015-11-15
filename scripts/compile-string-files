@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var MessageFormat = require('messageformat').MessageFormat,
+    program = require('commander');
+
+var path = require('path'),
+    fs = require('fs'),
+    yaml = require('yamljs'),
+    glob = require('glob'),
+    each = require('lodash/collection/each');
+
+program
+    .option('-l --locale <name>', 'name of the locale to compile')
+    .option('-v --var <name>', 'i18n variable name', 'i18n');
+
+program
+    .command('functions')
+    .description('generate the base i18n variable')
+    .action(functionsCommand);
+
+program
+    .command('generate')
+    .description('generate locate strings object')
+    .option('--strings_file <file>', 'strings file match')
+    .option('--strings_extra <str>', 'strings file non-file name match')
+    .action(generateCommand);
+
+function functionsCommand() {
+    var mf = new MessageFormat(program.locale);
+    console.log('%s = %s;', program['var'], mf.functions());
+    console.log('%s.get = %s;', program['var'], i18nGetFunction.toString());
+}
+
+function generateCommand(options) {
+    var mf = new MessageFormat(program.locale);
+    glob(options.strings_file, function (err, files) {
+        each(files, function (file) {
+            var name = generateSectionName(file, options.strings_extra),
+                contents = fs.readFileSync(file).toString(),
+                parsed = yaml.parse(contents);
+
+            console.log('%s["%s"] =', program['var'], name);
+            console.log(mf.precompileObject(parsed));
+            console.log(';');
+        });
+    });
+}
+
+function i18nGetFunction (path, data) {
+    var parts = path.split('/'),
+        fn = parts.pop(),
+        name = parts.join('/');
+
+    if (!(fn in this[name])) {
+        throw new Error('i18n key does not exists: ' + path);
+    }
+
+    return this[name][fn](data);
+}
+
+/**
+ * converts config/i18n/en/common.yml to common
+ * @param {String} file
+ * @param {String} exit
+ * @return {String}
+ */
+function generateSectionName(file, extra) {
+    return file
+        .substr(0, file.lastIndexOf('.'))
+        .replace(extra, '');
+}
+
+program.parse(process.argv);

@@ -18,9 +18,14 @@
   "homepage": "https://github.com/consumr-project/notification-service",
   "dependencies": {
     "acm": "^2.0.1",
+    "commander": "^2.9.0",
     "debug": "^2.2.0",
     "firebase": "^2.3.1",
+    "glob": "^6.0.1",
+    "lodash": "^3.10.1",
+    "messageformat": "^0.2.2",
     "newrelic": "^1.23.1",
-    "nodemailer": "^1.10.0"
+    "nodemailer": "^1.10.0",
+    "yamljs": "^0.2.4"
   }
 }
