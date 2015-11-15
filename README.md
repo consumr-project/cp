@@ -27,7 +27,7 @@ email transport configuration
 ```bash
 heroku config:set EMAIL_SERVICE_NAME=$(echo $CP_EMAIL_SERVICE_NAME)
 heroku config:set EMAIL_SERVICE_USER=$(echo $CP_EMAIL_SERVICE_USER)
-heroku config:set EMAIL_SERVICE_PASS=$(echo $CP_EMAIL_SERVICE_PASS)
+heroku config:set EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo $password)
 ```
 
 to build and run application in debug mode:
