@@ -25,9 +25,9 @@ email = Transport({
 email.sendMail({
     from: config('email.addresses.do_not_reply'),
     to: config('email.service.user'),
-    subject: i18n.get('en/common/welcome_email_subject'),
-    text: i18n.get('en/common/welcome_email_text', {name: 'Marcos'}),
-    html: i18n.get('en/common/welcome_email_text', {name: 'Marcos'})
+    subject: i18n.en.get('common/welcome_email_subject'),
+    text: i18n.en.get('common/welcome_email_text', {name: 'Marcos'}),
+    html: i18n.en.get('common/welcome_email_text', {name: 'Marcos'})
 }, function (err, info) {
     console.log(err);
     console.log(info);
