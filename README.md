@@ -37,6 +37,16 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 ```
 
+### using RabbitMQ Bigwig
+
+heroku provides a free (RabbitMQ
+plugin)[https://elements.heroku.com/addons/rabbitmq-bigwig] which can be
+installed with the following command:
+
+```bash
+heroku addons:create rabbitmq-bigwig:pipkin
+```
+
 ### thanks
 
 * development (free) emails sent by [mailgun](http://www.mailgun.com/)
