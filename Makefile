@@ -39,4 +39,5 @@ rabbitmq:
 	if [ ! -d build/rabbitmq_server-$(rabbitmq_version) ]; then \
         tar -xf build/rabbitmq-$(rabbitmq_version).tar.gz -C build; fi
 	echo "build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
+	echo "http://localhost:15672/"
 	build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
