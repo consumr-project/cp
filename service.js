@@ -2,7 +2,7 @@
 
 require('newrelic');
 
-var email_transport, rabbitmq_conn;
+var email_transport, amqp_connection;
 
 var Message = require('./src/message'),
     email = require('./src/email');
@@ -29,9 +29,9 @@ email_transport = transport(smtpPool({
 email_transport.use('compile', require('nodemailer-html-to-text').htmlToText());
 email_transport.use('compile', require('nodemailer-plugin-inline-base64'));
 
-rabbitmq_conn = amqp.createConnection({ host: config('amqp.host') });
-rabbitmq_conn.on('ready', function () {
-    rabbitmq_conn.queue(config('amqp.queues.emails'), {
+amqp_connection = amqp.createConnection({ host: config('amqp.host') });
+amqp_connection.on('ready', function () {
+    amqp_connection.queue(config('amqp.queues.emails'), {
         durable: true,
         autoDelete: false
     }, function (q) {
@@ -41,7 +41,7 @@ rabbitmq_conn.on('ready', function () {
     });
 
     setInterval(function () {
-        email.queue(rabbitmq_conn, 'welcome', {
+        email.queue(amqp_connection, 'welcome', {
             email: 'minond.marcos@gmail.com',
             name: 'Marcos',
             lang: 'en'
