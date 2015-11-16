@@ -1,0 +1,42 @@
+<div style="
+  max-width: 600px;
+  cursor: default;
+">
+  <img style="
+      width: 200px;
+      margin-bottom: 20px;"
+    alt="consumr project"
+    src="http://consumr-project.herokuapp.com/assets/images/consumrproject-text.png" />
+
+  <p style="
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 25px;"
+  ><%- i18n.get('common/welcome_email_text', { name: user.name }) %></p>
+
+  <div style="
+    border-top: 1px solid #D6D6D6;
+    margin-top: 30px;
+    margin-bottom: 20px;"
+  ></div>
+  <center>
+    <div style="
+      display: inline-block;
+      margin: 0 10px;"
+    >
+      <a href="" style="
+        color: gray;
+        text-decoration: none;
+      ">consumrproject.org</a>
+    </div>
+    <div style="
+      display: inline-block;
+      margin: 0 10px;"
+    >
+      <a href="" style="
+        color: gray;
+        text-decoration: none;
+      "><%- i18n.get('common/unsubscribe') %></a>
+    </div>
+  </center>
+</div>
