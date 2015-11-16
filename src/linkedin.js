@@ -109,6 +109,7 @@ module.exports = function (app, config, firebase) {
                 ref.child('loginProvider').set(user.loginProvider);
                 ref.child('summary').set(user.summary);
                 ref.child('title').set(user.title);
+                ref.child('lang').set('en');
             });
         })(req, res, next);
     }
