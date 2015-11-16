@@ -37,6 +37,7 @@ email = Transport(smtpPool({
 
 // https://github.com/werk85/node-html-to-text/blob/3773ad5ebb/README.md#options
 email.use('compile', require('nodemailer-html-to-text').htmlToText());
+email.use('compile', require('nodemailer-plugin-inline-base64'));
 
 email.sendMail({
     from: config('email.addresses.do_not_reply'),
