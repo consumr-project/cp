@@ -3,7 +3,11 @@
 var KNOWN_EMAILS = ['welcome'];
 
 var Message = require('./message'),
-    config = require('acm');
+    config = require('acm'),
+    debug = require('debug');
+
+var log = debug('email'),
+    log_error = debug('email:error');
 
 var templates;
 
@@ -44,7 +48,7 @@ function queue(connection, email_to_send, payload) {
 /**
  * @param {nodemailer.Transport} transport
  * @param {Message} message
- * @param {Function} callback
+ * @param {Function} [callback]
  */
 function send(transport, message, callback) {
     var lang, subject;
@@ -58,6 +62,7 @@ function send(transport, message, callback) {
 
     lang = message.payload.lang || 'en';
     subject = message.subject;
+    callback = callback || function () {};
 
     transport.sendMail({
         from: config('email.addresses.do_not_reply'),
@@ -69,9 +74,22 @@ function send(transport, message, callback) {
             styles: templates.styles,
             i18n: templates.i18n[lang]
         })
-    }, callback);
+    }, function (err, info) {
+        logStatus(err);
+        callback(err, info);
+    });
 }
 
-module.exports.init = init;
+/**
+ * @param {Error} [err]
+ */
+function logStatus(err) {
+    if (err) {
+        log_error('error sending email', err);
+    } else {
+        log('successfully sent email');
+    }
+}
+
 module.exports.queue = queue;
 module.exports.send = send;
