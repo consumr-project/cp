@@ -39,8 +39,8 @@ heroku config:set DEBUG=*
 
 ### using RabbitMQ Bigwig
 
-heroku provides a free (RabbitMQ
-plugin)[https://elements.heroku.com/addons/rabbitmq-bigwig] which can be
+heroku provides a free [RabbitMQ
+plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
 installed with the following command:
 
 ```bash
