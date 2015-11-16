@@ -21,7 +21,6 @@
     "amqp": "^0.2.4",
     "commander": "^2.9.0",
     "debug": "^2.2.0",
-    "firebase": "^2.3.1",
     "glob": "^6.0.1",
     "lodash": "^3.10.1",
     "messageformat": "^0.2.2",
