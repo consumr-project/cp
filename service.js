@@ -5,9 +5,9 @@ require('newrelic');
 var email_transport, rabbitmq_conn;
 
 var Message = require('./src/message'),
-    Email = require('./src/email');
+    email = require('./src/email');
 
-var Transport = require('nodemailer').createTransport,
+var transport = require('nodemailer').createTransport,
     smtpPool = require('nodemailer-smtp-pool'),
     amqp = require('amqp');
 
@@ -15,7 +15,7 @@ var config = require('acm'),
     debug = require('debug'),
     log = debug('service');
 
-email_transport = Transport(smtpPool({
+email_transport = transport(smtpPool({
     service: config('email.service.name'),
     maxConnections: config('email.smtp_pool.max_connections'),
     maxMessages: config('email.smtp_pool.max_messages'),
@@ -36,12 +36,12 @@ rabbitmq_conn.on('ready', function () {
         autoDelete: false
     }, function (q) {
         q.subscribe(function (message) {
-            Email.send(email_transport, new Message(message));
+            email.send(email_transport, new Message(message));
         });
     });
 
     setInterval(function () {
-        Email.queue(rabbitmq_conn, 'welcome', {
+        email.queue(rabbitmq_conn, 'welcome', {
             email: 'minond.marcos@gmail.com',
             name: 'Marcos',
             lang: 'en'

@@ -27,6 +27,8 @@ function init() {
         i18n: require('../build/i18n'),
         styles: yaml(read('./templates/styles.yml').toString()),
         images: yaml(read('./templates/images.yml').toString()),
+
+        base: tmpl(read('./templates/base.tmpl')),
         welcome: tmpl(read('./templates/welcome.tmpl'))
     };
 
@@ -54,7 +56,7 @@ function queue(connection, email_to_send, payload) {
  * @param {Function} [callback]
  */
 function send(transport, message, callback) {
-    var lang, subject;
+    var lang, subject, template_data, html;
 
     init();
 
@@ -67,16 +69,21 @@ function send(transport, message, callback) {
     subject = message.subject;
     callback = callback || function () {};
 
+    template_data = {
+        payload: message.payload,
+        images: templates.images,
+        styles: templates.styles,
+        i18n: templates.i18n[lang]
+    };
+
+    template_data.body = templates[message.subject](template_data);
+    html = templates.base(template_data);
+
     transport.sendMail({
         from: config('email.addresses.do_not_reply'),
         to: message.payload.email,
         subject: templates.i18n[lang].get('common/' + subject + '_email_subject', message.payload),
-        html: templates[message.subject]({
-            payload: message.payload,
-            images: templates.images,
-            styles: templates.styles,
-            i18n: templates.i18n[lang]
-        })
+        html: html
     }, function (err, info) {
         logStatus(message, err);
         callback(err, info);
