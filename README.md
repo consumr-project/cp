@@ -37,7 +37,7 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 ```
 
-### using RabbitMQ Bigwig
+#### using rabbitmq through heroku
 
 heroku provides a free [RabbitMQ
 plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
