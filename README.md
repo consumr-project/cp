@@ -47,6 +47,10 @@ installed with the following command:
 heroku addons:create rabbitmq-bigwig:pipkin
 ```
 
+### development
+
+a local instance of RabbitMQ can be downloaded and started by running `make rabbitmq`
+
 ### thanks
 
 * development (free) emails sent by [mailgun](http://www.mailgun.com/)
