@@ -41,7 +41,7 @@ email.use('compile', require('nodemailer-plugin-inline-base64'));
 
 email.sendMail({
     from: config('email.addresses.do_not_reply'),
-    to: config('email.service.user'),
+    to: 'minond.marcos@gmail.com',
     subject: i18n.en.get('common/welcome_email_subject'),
     html: templates.welcome({
         user: { name: 'Marcos' },

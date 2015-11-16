@@ -39,7 +39,7 @@ heroku config:set DEBUG=*
 
 ### thanks
 
-development (free) emails sent by [mailgun](http://www.mailgun.com/)
+* development (free) emails sent by [mailgun](http://www.mailgun.com/)
 
 ### reading
 
