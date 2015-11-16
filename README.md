@@ -35,6 +35,10 @@ heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
 ```
 
+### development
+
+a local instance of Elasticsearch can be downloaded and started by running `make elasticsearch`
+
 ### thanks
 
 * development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)

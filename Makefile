@@ -12,7 +12,8 @@ install:
 service:
 	node service
 
-es:
+es: elasticsearch
+elasticsearch:
 	if [ ! -d build ]; then mkdir build; fi
 	if [ ! -f build/elasticsearch-$(es_version).zip ]; then \
         wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$(es_version).zip \
