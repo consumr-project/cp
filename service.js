@@ -19,6 +19,7 @@ var i18n = require('./build/i18n'),
 
 var templates = {
     styles: yaml(read('./templates/styles.yml').toString()),
+    images: yaml(read('./templates/images.yml').toString()),
     welcome: tmpl(read('./templates/welcome.tmpl'))
 };
 
@@ -43,6 +44,7 @@ email.sendMail({
     subject: i18n.en.get('common/welcome_email_subject'),
     html: templates.welcome({
         user: { name: 'Marcos' },
+        images: templates.images,
         styles: templates.styles,
         i18n: i18n.en
     })
