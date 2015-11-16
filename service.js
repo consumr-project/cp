@@ -48,3 +48,6 @@ rabbitmq_conn.on('ready', function () {
         });
     }, 2000);
 });
+
+log('amqp running in %s', config('amqp.host'));
+log('sending emails through %s (%s)', config('email.service.name'), config('email.service.user'));
