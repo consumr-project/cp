@@ -5,7 +5,8 @@ require('newrelic');
 var firebase, email;
 
 var Firebase = require('firebase'),
-    Transport = require('nodemailer').createTransport;
+    Transport = require('nodemailer').createTransport,
+    smtpPool = require('nodemailer-smtp-pool');
 
 var config = require('acm'),
     debug = require('debug'),
@@ -20,13 +21,16 @@ var templates = {
 };
 
 firebase = new Firebase(config('firebase.url'));
-email = Transport({
+email = Transport(smtpPool({
     service: config('email.service.name'),
+    maxConnections: config('email.smtp_pool.max_connections'),
+    maxMessages: config('email.smtp_pool.max_messages'),
+    rateLimit: config('email.smtp_pool.rate_limit'),
     auth: {
         user: config('email.service.user'),
         pass: config('email.service.pass')
     }
-});
+}));
 
 // https://github.com/werk85/node-html-to-text/blob/3773ad5ebb/README.md#options
 email.use('compile', require('nodemailer-html-to-text').htmlToText());
