@@ -37,5 +37,4 @@ heroku config:set DEBUG=*
 
 ### thanks
 
-development (free) elasticsearch hosting provided by
-[facet flow](https://facetflow.com/)
+* development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)
