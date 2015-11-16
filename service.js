@@ -36,21 +36,15 @@ rabbitmq_conn.on('ready', function () {
         autoDelete: false
     }, function (q) {
         q.subscribe(function (message) {
-            console.log(message);
+            Email.send(email_transport, new Message(message));
         });
     });
 
     setInterval(function () {
-        Email.queue(rabbitmq_conn, 'welcome', new Message({
-            type: Message.TYPE.EMAIL,
-            subject: 'welcome',
-            payload: {
-                email: 'minond.marcos@gmail.com',
-                name: 'Marcos',
-                lang: 'en'
-            }
-        }));
+        Email.queue(rabbitmq_conn, 'welcome', {
+            email: 'minond.marcos@gmail.com',
+            name: 'Marcos',
+            lang: 'en'
+        });
     }, 2000);
 });
-
-// Email.send(email_transport, message);

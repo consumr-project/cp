@@ -38,11 +38,14 @@ function init() {
  * @param {Object} payload
  */
 function queue(connection, email_to_send, payload) {
-    connection.publish(config('amqp.queues.emails'), new Message({
+    var message = new Message({
         type: Message.TYPE.EMAIL,
         subject: email_to_send,
         payload: payload
-    }));
+    });
+
+    connection.publish(config('amqp.queues.emails'), message);
+    log('queued email %s', message.id);
 }
 
 /**
@@ -75,19 +78,20 @@ function send(transport, message, callback) {
             i18n: templates.i18n[lang]
         })
     }, function (err, info) {
-        logStatus(err);
+        logStatus(message, err);
         callback(err, info);
     });
 }
 
 /**
+ * @param {Message} message
  * @param {Error} [err]
  */
-function logStatus(err) {
+function logStatus(message, err) {
     if (err) {
-        log_error('error sending email', err);
+        log_error('error sending email %s', message.id, err);
     } else {
-        log('successfully sent email');
+        log('successfully sent email %s', message.id);
     }
 }
 
