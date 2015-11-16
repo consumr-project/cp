@@ -26,6 +26,7 @@
     "messageformat": "^0.2.2",
     "newrelic": "^1.23.1",
     "nodemailer": "^1.10.0",
+    "nodemailer-html-to-text": "^1.0.2",
     "yamljs": "^0.2.4"
   }
 }

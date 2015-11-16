@@ -28,13 +28,16 @@ email = Transport({
     }
 });
 
+// https://github.com/werk85/node-html-to-text/blob/3773ad5ebb/README.md#options
+email.use('compile', require('nodemailer-html-to-text').htmlToText());
+
 email.sendMail({
     from: config('email.addresses.do_not_reply'),
     to: config('email.service.user'),
     subject: i18n.en.get('common/welcome_email_subject'),
-    text: templates.welcome({ user: { name: 'Marcos' }, i18n: i18n.en }),
     html: templates.welcome({ user: { name: 'Marcos' }, i18n: i18n.en })
 }, function (err, info) {
     console.log(err);
     console.log(info);
+    process.exit(0);
 });
