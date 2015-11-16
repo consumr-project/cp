@@ -14,9 +14,11 @@ var config = require('acm'),
 
 var i18n = require('./build/i18n'),
     tmpl = require('lodash/string/template'),
+    yaml = require('yamljs').parse,
     read = require('fs').readFileSync;
 
 var templates = {
+    styles: yaml(read('./templates/styles.yml').toString()),
     welcome: tmpl(read('./templates/welcome.tmpl'))
 };
 
@@ -39,7 +41,11 @@ email.sendMail({
     from: config('email.addresses.do_not_reply'),
     to: config('email.service.user'),
     subject: i18n.en.get('common/welcome_email_subject'),
-    html: templates.welcome({ user: { name: 'Marcos' }, i18n: i18n.en })
+    html: templates.welcome({
+        user: { name: 'Marcos' },
+        styles: templates.styles,
+        i18n: i18n.en
+    })
 }, function (err, info) {
     console.log(err);
     console.log(info);
