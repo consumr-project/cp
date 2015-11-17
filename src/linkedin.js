@@ -7,6 +7,53 @@ var FirebaseToken = require('firebase-token-generator'),
     md5 = require('md5');
 
 /**
+ * get the value of a property from the first object that has it
+ * @param {String} prop
+ * @param {Object[]} objs
+ * @return {*}
+ */
+function getFrom(prop, objs) {
+    for (var i = 0, len = objs.length; i < len; i++) {
+        if (objs[i] && objs[i][prop] !== null && objs[i][prop] !== undefined) {
+            return objs[i][prop];
+        }
+    }
+
+    return '';
+}
+
+/**
+ * @param {Object} user_data raw user information from login provider
+ * @return {Function} see docs below
+ * @param {Object} user_ref object we're sending back to firebase
+ * @return {Object} populated user_ref
+ */
+function populateUser(user_data) {
+    return function (user_ref) {
+        if (!user_ref) {
+            user_ref = {};
+        }
+
+        user_ref.avatarUrl = getFrom('avatarUrl', [user_ref, user_data]);
+        user_ref.companyName = getFrom('companyName', [user_ref, user_data]);
+        user_ref.dateCreated = user_ref.dateCreated || Date.now();
+        user_ref.dateLastLogin = Date.now();
+        user_ref.dateModified = user_ref.dateCreated || Date.now();
+        user_ref.email = getFrom('email', [user_ref, user_data]);
+        user_ref.fullName = getFrom('fullName', [user_ref, user_data]);
+        user_ref.guid = getFrom('guid', [user_ref, user_data]);
+        user_ref.lang = 'en';
+        user_ref.linkedinId = getFrom('linkedinId', [user_ref, user_data]);
+        user_ref.linkedinUrl = getFrom('linkedinUrl', [user_ref, user_data]);
+        user_ref.loginProvider = getFrom('loginProvider', [user_ref, user_data]);
+        user_ref.summary = getFrom('summary', [user_ref, user_data]);
+        user_ref.title = getFrom('title', [user_ref, user_data]);
+
+        return user_ref;
+    };
+}
+
+/**
  * @param {express} app
  * @param {acm} config
  * @param {Firebase} firebase
@@ -81,35 +128,24 @@ module.exports = function (app, config, firebase) {
      * @param {Function} next
      */
     function linkedinCallback(req, res, next) {
-        passport.authenticate('linkedin', function (err, user) {
+        passport.authenticate('linkedin', function (err, user_data) {
             firebase.auth(firebase_secret, function () {
-                var tok, ref;
+                var tok;
 
                 firebase.child('oAuthToken')
-                    .child(user.guid)
-                    .set(user.accessToken);
+                    .child(user_data.guid)
+                    .set(user_data.accessToken);
 
-                if (user) {
-                    tok = token.createToken({ uid: user.uid });
+                if (user_data) {
+                    tok = token.createToken({ uid: user_data.uid });
                 }
 
                 firebase.child(req.signedCookies[session_cookie])
                     .set(tok);
 
-                ref = firebase.child('user')
-                    .child(user.guid);
-
-                ref.child('avatarUrl').set(user.avatarUrl);
-                ref.child('email').set(user.email);
-                ref.child('fullName').set(user.fullName);
-                ref.child('companyName').set(user.companyName);
-                ref.child('guid').set(user.guid);
-                ref.child('linkedinId').set(user.linkedinId);
-                ref.child('linkedinUrl').set(user.linkedinUrl);
-                ref.child('loginProvider').set(user.loginProvider);
-                ref.child('summary').set(user.summary);
-                ref.child('title').set(user.title);
-                ref.child('lang').set('en');
+                firebase.child('user')
+                    .child(user_data.guid)
+                    .transaction(populateUser(user_data));
             });
         })(req, res, next);
     }
