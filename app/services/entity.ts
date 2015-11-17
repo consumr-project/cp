@@ -44,35 +44,33 @@ export function get(store: Firebase, guid: string): Q.Promise<any> {
 
 export function put(store: Firebase, data: any, fields?: Array<string>): Q.Promise<Firebase> {
     var def: Q.Deferred<any> = Q.defer(),
-        now: number = new Date().valueOf(),
-        ref: Firebase;
+        now: number = new Date().valueOf();
 
     if (!data.guid) {
         def.reject(new Error('Missing required property: guid'));
         return def.promise;
     }
 
-    ref = store.child(data.guid);
-    fields = fields || keys(data);
-    each(fields, (field) => ref.child(field).set(data[field] || ''));
+    store.child(data.guid).transaction(stored => {
+        if (!stored) {
+            stored = {};
+        }
 
-    ref.child('dateModified').set(now, (err) => {
+        stored.dateCreated = stored.dateCreated || Date.now();
+        stored.dateModified = Date.now();
+
+        each(fields || keys(data), field => {
+            stored[field] = data[field] || stored[field] || '';
+        });
+
+        return stored;
+    }, (err, committed, ref) => {
         if (err) {
             def.reject(err);
         } else {
             def.resolve(ref);
         }
     });
-
-    if (data.dateCreated) {
-        ref.child('dateCreated').set(data.dateCreated);
-    } else {
-        ref.child('dateCreated').once('value', (dateCreated) => {
-            if (!dateCreated.val()) {
-                ref.child('dateCreated').set(now);
-            }
-        });
-    }
 
     return def.promise;
 }
