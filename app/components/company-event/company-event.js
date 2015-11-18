@@ -100,7 +100,6 @@ $scope.$apply();
                 source.title = content.title;
                 source.date = content.published;
                 source.$date = new Date(content.published);
-                source.description = content.description;
             }
 
             /**
