@@ -1,8 +1,6 @@
 ## services
 
-### monitoring
-
-#### newrelic
+### newrelic
 
 follow
 [newrelic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
