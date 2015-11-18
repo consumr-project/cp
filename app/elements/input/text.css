@@ -56,6 +56,10 @@ form h2 {
     margin-bottom: var(--spacing-medium);
 }
 
+.form--listed section:not(:first-child) {
+    margin-top: var(--spacing-medium);
+}
+
 .form--listed label {
     display: block;
     padding: 5px 0;
@@ -74,4 +78,11 @@ form h2 {
 .form--listed input,
 .form--listed textarea {
     min-width: 100%;
+}
+
+.form--listed label input[type="radio"] + span,
+.form--listed label input[type="checkbox"] + span {
+    margin-left: 4px;
+    position: relative;
+    top: 1px;
 }

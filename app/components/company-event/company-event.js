@@ -48,17 +48,12 @@ $scope.$apply();
              * @return {Promise<extract.PageExtract>}
              */
             function fetchContent(source) {
+                source.$loading = true;
                 return extractPage(source.url).then(function (content) {
+                    source.$loading = false;
                     content.data.$source = source;
                     return content.data;
                 });
-            }
-
-            /**
-             * @param {Boolean} [loading] (false: false, *: true)
-             */
-            function isLoading(loading) {
-                $scope.vm.fetchingSource = loading !== false;
             }
 
             /**
@@ -69,11 +64,9 @@ $scope.$apply();
                 $q.all(
                     _(update)
                         .difference(prev)
-                        .each(isLoading)
                         .map(fetchContent)
                         .value()
                 ).then(function (contents) {
-                    isLoading(false);
                     _.each(contents, populateSourceFromContent);
                     populateEvent($scope.ev, contents[0]);
                 });

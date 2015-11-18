@@ -2,17 +2,35 @@
     <h2 i18n="company/add_event"></h2>
 
     <section>
-        <label i18n="company/field_source"></label>
-        <input type="text" ng-model="ev.sources[0].url" autofocus="true"
-            ng-class="{ loading: vm.fetchingSource }" />
-    </section>
-
-    <section>
         <label i18n="company/field_sentiment"></label>
+        <label>
+            <input type="radio" name="sentiment" value="1" ng-model="ev.sentiment" />
+            <span i18n="company/field_sentiment_positive"></span>
+        </label>
+        <label>
+            <input type="radio" name="sentiment" value="-1" ng-model="ev.sentiment" />
+            <span i18n="company/field_sentiment_negative"></span>
+        </label>
+        <label>
+            <input type="radio" name="sentiment" value="0" ng-model="ev.sentiment" />
+            <span i18n="company/field_sentiment_neutral"></span>
+        </label>
     </section>
 
     <section>
         <label i18n="company/field_topic"></label>
+        <label>
+            <input type="radio" name="topic" value="human_rights" ng-model="ev.topic" />
+            <span>human rights</span>
+        </label>
+        <label>
+            <input type="radio" name="topic" value="environmental" ng-model="ev.topic" />
+            <span>environmental</span>
+        </label>
+        <label>
+            <input type="radio" name="topic" value="animal_rights" ng-model="ev.topic" />
+            <span>animal rights</span>
+        </label>
     </section>
 
     <section>
@@ -32,7 +50,7 @@
             <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>
 
             <label i18n="company/field_source"></label>
-            <input type="text" ng-model="source.url" />
+            <input type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />
             <label i18n="company/field_title"></label>
             <input type="text" ng-model="source.title" />
             <label i18n="company/field_pub_date"></label>

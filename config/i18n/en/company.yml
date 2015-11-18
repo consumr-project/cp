@@ -7,6 +7,9 @@ source_title: Source {number}
 
 field_source: Official source url
 field_sentiment: Choose which sentiment best describes the event
+field_sentiment_positive: Positive
+field_sentiment_negative: Negative
+field_sentiment_neutral: Neutral
 field_topic: Choose which topic best describes the event
 field_title: Title of the event
 field_date: Event date
