@@ -40,7 +40,7 @@ $scope.$apply();
              * @return {Promise}
              */
             function extractPage(url) {
-                return $http.get('/extract/page?url=' + encodeURIComponent(url));
+                return $http.get('/service/extract/page?url=' + encodeURIComponent(url));
             }
 
             /**
