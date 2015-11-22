@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/consumr-project/auth-service",
   "dependencies": {
+    "acm": "^2.0.1",
     "deep-get-set": "^0.1.1",
+    "express": "^4.13.3",
+    "firebase": "^2.3.2",
     "firebase-passport-login": "rigidflame/firebase-passport-login#e6afd6b6e8a16c609dde804f1cf8dbe90b599a39",
     "firebase-token-generator": "^2.0.0",
     "md5": "^2.0.0",

@@ -1,10 +1,26 @@
 'use strict';
 
-var FirebaseToken = require('firebase-token-generator'),
-    LinkedInStrategy = require('passport-linkedin').Strategy,
+var Firebase = require('firebase'),
+    FirebaseToken = require('firebase-token-generator'),
+    LinkedInStrategy = require('passport-linkedin').Strategy;
+
+var config = require('acm'),
     passport = require('passport'),
+    url = require('url'),
     getset = require('deep-get-set'),
     md5 = require('md5');
+
+var firebase_secret = config('firebase.secret'),
+    session_cookie = config('session.cookie');
+
+/**
+ * @param {http.Request}
+ * @return {String}
+ */
+function getCallbackUrl(req) {
+    var parts = url.parse(req.originalUrl);
+    return req.protocol + '://' + req.get('host') + parts.pathname + '/callback';
+}
 
 /**
  * get the value of a property from the first object that has it
@@ -54,25 +70,43 @@ function populateUser(user_data) {
 }
 
 /**
- * @param {express} app
- * @param {acm} config
- * @param {Firebase} firebase
+ * @param {String} access
+ * @param {String} refresh
+ * @param {Object} profile
+ * @param {Function} done
  */
-module.exports = function (app, config, firebase) {
-    var token, linkedin;
+function loginHandler(access, refresh, profile, done) {
+    var guid = md5(profile.provider + profile.id);
 
-    var firebase_secret = config('firebase.secret'),
-        linkedin_client_id = config('linkedin.client_id'),
-        linkedin_client_secret = config('linkedin.client_secret'),
-        session_cookie = config('session.cookie'),
-        session_domain = config('session.domain');
+    return done(null, {
+        accessToken: access,
+        avatarUrl: profile._json.pictureUrl,
+        email: profile._json.emailAddress,
+        fullName: profile.displayName,
+        companyName: getset(profile._json, 'positions.values.0.company.name'),
+        guid: guid,
+        linkedinId: profile.id,
+        linkedinUrl: profile._json.publicProfileUrl,
+        loginProvider: profile.provider,
+        refreshToken: refresh,
+        summary: profile._json.summary,
+        title: profile._json.headline,
+        uid: guid
+    });
+}
 
-    token = new FirebaseToken(firebase_secret);
+module.exports = function () {
+    var firebase = new Firebase(config('firebase.url')),
+        token = new FirebaseToken(firebase_secret);
 
-    linkedin = new LinkedInStrategy({
-        consumerKey: linkedin_client_id,
-        consumerSecret: linkedin_client_secret,
-        callbackURL: session_domain + 'auth/linkedin/callback',
+    /**
+     * NOTE callbackURL is set on the first request/call to `linkedinLogin`
+     * since we don't know where these endpoints were mounted to
+     */
+    var linkedin = new LinkedInStrategy({
+        consumerKey: config('linkedin.client_id'),
+        consumerSecret: config('linkedin.client_secret'),
+        callbackURL: '',
         profileFields: [
             'id',
             'first-name',
@@ -85,42 +119,6 @@ module.exports = function (app, config, firebase) {
             'public-profile-url'
         ]
     }, loginHandler);
-
-    /**
-     * @param {String} access
-     * @param {String} refresh
-     * @param {Object} profile
-     * @param {Function} done
-     */
-    function loginHandler(access, refresh, profile, done) {
-        var guid = md5(profile.provider + profile.id);
-
-        return done(null, {
-            accessToken: access,
-            avatarUrl: profile._json.pictureUrl,
-            email: profile._json.emailAddress,
-            fullName: profile.displayName,
-            companyName: getset(profile._json, 'positions.values.0.company.name'),
-            guid: guid,
-            linkedinId: profile.id,
-            linkedinUrl: profile._json.publicProfileUrl,
-            loginProvider: profile.provider,
-            refreshToken: refresh,
-            summary: profile._json.summary,
-            title: profile._json.headline,
-            uid: guid
-        });
-    }
-
-    /**
-     * @param {http.Request} req
-     * @param {http.Response} res
-     * @param {Function} next
-     */
-    function linkedinLogin(req, res, next) {
-        res.cookie(session_cookie, req.query.oAuthTokenPath, { signed: true });
-        passport.authenticate('linkedin', { state: '_____' })(req, res, next);
-    }
 
     /**
      * @param {http.Request} req
@@ -150,7 +148,20 @@ module.exports = function (app, config, firebase) {
         })(req, res, next);
     }
 
-    passport.use(linkedin);
-    app.get('/auth/linkedin', linkedinLogin);
-    app.get('/auth/linkedin/callback', linkedinCallback);
+    /**
+     * @param {http.Request} req
+     * @param {http.Response} res
+     * @param {Function} next
+     */
+    function linkedinLogin(req, res, next) {
+        linkedin._callbackURL = getCallbackUrl(req);
+        res.cookie(session_cookie, req.query.oAuthTokenPath, { signed: true });
+        passport.authenticate('linkedin', { state: '_____' })(req, res, next);
+    }
+
+    return {
+        strategy: linkedin,
+        login: linkedinLogin,
+        callback: linkedinCallback
+    };
 };

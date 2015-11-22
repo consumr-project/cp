@@ -27,5 +27,4 @@ heroku config:set FIREBASE_SECRET=$(echo $FIREBASE_SECRET)
 heroku config:set LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
 heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
 heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
-heroku config:set SESSION_DOMAIN=$(heroku apps:info -s | grep web-url | sed 's/web-url=//')
 ```
