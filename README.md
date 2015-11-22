@@ -9,7 +9,7 @@ this service is meant to be mounted into the
 [web-client](https://github.com/consumr-project/web-client)
 
 ```js
-app.use('/extract', require('./node_modules/extract-service/service'));
+app.use('/extract', require('extract-service'));
 ```
 
 ### deploying to heroku
