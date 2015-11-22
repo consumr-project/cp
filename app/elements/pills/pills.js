@@ -11,14 +11,24 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
         ROLE_SELECT = 'select';
 
     /**
+     * get an attribute overwrite
+     * @param {Object} config
+     * @param {String} label
+     * @return {String}
+     */
+    function attr(config, label) {
+        return config[label + 'Attr'] || label;
+    }
+
+    /**
      * @param {Object[]} selections
      * @param {Object} config
      * @return {Object[]}
      */
     function normalize(selections, config) {
-        var labelAttr = config.labelAttr || 'label',
-            typeAttr = config.typeAttr || 'type',
-            idAttr = config.idAttr || 'id';
+        var labelAttr = attr(config, 'label'),
+            typeAttr = attr(config, 'type'),
+            idAttr = attr(config, 'id');
 
         return _.map(selections, function (selection) {
             return {
@@ -29,40 +39,25 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
         });
     }
 
+    /**
+     * @param {Object[]} selections
+     * @param {String} id
+     * @param {Object} config
+     * @return {Object[]}
+     */
+    function without(selections, id, config) {
+        return _.without(selections,
+            _.find(selections,
+                _.zipObject([[attr(config, 'id'), id]])));
+    }
+
     function link(scope, elem, attrs) {
         var $input = elem.find('input');
 
         // XXX
-        scope.selections = [
-            { label: 'Marcos', id: 1 },
-            { label: 'Laura', id: 2 },
-            { label: 'Aryel', id: 3 },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-            { label: Math.random(), id: Math.random() },
-        ];
+        scope.selections = _.times(100, function () {
+            return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() };
+        });
 
         scope.pills = normalize(scope.selections, attrs);
         scope.options = normalize(scope.selections, attrs);
@@ -73,6 +68,9 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
             switch (ev.target.dataset.pillsRole) {
                 case ROLE_REMOVE:
                     console.log('removing %s', data);
+                    scope.selections = without(scope.selections, data, attrs);
+                    scope.pills = normalize(scope.selections, attrs);
+                    scope.$apply();
                     break;
 
                 case ROLE_SELECT:
@@ -92,8 +90,9 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
     return {
         replace: true,
         template: [
-            '<div class="pills-container">',
-'<pre>{{selections | json}}</pre>',
+            '<div class="pills-container is-non-selectable">',
+// XXX
+// '<pre>{{selections | json}}</pre>',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
                         '<div ',
