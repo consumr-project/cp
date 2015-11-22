@@ -8,6 +8,10 @@
     padding: 3px;
 }
 
+.pills-element__selections {
+    display: inline-block;
+}
+
 input.pills-element__input {
     border-color: transparent;
 }

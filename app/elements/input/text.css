@@ -11,9 +11,9 @@ input:not([type="radio"]) {
     word-break: normal;
 }
 
-textarea:focus,
-input:not([type="checkbox"]):focus,
-input:not([type="radio"]):focus {
+textarea:not(.no-interaction):focus,
+input:not(.no-interaction):not([type="checkbox"]):focus,
+input:not(.no-interaction):not([type="radio"]):focus {
     padding-left: 14px;
 }
 

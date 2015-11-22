@@ -81,7 +81,7 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
                                 'class="pills-element__pill__remove"></span>',
                         '</div>',
                     '</div>',
-                    '<input class="pills-element__input" />',
+                    '<input class="pills-element__input no-interaction" />',
                 '</div>',
                 '<div class="pills-results">',
                     '<div ',
