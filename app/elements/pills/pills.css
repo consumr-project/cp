@@ -14,6 +14,7 @@
 
 input.pills-element__input {
     border-color: transparent;
+    width: 100%;
 }
 
 .pills-element__pill {

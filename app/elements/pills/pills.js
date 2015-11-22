@@ -51,40 +51,62 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
                 _.zipObject([[attr(config, 'id'), id]])));
     }
 
+    /**
+     * @param {angular.Scope} $scope
+     * @param {angular.Attributes} $attrs
+     * @param {jQuery} $input field
+     * @param {jQuery.Event} $ev
+     */
+    function command($scope, $attrs, $input, $ev) {
+        var data = $ev.target.dataset.pillsData;
+
+        switch ($ev.target.dataset.pillsRole) {
+            case ROLE_REMOVE:
+                console.log('removing %s', data);
+                $scope.selections = without($scope.selections, data, $attrs);
+                break;
+
+            case ROLE_SELECT:
+                console.log('selecting %s', data);
+                break;
+
+            default:
+                $input.focus();
+                break;
+        }
+    }
+
+    /**
+     * @param {angular.Scope} $scope
+     * @param {angular.Attributes} $attrs
+     * @param {jQuery} $input field
+     * @param {jQuery.Event} $ev
+     */
+    function query($scope, $attrs, $input, $ev) {
+        if ($input.data('pillsLastValue') === $ev.target.value) {
+            return;
+        }
+
+        $input.data('pillsLastValue', $ev.target.value);
+        $input.addClass('loading');
+
+        $scope.query($ev.target.value, function (err, options) {
+            $scope.options = normalize(options, $attrs);
+            $scope.$apply();
+            $input.removeClass('loading');
+        });
+    }
+
     function controller($scope, $attrs) {
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
         });
     }
 
-    function link(scope, elem, attrs) {
-        var $input = elem.find('input');
-
-// XXX
-scope.selections = _.times(100, function () { return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() }; });
-scope.options = normalize(scope.selections, attrs);
-
-        elem.click(function (ev) {
-            var data = ev.target.dataset.pillsData;
-
-            switch (ev.target.dataset.pillsRole) {
-                case ROLE_REMOVE:
-                    console.log('removing %s', data);
-                    scope.selections = without(scope.selections, data, attrs);
-                    break;
-
-                case ROLE_SELECT:
-                    console.log('selecting %s', data);
-                    break;
-
-                default:
-                    $input.focus();
-                    break;
-            }
-        });
-
-        $input.keyup(function (ev) {
-        });
+    function link($scope, $elem, $attrs) {
+        var $input = $elem.find('input');
+        $elem.click(command.bind(null, $scope, $attrs, $input));
+        $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $input), 100));
     }
 
     return {
@@ -119,7 +141,7 @@ scope.options = normalize(scope.selections, attrs);
                 '</div>',
             '</div>'
         ].join(''),
-        scope: { selections: '=' },
+        scope: { selections: '=', query: '&', },
         controller: ['$scope', '$attrs', controller],
         link: link
     };
