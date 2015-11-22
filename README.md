@@ -5,17 +5,11 @@ things we buy, sell, and consume every day.
 
 ### usage
 
-this service is meant to be imported into the
+this service is meant to be mounted into the
 [web-client](https://github.com/consumr-project/web-client)
 
 ```js
-/**
- * app: express
- * config: acm
- * fb: Firebase
- */
-require('./node_modules/auth-service/src/main')(app);
-require('./node_modules/auth-service/src/linkedin')(app, config, fb);
+app.use('/auth', require('./node_modules/auth-service/service'));
 ```
 
 ### deploying to heroku
