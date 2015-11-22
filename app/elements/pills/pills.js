@@ -12,13 +12,13 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
 
     /**
      * @param {Object[]} selections
-     * @param {$attrs} attrs
+     * @param {Object} config
      * @return {Object[]}
      */
-    function normalize(selections, attrs) {
-        var labelAttr = attrs.labelAttr || 'label',
-            typeAttr = attrs.typeAttr || 'type',
-            idAttr = attrs.idAttr || 'id';
+    function normalize(selections, config) {
+        var labelAttr = config.labelAttr || 'label',
+            typeAttr = config.typeAttr || 'type',
+            idAttr = config.idAttr || 'id';
 
         return _.map(selections, function (selection) {
             return {
@@ -93,6 +93,7 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
         replace: true,
         template: [
             '<div class="pills-container">',
+'<pre>{{selections | json}}</pre>',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
                         '<div ',
