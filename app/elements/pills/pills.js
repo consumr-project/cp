@@ -11,6 +11,27 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
         ROLE_SELECT = 'select';
 
     /**
+     * @return {Number}
+     */
+    function now() {
+        return 'performance' in window && performance.now ?
+            performance.now() : Date.now();
+    }
+
+    /**
+     * stats object
+     * @param {Array} retults
+     * @param {Number} start time
+     * @return {Object} count and time props
+     */
+    function stats(results, start) {
+        return {
+            count: results.length,
+            time: (now() - start).toFixed(4).replace('.0000', '')
+        };
+    }
+
+    /**
      * get an attribute overwrite
      * @param {Object} config
      * @param {String} label
@@ -87,11 +108,13 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
             return;
         }
 
+        var start = now();
         $input.data('pillsLastValue', $ev.target.value);
         $input.addClass('loading');
 
         $scope.query($ev.target.value, function (err, options) {
             $scope.options = normalize(options, $attrs);
+            $scope.stats = stats(options, start);
             $scope.$apply();
             $input.removeClass('loading');
         });
@@ -105,7 +128,6 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
 // XXX
 function randopt() { return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() }; }
 $scope.selections = _.times(100, randopt);
-$scope.options = normalize($scope.selections, $attrs);
 $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(parseInt(Math.random()*100), randopt)); }, 2000); };
     }
 
@@ -119,8 +141,6 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
         replace: true,
         template: [
             '<div class="pills-container is-non-selectable">',
-// XXX
-// '<pre>{{selections | json}}</pre>',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
                         '<div ',
@@ -136,7 +156,11 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                     '</div>',
                     '<input class="pills-element__input no-interaction" />',
                 '</div>',
-                '<div class="pills-results">',
+                '<div class="pills-results" ng-if="options.length">',
+                    '<div class="pills-results__stats">',
+                        '<span class="pills-results__stats__stat">{{stats.count}} (res)</span>',
+                        '<span class="pills-results__stats__stat">{{stats.time}} (ms)</span>',
+                    '</div>',
                     '<div ',
                         'class="pills-results__option" ',
                         'ng-repeat="option in options" ',
