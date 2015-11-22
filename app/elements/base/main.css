@@ -137,5 +137,6 @@ table.table--bordered td {
 @import url("../indicator/indicator.css");
 @import url("../avatar/avatar.css");
 @import url("../followed-by/followed-by.css");
+@import url("../pills/pills.css");
 @import url("../popover/popover.css");
 @import url("../message/message.css");

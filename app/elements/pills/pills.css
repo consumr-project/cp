@@ -1,0 +1,63 @@
+.pills-container {
+    position: relative;
+}
+
+.pills-element {
+    border: 1px solid var(--color-std-border-color);
+    font-size: var(--font-size-normal);
+    padding: 3px;
+}
+
+input.pills-element__input {
+    border-color: transparent;
+}
+
+.pills-element__pill {
+    background-color: #D7EAF9;
+    border-radius: 1px;
+    border: 1px solid #9DB7CA;
+    color: #4975AC;
+    display: inline-block;
+    font-size: 0;
+    margin: 0 3px 3px 0;
+    padding: 3px;
+}
+
+.pills-element__pill__label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 12px;
+}
+
+.pills-element__pill__remove {
+    border-left: 1px solid #DADADA;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0px;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+.pills-element__pill__remove::after {
+    content: '✕';
+    font-size: 12px;
+}
+
+.pills-results {
+    background: white;
+    border: 1px solid var(--color-std-border-color);
+    position: absolute;
+    width: 100%;
+}
+
+.pills-results__option {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    transition: background-color .3s;
+}
+
+.pills-results__option:hover {
+    background: rgba(215, 234, 249, 0.5);
+}
