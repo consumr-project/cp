@@ -18,7 +18,7 @@ module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
     var store: Firebase = new Firebase(TCP_BUILD_CONFIG.firebase.url),
-        session: Session = startSession('/auth/', store),
+        session: Session = startSession('/service/auth/', store),
         deps: Array<string> = ['ngRoute', 'ngAria'];
 
     if (DEBUGGING) {

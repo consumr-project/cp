@@ -42,8 +42,7 @@ app.use(body_parser.json());
 app.use(cookie_parser(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
-require('./node_modules/auth-service/src/main')(app);
-require('./node_modules/auth-service/src/linkedin')(app, config, fb);
+app.use('/service/auth', require('./node_modules/auth-service/service'));
 app.use('/service/extract', require('./node_modules/extract-service/service'));
 
 app.get('*', function (req, res) {
