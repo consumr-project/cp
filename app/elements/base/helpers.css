@@ -79,7 +79,7 @@
     display: initial;
 }
 
-@media (--media-small-screens) {
+@media (--media-regular-screens) {
     .screen-small-only {
         display: none;
     }

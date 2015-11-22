@@ -93,8 +93,15 @@ header.site-content {
 
 table.table--content th {
     color: var(--color-std-header-color);
+    font-size: var(--font-size-xsmall);
     font-weight: lighter;
     text-transform: uppercase;
+}
+
+@media (--media-regular-screens) {
+    table.table--content th {
+        font-size: var(--font-size-small);
+    }
 }
 
 table.table--content th,

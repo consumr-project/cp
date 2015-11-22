@@ -2,6 +2,7 @@
     --font-height-normal: 30px;
     --font-size-normal: 16px;
     --font-size-small: 13px;
+    --font-size-xsmall: 10px;
 
     --font-height-h1: 37px;
     --font-size-h1: 35px;
@@ -54,4 +55,4 @@
 }
 
 @custom-media --media-content-max-width (max-width: 700px);
-@custom-media --media-small-screens (min-width: 600px);
+@custom-media --media-regular-screens (min-width: 600px);
