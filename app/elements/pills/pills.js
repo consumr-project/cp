@@ -51,16 +51,18 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
                 _.zipObject([[attr(config, 'id'), id]])));
     }
 
+    function controller($scope, $attrs) {
+        $scope.$watchCollection('selections', function (selections) {
+            $scope.pills = normalize(selections, $attrs);
+        });
+    }
+
     function link(scope, elem, attrs) {
         var $input = elem.find('input');
 
-        // XXX
-        scope.selections = _.times(100, function () {
-            return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() };
-        });
-
-        scope.pills = normalize(scope.selections, attrs);
-        scope.options = normalize(scope.selections, attrs);
+// XXX
+scope.selections = _.times(100, function () { return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() }; });
+scope.options = normalize(scope.selections, attrs);
 
         elem.click(function (ev) {
             var data = ev.target.dataset.pillsData;
@@ -69,8 +71,6 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
                 case ROLE_REMOVE:
                     console.log('removing %s', data);
                     scope.selections = without(scope.selections, data, attrs);
-                    scope.pills = normalize(scope.selections, attrs);
-                    scope.$apply();
                     break;
 
                 case ROLE_SELECT:
@@ -120,6 +120,7 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
             '</div>'
         ].join(''),
         scope: { selections: '=' },
+        controller: ['$scope', '$attrs', controller],
         link: link
     };
 }]);
