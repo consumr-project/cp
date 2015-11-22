@@ -2,6 +2,7 @@
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as Cookie from 'js-cookie';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
@@ -39,6 +40,7 @@ module tcp {
     angular.module('tcp')
         .value('Auth', session)
         .value('Cache', Cache)
+        .value('Cookie', Cookie)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('companies', entity.bind('company', store))
         .value('companyEvents', entity.bind('company-events', store))

@@ -3,13 +3,14 @@ angular.module('tcp').controller('AdminController', [
     'Auth',
     'utils',
     'users',
+    'Cookie',
     'lodash',
-    function ($scope, Auth, utils, users, _) {
+    function ($scope, Auth, utils, users, Cookie, _) {
         'use strict';
 
-        $scope.session = {
-            loggedIn: false
-        };
+        var COOKIE_SESSION = 'client:session';
+
+        $scope.session = Cookie.getJSON(COOKIE_SESSION) || {};
 
         $scope.actions = {
             show: null
@@ -37,6 +38,8 @@ angular.module('tcp').controller('AdminController', [
             $scope.actions.show = false;
         };
 
+        $scope.$watchCollection('session', _.curry(Cookie.set, 2)(COOKIE_SESSION));
+
         Auth.on(Auth.EVENT.LOGIN, function () {
             users.get(Auth.USER.uid).then(function (user) {
               _.extend(Auth.USER, user);
@@ -47,7 +50,7 @@ angular.module('tcp').controller('AdminController', [
         });
 
         Auth.on(Auth.EVENT.LOGOUT, function () {
-            $scope.session.loggedIn = false;
+            $scope.session = {};
         });
     }
 ]);

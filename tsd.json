@@ -31,6 +31,9 @@
     },
     "node/node.d.ts": {
       "commit": "e9be3cecf8a326d3e220c52b42d218169a7bb9f2"
+    },
+    "js-cookie/js-cookie.d.ts": {
+      "commit": "fa04c80f4a889613b96cb4f283848c61a9f64233"
     }
   }
 }
