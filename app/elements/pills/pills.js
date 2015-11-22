@@ -101,6 +101,12 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
         });
+
+// XXX
+function randopt() { return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() }; }
+$scope.selections = _.times(100, randopt);
+$scope.options = normalize($scope.selections, $attrs);
+$scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(parseInt(Math.random()*100), randopt)); }, 2000); };
     }
 
     function link($scope, $elem, $attrs) {
