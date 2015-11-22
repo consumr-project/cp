@@ -18,8 +18,7 @@ input:not(.no-interaction):not([type="radio"]):focus {
 }
 
 .search,
-input.search,
-input.search:focus {
+input.search {
     background-image: url(/assets/images/magnifying-class.svg);
     background-position: 10px;
     background-repeat: no-repeat;
@@ -27,8 +26,7 @@ input.search:focus {
     height: var(--computed-button-height);
 }
 
-input.search,
-input.search:focus {
+input.search {
     border-color: var(--color-std-border-color);
     border-radius: 100px;
     padding-left: var(--computed-button-height);

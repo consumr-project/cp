@@ -4,8 +4,10 @@
           title="{{::user.title}}" name="{{::user.fullName}}"
           image="{{::user.avatarUrl}}"></avatar>
 
-        <button ng-click="user.followersCount=user.followersCount+1"
-          class="margin-top-xlarge margin-bottom-xlarge" i18n="admin/follow"></button>
+        <div class="block">
+            <button ng-click="user.followersCount=user.followersCount+1"
+              class="margin-top-xlarge margin-bottom-xlarge" i18n="admin/follow"></button>
+        </div>
 
         <table class="table--content center-align">
             <tr>
