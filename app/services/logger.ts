@@ -16,17 +16,13 @@ export interface Logger {
     warn: LogFunction;
 }
 
-function label(name: string): string {
-    return `[${name}]`;
-}
-
 function timestamp(): string {
-    return `(${(new Date()).toJSON()})`;
+    return `${(new Date()).toJSON()}`;
 }
 
 function logFn(name: string, fn: string): LogFunction {
     return function (...args: Array<any>): void {
-        args[0] = `${label(name)} ${args[0]} ${timestamp()}`;
+        args[0] = `[${timestamp()}] ${name}: ${args[0]}`;
         console[fn].apply(console, args);
     };
 }

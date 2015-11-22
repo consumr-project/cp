@@ -3,10 +3,13 @@ angular.module('tcp').controller('AdminController', [
     'Auth',
     'utils',
     'users',
+    'logger',
     'Cookie',
     'lodash',
-    function ($scope, Auth, utils, users, Cookie, _) {
+    function ($scope, Auth, utils, users, logger, Cookie, _) {
         'use strict';
+
+        var log = logger('admin');
 
         // active session. cached in `client:session` cookie
         $scope.session = getSession();
@@ -34,6 +37,7 @@ angular.module('tcp').controller('AdminController', [
         Auth.on(Auth.EVENT.LOGOUT, clearSession);
 
         function loginWithLinkedin() {
+            log('loggin in with linkedin');
             $scope.login.hide();
             return Auth.login(Auth.PROVIDER.LINKEDIN);
         }
@@ -43,6 +47,7 @@ angular.module('tcp').controller('AdminController', [
         }
 
         function logout() {
+            log('logging out');
             Auth.logout();
             $scope.actions.show = false;
         }
@@ -51,7 +56,9 @@ angular.module('tcp').controller('AdminController', [
          * updates Auth.USER with additional information from store
          */
         function fetchCurrentUser() {
+            log('getting user information');
             return users.get(Auth.USER.uid).then(function (user) {
+                log('got user information');
                 _.extend(Auth.USER, user);
                 $scope.session.userAvatarUrl = user.avatarUrl;
                 $scope.session.loggedIn = true;
@@ -67,6 +74,7 @@ angular.module('tcp').controller('AdminController', [
          * @param {Object} session (see $scope.session)
          */
         function cacheSession(session) {
+            log('caching %o', Object.keys(session));
             return Cookie.set('client:session', session);
         }
 
