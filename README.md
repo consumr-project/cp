@@ -9,7 +9,7 @@ this service is meant to be mounted into the
 [web-client](https://github.com/consumr-project/web-client)
 
 ```js
-app.use('/auth', require('./node_modules/auth-service/service'));
+app.use('/auth', require('auth-service'));
 ```
 
 ### deploying to heroku
