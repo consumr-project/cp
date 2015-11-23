@@ -19,18 +19,7 @@
 
     <section>
         <label i18n="company/field_topic"></label>
-        <label>
-            <input type="radio" name="topic" value="human_rights" ng-model="ev.topic" />
-            <span>human rights</span>
-        </label>
-        <label>
-            <input type="radio" name="topic" value="environmental" ng-model="ev.topic" />
-            <span>environmental</span>
-        </label>
-        <label>
-            <input type="radio" name="topic" value="animal_rights" ng-model="ev.topic" />
-            <span>animal rights</span>
-        </label>
+        <pills selections="ev.$tags" query="queryTags(query, done)"></pills>
     </section>
 
     <section>

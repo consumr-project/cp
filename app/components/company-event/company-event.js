@@ -4,7 +4,10 @@ angular.module('tcp').directive('companyEvent', [
     'lodash',
     'utils',
     'keyword',
-    function ($q, $http, _, utils, keyword, events, companyEvents) {
+    'tags',
+    // 'events',
+    // 'companyEvents',
+    function ($q, $http, _, utils, keyword, tags, events, companyEvents) {
         'use strict';
 
         function controller($scope) {
@@ -17,7 +20,6 @@ angular.module('tcp').directive('companyEvent', [
                 sources: [],
             };
 
-            $scope.save = save;
             $scope.$watch('ev.sources', fetchSources, true);
 
 // XXX // $scope._ = { range: _.range };
@@ -29,11 +31,38 @@ $scope.ev.sources.push({url: 'http://www.bbc.com/news/world-europe-34742273'});
 $scope.$apply();
 }, 500);
 
-            function save() {
+            $scope.save = function () {
                 // events.put($scope.ev, ['date', 'description', 'keywords', 'sources', 'title'])
                 //     .then(function () { $scope.onSave(); })
                 //     .catch(function () { console.error('error saving', $scope.ev); });
-            }
+            };
+
+            $scope.queryTags = function (str, done) {
+                /**
+                 * @param {Object} tag
+                 * @param {String} id
+                 * @return {Object}
+                 */
+                function normalize(tag, id) {
+                    return {
+                        label: tag['en-US'],
+                        id: id
+                    };
+                }
+
+                /**
+                 * @param {Object} tag
+                 * @return {Boolean}
+                 */
+                function matches(tag) {
+                    return tag.label.toLowerCase().indexOf(str.toLowerCase()) !== -1;
+                }
+
+                done(null, _.chain(tags.all)
+                    .map(normalize)
+                    .filter(matches)
+                    .value());
+            };
 
             /**
              * @param {String} url
@@ -108,6 +137,12 @@ $scope.$apply();
              */
             function populateSourceFromContent(content) {
                 return populateSource(content.$source, content);
+            }
+
+            if (!tags.all) {
+                tags.store.once('value', function (res) {
+                    tags.all = res.val();
+                });
             }
         }
 

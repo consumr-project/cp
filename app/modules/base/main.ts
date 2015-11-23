@@ -47,12 +47,13 @@ module tcp {
         .value('entity', entity)
         .value('events', entity.bind('event', store))
         .value('i18n', i18n) // global
+        .value('keyword', keyword)
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
         .value('search', new Search(store.child('search')))
         .value('store', store)
-        .value('keyword', keyword)
+        .value('tags', entity.bind('tag', store))
         .value('users', entity.bind('user', store))
         .value('utils', utils)
         .value('wikipedia', wikipedia);

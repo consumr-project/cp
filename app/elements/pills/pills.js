@@ -4,7 +4,7 @@
  * @attribute {String} idAttr attribute to use in selections to get ids
  * @attribute {String} typeAttr attribute to use in selections to get types
  */
-angular.module('tcp').directive('pills', ['i18n', 'lodash', function (i18n, _) {
+angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', function ($document, i18n, _) {
     'use strict';
 
     var ROLE_REMOVE = 'remove',
@@ -84,16 +84,23 @@ angular.module('tcp').directive('pills', ['i18n', 'lodash', function (i18n, _) {
      * @param {jQuery.Event} $ev
      */
     function command($scope, $attrs, $input, $ev) {
-        var data = $ev.target.dataset.pillsData;
-
         switch ($ev.target.dataset.pillsRole) {
             case ROLE_REMOVE:
-                console.log('removing %s', data);
-                $scope.selections = without($scope.selections, data, $attrs);
+                console.log('removing %s', $ev.target.dataset.pillsData);
+                $scope.selections = without(
+                    $scope.selections,
+                    $ev.target.dataset.pillsData,
+                    $attrs
+                );
                 break;
 
             case ROLE_SELECT:
-                console.log('selecting %s', data);
+                console.log('selecting %s', $ev.target.dataset.pillsOptionId);
+                $scope.selections.push({
+                    id: $ev.target.dataset.pillsOptionId,
+                    label: $ev.target.dataset.pillsOptionLabel
+                });
+                $scope.options = unselected($scope.selections, $scope.options, $attrs);
                 break;
 
             default:
@@ -117,29 +124,65 @@ angular.module('tcp').directive('pills', ['i18n', 'lodash', function (i18n, _) {
         $input.data('pillsLastValue', $ev.target.value);
         $input.addClass('loading');
 
-        $scope.query($ev.target.value, function (err, options) {
-            $scope.options = normalize(options, $attrs);
-            $scope.stats = stats(options, start);
-            $scope.$apply();
-            $input.removeClass('loading');
+        $scope.query({
+            query: $ev.target.value,
+            done: function (err, options) {
+                if (!err) {
+                    options = unselected($scope.selections, options, $attrs);
+                    $scope.options = options;
+                    $scope.stats = stats(options, start);
+                    $scope.$apply();
+                }
+
+                $input.removeClass('loading');
+            }
         });
     }
 
+    /**
+     * get options without the ones that are already selected
+     * @param {Object[]} selected
+     * @param {Object[]} available
+     * @param {Object} config
+     * @return {Object[]}
+     */
+    function unselected(selected, available, config) {
+        available = normalize(available, config);
+        selected = normalize(selected, config);
+        selected = _.pluck(selected, 'id');
+
+        _.each(selected, function (id) {
+            available = without(available, id, config);
+        });
+
+        return available;
+    }
+
     function controller($scope, $attrs) {
+        if (!$scope.selections) {
+            $scope.selections = [];
+        }
+
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
         });
-
-// XXX
-function randopt() { return { label: Math.random().toString().substr(0, 15), id: Math.random().toString() }; }
-$scope.selections = _.times(100, randopt);
-$scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(parseInt(Math.random()*100), randopt)); }, 2000); };
     }
 
     function link($scope, $elem, $attrs) {
         var $input = $elem.find('input');
         $elem.click(command.bind(null, $scope, $attrs, $input));
         $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $input), 300));
+        $document.click(hideResults);
+        $scope.$on('$destroy', function () {
+            $document.off('click', hideResults);
+        });
+
+        function hideResults(ev) {
+            if (!$elem.has(ev.target).length) {
+                $scope.options = null;
+                $scope.$apply();
+            }
+        }
     }
 
     return {
@@ -167,7 +210,8 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                         'class="pills-results__option" ',
                         'ng-repeat="option in options" ',
                         'data-pills-role="select" ',
-                        'data-pills-data="{{::option.id}}" ',
+                        'data-pills-option-id="{{::option.id}}" ',
+                        'data-pills-option-label="{{::option.label}}" ',
                         'data-pills-option-type="{{::option.type || \'regular\'}}" ',
                     '>{{::option.label}}</div>',
                 '</div>',
