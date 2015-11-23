@@ -134,7 +134,7 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
     function link($scope, $elem, $attrs) {
         var $input = $elem.find('input');
         $elem.click(command.bind(null, $scope, $attrs, $input));
-        $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $input), 100));
+        $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $input), 300));
     }
 
     return {
@@ -147,7 +147,7 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                             'class="pills-element__pill" ',
                             'ng-repeat="pill in pills" ',
                             'data-pill-id="{{::pill.id}}" ',
-                            'data-pill-type="{{::pill.type}}"',
+                            'data-pill-type="{{::pill.type || \'regular\'}}"',
                         '>',
                             '<span class="pills-element__pill__label">{{::pill.label}}</span>',
                             '<span data-pills-role="remove" data-pills-data="{{::pill.id}}" ',
@@ -166,7 +166,7 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                         'ng-repeat="option in options" ',
                         'data-pills-role="select" ',
                         'data-pills-data="{{::option.id}}" ',
-                        'data-option-type="{{::option.type}}"',
+                        'data-pills-option-type="{{::option.type || \'regular\'}}" ',
                     '>{{::option.label}}</div>',
                 '</div>',
             '</div>'
