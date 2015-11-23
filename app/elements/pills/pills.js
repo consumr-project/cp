@@ -32,8 +32,7 @@ angular.module('tcp').directive('pills', ['i18n', 'lodash', function (i18n, _) {
         return {
             time: time,
             count: count,
-            humanCount: i18n.get('common/results_count_small', { count: count }),
-            humanTime: i18n.get('common/search_elapsed_time_ms', { time: time })
+            human: i18n.get('common/search_stats', { count: count, time: time })
         };
     }
 
@@ -163,10 +162,7 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                     '<input class="pills-element__input no-interaction" />',
                 '</div>',
                 '<div class="pills-results" ng-if="options.length">',
-                    '<div class="pills-results__stats">',
-                        '<span class="pills-results__stats__stat">{{stats.humanCount}}</span>',
-                        '<span class="pills-results__stats__stat">{{stats.humanTime}}</span>',
-                    '</div>',
+                    '<div class="pills-results__stats">{{stats.human}}</div>',
                     '<div ',
                         'class="pills-results__option" ',
                         'ng-repeat="option in options" ',

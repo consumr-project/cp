@@ -73,16 +73,9 @@ input.pills-element__input {
 }
 
 .pills-results__stats {
-    position: absolute;
-    right: 0;
-}
-
-.pills-results__stats__stat {
     color: var(--color-light-text-color);
     font-size: var(--font-size-xsmall);
-    padding: 5px 10px;
-}
-
-.pills-results__stats__stat:not(:first-child) {
-    border-left: 1px solid var(--color-std-thin-border-color);
+    padding: 10px;
+    position: absolute;
+    right: 0;
 }
