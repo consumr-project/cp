@@ -4,7 +4,7 @@
  * @attribute {String} idAttr attribute to use in selections to get ids
  * @attribute {String} typeAttr attribute to use in selections to get types
  */
-angular.module('tcp').directive('pills', ['lodash', function (_) {
+angular.module('tcp').directive('pills', ['i18n', 'lodash', function (i18n, _) {
     'use strict';
 
     var ROLE_REMOVE = 'remove',
@@ -25,9 +25,15 @@ angular.module('tcp').directive('pills', ['lodash', function (_) {
      * @return {Object} count and time props
      */
     function stats(results, start) {
+        var count = results.length,
+            time = (now() - start).toFixed(4)
+                .replace('.0000', '');
+
         return {
-            count: results.length,
-            time: (now() - start).toFixed(4).replace('.0000', '')
+            time: time,
+            count: count,
+            humanCount: i18n.get('common/results_count_small', { count: count }),
+            humanTime: i18n.get('common/search_elapsed_time_ms', { time: time })
         };
     }
 
@@ -158,8 +164,8 @@ $scope.query = function (str, cb) { setTimeout(function () { cb(null, _.times(pa
                 '</div>',
                 '<div class="pills-results" ng-if="options.length">',
                     '<div class="pills-results__stats">',
-                        '<span class="pills-results__stats__stat">{{stats.count}} (res)</span>',
-                        '<span class="pills-results__stats__stat">{{stats.time}} (ms)</span>',
+                        '<span class="pills-results__stats__stat">{{stats.humanCount}}</span>',
+                        '<span class="pills-results__stats__stat">{{stats.humanTime}}</span>',
                     '</div>',
                     '<div ',
                         'class="pills-results__option" ',

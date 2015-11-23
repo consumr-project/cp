@@ -8,3 +8,5 @@ intro: A crowd sourced platform to help us all learn a little bit more about the
 # search
 no_results: No results for "{query}"
 recent_searches: "Recent searches:"
+results_count_small: "{count} results"
+search_elapsed_time_ms: "{time} ms"
