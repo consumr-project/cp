@@ -7,6 +7,8 @@
 angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', function ($document, i18n, _) {
     'use strict';
 
+    /* globals performance */
+
     var ROLE_REMOVE = 'remove',
         ROLE_SELECT = 'select';
 
