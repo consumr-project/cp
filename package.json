@@ -29,6 +29,7 @@
     "express": "^4.12.4",
     "express-session": "^1.11.3",
     "extract-service": "git+https://git@github.com/consumr-project/extract-service#v1.2.0",
+    "fast-csv": "^0.6.0",
     "firebase": "^2.2.9",
     "firebase-bower": "git+https://git@github.com/minond/firebase-bower.git#v2.2.6-npm",
     "glob": "^5.0.14",

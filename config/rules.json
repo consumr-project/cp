@@ -5,6 +5,10 @@
         ".write": true,
         ".read": true
       },
+      "tag": {
+        ".read": true,
+        ".write": "auth !== null && auth.uid !== null"
+      },
       "company": {
         ".read": true,
         ".write": "auth !== null && auth.uid !== null",
