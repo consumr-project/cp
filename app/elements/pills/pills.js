@@ -180,6 +180,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         function hideResults(ev) {
             if (!$elem.has(ev.target).length) {
                 $scope.options = null;
+                $input.val('');
                 $scope.$apply();
             }
         }
