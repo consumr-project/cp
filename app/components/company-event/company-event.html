@@ -28,7 +28,7 @@
         <pills selections="ev.$entities" query="queryEntities(query, done)"></pills>
 
         <label i18n="company/field_tags"></label>
-        <pills selections="ev.$tags" query="queryTags(query, done)"></pills>
+        <pills selections="ev.$tags" query="vm.queryTags(query, done)"></pills>
     </section>
 
     <section>
@@ -62,7 +62,7 @@
     <!--     </tags> -->
     <!-- </section> -->
 
-    <button class="right margin-top-small" ng-click="save()" i18n="admin/save"></button>
+    <button class="right margin-top-small" ng-click="vm.save()" i18n="admin/save"></button>
     <button class="right margin-top-small button--link" ng-click="onCancel()"
         i18n="admin/cancel"></button>
 
