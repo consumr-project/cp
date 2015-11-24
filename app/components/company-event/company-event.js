@@ -5,9 +5,10 @@ angular.module('tcp').directive('companyEvent', [
     'utils',
     'keyword',
     'tags',
+    'companies',
     // 'events',
     // 'companyEvents',
-    function ($q, $http, _, utils, keyword, tags, events, companyEvents) {
+    function ($q, $http, _, utils, keyword, tags, companies) {
         'use strict';
 
         /**
@@ -117,6 +118,17 @@ angular.module('tcp').directive('companyEvent', [
         }
 
         /**
+         * @param {Company} company
+         * @return {Object}
+         */
+        function company2tag(company) {
+            return {
+                label: company.name,
+                id: company.guid
+            };
+        }
+
+        /**
          * @param {String} str
          * @param {Object} tag
          * @return {Boolean}
@@ -129,6 +141,11 @@ angular.module('tcp').directive('companyEvent', [
             $scope.vm = $scope.vm || {};
             $scope.ev = { title: '', sources: [] };
             $scope.$watch('ev.sources', fetchSources.bind(null, $scope.ev), true);
+            $scope.$watch('tiedTo', function (tiedTo) {
+                $q.all(_.map(_.filter(tiedTo.companies), companies.get)).then(function (companies) {
+                    $scope.ev.$entities = _.map(companies, company2tag);
+                });
+            });
 
             $scope.vm.save = function () {
                 // events.put($scope.ev, ['date', 'description', 'keywords', 'sources', 'title'])
@@ -145,6 +162,7 @@ angular.module('tcp').directive('companyEvent', [
 
             if (!tags.all) {
                 tags.store.once('value', function (res) {
+                    // XXX cannot be done this way
                     tags.all = res.val();
                 });
             }

@@ -30,6 +30,7 @@ export function bind<T>(label: string, store: Firebase): Collection<T> {
         },
 
         put: function (data: any, fields?: Array<string>): Q.Promise<T> {
+            // XXX only save fields in cache
             return put(child, data, fields).then(() =>
                 cache.set(data.guid, getData(data, fields)));
         }
