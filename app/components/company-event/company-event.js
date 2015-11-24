@@ -13,7 +13,7 @@ angular.module('tcp').directive('companyEvent', [
         function controller($scope) {
             var prev_sources;
 
-            $scope.vm = {};
+            $scope.vm = $scope.vm || {};
 
             $scope.ev = {
                 title: '',
@@ -146,10 +146,28 @@ $scope.$apply();
             }
         }
 
+        function link($scope, $elem) {
+            $scope.vm = $scope.vm || {};
+            $scope.vm.addSource = function () {
+                $scope.ev.sources.push({});
+                scrollToBottom($elem.closest('div'));
+            };
+        }
+
+        /**
+         * @param {jQuery} $elem
+         */
+        function scrollToBottom($elem) {
+            setTimeout(function () {
+                $elem.scrollTop(Number.MAX_VALUE)
+            }, 10);
+        }
+
         return {
             replace: true,
             templateUrl: '/app/components/company-event/company-event.html',
             controller: ['$scope', controller],
+            link: link,
             scope: {
                 tiedTo: '=',
                 onCancel: '&',
