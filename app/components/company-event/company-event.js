@@ -22,15 +22,6 @@ angular.module('tcp').directive('companyEvent', [
 
             $scope.$watch('ev.sources', fetchSources, true);
 
-// XXX // $scope._ = { range: _.range };
-window.ev=$scope.ev;
-setTimeout(function () {
-$scope.ev.sources.push({url: 'http://www.bbc.com/news/world-europe-34742273'});
-// $scope.ev.sources.push({url: 'http://www.bbc.com/news/world-australia-34762988'});
-// $scope.ev.sources.push({url: 'http://www.bbc.com/news/world-europe-34759570'});
-$scope.$apply();
-}, 500);
-
             $scope.save = function () {
                 // events.put($scope.ev, ['date', 'description', 'keywords', 'sources', 'title'])
                 //     .then(function () { $scope.onSave(); })
@@ -86,6 +77,14 @@ $scope.$apply();
             }
 
             /**
+             * @param {Source} source
+             * @return {Boolean}
+             */
+            function canLoadContent(source) {
+                return !!source.url;
+            }
+
+            /**
              * @param {Source[]} update
              * @param {Source[]} prev
              */
@@ -93,6 +92,7 @@ $scope.$apply();
                 $q.all(
                     _(update)
                         .difference(prev)
+                        .filter(canLoadContent)
                         .map(fetchContent)
                         .value()
                 ).then(function (contents) {
