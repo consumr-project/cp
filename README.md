@@ -5,7 +5,15 @@ things we buy, sell, and consume every day.
 
 ### usage
 
-`make install service` will install depedencies and start search services.
+this service is meant to be mounted into the
+[web-client](https://github.com/consumr-project/web-client)
+
+```js
+app.use('/search', require('search-service'));
+```
+
+and also has a background process (indexer) that can be ran as a stand-alone
+service.
 
 ### configuration
 
@@ -15,7 +23,7 @@ documentation
 
 ### deploying to heroku
 
-this is a background process, so no need to make heroku bing to web ports:
+run background process (indexer) as a stand-alone service:
 
 ```bash
 heroku ps:scale web=0
