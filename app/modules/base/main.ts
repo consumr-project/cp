@@ -8,7 +8,6 @@ import * as wikipedia from '../../services/wikipedia';
 import * as entity from '../../services/entity';
 import * as keyword from '../../services/keyword';
 import logger from '../../services/logger';
-import Search from '../../services/search';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 import {Session, session as startSession} from '../../services/auth';
 
@@ -51,7 +50,6 @@ module tcp {
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
-        .value('search', new Search(store.child('search')))
         .value('store', store)
         .value('tags', entity.bind('tag', store))
         .value('users', entity.bind('user', store))

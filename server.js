@@ -42,6 +42,7 @@ app.use(body_parser.json());
 app.use(cookie_parser(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
+app.use('/service/search', require('search-service'));
 app.use('/service/auth', require('auth-service'));
 app.use('/service/extract', require('extract-service'));
 

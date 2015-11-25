@@ -1,11 +1,11 @@
 angular.module('tcp').controller('SearchController', [
     '$scope',
+    '$http',
     '$routeParams',
     'RecentSearches',
     'NavigationService',
-    'search',
     'lodash',
-    function ($scope, $routeParams, RecentSearches, NavigationService, search, lodash) {
+    function ($scope, $http, $routeParams, RecentSearches, NavigationService, lodash) {
         'use strict';
 
         var COMPANY = { _type: 'company' },
@@ -14,6 +14,30 @@ angular.module('tcp').controller('SearchController', [
         $scope.query = '';
         $scope.results = {};
         $scope.searches = RecentSearches.get();
+
+        /**
+         * @param {String} str
+         * @return {Query}
+         */
+        function buildQuery(str) {
+            return {
+                index: 'entity',
+                query: str,
+                size: 50
+            };
+        }
+
+        /**
+         * @param {Object} hits
+         * @return {Object} empty: Boolean, company: Company[], user: User[]
+         */
+        function normalizeResults(hits) {
+            return {
+                empty: !hits.length,
+                company: lodash.where(hits, COMPANY),
+                user: lodash.where(hits, USER)
+            };
+        }
 
         /**
          * @param {String} query
@@ -29,13 +53,10 @@ angular.module('tcp').controller('SearchController', [
             $scope.results = {};
 
             NavigationService.search(query);
-            search.search('entity', '', query).then(function (res) {
+            $http.get('/service/search/fuzzy', { params: buildQuery(query) }).then(function (res) {
                 $scope.loading = false;
                 $scope.searches = RecentSearches.get();
-                $scope.results.empty = !res.hits.hits.length;
-                $scope.results.company = lodash.where(res.hits.hits, COMPANY);
-                $scope.results.user = lodash.where(res.hits.hits, USER);
-                $scope.$apply();
+                $scope.results = normalizeResults(res.data.hits.hits);
 
                 if (!$scope.results.empty && !lodash.contains(RecentSearches.get(), query)) {
                     RecentSearches.unshift(query);
