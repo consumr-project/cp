@@ -1,11 +1,11 @@
 angular.module('tcp').controller('SearchController', [
     '$scope',
-    '$http',
     '$routeParams',
     'RecentSearches',
     'NavigationService',
+    'ServicesService',
     'lodash',
-    function ($scope, $http, $routeParams, RecentSearches, NavigationService, lodash) {
+    function ($scope, $routeParams, RecentSearches, NavigationService, ServicesService, lodash) {
         'use strict';
 
         var COMPANY = { _type: 'company' },
@@ -53,7 +53,7 @@ angular.module('tcp').controller('SearchController', [
             $scope.results = {};
 
             NavigationService.search(query);
-            $http.get('/service/search/fuzzy', { params: buildQuery(query) }).then(function (res) {
+            ServicesService.search.fuzzy(query).then(function (res) {
                 $scope.loading = false;
                 $scope.searches = RecentSearches.get();
                 $scope.results = normalizeResults(res.data.hits.hits);
