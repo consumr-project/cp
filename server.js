@@ -12,6 +12,7 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     body_parser = require('body-parser'),
     cookie_parser = require('cookie-parser'),
+    timeout = require('connect-timeout'),
     session = require('express-session'),
     swig = require('swig');
 
@@ -42,9 +43,9 @@ app.use(body_parser.json());
 app.use(cookie_parser(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
-app.use('/service/search', require('search-service'));
-app.use('/service/auth', require('auth-service'));
-app.use('/service/extract', require('extract-service'));
+app.use('/service/search', timeout('1s'), require('search-service'));
+app.use('/service/auth', timeout('1s'), require('auth-service'));
+app.use('/service/extract', timeout('1s'), require('extract-service'));
 
 app.get('*', function (req, res) {
     res.render('base/index', {
