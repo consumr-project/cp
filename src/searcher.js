@@ -1,5 +1,17 @@
 'use strict'
 
+/**
+ * interface Query {
+ * }
+ *
+ * interface Search {
+ *     size?: Number,
+ *     from?: Number,
+ *     type?: String,
+ *     index: String,
+ *     body: Query
+ * }
+ */
 var config = require('acm');
 
 var debug = require('debug'),
@@ -71,6 +83,36 @@ function runSearch(elasticsearch, firebase) {
 
 /**
  * @param {ElasticsearchClient} elasticsearch
+ * @param {Search} search
+ * @return {Promise}
+ */
+function fuzzySearch(elasticsearch, search) {
+    return elasticsearch.search({
+        size: search.size,
+        from: search.from,
+        index: search.index,
+        type: search.type,
+        body: query(search.query)
+    });
+}
+
+/**
+ * @param {ElasticsearchClient} elasticsearch
+ * @param {Function} searchFn
+ * @param {http.Request} req
+ * @param {http.Response} res
+ * @param {Function} next
+ */
+function handleRequest(elasticsearch, searchFn, req, res, next) {
+    searchFn(elasticsearch, req.query)
+        .catch(next)
+        .then(function (results) {
+            res.json(results);
+        });
+}
+
+/**
+ * @param {ElasticsearchClient} elasticsearch
  * @param {Firebase} ref
  * @return {Firebase}
  */
@@ -79,3 +121,6 @@ module.exports = function (elasticsearch, firebase) {
     ref.on('child_added', runSearch(elasticsearch, ref));
     return ref;
 };
+
+module.exports.fuzzySearch = fuzzySearch;
+module.exports.handleRequest = handleRequest;
