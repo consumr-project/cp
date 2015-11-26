@@ -1,6 +1,7 @@
 .PHONY: build install run test
 
 build_dir = build
+build_bundle_js = $(build_dir)/bundle.js
 build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
@@ -13,6 +14,7 @@ tsc = ./node_modules/.bin/tsc
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
+js_ugly = ./node_modules/.bin/uglifyjs
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
@@ -40,7 +42,7 @@ run: clean build server
 test:
 	$(mocha) test/**/*.js
 
-build: clean build-css build-js build-ts build-strings build-bundle
+build: clean build-css build-js build-ts build-strings build-bundle build-app
 
 build-strings:
 	./scripts/compile-string-files functions --var $(i18n_varname) --locale en > $(build_dir)/i18n.js
@@ -54,7 +56,8 @@ build-ts:
 	$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
-	$(browserify) $(build_dir)/app/modules/base/main.js -o $(build_app_js) $(browserify_options)
+	$(browserify) $(build_dir)/app/modules/base/main.js -o $(build_bundle_js) $(browserify_options)
+	-rm -r $(build_dir)/app
 
 build-js:
 	echo "" > $(build_vendor_js)
@@ -78,6 +81,30 @@ build-js:
 		then $(js_min) $(vendor_external_fb_passport) >> $(build_vendor_js); \
 		else $(js_min) $(vendor_local_fb_passport) >> $(build_vendor_js); fi
 	$(js_sep) >> $(build_vendor_js)
+
+build-app:
+	$(js_ugly) \
+		app/elements/anchored/anchored.js \
+		app/elements/pills/pills.js \
+		app/elements/popover/popover.js \
+		app/elements/popover/popover-item.js \
+		app/elements/avatar/avatar.js \
+		app/elements/message/message.js \
+		app/elements/indicator/indicator.js \
+		app/elements/key/key.js \
+		app/elements/tag/tag.js \
+		app/elements/tag/tags.js \
+		app/elements/i18n/i18n.js \
+		app/elements/followed-by/followed-by.js \
+		app/components/company-event/company-event.js \
+		app/modules/base/ServicesService.js \
+		app/modules/admin/AdminController.js \
+		app/modules/admin/NavigationController.js \
+		app/modules/admin/NavigationService.js \
+		app/modules/search/SearchController.js \
+		app/modules/company/CompanyController.js \
+		app/modules/user/UserController.js \
+		app/vendor/angular/ngFocus.js > $(build_app_js)
 
 install:
 	$(npm) install
