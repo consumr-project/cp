@@ -43,9 +43,9 @@ app.use(body_parser.json());
 app.use(cookie_parser(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
-app.use('/service/search', timeout('1s'), require('search-service'));
-app.use('/service/auth', timeout('1s'), require('auth-service'));
-app.use('/service/extract', timeout('1s'), require('extract-service'));
+app.use('/service/search', timeout('5s'), require('search-service'));
+app.use('/service/auth', timeout('10s'), require('auth-service'));
+app.use('/service/extract', timeout('5s'), require('extract-service'));
 
 app.get('*', function (req, res) {
     res.render('base/index', {
