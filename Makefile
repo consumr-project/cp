@@ -90,7 +90,7 @@ server:
 	node server
 
 reset: clean
-	-rm -r node_modules $(typings_dir)
+	-rm -fr node_modules $(typings_dir)
 
 clean:
 	-rm -r $(build_dir)

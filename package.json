@@ -30,16 +30,12 @@
     "express": "^4.12.4",
     "express-session": "^1.11.3",
     "extract-service": "git+https://git@github.com/consumr-project/extract-service#v1.3.1",
-    "fast-csv": "^0.6.0",
     "firebase": "^2.2.9",
     "firebase-bower": "git+https://git@github.com/minond/firebase-bower.git#v2.2.6-npm",
-    "glob": "^5.0.14",
     "jquery": "^2.1.4",
     "js-cookie": "^2.0.4",
     "jtils": "minond/jtils#e78280ffa09477da6a398b3801d9a6abae37982a",
     "lodash": "^3.9.3",
-    "messageformat": "^0.2.2",
-    "mocha": "^2.3.3",
     "moment": "^2.10.6",
     "newrelic": "^1.23.1",
     "normalize.css": "^3.0.3",
@@ -48,18 +44,23 @@
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.0",
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4",
-    "swig": "^1.4.2",
-    "yamljs": "^0.2.3"
+    "swig": "^1.4.2"
   },
   "devDependencies": {
     "browserify": "^11.0.1",
     "commander": "^2.8.1",
     "cssnext": "^1.8.1",
+    "fast-csv": "^0.6.0",
+    "glob": "^5.0.14",
+    "imageoptim": "^0.4.1",
     "jshint": "^2.8.0",
     "jsmin": "^1.0.1",
+    "messageformat": "^0.2.2",
+    "mocha": "^2.3.3",
     "ng-stats": "^2.2.0",
     "rector": "minond/rector",
     "tsd": "^0.6.4",
-    "typescript": "^1.6.0-beta"
+    "typescript": "^1.6.0-beta",
+    "yamljs": "^0.2.3"
   }
 }
