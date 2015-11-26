@@ -57,7 +57,6 @@ build-ts:
 
 build-bundle:
 	$(browserify) $(build_dir)/app/modules/base/main.js -o $(build_bundle_js) $(browserify_options)
-	-rm -r $(build_dir)/app
 
 build-js:
 	echo "" > $(build_vendor_js)
