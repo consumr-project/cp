@@ -85,7 +85,32 @@
         {% endif %}
 
         <script src="build/bundle.js"></script>
+
+        {% if not debugging %}
         <script src="build/app.js"></script>
+        {% else %}
+        <script src="app/elements/anchored/anchored.js"></script>
+        <script src="app/elements/pills/pills.js"></script>
+        <script src="app/elements/popover/popover.js"></script>
+        <script src="app/elements/popover/popover-item.js"></script>
+        <script src="app/elements/avatar/avatar.js"></script>
+        <script src="app/elements/message/message.js"></script>
+        <script src="app/elements/indicator/indicator.js"></script>
+        <script src="app/elements/key/key.js"></script>
+        <script src="app/elements/tag/tag.js"></script>
+        <script src="app/elements/tag/tags.js"></script>
+        <script src="app/elements/i18n/i18n.js"></script>
+        <script src="app/elements/followed-by/followed-by.js"></script>
+        <script src="app/components/company-event/company-event.js"></script>
+        <script src="app/modules/base/ServicesService.js"></script>
+        <script src="app/modules/admin/AdminController.js"></script>
+        <script src="app/modules/admin/NavigationController.js"></script>
+        <script src="app/modules/admin/NavigationService.js"></script>
+        <script src="app/modules/search/SearchController.js"></script>
+        <script src="app/modules/company/CompanyController.js"></script>
+        <script src="app/modules/user/UserController.js"></script>
+        <script src="app/vendor/angular/ngFocus.js"></script>
+        {% endif %}
 
         {% if debugging %}
         <script src="app/modules/guide/GuideController.js"></script>
