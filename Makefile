@@ -11,6 +11,7 @@ test_dir = test
 npm = npm
 tsd = ./node_modules/.bin/tsd
 tsc = ./node_modules/.bin/tsc
+imageoptim = ./node_modules/.bin/imageoptim
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
@@ -41,6 +42,9 @@ run: clean build server
 
 test:
 	$(mocha) test/**/*.js
+
+optimize:
+	$(imageoptim) assets/images/*.png
 
 build: clean build-css build-js build-ts build-strings build-bundle build-app
 
