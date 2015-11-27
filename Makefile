@@ -87,6 +87,8 @@ build-js:
 		then $(js_min) $(vendor_external_fb_passport) >> $(build_vendor_js); \
 		else $(js_min) $(vendor_local_fb_passport) >> $(build_vendor_js); fi
 	$(js_sep) >> $(build_vendor_js)
+	cat node_modules/rollbar-browser/dist/rollbar.umd.nojson.min.js >> $(build_vendor_js)
+	$(js_sep) >> $(build_vendor_js)
 
 build-app:
 	$(js_ugly) \

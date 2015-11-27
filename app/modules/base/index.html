@@ -85,6 +85,15 @@
         {% endif %}
 
         <script src="build/bundle.js"></script>
+        <script>
+        window.Rollbar = Rollbar.init({
+            captureUncaught: true,
+            accessToken: TCP_BUILD_CONFIG.rollbar.token,
+            payload: {
+                environment: TCP_BUILD_CONFIG.enviroment.name
+            }
+        });
+        </script>
 
         {% if not debugging %}
         <script src="build/app.js"></script>

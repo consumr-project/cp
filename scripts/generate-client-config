@@ -8,6 +8,8 @@ var config = require('acm'),
 varname && console.log('var %s =', varname);
 
 console.log({
+    enviroment: { name: config('node.env') || 'development' },
+    rollbar: { token: config('rollbar.token') },
     firebase: { url: config('firebase.url') },
     locate: { dateFormat: config('locale.dateFormat') }
 });
