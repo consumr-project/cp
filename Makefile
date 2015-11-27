@@ -12,6 +12,7 @@ npm = npm
 tsd = ./node_modules/.bin/tsd
 tsc = ./node_modules/.bin/tsc
 imageoptim = ./node_modules/.bin/imageoptim
+svgo = ./node_modules/.bin/svgo
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
@@ -45,6 +46,7 @@ test:
 
 optimize:
 	$(imageoptim) assets/images/*.png
+	$(svgo) -i assets/images
 
 build: clean build-css build-js build-ts build-strings build-bundle build-app
 
