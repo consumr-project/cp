@@ -63,7 +63,6 @@
     "svgo": "^0.6.1",
     "tsd": "^0.6.4",
     "typescript": "^1.6.0-beta",
-    "uglify-js": "^2.6.1",
     "yamljs": "^0.2.3"
   }
 }

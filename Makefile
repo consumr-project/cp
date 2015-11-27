@@ -16,7 +16,9 @@ svgo = ./node_modules/.bin/svgo
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
-js_ugly = ./node_modules/.bin/uglifyjs
+# "uglify-js": "^2.6.1",
+# js_ugly = ./node_modules/.bin/uglifyjs
+js_ugly = cat
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
