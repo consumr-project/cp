@@ -34,7 +34,9 @@ angular.module('tcp').controller('AdminController', [
 
         $scope.$watchCollection('session', cacheSession);
         Auth.on(Auth.EVENT.LOGIN, fetchCurrentUser);
+        Auth.on(Auth.EVENT.ERROR, clearSession);
         Auth.on(Auth.EVENT.LOGOUT, clearSession);
+        Auth.on(Auth.EVENT.TIMEOUT, clearSession);
 
         function loginWithLinkedin() {
             log('loggin in with linkedin');
