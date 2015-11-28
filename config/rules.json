@@ -9,6 +9,10 @@
         ".read": true,
         ".write": "auth !== null && auth.uid !== null"
       },
+      "event": {
+        ".read": true,
+        ".write": "auth !== null && auth.uid !== null"
+      },
       "company": {
         ".read": true,
         ".write": "auth !== null && auth.uid !== null",

@@ -23,6 +23,16 @@ export function def<T>(check: T, def_val: T): T {
   return check !== undefined ? check : def_val;
 }
 
+export function guid(): String {
+    function s4(): String {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+
+    return [s4(), s4(), '-', s4(), '-', s4(), '-', s4(), '-', s4(), s4(), s4()].join('');
+}
+
 export function preload(url: string, callback: any | Function):HTMLImageElement {
     var img: HTMLImageElement = new Image();
     img.onload = callback;

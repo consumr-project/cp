@@ -2,13 +2,13 @@ angular.module('tcp').directive('companyEvent', [
     '$q',
     '$http',
     'lodash',
+    'Auth',
     'utils',
     'keyword',
     'tags',
     'companies',
-    // 'events',
-    // 'companyEvents',
-    function ($q, $http, _, utils, keyword, tags, companies) {
+    'events',
+    function ($q, $http, _, Auth, utils, keyword, tags, companies, events) {
         'use strict';
 
         /**
@@ -137,20 +137,62 @@ angular.module('tcp').directive('companyEvent', [
             return tag.label.toLowerCase().indexOf(str.toLowerCase()) !== -1;
         }
 
+        /**
+         * @param {Event} ev
+         * @param {Object} tiedTo
+         * @return {Promise}
+         */
+        function fetchCompaniesTiedTo(ev, tiedTo) {
+            var companyIds = _.filter(tiedTo.companies),
+                companyLoaders = _.map(companyIds, companies.get);
+
+            return $q.all(companyLoaders).then(function (companies) {
+                ev.$entities = _.map(companies, company2tag);
+            });
+        }
+
+        /**
+         * @param {Event} ev
+         * @return {Event}
+         */
+        function getNormalizedEvent(ev) {
+            return {
+                guid: ev.guid,
+                createdBy: ev.createdBy,
+                title: ev.title,
+                date: ev.date,
+                sentiment: ev.sentiment,
+                entities: _.pluck(ev.$entities, 'id'),
+                tags: _.pluck(ev.$tags, 'id'),
+                sources: _.map(ev.$sources, function (source) {
+                    return {
+                        title: source.title,
+                        date: source.date,
+                        url: source.url,
+                        description: source.description
+                    };
+                })
+            };
+        }
+
         function controller($scope) {
             $scope.vm = $scope.vm || {};
-            $scope.ev = { title: '', sources: [] };
-            $scope.$watch('ev.sources', fetchSources.bind(null, $scope.ev), true);
-            $scope.$watch('tiedTo', function (tiedTo) {
-                $q.all(_.map(_.filter(tiedTo.companies), companies.get)).then(function (companies) {
-                    $scope.ev.$entities = _.map(companies, company2tag);
-                });
-            });
+            $scope.ev = { title: '', $sources: [{}] };
+
+            $scope.$watch('ev.$sources', fetchSources.bind(null, $scope.ev), true);
+            $scope.$watch('tiedTo', fetchCompaniesTiedTo.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
-                // events.put($scope.ev, ['date', 'description', 'keywords', 'sources', 'title'])
-                //     .then(function () { $scope.onSave(); })
-                //     .catch(function () { console.error('error saving', $scope.ev); });
+                // first save
+                if (!$scope.ev.guid) {
+                    $scope.ev.guid = utils.guid();
+                    $scope.ev.createdBy = Auth.USER.guid;
+                }
+
+                events.put(getNormalizedEvent($scope.ev),
+                    ['guid', 'title', 'sentiment', 'date', 'entities', 'tags', 'sources', 'createdBy'])
+                        .then(function () { $scope.onSave(); })
+                        .catch(function (er) { console.error('error saving', er); });
             };
 
             $scope.vm.queryTags = function (str, done) {
@@ -160,9 +202,9 @@ angular.module('tcp').directive('companyEvent', [
                     .value());
             };
 
+// XXX cannot be done this way
             if (!tags.all) {
                 tags.store.once('value', function (res) {
-                    // XXX cannot be done this way
                     tags.all = res.val();
                 });
             }
@@ -171,7 +213,7 @@ angular.module('tcp').directive('companyEvent', [
         function link($scope, $elem) {
             $scope.vm = $scope.vm || {};
             $scope.vm.addSource = function () {
-                $scope.ev.sources.push({});
+                $scope.ev.$sources.push({});
                 scrollToBottom($elem.closest('div'));
             };
         }

@@ -32,7 +32,7 @@
     </section>
 
     <section>
-        <div ng-repeat="source in ev.sources">
+        <div ng-repeat="source in ev.$sources">
             <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>
 
             <label i18n="company/field_source"></label>
@@ -42,7 +42,8 @@
             <label i18n="company/field_pub_date"></label>
             <input type="date" ng-model="source.$date" />
             <textarea i18n="company/field_quote" data="{limit: 500}"
-                prop="placeholder" class="margin-top-small"></textarea>
+                ng-model="source.description" prop="placeholder"
+                class="margin-top-small"></textarea>
         </div>
     </section>
     <!-- <section class="margin&#45;top&#45;medium"> -->
