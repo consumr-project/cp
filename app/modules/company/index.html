@@ -2,18 +2,18 @@
     <h1 class="take-space animated fadeIn" ng-if="existing">{{company.name}}</h1>
 
     <section ng-if="!existing">
-        <input class="block" type="text" autofocus="true"
+        <input class="block title" type="text" autofocus="true"
             i18n="company/name_placeholder" prop="placeholder"
             ng-class="{ loading: vm.fetchingCompanySummary }"
             ng-model="company.name" ng-model-options="{ debounce: 300 }" />
 
-        <div class="right-align margin-top-small margin-bottom-medium">
+        <div class="margin-top-medium margin-bottom-medium">
             <button ng-click="save()" i18n="admin/save"></button>
         </div>
     </section>
 
     <section ng-if="existing">
-        <div class="right-align margin-top-small margin-bottom-medium">
+        <div class="margin-top-medium margin-bottom-medium">
             <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>
         </div>
 

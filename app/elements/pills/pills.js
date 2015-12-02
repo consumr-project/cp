@@ -205,7 +205,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                                 'class="pills-element__pill__remove"></span>',
                         '</div>',
                     '</div>',
-                    '<input class="pills-element__input no-interaction" />',
+                    '<input class="pills-element__input" />',
                 '</div>',
                 '<div class="pills-results" ng-if="options.length">',
                     '<div class="pills-results__stats">{{stats.human}}</div>',

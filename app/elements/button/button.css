@@ -1,9 +1,11 @@
 button {
-    background-color: #F7F7F7;
-    border-color: var(--color-std-border-color);
-    color: var(--color-std-text-color);
+    background-color: white;
+    border-color: var(--color-cp-brand);
+    color: var(--color-cp-brand);
+    font-weight: 900;
     min-height: var(--computed-button-height);
     min-width: var(--computed-button-height);
+    text-transform: uppercase;
 }
 
 button * {
@@ -47,7 +49,7 @@ button.icon-menu::before {
 button.button--link {
     background-color: initial;
     border-color: transparent;
-    color: var(--color-link);
+    color: black;
 }
 
 button.button--slim {

@@ -1,5 +1,6 @@
 :root {
     --font-height-normal: 30px;
+    --font-size-xlarge: 26px;
     --font-size-normal: 16px;
     --font-size-small: 13px;
     --font-size-xsmall: 10px;
@@ -12,6 +13,7 @@
     --color-link: rgb(45, 130, 176);
 
     --color-separator: rgb(236, 236, 236);
+    --color-cp-brand: rgb(39, 184, 232);
 
     --color-std-background-color: white;
     --color-std-border-color: #CECECE;

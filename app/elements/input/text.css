@@ -7,14 +7,13 @@ input:not([type="radio"]) {
     padding: 3px 7px;
     text-align: left;
     outline: 0;
-    transition: padding .1s;
     word-break: normal;
 }
 
-textarea:not(.no-interaction):focus,
-input:not(.no-interaction):not([type="checkbox"]):focus,
-input:not(.no-interaction):not([type="radio"]):focus {
-    padding-left: 14px;
+input:not([type=radio]):not([type=checkbox]).title {
+    border-color: transparent;
+    font-size: var(--font-size-xlarge);
+    padding: 0;
 }
 
 .search,
@@ -27,7 +26,7 @@ input.search {
 }
 
 input.search {
-    border-color: var(--color-std-border-color);
+    border-color: var(--color-cp-brand);
     border-radius: 100px;
     padding-left: var(--computed-button-height);
     width: 100%;

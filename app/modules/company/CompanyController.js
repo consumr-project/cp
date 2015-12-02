@@ -42,6 +42,7 @@ angular.module('tcp').controller('CompanyController', [
             // XXX error state
             wikipedia.extract(name).then(function (extract) {
                 $scope.vm.fetchingCompanySummary = false;
+                $scope.company.name = extract.title;
                 $scope.company.summary = extract.extract_no_refs;
                 normalizeCompany();
                 $scope.$apply();
