@@ -3,7 +3,8 @@
 var u = require('../src/utils');
 
 module.exports = function (sequelize, DataTypes) {
-    return sequelize.define('event', u.merge(u.doneBy(DataTypes), {
+    var Tag = require('./tag')(sequelize, DataTypes);
+    var Event = sequelize.define('event', u.merge(u.doneBy(DataTypes), {
         id: {
             type: DataTypes.UUID,
             primaryKey: true
@@ -19,4 +20,9 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         }
     }), u.configuration());
+
+    Event.belongsToMany(Tag, { through: 'event_tags' });
+    Tag.belongsToMany(Event, { through: 'event_tags' });
+
+    return Event;
 };
