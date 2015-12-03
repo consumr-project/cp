@@ -24,8 +24,6 @@ sequelize.drop().then(function () {
     log('sync complete');
     sequelize.sync().then(function () {
         log('sync complete');
-
-
     });
 });
 
