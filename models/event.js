@@ -10,6 +10,12 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
 
+        // XXX via relationship once Company models exists
+        company_id: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+
         title: {
             type: DataTypes.STRING,
             allowNull: false

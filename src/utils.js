@@ -41,16 +41,19 @@ function configuration() {
  */
 function doneBy(DataTypes) {
     return {
+        // XXX via relationship once User models exists
         created_by: {
             type: DataTypes.STRING,
             allowNull: false
         },
 
+        // XXX via relationship once User models exists
         updated_by: {
             type: DataTypes.STRING,
             allowNull: false,
         },
 
+        // XXX via relationship once User models exists
         deleted_by: {
             type: DataTypes.STRING
         }
