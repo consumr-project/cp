@@ -16,10 +16,10 @@ var sequelize = new Sequelize(config('database.name'), config('database.username
 
 var model = utils.importer(sequelize, DataTypes, require);
 
-// var models = {
-//     Event: model('event'),
-//     Tag: model('tag'),
-// };
+var models = {
+    Event: model('event'),
+    Tag: model('tag'),
+};
 
 log('starting sync');
 sequelize.drop().then(function () {
