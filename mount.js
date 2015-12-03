@@ -16,6 +16,7 @@ var model = utils.importer(sequelize, DataTypes, require);
 
 var models = {
     Event: model('event'),
+    Source: model('source'),
     Tag: model('tag'),
 };
 

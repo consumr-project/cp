@@ -28,8 +28,9 @@ function configuration() {
     return {
         underscored: true,
         paranoid: true,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at'
+        deletedAt: 'deleted_date',
+        createdAt: 'created_date',
+        updatedAt: 'updated_date'
     };
 }
 
