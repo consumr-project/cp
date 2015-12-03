@@ -8,10 +8,8 @@ var app = require('express')(),
     utils = require('./src/utils'),
     config = require('acm');
 
-var sequelize = new Sequelize(config('database.name'), config('database.username'), config('database.password'), {
-    host: config('database.connection.host'),
-    dialect: config('database.connection.dialect'),
-    pool: config('database.connection.pool')
+var sequelize = new Sequelize(config('database.url'), {
+    pool: config('database.pool')
 });
 
 var model = utils.importer(sequelize, DataTypes, require);

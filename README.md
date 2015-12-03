@@ -19,7 +19,5 @@ a local instance of postgres is expected. see
 the following enviroment variables are needed to run:
 
 ```bash
-heroku config:set DATABASE_NAME=$(echo $CP_DATABASE_NAME)
-heroku config:set DATABASE_USERNAME=$(echo $CP_DATABASE_USERNAME)
-heroku config:set DATABASE_PASSWORD=$(echo $CP_DATABASE_PASSWORD)
+heroku config:set DATABASE_URL=$(echo $CP_DATABASE_URL)
 ```

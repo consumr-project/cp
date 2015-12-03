@@ -1,11 +1,5 @@
-name: marcosminond
-username:
-password:
-
-connection:
-  host: localhost
-  dialect: postgres
-  pool:
-    max: 5
-    min: 0
-    idle: 10000
+url: postgres://localhost:5432/marcosminond
+pool:
+  max: 5
+  min: 0
+  idle: 10000
