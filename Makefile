@@ -2,7 +2,7 @@
 
 db_url = $(shell node -e "console.log(require('acm')('database.url'))")
 sequelize = node_modules/.bin/sequelize
-sequelize_params = --name TODO-UNNAMED-TODO --url $(db_url)
+sequelize_params = --name NEWFILE --url $(db_url)
 
 install:
 	npm install
