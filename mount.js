@@ -15,9 +15,11 @@ var sequelize = new Sequelize(config('database.url'), {
 var model = utils.importer(sequelize, DataTypes, require);
 
 var models = {
+    Company: model('company'),
     Event: model('event'),
     Source: model('source'),
     Tag: model('tag'),
+    User: model('user'),
 };
 
 log('starting sync');

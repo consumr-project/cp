@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
         },
 
         summary: {
-            type: DataTypes.TEXT('medium')
+            type: DataTypes.TEXT
         }
     }), u.configuration());
 };
