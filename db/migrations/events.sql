@@ -38,7 +38,10 @@ ALTER TABLE ONLY sources
     ADD CONSTRAINT sources_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY sources
-    ADD CONSTRAINT sources_event_id_fkey FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT sources_event_id_fkey
+    FOREIGN KEY (event_id) REFERENCES events(id)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
 
 --
 -- event_tags
@@ -54,7 +57,13 @@ ALTER TABLE ONLY event_tags
     ADD CONSTRAINT event_tags_pkey PRIMARY KEY (tag_id, event_id);
 
 ALTER TABLE ONLY event_tags
-    ADD CONSTRAINT event_tags_event_id_fkey FOREIGN KEY (event_id) REFERENCES events(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT event_tags_event_id_fkey
+    FOREIGN KEY (event_id) REFERENCES events(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
 
 ALTER TABLE ONLY event_tags
-    ADD CONSTRAINT event_tags_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES tags(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT event_tags_tag_id_fkey
+    FOREIGN KEY (tag_id) REFERENCES tags(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
