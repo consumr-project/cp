@@ -1,6 +1,6 @@
 'use strict';
 
-var u = require('../src/utils');
+var u = require('../../src/utils');
 
 module.exports = function (sequelize, DataTypes) {
     var Tag = require('./tag')(sequelize, DataTypes);

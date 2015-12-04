@@ -1,6 +1,6 @@
 'use strict';
 
-var u = require('../src/utils');
+var u = require('../../src/utils');
 
 module.exports = function (sequelize, DataTypes) {
     var Event = require('./event')(sequelize, DataTypes);
@@ -20,7 +20,8 @@ module.exports = function (sequelize, DataTypes) {
         },
 
         published_date: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            allowNull: false
         },
     }), u.configuration());
 

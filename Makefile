@@ -2,7 +2,6 @@
 
 db_url = $(shell node -e "console.log(require('acm')('database.url'))")
 sequelize = node_modules/.bin/sequelize
-sequelize_params = --name NEWFILE --url $(db_url)
 
 install:
 	npm install
@@ -10,8 +9,6 @@ install:
 clean:
 	-rm -r node_modules
 
-migration:
-	$(sequelize) migration:create $(sequelize_params)
-
 seed:
-	$(sequelize) seed:create $(sequelize_params)
+	@$(sequelize) seed:create --url $(db_url) --name NEWFILE \
+		--seeders-path db/seeders

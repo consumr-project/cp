@@ -8,7 +8,7 @@
  */
 function importer(sequelize, DataTypes, require) {
     return function (name) {
-        return require('./models/' + name)(sequelize, DataTypes);
+        return require('./db/models/' + name)(sequelize, DataTypes);
     };
 }
 
