@@ -17,7 +17,6 @@ var model = utils.importer(sequelize, DataTypes, require);
 module.exports = function (req, res, next) {
     req.service = req.service || {};
     req.service.query.model = module.exports.models;
-    req.service.query.sequelize = sequelize;
     next();
 };
 
@@ -28,8 +27,6 @@ module.exports.models = {
     Tag: model('tag'),
     User: model('user'),
 };
-
-module.exports.sequelize = sequelize;
 
 // app.get('/', require('./src/page'));
 //
