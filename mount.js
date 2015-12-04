@@ -14,7 +14,14 @@ var sequelize = new Sequelize(config('database.url'), {
 
 var model = utils.importer(sequelize, DataTypes, require);
 
-var models = {
+module.exports = function (req, res, next) {
+    req.service = req.service || {};
+    req.service.query.model = module.exports.models;
+    req.service.query.sequelize = sequelize;
+    next();
+};
+
+module.exports.models = {
     Company: model('company'),
     Event: model('event'),
     Source: model('source'),
@@ -22,17 +29,15 @@ var models = {
     User: model('user'),
 };
 
-log('starting sync');
-sequelize.drop().then(function () {
-    log('sync complete');
-    sequelize.sync().then(function () {
-        log('sync complete');
-    });
-});
+module.exports.sequelize = sequelize;
 
-module.exports = app;
 // app.get('/', require('./src/page'));
 //
 // if (!module.parent) {
 //     app.listen(config('port') || 3000);
 // }
+
+log('starting sync');
+sequelize.sync().then(function () {
+    log('sync complete');
+});
