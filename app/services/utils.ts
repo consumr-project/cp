@@ -38,6 +38,7 @@ export module scope {
         return function (val) {
             (<any>$scope).vm.not_found = !val;
             assert(val);
+            return val;
         };
     }
 }
