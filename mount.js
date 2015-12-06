@@ -15,24 +15,25 @@ conn = new Sequelize(config('database.url'), {
     pool: config('database.pool')
 });
 
-models = {
-    Company: importer('company'),
-    Event: importer('event'),
-    Source: importer('source'),
-    Tag: importer('tag'),
-    User: importer('user'),
-};
-
 epilogue.initialize({
     app: app,
     sequelize: conn
 });
 
+models = {
+    Company: model('company'),
+    Event: model('event'),
+    Source: model('source'),
+    Tag: model('tag'),
+    User: model('user'),
+};
+
 api = {
-    companies: epilogue.resource({
-        model: models.Company,
-        endpoints: ['/companies', '/companies/:id']
-    })
+    companies: resource(models.Company, true),
+    events: resource(models.Event, true),
+    sources: resource(models.Source),
+    tags: resource(models.Tag),
+    users: resource(models.User),
 };
 
 log('starting sync');
@@ -46,10 +47,22 @@ conn.sync().then(function () {
 });
 
 /**
+ * @param {Sequelize.Model} model
+ * @param {Boolean} associations
+ * @return {epilogue.Resource}
+ */
+function resource(model, associations) {
+    return epilogue.resource({
+        model: model,
+        associations: associations
+    })
+}
+
+/**
  * @param {String} name
  * @return {Sequelize.Model}
  */
-function importer(name) {
+function model(name) {
     return require('./db/models/' + name)(conn, require('sequelize/lib/data-types'));
 }
 
