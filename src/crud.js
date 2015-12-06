@@ -138,12 +138,14 @@ function update(model) {
 
 /**
  * @param {Sequelize.Model} model
+ * @param {Object} [filter]
  * @return {Function(http.Request, http.Response)}
  */
-function del(model) {
+function del(model, filter) {
+    filter = filter || { id: 'id' };
     return function (req, res, next) {
-        error_handler(res, model.destroy({ where: { id: req.params.id } }))
-            .then(response_handler(res));
+        error_handler(res, model.destroy(generate_where(filter, req.params))
+            .then(response_handler(res)));
     };
 }
 

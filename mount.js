@@ -40,7 +40,7 @@ app.delete('/companies/:id', crud.delete(models.Company));
 
 app.post('/companies/:company_id/followers', crud.create(models.CompanyFollower, ['company_id']));
 app.get('/companies/:company_id/followers/:id?', crud.retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
-// app.delete('/companies/:company_id/followers/:id', crud.delete(models.CompanyFollower, ['company_id']));
+app.delete('/companies/:company_id/followers/:id', crud.delete(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
 log('starting sync');
 conn.sync().then(function () {
