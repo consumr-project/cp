@@ -7,6 +7,8 @@ var Sequelize = require('sequelize'),
 
 var app = require('express')(),
     log = require('debug')('service:query'),
+    body = require('body-parser'),
+    crud = require('./src/crud'),
     utils = require('./src/utils'),
     config = require('acm');
 
@@ -21,6 +23,9 @@ models = {
     Tag: model('tag'),
     User: model('user'),
 };
+
+app.use(body.json());
+app.post('/companies', crud.create(models.Company));
 
 log('starting sync');
 conn.sync().then(function () {
