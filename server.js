@@ -46,6 +46,7 @@ app.use(session({ secret: config('session.secret') }));
 app.use('/service/search', timeout('5s'), require('search-service'));
 app.use('/service/auth', timeout('10s'), require('auth-service'));
 app.use('/service/extract', timeout('5s'), require('extract-service'));
+app.use('/service/query', timeout('60s'), require('query-service'));
 
 app.get('*', function (req, res) {
     res.render('base/index', {
