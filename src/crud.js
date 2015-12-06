@@ -106,17 +106,16 @@ function create(model, extra_params) {
  * @return {Function(http.Request, http.Response)}
  */
 function retrieve(model, filter) {
+    var find;
+
     return function (req, res, next) {
         // GET model/:id
-        // GET model/:id/sub_model/:sub_id
-        if (req.params.id) {
-            error_handler(res, model.findOne(generate_where(filter, req.params)))
+        // GET model/:parent_id/sub_model
+        // GET model/:parent_id/sub_model/:id
+        if (req.params.id || filter) {
+            find = req.params.id ? 'findOne' : 'findAll';
+            error_handler(res, model[find](generate_where(filter, req.params)))
                 .then(response_handler(res));
-        // GET model/id/sub_model
-        } else if (filter) {
-            error_handler(res, model.findAll(generate_where(filter, req.params)))
-                .then(response_handler(res));
-        // GET model?search
         } else {
             next(new Error('search not implemented'));
         }
