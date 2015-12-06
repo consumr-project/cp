@@ -21,7 +21,7 @@ models = {
     Source: importer('source'),
     Tag: importer('tag'),
     User: importer('user'),
-}
+};
 
 epilogue.initialize({
     app: app,
