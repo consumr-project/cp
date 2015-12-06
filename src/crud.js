@@ -9,7 +9,7 @@ var each = require('lodash/collection/each'),
  * @param {Object} params
  * @return {Object}
  */
-function generateWhere(schema, params) {
+function generate_where(schema, params) {
     return { where: reduce(schema, function (filter, lookup, field) {
         if (params[lookup]) {
             filter[field] = params[lookup];
@@ -24,7 +24,7 @@ function generateWhere(schema, params) {
  * @param {String} field
  * @return {Boolean}
  */
-function replaceWithUUID(val, field) {
+function replace_with_uuid(val, field) {
     return val === '$UUID' && [
         'id',
 
@@ -35,28 +35,28 @@ function replaceWithUUID(val, field) {
 }
 
 /**
- * @param {http.Request} res
+ * @param {Object} body
+ * @param {Object}
  */
-function populateIds(req) {
+function populate_uuids(body) {
     var id;
 
-    each(req.body, function (val, field) {
-        if (replaceWithUUID(val, field)) {
-            if (!id) {
-                id = uuid.v4();
-            }
-
-
-            req.body[field] = id;
+    return reduce(body, function (filter, val, field) {
+        if (replace_with_uuid(val, field)) {
+            id = id || uuid.v4();
+            val = id;
         }
-    });
+
+        filter[field] = val;
+        return filter;
+    }, {});
 }
 
 /**
  * @param {http.Request} req
  * @param {Object} extra_params
  */
-function populateExtraParameters(req, extra_params) {
+function populate_extra_parameters(req, extra_params) {
     if (extra_params) {
         each(extra_params, function (field) {
             req.body[field] = req.params[field];
@@ -69,7 +69,7 @@ function populateExtraParameters(req, extra_params) {
  * @param {Promise} action
  * @return {Promise}
  */
-function handleErrors(res, action) {
+function error_handler(res, action) {
     return action.catch(function (err) {
         res.status(500);
         res.json(err);
@@ -81,7 +81,7 @@ function handleErrors(res, action) {
  * @param {String} [property]
  * @return {Function}
  */
-function handleResponse(res, property) {
+function response_handler(res, property) {
     return function (results) {
         res.json(property ? results[property] : results);
     };
@@ -94,10 +94,9 @@ function handleResponse(res, property) {
  */
 function create(model, extra_params) {
     return function (req, res) {
-        populateIds(req);
-        populateExtraParameters(req, extra_params);
-        handleErrors(res, model.create(req.body))
-            .then(handleResponse(res, 'dataValues'));
+        populate_extra_parameters(req, extra_params);
+        error_handler(res, model.create(populate_uuids(req.body)))
+            .then(response_handler(res, 'dataValues'));
     };
 }
 
@@ -110,16 +109,16 @@ function retrieve(model, filter) {
     return function (req, res, next) {
         if (req.params.id && !filter) {
             // GET model/id
-            handleErrors(res, model.findById(req.params.id))
-                .then(handleResponse(res));
+            error_handler(res, model.findById(req.params.id))
+                .then(response_handler(res));
         } else if (req.params.id && filter) {
             // GET model/id/sub_model/sub_id
-            handleErrors(res, model.findOne(generateWhere(filter, req.params)))
-                .then(handleResponse(res));
+            error_handler(res, model.findOne(generate_where(filter, req.params)))
+                .then(response_handler(res));
         } else if (filter) {
             // GET model/id/sub_model
-            handleErrors(res, model.findAll(generateWhere(filter, req.params)))
-                .then(handleResponse(res));
+            error_handler(res, model.findAll(generate_where(filter, req.params)))
+                .then(response_handler(res));
         } else {
             // GET model?search
             next(new Error('search not implemented'));
@@ -143,8 +142,8 @@ function update(model) {
  */
 function del(model) {
     return function (req, res, next) {
-        handleErrors(res, model.destroy({ where: { id: req.params.id } }))
-            .then(handleResponse(res));
+        error_handler(res, model.destroy({ where: { id: req.params.id } }))
+            .then(response_handler(res));
     };
 }
 
