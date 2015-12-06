@@ -92,7 +92,7 @@ function retrieve(model) {
  */
 function update(model) {
     return function (req, res, next) {
-        next(new Error('delete not implemented'));
+        next(new Error('update not implemented'));
     };
 }
 
@@ -102,7 +102,8 @@ function update(model) {
  */
 function del(model) {
     return function (req, res, next) {
-        next(new Error('delete not implemented'));
+        handleErrors(res, model.destroy({ where: { id: req.params.id } }))
+            .then(handleResponse(res));
     };
 }
 
@@ -110,5 +111,5 @@ module.exports = {
     create: create,
     retrieve: retrieve,
     update: update,
-    del: del
+    delete: del
 };
