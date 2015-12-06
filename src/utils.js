@@ -1,18 +1,6 @@
 'use strict';
 
 /**
- * @param {Sequelize} sequelize
- * @param {Sequelize.DataTypes} DataTypes
- * @param {Function} require
- * @return {Function}
- */
-function importer(sequelize, DataTypes, require) {
-    return function (name) {
-        return require('./db/models/' + name)(sequelize, DataTypes);
-    };
-}
-
-/**
  * @param {Object} obj*
  * @return {Object}
  */
@@ -59,5 +47,4 @@ function doneBy(DataTypes) {
 
 module.exports.configuration = configuration;
 module.exports.doneBy = doneBy;
-module.exports.importer = importer;
 module.exports.merge = merge;
