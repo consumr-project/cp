@@ -30,6 +30,42 @@ angular.module('tcp').controller('CompanyController', [
         };
 
         /**
+         * @return {Promise}
+         */
+        $scope.save = function () {
+            utils.assert(Auth.USER, 'login required for action');
+            utils.assert($scope.company.name, 'company name is required');
+
+            return ServicesService.query.companies.create(get_company()).then(function (res) {
+                NavigationService.company(res.data.id);
+                log('saved company', res.data.id);
+                return res;
+            });
+        };
+
+        /**
+         * sets up watchers for new companies
+         * @param {String} [id]
+         */
+        $scope.init = function (id) {
+            if (!id) {
+                $scope.$watch('company.name', get_summary);
+            }
+        };
+
+        /**
+         * @param {String} [id]
+         * @return {Promise}
+         */
+        $scope.load = function (id) {
+            return ServicesService.query.companies.retrieve(id || $routeParams.id)
+                .then(utils.pluck('data'))
+                .then(utils.scope.not_found($scope))
+                .then(normalize)
+                .then(utils.scope.set($scope, 'company'));
+        };
+
+        /**
          * @param {Company} company
          * @return {Company}
          */
@@ -63,46 +99,17 @@ angular.module('tcp').controller('CompanyController', [
         }
 
         /**
-         * @return {Promise}
+         * @return {Company}
          */
-        $scope.save = function () {
-            utils.assert(Auth.USER, 'login required for action');
-            utils.assert($scope.company.name, 'company name is required');
-
-            return ServicesService.query.companies.create({
+        function get_company() {
+            return {
                 id: $scope.company.id || ServicesService.query.UUID,
                 name: $scope.company.name,
                 summary: $scope.company.summary,
                 created_by: Auth.USER.id,
                 updated_by: Auth.USER.id,
-            }).then(function (res) {
-                NavigationService.company(res.data.id);
-                log('saved company', res.data.id);
-                return res;
-            });
-        };
-
-        /**
-         * sets up watchers for new companies
-         * @param {String} [id]
-         */
-        $scope.init = function (id) {
-            if (!id) {
-                $scope.$watch('company.name', get_summary);
-            }
-        };
-
-        /**
-         * @param {String} [id]
-         * @return {Promise}
-         */
-        $scope.load = function (id) {
-            return ServicesService.query.companies.retrieve(id || $routeParams.id)
-                .then(utils.pluck('data'))
-                .then(utils.scope.not_found($scope))
-                .then(normalize)
-                .then(utils.scope.set($scope, 'company'));
-        };
+            };
+        }
 
         // /**
         //  * @param {String} id
