@@ -107,20 +107,17 @@ function create(model, extra_params) {
  */
 function retrieve(model, filter) {
     return function (req, res, next) {
-        if (req.params.id && !filter) {
-            // GET model/id
-            error_handler(res, model.findById(req.params.id))
-                .then(response_handler(res));
-        } else if (req.params.id && filter) {
-            // GET model/id/sub_model/sub_id
+        // GET model/:id
+        // GET model/:id/sub_model/:sub_id
+        if (req.params.id) {
             error_handler(res, model.findOne(generate_where(filter, req.params)))
                 .then(response_handler(res));
+        // GET model/id/sub_model
         } else if (filter) {
-            // GET model/id/sub_model
             error_handler(res, model.findAll(generate_where(filter, req.params)))
                 .then(response_handler(res));
+        // GET model?search
         } else {
-            // GET model?search
             next(new Error('search not implemented'));
         }
     };
