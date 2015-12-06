@@ -21,6 +21,7 @@ conn = new Sequelize(config('database.url'), {
 
 models = {
     Company: model('company'),
+    CompanyFollower: model('company_followers'),
     Event: model('event'),
     Source: model('source'),
     Tag: model('tag'),
@@ -28,8 +29,18 @@ models = {
 };
 
 app.use(body.json());
-app.get('/companies/:id?', crud.retrieve(models.Company));
+
+app.post('/users', crud.create(models.User));
+app.get('/users/:id', crud.retrieve(models.User));
+
 app.post('/companies', crud.create(models.Company));
+app.get('/companies/:id?', crud.retrieve(models.Company));
+app.put('/companies/:id', crud.update(models.Company));
+app.delete('/companies/:id', crud.delete(models.Company));
+
+app.post('/companies/:company_id/followers', crud.create(models.CompanyFollower, ['company_id']));
+// app.get('/companies/:company_id/followers/:id?', crud.retrieve(models.CompanyFollower, ['company_id']));
+// app.delete('/companies/:company_id/followers/:id', crud.delete(models.CompanyFollower, ['company_id']));
 
 log('starting sync');
 conn.sync().then(function () {

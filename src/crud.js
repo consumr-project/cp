@@ -37,6 +37,18 @@ function populateIds(req) {
 }
 
 /**
+ * @param {http.Request} req
+ * @param {Object} extra_params
+ */
+function populateExtraParameters(req, extra_params) {
+    if (extra_params) {
+        each(extra_params, function (field) {
+            req.body[field] = req.params[field];
+        });
+    }
+}
+
+/**
  * @param {http.Response} res
  * @param {Promise} action
  * @return {Promise}
@@ -61,11 +73,13 @@ function handleResponse(res, property) {
 
 /**
  * @param {Sequelize.Model} model
+ * @param {Object} [extra_params]
  * @return {Function(http.Request, http.Response)}
  */
-function create(model) {
+function create(model, extra_params) {
     return function (req, res) {
         populateIds(req);
+        populateExtraParameters(req, extra_params);
         handleErrors(res, model.create(req.body))
             .then(handleResponse(res, 'dataValues'));
     };
