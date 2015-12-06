@@ -5,14 +5,17 @@ var conn, models, api;
 var Sequelize = require('sequelize'),
     DataTypes = require('sequelize/lib/data-types');
 
-var app = require('express')(),
-    log = require('debug')('service:query'),
-    body = require('body-parser'),
+var body = require('body-parser'),
     crud = require('./src/crud'),
     utils = require('./src/utils'),
-    config = require('acm');
+    debug = require('debug');
+
+var app = require('express')(),
+    config = require('acm'),
+    log = debug('service:query');
 
 conn = new Sequelize(config('database.url'), {
+    logging: debug('service:query:exec'),
     pool: config('database.pool')
 });
 
