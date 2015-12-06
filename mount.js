@@ -37,6 +37,7 @@ api = {
 };
 
 log('starting sync');
+conn.drop().then(function () {
 conn.sync().then(function () {
     log('sync complete');
 
@@ -44,6 +45,7 @@ conn.sync().then(function () {
         log('starting server');
         app.listen(config('port') || 3000);
     }
+});
 });
 
 /**

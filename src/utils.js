@@ -40,7 +40,7 @@ function doneBy(DataTypes) {
         },
 
         deleted_by: {
-            type: DataTypes.STRING
+            type: DataTypes.UUID
         }
     };
 }
