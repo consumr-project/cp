@@ -8,8 +8,7 @@ angular.module('tcp').controller('CompanyController', [
     'companies',
     'logger',
     'lodash',
-    'show_add_event',
-    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger, _, show_add_event) {
+    function ($scope, $routeParams, NavigationService, Auth, utils, wikipedia, companies, logger, _) {
         'use strict';
 
         var log = logger('company');
@@ -130,7 +129,6 @@ angular.module('tcp').controller('CompanyController', [
         $scope.companyPage = function () {
             if ($routeParams.guid) {
                 load($routeParams.guid);
-                $scope.vm.add_event.showNow = show_add_event;
             } else {
                 $scope.$watch('company.name', fetchCompanySummary);
             }

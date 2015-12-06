@@ -56,10 +56,6 @@ module tcp {
         .value('utils', utils)
         .value('wikipedia', wikipedia);
 
-    // values from route resolve
-    angular.module('tcp')
-        .value('show_add_event', false);
-
     angular.module('tcp').config([
         '$routeProvider',
         '$locationProvider',
@@ -91,18 +87,12 @@ module tcp {
 
             $routeProvider.when('/company/:guid?', {
                 templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController',
-                resolve: {
-                    show_add_event: () => false
-                }
+                controller: 'CompanyController'
             });
 
             $routeProvider.when('/company/:guid/event/:eventGuid?', {
                 templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController',
-                resolve: {
-                    show_add_event: () => true
-                }
+                controller: 'CompanyController'
             });
 
             $routeProvider.otherwise({
