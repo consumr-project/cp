@@ -49,6 +49,17 @@ function handleErrors(res, action) {
 }
 
 /**
+ * @param {http.Response} res
+ * @param {String} [property]
+ * @return {Function}
+ */
+function handleResponse(res, property) {
+    return function (results) {
+        res.json(property ? results[property] : results);
+    };
+}
+
+/**
  * @param {Sequelize.Model} model
  * @return {Function(http.Request, http.Response)}
  */
@@ -56,9 +67,7 @@ function create(model) {
     return function (req, res) {
         populateIds(req);
         handleErrors(res, model.create(req.body))
-            .then(function (query) {
-                res.json(query.dataValues);
-            });
+            .then(handleResponse(res, 'dataValues'));
     };
 }
 
@@ -68,6 +77,10 @@ function create(model) {
  */
 function retrieve(model) {
     return function (req, res) {
+        if (req.params.id) {
+            handleErrors(res, model.findById(req.params.id))
+                .then(handleResponse(res));
+        }
     };
 }
 

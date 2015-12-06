@@ -25,6 +25,7 @@ models = {
 };
 
 app.use(body.json());
+app.get('/companies/:id?', crud.retrieve(models.Company));
 app.post('/companies', crud.create(models.Company));
 
 log('starting sync');
