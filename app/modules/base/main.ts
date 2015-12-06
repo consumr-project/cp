@@ -90,11 +90,6 @@ module tcp {
                 controller: 'CompanyController'
             });
 
-            $routeProvider.when('/company/:guid/event/:eventGuid?', {
-                templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController'
-            });
-
             $routeProvider.otherwise({
                 templateUrl: '/app/modules/base/404.html',
             });
