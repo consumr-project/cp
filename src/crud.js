@@ -76,10 +76,12 @@ function create(model) {
  * @return {Function(http.Request, http.Response)}
  */
 function retrieve(model) {
-    return function (req, res) {
+    return function (req, res, next) {
         if (req.params.id) {
             handleErrors(res, model.findById(req.params.id))
                 .then(handleResponse(res));
+        } else {
+            next(new Error('search not implemented'));
         }
     };
 }
@@ -89,7 +91,8 @@ function retrieve(model) {
  * @return {Function(http.Request, http.Response)}
  */
 function update(model) {
-    return function (req, res) {
+    return function (req, res, next) {
+        next(new Error('delete not implemented'));
     };
 }
 
@@ -98,7 +101,8 @@ function update(model) {
  * @return {Function(http.Request, http.Response)}
  */
 function del(model) {
-    return function (req, res) {
+    return function (req, res, next) {
+        next(new Error('delete not implemented'));
     };
 }
 
