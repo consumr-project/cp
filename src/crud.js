@@ -1,7 +1,23 @@
 'use strict';
 
 var each = require('lodash/collection/each'),
+    reduce = require('lodash/collection/reduce'),
     uuid = require('node-uuid');
+
+/**
+ * @param {Object} schema
+ * @param {Object} params
+ * @return {Object}
+ */
+function generateWhere(schema, params) {
+    return { where: reduce(schema, function (filter, lookup, field) {
+        if (params[lookup]) {
+            filter[field] = params[lookup];
+        }
+
+        return filter;
+    }, {}) };
+}
 
 /**
  * @param {String} val
@@ -87,14 +103,25 @@ function create(model, extra_params) {
 
 /**
  * @param {Sequelize.Model} model
+ * @param {Object} [filter]
  * @return {Function(http.Request, http.Response)}
  */
-function retrieve(model) {
+function retrieve(model, filter) {
     return function (req, res, next) {
-        if (req.params.id) {
+        if (req.params.id && !filter) {
+            // GET model/id
             handleErrors(res, model.findById(req.params.id))
                 .then(handleResponse(res));
+        } else if (req.params.id && filter) {
+            // GET model/id/sub_model/sub_id
+            handleErrors(res, model.findOne(generateWhere(filter, req.params)))
+                .then(handleResponse(res));
+        } else if (filter) {
+            // GET model/id/sub_model
+            handleErrors(res, model.findAll(generateWhere(filter, req.params)))
+                .then(handleResponse(res));
         } else {
+            // GET model?search
             next(new Error('search not implemented'));
         }
     };
