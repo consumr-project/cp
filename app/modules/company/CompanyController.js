@@ -36,9 +36,9 @@ angular.module('tcp').controller('CompanyController', [
         function normalize(company) {
             utils.assert(company);
 
-            company.followedBy = company.followedBy || [];
+            company.followed_by = company.followed_by || [];
             company.$loaded = true;
-            company.$summaryParts = !company.summary ? [] :
+            company.$summary_parts = !company.summary ? [] :
                 company.summary.split('\n');
 
             return company;
@@ -48,13 +48,13 @@ angular.module('tcp').controller('CompanyController', [
          * @param {String} name of company
          * @return {Promise}
          */
-        function getSummary(name) {
+        function get_summary(name) {
             utils.assert(name);
 
             // XXX error state
-            $scope.vm.fetchingCompanySummary = true;
+            $scope.vm.fetching_company_summary = true;
             wikipedia.extract(name).then(function (extract) {
-                $scope.vm.fetchingCompanySummary = false;
+                $scope.vm.fetching_company_summary = false;
                 $scope.company.name = extract.title;
                 $scope.company.summary = extract.extract_no_refs;
                 normalize($scope.company);
@@ -88,7 +88,7 @@ angular.module('tcp').controller('CompanyController', [
          */
         $scope.init = function (id) {
             if (!id) {
-                $scope.$watch('company.name', getSummary);
+                $scope.$watch('company.name', get_summary);
             }
         };
 
@@ -139,10 +139,10 @@ angular.module('tcp').controller('CompanyController', [
         //         return;
         //     }
         //
-        //     if (_.contains($scope.company.followedBy, Auth.USER.uid)) {
-        //         $scope.company.followedBy = _.without($scope.company.followedBy, Auth.USER.uid);
-        //         companies.store.child($scope.company.guid).child('followedBy')
-        //             .set($scope.company.followedBy);
+        //     if (_.contains($scope.company.followed_by, Auth.USER.uid)) {
+        //         $scope.company.followed_by = _.without($scope.company.followed_by, Auth.USER.uid);
+        //         companies.store.child($scope.company.guid).child('followed_by')
+        //             .set($scope.company.followed_by);
         //     }
         // };
         //
@@ -152,10 +152,10 @@ angular.module('tcp').controller('CompanyController', [
         //         return;
         //     }
         //
-        //     if (!_.contains($scope.company.followedBy, Auth.USER.uid)) {
-        //         $scope.company.followedBy.push(Auth.USER.uid);
-        //         companies.store.child($scope.company.guid).child('followedBy')
-        //             .set($scope.company.followedBy);
+        //     if (!_.contains($scope.company.followed_by, Auth.USER.uid)) {
+        //         $scope.company.followed_by.push(Auth.USER.uid);
+        //         companies.store.child($scope.company.guid).child('followed_by')
+        //             .set($scope.company.followed_by);
         //     }
         // };
 
