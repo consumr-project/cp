@@ -99,8 +99,9 @@ angular.module('tcp').controller('CompanyController', [
         $scope.load = function (id) {
             return ServicesService.query.companies.retrieve(id || $routeParams.id)
                 .then(utils.pluck('data'))
+                .then(utils.scope.not_found($scope))
                 .then(normalize)
-                .then(utils.scope($scope, 'company'));
+                .then(utils.scope.set($scope, 'company'));
         };
 
         // /**

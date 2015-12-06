@@ -1,4 +1,5 @@
 <div class="site-content" ng-init="init(vm.id); vm.id && load(vm.id)">
+    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>
     <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>
 
     <section ng-if="!vm.existing">
@@ -12,7 +13,7 @@
         </div>
     </section>
 
-    <section ng-if="vm.existing">
+    <section ng-if="vm.existing && company.$loaded">
         <div class="margin-top-medium margin-bottom-medium">
             <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>
         </div>

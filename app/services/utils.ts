@@ -18,17 +18,28 @@ export function pluck<T>(prop: string): (obj: any) => T {
     };
 }
 
-export function assert(val: any, message?: string) {
+export function assert(val: any, message?: string): Boolean {
     if (!val) {
         throw new Error(message || 'Assertion error: value not set');
     }
+
+    return true;
 }
 
-export function scope<T>($scope: Object, prop: string): (val: T) => T {
-    return function (val: T): T {
-        $scope[prop] = val;
-        return val;
-    };
+export module scope {
+    export function set<T>($scope: Object, prop: string): (val: T) => T {
+        return function (val: T): T {
+            $scope[prop] = val;
+            return val;
+        };
+    }
+
+    export function not_found($scope: Object): Function {
+        return function (val) {
+            (<any>$scope).vm.not_found = !val;
+            assert(val);
+        };
+    }
 }
 
 export function noop() {
