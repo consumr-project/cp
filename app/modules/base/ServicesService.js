@@ -2,7 +2,44 @@ angular.module('tcp').service('ServicesService', ['$http', function ($http) {
     'use strict';
 
     var extractService = {},
-        searchService = {};
+        searchService = {},
+        queryService = {};
+
+    /**
+     * @param {String} model
+     * @param {String} id
+     * @return {String}
+     */
+    function url(model, id) {
+        var base = '/service/query/' + model;
+        return id ? base + '/' + id : base;
+    }
+
+    /**
+     * @param {String} model
+     * @return {Object}
+     */
+    function crud(model) {
+        return {
+            create: function (data) {
+                return $http.post(url(model), data);
+            },
+            retrieve: function (id) {
+                return $http.get(url(model, id));
+            },
+            update: function (id, data) {
+                return $http.put(url(model, id), data);
+            },
+            delete: function (id) {
+                return $http.delete(id);
+            },
+        };
+    }
+
+    queryService = {
+        UUID: '$UUID',
+        companies: crud('companies')
+    };
 
     /**
      * @param {String} url
@@ -39,6 +76,7 @@ angular.module('tcp').service('ServicesService', ['$http', function ($http) {
 
     return {
         extract: extractService,
-        search: searchService
+        search: searchService,
+        query: queryService
     };
 }]);

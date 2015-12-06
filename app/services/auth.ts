@@ -47,6 +47,9 @@ export function session(root: string, store: Firebase): Session {
             events.trigger(EVENT.TIMEOUT);
         } else if (user) {
             log('user login', user);
+            // XXX
+            user.id = '00000000-0000-0000-0000-000000000000';
+            console.warn('guest user it set');
             session.USER = user;
             events.trigger(EVENT.LOGIN);
         } else {

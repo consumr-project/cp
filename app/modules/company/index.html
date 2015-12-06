@@ -1,7 +1,7 @@
-<div class="site-content" ng-init="companyPage()">
-    <h1 class="take-space animated fadeIn" ng-if="existing">{{company.name}}</h1>
+<div class="site-content" ng-init="init(vm.id); vm.id && load(vm.id)">
+    <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>
 
-    <section ng-if="!existing">
+    <section ng-if="!vm.existing">
         <input class="block title" type="text" autofocus="true"
             i18n="company/name_placeholder" prop="placeholder"
             ng-class="{ loading: vm.fetchingCompanySummary }"
@@ -12,7 +12,7 @@
         </div>
     </section>
 
-    <section ng-if="existing">
+    <section ng-if="vm.existing">
         <div class="margin-top-medium margin-bottom-medium">
             <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>
         </div>
@@ -28,7 +28,7 @@
 
     <p class="animated fadeIn" ng-repeat="paragraph in company.$summaryParts">{{::paragraph}}</p>
 
-    <section ng-if="existing && company.$loaded" class="margin-top-xlarge">
+    <section ng-if="vm.existing && company.$loaded" class="margin-top-xlarge">
         <followed-by
             users="company.followedBy"
             on-start-following="onStartFollowing()"

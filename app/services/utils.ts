@@ -12,6 +12,25 @@ export interface Listener {
     listener?: (obj: any) => any;
 }
 
+export function pluck<T>(prop: string): (obj: any) => T {
+    return function (obj: any) {
+        return obj[prop];
+    };
+}
+
+export function assert(val: any, message?: string) {
+    if (!val) {
+        throw new Error(message || 'Assertion error: value not set');
+    }
+}
+
+export function scope<T>($scope: Object, prop: string): (val: T) => T {
+    return function (val: T): T {
+        $scope[prop] = val;
+        return val;
+    };
+}
+
 export function noop() {
 }
 

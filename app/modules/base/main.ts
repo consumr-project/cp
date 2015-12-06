@@ -85,7 +85,7 @@ module tcp {
                 controller: 'UserController'
             });
 
-            $routeProvider.when('/company/:guid?', {
+            $routeProvider.when('/company/:id?', {
                 templateUrl: '/app/modules/company/index.html',
                 controller: 'CompanyController'
             });
