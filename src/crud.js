@@ -1,6 +1,7 @@
 'use strict';
 
 var each = require('lodash/collection/each'),
+    clone = require('lodash/lang/clone'),
     reduce = require('lodash/collection/reduce'),
     uuid = require('node-uuid');
 
@@ -32,6 +33,20 @@ function replace_with_uuid(val, field) {
         'updated_by',
         'created_by',
     ].indexOf(field) !== -1;
+}
+
+/**
+ * @param {Object} body
+ * @return {Object}
+ */
+function populate_dates(body) {
+    var cbody = clone(body);
+
+    if (!cbody.deleted_date) {
+        cbody.deleted_date = null;
+    }
+
+    return cbody;
 }
 
 /**
@@ -95,8 +110,8 @@ function response_handler(res, property) {
 function create(model, extra_params) {
     return function (req, res) {
         populate_extra_parameters(req, extra_params);
-        error_handler(res, model.create(populate_uuids(req.body)))
-            .then(response_handler(res, 'dataValues'));
+        error_handler(res, model.upsert(populate_uuids(populate_dates(req.body))))
+            .then(response_handler(res));
     };
 }
 
