@@ -24,7 +24,7 @@ angular.module('tcp').controller('CompanyController', [
         $scope.company = {
             $followed_by: [],
             $loaded: false,
-            $summary_parts: []
+            $summary_parts: [],
             id: null,
             name: null,
             summary: null
