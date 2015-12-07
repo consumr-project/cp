@@ -21,7 +21,14 @@ angular.module('tcp').controller('CompanyController', [
 
         var log = logger('company');
 
-        $scope.company = {};
+        $scope.company = {
+            $followed_by: [],
+            $loaded: false,
+            $summary_parts: []
+            id: null,
+            name: null,
+            summary: null
+        };
 
         $scope.vm = {
             id: $routeParams.id,
@@ -105,7 +112,7 @@ angular.module('tcp').controller('CompanyController', [
         function normalize_company(company) {
             utils.assert(company);
 
-            company.followed_by = company.followed_by || [];
+            company.$followed_by = company.$followed_by || [];
             company.$loaded = true;
             company.$summary_parts = !company.summary ? [] :
                 company.summary.split('\n');
@@ -143,68 +150,5 @@ angular.module('tcp').controller('CompanyController', [
                 updated_by: Auth.USER.id,
             };
         }
-
-        // /**
-        //  * @param {String} id
-        //  * @return {Promise}
-        //  */
-        // function load(id) {
-        //     return companies.get(id).then(function (company) {
-        //         $scope.company = company;
-        //         // $scope.company.$loaded = true;
-        //         normalizeCompany();
-        //
-        //         if (!$scope.company) {
-        //             log.error('company not found');
-        //         }
-        //
-        //         $scope.$apply();
-        //     });
-        // }
-
-        // function saveSuccessHandler() {
-        //     var id = $scope.company.id;
-        //     NavigationService.company(id);
-        //     $scope.$apply();
-        //     log('saved', id);
-        // }
-
-        // function saveErrorHandler(err) {
-        //     log.error('save error', err);
-        // }
-
-        // $scope.onStopFollowing = function () {
-        //     if (!Auth.USER) {
-        //         log.error('you must be logged in to follow companies');
-        //         return;
-        //     }
-        //
-        //     if (_.contains($scope.company.followed_by, Auth.USER.uid)) {
-        //         $scope.company.followed_by = _.without($scope.company.followed_by, Auth.USER.uid);
-        //         companies.store.child($scope.company.guid).child('followed_by')
-        //             .set($scope.company.followed_by);
-        //     }
-        // };
-        //
-        // $scope.onStartFollowing = function () {
-        //     if (!Auth.USER) {
-        //         log.error('you must be logged in to follow companies');
-        //         return;
-        //     }
-        //
-        //     if (!_.contains($scope.company.followed_by, Auth.USER.uid)) {
-        //         $scope.company.followed_by.push(Auth.USER.uid);
-        //         companies.store.child($scope.company.guid).child('followed_by')
-        //             .set($scope.company.followed_by);
-        //     }
-        // };
-
-        // $scope.loadCompany = function (id) {
-        //     load(id);
-        // };
-        //
-        // $scope.gotoCompany = function (id) {
-        //     NavigationService.company(id);
-        // };
     }
 ]);
