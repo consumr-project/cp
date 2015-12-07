@@ -1,6 +1,7 @@
 /// <reference path="../typings.d.ts"/>
 
 import {map, each, remove} from 'lodash';
+import deep = require('deep-get-set');
 
 const M_SPACES: RegExp = / /g;
 const M_DASHES: RegExp = /-+/g;
@@ -27,9 +28,9 @@ export function assert(val: any, message?: string): Boolean {
 }
 
 export module scope {
-    export function set<T>($scope: Object, prop: string): (val: T) => T {
+    export function set<T>($scope: any, prop: string): (val: T) => T {
         return function (val: T): T {
-            $scope[prop] = val;
+            deep<T>($scope, prop, val);
             return val;
         };
     }

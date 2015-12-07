@@ -48,7 +48,7 @@ export function session(root: string, store: Firebase): Session {
         } else if (user) {
             log('user login', user);
             // XXX
-            user.id = '00000000-0000-0000-0000-000000000000';
+            user.id = '17c8f129-b370-417b-bebb-5beff6a22a67';
             console.warn('guest user it set');
             session.USER = user;
             events.trigger(EVENT.LOGIN);

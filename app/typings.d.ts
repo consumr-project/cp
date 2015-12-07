@@ -8,6 +8,11 @@ declare var TCP_BUILD_CONFIG: {
     locale: { dateFormat: string; };
 };
 
+declare module "deep-get-set" {
+    function deep<T>(holder: any, prop: string, val: T): T;
+    export = deep
+}
+
 declare module "reqwest" {
     function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
     export = reqwest

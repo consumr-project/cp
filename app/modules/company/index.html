@@ -29,9 +29,9 @@
 
     <p class="animated fadeIn" ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>
 
-    <section ng-if="vm.existing && company.$loaded" class="margin-top-xlarge">
+    <section ng-if="vm.existing && company.$loaded" ng-init="loadFollowers(company.id)" class="margin-top-xlarge">
         <followed-by
-            users="company.followed_by"
+            users="company.$followed_by"
             on-start-following="onStartFollowing()"
             on-stop-following="onStopFollowing()"
         ></followed-by>

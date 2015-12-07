@@ -61,15 +61,48 @@ angular.module('tcp').controller('CompanyController', [
             return ServicesService.query.companies.retrieve(id || $routeParams.id)
                 .then(utils.pluck('data'))
                 .then(utils.scope.not_found($scope))
-                .then(normalize)
+                .then(normalize_company)
                 .then(utils.scope.set($scope, 'company'));
+        };
+
+        /**
+         * @return {Promise}
+         */
+        $scope.loadFollowers = function () {
+            utils.assert($routeParams.id);
+
+            return ServicesService.query.companies.followers.retrieve($routeParams.id)
+                .then(utils.pluck('data'))
+                .then(utils.scope.set($scope, 'company.$followed_by'));
+        };
+
+        /**
+         * @return {Promise}
+         */
+        $scope.onStartFollowing = function () {
+            utils.assert($routeParams.id);
+            utils.assert(Auth.USER);
+
+            return ServicesService.query.companies.followers.create($routeParams.id, { user_id: Auth.USER.id })
+                .then($scope.loadFollowers);
+        };
+
+        /**
+         * @return {Promise}
+         */
+        $scope.onStopFollowing = function () {
+            utils.assert($routeParams.id);
+            utils.assert(Auth.USER);
+
+            return ServicesService.query.companies.followers.delete($routeParams.id, Auth.USER.id)
+                .then($scope.load.bind(null, $routeParams.id));
         };
 
         /**
          * @param {Company} company
          * @return {Company}
          */
-        function normalize(company) {
+        function normalize_company(company) {
             utils.assert(company);
 
             company.followed_by = company.followed_by || [];
@@ -93,7 +126,7 @@ angular.module('tcp').controller('CompanyController', [
                 $scope.vm.fetching_company_summary = false;
                 $scope.company.name = extract.title;
                 $scope.company.summary = extract.extract_no_refs;
-                normalize($scope.company);
+                normalize_company($scope.company);
                 $scope.$apply();
             });
         }

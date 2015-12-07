@@ -1,4 +1,4 @@
-angular.module('tcp').service('ServicesService', ['$http', function ($http) {
+angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($http, lodash) {
     'use strict';
 
     var extractService = {},
@@ -11,16 +11,32 @@ angular.module('tcp').service('ServicesService', ['$http', function ($http) {
      * @return {String}
      */
     function url(model, id) {
-        var base = '/service/query/' + model;
-        return id ? base + '/' + id : base;
+        return '/service/query/' + lodash.filter(arguments).join('/');
     }
 
     /**
      * @param {String} model
+     * @param {Array} [associataions]
      * @return {Object}
      */
-    function crud(model) {
-        return {
+    function crud(model, associations) {
+        return lodash.reduce(associations, function (methods, assoc) {
+            methods[assoc] = {
+                create: function (parent_id, data) {
+                    return $http.post(url(model, parent_id, assoc), data);
+                },
+                retrieve: function (parent_id, id) {
+                    return $http.get(url(model, parent_id, assoc, id));
+                },
+                update: function (parent_id, id, data) {
+                    return $http.put(url(model, parent_id, assoc, id), data);
+                },
+                delete: function (parent_id, id) {
+                    return $http.delete(url(model, parent_id, assoc, id));
+                }
+            };
+            return methods;
+        }, {
             create: function (data) {
                 return $http.post(url(model), data);
             },
@@ -31,14 +47,14 @@ angular.module('tcp').service('ServicesService', ['$http', function ($http) {
                 return $http.put(url(model, id), data);
             },
             delete: function (id) {
-                return $http.delete(id);
+                return $http.delete(url(model, id));
             },
-        };
+        });
     }
 
     queryService = {
         UUID: '$UUID',
-        companies: crud('companies')
+        companies: crud('companies', ['followers'])
     };
 
     /**
