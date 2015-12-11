@@ -17,9 +17,11 @@ angular.module('tcp').controller('UserController', [
          */
         function load(id) {
             return ServicesService.query.users.retrieve(id).then(function (user) {
+                window.user=
                 $scope.user = user;
-                $scope.user.shortSummary = utils.summaryze(user.summary);
-                $scope.$apply();
+                $scope.user.$summary = utils.summaryze(user.summary);
+                $scope.user.$followers_count = 0;
+                $scope.user.$following_count = 0;
             });
         }
 
