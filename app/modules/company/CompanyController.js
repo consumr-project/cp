@@ -88,7 +88,7 @@ angular.module('tcp').controller('CompanyController', [
             utils.assert($routeParams.id);
             utils.assert(SessionService.USER);
 
-            return ServicesService.query.companies.followers.create($routeParams.id, { user_id: SessionService.USER.id })
+            return ServicesService.query.companies.followers.upsert($routeParams.id, { user_id: SessionService.USER.id })
                 .then($scope.loadFollowers);
         };
 

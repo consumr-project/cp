@@ -81,5 +81,7 @@ angular.module('tcp').controller('AdminController', [
         function getSession() {
             return Cookie.getJSON('client:session') || {};
         }
+
+        SessionService.refresh();
     }
 ]);

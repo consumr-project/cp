@@ -34,6 +34,9 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
                 create: function (parent_id, data) {
                     return $http.post(url(model, parent_id, assoc), data).then(pluck_data);
                 },
+                upsert: function (parent_id, data) {
+                    return $http.patch(url(model, parent_id, assoc), data).then(pluck_data);
+                },
                 retrieve: function (parent_id, id) {
                     return $http.get(url(model, parent_id, assoc, id)).then(pluck_data);
                 },
@@ -48,6 +51,9 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
         }, {
             create: function (data) {
                 return $http.post(url(model), data).then(pluck_data);
+            },
+            upsert: function (data) {
+                return $http.upsert(url(model), data).then(pluck_data);
             },
             retrieve: function (id) {
                 return $http.get(url(model, id)).then(pluck_data);

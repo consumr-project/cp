@@ -53,7 +53,7 @@ angular.module('tcp').service('SessionService', [
             return ServicesService.auth.user()
                 .then(function (user) {
                     service.USER = user || {};
-                    service.emit(user ? events.LOGIN : events.LOGOUT);
+                    service.emit(user && user.id ? events.LOGIN : events.LOGOUT);
                     return user;
                 })
                 .catch(emit(events.ERROR));
