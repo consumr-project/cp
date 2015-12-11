@@ -1,12 +1,12 @@
 angular.module('tcp').controller('AdminController', [
     '$scope',
-    'Auth',
+    'SessionService',
     'utils',
     'users',
     'logger',
     'Cookie',
     'lodash',
-    function ($scope, Auth, utils, users, logger, Cookie, _) {
+    function ($scope, SessionService, utils, users, logger, Cookie, _) {
         'use strict';
 
         var log = logger('admin');
@@ -33,15 +33,14 @@ angular.module('tcp').controller('AdminController', [
         $scope.logout = logout;
 
         $scope.$watchCollection('session', cacheSession);
-        Auth.on(Auth.EVENT.LOGIN, fetchCurrentUser);
-        Auth.on(Auth.EVENT.ERROR, clearSession);
-        Auth.on(Auth.EVENT.LOGOUT, clearSession);
-        Auth.on(Auth.EVENT.TIMEOUT, clearSession);
+        SessionService.on(SessionService.EVENT.LOGIN, updateCurrentUser);
+        SessionService.on(SessionService.EVENT.ERROR, clearSession);
+        SessionService.on(SessionService.EVENT.LOGOUT, clearSession);
 
         function loginWithLinkedin() {
             log('loggin in with linkedin');
             $scope.login.hide();
-            return Auth.login(Auth.PROVIDER.LINKEDIN);
+            SessionService.login(SessionService.PROVIDER.LINKEDIN);
         }
 
         function login() {
@@ -50,24 +49,21 @@ angular.module('tcp').controller('AdminController', [
 
         function logout() {
             log('logging out');
-            Auth.logout();
+            SessionService.logout();
             $scope.actions.show = false;
         }
 
         /**
-         * updates Auth.USER with additional information from store
+         * caches user information
          */
-        function fetchCurrentUser() {
-            log('getting user information');
-            return users.get(Auth.USER.uid).then(function (user) {
-                log('got user information');
-                _.extend(Auth.USER, user);
-                $scope.session.userAvatarUrl = user.avatarUrl;
-                $scope.session.loggedIn = true;
-                $scope.$apply();
-            });
+        function updateCurrentUser() {
+            $scope.session.avatar_url = SessionService.USER.avatar_url;
+            $scope.session.logged_in = true;
         }
 
+        /**
+         * resets session
+         */
         function clearSession() {
             $scope.session = {};
         }

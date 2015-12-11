@@ -2,14 +2,17 @@ angular.module('tcp').directive('companyEvent', [
     '$q',
     '$http',
     'lodash',
-    'Auth',
+    'SessionService',
     'utils',
     'keyword',
-    'tags',
-    'companies',
-    'events',
-    function ($q, $http, _, Auth, utils, keyword, tags, companies, events) {
+    function ($q, $http, _, SessionService, utils, keyword) {
         'use strict';
+
+        // Broken: deps on
+        // tags
+        // companies
+        // events
+        var tags = companies = events = {};
 
         /**
          * @param {jQuery} $elem
@@ -186,7 +189,7 @@ angular.module('tcp').directive('companyEvent', [
                 // first save
                 if (!$scope.ev.guid) {
                     $scope.ev.guid = utils.guid();
-                    $scope.ev.createdBy = Auth.USER.guid;
+                    $scope.ev.createdBy = SessionService.USER.id;
                 }
 
                 events.put(getNormalizedEvent($scope.ev),

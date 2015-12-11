@@ -1,9 +1,18 @@
 angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($http, lodash) {
     'use strict';
 
-    var extractService = {},
+    var authService = {},
+        extractService = {},
         searchService = {},
         queryService = {};
+
+    /**
+     * @param {$http.Response} res
+     * @return {$http.Response.data}
+     */
+    function data(res) {
+        return res.data;
+    }
 
     /**
      * @param {String} model
@@ -90,7 +99,38 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
         });
     };
 
+    /**
+     * @return {Promise}
+     */
+    authService.user = function () {
+        return $http.get('/service/auth/user').then(data);
+    };
+
+    /**
+     * @return {Promise}
+     */
+    authService.logout = function () {
+        return $http.get('/service/auth/logout');
+    };
+
+    /**
+     * @return {Window}
+     */
+    authService.login = function (provider) {
+        return window.open('/service/auth/' + provider, 'cp_auth_' + provider, [
+            'menubar=no',
+            'location=yes',
+            'resizable=yes',
+            'scrollbars=yes',
+            'status=no',
+            'height=750',
+            'width=800',
+            'left=100'
+        ].join(','));
+    };
+
     return {
+        auth: authService,
         extract: extractService,
         search: searchService,
         query: queryService

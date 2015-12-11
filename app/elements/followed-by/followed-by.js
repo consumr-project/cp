@@ -1,8 +1,8 @@
 angular.module('tcp').directive('followedBy', [
     'i18n',
-    'Auth',
+    'SessionService',
     'lodash',
-    function (i18n, Auth, _) {
+    function (i18n, SessionService, _) {
         'use strict';
 
         /**
@@ -75,8 +75,8 @@ angular.module('tcp').directive('followedBy', [
         }
 
         function controller($scope) {
-            Auth.on(Auth.EVENT.LOGIN, update);
-            Auth.on(Auth.EVENT.LOGOUT, update);
+            SessionService.on(SessionService.EVENT.LOGIN, update);
+            SessionService.on(SessionService.EVENT.LOGOUT, update);
             $scope.$watchCollection('users', update);
 
             $scope.onClick = function () {
@@ -96,7 +96,7 @@ angular.module('tcp').directive('followedBy', [
             }
 
             function getUserId() {
-                return Auth.USER && Auth.USER.id;
+                return SessionService.USER && SessionService.USER.id;
             }
         }
 

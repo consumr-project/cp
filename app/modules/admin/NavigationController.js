@@ -1,16 +1,16 @@
 angular.module('tcp').controller('NavigationController', [
     '$rootScope',
     '$scope',
-    'Auth',
+    'SessionService',
     'NavigationService',
-    function ($rootScope, $scope, Auth, NavigationService) {
+    function ($rootScope, $scope, SessionService, NavigationService) {
         'use strict';
 
         $scope.nav = {
             home: NavigationService.home,
             search: NavigationService.search,
             company: NavigationService.company,
-            profile: function () { NavigationService.user(Auth.USER.uid); }
+            profile: function () { NavigationService.user(SessionService.USER.id); }
         };
 
         $rootScope.$on('$locationChangeStart', function () {

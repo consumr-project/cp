@@ -3,7 +3,7 @@ angular.module('tcp').controller('CompanyController', [
     '$routeParams',
     'NavigationService',
     'ServicesService',
-    'Auth',
+    'SessionService',
     'utils',
     'wikipedia',
     'logger',
@@ -12,7 +12,7 @@ angular.module('tcp').controller('CompanyController', [
         $routeParams,
         NavigationService,
         ServicesService,
-        Auth,
+        SessionService,
         utils,
         wikipedia,
         logger
@@ -40,7 +40,7 @@ angular.module('tcp').controller('CompanyController', [
          * @return {Promise}
          */
         $scope.save = function () {
-            utils.assert(Auth.USER, 'login required for action');
+            utils.assert(SessionService.USER, 'login required for action');
             utils.assert($scope.company.name, 'company name is required');
 
             return ServicesService.query.companies.create(get_company()).then(function (res) {
@@ -88,9 +88,9 @@ angular.module('tcp').controller('CompanyController', [
          */
         $scope.onStartFollowing = function () {
             utils.assert($routeParams.id);
-            utils.assert(Auth.USER);
+            utils.assert(SessionService.USER);
 
-            return ServicesService.query.companies.followers.create($routeParams.id, { user_id: Auth.USER.id })
+            return ServicesService.query.companies.followers.create($routeParams.id, { user_id: SessionService.USER.id })
                 .then($scope.loadFollowers);
         };
 
@@ -99,9 +99,9 @@ angular.module('tcp').controller('CompanyController', [
          */
         $scope.onStopFollowing = function () {
             utils.assert($routeParams.id);
-            utils.assert(Auth.USER);
+            utils.assert(SessionService.USER);
 
-            return ServicesService.query.companies.followers.delete($routeParams.id, Auth.USER.id)
+            return ServicesService.query.companies.followers.delete($routeParams.id, SessionService.USER.id)
                 .then($scope.load.bind(null, $routeParams.id));
         };
 
@@ -146,8 +146,8 @@ angular.module('tcp').controller('CompanyController', [
                 id: $scope.company.id || ServicesService.query.UUID,
                 name: $scope.company.name,
                 summary: $scope.company.summary,
-                created_by: Auth.USER.id,
-                updated_by: Auth.USER.id,
+                created_by: SessionService.USER.id,
+                updated_by: SessionService.USER.id,
             };
         }
     }

@@ -2,23 +2,22 @@
 
 require('newrelic');
 
-var app, config, fb;
-
-var Firebase = require('firebase');
+var app, config, log;
 
 var express = require('express'),
-    serve_index = require('serve-index'),
-    error_handler = require('errorhandler'),
+    debug = require('debug'),
+    index = require('serve-index'),
+    errors = require('errorhandler'),
     favicon = require('serve-favicon'),
     body_parser = require('body-parser'),
-    cookie_parser = require('cookie-parser'),
+    cookie = require('cookie-parser'),
     timeout = require('connect-timeout'),
     session = require('express-session'),
     swig = require('swig');
 
+log = debug('cp:server');
 app = express();
 config = require('acm');
-fb = new Firebase(config('firebase.url'));
 
 app.set('view cache', true);
 app.set('view engine', 'html');
@@ -32,15 +31,15 @@ app.use('/node_modules', express.static('node_modules'));
 app.use(favicon(__dirname + '/assets/images/favicon.png'));
 
 if (config('debug')) {
-    app.use('/app', serve_index('app'));
-    app.use('/assets', serve_index('assets'));
-    app.use(error_handler());
+    app.use('/app', index('app'));
+    app.use('/assets', index('assets'));
+    app.use(errors());
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
 }
 
 app.use(body_parser.json());
-app.use(cookie_parser(config('session.secret')));
+app.use(cookie(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
 app.use('/service/search', timeout('5s'), require('search-service'));
@@ -54,4 +53,9 @@ app.get('*', function (req, res) {
     });
 });
 
-app.listen(config('port') || 3000);
+require('query-service').conn.drop().then(function () {
+require('query-service').conn.sync().then(function () {
+    log('ready');
+    app.listen(config('port') || 3000);
+});
+});
