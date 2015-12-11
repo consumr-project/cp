@@ -44,9 +44,11 @@ angular.module('tcp').controller('CompanyController', [
             utils.assert($scope.company.name, 'company name is required');
 
             return ServicesService.query.companies.create(get_company()).then(function (company) {
-                NavigationService.company(company.id);
-                log('saved company', company.id);
-                return company;
+                return $scope.onStartFollowing(company.id).then(function () {
+                    NavigationService.company(company.id);
+                    log('saved company', company.id);
+                    return company;
+                });
             });
         };
 
@@ -72,35 +74,41 @@ angular.module('tcp').controller('CompanyController', [
         };
 
         /**
+         * @param {String} [company_id]
          * @return {Promise}
          */
-        $scope.loadFollowers = function () {
-            utils.assert($routeParams.id);
+        $scope.loadFollowers = function (company_id) {
+            utils.assert($routeParams.id || company_id);
 
-            return ServicesService.query.companies.followers.retrieve($routeParams.id)
+            return ServicesService.query.companies.followers.retrieve($routeParams.id || company_id)
                 .then(utils.scope.set($scope, 'company.$followed_by'));
         };
 
         /**
+         * @param {String} [company_id]
          * @return {Promise}
          */
-        $scope.onStartFollowing = function () {
-            utils.assert($routeParams.id);
+        $scope.onStartFollowing = function (company_id) {
+            utils.assert($routeParams.id || company_id);
             utils.assert(SessionService.USER);
 
-            return ServicesService.query.companies.followers.upsert($routeParams.id, { user_id: SessionService.USER.id })
-                .then($scope.loadFollowers);
+            return ServicesService.query.companies.followers.upsert($routeParams.id || company_id, {
+                user_id: SessionService.USER.id
+            }).then($scope.loadFollowers.bind(null, company_id));
         };
 
         /**
+         * @param {String} [company_id]
          * @return {Promise}
          */
-        $scope.onStopFollowing = function () {
-            utils.assert($routeParams.id);
+        $scope.onStopFollowing = function (company_id) {
+            var id = $routeParams.id || company_id;
+
+            utils.assert(id);
             utils.assert(SessionService.USER);
 
-            return ServicesService.query.companies.followers.delete($routeParams.id, SessionService.USER.id)
-                .then($scope.load.bind(null, $routeParams.id));
+            return ServicesService.query.companies.followers.delete(id, SessionService.USER.id)
+                .then($scope.load.bind(null, id));
         };
 
         /**
