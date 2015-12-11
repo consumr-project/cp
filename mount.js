@@ -14,7 +14,8 @@ passport.serializeUser(model.serialize);
 passport.deserializeUser(model.deserialize);
 passport.use(linkedin.strategy);
 
-app.get('/linkedin', linkedin.login);
+app.get('/user', function (req, res) { res.json(req.user || {}); });
+app.get('/linkedin', linkedin.pre_base, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback);
 
 if (!module.parent) {

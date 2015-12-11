@@ -1,6 +1,6 @@
 {
   "name": "auth-service",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "",
   "main": "mount.js",
   "scripts": {
@@ -20,11 +20,9 @@
     "acm": "^2.0.1",
     "deep-get-set": "^0.1.1",
     "express": "^4.13.3",
-    "firebase": "^2.3.2",
-    "firebase-passport-login": "rigidflame/firebase-passport-login#e6afd6b6e8a16c609dde804f1cf8dbe90b599a39",
-    "firebase-token-generator": "^2.0.0",
-    "md5": "^2.0.0",
-    "passport": "^0.3.0",
-    "passport-linkedin": "^0.1.3"
+    "node-uuid": "^1.4.7",
+    "passport": "^0.3.2",
+    "passport-linkedin": "^1.0.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v2.0.0"
   }
 }
