@@ -107,10 +107,23 @@ function response_handler(res, property) {
  * @param {Object} [extra_params]
  * @return {Function(http.Request, http.Response)}
  */
-function create(model, extra_params) {
+function upsert(model, extra_params) {
     return function (req, res) {
         populate_extra_parameters(req, extra_params);
         error_handler(res, model.upsert(populate_uuids(populate_dates(req.body))))
+            .then(response_handler(res));
+    };
+}
+
+/**
+ * @param {Sequelize.Model} model
+ * @param {Object} [extra_params]
+ * @return {Function(http.Request, http.Response)}
+ */
+function create(model, extra_params) {
+    return function (req, res) {
+        populate_extra_parameters(req, extra_params);
+        error_handler(res, model.create(populate_uuids(populate_dates(req.body))))
             .then(response_handler(res));
     };
 }
@@ -162,6 +175,7 @@ function del(model, filter) {
 
 module.exports = {
     create: create,
+    upsert: upsert,
     retrieve: retrieve,
     update: update,
     delete: del
