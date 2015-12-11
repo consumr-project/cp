@@ -4,8 +4,7 @@ angular.module('tcp').directive('companyEvent', [
     'lodash',
     'SessionService',
     'utils',
-    'keyword',
-    function ($q, $http, _, SessionService, utils, keyword) {
+    function ($q, $http, _, SessionService, utils) {
         'use strict';
 
         return;
