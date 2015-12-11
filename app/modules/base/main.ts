@@ -61,7 +61,7 @@ module tcp {
                 controller: 'SearchController'
             });
 
-            $routeProvider.when('/user/:guid', {
+            $routeProvider.when('/user/:id', {
                 templateUrl: '/app/modules/user/index.html',
                 controller: 'UserController'
             });
