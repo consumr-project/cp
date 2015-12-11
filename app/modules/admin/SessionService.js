@@ -27,7 +27,7 @@ angular.module('tcp').service('SessionService', [
             return function (val) {
                 service.emit(name);
                 return val;
-            }
+            };
         }
 
         /**

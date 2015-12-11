@@ -7,7 +7,6 @@ angular.module('tcp').directive('companyEvent', [
     function ($q, $http, _, SessionService, utils) {
         'use strict';
 
-        return;
         // Broken: deps on
         // tags
         // companies
@@ -15,6 +14,7 @@ angular.module('tcp').directive('companyEvent', [
         var tags = {};
         var companies = {};
         var events = {};
+        return;
 
         /**
          * @param {jQuery} $elem
