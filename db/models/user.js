@@ -41,12 +41,16 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
 
-        linked_url: {
+        linkedin_url: {
             type: DataTypes.STRING
         },
 
         last_login_date: {
             type: DataTypes.DATE
+        },
+
+        auth_linkedin_id: {
+            type: DataTypes.STRING
         }
     }), u.configuration());
 };

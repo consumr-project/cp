@@ -42,16 +42,6 @@ app.post('/companies/:company_id/followers', crud.create(models.CompanyFollower,
 app.get('/companies/:company_id/followers/:id?', crud.retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 app.delete('/companies/:company_id/followers/:id', crud.delete(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
-log('starting sync');
-conn.sync().then(function () {
-    log('sync complete');
-
-    if (!module.parent) {
-        log('starting server');
-        app.listen(config('port') || 3000);
-    }
-});
-
 /**
  * @param {String} name
  * @return {Sequelize.Model}
@@ -63,3 +53,12 @@ function model(name) {
 module.exports = app;
 module.exports.conn = conn;
 module.exports.models = models;
+
+if (!module.parent) {
+    log('starting sync');
+    conn.sync().then(function () {
+        log('sync complete');
+        log('starting server');
+        app.listen(config('port') || 3000);
+    });
+}
