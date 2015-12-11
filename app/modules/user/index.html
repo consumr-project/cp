@@ -5,8 +5,9 @@
           image="{{::user.avatar_url}}"></avatar>
 
         <div class="block">
-            <button ng-click="user.$followers_count = user.$followers_count+1"
-              class="margin-top-xlarge margin-bottom-xlarge" i18n="admin/follow"></button>
+            <button ng-click="onStartFollowing()"
+              class="margin-top-xlarge margin-bottom-xlarge"
+              i18n="admin/follow"></button>
         </div>
 
         <table class="table--content center-align">
