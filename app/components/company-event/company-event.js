@@ -8,11 +8,14 @@ angular.module('tcp').directive('companyEvent', [
     function ($q, $http, _, SessionService, utils, keyword) {
         'use strict';
 
+        return;
         // Broken: deps on
         // tags
         // companies
         // events
-        var tags = companies = events = {};
+        var tags = {};
+        var companies = {};
+        var events = {};
 
         /**
          * @param {jQuery} $elem

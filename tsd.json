@@ -8,9 +8,6 @@
     "lodash/lodash.d.ts": {
       "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
     },
-    "firebase/firebase.d.ts": {
-      "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
-    },
     "moment/moment.d.ts": {
       "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
     },

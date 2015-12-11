@@ -2,11 +2,10 @@ angular.module('tcp').controller('AdminController', [
     '$scope',
     'SessionService',
     'utils',
-    'users',
     'logger',
     'Cookie',
     'lodash',
-    function ($scope, SessionService, utils, users, logger, Cookie, _) {
+    function ($scope, SessionService, utils, logger, Cookie, _) {
         'use strict';
 
         var log = logger('admin');

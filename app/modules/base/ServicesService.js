@@ -10,7 +10,7 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
      * @param {$http.Response} res
      * @return {$http.Response.data}
      */
-    function data(res) {
+    function pluck_data(res) {
         return res.data;
     }
 
@@ -32,37 +32,38 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
         return lodash.reduce(associations, function (methods, assoc) {
             methods[assoc] = {
                 create: function (parent_id, data) {
-                    return $http.post(url(model, parent_id, assoc), data);
+                    return $http.post(url(model, parent_id, assoc), data).then(pluck_data);
                 },
                 retrieve: function (parent_id, id) {
-                    return $http.get(url(model, parent_id, assoc, id));
+                    return $http.get(url(model, parent_id, assoc, id)).then(pluck_data);
                 },
                 update: function (parent_id, id, data) {
-                    return $http.put(url(model, parent_id, assoc, id), data);
+                    return $http.put(url(model, parent_id, assoc, id), data).then(pluck_data);
                 },
                 delete: function (parent_id, id) {
-                    return $http.delete(url(model, parent_id, assoc, id));
+                    return $http.delete(url(model, parent_id, assoc, id)).then(pluck_data);
                 }
             };
             return methods;
         }, {
             create: function (data) {
-                return $http.post(url(model), data);
+                return $http.post(url(model), data).then(pluck_data);
             },
             retrieve: function (id) {
-                return $http.get(url(model, id));
+                return $http.get(url(model, id)).then(pluck_data);
             },
             update: function (id, data) {
-                return $http.put(url(model, id), data);
+                return $http.put(url(model, id), data).then(pluck_data);
             },
             delete: function (id) {
-                return $http.delete(url(model, id));
+                return $http.delete(url(model, id)).then(pluck_data);
             },
         });
     }
 
     queryService = {
         UUID: '$UUID',
+        users: crud('users'),
         companies: crud('companies', ['followers'])
     };
 
@@ -103,7 +104,7 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
      * @return {Promise}
      */
     authService.user = function () {
-        return $http.get('/service/auth/user').then(data);
+        return $http.get('/service/auth/user').then(pluck_data);
     };
 
     /**

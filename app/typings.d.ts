@@ -4,7 +4,6 @@ declare var i18n: any;
 
 declare var TCP_BUILD_CONFIG: {
     embedly: { key: string; };
-    firebase: { url: string; };
     locale: { dateFormat: string; };
 };
 

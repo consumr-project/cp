@@ -6,7 +6,6 @@ import * as Cookie from 'js-cookie';
 import {EventEmitter2} from 'eventemitter2';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
-import * as entity from '../../services/entity';
 import * as keyword from '../../services/keyword';
 import logger from '../../services/logger';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
@@ -14,8 +13,7 @@ import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
-    var store: Firebase = new Firebase(TCP_BUILD_CONFIG.firebase.url),
-        deps: Array<string> = ['ngRoute', 'ngAria'];
+    var deps: Array<string> = ['ngRoute', 'ngAria'];
 
     if (DEBUGGING) {
         deps.push('rector');
@@ -33,18 +31,11 @@ module tcp {
         .value('Cookie', Cookie)
         .value('EventEmitter2', EventEmitter2)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
-        .value('companies', entity.bind('company', store))
-        .value('companyEvents', entity.bind('company-events', store))
-        .value('entity', entity)
-        .value('events', entity.bind('event', store))
         .value('i18n', i18n) // global
         .value('keyword', keyword)
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
-        .value('store', store)
-        .value('tags', entity.bind('tag', store))
-        .value('users', entity.bind('user', store))
         .value('utils', utils)
         .value('wikipedia', wikipedia);
 

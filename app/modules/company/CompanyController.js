@@ -43,10 +43,10 @@ angular.module('tcp').controller('CompanyController', [
             utils.assert(SessionService.USER, 'login required for action');
             utils.assert($scope.company.name, 'company name is required');
 
-            return ServicesService.query.companies.create(get_company()).then(function (res) {
-                NavigationService.company(res.data.id);
-                log('saved company', res.data.id);
-                return res;
+            return ServicesService.query.companies.create(get_company()).then(function (company) {
+                NavigationService.company(company.id);
+                log('saved company', company.id);
+                return company;
             });
         };
 
@@ -66,7 +66,6 @@ angular.module('tcp').controller('CompanyController', [
          */
         $scope.load = function (id) {
             return ServicesService.query.companies.retrieve(id || $routeParams.id)
-                .then(utils.pluck('data'))
                 .then(utils.scope.not_found($scope))
                 .then(normalize_company)
                 .then(utils.scope.set($scope, 'company'));
@@ -79,7 +78,6 @@ angular.module('tcp').controller('CompanyController', [
             utils.assert($routeParams.id);
 
             return ServicesService.query.companies.followers.retrieve($routeParams.id)
-                .then(utils.pluck('data'))
                 .then(utils.scope.set($scope, 'company.$followed_by'));
         };
 

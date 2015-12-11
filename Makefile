@@ -78,8 +78,6 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/angular-aria/angular-aria.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	cat node_modules/firebase-bower/firebase.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/rollbar-browser/dist/rollbar.umd.nojson.min.js >> $(build_vendor_js)
