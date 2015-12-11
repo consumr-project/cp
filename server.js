@@ -53,9 +53,7 @@ app.get('*', function (req, res) {
     });
 });
 
-require('query-service').conn.drop().then(function () {
 require('query-service').conn.sync().then(function () {
     log('ready');
     app.listen(config('port') || 3000);
-});
 });
