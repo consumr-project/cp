@@ -20,3 +20,16 @@ module.exports.deserialize = function (user_id, done) {
         .then(done.bind(null, null))
         .catch(done);
 };
+
+module.exports.js_update = function (req, res) {
+    res.send([
+        '<script>',
+        '   (function () {',
+        '       var ev = document.createEvent("Events");',
+        '       ev.initEvent("cp:auth");',
+        '       document.dispatchEvent(ev);',
+        '       window.close();',
+        '   })();',
+        '</script>'
+    ].join(''));
+};

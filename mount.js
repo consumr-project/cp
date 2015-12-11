@@ -15,8 +15,9 @@ passport.deserializeUser(model.deserialize);
 passport.use(linkedin.strategy);
 
 app.get('/user', function (req, res) { res.json(req.user || {}); });
+app.get('/logout', function (req, res, next) { req.logout(); next(); }, model.js_update)
 app.get('/linkedin', linkedin.pre_base, linkedin.login);
-app.get('/linkedin/callback', linkedin.callback);
+app.get('/linkedin/callback', linkedin.callback, model.js_update);
 
 if (!module.parent) {
     app.listen(config('port') || 3000);
