@@ -97,13 +97,13 @@ build-app:
 		app/elements/tag/tags.js \
 		app/elements/i18n/i18n.js \
 		app/elements/followed-by/followed-by.js \
+		app/components/company/company.js \
 		app/components/company-event/company-event.js \
+		app/modules/base/AdminController.js \
+		app/modules/base/NavigationController.js \
+		app/modules/base/NavigationService.js \
 		app/modules/base/ServicesService.js \
-		app/modules/admin/AdminController.js \
-		app/modules/admin/NavigationController.js \
-		app/modules/admin/NavigationService.js \
 		app/modules/search/SearchController.js \
-		app/modules/company/CompanyController.js \
 		app/modules/user/UserController.js \
 		app/vendor/angular/ngFocus.js > $(build_app_js)
 
