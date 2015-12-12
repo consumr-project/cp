@@ -10,5 +10,11 @@ clean:
 	-rm -r node_modules
 
 seed:
-	@$(sequelize) seed:create --url $(db_url) --name NEWFILE \
-		--seeders-path db/seeders
+	@$(sequelize) seed:create --url $(db_url) --seeders-path db/seeders \
+		--name NEWFILE
+
+update:
+	@$(sequelize) db:seed --url $(db_url) --seeders-path db/seeders
+
+revert:
+	@$(sequelize) db:seed:undo --url $(db_url) --seeders-path db/seeders
