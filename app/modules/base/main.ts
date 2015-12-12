@@ -66,7 +66,8 @@ module tcp {
             });
 
             $routeProvider.when('/user/:id', {
-                template: '<company class="site-content"></company>'
+                template: '<user class="site-content" id="{{id}}"></user>',
+                controller: IdSetterController
             });
 
             $routeProvider.when('/company/:id?', {
