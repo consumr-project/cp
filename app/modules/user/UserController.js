@@ -26,7 +26,7 @@ angular.module('tcp').controller('UserController', [
                 $scope.user.$followers_count = 0;
                 $scope.user.$following_count = 0;
             });
-        }
+        };
 
         $scope.onStartFollowing = function () {
             $scope.user.$followers_count++;
