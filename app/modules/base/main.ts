@@ -45,6 +45,10 @@ module tcp {
             $locationProvider.html5Mode(true);
             $compileProvider.debugInfoEnabled(DEBUGGING);
 
+            let IdSetterController = ['$scope', '$routeParams', function ($scope, $routeParams) {
+                $scope.id = $routeParams.id;
+            }];
+
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
                     templateUrl: '/app/modules/guide/index.html',
@@ -62,13 +66,12 @@ module tcp {
             });
 
             $routeProvider.when('/user/:id', {
-                templateUrl: '/app/modules/user/index.html',
-                controller: 'UserController'
+                template: '<company class="site-content"></company>'
             });
 
             $routeProvider.when('/company/:id?', {
-                templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController'
+                template: '<company class="site-content" id="{{id}}"></company>',
+                controller: IdSetterController
             });
 
             $routeProvider.otherwise({
