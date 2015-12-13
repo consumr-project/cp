@@ -21,27 +21,15 @@ conn = new Sequelize(config('database.url'), {
 
 models = {
     Company: model('company'),
+    CompanyEvent: model('company_event'),
+    CompanyEventSource: model('company_event_source'),
     CompanyFollower: model('company_followers'),
-    Event: model('event'),
-    Source: model('source'),
     Tag: model('tag'),
     User: model('user'),
 };
 
 app.use(body.json());
-
-app.post('/users', crud.create(models.User));
-app.get('/users/:id', crud.retrieve(models.User));
-
-app.post('/companies', crud.create(models.Company));
-app.get('/companies/:id?', crud.retrieve(models.Company));
-app.put('/companies/:id', crud.update(models.Company));
-app.delete('/companies/:id', crud.delete(models.Company));
-
-app.post('/companies/:company_id/followers', crud.create(models.CompanyFollower, ['company_id']));
-app.patch('/companies/:company_id/followers', crud.upsert(models.CompanyFollower, ['company_id']));
-app.get('/companies/:company_id/followers/:id?', crud.retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
-app.delete('/companies/:company_id/followers/:id', crud.delete(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
+require('./src/routes')(app, models);
 
 /**
  * @param {String} name

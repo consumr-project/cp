@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
     var Tag = require('./tag')(sequelize, DataTypes),
         Company = require('./company')(sequelize, DataTypes);
 
-    var Event = sequelize.define('event', u.merge(u.doneBy(DataTypes), {
+    var CompanyEvent = sequelize.define('company_event', u.merge(u.doneBy(DataTypes), {
         id: {
             type: DataTypes.UUID,
             primaryKey: true
@@ -23,9 +23,9 @@ module.exports = function (sequelize, DataTypes) {
         }
     }), u.configuration());
 
-    Event.belongsTo(Company);
-    Event.belongsToMany(Tag, { through: 'event_tags' });
-    Tag.belongsToMany(Event, { through: 'event_tags' });
+    CompanyEvent.belongsTo(Company);
+    CompanyEvent.belongsToMany(Tag, { through: 'company_event_tags' });
+    Tag.belongsToMany(CompanyEvent, { through: 'company_event_tags' });
 
-    return Event;
+    return CompanyEvent;
 };
