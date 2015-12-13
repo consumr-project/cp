@@ -49,6 +49,12 @@ module tcp {
                 $scope.id = $routeParams.id;
             }];
 
+            let UserCheck = {
+                current_user: ['SessionService', function (SessionService) {
+                    SessionService.refresh();
+                }]
+            };
+
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
                     templateUrl: '/app/modules/guide/index.html',
@@ -72,7 +78,8 @@ module tcp {
 
             $routeProvider.when('/company/:id?', {
                 template: '<company class="site-content" id="{{id}}"></company>',
-                controller: IdSetterController
+                controller: IdSetterController,
+                resolve: UserCheck
             });
 
             $routeProvider.otherwise({
