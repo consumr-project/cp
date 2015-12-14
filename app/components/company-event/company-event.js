@@ -157,6 +157,7 @@ angular.module('tcp').directive('companyEvent', [
                 title: source.title,
                 url: source.url,
                 published_date: new Date(source.$published_date).valueOf(),
+                summary: source.summary,
                 created_by: source.created_by || SessionService.USER.id,
                 updated_by: SessionService.USER.id
             };
