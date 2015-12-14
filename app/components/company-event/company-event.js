@@ -2,19 +2,10 @@ angular.module('tcp').directive('companyEvent', [
     '$q',
     '$http',
     'lodash',
+    'ServicesService',
     'SessionService',
-    'utils',
-    function ($q, $http, _, SessionService, utils) {
+    function ($q, $http, lodash, ServicesService, SessionService) {
         'use strict';
-
-        // Broken: deps on
-        // tags
-        // companies
-        // events
-        var tags = {};
-        var companies = {};
-        var events = {};
-        return;
 
         /**
          * @param {jQuery} $elem
@@ -32,13 +23,13 @@ angular.module('tcp').directive('companyEvent', [
          */
         function fetchSources(ev, update, prev) {
             $q.all(
-                _(update)
+                lodash(update)
                     .difference(prev)
                     .filter(canLoadContent)
                     .map(fetchContent)
                     .value()
             ).then(function (contents) {
-                _.each(contents, populateSourceFromContent);
+                lodash.each(contents, populateSourceFromContent);
                 populateEvent(ev, contents[0]);
             });
         }
@@ -55,7 +46,7 @@ angular.module('tcp').directive('companyEvent', [
                     content[content_field || ev_field];
             }
 
-            content = utils.def(content, {});
+            content = content || {};
 
             ev.title = get('title');
             ev.date = get('date', 'published');
@@ -69,8 +60,8 @@ angular.module('tcp').directive('companyEvent', [
          */
         function populateSource(source, content) {
             source.title = content.title;
-            source.date = content.published;
-            source.$date = new Date(content.published);
+            source.published_date = content.published;
+            source.$published_date = new Date(content.published);
         }
 
         /**
@@ -112,13 +103,12 @@ angular.module('tcp').directive('companyEvent', [
 
         /**
          * @param {Object} tag
-         * @param {String} id
          * @return {Object}
          */
-        function normalizeTag(tag, id) {
+        function normalizeTag(tag) {
             return {
                 label: tag['en-US'],
-                id: id
+                id: tag.id
             };
         }
 
@@ -126,20 +116,11 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Company} company
          * @return {Object}
          */
-        function company2tag(company) {
+        function normalizeCompany(company) {
             return {
                 label: company.name,
-                id: company.guid
+                id: company.id
             };
-        }
-
-        /**
-         * @param {String} str
-         * @param {Object} tag
-         * @return {Boolean}
-         */
-        function tagMatchesQuery(str, tag) {
-            return tag.label.toLowerCase().indexOf(str.toLowerCase()) !== -1;
         }
 
         /**
@@ -148,12 +129,7 @@ angular.module('tcp').directive('companyEvent', [
          * @return {Promise}
          */
         function fetchCompaniesTiedTo(ev, tiedTo) {
-            var companyIds = _.filter(tiedTo.companies),
-                companyLoaders = _.map(companyIds, companies.get);
-
-            return $q.all(companyLoaders).then(function (companies) {
-                ev.$entities = _.map(companies, company2tag);
-            });
+            ev.$companies = lodash.map(tiedTo.companies, normalizeCompany);
         }
 
         /**
@@ -162,57 +138,97 @@ angular.module('tcp').directive('companyEvent', [
          */
         function getNormalizedEvent(ev) {
             return {
-                guid: ev.guid,
-                createdBy: ev.createdBy,
+                id: ev.id || ServicesService.query.UUID,
                 title: ev.title,
-                date: ev.date,
                 sentiment: ev.sentiment,
-                entities: _.pluck(ev.$entities, 'id'),
-                tags: _.pluck(ev.$tags, 'id'),
-                sources: _.map(ev.$sources, function (source) {
-                    return {
-                        title: source.title,
-                        date: source.date,
-                        url: source.url,
-                        description: source.description
-                    };
-                })
+                created_by: ev.created_by || SessionService.USER.id,
+                updated_by: SessionService.USER.id,
+            };
+        }
+
+        /**
+         * @param {EventSource} source
+         * @param {String} event_id
+         * @return {EventSource}
+         */
+        function getNormalizedEventSource(source, event_id) {
+            return {
+                id: source.id || ServicesService.query.UUID,
+                title: source.title,
+                url: source.url,
+                published_date: new Date(source.$published_date).valueOf(),
+                created_by: source.created_by || SessionService.USER.id,
+                updated_by: SessionService.USER.id
+            };
+        }
+
+        /**
+         * @param {EventTag} tag
+         * @return {EventTag}
+         */
+        function getNormalizedEventTag(tag, event_id) {
+            return {
+                event_id: event_id,
+                tag_id: tag.tag_id || tag.id
+            };
+        }
+
+        /**
+         * @param {CompanyEvent} company
+         * @param {String} event_id
+         * @return {CompanyEvent}
+         */
+        function getNormalizedCompanyEvent(company, event_id) {
+            return {
+                event_id: event_id,
+                company_id: company.company_id || company.id
             };
         }
 
         function controller($scope) {
             $scope.vm = $scope.vm || {};
-            $scope.ev = { title: '', $sources: [{}] };
+            $scope.ev = {
+                $sources: [{}],
+                $companies: [],
+                $tags: []
+            };
 
             $scope.$watch('ev.$sources', fetchSources.bind(null, $scope.ev), true);
             $scope.$watch('tiedTo', fetchCompaniesTiedTo.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
-                // first save
-                if (!$scope.ev.guid) {
-                    $scope.ev.guid = utils.guid();
-                    $scope.ev.createdBy = SessionService.USER.id;
-                }
+                ServicesService.query.events.create(getNormalizedEvent($scope.ev)).then(function (ev) {
+                    $q.all([].concat(
+                        lodash.map($scope.ev.$sources, function (source) {
+                            return ServicesService.query.events.sources.upsert(ev.id, getNormalizedEventSource(source, ev.id));
+                        }),
+                        lodash.map($scope.ev.$tags, function (tag) {
+                            return ServicesService.query.events.tags.upsert(ev.id, getNormalizedEventTag(tag, ev.id));
+                        }),
+                        lodash.map($scope.ev.$companies, function (company) {
+                            return ServicesService.query.companies.events.upsert(company.id, getNormalizedCompanyEvent(company, ev.id));
+                        })
+                    )).then(function (res) {
+                        console.log(ev, res);
+                        $scope.onSave({
+                            ev: ev,
+                            children: res
+                        });
+                    });
+                });
+            };
 
-                events.put(getNormalizedEvent($scope.ev),
-                    ['guid', 'title', 'sentiment', 'date', 'entities', 'tags', 'sources', 'createdBy'])
-                        .then(function () { $scope.onSave(); })
-                        .catch(function (er) { console.error('error saving', er); });
+            $scope.vm.queryCompanies = function (str, done) {
+                ServicesService.query.search.companies('name', str).then(function (companies) {
+                    done(null, lodash.map(companies, normalizeCompany));
+                }).catch(done);
             };
 
             $scope.vm.queryTags = function (str, done) {
-                done(null, _.chain(tags.all)
-                    .map(normalizeTag)
-                    .filter(tagMatchesQuery.bind(null, str))
-                    .value());
+                ServicesService.query.search.tags('en-US', str).then(function (tags) {
+                    done(null, lodash.map(tags, normalizeTag));
+                }).catch(done);
             };
-
-// XXX cannot be done this way
-            if (!tags.all) {
-                tags.store.once('value', function (res) {
-                    tags.all = res.val();
-                });
-            }
         }
 
         function link($scope, $elem) {

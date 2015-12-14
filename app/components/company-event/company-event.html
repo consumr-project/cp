@@ -4,15 +4,15 @@
     <section>
         <label i18n="company/field_sentiment"></label>
         <label>
-            <input type="radio" name="sentiment" value="1" ng-model="ev.sentiment" />
+            <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />
             <span i18n="company/field_sentiment_positive"></span>
         </label>
         <label>
-            <input type="radio" name="sentiment" value="-1" ng-model="ev.sentiment" />
+            <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />
             <span i18n="company/field_sentiment_negative"></span>
         </label>
         <label>
-            <input type="radio" name="sentiment" value="0" ng-model="ev.sentiment" />
+            <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />
             <span i18n="company/field_sentiment_neutral"></span>
         </label>
     </section>
@@ -25,7 +25,7 @@
         <input type="date" ng-model="ev.$date" />
 
         <label i18n="company/field_tied_to"></label>
-        <pills selections="ev.$entities" query="queryEntities(query, done)"></pills>
+        <pills selections="ev.$companies" query="vm.queryCompanies(query, done)"></pills>
 
         <label i18n="company/field_tags"></label>
         <pills selections="ev.$tags" query="vm.queryTags(query, done)"></pills>
@@ -40,10 +40,10 @@
             <label i18n="company/field_title"></label>
             <input type="text" ng-model="source.title" />
             <label i18n="company/field_pub_date"></label>
-            <input type="date" ng-model="source.$date" />
-            <textarea i18n="company/field_quote" data="{limit: 500}"
-                ng-model="source.description" prop="placeholder"
-                class="margin-top-small"></textarea>
+            <input type="date" ng-model="source.$published_date" />
+            <!-- <textarea i18n="company/field_quote" data="{limit: 500}" -->
+            <!--     ng&#45;model="source.description" prop="placeholder" -->
+            <!--     class="margin&#45;top&#45;small"></textarea> -->
         </div>
     </section>
 

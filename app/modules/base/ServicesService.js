@@ -53,7 +53,7 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
                 return $http.post(url(model), data).then(pluck_data);
             },
             upsert: function (data) {
-                return $http.upsert(url(model), data).then(pluck_data);
+                return $http.patch(url(model), data).then(pluck_data);
             },
             retrieve: function (id) {
                 return $http.get(url(model, id)).then(pluck_data);
@@ -69,8 +69,19 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
 
     queryService = {
         UUID: '$UUID',
+        companies: crud('companies', ['followers', 'events']),
+        events: crud('events', ['sources', 'tags']),
+        tags: crud('tags'),
         users: crud('users'),
-        companies: crud('companies', ['followers'])
+    };
+
+    queryService.search = {
+        tags: function (field, query) {
+            return $http.get(url('search/tags', field), { params: { q: query } }).then(pluck_data);
+        },
+        companies: function (field, query) {
+            return $http.get(url('search/companies', field), { params: { q: query } }).then(pluck_data);
+        }
     };
 
     /**

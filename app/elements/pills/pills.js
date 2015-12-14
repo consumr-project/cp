@@ -133,7 +133,6 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     options = unselected($scope.selections, options, $attrs);
                     $scope.options = options;
                     $scope.stats = stats(options, start);
-                    $scope.$apply();
                 }
 
                 $input.removeClass('loading');
