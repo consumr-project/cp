@@ -3,19 +3,15 @@ angular.module('tcp').directive('company', [
     'ServicesService',
     'SessionService',
     'utils',
-    'logger',
     function (
         NavigationService,
         ServicesService,
         SessionService,
-        utils,
-        logger
+        utils
     ) {
         'use strict';
 
         function controller($scope) {
-            var log = logger('company');
-
             $scope.company = {
                 $followed_by: [],
                 $loaded: false,
@@ -59,7 +55,7 @@ angular.module('tcp').directive('company', [
                 return ServicesService.query.companies.create(get_company()).then(function (company) {
                     return $scope.onStartFollowing(company.id).then(function () {
                         NavigationService.company(company.id);
-                        log('saved company', company.id);
+                        console.info('saved company', company.id);
                         return company;
                     });
                 });
