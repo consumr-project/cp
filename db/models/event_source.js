@@ -24,6 +24,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DATE,
             allowNull: false
         },
+
+        summary: {
+            type: DataTypes.TEXT
+        }
     }), u.configuration());
 
     EventSource.belongsTo(Event);
