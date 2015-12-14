@@ -5,6 +5,7 @@ var app = require('express')(),
 
 module.exports = app;
 app.get('/page', require('./src/page'));
+app.get('/wiki/extracts', require('./src/wiki').query_extracts);
 
 if (!module.parent) {
     app.listen(config('port') || 3000);

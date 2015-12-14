@@ -1,6 +1,6 @@
 {
   "name": "extract-service",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "",
   "main": "mount.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "acm": "^2.0.1",
+    "lodash": "^3.10.1",
     "request": "^2.65.0"
   }
 }
