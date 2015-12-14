@@ -10,10 +10,12 @@ things we buy, sell, and consume every day.
 ### configuration
 
 for monitoring setup see
-[web-client](https://github.com/consumr-project/web-client/blob/master/docs/monitoring.md)'s
+[web-client](https://github.com/consumr-project/web-client#newrelic)'s
 documentation
 
-### deploying to heroku
+### deploying
+
+#### heroku
 
 this is a background process, so no need to make heroku bing to web ports:
 
