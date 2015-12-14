@@ -12,13 +12,11 @@ this service is meant to be mounted into the
 app.use('/query', require('query-service'));
 ```
 
-### services
+### configuration
 
-#### postgres
-
-follow
+for heroku, follow
 [postgres' installation instructions](https://elements.heroku.com/addons/heroku-postgresql)
 
 ```bash
-heroku config:set DATABASE_URL=$(echo $CP_DATABASE_URL)
+export DATABASE_URL=$(echo $CP_DATABASE_URL)
 ```
