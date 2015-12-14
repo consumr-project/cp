@@ -12,14 +12,6 @@ this service is meant to be mounted into the
 app.use('/query', require('query-service'));
 ```
 
-### deploying
-
-#### heroku
-
-a local instance of postgres is expected. see
-[services documentation](docs/services.md).
-the following enviroment variables are needed to run:
-
 ### services
 
 #### postgres
