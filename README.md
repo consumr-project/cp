@@ -18,37 +18,30 @@ build (source maps) in debug mode. `PORT` to run web server in a port other
 than `3000`. see `config/` and `docs/` directories and the following services
 for additional configuration options (linkedin, embedly, monitoring, etc.):
 
-- [auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku)
-- [extract-service](https://github.com/consumr-project/extract-service/blob/master/README.md#deploying-to-heroku)
-- [search-service](https://github.com/consumr-project/search-service/blob/master/README.md#deploying-to-heroku)
-- [query-service](https://github.com/consumr-project/query-service/blob/master/README.md#deploying-to-heroku)
-
-### deploying
-
-#### heroku
-
-first, update required configuration items and push them to heroku. finally,
-deploy to heroku by running `make deploy-heroku` or `git push heroku origin`
+- [auth-service](https://github.com/consumr-project/auth-service)
+- [extract-service](https://github.com/consumr-project/extract-service)
+- [search-service](https://github.com/consumr-project/search-service)
+- [query-service](https://github.com/consumr-project/query-service)
 
 to build and run application in debug mode:
 
 ```bash
-heroku config:set NPM_CONFIG_PRODUCTION=false
-heroku config:set DEBUG=*
+export NPM_CONFIG_PRODUCTION=false
+export DEBUG=*
 ```
 
 ### services
 
 #### newrelic
 
-follow
+For heroku, follow
 [newrelic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
 and make sure to never hardcode app names or store license keys in code:
 
 ```bash
-heroku config:set NEWRELIC_KEY=$(echo $NEWRELIC_KEY)
-heroku config:set NEWRELIC_APP_NAME=$(echo $NEWRELIC_APP_NAME)
-heroku config:set NEWRELIC_LOG_LEVEL='info'
+export NEWRELIC_KEY=$(echo $NEWRELIC_KEY)
+export NEWRELIC_APP_NAME=$(echo $NEWRELIC_APP_NAME)
+export NEWRELIC_LOG_LEVEL='info'
 ```
 
 ### logging
@@ -60,8 +53,8 @@ are required as configuration. the `NODE_ENV` variable is checked for the
 environment, with 'development' as the default.
 
 ```bash
-heroku config:set ROLLBAR_TOKEN=$(echo $ROLLBAR_TOKEN)
-heroku config:set NODE_ENV='development'
+export ROLLBAR_TOKEN=$(echo $ROLLBAR_TOKEN)
+export NODE_ENV='development'
 ```
 
 ### thanks
