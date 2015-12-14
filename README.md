@@ -21,7 +21,20 @@ for monitoring setup see
 [web-client](https://github.com/consumr-project/web-client#newrelic)'s
 documentation
 
-### deploying to heroku
+point to elasticsearch instance:
+
+```bash
+export ELASTICSEARCH_HOST=$(echo $CP_FACET_FLOW_ES_HOST)
+```
+
+to build and run application in debug mode:
+
+```bash
+export NPM_CONFIG_PRODUCTION=false
+export DEBUG=*
+```
+
+### heroku
 
 run background process (indexer) as a stand-alone service:
 
@@ -30,22 +43,8 @@ heroku ps:scale web=0
 heroku ps:scale worker=1
 ```
 
-point to elasticsearch instance:
-
-```bash
-heroku config:set ELASTICSEARCH_HOST=$(echo $CP_FACET_FLOW_ES_HOST)
-```
-
-to build and run application in debug mode:
-
-```bash
-heroku config:set NPM_CONFIG_PRODUCTION=false
-heroku config:set DEBUG=*
-```
-
-### development
-
-a local instance of Elasticsearch can be downloaded and started by running `make elasticsearch`
+a local instance of Elasticsearch can be downloaded and started by running
+`make elasticsearch`
 
 ### thanks
 
