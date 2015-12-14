@@ -1,5 +1,3 @@
-/// <reference path="../typings.d.ts"/>
-
 import {map, each, remove} from 'lodash';
 import deep = require('deep-get-set');
 

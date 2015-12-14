@@ -102,8 +102,9 @@ build-app:
 		app/components/company-event/company-event.js \
 		app/modules/base/AdminController.js \
 		app/modules/base/NavigationController.js \
-		app/modules/base/NavigationService.js \
-		app/modules/base/ServicesService.js \
+		app/services/NavigationService.js \
+		app/services/ServicesService.js \
+		app/services/SessionService.js \
 		app/modules/search/SearchController.js \
 		app/vendor/angular/ngFocus.js > $(build_app_js)
 

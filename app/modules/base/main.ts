@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as Cookie from 'js-cookie';
 import {EventEmitter2} from 'eventemitter2';
-import * as utils from '../../services/utils';
+import * as utils from './utils';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 
 module tcp {
