@@ -25,6 +25,7 @@ models = {
     EventSource: model('event_source'),
     EventTag: model('event_tag'),
     CompanyFollower: model('company_followers'),
+    CompanyEvent: model('company_events'),
     Tag: model('tag'),
     User: model('user'),
 };
