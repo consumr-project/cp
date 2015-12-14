@@ -18,7 +18,7 @@ service.
 ### configuration
 
 for monitoring setup see
-[web-client](https://github.com/consumr-project/web-client/blob/master/docs/monitoring.md)'s
+[web-client](https://github.com/consumr-project/web-client#newrelic)'s
 documentation
 
 ### deploying to heroku
