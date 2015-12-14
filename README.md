@@ -12,12 +12,12 @@ this service is meant to be mounted into the
 app.use('/auth', require('auth-service'));
 ```
 
-### deploying to heroku
+### configuration
 
 the following enviroment variables are needed to run:
 
 ```bash
-heroku config:set LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
-heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
-heroku config:set LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
+export LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
+export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
+export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
 ```
