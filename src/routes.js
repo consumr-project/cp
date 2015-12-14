@@ -29,20 +29,18 @@ module.exports = function (app, models) {
     put('/companies/:id', update(models.Company));
     del('/companies/:id', remove(models.Company));
 
-    post('/companies/:company_id/followers', create(models.CompanyFollower, ['company_id']));
     patch('/companies/:company_id/followers', upsert(models.CompanyFollower, ['company_id']));
     get('/companies/:company_id/followers/:id?', retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
     del('/companies/:company_id/followers/:id', remove(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
-    post('/companies/:company_id/events', create(models.CompanyEvent, ['company_id']));
     patch('/companies/:company_id/events', upsert(models.CompanyEvent, ['company_id']));
     get('/companies/:company_id/events/:id?', retrieve(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
     del('/companies/:company_id/events/:id', remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
 
     // events
     post('/events', create(models.Event));
+    patch('/events', upsert(models.Event));
     get('/events/:id?', retrieve(models.Event));
-    put('/events/:id', update(models.Event));
     del('/events/:id', remove(models.Event));
 
     patch('/events/:event_id/sources', upsert(models.EventSource, ['event_id']));
