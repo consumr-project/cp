@@ -22,7 +22,6 @@ module.exports = function (app, models) {
 
     // tags
     get('/tags/:id?', retrieve(models.Tag));
-    get('/tags/search/en-US', like(models.Tag, 'en-US'));
 
     // companies
     post('/companies', create(models.Company));
@@ -46,4 +45,8 @@ module.exports = function (app, models) {
     patch('/companies/:company_id/events/:event_id/tags', upsert(models.CompanyEventTag, ['event_id']));
     get('/companies/:company_id/events/:event_id/tags/:id?', upsert(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
     del('/companies/:company_id/events/:event_id/tags/:id', remove(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
+
+    // search
+    get('/search/tags/en-US', like(models.Tag, 'en-US'));
+    get('/search/companies/name', like(models.Company, 'name'));
 };
