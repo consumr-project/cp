@@ -23,7 +23,9 @@ for additional configuration options (linkedin, embedly, monitoring, etc.):
 - [search-service](https://github.com/consumr-project/search-service/blob/master/README.md#deploying-to-heroku)
 - [query-service](https://github.com/consumr-project/query-service/blob/master/README.md#deploying-to-heroku)
 
-### deploying to heroku
+### deploying
+
+#### heroku
 
 first, update required configuration items and push them to heroku. finally,
 deploy to heroku by running `make deploy-heroku` or `git push heroku origin`
@@ -33,6 +35,33 @@ to build and run application in debug mode:
 ```bash
 heroku config:set NPM_CONFIG_PRODUCTION=false
 heroku config:set DEBUG=*
+```
+
+### services
+
+#### newrelic
+
+follow
+[newrelic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
+and make sure to never hardcode app names or store license keys in code:
+
+```bash
+heroku config:set NEWRELIC_KEY=$(echo $NEWRELIC_KEY)
+heroku config:set NEWRELIC_APP_NAME=$(echo $NEWRELIC_APP_NAME)
+heroku config:set NEWRELIC_LOG_LEVEL='info'
+```
+
+### logging
+
+#### rollbar
+
+rollbar is used for client-side loggin. only a token and environment identifier
+are required as configuration. the `NODE_ENV` variable is checked for the
+environment, with 'development' as the default.
+
+```bash
+heroku config:set ROLLBAR_TOKEN=$(echo $ROLLBAR_TOKEN)
+heroku config:set NODE_ENV='development'
 ```
 
 ### thanks
