@@ -13,9 +13,22 @@ for monitoring setup see
 [web-client](https://github.com/consumr-project/web-client#newrelic)'s
 documentation
 
-### deploying
+email transport configuration
 
-#### heroku
+```bash
+export EMAIL_SERVICE_NAME=$(echo $CP_EMAIL_SERVICE_NAME)
+export EMAIL_SERVICE_USER=$(echo $CP_EMAIL_SERVICE_USER)
+export EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo $password)
+```
+
+to build and run application in debug mode:
+
+```bash
+export NPM_CONFIG_PRODUCTION=false
+export DEBUG=*
+```
+
+### heroku
 
 this is a background process, so no need to make heroku bing to web ports:
 
@@ -24,22 +37,9 @@ heroku ps:scale web=0
 heroku ps:scale worker=1
 ```
 
-email transport configuration
+### services
 
-```bash
-heroku config:set EMAIL_SERVICE_NAME=$(echo $CP_EMAIL_SERVICE_NAME)
-heroku config:set EMAIL_SERVICE_USER=$(echo $CP_EMAIL_SERVICE_USER)
-heroku config:set EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo $password)
-```
-
-to build and run application in debug mode:
-
-```bash
-heroku config:set NPM_CONFIG_PRODUCTION=false
-heroku config:set DEBUG=*
-```
-
-#### using rabbitmq through heroku
+#### rabbitmq
 
 heroku provides a free [RabbitMQ
 plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
@@ -48,8 +48,6 @@ installed with the following command:
 ```bash
 heroku addons:create rabbitmq-bigwig:pipkin
 ```
-
-### development
 
 a local instance of RabbitMQ can be downloaded and started by running `make rabbitmq`
 
