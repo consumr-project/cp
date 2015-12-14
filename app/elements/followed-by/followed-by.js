@@ -1,8 +1,8 @@
 angular.module('tcp').directive('followedBy', [
     'i18n',
-    'Auth',
+    'SessionService',
     'lodash',
-    function (i18n, Auth, _) {
+    function (i18n, SessionService, _) {
         'use strict';
 
         /**
@@ -11,7 +11,7 @@ angular.module('tcp').directive('followedBy', [
          * @return {Boolean}
          */
         function includesUser(users, current) {
-            return _.contains(users, current);
+            return _.contains(_.pluck(users, 'user_id'), current);
         }
 
         /**
@@ -75,12 +75,12 @@ angular.module('tcp').directive('followedBy', [
         }
 
         function controller($scope) {
-            Auth.on(Auth.EVENT.LOGIN, update);
-            Auth.on(Auth.EVENT.LOGOUT, update);
+            SessionService.on(SessionService.EVENT.LOGIN, update);
+            SessionService.on(SessionService.EVENT.LOGOUT, update);
             $scope.$watchCollection('users', update);
 
             $scope.onClick = function () {
-                if (includesUser(getUsers(), getUid())) {
+                if (includesUser(getUsers(), getUserId())) {
                     $scope.onStopFollowing();
                 } else {
                     $scope.onStartFollowing();
@@ -88,15 +88,15 @@ angular.module('tcp').directive('followedBy', [
             };
 
             function update() {
-                $scope.message = getMessage(getUsers(), getUid());
+                $scope.message = getMessage(getUsers(), getUserId());
             }
 
             function getUsers() {
                 return $scope.users || [];
             }
 
-            function getUid() {
-                return Auth.USER && Auth.USER.uid;
+            function getUserId() {
+                return SessionService.USER && SessionService.USER.id;
             }
         }
 

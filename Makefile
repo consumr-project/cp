@@ -27,9 +27,6 @@ ts_options =
 css_options =
 build_vars =
 
-vendor_local_fb_passport = node_modules/firebase-passport-login/client/firebase-passport-login.js
-vendor_external_fb_passport = node_modules/auth-service/node_modules/firebase-passport-login/client/firebase-passport-login.js
-
 global_config_varname = TCP_BUILD_CONFIG
 i18n_varname = i18n
 i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
@@ -81,13 +78,7 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/angular-aria/angular-aria.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	cat node_modules/firebase-bower/firebase.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	if [ -f $(vendor_external_fb_passport) ]; \
-		then $(js_min) $(vendor_external_fb_passport) >> $(build_vendor_js); \
-		else $(js_min) $(vendor_local_fb_passport) >> $(build_vendor_js); fi
 	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/rollbar-browser/dist/rollbar.umd.nojson.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
@@ -106,14 +97,14 @@ build-app:
 		app/elements/tag/tags.js \
 		app/elements/i18n/i18n.js \
 		app/elements/followed-by/followed-by.js \
+		app/components/user/user.js \
+		app/components/company/company.js \
 		app/components/company-event/company-event.js \
+		app/modules/base/AdminController.js \
+		app/modules/base/NavigationController.js \
+		app/modules/base/NavigationService.js \
 		app/modules/base/ServicesService.js \
-		app/modules/admin/AdminController.js \
-		app/modules/admin/NavigationController.js \
-		app/modules/admin/NavigationService.js \
 		app/modules/search/SearchController.js \
-		app/modules/company/CompanyController.js \
-		app/modules/user/UserController.js \
 		app/vendor/angular/ngFocus.js > $(build_app_js)
 
 install:

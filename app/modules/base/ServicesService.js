@@ -1,8 +1,88 @@
-angular.module('tcp').service('ServicesService', ['$http', function ($http) {
+angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($http, lodash) {
     'use strict';
 
-    var extractService = {},
-        searchService = {};
+    var authService = {},
+        extractService = {},
+        searchService = {},
+        queryService = {};
+
+    /**
+     * @param {$http.Response} res
+     * @return {$http.Response.data}
+     */
+    function pluck_data(res) {
+        return res.data;
+    }
+
+    /**
+     * @param {String} model
+     * @param {String} id
+     * @return {String}
+     */
+    function url(model, id) {
+        return '/service/query/' + lodash.filter(arguments).join('/');
+    }
+
+    /**
+     * @param {String} model
+     * @param {Array} [associataions]
+     * @return {Object}
+     */
+    function crud(model, associations) {
+        return lodash.reduce(associations, function (methods, assoc) {
+            methods[assoc] = {
+                create: function (parent_id, data) {
+                    return $http.post(url(model, parent_id, assoc), data).then(pluck_data);
+                },
+                upsert: function (parent_id, data) {
+                    return $http.patch(url(model, parent_id, assoc), data).then(pluck_data);
+                },
+                retrieve: function (parent_id, id) {
+                    return $http.get(url(model, parent_id, assoc, id)).then(pluck_data);
+                },
+                update: function (parent_id, id, data) {
+                    return $http.put(url(model, parent_id, assoc, id), data).then(pluck_data);
+                },
+                delete: function (parent_id, id) {
+                    return $http.delete(url(model, parent_id, assoc, id)).then(pluck_data);
+                }
+            };
+            return methods;
+        }, {
+            create: function (data) {
+                return $http.post(url(model), data).then(pluck_data);
+            },
+            upsert: function (data) {
+                return $http.patch(url(model), data).then(pluck_data);
+            },
+            retrieve: function (id) {
+                return $http.get(url(model, id)).then(pluck_data);
+            },
+            update: function (id, data) {
+                return $http.put(url(model, id), data).then(pluck_data);
+            },
+            delete: function (id) {
+                return $http.delete(url(model, id)).then(pluck_data);
+            },
+        });
+    }
+
+    queryService = {
+        UUID: '$UUID',
+        companies: crud('companies', ['followers', 'events']),
+        events: crud('events', ['sources', 'tags']),
+        tags: crud('tags'),
+        users: crud('users'),
+    };
+
+    queryService.search = {
+        tags: function (field, query) {
+            return $http.get(url('search/tags', field), { params: { q: query } }).then(pluck_data);
+        },
+        companies: function (field, query) {
+            return $http.get(url('search/companies', field), { params: { q: query } }).then(pluck_data);
+        }
+    };
 
     /**
      * @param {String} url
@@ -37,8 +117,40 @@ angular.module('tcp').service('ServicesService', ['$http', function ($http) {
         });
     };
 
+    /**
+     * @return {Promise}
+     */
+    authService.user = function () {
+        return $http.get('/service/auth/user').then(pluck_data);
+    };
+
+    /**
+     * @return {Promise}
+     */
+    authService.logout = function () {
+        return $http.get('/service/auth/logout');
+    };
+
+    /**
+     * @return {Window}
+     */
+    authService.login = function (provider) {
+        return window.open('/service/auth/' + provider, 'cp_auth_' + provider, [
+            'menubar=no',
+            'location=yes',
+            'resizable=yes',
+            'scrollbars=yes',
+            'status=no',
+            'height=750',
+            'width=800',
+            'left=100'
+        ].join(','));
+    };
+
     return {
+        auth: authService,
         extract: extractService,
-        search: searchService
+        search: searchService,
+        query: queryService
     };
 }]);

@@ -9,3 +9,8 @@ before_script:
 
 script:
   - make build test
+
+cache:
+  directories:
+    - node_modules
+    - typings

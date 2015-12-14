@@ -3,23 +3,16 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as Cookie from 'js-cookie';
+import {EventEmitter2} from 'eventemitter2';
 import * as utils from '../../services/utils';
 import * as wikipedia from '../../services/wikipedia';
-import * as entity from '../../services/entity';
-import * as keyword from '../../services/keyword';
 import logger from '../../services/logger';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
-import {Session, session as startSession} from '../../services/auth';
-
-// TODO remove once AdminController imports new auth service
-import {EVENT as AuthEvent, PROVIDER as AuthProvider} from '../../services/auth';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
-    var store: Firebase = new Firebase(TCP_BUILD_CONFIG.firebase.url),
-        session: Session = startSession('/service/auth/', store),
-        deps: Array<string> = ['ngRoute', 'ngAria'];
+    var deps: Array<string> = ['ngRoute', 'ngAria'];
 
     if (DEBUGGING) {
         deps.push('rector');
@@ -32,33 +25,17 @@ module tcp {
         .constant('DEBUGGING', DEBUGGING)
         .constant('CONFIG', TCP_BUILD_CONFIG);
 
-    // TODO remove once AdminController imports new auth service
-    (<any>session).EVENT = AuthEvent;
-    (<any>session).PROVIDER = AuthProvider;
-
     angular.module('tcp')
-        .value('Auth', session)
         .value('Cache', Cache)
         .value('Cookie', Cookie)
+        .value('EventEmitter2', EventEmitter2)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
-        .value('companies', entity.bind('company', store))
-        .value('companyEvents', entity.bind('company-events', store))
-        .value('entity', entity)
-        .value('events', entity.bind('event', store))
         .value('i18n', i18n) // global
-        .value('keyword', keyword)
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
-        .value('store', store)
-        .value('tags', entity.bind('tag', store))
-        .value('users', entity.bind('user', store))
         .value('utils', utils)
         .value('wikipedia', wikipedia);
-
-    // values from route resolve
-    angular.module('tcp')
-        .value('show_add_event', false);
 
     angular.module('tcp').config([
         '$routeProvider',
@@ -67,6 +44,16 @@ module tcp {
         function ($routeProvider, $locationProvider, $compileProvider) {
             $locationProvider.html5Mode(true);
             $compileProvider.debugInfoEnabled(DEBUGGING);
+
+            let IdSetterController = ['$scope', '$routeParams', function ($scope, $routeParams) {
+                $scope.id = $routeParams.id;
+            }];
+
+            let UserCheck = {
+                current_user: ['SessionService', function (SessionService) {
+                    SessionService.refresh();
+                }]
+            };
 
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
@@ -84,25 +71,15 @@ module tcp {
                 controller: 'SearchController'
             });
 
-            $routeProvider.when('/user/:guid', {
-                templateUrl: '/app/modules/user/index.html',
-                controller: 'UserController'
+            $routeProvider.when('/user/:id', {
+                template: '<user class="site-content" id="{{id}}"></user>',
+                controller: IdSetterController
             });
 
-            $routeProvider.when('/company/:guid?', {
-                templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController',
-                resolve: {
-                    show_add_event: () => false
-                }
-            });
-
-            $routeProvider.when('/company/:guid/event/:eventGuid?', {
-                templateUrl: '/app/modules/company/index.html',
-                controller: 'CompanyController',
-                resolve: {
-                    show_add_event: () => true
-                }
+            $routeProvider.when('/company/:id?', {
+                template: '<company class="site-content" id="{{id}}"></company>',
+                controller: IdSetterController,
+                resolve: UserCheck
             });
 
             $routeProvider.otherwise({

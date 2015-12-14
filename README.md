@@ -16,12 +16,12 @@ configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
 expected configuration variables. `DEBUG` to run (server and client logs) and
 build (source maps) in debug mode. `PORT` to run web server in a port other
 than `3000`. see `config/` and `docs/` directories and the following services
-for additional configuration options (linkedin, firebase, embedly, monitoring,
-etc.):
+for additional configuration options (linkedin, embedly, monitoring, etc.):
 
 - [auth-service](https://github.com/consumr-project/auth-service/blob/master/README.md#deploying-to-heroku)
 - [extract-service](https://github.com/consumr-project/extract-service/blob/master/README.md#deploying-to-heroku)
 - [search-service](https://github.com/consumr-project/search-service/blob/master/README.md#deploying-to-heroku)
+- [query-service](https://github.com/consumr-project/query-service/blob/master/README.md#deploying-to-heroku)
 
 ### deploying to heroku
 

@@ -30,11 +30,11 @@
                     src="assets/images/consumrproject-stamp.png"
                     ng-click="nav.home()" />
 
-                <button ng-if="!session.loggedIn" ng-click="login()"
+                <button ng-if="!session.logged_in" ng-click="login()"
                     i18n="admin/singInUp" class="right animated fadeIn"></button>
 
-                <avatar ng-if="session.loggedIn" class="right" ng-click="actions.show = true"
-                    image="{% raw %}{{session.userAvatarUrl}}{% endraw %}" data-main-user-avatar></avatar>
+                <avatar ng-if="session.logged_in" class="right" ng-click="actions.show = true"
+                    image="{% raw %}{{session.avatar_url}}{% endraw %}" data-main-user-avatar></avatar>
 
                 <button class="search right margin-right-small animated fadeIn screen-small-only"
                     ng-click="nav.search()"></button>
@@ -110,14 +110,15 @@
         <script src="app/elements/tag/tags.js"></script>
         <script src="app/elements/i18n/i18n.js"></script>
         <script src="app/elements/followed-by/followed-by.js"></script>
+        <script src="app/components/user/user.js"></script>
+        <script src="app/components/company/company.js"></script>
         <script src="app/components/company-event/company-event.js"></script>
         <script src="app/modules/base/ServicesService.js"></script>
-        <script src="app/modules/admin/AdminController.js"></script>
-        <script src="app/modules/admin/NavigationController.js"></script>
-        <script src="app/modules/admin/NavigationService.js"></script>
+        <script src="app/modules/base/AdminController.js"></script>
+        <script src="app/modules/base/NavigationController.js"></script>
+        <script src="app/modules/base/NavigationService.js"></script>
+        <script src="app/modules/base/SessionService.js"></script>
         <script src="app/modules/search/SearchController.js"></script>
-        <script src="app/modules/company/CompanyController.js"></script>
-        <script src="app/modules/user/UserController.js"></script>
         <script src="app/vendor/angular/ngFocus.js"></script>
         {% endif %}
 

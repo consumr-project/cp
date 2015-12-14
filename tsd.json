@@ -8,9 +8,6 @@
     "lodash/lodash.d.ts": {
       "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
     },
-    "firebase/firebase.d.ts": {
-      "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
-    },
     "moment/moment.d.ts": {
       "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
     },
@@ -34,6 +31,9 @@
     },
     "js-cookie/js-cookie.d.ts": {
       "commit": "fa04c80f4a889613b96cb4f283848c61a9f64233"
+    },
+    "eventemitter2/eventemitter2.d.ts": {
+      "commit": "f8af639bf29b2b00e5d27ce93c0f046564b8525c"
     }
   }
 }

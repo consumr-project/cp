@@ -4,9 +4,13 @@ declare var i18n: any;
 
 declare var TCP_BUILD_CONFIG: {
     embedly: { key: string; };
-    firebase: { url: string; };
     locale: { dateFormat: string; };
 };
+
+declare module "deep-get-set" {
+    function deep<T>(holder: any, prop: string, val: T): T;
+    export = deep
+}
 
 declare module "reqwest" {
     function reqwest<T>(req: { url: string; type: string; }): Q.Promise<T>;
@@ -58,15 +62,3 @@ declare module "rangy" {
         highlight(options?: HighlightOptions): Highlight;
     }
 }
-
-interface FirebasePassportLoginError extends Error {
-    code: string;
-}
-
-interface FirebasePassportLoginStatic {
-    new (store: Firebase, hanlder: (err: FirebasePassportLoginError, user: any) => void, rootUrl: string);
-    login(string): void;
-    logout(): void;
-}
-
-declare var FirebasePassportLogin: FirebasePassportLoginStatic;
