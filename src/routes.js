@@ -37,6 +37,8 @@ module.exports = function (app, models) {
     patch('/companies/:company_id/events/:event_id/sources', upsert(models.CompanyEventSource, ['event_id']));
     get('/companies/:company_id/events/:event_id/sources/:id?', upsert(models.CompanyEventSource, {event_id: 'event_id'}));
 
-    // patch('/companies/:company_id/events/:event_id/tags', upsert(models.CompanyEventTag, ['event_id']));
-    // get('/companies/:company_id/events/:event_id/tags/:id?', upsert(models.CompanyEventTag, {event_id: 'event_id'}));
+    post('/companies/:company_id/events/:event_id/tags', create(models.CompanyEventTag, ['event_id']));
+    patch('/companies/:company_id/events/:event_id/tags', upsert(models.CompanyEventTag, ['event_id']));
+    get('/companies/:company_id/events/:event_id/tags/:id?', upsert(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
+    del('/companies/:company_id/events/:event_id/tags/:id', remove(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
 };
