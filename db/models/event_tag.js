@@ -3,11 +3,11 @@
 var u = require('../../src/utils');
 
 module.exports = function (sequelize, DataTypes) {
-    var CompanyEvent = require('./company_event')(sequelize, DataTypes),
+    var Event = require('./event')(sequelize, DataTypes),
         Tag = require('./tag')(sequelize, DataTypes);
 
-    var CompanyEventTag = sequelize.define('company_event_tag', u.merge({
-        company_event_id: {
+    var EventTag = sequelize.define('event_tag', u.merge({
+        event_id: {
             type: DataTypes.UUID,
             allowNull: false
         },
@@ -18,8 +18,8 @@ module.exports = function (sequelize, DataTypes) {
         }
     }), u.configuration());
 
-    CompanyEvent.belongsToMany(Tag, { through: CompanyEventTag });
-    Tag.belongsToMany(CompanyEvent, { through: CompanyEventTag });
+    Event.belongsToMany(Tag, { through: EventTag });
+    Tag.belongsToMany(Event, { through: EventTag });
 
-    return CompanyEventTag;
+    return EventTag;
 };

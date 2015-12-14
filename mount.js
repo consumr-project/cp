@@ -21,9 +21,9 @@ conn = new Sequelize(config('database.url'), {
 
 models = {
     Company: model('company'),
-    CompanyEvent: model('company_event'),
-    CompanyEventSource: model('company_event_source'),
-    CompanyEventTag: model('company_event_tag'),
+    Event: model('event'),
+    EventSource: model('event_source'),
+    EventTag: model('event_tag'),
     CompanyFollower: model('company_followers'),
     Tag: model('tag'),
     User: model('user'),

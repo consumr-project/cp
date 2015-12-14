@@ -3,9 +3,7 @@
 var u = require('../../src/utils');
 
 module.exports = function (sequelize, DataTypes) {
-    var Company = require('./company')(sequelize, DataTypes);
-
-    var CompanyEvent = sequelize.define('company_event', u.merge(u.doneBy(DataTypes), {
+    return sequelize.define('event', u.merge(u.doneBy(DataTypes), {
         id: {
             type: DataTypes.UUID,
             primaryKey: true
@@ -21,8 +19,4 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         }
     }), u.configuration());
-
-    CompanyEvent.belongsTo(Company);
-
-    return CompanyEvent;
 };
