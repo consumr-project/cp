@@ -46,10 +46,10 @@ module.exports = function (app, models) {
     del('/events/:id', remove(models.Event));
 
     patch('/events/:event_id/sources', upsert(models.EventSource, ['event_id']));
-    get('/events/:event_id/sources/:id?', retrieve(models.EventSource, {event_id: 'event_id'));
+    get('/events/:event_id/sources/:id?', retrieve(models.EventSource, {event_id: 'event_id'}));
 
     patch('/events/:event_id/tags', upsert(models.EventTag, ['event_id']));
-    get('/events/:event_id/tags/:id?', retrieve(models.EventTag, {event_id: 'event_id')));
+    get('/events/:event_id/tags/:id?', retrieve(models.EventTag, {event_id: 'event_id'}));
 
     // search
     get('/search/tags/en-US', like(models.Tag, 'en-US'));
