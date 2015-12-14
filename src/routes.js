@@ -34,17 +34,22 @@ module.exports = function (app, models) {
     get('/companies/:company_id/followers/:id?', retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
     del('/companies/:company_id/followers/:id', remove(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
-    // events
+    post('/companies/:company_id/events', create(models.CompanyEvent, ['company_id']));
     patch('/companies/:company_id/events', upsert(models.CompanyEvent, ['company_id']));
-    get('/companies/:company_id/events/:id?', retrieve(models.CompanyEvent, {company_id: 'company_id'}));
+    get('/companies/:company_id/events/:id?', retrieve(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
+    del('/companies/:company_id/events/:id', remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
 
-    patch('/companies/:company_id/events/:event_id/sources', upsert(models.CompanyEventSource, ['event_id']));
-    get('/companies/:company_id/events/:event_id/sources/:id?', upsert(models.CompanyEventSource, {event_id: 'event_id'}));
+    // events
+    post('/events', create(models.Event));
+    get('/events/:id?', retrieve(models.Event));
+    put('/events/:id', update(models.Event));
+    del('/events/:id', remove(models.Event));
 
-    post('/companies/:company_id/events/:event_id/tags', create(models.CompanyEventTag, ['event_id']));
-    patch('/companies/:company_id/events/:event_id/tags', upsert(models.CompanyEventTag, ['event_id']));
-    get('/companies/:company_id/events/:event_id/tags/:id?', upsert(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
-    del('/companies/:company_id/events/:event_id/tags/:id', remove(models.CompanyEventTag, {company_id: 'company_id', event_id: 'event_id', tag_id: 'id'}));
+    patch('/events/:event_id/sources', upsert(models.EventSource, ['event_id']));
+    get('/events/:event_id/sources/:id?', retrieve(models.EventSource, {event_id: 'event_id'));
+
+    patch('/events/:event_id/tags', upsert(models.EventTag, ['event_id']));
+    get('/events/:event_id/tags/:id?', retrieve(models.EventTag, {event_id: 'event_id')));
 
     // search
     get('/search/tags/en-US', like(models.Tag, 'en-US'));
