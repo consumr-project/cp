@@ -3,14 +3,12 @@ angular.module('tcp').directive('company', [
     'ServicesService',
     'SessionService',
     'utils',
-    'wikipedia',
     'logger',
     function (
         NavigationService,
         ServicesService,
         SessionService,
         utils,
-        wikipedia,
         logger
     ) {
         'use strict';
@@ -129,12 +127,11 @@ angular.module('tcp').directive('company', [
 
                 // XXX error state
                 $scope.vm.fetching_company_summary = true;
-                wikipedia.extract(name).then(function (extract) {
+                ServicesService.extract.wiki(name).then(function (extract) {
                     $scope.vm.fetching_company_summary = false;
-                    $scope.company.name = extract.title;
-                    $scope.company.summary = extract.extract_no_refs;
+                    $scope.company.name = extract.title || $scope.company.name;
+                    $scope.company.summary = extract.extract;
                     normalize_company($scope.company);
-                    $scope.$apply();
                 });
             }
 

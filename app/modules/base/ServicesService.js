@@ -93,6 +93,18 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
     };
 
     /**
+     * @param {String} query
+     * @return {Promise}
+     */
+    extractService.wiki = function (query) {
+        return $http.get('/service/extract/wiki/extracts', {
+            params: {
+                q: encodeURIComponent(query)
+            }
+        }).then(pluck_data);
+    };
+
+    /**
      * interface SearchConfiguration {
      *     index: String (default: entity)
      *     type: String (default: undefined)

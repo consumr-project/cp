@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import * as Cookie from 'js-cookie';
 import {EventEmitter2} from 'eventemitter2';
 import * as utils from '../../services/utils';
-import * as wikipedia from '../../services/wikipedia';
 import logger from '../../services/logger';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 
@@ -34,8 +33,7 @@ module tcp {
         .value('lodash', _)
         .value('logger', logger)
         .value('moment', moment)
-        .value('utils', utils)
-        .value('wikipedia', wikipedia);
+        .value('utils', utils);
 
     angular.module('tcp').config([
         '$routeProvider',
