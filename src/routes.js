@@ -13,11 +13,16 @@ module.exports = function (app, models) {
         retrieve = crud.retrieve,
         update = crud.update,
         remove = crud.delete,
-        upsert = crud.upsert;
+        upsert = crud.upsert,
+        like = crud.like;
 
     // users
     post('/users', create(models.User));
     get('/users/:id', retrieve(models.User));
+
+    // tags
+    get('/tags/:id?', retrieve(models.Tag));
+    get('/tags/search/en-US', like(models.Tag, 'en-US'));
 
     // companies
     post('/companies', create(models.Company));

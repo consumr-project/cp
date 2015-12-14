@@ -173,10 +173,26 @@ function del(model, filter) {
     };
 }
 
+/**
+ * @param {Sequelize.Model} model
+ * @param {String} field
+ * @return {Function(http.Request, http.Response)}
+ */
+function like(model, field) {
+    var filter = { where: {} };
+    filter.where[field] = {};
+
+    return function (req, res) {
+        filter.where[field].$iLike = ['%', req.query.q, '%'].join('');
+        error_handler(res, model.findAll(filter)).then(response_handler(res));
+    };
+}
+
 module.exports = {
     create: create,
-    upsert: upsert,
+    delete: del,
+    like: like,
     retrieve: retrieve,
     update: update,
-    delete: del
+    upsert: upsert,
 };
