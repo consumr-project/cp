@@ -125,7 +125,6 @@ angular.module('tcp').directive('company', [
                 $scope.vm.fetching_company_summary = true;
                 ServicesService.extract.wiki(name).then(function (extract) {
                     $scope.vm.fetching_company_summary = false;
-                    $scope.company.name = extract.title || $scope.company.name;
                     $scope.company.summary = extract.extract;
                     normalize_company($scope.company);
                 });
