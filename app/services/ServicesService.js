@@ -99,7 +99,7 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
     extractService.wiki = function (query) {
         return $http.get('/service/extract/wiki/extracts', {
             params: {
-                q: encodeURIComponent(query)
+                q: query
             }
         }).then(pluck_data);
     };
