@@ -9,7 +9,8 @@ module.exports = function (app, models) {
         del = app.delete.bind(app),
         patch = app.patch.bind(app);
 
-    var create = crud.create,
+    var all = crud.all,
+        create = crud.create,
         like = crud.like,
         parts = crud.parts,
         remove = crud.delete,
@@ -22,7 +23,8 @@ module.exports = function (app, models) {
     get('/users/:id', retrieve(models.User));
 
     // tags
-    get('/tags/:id?', retrieve(models.Tag));
+    get('/tags', all(models.Tag));
+    get('/tags/:id', retrieve(models.Tag));
 
     // companies
     post('/companies', create(models.Company));

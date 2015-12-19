@@ -277,7 +277,19 @@ function parts(model, filter, parts_def) {
     };
 }
 
+/**
+ * @param {Sequelize.Model} model
+ * @return {Function(http.Request, http.Response)}
+ */
+function all(model) {
+    return function (req, res) {
+        error_handler(res, model.findAll({}))
+            .then(response_handler(res));
+    };
+}
+
 module.exports = {
+    all: all,
     create: create,
     delete: del,
     like: like,
