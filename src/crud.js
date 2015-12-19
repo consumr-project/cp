@@ -223,7 +223,8 @@ function like(model, field) {
 
     return function (req, res) {
         filter.where[field].$iLike = ['%', req.query.q, '%'].join('');
-        error_handler(res, model.findAll(filter)).then(response_handler(res));
+        error_handler(res, model.findAll(filter))
+            .then(response_handler(res));
     };
 }
 
@@ -257,14 +258,16 @@ function parts(model, filter, parts_def) {
         }
 
         // mian
-        queries.push(model.findOne(where(filter, req.params)).then(tag('main')));
+        queries.push(model.findOne(where(filter, req.params))
+            .then(tag('main')));
 
         // parts
         each(parts_wanted, function (part) {
             var model = parts_def[part][0],
                 filter = parts_def[part][1];
 
-            queries.push(model.findAll(where(filter, req.params)).then(tag(part)));
+            queries.push(model.findAll(where(filter, req.params))
+                .then(tag(part)));
         });
 
         error_handler(res, q.all(queries))
