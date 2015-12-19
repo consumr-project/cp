@@ -16,9 +16,6 @@ svgo = ./node_modules/.bin/svgo
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
-# "uglify-js": "^2.6.1",
-# js_ugly = ./node_modules/.bin/uglifyjs
-js_ugly = cat
 js_min = ./node_modules/.bin/jsmin
 js_sep = @echo ";\n"
 
@@ -36,6 +33,7 @@ ifdef DEBUG
 	ts_options = --sourceMap
 	css_options = --sourcemap
 	build_vars = "DEBUG=*"
+	js_min = cat
 endif
 
 run: clean build server
@@ -84,29 +82,29 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 
 build-app:
-	$(js_ugly) \
-		app/elements/anchored/anchored.js \
-		app/elements/pills/pills.js \
-		app/elements/popover/popover.js \
-		app/elements/popover/popover-item.js \
-		app/elements/avatar/avatar.js \
-		app/elements/message/message.js \
-		app/elements/indicator/indicator.js \
-		app/elements/key/key.js \
-		app/elements/tag/tag.js \
-		app/elements/tag/tags.js \
-		app/elements/i18n/i18n.js \
-		app/elements/followed-by/followed-by.js \
-		app/components/user/user.js \
-		app/components/company/company.js \
-		app/components/company-event/company-event.js \
-		app/modules/base/AdminController.js \
-		app/modules/base/NavigationController.js \
-		app/services/NavigationService.js \
-		app/services/ServicesService.js \
-		app/services/SessionService.js \
-		app/modules/search/SearchController.js \
-		app/vendor/angular/ngFocus.js > $(build_app_js)
+	echo "" > $(build_app_js)
+	$(js_min) app/elements/anchored/anchored.js >> $(build_app_js)
+	$(js_min) app/elements/pills/pills.js >> $(build_app_js)
+	$(js_min) app/elements/popover/popover.js >> $(build_app_js)
+	$(js_min) app/elements/popover/popover-item.js >> $(build_app_js)
+	$(js_min) app/elements/avatar/avatar.js >> $(build_app_js)
+	$(js_min) app/elements/message/message.js >> $(build_app_js)
+	$(js_min) app/elements/indicator/indicator.js >> $(build_app_js)
+	$(js_min) app/elements/key/key.js >> $(build_app_js)
+	$(js_min) app/elements/tag/tag.js >> $(build_app_js)
+	$(js_min) app/elements/tag/tags.js >> $(build_app_js)
+	$(js_min) app/elements/i18n/i18n.js >> $(build_app_js)
+	$(js_min) app/elements/followed-by/followed-by.js >> $(build_app_js)
+	$(js_min) app/components/user/user.js >> $(build_app_js)
+	$(js_min) app/components/company/company.js >> $(build_app_js)
+	$(js_min) app/components/company-event/company-event.js >> $(build_app_js)
+	$(js_min) app/modules/base/AdminController.js >> $(build_app_js)
+	$(js_min) app/modules/base/NavigationController.js >> $(build_app_js)
+	$(js_min) app/services/NavigationService.js >> $(build_app_js)
+	$(js_min) app/services/ServicesService.js >> $(build_app_js)
+	$(js_min) app/services/SessionService.js >> $(build_app_js)
+	$(js_min) app/modules/search/SearchController.js >> $(build_app_js)
+	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
 
 install:
 	$(npm) install
