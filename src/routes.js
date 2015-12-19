@@ -10,11 +10,12 @@ module.exports = function (app, models) {
         patch = app.patch.bind(app);
 
     var create = crud.create,
+        like = crud.like,
+        parts = crud.parts,
+        remove = crud.delete,
         retrieve = crud.retrieve,
         update = crud.update,
-        remove = crud.delete,
-        upsert = crud.upsert,
-        like = crud.like;
+        upsert = crud.upsert;
 
     // users
     post('/users', create(models.User));
@@ -40,8 +41,12 @@ module.exports = function (app, models) {
     // events
     post('/events', create(models.Event));
     patch('/events', upsert(models.Event));
-    get('/events/:id?', retrieve(models.Event));
     del('/events/:id', remove(models.Event));
+    get('/events', retrieve(models.Event));
+    get('/events/:id', parts(models.Event, {
+        sources: [models.EventSource, {event_id: 'id'}],
+        tags: [models.EventTag, {event_id: 'id'}],
+    }));
 
     patch('/events/:event_id/sources', upsert(models.EventSource, ['event_id']));
     get('/events/:event_id/sources/:id?', retrieve(models.EventSource, {event_id: 'event_id'}));

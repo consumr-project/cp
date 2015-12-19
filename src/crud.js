@@ -2,8 +2,24 @@
 
 var each = require('lodash/collection/each'),
     clone = require('lodash/lang/clone'),
+    pluck = require('lodash/collection/pluck'),
     reduce = require('lodash/collection/reduce'),
-    uuid = require('node-uuid');
+    find = require('lodash/collection/find'),
+    uuid = require('node-uuid'),
+    q = require('q');
+
+/**
+ * @param {http.Response} res
+ * @param {Error} err
+ */
+function error(res, err) {
+    res.status(500);
+    res.json({
+        ok: false,
+        error: true,
+        error_msg: err.message
+    });
+}
 
 /**
  * @param {Object} schema
@@ -11,13 +27,37 @@ var each = require('lodash/collection/each'),
  * @return {Object}
  */
 function generate_where(schema, params) {
-    return { where: reduce(schema, function (filter, lookup, field) {
+    return reduce(schema, function (filter, lookup, field) {
         if (params[lookup]) {
             filter[field] = params[lookup];
         }
 
         return filter;
-    }, {}) };
+    }, {});
+}
+
+/**
+ * @param {Object} schema
+ * @param {Object} params
+ * @return {Object}
+ */
+function where(filter, params) {
+    return {
+        where: generate_where(filter, params)
+    };
+}
+
+/**
+ * @param {String} name
+ * @return {Function<*>}
+ */
+function tag(name) {
+    return function (val) {
+        return {
+            tag: name,
+            val: val
+        };
+    };
 }
 
 /**
@@ -86,8 +126,7 @@ function populate_extra_parameters(req, extra_params) {
  */
 function error_handler(res, action) {
     return action.catch(function (err) {
-        res.status(500);
-        res.json(err);
+        error(res, err);
     });
 }
 
@@ -136,16 +175,16 @@ function create(model, extra_params) {
 function retrieve(model, filter) {
     var find;
 
-    return function (req, res, next) {
+    return function (req, res) {
         // GET model/:id
         // GET model/:parent_id/sub_model
         // GET model/:parent_id/sub_model/:id
         if (req.params.id || filter) {
             find = req.params.id ? 'findOne' : 'findAll';
-            error_handler(res, model[find](generate_where(filter, req.params)))
+            error_handler(res, model[find](where(filter, req.params)))
                 .then(response_handler(res));
         } else {
-            next(new Error('search not implemented'));
+            error(res, new Error('search not implemented'));
         }
     };
 }
@@ -155,8 +194,8 @@ function retrieve(model, filter) {
  * @return {Function(http.Request, http.Response)}
  */
 function update(model) {
-    return function (req, res, next) {
-        next(new Error('update not implemented'));
+    return function (req, res) {
+        error(res, new Error('update not implemented'));
     };
 }
 
@@ -167,8 +206,8 @@ function update(model) {
  */
 function del(model, filter) {
     filter = filter || { id: 'id' };
-    return function (req, res, next) {
-        error_handler(res, model.destroy(generate_where(filter, req.params))
+    return function (req, res) {
+        error_handler(res, model.destroy(where(filter, req.params))
             .then(response_handler(res)));
     };
 }
@@ -188,10 +227,61 @@ function like(model, field) {
     };
 }
 
+/**
+ * @param {Sequelize.Model} model
+ * @param {Object} [filter]
+ * @param {Object} parts_def
+ * @return {Function(http.Request, http.Response)}
+ */
+function parts(model, filter, parts_def) {
+    if (!parts_def) {
+        parts_def = filter;
+        filter = {id: 'id'};
+    }
+
+    return function (req, res) {
+        var parts_wanted = (req.query.parts || '').split(','),
+            bad_parts = [],
+            queries = [];
+
+        // check for invalid parts first
+        each(parts_wanted, function (part) {
+            if (!(part in parts_def)) {
+                bad_parts.push(part);
+            }
+        });
+
+        if (bad_parts.length) {
+            error(res, new Error('Invalid part(s): ' + bad_parts.join(', ')));
+            return;
+        }
+
+        // mian
+        queries.push(model.findOne(where(filter, req.params)).then(tag('main')));
+
+        // parts
+        each(parts_wanted, function (part) {
+            var model = parts_def[part][0],
+                filter = parts_def[part][1];
+
+            queries.push(model.findAll(where(filter, req.params)).then(tag(part)));
+        });
+
+        error_handler(res, q.all(queries))
+            .then(function (results) {
+                response_handler(res)(reduce(parts_wanted, function (body, part) {
+                    body[part] = pluck(find(results, {tag: part}).val, 'dataValues');
+                    return body;
+                }, find(results, {tag: 'main'}).val.dataValues));
+            });
+    };
+}
+
 module.exports = {
     create: create,
     delete: del,
     like: like,
+    parts: parts,
     retrieve: retrieve,
     update: update,
     upsert: upsert,
