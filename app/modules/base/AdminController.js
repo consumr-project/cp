@@ -68,7 +68,7 @@ angular.module('tcp').controller('AdminController', [
          * @param {Object} session (see $scope.session)
          */
         function cacheSession(session) {
-            console.info('caching %o', Object.keys(session));
+            console.info('caching %o in session', Object.keys(session));
             return Cookie.set('client:session', session);
         }
 

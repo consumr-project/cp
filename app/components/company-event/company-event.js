@@ -242,14 +242,71 @@ angular.module('tcp').directive('companyEvent', [
 
         return {
             replace: true,
-            templateUrl: '/app/components/company-event/company-event.html',
             controller: ['$scope', controller],
             link: link,
             scope: {
                 tiedTo: '=',
                 onCancel: '&',
                 onSave: '&'
-            }
+            },
+            template: [
+                '<form class="company__event form--listed">',
+                '    <h2 i18n="company/add_event"></h2>',
+
+                '    <section>',
+                '        <label i18n="company/field_sentiment"></label>',
+                '        <label>',
+                '            <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
+                '            <span i18n="company/field_sentiment_positive"></span>',
+                '        </label>',
+                '        <label>',
+                '            <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />',
+                '            <span i18n="company/field_sentiment_negative"></span>',
+                '        </label>',
+                '        <label>',
+                '            <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />',
+                '            <span i18n="company/field_sentiment_neutral"></span>',
+                '        </label>',
+                '    </section>',
+
+                '    <section>',
+                '        <label i18n="company/field_title"></label>',
+                '        <input type="text" ng-model="ev.title" />',
+
+                '        <label i18n="company/field_date"></label>',
+                '        <input type="date" ng-model="ev.$date" />',
+
+                '        <label i18n="company/field_tied_to"></label>',
+                '        <pills selections="ev.$companies" query="vm.queryCompanies(query, done)"></pills>',
+
+                '        <label i18n="company/field_tags"></label>',
+                '        <pills selections="ev.$tags" query="vm.queryTags(query, done)"></pills>',
+                '    </section>',
+
+                '    <section>',
+                '        <div ng-repeat="source in ev.$sources">',
+                '            <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>',
+
+                '            <label i18n="company/field_source"></label>',
+                '            <input type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />',
+                '            <label i18n="company/field_title"></label>',
+                '            <input type="text" ng-model="source.title" />',
+                '            <label i18n="company/field_pub_date"></label>',
+                '            <input type="date" ng-model="source.$published_date" />',
+                '            <textarea i18n="company/field_quote" data="{limit: 500}"',
+                '                ng-model="source.summary" prop="placeholder"',
+                '                class="margin-top-small"></textarea>',
+                '        </div>',
+                '    </section>',
+
+                '    <button class="right margin-top-small" ng-click="vm.save()" i18n="admin/save"></button>',
+                '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
+                '        i18n="admin/cancel"></button>',
+
+                '    <button class="right margin-top-small button--link" ng-click="vm.addSource()"',
+                '        i18n="company/add_source"></button>',
+                '</form>'
+            ].join('')
         };
     }
 ]);
