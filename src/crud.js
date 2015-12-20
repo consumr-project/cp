@@ -175,6 +175,8 @@ function create(model, extra_params) {
 function retrieve(model, filter) {
     var find;
 
+    filter = filter || {id: 'id'};
+
     return function (req, res) {
         // GET model/:id
         // GET model/:parent_id/sub_model
