@@ -38,7 +38,7 @@ require('./src/routes')(app, models);
  * @return {Sequelize.Model}
  */
 function model(name) {
-    return require('./db/models/' + name)(conn, require('sequelize/lib/data-types'));
+    return require('./src/models/' + name)(conn, require('sequelize/lib/data-types'));
 }
 
 module.exports = app;
