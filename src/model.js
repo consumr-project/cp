@@ -3,6 +3,15 @@
 var User = require('query-service').models.User;
 
 /**
+ * @param {http.Request} req
+ * @param {http.Response} res
+ * @param {Function} done
+ */
+module.exports.loggedin = function (req, res, next) {
+    next(req.user ? null : new Error('Login required'));
+};
+
+/**
  * @param {auth_service.User} user
  * @param {Function} done
  */

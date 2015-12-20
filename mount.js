@@ -1,6 +1,6 @@
 'use strict';
 
-var app = module.exports = require('express')(),
+var app = require('express')(),
     config = require('acm'),
     passport = require('passport');
 
@@ -22,3 +22,6 @@ app.get('/linkedin/callback', linkedin.callback, model.js_update);
 if (!module.parent) {
     app.listen(config('port') || 3000);
 }
+
+module.exports = app;
+module.exports.loggedin = model.loggedin;
