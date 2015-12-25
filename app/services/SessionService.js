@@ -68,13 +68,14 @@ angular.module('tcp').service('SessionService', [
         service.USER = {};
         service.EVENT = events;
         service.PROVIDER = providers;
+
         service.login = login;
         service.logout = logout;
         service.refresh = refresh;
         service.set_user = set_user;
 
         $document.on('cp:auth', refresh);
-        window.SessionService=service;
+
         return service;
     }
 ]);
