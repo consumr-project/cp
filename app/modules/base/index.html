@@ -19,16 +19,9 @@
         <div ng-controller="AdminController" ng-cloak>
             <div ng-include="'app/modules/home/login.html'"></div>
 
-            <header class="site-content">
-                <br>
-
-                <img class="tcp-logo desktop-only"
-                    src="assets/images/consumrproject-text.png"
-                    ng-click="nav.home()" />
-
-                <img class="tcp-logo screen-small-only"
-                    src="assets/images/consumrproject-stamp.png"
-                    ng-click="nav.home()" />
+            <header class="site-content--span">
+                <img class="tcp-logo" ng-click="nav.home()"
+                    src="assets/images/consumrproject-black-stamp.png" />
 
                 <button ng-if="!session.logged_in" ng-click="login()"
                     i18n="admin/singInUp" class="right animated fadeIn"></button>
@@ -42,9 +35,6 @@
                 <div class="desktop-only right margin-right-small"
                     ng-if="!nav.search.included"
                     ng-include="'/app/modules/search/search.html'"></div>
-
-                <br>
-                <br>
             </header>
 
             <popover
@@ -52,7 +42,7 @@
                 anchored-element="{% raw %}'[data-main-user-avatar]'{% endraw %}"
                 anchored-show="actions.show"
                 anchored-placement="bottom-right"
-                anchored-top-offset="10"
+                anchored-top-offset="5"
                 anchored-auto-hide="true"
             >
                 <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/addCompany"></popover-item>
