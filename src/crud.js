@@ -28,12 +28,12 @@ function error(res, err) {
  * @return {Object}
  */
 function generate_where(schema, params) {
-    return reduce(schema, function (filter, lookup, field) {
+    return reduce(schema, function (prop_remap, lookup, field) {
         if (params[lookup]) {
-            filter[field] = params[lookup];
+            prop_remap[field] = params[lookup];
         }
 
-        return filter;
+        return prop_remap;
     }, {});
 }
 
@@ -42,9 +42,9 @@ function generate_where(schema, params) {
  * @param {Object} params
  * @return {Object}
  */
-function where(filter, params) {
+function where(prop_remap, params) {
     return {
-        where: generate_where(filter, params)
+        where: generate_where(prop_remap, params)
     };
 }
 
@@ -97,14 +97,14 @@ function populate_dates(body) {
 function populate_uuids(body) {
     var id;
 
-    return reduce(body, function (filter, val, field) {
+    return reduce(body, function (prop_remap, val, field) {
         if (replace_with_uuid(val, field)) {
             id = id || uuid.v4();
             val = id;
         }
 
-        filter[field] = val;
-        return filter;
+        prop_remap[field] = val;
+        return prop_remap;
     }, {});
 }
 
@@ -170,21 +170,21 @@ function create(model, extra_params) {
 
 /**
  * @param {Sequelize.Model} model
- * @param {Object} [filter]
+ * @param {Object} [prop_remap]
  * @return {Function(http.Request, http.Response)}
  */
-function retrieve(model, filter) {
+function retrieve(model, prop_remap) {
     var find;
 
-    filter = filter || {id: 'id'};
+    prop_remap = prop_remap || {id: 'id'};
 
     return function (req, res) {
         // GET model/:id
         // GET model/:parent_id/sub_model
         // GET model/:parent_id/sub_model/:id
-        if (req.params.id || filter) {
+        if (req.params.id || prop_remap) {
             find = req.params.id ? 'findOne' : 'findAll';
-            error_handler(res, model[find](where(filter, req.params)))
+            error_handler(res, model[find](where(prop_remap, req.params)))
                 .then(response_handler(res));
         } else {
             error(res, new Error('search not implemented'));
@@ -204,13 +204,13 @@ function update(model) {
 
 /**
  * @param {Sequelize.Model} model
- * @param {Object} [filter]
+ * @param {Object} [prop_remap]
  * @return {Function(http.Request, http.Response)}
  */
-function del(model, filter) {
-    filter = filter || { id: 'id' };
+function del(model, prop_remap) {
+    prop_remap = prop_remap || { id: 'id' };
     return function (req, res) {
-        error_handler(res, model.destroy(where(filter, req.params))
+        error_handler(res, model.destroy(where(prop_remap, req.params))
             .then(response_handler(res)));
     };
 }
@@ -233,14 +233,14 @@ function like(model, field) {
 
 /**
  * @param {Sequelize.Model} model
- * @param {Object} [filter]
+ * @param {Object} [prop_remap]
  * @param {Object} parts_def
  * @return {Function(http.Request, http.Response)}
  */
-function parts(model, filter, parts_def) {
+function parts(model, prop_remap, parts_def) {
     if (!parts_def) {
-        parts_def = filter;
-        filter = {id: 'id'};
+        parts_def = prop_remap;
+        prop_remap = {id: 'id'};
     }
 
     return function (req, res) {
@@ -261,15 +261,15 @@ function parts(model, filter, parts_def) {
         }
 
         // mian
-        queries.push(model.findOne(where(filter, req.params))
+        queries.push(model.findOne(where(prop_remap, req.params))
             .then(tag('main')));
 
         // parts
         each(parts_wanted, function (part) {
             var model = parts_def[part][0],
-                filter = parts_def[part][1];
+                prop_remap = parts_def[part][1];
 
-            queries.push(model.findAll(where(filter, req.params))
+            queries.push(model.findAll(where(prop_remap, req.params))
                 .then(tag(part)));
         });
 
