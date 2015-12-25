@@ -26,9 +26,15 @@ body * {
 
 header {
     border-bottom: 1px solid var(--color-std-border-color);
-    margin-bottom: calc(var(--spacing-xlarge) * 3);
-    padding: var(--spacing-medium);
-    padding-bottom: 60px;
+    margin-bottom: var(--spacing-small);
+    padding: var(--spacing-medium) var(--spacing-medium) 60px var(--spacing-medium);
+    transition: margin-bottom .4s;
+}
+
+@media (--media-regular-screens) {
+    header {
+        margin-bottom: calc(var(--spacing-xlarge) * 2);
+    }
 }
 
 header *,
