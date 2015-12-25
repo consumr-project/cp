@@ -1,7 +1,19 @@
 'use strict';
 
 var request = require('request'),
+    filter = require('lodash/collection/filter'),
     map = require('lodash/collection/map');
+
+/**
+ * @param {WikiExtracts} page
+ * @return {WikiExtracts}
+ */
+function clean_extract(page) {
+    page.extract = filter(page.extract.split('\n'), function (line) {
+        return line[0] !== '^';
+    });
+    return page;
+}
 
 /**
  * interface WikiExtract {
@@ -20,10 +32,11 @@ var request = require('request'),
  * @param {ResponsePayload} body
  * @return {WikiExtracts}
  */
-function parse(body) {
-    var rest = map((body.query || {}).pages, extract),
-        extracts = extract(rest[0] || {});
+function parse(body, meta) {
+    var rest = map(map((body.query || {}).pages, extract), clean_extract),
+        extracts = rest.pop();
 
+    extracts.meta = meta;
     extracts.rest = rest;
     return extracts;
 }
@@ -69,6 +82,8 @@ function extract(obj) {
  * @return {void}
  */
 function wikipedia(params, callback) {
+    var start_time = Date.now();
+
     params.format = 'json';
     request({
         uri: 'https://en.wikipedia.org/w/api.php',
@@ -80,7 +95,10 @@ function wikipedia(params, callback) {
         }
 
         try {
-            callback(null, parse(JSON.parse(body)));
+            callback(null, parse(JSON.parse(body), {
+                elapsed_time: Date.now() - start_time,
+                href: xres.request.url.href
+            }));
         } catch (err) {
             callback(err);
         }
