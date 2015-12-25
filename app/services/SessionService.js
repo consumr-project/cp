@@ -42,7 +42,7 @@ angular.module('tcp').service('SessionService', [
          * @return {Promise}
          */
         function logout() {
-            return ServicesService.auth.logout().then(emit(events.LOGOUT));
+            return ServicesService.auth.logout().then(refresh);
         }
 
         /**
