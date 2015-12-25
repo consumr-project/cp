@@ -3,6 +3,7 @@
 var each = require('lodash/collection/each'),
     clone = require('lodash/lang/clone'),
     pluck = require('lodash/collection/pluck'),
+    arr_filter = require('lodash/collection/filter'),
     reduce = require('lodash/collection/reduce'),
     find = require('lodash/collection/find'),
     uuid = require('node-uuid'),
@@ -243,7 +244,7 @@ function parts(model, filter, parts_def) {
     }
 
     return function (req, res) {
-        var parts_wanted = (req.query.parts || '').split(','),
+        var parts_wanted = arr_filter((req.query.parts || '').split(',')),
             bad_parts = [],
             queries = [];
 
