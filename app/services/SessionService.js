@@ -51,12 +51,18 @@ angular.module('tcp').service('SessionService', [
          */
         function refresh() {
             return ServicesService.auth.user()
-                .then(function (user) {
-                    service.USER = user || {};
-                    service.emit(user && user.id ? events.LOGIN : events.LOGOUT);
-                    return user;
-                })
+                .then(set_user)
                 .catch(emit(events.ERROR));
+        }
+
+        /**
+         * @param {User} user
+         * @return {User}
+         */
+        function set_user(user) {
+            service.USER = user || {};
+            service.emit(user && user.id ? events.LOGIN : events.LOGOUT);
+            return user;
         }
 
         service.USER = {};
@@ -65,6 +71,7 @@ angular.module('tcp').service('SessionService', [
         service.login = login;
         service.logout = logout;
         service.refresh = refresh;
+        service.set_user = set_user;
 
         $document.on('cp:auth', refresh);
         window.SessionService=service;
