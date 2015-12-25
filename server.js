@@ -5,7 +5,6 @@ require('newrelic');
 var app, config, log;
 
 var express = require('express'),
-    debug = require('debug'),
     index = require('serve-index'),
     errors = require('errorhandler'),
     favicon = require('serve-favicon'),
@@ -15,7 +14,12 @@ var express = require('express'),
     session = require('express-session'),
     swig = require('swig');
 
-log = debug('cp:server');
+var search_service = require('search-service'),
+    auth_service = require('auth-service'),
+    extract_service = require('extract-service'),
+    query_service = require('query-service');
+
+log = require('debug')('cp:server');
 app = express();
 config = require('acm');
 
@@ -42,10 +46,17 @@ app.use(body_parser.json());
 app.use(cookie(config('session.secret')));
 app.use(session({ secret: config('session.secret') }));
 
-app.use('/service/search', timeout('5s'), require('search-service'));
-app.use('/service/auth', timeout('10s'), require('auth-service'));
-app.use('/service/extract', timeout('5s'), require('extract-service'));
-app.use('/service/query', timeout('60s'), require('query-service'));
+app.use(auth_service.passport.initialize());
+app.use(auth_service.passport.session());
+app.use('/service/auth', timeout('10s'), auth_service);
+
+app.use('/service/search', timeout('5s'), search_service);
+app.use('/service/extract', timeout('5s'), extract_service);
+
+app.patch('/service/query/*', auth_service.loggedin);
+app.post('/service/query/*', auth_service.loggedin);
+app.put('/service/query/*', auth_service.loggedin);
+app.use('/service/query', timeout('60s'), query_service);
 
 app.get('*', function (req, res) {
     res.render('base/index', {
