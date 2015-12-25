@@ -273,6 +273,7 @@ function parts(model, prop_remap, parts_def) {
                 .then(tag(part)));
         });
 
+        // combine `main` and `parts` into a single response object
         error_handler(res, q.all(queries))
             .then(function (results) {
                 response_handler(res)(reduce(parts_wanted, function (body, part) {
