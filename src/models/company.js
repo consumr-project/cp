@@ -9,6 +9,11 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
 
+        guid: {
+            type: DataTypes.STRING,
+            unique: true
+        },
+
         name: {
             type: DataTypes.STRING,
             allowNull: false

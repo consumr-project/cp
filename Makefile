@@ -9,12 +9,20 @@ install:
 clean:
 	-rm -r node_modules
 
+migration:
+	@$(sequelize) migration:create --url $(db_url) --migrations-path db/migrations \
+		--name NEWFILE
+
 seed:
 	@$(sequelize) seed:create --url $(db_url) --seeders-path db/seeders \
 		--name NEWFILE
 
 database-update:
+	@$(sequelize) db:migrate --url $(db_url) --migrations-path db/migrations
 	@$(sequelize) db:seed --url $(db_url) --seeders-path db/seeders
 
-database-revert:
+database-revert-migration:
+	@$(sequelize) db:migrate:undo --url $(db_url) --seeders-path db/migrations
+
+database-revert-seed:
 	@$(sequelize) db:seed:undo --url $(db_url) --seeders-path db/seeders

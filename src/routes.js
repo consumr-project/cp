@@ -28,7 +28,7 @@ module.exports = function (app, models) {
 
     // companies
     post('/companies', create(models.Company));
-    get('/companies/name/:name', retrieve(models.Company, {name: 'name'}));
+    get('/companies/guid/:guid', retrieve(models.Company, {guid: 'guid'}));
     get('/companies/:id?', retrieve(models.Company));
     put('/companies/:id', update(models.Company));
     del('/companies/:id', remove(models.Company));
