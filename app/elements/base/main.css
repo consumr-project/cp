@@ -107,7 +107,7 @@ hr {
     .site-content--aside {
         border-left: 1px solid var(--color-std-border-color);
         border-top: 1px solid var(--color-std-border-color);
-        min-height: calc(100vh - var(--computed-header-height));
+        height: calc(100vh - var(--computed-header-height));
         overflow: scroll;
         padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
         position: absolute;
