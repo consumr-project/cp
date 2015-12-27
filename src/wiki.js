@@ -26,7 +26,7 @@ function normalize_extract(obj) {
         title: obj.title || '',
         extract: filter((obj.extract || '').split(CHAR_NL), function (line) {
             return line[0] !== CHAR_REF;
-        }).join(CHAR_NL)
+        }).join(CHAR_NL).trim()
     };
 }
 
