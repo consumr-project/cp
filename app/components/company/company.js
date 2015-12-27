@@ -80,6 +80,8 @@ angular.module('tcp').directive('company', [
                 ServicesService.extract.search(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
+                    $scope.company.summary = null;
+                    $scope.company.wikipedia_page_id = null;
                 });
             };
 
