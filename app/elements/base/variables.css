@@ -54,8 +54,11 @@
 
     --content-max-width: 700px;
     --content-medium-width: 500px;
+    --content-aside-width: 450px;
+
     --computed-button-height: 37px;
+    --computed-header-height: 85px;
 }
 
 @custom-media --media-content-max-width (max-width: 700px);
-@custom-media --media-regular-screens (min-width: 600px);
+@custom-media --media-regular-screens (min-width: 801px);

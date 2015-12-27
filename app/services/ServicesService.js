@@ -1,10 +1,24 @@
-angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($http, lodash) {
+angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', function ($http, $q, lodash) {
     'use strict';
 
     var authService = {},
         extractService = {},
         searchService = {},
         queryService = {};
+
+    /**
+     * @param {Function} fn
+     * @return {Promise}
+     */
+    function abortable(fn) {
+        var def = $q.defer();
+
+        fn.cancel = function () {
+            return def.resolve();
+        };
+
+        return def.promise;
+    }
 
     /**
      * @param {$http.Response} res
@@ -98,11 +112,14 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
      */
     extractService.search = function (query) {
         return $http.get('/service/extract/wiki/search', {
+            timeout: abortable(extractService.search),
             params: {
                 q: query
             }
         }).then(pluck_data);
     };
+
+    abortable(extractService.search);
 
     /**
      * @param {String} query
@@ -110,11 +127,14 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
      */
     extractService.wiki = function (query) {
         return $http.get('/service/extract/wiki/extract', {
+            timeout: abortable(extractService.wiki),
             params: {
                 q: query
             }
         }).then(pluck_data);
     };
+
+    abortable(extractService.wiki);
 
     /**
      * interface SearchConfiguration {

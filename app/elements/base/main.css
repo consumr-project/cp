@@ -98,6 +98,25 @@ hr {
     padding-top: calc(var(--body-padding-top) * 2);
 }
 
+@media (--media-regular-screens) {
+    .site-content--aside {
+        border-left: 1px solid var(--color-std-border-color);
+        border-top: 1px solid var(--color-std-border-color);
+        height: calc(100vh - var(--computed-header-height));
+        overflow: scroll;
+        padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
+        position: absolute;
+        right: 0;
+        top: var(--computed-header-height);
+        width: var(--content-aside-width);
+    }
+
+    .site-content--aside-section-standout {
+        background-color: var(--color-std-hover-background-color);
+    }
+
+}
+
 .site-element {
     margin: 0 auto;
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);

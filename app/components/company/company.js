@@ -50,12 +50,15 @@ angular.module('tcp').directive('company', [
                 utils.assert(name);
 
                 $scope.vm.loading = true;
+
+                ServicesService.extract.wiki.cancel();
                 ServicesService.extract.wiki(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = null;
 
                     $scope.company.name = name;
                     $scope.company.summary = res.body.extract;
+                    $scope.company.wikipedia_page_id = res.body.id;
 
                     normalize_company($scope.company);
                 });
@@ -69,6 +72,9 @@ angular.module('tcp').directive('company', [
                 utils.assert(name);
 
                 $scope.vm.loading = true;
+                $scope.vm.company_options = null;
+
+                ServicesService.extract.search.cancel();
                 ServicesService.extract.search(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
@@ -147,6 +153,7 @@ angular.module('tcp').directive('company', [
                     id: $scope.company.id || ServicesService.query.UUID,
                     name: $scope.company.name,
                     summary: $scope.company.summary,
+                    wikipedia_page_id: $scope.company.wikipedia_page_id,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
                 };
@@ -166,7 +173,15 @@ angular.module('tcp').directive('company', [
             template: [
                 '<div>',
                 '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
-                '    <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>',
+
+                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)">',
+                '        <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>',
+                '        <followed-by',
+                '            users="company.$followed_by"',
+                '            on-start-following="on_start_following()"',
+                '            on-stop-following="on_stop_following()"',
+                '        ></followed-by>',
+                '    </section>',
 
                 '    <section ng-if="!vm.existing">',
                 '        <input class="block title" type="text" autofocus="true"',
@@ -208,14 +223,13 @@ angular.module('tcp').directive('company', [
                 '        </section>',
                 '    </section>',
 
-                '    <p class="animated fadeIn" ng-repeat="paragraph in company.$summary_parts track by $index">{{::paragraph}}</p>',
+                '    <p ng-if="!vm.existing" class="animated fadeIn" ',
+                '        ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
 
-                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)" class="margin-top-xlarge">',
-                '        <followed-by',
-                '            users="company.$followed_by"',
-                '            on-start-following="on_start_following()"',
-                '            on-stop-following="on_stop_following()"',
-                '        ></followed-by>',
+                '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout padding-top-medium padding-bottom-medium">',
+                '        <h3 i18n="common/about" class="desktop-only"></h3>',
+                '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
+                '        <a i18n="company/see_more_wiki" target="_blank" ng-href="https://en.wikipedia.org/?curid={{company.wikipedia_page_id}}" class="--action"></a>',
                 '    </section>',
                 '</div>'
             ].join('')

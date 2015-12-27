@@ -56,9 +56,11 @@ h2 {
     line-height: 23px;
 }
 
+/* for section headers (about, common tags, etc.) */
 h3 {
     font-size: 17px;
     line-height: 19px;
+    text-transform: lowercase;
 }
 
 h4 {
@@ -79,6 +81,12 @@ a:hover {
 
 a * {
     cursor: pointer;
+}
+
+/* anchors not in paragraphs are actions */
+:not(p) a {
+    font-weight: 900;
+    text-transform: uppercase;
 }
 
 .uppercase {
