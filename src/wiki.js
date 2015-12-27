@@ -1,5 +1,8 @@
 'use strict';
 
+var CHAR_NL = '\n',
+    CHAR_REF = '^';
+
 var request = require('request'),
     filter = require('lodash/collection/filter'),
     map = require('lodash/collection/map');
@@ -9,9 +12,9 @@ var request = require('request'),
  * @return {WikiExtracts}
  */
 function clean_extract(page) {
-    page.extract = filter(page.extract.split('\n'), function (line) {
-        return line[0] !== '^';
-    });
+    page.extract = filter(page.extract.split(CHAR_NL), function (line) {
+        return line[0] !== CHAR_REF;
+    }).join(CHAR_NL);
     return page;
 }
 
