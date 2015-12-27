@@ -175,13 +175,25 @@ angular.module('tcp').directive('company', [
                 '<div>',
                 '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
 
-                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)">',
-                '        <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>',
+                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)" class="site-content--main">',
+                '        <h1 class="take-space animated fadeIn">{{company.name}}</h1>',
                 '        <followed-by',
                 '            users="company.$followed_by"',
                 '            on-start-following="on_start_following(company.id)"',
                 '            on-stop-following="on_stop_following(company.id)"',
                 '        ></followed-by>',
+
+                '        <div class="margin-top-medium margin-bottom-medium">',
+                '            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>',
+                '        </div>',
+
+                '        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
+                '            <company-event',
+                '                on-save="vm.add_event.hide()"',
+                '                on-cancel="vm.add_event.hide()"',
+                '                tied-to="{companies: [company]}"',
+                '            ></company-event>',
+                '        </popover>',
                 '    </section>',
 
                 '    <section ng-if="!vm.existing">',
@@ -194,20 +206,6 @@ angular.module('tcp').directive('company', [
                 '        <div class="margin-top-medium margin-bottom-medium">',
                 '            <button ng-click="save()" i18n="admin/save"></button>',
                 '        </div>',
-                '    </section>',
-
-                '    <section ng-if="vm.existing && company.$loaded">',
-                '        <div class="margin-top-medium margin-bottom-medium">',
-                '            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>',
-                '        </div>',
-
-                '        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
-                '            <company-event',
-                '                on-save="vm.add_event.hide()"',
-                '                on-cancel="vm.add_event.hide()"',
-                '                tied-to="{companies: [company]}"',
-                '            ></company-event>',
-                '        </popover>',
                 '    </section>',
 
                 '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',

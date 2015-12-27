@@ -62,3 +62,4 @@
 
 @custom-media --media-content-max-width (max-width: 700px);
 @custom-media --media-regular-screens (min-width: 801px);
+@custom-media --media-content-aside-allowed (min-width: 1151px);

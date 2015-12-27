@@ -98,7 +98,12 @@ hr {
     padding-top: calc(var(--body-padding-top) * 2);
 }
 
-@media (--media-regular-screens) {
+@media (--media-content-aside-allowed) {
+    .site-content--main {
+        left: -220px;
+        position: relative;
+    }
+
     .site-content--aside {
         border-left: 1px solid var(--color-std-border-color);
         border-top: 1px solid var(--color-std-border-color);
