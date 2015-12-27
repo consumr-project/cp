@@ -51,8 +51,16 @@ angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', funct
                 upsert: function (parent_id, data) {
                     return $http.patch(url(model, parent_id, assoc), data).then(pluck_data);
                 },
-                retrieve: function (parent_id, id) {
-                    return $http.get(url(model, parent_id, assoc, id)).then(pluck_data);
+                retrieve: function (parent_id, id, parts) {
+                    var opt = {};
+
+                    if (parts) {
+                        opt.params = {
+                            parts: parts.join(',')
+                        };
+                    }
+
+                    return $http.get(url(model, parent_id, assoc, id), opt).then(pluck_data);
                 },
                 update: function (parent_id, id, data) {
                     return $http.put(url(model, parent_id, assoc, id), data).then(pluck_data);
@@ -69,8 +77,16 @@ angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', funct
             upsert: function (data) {
                 return $http.patch(url(model), data).then(pluck_data);
             },
-            retrieve: function (id) {
-                return $http.get(url(model, id)).then(pluck_data);
+            retrieve: function (id, parts) {
+                var opt = {};
+
+                if (parts) {
+                    opt.params = {
+                        parts: parts.join(',')
+                    };
+                }
+
+                return $http.get(url(model, id), opt).then(pluck_data);
             },
             update: function (id, data) {
                 return $http.put(url(model, id), data).then(pluck_data);
