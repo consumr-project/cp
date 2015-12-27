@@ -1,10 +1,9 @@
 angular.module('tcp').directive('companyEvent', [
     '$q',
-    '$http',
     'lodash',
     'ServicesService',
     'SessionService',
-    function ($q, $http, lodash, ServicesService, SessionService) {
+    function ($q, lodash, ServicesService, SessionService) {
         'use strict';
 
         /**
@@ -86,19 +85,11 @@ angular.module('tcp').directive('companyEvent', [
          */
         function fetch_content(source) {
             source.$loading = true;
-            return extract_page(source.url).then(function (content) {
+            return ServicesService.extract.page(source.url).then(function (content) {
                 source.$loading = false;
                 content.data.$source = source;
                 return content.data;
             });
-        }
-
-        /**
-         * @param {String} url
-         * @return {Promise}
-         */
-        function extract_page(url) {
-            return $http.get('/service/extract/page?url=' + encodeURIComponent(url));
         }
 
         /**
