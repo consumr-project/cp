@@ -96,8 +96,20 @@ angular.module('tcp').service('ServicesService', ['$http', 'lodash', function ($
      * @param {String} query
      * @return {Promise}
      */
+    extractService.search = function (query) {
+        return $http.get('/service/extract/wiki/search', {
+            params: {
+                q: query
+            }
+        }).then(pluck_data);
+    };
+
+    /**
+     * @param {String} query
+     * @return {Promise}
+     */
     extractService.wiki = function (query) {
-        return $http.get('/service/extract/wiki/extracts', {
+        return $http.get('/service/extract/wiki/extract', {
             params: {
                 q: query
             }
