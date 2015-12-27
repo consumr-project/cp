@@ -43,7 +43,6 @@
     --color-success-text-color: #191919;
 
     --body-padding-top: 10px;
-    --content-horizontal-padding: 20px;
     --inline-element-gutter: 6px;
 
     --spacing-xsmall: 10px;
@@ -53,8 +52,10 @@
     --spacing-xlarge: 45px;
 
     --content-max-width: 700px;
+    --content-main-with-aside-offset: -220px;
     --content-medium-width: 500px;
     --content-aside-width: 450px;
+    --content-horizontal-padding: 20px;
 
     --computed-button-height: 37px;
     --computed-header-height: 85px;

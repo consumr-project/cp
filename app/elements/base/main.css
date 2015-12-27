@@ -100,7 +100,7 @@ hr {
 
 @media (--media-content-aside-allowed) {
     .site-content--main {
-        left: -220px;
+        left: var(--content-main-with-aside-offset);
         position: relative;
     }
 
