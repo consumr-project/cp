@@ -53,7 +53,7 @@ angular.module('tcp').directive('company', [
                 utils.assert($scope.company.name, 'company name is required');
 
                 return ServicesService.query.companies.create(get_company()).then(function (company) {
-                    return $scope.onStartFollowing(company.id).then(function () {
+                    return $scope.on_start_following(company.id).then(function () {
                         NavigationService.company(company.id);
                         console.info('saved company', company.id);
                         return company;
@@ -65,7 +65,7 @@ angular.module('tcp').directive('company', [
              * @param {String} [company_id]
              * @return {Promise}
              */
-            $scope.loadFollowers = function (company_id) {
+            $scope.load_followers = function (company_id) {
                 utils.assert($scope.id || company_id);
 
                 return ServicesService.query.companies.followers.retrieve($scope.id || company_id)
@@ -76,20 +76,20 @@ angular.module('tcp').directive('company', [
              * @param {String} [company_id]
              * @return {Promise}
              */
-            $scope.onStartFollowing = function (company_id) {
+            $scope.on_start_following = function (company_id) {
                 utils.assert($scope.id || company_id);
                 utils.assert(SessionService.USER);
 
                 return ServicesService.query.companies.followers.upsert($scope.id || company_id, {
                     user_id: SessionService.USER.id
-                }).then($scope.loadFollowers.bind(null, company_id));
+                }).then($scope.load_followers.bind(null, company_id));
             };
 
             /**
              * @param {String} [company_id]
              * @return {Promise}
              */
-            $scope.onStopFollowing = function (company_id) {
+            $scope.on_stop_following = function (company_id) {
                 var id = $scope.id || company_id;
 
                 utils.assert(id);
@@ -123,9 +123,9 @@ angular.module('tcp').directive('company', [
 
                 // XXX error state
                 $scope.vm.fetching_company_summary = true;
-                ServicesService.extract.wiki(name).then(function (extract) {
+                ServicesService.extract.wiki(name).then(function (res) {
                     $scope.vm.fetching_company_summary = false;
-                    $scope.company.summary = extract.extract;
+                    $scope.company.summary = res.body.extract;
                     normalize_company($scope.company);
                 });
             }
@@ -188,11 +188,11 @@ angular.module('tcp').directive('company', [
 
                 '    <p class="animated fadeIn" ng-repeat="paragraph in company.$summary_parts track by $index">{{::paragraph}}</p>',
 
-                '    <section ng-if="vm.existing && company.$loaded" ng-init="loadFollowers(company.id)" class="margin-top-xlarge">',
+                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)" class="margin-top-xlarge">',
                 '        <followed-by',
                 '            users="company.$followed_by"',
-                '            on-start-following="onStartFollowing()"',
-                '            on-stop-following="onStopFollowing()"',
+                '            on-start-following="on_start_following()"',
+                '            on-stop-following="on_stop_following()"',
                 '        ></followed-by>',
                 '    </section>',
                 '</div>'

@@ -10,7 +10,7 @@ angular.module('tcp').directive('companyEvent', [
         /**
          * @param {jQuery} $elem
          */
-        function scrollToBottom($elem) {
+        function scroll_to_bottom($elem) {
             setTimeout(function () {
                 $elem.scrollTop(Number.MAX_VALUE);
             }, 10);
@@ -21,16 +21,16 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Source[]} update
          * @param {Source[]} prev
          */
-        function fetchSources(ev, update, prev) {
+        function fetch_sources(ev, update, prev) {
             $q.all(
                 lodash(update)
                     .difference(prev)
-                    .filter(canLoadContent)
-                    .map(fetchContent)
+                    .filter(can_load_content)
+                    .map(fetch_content)
                     .value()
             ).then(function (contents) {
-                lodash.each(contents, populateSourceFromContent);
-                populateEvent(ev, contents[0]);
+                lodash.each(contents, populate_source_from_content);
+                populate_event(ev, contents[0]);
             });
         }
 
@@ -39,7 +39,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {extract.PageExtract} [content]
          * @param {Boolean} [overwrite] (default: false)
          */
-        function populateEvent(ev, content, overwrite) {
+        function populate_event(ev, content, overwrite) {
             function get(ev_field, content_field) {
                 var orig_val = ev[ev_field];
                 return orig_val && !overwrite ? orig_val :
@@ -58,7 +58,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {extract.PageExtract} content
          * @return {Source}
          */
-        function populateSource(source, content) {
+        function populate_source(source, content) {
             source.title = content.title;
             source.published_date = content.published;
             source.$published_date = new Date(content.published);
@@ -68,15 +68,15 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Source} source
          * @return {Source}
          */
-        function populateSourceFromContent(content) {
-            return populateSource(content.$source, content);
+        function populate_source_from_content(content) {
+            return populate_source(content.$source, content);
         }
 
         /**
          * @param {Source} source
          * @return {Boolean}
          */
-        function canLoadContent(source) {
+        function can_load_content(source) {
             return !!source.url;
         }
 
@@ -84,9 +84,9 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Source} source
          * @return {Promise<extract.PageExtract>}
          */
-        function fetchContent(source) {
+        function fetch_content(source) {
             source.$loading = true;
-            return extractPage(source.url).then(function (content) {
+            return extract_page(source.url).then(function (content) {
                 source.$loading = false;
                 content.data.$source = source;
                 return content.data;
@@ -97,7 +97,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {String} url
          * @return {Promise}
          */
-        function extractPage(url) {
+        function extract_page(url) {
             return $http.get('/service/extract/page?url=' + encodeURIComponent(url));
         }
 
@@ -105,7 +105,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Object} tag
          * @return {Object}
          */
-        function normalizeTag(tag) {
+        function normalize_tag(tag) {
             return {
                 label: tag['en-US'],
                 id: tag.id
@@ -116,7 +116,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {Company} company
          * @return {Object}
          */
-        function normalizeCompany(company) {
+        function normalize_company(company) {
             return {
                 label: company.name,
                 id: company.id
@@ -125,18 +125,18 @@ angular.module('tcp').directive('companyEvent', [
 
         /**
          * @param {Event} ev
-         * @param {Object} tiedTo
+         * @param {Object} tied_to
          * @return {Promise}
          */
-        function fetchCompaniesTiedTo(ev, tiedTo) {
-            ev.$companies = lodash.map(tiedTo.companies, normalizeCompany);
+        function fecth_companies_tied_to(ev, tied_to) {
+            ev.$companies = lodash.map(tied_to.companies, normalize_company);
         }
 
         /**
          * @param {Event} ev
          * @return {Event}
          */
-        function getNormalizedEvent(ev) {
+        function get_normalized_event(ev) {
             return {
                 id: ev.id || ServicesService.query.UUID,
                 title: ev.title,
@@ -151,7 +151,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {String} event_id
          * @return {EventSource}
          */
-        function getNormalizedEventSource(source, event_id) {
+        function get_normalized_event_source(source, event_id) {
             return {
                 id: source.id || ServicesService.query.UUID,
                 title: source.title,
@@ -167,7 +167,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {EventTag} tag
          * @return {EventTag}
          */
-        function getNormalizedEventTag(tag, event_id) {
+        function get_normalized_event_tag(tag, event_id) {
             return {
                 event_id: event_id,
                 tag_id: tag.tag_id || tag.id
@@ -179,7 +179,7 @@ angular.module('tcp').directive('companyEvent', [
          * @param {String} event_id
          * @return {CompanyEvent}
          */
-        function getNormalizedCompanyEvent(company, event_id) {
+        function get_normalized_company_event(company, event_id) {
             return {
                 event_id: event_id,
                 company_id: company.company_id || company.id
@@ -194,20 +194,20 @@ angular.module('tcp').directive('companyEvent', [
                 $tags: []
             };
 
-            $scope.$watch('ev.$sources', fetchSources.bind(null, $scope.ev), true);
-            $scope.$watch('tiedTo', fetchCompaniesTiedTo.bind(null, $scope.ev));
+            $scope.$watch('ev.$sources', fetch_sources.bind(null, $scope.ev), true);
+            $scope.$watch('tiedTo', fecth_companies_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
-                ServicesService.query.events.create(getNormalizedEvent($scope.ev)).then(function (ev) {
+                ServicesService.query.events.create(get_normalized_event($scope.ev)).then(function (ev) {
                     $q.all([].concat(
                         lodash.map($scope.ev.$sources, function (source) {
-                            return ServicesService.query.events.sources.upsert(ev.id, getNormalizedEventSource(source, ev.id));
+                            return ServicesService.query.events.sources.upsert(ev.id, get_normalized_event_source(source, ev.id));
                         }),
                         lodash.map($scope.ev.$tags, function (tag) {
-                            return ServicesService.query.events.tags.upsert(ev.id, getNormalizedEventTag(tag, ev.id));
+                            return ServicesService.query.events.tags.upsert(ev.id, get_normalized_event_tag(tag, ev.id));
                         }),
                         lodash.map($scope.ev.$companies, function (company) {
-                            return ServicesService.query.companies.events.upsert(company.id, getNormalizedCompanyEvent(company, ev.id));
+                            return ServicesService.query.companies.events.upsert(company.id, get_normalized_company_event(company, ev.id));
                         })
                     )).then(function (res) {
                         console.log(ev, res);
@@ -219,24 +219,24 @@ angular.module('tcp').directive('companyEvent', [
                 });
             };
 
-            $scope.vm.queryCompanies = function (str, done) {
+            $scope.vm.query_companies = function (str, done) {
                 ServicesService.query.search.companies('name', str).then(function (companies) {
-                    done(null, lodash.map(companies, normalizeCompany));
+                    done(null, lodash.map(companies, normalize_company));
                 }).catch(done);
             };
 
-            $scope.vm.queryTags = function (str, done) {
+            $scope.vm.query_tags = function (str, done) {
                 ServicesService.query.search.tags('en-US', str).then(function (tags) {
-                    done(null, lodash.map(tags, normalizeTag));
+                    done(null, lodash.map(tags, normalize_tag));
                 }).catch(done);
             };
         }
 
         function link($scope, $elem) {
             $scope.vm = $scope.vm || {};
-            $scope.vm.addSource = function () {
+            $scope.vm.add_source = function () {
                 $scope.ev.$sources.push({});
-                scrollToBottom($elem.closest('div'));
+                scroll_to_bottom($elem.closest('div'));
             };
         }
 
@@ -277,10 +277,10 @@ angular.module('tcp').directive('companyEvent', [
                 '        <input type="date" ng-model="ev.$date" />',
 
                 '        <label i18n="company/field_tied_to"></label>',
-                '        <pills selections="ev.$companies" query="vm.queryCompanies(query, done)"></pills>',
+                '        <pills selections="ev.$companies" query="vm.query_companies(query, done)"></pills>',
 
                 '        <label i18n="company/field_tags"></label>',
-                '        <pills selections="ev.$tags" query="vm.queryTags(query, done)"></pills>',
+                '        <pills selections="ev.$tags" query="vm.query_tags(query, done)"></pills>',
                 '    </section>',
 
                 '    <section>',
@@ -303,7 +303,7 @@ angular.module('tcp').directive('companyEvent', [
                 '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
                 '        i18n="admin/cancel"></button>',
 
-                '    <button class="right margin-top-small button--link" ng-click="vm.addSource()"',
+                '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
                 '        i18n="company/add_source"></button>',
                 '</form>'
             ].join('')
