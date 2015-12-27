@@ -20,11 +20,12 @@ body * {
 }
 
 ::selection {
-    background: rgb(255, 254, 196);
+    background: color(var(--color-cp-brand) a(10%));
     text-shadow: none;
 }
 
 :focus {
+    outline-color: var(--color-cp-brand);
     outline-width: thin;
 }
 
