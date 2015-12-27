@@ -53,6 +53,7 @@ app.use('/service/auth', timeout('10s'), auth_service);
 app.use('/service/search', timeout('5s'), search_service);
 app.use('/service/extract', timeout('5s'), extract_service);
 
+app.delete('/service/query/*', auth_service.loggedin);
 app.patch('/service/query/*', auth_service.loggedin);
 app.post('/service/query/*', auth_service.loggedin);
 app.put('/service/query/*', auth_service.loggedin);
