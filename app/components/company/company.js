@@ -27,37 +27,51 @@ angular.module('tcp').directive('company', [
             };
 
             /**
-             * sets up watchers for new companies
-             * @param {String} [id]
-             */
-            function init(id) {
-                $scope.$watch('company.name', get_summary);
-            }
-
-            /**
-             * @param {String} [id]
-             * @return {Promise}
-             */
-            function load(id) {
-                return ServicesService.query.companies.retrieve(id || $scope.id)
-                    .then(utils.scope.not_found($scope))
-                    .then(normalize_company)
-                    .then(utils.scope.set($scope, 'company'));
-            }
-
-            /**
              * @return {Promise}
              */
             $scope.save = function () {
                 utils.assert(SessionService.USER, 'login required for action');
                 utils.assert($scope.company.name, 'company name is required');
 
-                return ServicesService.query.companies.create(get_company()).then(function (company) {
+                return ServicesService.query.companies.create(get_new_company_object()).then(function (company) {
                     return $scope.on_start_following(company.id).then(function () {
                         NavigationService.company(company.id);
                         console.info('saved company', company.id);
                         return company;
                     });
+                });
+            };
+
+            /**
+             * @param {String} name of company
+             * @return {Promise}
+             */
+            $scope.get_company = function (name) {
+                utils.assert(name);
+
+                $scope.vm.loading = true;
+                ServicesService.extract.wiki(name).then(function (res) {
+                    $scope.vm.loading = false;
+                    $scope.vm.company_options = null;
+
+                    $scope.company.name = name;
+                    $scope.company.summary = res.body.extract;
+
+                    normalize_company($scope.company);
+                });
+            };
+
+            /**
+             * @param {String} name of company
+             * @return {Promise}
+             */
+            $scope.find_companies = function (name) {
+                utils.assert(name);
+
+                $scope.vm.loading = true;
+                ServicesService.extract.search(name).then(function (res) {
+                    $scope.vm.loading = false;
+                    $scope.vm.company_options = res.body;
                 });
             };
 
@@ -100,6 +114,17 @@ angular.module('tcp').directive('company', [
             };
 
             /**
+             * @param {String} [id]
+             * @return {Promise}
+             */
+            function load(id) {
+                return ServicesService.query.companies.retrieve(id || $scope.id)
+                    .then(utils.scope.not_found($scope))
+                    .then(normalize_company)
+                    .then(utils.scope.set($scope, 'company'));
+            }
+
+            /**
              * @param {Company} company
              * @return {Company}
              */
@@ -115,25 +140,9 @@ angular.module('tcp').directive('company', [
             }
 
             /**
-             * @param {String} name of company
-             * @return {Promise}
-             */
-            function get_summary(name) {
-                utils.assert(name);
-
-                // XXX error state
-                $scope.vm.fetching_company_summary = true;
-                ServicesService.extract.wiki(name).then(function (res) {
-                    $scope.vm.fetching_company_summary = false;
-                    $scope.company.summary = res.body.extract;
-                    normalize_company($scope.company);
-                });
-            }
-
-            /**
              * @return {Company}
              */
-            function get_company() {
+            function get_new_company_object() {
                 return {
                     id: $scope.company.id || ServicesService.query.UUID,
                     name: $scope.company.name,
@@ -143,9 +152,7 @@ angular.module('tcp').directive('company', [
                 };
             }
 
-            if (!$scope.id) {
-                init();
-            } else {
+            if ($scope.id) {
                 load($scope.id);
             }
         }
@@ -164,7 +171,8 @@ angular.module('tcp').directive('company', [
                 '    <section ng-if="!vm.existing">',
                 '        <input class="block title" type="text" autofocus="true"',
                 '            i18n="company/name_placeholder" prop="placeholder"',
-                '            ng-class="{ loading: vm.fetching_company_summary }"',
+                '            ng-class="{ loading: vm.loading }"',
+                '            ng-change="find_companies(company.name)"',
                 '            ng-model="company.name" ng-model-options="{ debounce: 300 }" />',
 
                 '        <div class="margin-top-medium margin-bottom-medium">',
@@ -184,6 +192,20 @@ angular.module('tcp').directive('company', [
                 '                tied-to="{companies: [company]}"',
                 '            ></company-event>',
                 '        </popover>',
+                '    </section>',
+
+                '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',
+                '        <section ng-if="!vm.company_options.length">',
+                '            <center>',
+                '                <h2 i18n="common/no_results" data="{query: company.name}"></h2>',
+                '            </center>',
+                '        </section>',
+                '        <section ng-if="vm.company_options.length">',
+                '            <h2 i18n="common/results"></h2>',
+                '            <div ng-repeat="option in vm.company_options" ng-click="get_company(option.title)">',
+                '                <p><b>{{option.title}}</b>: {{option.snippet}}</p>',
+                '            </div>',
+                '        </section>',
                 '    </section>',
 
                 '    <p class="animated fadeIn" ng-repeat="paragraph in company.$summary_parts track by $index">{{::paragraph}}</p>',

@@ -6,6 +6,7 @@ welcome: Welcome to The Consumer Project
 intro: A crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.
 
 # search
+results: "Results:"
 no_results: No results for "{query}"
 recent_searches: "Recent searches:"
 search_stats: "{count} results ({time} ms)"
