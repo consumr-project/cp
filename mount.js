@@ -1,11 +1,11 @@
 'use strict';
 
-var app = require('express')(),
+var app = module.exports = require('express')(),
     config = require('acm');
 
-module.exports = app;
 app.get('/page', require('./src/page'));
-app.get('/wiki/extracts', require('./src/wiki').query_extracts);
+app.get('/wiki/search', require('./src/wiki').search);
+app.get('/wiki/extract', require('./src/wiki').extract);
 
 if (!module.parent) {
     app.listen(config('port') || 3000);
