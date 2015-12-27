@@ -203,7 +203,7 @@ angular.module('tcp').directive('company', [
                 '            ng-change="find_companies(company.name)"',
                 '            ng-model="company.name" ng-model-options="{ debounce: 300 }" />',
 
-                '        <div class="margin-top-medium margin-bottom-medium">',
+                '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.summary">',
                 '            <button ng-click="save()" i18n="admin/save"></button>',
                 '        </div>',
                 '    </section>',
@@ -223,10 +223,12 @@ angular.module('tcp').directive('company', [
                 '    <p ng-if="!vm.existing" class="animated fadeIn" ',
                 '        ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
 
-                '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout padding-top-medium padding-bottom-medium">',
+                '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout">',
+                '        <div class="padding-top-medium desktop-only"></div>',
                 '        <h3 i18n="common/about" class="desktop-only"></h3>',
                 '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
                 '        <a i18n="company/see_more_wiki" target="_blank" ng-href="https://en.wikipedia.org/?curid={{company.wikipedia_page_id}}" class="--action"></a>',
+                '        <div class="padding-bottom-medium desktop-only"></div>',
                 '    </section>',
                 '</div>'
             ].join('')
