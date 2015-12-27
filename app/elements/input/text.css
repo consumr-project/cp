@@ -26,7 +26,7 @@ input.search {
 }
 
 input.search {
-    border-color: var(--color-cp-brand);
+    border-color: var(--color-cp-brand-border-color);
     border-radius: 100px;
     padding-left: var(--computed-button-height);
     width: 100%;

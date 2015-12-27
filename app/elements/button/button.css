@@ -1,6 +1,6 @@
 button {
     background-color: white;
-    border-color: var(--color-cp-brand);
+    border-color: var(--color-cp-brand-border-color);
     color: var(--color-cp-brand);
     font-weight: 900;
     min-height: var(--computed-button-height);
