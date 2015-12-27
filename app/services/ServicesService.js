@@ -98,6 +98,10 @@ angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', funct
         }
     };
 
+    queryService.companies.guid = function (guid) {
+        return $http.get(url('companies/guid', guid)).then(pluck_data);
+    };
+
     /**
      * @param {String} url
      * @return {Promise}

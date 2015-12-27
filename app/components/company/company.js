@@ -17,12 +17,14 @@ angular.module('tcp').directive('company', [
                 $loaded: false,
                 $summary_parts: [],
                 id: null,
+                guid: null,
                 name: null,
-                summary: null
+                summary: null,
+                wikipedia_page_id: null
             };
 
             $scope.vm = {
-                existing: !!$scope.id,
+                existing: !!$scope.guid,
                 add_event: {}
             };
 
@@ -35,7 +37,7 @@ angular.module('tcp').directive('company', [
 
                 return ServicesService.query.companies.create(get_new_company_object()).then(function (company) {
                     return $scope.on_start_following(company.id).then(function () {
-                        NavigationService.company(company.id);
+                        NavigationService.company(company.guid);
                         console.info('saved company', company.id);
                         return company;
                     });
@@ -82,49 +84,47 @@ angular.module('tcp').directive('company', [
             };
 
             /**
-             * @param {String} [company_id]
+             * @param {String} company_id
              * @return {Promise}
              */
             $scope.load_followers = function (company_id) {
-                utils.assert($scope.id || company_id);
+                utils.assert(company_id);
 
-                return ServicesService.query.companies.followers.retrieve($scope.id || company_id)
+                return ServicesService.query.companies.followers.retrieve(company_id)
                     .then(utils.scope.set($scope, 'company.$followed_by'));
             };
 
             /**
-             * @param {String} [company_id]
+             * @param {String} company_id
              * @return {Promise}
              */
             $scope.on_start_following = function (company_id) {
-                utils.assert($scope.id || company_id);
+                utils.assert(company_id);
                 utils.assert(SessionService.USER);
 
-                return ServicesService.query.companies.followers.upsert($scope.id || company_id, {
+                return ServicesService.query.companies.followers.upsert(company_id, {
                     user_id: SessionService.USER.id
                 }).then($scope.load_followers.bind(null, company_id));
             };
 
             /**
-             * @param {String} [company_id]
+             * @param {String} company_id
              * @return {Promise}
              */
             $scope.on_stop_following = function (company_id) {
-                var id = $scope.id || company_id;
-
-                utils.assert(id);
+                utils.assert(company_id);
                 utils.assert(SessionService.USER);
 
-                return ServicesService.query.companies.followers.delete(id, SessionService.USER.id)
-                    .then(load.bind(null, id));
+                return ServicesService.query.companies.followers.delete(company_id, SessionService.USER.id)
+                    .then(load.bind(null, company_id));
             };
 
             /**
-             * @param {String} [id]
+             * @param {String} guid
              * @return {Promise}
              */
-            function load(id) {
-                return ServicesService.query.companies.retrieve(id || $scope.id)
+            function load(guid) {
+                return ServicesService.query.companies.guid(guid)
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'));
@@ -152,6 +152,7 @@ angular.module('tcp').directive('company', [
                 return {
                     id: $scope.company.id || ServicesService.query.UUID,
                     name: $scope.company.name,
+                    guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
                     wikipedia_page_id: $scope.company.wikipedia_page_id,
                     created_by: SessionService.USER.id,
@@ -159,8 +160,8 @@ angular.module('tcp').directive('company', [
                 };
             }
 
-            if ($scope.id) {
-                load($scope.id);
+            if ($scope.guid) {
+                load($scope.guid);
             }
         }
 
@@ -168,7 +169,7 @@ angular.module('tcp').directive('company', [
             replace: true,
             controller: ['$scope', controller],
             scope: {
-                id: '@'
+                guid: '@'
             },
             template: [
                 '<div>',
@@ -178,8 +179,8 @@ angular.module('tcp').directive('company', [
                 '        <h1 class="take-space animated fadeIn" ng-if="vm.existing">{{company.name}}</h1>',
                 '        <followed-by',
                 '            users="company.$followed_by"',
-                '            on-start-following="on_start_following()"',
-                '            on-stop-following="on_stop_following()"',
+                '            on-start-following="on_start_following(company.id)"',
+                '            on-stop-following="on_stop_following(company.id)"',
                 '        ></followed-by>',
                 '    </section>',
 
@@ -210,10 +211,8 @@ angular.module('tcp').directive('company', [
                 '    </section>',
 
                 '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',
-                '        <section ng-if="!vm.company_options.length">',
-                '            <center>',
-                '                <h2 i18n="common/no_results" data="{query: company.name}"></h2>',
-                '            </center>',
+                '        <section ng-if="!vm.company_options.length" class="center-align">',
+                '            <h2 i18n="common/no_results" data="{query: company.name}"></h2>',
                 '        </section>',
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',

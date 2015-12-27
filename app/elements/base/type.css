@@ -88,21 +88,3 @@ a * {
     font-weight: 900;
     text-transform: uppercase;
 }
-
-.uppercase {
-    text-transform: uppercase;
-}
-
-.lowercase {
-    text-transform: lowercase;
-}
-
-.title,
-.title a {
-    color: #313131;
-}
-
-.subtitle {
-    color: gray;
-    font-weight: 500;
-}

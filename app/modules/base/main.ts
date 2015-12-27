@@ -45,6 +45,10 @@ module tcp {
                 $scope.id = $routeParams.id;
             }];
 
+            let PropSetterController = (prop) => ['$scope', '$routeParams', function ($scope, $routeParams) {
+                $scope[prop] = $routeParams[prop];
+            }];
+
             let UserCheck = {
                 current_user: ['SessionService', function (SessionService) {
                     SessionService.refresh();
@@ -72,9 +76,9 @@ module tcp {
                 controller: IdSetterController
             });
 
-            $routeProvider.when('/company/:id?', {
-                template: '<company class="site-content" id="{{id}}"></company>',
-                controller: IdSetterController,
+            $routeProvider.when('/company/:guid?', {
+                template: '<company class="site-content" guid="{{guid}}"></company>',
+                controller: PropSetterController('guid'),
                 resolve: UserCheck
             });
 
