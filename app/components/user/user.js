@@ -62,7 +62,7 @@ angular.module('tcp').directive('user', [
                 '                <td>{{user.$followers_count || i18n.get("common/none")}}</td>',
                 '                <td>',
                 '                    <a ng-if="::user.linkedin_url" href="{{::user.linkedin_url}}" target="_blank">',
-                '                        <img src="/assets/images/linkedin.png" style="height: 20px; width: 20px" />',
+                '                        <img alt="" src="/assets/images/linkedin.png" style="height: 20px; width: 20px" />',
                 '                    </a>',
                 '                </td>',
                 '            </tr>',
