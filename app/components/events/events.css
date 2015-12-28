@@ -1,11 +1,51 @@
 .events {
     text-align: center;
+    margin-bottom: var(--spacing-xlarge);
 }
 
-.events__event:nth-child(even) .events__event--left {
+.events__event {
+    height: 70px;
+}
+
+.events__event:nth-child(even) .events__event__content--left * {
     display: none;
 }
 
-.events__event:nth-child(odd) .events__event--right {
+.events__event:nth-child(odd) .events__event__content--right * {
     display: none;
+}
+
+.events__event avatar {
+    vertical-align: top;
+}
+
+.events__event__content {
+    display: inline-block;
+    margin-top: var(--spacing-xsmall);
+    width: 40%;
+}
+
+.events__event__content--left table {
+    float: right;
+    margin-right: var(--spacing-small);
+}
+
+.events__event__content--right table {
+    float: left;
+    margin-left: var(--spacing-small);
+}
+
+.events__event__date {
+    display: block;
+    font-weight: 700;
+    width: 50px;
+}
+
+.events__event__content td {
+    vertical-align: top;
+    text-align: left;
+}
+
+.events__event__title {
+    color: var(--color-light-text-color);
 }

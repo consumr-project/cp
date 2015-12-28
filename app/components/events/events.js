@@ -24,7 +24,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_event(event_id) {
-            return ServicesService.query.events.retrieve(event_id, ['tags', 'sources']);
+            return ServicesService.query.events.retrieve(event_id);
         }
 
         /**
@@ -42,6 +42,27 @@ angular.module('tcp').directive('events', [
                         .value()
                 );
             });
+        }
+
+        /**
+         * @param {String} label
+         * @return {String}
+         */
+        function generate_template_event_content(label) {
+            return [
+                '<span class="events__event__content events__event__content--', label, '">',
+                '    <table>',
+                '        <tr>',
+                '            <td>',
+                '                <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
+                '            </td>',
+                '            <td>',
+                '                <span class="events__event__title">{{::event.title}}</span>',
+                '            </td>',
+                '        </tr>',
+                '    </table>',
+                '</span>',
+            ].join('');
         }
 
         function controller($scope) {
@@ -63,17 +84,11 @@ angular.module('tcp').directive('events', [
                 '        class="events__event animated fadeInUp" ',
                 '        style="animation-delay: {{$index * .1}}s">',
 
-                '        <span class="events__event--right">',
-                '            <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
-                '            <span class="events__event__title">{{::event.title}}</span>',
-                '        </span>',
+                generate_template_event_content('left'),
+                '        <avatar image="/app/elements/avatar/avatar-white.svg" ',
+                '            class="key--{{::event.sentiment}}-background"></avatar>',
+                generate_template_event_content('right'),
 
-                '        <avatar image="/app/elements/avatar/avatar-white.svg" class="key--{{::event.sentiment}}-background"></avatar>',
-
-                '        <span class="events__event--left">',
-                '            <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
-                '            <span class="events__event__title">{{::event.title}}</span>',
-                '        </span>',
                 '    </div>',
                 '</div>'
             ].join('')
