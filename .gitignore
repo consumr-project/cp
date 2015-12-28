@@ -2,3 +2,4 @@
 /build/
 /typings/
 /newrelic_agent.log
+*.DS_Store*
