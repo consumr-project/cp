@@ -185,11 +185,14 @@ angular.module('tcp').directive('company', [
                 '            on-stop-following="on_stop_following(company.id)"',
                 '        ></followed-by>',
 
-                '        <div class="margin-top-medium margin-bottom-medium">',
+                '        <hr>',
+
+                '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
                 '            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>',
                 '        </div>',
 
-                // '        <events id="{{company.id}}"></events>',
+                '        <events class="margin-top-medium margin-bottom-xlarge" ',
+                '            id="{{company.id}}"></events>',
 
                 '        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
                 '            <company-event',

@@ -84,7 +84,9 @@ iframe {
 }
 
 hr {
+    border: 0;
     border-top: 1px solid var(--color-std-thin-border-color);
+    margin: var(--spacing-small) 0;
 }
 
 .site-content {
