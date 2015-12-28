@@ -15,7 +15,8 @@ angular.module('tcp').directive('events', [
                 id: ev.id,
                 title: ev.title,
                 date: new Date(ev.date).valueOf(),
-                sentiment: ev.sentiment
+                sentiment: ev.sentiment,
+                source_count: ev.sources.length
             };
         }
 
@@ -24,7 +25,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_event(event_id) {
-            return ServicesService.query.events.retrieve(event_id);
+            return ServicesService.query.events.retrieve(event_id, ['sources']);
         }
 
         /**
@@ -57,7 +58,10 @@ angular.module('tcp').directive('events', [
                 '                <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
                 '            </td>',
                 '            <td>',
-                '                <span class="events__event__title">{{::event.title}}</span>',
+                '                <span class="events__event__title">',
+                '                    <span>{{::event.title}}</span>',
+                '                    (<span i18n="company/source_count" data="{count: event.source_count}"></span>)',
+                '                </span>',
                 '            </td>',
                 '        </tr>',
                 '    </table>',
@@ -90,6 +94,7 @@ angular.module('tcp').directive('events', [
                 generate_template_event_content('right'),
 
                 '    </div>',
+                '    <div class="events__line animated fadeIn"></div>',
                 '</div>'
             ].join('')
         };

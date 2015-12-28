@@ -1,8 +1,11 @@
 name_placeholder: Company name
 see_more_wiki: See more from wikipedia
 
+# events
+source_count: "{count} {count, plural, one {Source} other {Sources}}"
+
 # add event popup
-add_event: Add event
+add_event: Add an event
 add_source: Add another source
 source_title: Source {number}
 

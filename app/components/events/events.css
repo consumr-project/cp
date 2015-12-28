@@ -1,4 +1,5 @@
 .events {
+    position: relative;
     text-align: center;
 }
 
@@ -47,4 +48,15 @@
 
 .events__event__title {
     color: var(--color-light-text-color);
+}
+
+.events__line {
+    animation-delay: 1s;
+    background: var(--color-std-border-color);
+    height: calc(100% - 60px);
+    left: calc(50% - 3px);
+    position: absolute;
+    top: 0;
+    width: 3px;
+    z-index: -1;
 }
