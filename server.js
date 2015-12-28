@@ -66,6 +66,8 @@ app.get('*', function (req, res) {
 });
 
 require('query-service').conn.sync().then(function () {
-    log('ready');
-    app.listen(config('port') || 3000);
+    log('ready for database requests');
 });
+
+log('listening for requests');
+app.listen(config('port') || 3000);
