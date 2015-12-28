@@ -5,7 +5,7 @@
     display: inline-block;
     font-size: var(--font-size-small);
     transition: opacity .3s;
-    z-index: 10;
+    z-index: var(--z-index-popover);
 }
 
 .popover:not(.popover--with-backdrop) {
@@ -47,7 +47,7 @@
     top: 0;
     transition: opacity .3s;
     width: 100vw;
-    z-index: 1;
+    z-index: var(--z-index-popover-backdrop);
 }
 
 .popover--with-content {
