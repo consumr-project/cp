@@ -124,3 +124,7 @@ clean:
 
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app
+
+database-update:
+	./node_modules/.bin/sequelize db:migrate --url $(shell node -e "console.log(require('acm')('database.url'))") --migrations-path db/migrations
+	./node_modules/.bin/sequelize db:seed --url $(shell node -e "console.log(require('acm')('database.url'))") --seeders-path db/seeders
