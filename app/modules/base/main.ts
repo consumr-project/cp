@@ -83,7 +83,10 @@ module tcp {
             });
 
             $routeProvider.otherwise({
-                templateUrl: '/app/modules/base/404.html',
+                template:
+                    '<div class="site-content">' +
+                        '<message type="error" i18n="common/not_found"></message>' +
+                    '</div>'
             });
         }
     ]);
