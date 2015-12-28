@@ -189,7 +189,7 @@ angular.module('tcp').directive('company', [
                 '            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>',
                 '        </div>',
 
-                // '        <company-events id="{{company.id}}"></company-events>',
+                // '        <events id="{{company.id}}"></events>',
 
                 '        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
                 '            <company-event',

@@ -1,4 +1,4 @@
-angular.module('tcp').directive('companyEvents', [
+angular.module('tcp').directive('events', [
     '$q',
     'lodash',
     'utils',
