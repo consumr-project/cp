@@ -10,14 +10,14 @@
     position: absolute;
 }
 
-.tag-elem.good {
-    border-color: var(--color-good);
-    color: var(--color-good);
+.tag-elem.positive {
+    border-color: var(--color-positive);
+    color: var(--color-positive);
 }
 
-.tag-elem.bad {
-    border-color: var(--color-bad);
-    color: var(--color-bad);
+.tag-elem.negative {
+    border-color: var(--color-negative);
+    color: var(--color-negative);
 }
 
 .tag-elem.keyword {

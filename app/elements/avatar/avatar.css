@@ -4,6 +4,10 @@ avatar {
     white-space: nowrap;
 }
 
+avatar:not(.avatar--block) {
+    border-radius: 200px;
+}
+
 .avatar__image {
     background-repeat: no-repeat;
     background-size: cover;

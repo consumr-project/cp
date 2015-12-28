@@ -13,18 +13,30 @@
     width: 10px;
 }
 
-.key.good {
-    color: var(--color-good);
+.key.positive {
+    color: var(--color-positive);
 }
 
-.key.good::before {
-    background-color: var(--color-good);
+.key.positive::before {
+    background-color: var(--color-positive);
 }
 
-.key.bad {
-    color: var(--color-bad);
+.key.negative {
+    color: var(--color-negative);
 }
 
-.key.bad::before {
-    background-color: var(--color-bad);
+.key.negative::before {
+    background-color: var(--color-negative);
+}
+
+.key--neutral-background {
+    background-color: var(--color-neutral);
+}
+
+.key--positive-background {
+    background-color: var(--color-positive);
+}
+
+.key--negative-background {
+    background-color: var(--color-negative);
 }

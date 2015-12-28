@@ -58,16 +58,21 @@ angular.module('tcp').directive('events', [
                 id: '@',
             },
             template: [
-                '<div>',
-                '    <div ng-repeat="event in events track by event.id" class="events__event events__event--sentiment-{{::event.sentiment}}">',
-                '        <span class="events__event__right">',
-                '            <i18n date="{{::event.date}}" format="MMM YYYY"></i18n>',
-                '            <span>{{::event.title}}</span>',
+                '<div class="events">',
+                '    <div ng-repeat="event in events track by event.id" ',
+                '        class="events__event animated fadeInUp" ',
+                '        style="animation-delay: {{$index * .1}}s">',
+
+                '        <span class="events__event--right">',
+                '            <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
+                '            <span class="events__event__title">{{::event.title}}</span>',
                 '        </span>',
-                '        <span></span>',
-                '        <span class="events__event__left">',
-                '            <i18n date="{{::event.date}}" format="MMM YYYY"></i18n>',
-                '            <span>{{::event.title}}</span>',
+
+                '        <avatar image="/app/elements/avatar/avatar-white.svg" class="key--{{::event.sentiment}}-background"></avatar>',
+
+                '        <span class="events__event--left">',
+                '            <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
+                '            <span class="events__event__title">{{::event.title}}</span>',
                 '        </span>',
                 '    </div>',
                 '</div>'

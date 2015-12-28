@@ -1,0 +1,11 @@
+.events {
+    text-align: center;
+}
+
+.events__event:nth-child(even) .events__event--left {
+    display: none;
+}
+
+.events__event:nth-child(odd) .events__event--right {
+    display: none;
+}
