@@ -120,15 +120,17 @@ angular.module('tcp').directive('company', [
                 utils.assert(SessionService.USER);
 
                 return ServicesService.query.companies.followers.delete(company_id, SessionService.USER.id)
-                    .then(load.bind(null, company_id));
+                    .then(load.bind(null, company_id, 'retrieve'));
             };
 
             /**
              * @param {String} guid
+             * @param {String} [method]
              * @return {Promise}
              */
-            function load(guid) {
-                return ServicesService.query.companies.guid(guid)
+            function load(guid, method) {
+                method = method || 'guid';
+                return ServicesService.query.companies[method](guid)
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'));
