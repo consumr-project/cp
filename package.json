@@ -6,13 +6,8 @@
   "engines": {
     "node": "0.12.9"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "build",
-    "typings"
-  ],
   "scripts": {
-    "start": "make install run"
+    "start": "make run"
   },
   "repository": {
     "type": "git",
