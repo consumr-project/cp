@@ -6,15 +6,49 @@ angular.module('tcp').directive('companyEvents', [
     function ($q, lodash, utils, ServicesService) {
         'use strict';
 
-        function controller($scope) {
-            ServicesService.query.companies.events.retrieve($scope.id).then(function (events) {
-                // XXX should be one request
-                $q.all(
-                    lodash.map(events, function (ev) {
-                        return ServicesService.query.events.retrieve(ev.event_id, ['tags', 'sources']);
-                    })
-                ).then(utils.scope.set($scope, 'events'));
+        /**
+         * @param {Event} ev
+         * @return {Object}
+         */
+        function visible_event(ev) {
+            return {
+                id: ev.id,
+                title: ev.title,
+                date: new Date(ev.date).valueOf(),
+                sentiment: ev.sentiment
+            };
+        }
+
+        /**
+         * @param {String} event_id
+         * @return {Promise}
+         */
+        function get_event(event_id) {
+            return ServicesService.query.events.retrieve(event_id, ['tags', 'sources']);
+        }
+
+        /**
+         * XXX should be one request
+         * @param {String} company_id
+         * @return {Promise}
+         */
+        function get_events(company_id) {
+            return ServicesService.query.companies.events.retrieve(company_id).then(function (events) {
+                return $q.all(
+                    lodash
+                        .chain(events)
+                        .pluck('event_id')
+                        .map(get_event)
+                        .value()
+                );
             });
+        }
+
+        function controller($scope) {
+            get_events($scope.id)
+                .then(lodash.curryRight(lodash.map, 2)(visible_event))
+                .then(lodash.curryRight(lodash.sortBy, 2)('date'))
+                .then(utils.scope.set($scope, 'events'));
         }
 
         return {
@@ -25,9 +59,17 @@ angular.module('tcp').directive('companyEvents', [
             },
             template: [
                 '<div>',
-                // '    <div ng-repeat="event in events">',
-                // '        {{event.title}}',
-                // '    </div>',
+                '    <div ng-repeat="event in events track by event.id" class="events__event events__event--sentiment-{{::event.sentiment}}">',
+                '        <span class="events__event__right">',
+                '            <i18n date="{{::event.date}}" format="MMM YYYY"></i18n>',
+                '            <span>{{::event.title}}</span>',
+                '        </span>',
+                '        <span></span>',
+                '        <span class="events__event__left">',
+                '            <i18n date="{{::event.date}}" format="MMM YYYY"></i18n>',
+                '            <span>{{::event.title}}</span>',
+                '        </span>',
+                '    </div>',
                 '</div>'
             ].join('')
         };

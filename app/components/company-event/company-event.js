@@ -131,6 +131,7 @@ angular.module('tcp').directive('companyEvent', [
             return {
                 id: ev.id || ServicesService.query.UUID,
                 title: ev.title,
+                date: new Date(ev.$date).valueOf(),
                 sentiment: ev.sentiment,
                 created_by: ev.created_by || SessionService.USER.id,
                 updated_by: SessionService.USER.id,
@@ -189,6 +190,7 @@ angular.module('tcp').directive('companyEvent', [
             $scope.$watch('tiedTo', fecth_companies_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
+                // XXX should be one request
                 ServicesService.query.events.create(get_normalized_event($scope.ev)).then(function (ev) {
                     $q.all([].concat(
                         lodash.map($scope.ev.$sources, function (source) {
