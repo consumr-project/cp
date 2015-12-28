@@ -53,7 +53,7 @@ build-strings:
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/en.js
 
 build-css:
-	./node_modules/.bin/cssnext app/elements/base/main.css $(build_css) \
+	./node_modules/.bin/cssnext assets/styles/main.css $(build_css) \
 		--compress $(css_options)
 
 build-ts:
