@@ -14,6 +14,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
 
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+
         sentiment: {
             type: DataTypes.ENUM('positive', 'negative', 'neutral'),
             allowNull: false
