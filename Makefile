@@ -98,6 +98,7 @@ build-app:
 	$(js_min) app/components/user/user.js >> $(build_app_js)
 	$(js_min) app/components/company/company.js >> $(build_app_js)
 	$(js_min) app/components/company-event/company-event.js >> $(build_app_js)
+	$(js_min) app/components/events/events.js >> $(build_app_js)
 	$(js_min) app/modules/base/AdminController.js >> $(build_app_js)
 	$(js_min) app/modules/base/NavigationController.js >> $(build_app_js)
 	$(js_min) app/services/NavigationService.js >> $(build_app_js)
@@ -108,6 +109,9 @@ build-app:
 
 install:
 	$(npm) install
+	$(tsd) install
+
+install-tsd:
 	$(tsd) install
 
 deploy-heroku:

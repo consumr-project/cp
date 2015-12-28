@@ -12,7 +12,8 @@
     "typings"
   ],
   "scripts": {
-    "start": "make install run"
+    "postinstall": "make install-tsd build",
+    "start": "make server"
   },
   "repository": {
     "type": "git",
