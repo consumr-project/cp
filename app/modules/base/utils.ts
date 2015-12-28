@@ -76,6 +76,14 @@ export function simplify(str: string): string {
         .replace(M_NON_LETTERS, '');
 }
 
+export function ellipsis(str: string, max_len: number, suffix: string = '...'): string {
+    if (str.length > max_len) {
+        str = str.substr(0, max_len).trim() + suffix;
+    }
+
+    return str;
+}
+
 export function stringify(params: any): string {
     return map(params, function (val: string, key: string): string {
         return [key, encodeURIComponent(val)].join('=');

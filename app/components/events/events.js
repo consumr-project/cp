@@ -13,7 +13,7 @@ angular.module('tcp').directive('events', [
         function visible_event(ev) {
             return {
                 id: ev.id,
-                title: ev.title,
+                title: utils.ellipsis(ev.title, 100),
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
                 source_count: ev.sources.length
@@ -70,20 +70,40 @@ angular.module('tcp').directive('events', [
         }
 
         function controller($scope) {
-            get_events($scope.id)
-                .then(lodash.curryRight(lodash.map, 2)(visible_event))
-                .then(lodash.curryRight(lodash.sortBy, 2)('date'))
-                .then(utils.scope.set($scope, 'events'));
+            $scope.vm = {
+                loading: false
+            };
+
+            /**
+             * @return {Promise}
+             */
+            $scope.load = function () {
+                $scope.vm.loading = true;
+
+                return get_events($scope.id)
+                    .then(lodash.curryRight(lodash.map, 2)(visible_event))
+                    .then(lodash.curryRight(lodash.sortBy, 2)('date'))
+                    .then(utils.scope.set($scope, 'events'))
+                    .then(function (evs) {
+                        $scope.events.reverse();
+                        $scope.vm.loading = false;
+                        return evs;
+                    });
+            };
+
+            $scope.api = $scope.api || {};
+            $scope.api.refresh = $scope.load;
         }
 
         return {
             replace: true,
             controller: ['$scope', controller],
             scope: {
+                api: '=',
                 id: '@',
             },
             template: [
-                '<div class="events">',
+                '<div class="events can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
                 '    <div ng-repeat="event in events track by event.id" ',
                 '        class="events__event animated fadeInUp" ',
                 '        style="animation-delay: {{$index * .1}}s">',

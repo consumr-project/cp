@@ -4,7 +4,7 @@
 }
 
 .events__event {
-    height: 70px;
+    height: 80px;
 }
 
 .events__event:nth-child(even) .events__event__content--left * {

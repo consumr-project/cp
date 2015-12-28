@@ -186,6 +186,19 @@ angular.module('tcp').directive('companyEvent', [
                 $tags: []
             };
 
+            $scope.api = $scope.api || {};
+            $scope.api.reset = function () {
+                lodash.each($scope.ev, function (val, key) {
+                    delete $scope.ev[key];
+                });
+
+                $scope.ev.$sources = [{}];
+                $scope.ev.$companies = [];
+                $scope.ev.$tags = [];
+
+                fecth_companies_tied_to($scope.ev, $scope.tiedTo);
+            };
+
             $scope.$watch('ev.$sources', fetch_sources.bind(null, $scope.ev), true);
             $scope.$watch('tiedTo', fecth_companies_tied_to.bind(null, $scope.ev));
 
@@ -238,6 +251,7 @@ angular.module('tcp').directive('companyEvent', [
             controller: ['$scope', controller],
             link: link,
             scope: {
+                api: '=',
                 tiedTo: '=',
                 onCancel: '&',
                 onSave: '&'

@@ -4,6 +4,14 @@
     -webkit-user-select: none;
 }
 
+.can-load {
+    transition: opacity .3s;
+}
+
+.loading {
+    opacity: .5;
+}
+
 .hidden {
     visibility: hidden;
 }
