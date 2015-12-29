@@ -109,7 +109,7 @@ angular.module('tcp').directive('events', [
                 '        style="animation-delay: {{$index * .1}}s">',
 
                 generate_template_event_content('left'),
-                '        <avatar image="/app/elements/avatar/avatar-white.svg" ',
+                '        <avatar image="/assets/images/avatar/avatar-white.svg" ',
                 '            class="key--{{::event.sentiment}}-background"></avatar>',
                 generate_template_event_content('right'),
 

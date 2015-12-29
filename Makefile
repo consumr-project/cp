@@ -42,9 +42,10 @@ test:
 	$(mocha) test/**/*.js
 
 optimize:
-	$(imageoptim) assets/images/*.png
-	$(svgo) -i assets/images
-	$(svgo) -i app/elements/indicator/images
+	$(imageoptim) assets/images/*.png assets/images/*/*.png
+	$(svgo) assets/images/
+	$(svgo) assets/images/avatar/
+	$(svgo) assets/images/indicator/
 
 build: clean build-css build-js build-ts build-strings build-bundle build-app
 
