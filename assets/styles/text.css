@@ -57,7 +57,7 @@ form h2 {
     margin-top: var(--spacing-medium);
 }
 
-.form--listed label {
+.form--listed label:not(.label--inline) {
     display: block;
     padding: 5px 0;
 }
