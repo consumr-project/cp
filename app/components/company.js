@@ -19,8 +19,7 @@ angular.module('tcp').directive('company', [
                 id: null,
                 guid: null,
                 name: null,
-                summary: null,
-                wikipedia_page_id: null
+                summary: null
             };
 
             $scope.vm = {
@@ -47,25 +46,17 @@ angular.module('tcp').directive('company', [
             };
 
             /**
-             * @param {String} name of company
+             * @param {Object} company
              * @return {Promise}
              */
-            $scope.get_company = function (name) {
-                utils.assert(name);
+            $scope.set_company = function (company) {
+                utils.assert(company);
 
-                $scope.vm.loading = true;
+                $scope.vm.company_options = null;
+                $scope.company.name = company.name;
+                $scope.company.summary = company.short_description;
 
-                ServicesService.extract.wiki.cancel();
-                ServicesService.extract.wiki(name).then(function (res) {
-                    $scope.vm.loading = false;
-                    $scope.vm.company_options = null;
-
-                    $scope.company.name = name;
-                    $scope.company.summary = res.body.extract;
-                    $scope.company.wikipedia_page_id = res.body.id;
-
-                    normalize_company($scope.company);
-                });
+                normalize_company($scope.company);
             };
 
             /**
@@ -78,12 +69,11 @@ angular.module('tcp').directive('company', [
                 $scope.vm.loading = true;
                 $scope.vm.company_options = null;
 
-                ServicesService.extract.search.cancel();
-                ServicesService.extract.search(name).then(function (res) {
+                ServicesService.extract.crunchbase.cancel();
+                ServicesService.extract.crunchbase(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
-                    $scope.company.summary = null;
-                    $scope.company.wikipedia_page_id = null;
+                    $scope.company.$loaded = false;
                 });
             };
 
@@ -160,7 +150,6 @@ angular.module('tcp').directive('company', [
                     name: $scope.company.name,
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
-                    wikipedia_page_id: $scope.company.wikipedia_page_id,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
                 };
@@ -216,7 +205,7 @@ angular.module('tcp').directive('company', [
                 '            ng-change="find_companies(company.name)"',
                 '            ng-model="company.name" ng-model-options="{ debounce: 300 }" />',
 
-                '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.summary">',
+                '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.$loaded">',
                 '            <button ng-click="save()" i18n="admin/save"></button>',
                 '        </div>',
                 '    </section>',
@@ -227,8 +216,8 @@ angular.module('tcp').directive('company', [
                 '        </section>',
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',
-                '            <div ng-repeat="option in vm.company_options" ng-click="get_company(option.title)">',
-                '                <p><b>{{option.title}}</b>: {{option.snippet}}</p>',
+                '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option)">',
+                '                <p><b>{{option.name}}</b>: {{option.short_description}}</p>',
                 '            </div>',
                 '        </section>',
                 '    </section>',
@@ -240,7 +229,6 @@ angular.module('tcp').directive('company', [
                 '        <div class="padding-top-medium desktop-only"></div>',
                 '        <h3 i18n="common/about" class="desktop-only"></h3>',
                 '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
-                '        <a i18n="company/see_more_wiki" target="_blank" ng-href="https://en.wikipedia.org/?curid={{company.wikipedia_page_id}}" class="--action"></a>',
                 '        <div class="padding-bottom-medium desktop-only"></div>',
                 '    </section>',
                 '</div>'

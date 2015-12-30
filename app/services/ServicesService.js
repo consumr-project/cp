@@ -130,31 +130,16 @@ angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', funct
      * @param {String} query
      * @return {Promise}
      */
-    extractService.search = function (query) {
-        return $http.get('/service/extract/wiki/search', {
-            timeout: abortable(extractService.search),
+    extractService.crunchbase = function (query) {
+        return $http.get('/service/extract/crunchbase/companies', {
+            timeout: abortable(extractService.crunchbase),
             params: {
                 q: query
             }
         }).then(pluck_data);
     };
 
-    abortable(extractService.search);
-
-    /**
-     * @param {String} query
-     * @return {Promise}
-     */
-    extractService.wiki = function (query) {
-        return $http.get('/service/extract/wiki/extract', {
-            timeout: abortable(extractService.wiki),
-            params: {
-                q: query
-            }
-        }).then(pluck_data);
-    };
-
-    abortable(extractService.wiki);
+    abortable(extractService.crunchbase);
 
     /**
      * interface SearchConfiguration {
