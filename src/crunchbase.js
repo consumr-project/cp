@@ -1,9 +1,20 @@
 'use strict';
 
 var config = require('acm'),
-    request = require('request');
+    request = require('request'),
+    map = require('lodash/collection/map');
 
 var CRUNCHBASE_API_KEY = config('crunchbase.api.key');
+
+/**
+ * @param {OrganizationSummary} company
+ * @return {Object}
+ */
+function flatten_company(company) {
+    company.properties.uuid = company.uuid;
+    company.properties.type = company.type;
+    return company.properties;
+}
 
 /**
  * @param {http.Request} req
@@ -27,7 +38,7 @@ function companies(req, res, next) {
         try {
             body = JSON.parse(body);
             res.json({
-                body: body.data.items,
+                body: map(body.data.items, flatten_company),
                 meta: body.data.paging
             });
         } catch (ignore) {
