@@ -4,7 +4,7 @@
 }
 
 .events__event {
-    height: 80px;
+    min-height: 80px;
 }
 
 .events__event:nth-child(even) .events__event__content--left * {
@@ -23,6 +23,18 @@
     display: inline-block;
     margin-top: var(--spacing-xsmall);
     width: 40%;
+}
+
+.events__event__content td {
+    display: block;
+    padding-bottom: var(--spacing-xsmall);
+}
+
+@media (--media-regular-screens) {
+    .events__event__content td {
+        display: table-cell;
+        padding-bottom: 0;
+    }
 }
 
 .events__event__content--left table {
