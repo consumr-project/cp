@@ -21,6 +21,22 @@ module.exports = function (sequelize, DataTypes) {
 
         summary: {
             type: DataTypes.TEXT
+        },
+
+        website_url: {
+            type: DataTypes.TEXT
+        },
+
+        facebook_url: {
+            type: DataTypes.TEXT
+        },
+
+        twitter_url: {
+            type: DataTypes.TEXT
+        },
+
+        linkedin_url: {
+            type: DataTypes.TEXT
         }
     }), u.configuration());
 };
