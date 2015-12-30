@@ -24,6 +24,7 @@ angular.module('tcp').directive('companyEvent', [
             $q.all(
                 lodash(update)
                     .difference(prev)
+                    .filter(has_new_url)
                     .filter(can_load_content)
                     .map(fetch_content)
                     .value()
@@ -61,6 +62,7 @@ angular.module('tcp').directive('companyEvent', [
             source.title = content.title;
             source.published_date = content.published;
             source.$published_date = new Date(content.published);
+            source.$loaded_url = source.url;
         }
 
         /**
@@ -69,6 +71,15 @@ angular.module('tcp').directive('companyEvent', [
          */
         function populate_source_from_content(content) {
             return populate_source(content.$source, content);
+        }
+
+        /**
+         * @param {Source} source
+         * @return {Boolean}
+         */
+        function has_new_url(source) {
+            console.log(source)
+            return source.url !== source.$loaded_url;
         }
 
         /**
