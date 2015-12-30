@@ -1,12 +1,14 @@
 angular.module('tcp').directive('user', [
     'NavigationService',
     'ServicesService',
+    'SessionService',
     'utils',
     'i18n',
-    function (NavigationService, ServicesService, utils, i18n) {
+    function (NavigationService, ServicesService, SessionService, utils, i18n) {
         'use strict';
 
         function controller($scope) {
+            $scope.vm = {};
             $scope.user = {};
             $scope.i18n = i18n;
 
@@ -23,13 +25,25 @@ angular.module('tcp').directive('user', [
                 });
             }
 
+            /**
+             * what can be done in this page?
+             */
+            function update_actionable_items() {
+                $scope.vm.loggedin = !!SessionService.USER.id;
+                $scope.vm.myself = $scope.id === SessionService.USER.id;
+            }
+
             $scope.onStartFollowing = function () {
                 $scope.user.$followers_count++;
             };
 
             if ($scope.id) {
+                update_actionable_items();
                 load($scope.id);
             }
+
+            SessionService.on(SessionService.EVENT.LOGIN, update_actionable_items);
+            SessionService.on(SessionService.EVENT.LOGOUT, update_actionable_items);
         }
 
         return {
@@ -47,6 +61,7 @@ angular.module('tcp').directive('user', [
 
                 '        <div class="block">',
                 '            <button ng-click="onStartFollowing()"',
+                '              ng-invisible="vm.myself || !vm.loggedin"',
                 '              class="margin-top-xlarge margin-bottom-xlarge"',
                 '              i18n="admin/follow"></button>',
                 '        </div>',

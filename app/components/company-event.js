@@ -78,7 +78,6 @@ angular.module('tcp').directive('companyEvent', [
          * @return {Boolean}
          */
         function has_new_url(source) {
-            console.log(source)
             return source.url !== source.$loaded_url;
         }
 
