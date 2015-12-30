@@ -55,6 +55,10 @@ angular.module('tcp').directive('company', [
                 $scope.vm.company_options = null;
                 $scope.company.name = company.name;
                 $scope.company.summary = company.short_description;
+                $scope.company.website_url = company.homepage_url;
+                $scope.company.facebook_url = company.facebook_url;
+                $scope.company.twitter_url = company.twitter_url;
+                $scope.company.linkedin_url = company.linkedin_url;
 
                 normalize_company($scope.company);
             };
@@ -150,6 +154,10 @@ angular.module('tcp').directive('company', [
                     name: $scope.company.name,
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
+                    website_url: $scope.company.website_url,
+                    facebook_url: $scope.company.facebook_url,
+                    twitter_url: $scope.company.twitter_url,
+                    linkedin_url: $scope.company.linkedin_url,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
                 };
@@ -217,7 +225,9 @@ angular.module('tcp').directive('company', [
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',
                 '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option)">',
-                '                <p><b>{{option.name}}</b>: {{option.short_description}}</p>',
+                '                <p>',
+                '                    <b>{{option.name}}</b><span ng-if="option.short_description">: {{option.short_description}}</span>',
+                '                </p>',
                 '            </div>',
                 '        </section>',
                 '    </section>',
