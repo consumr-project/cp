@@ -237,7 +237,8 @@ angular.module('tcp').directive('company', [
 
                 '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout">',
                 '        <div class="padding-top-medium desktop-only"></div>',
-                '        <h3 i18n="common/about" class="desktop-only"></h3>',
+                '        <h3 i18n="common/about" class="desktop-only margin-bottom-medium"></h3>',
+                '        <a target="_blank" ng-show="::company.website_url" ng-href="{{::company.website_url}}" class="--action">{{::company.website_url}}</a>',
                 '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
                 '        <div class="padding-bottom-medium desktop-only"></div>',
                 '    </section>',

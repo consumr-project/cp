@@ -1,5 +1,4 @@
 name_placeholder: Company name
-see_more_wiki: See more from wikipedia
 
 # events
 source_count: "{count} {count, plural, one {Source} other {Sources}}"
