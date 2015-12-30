@@ -17,5 +17,6 @@ app.use('/extract', require('extract-service'));
 the following enviroment variables are needed to run:
 
 ```bash
-export EMBEDLY_API_KEY=$(echo $EMBEDLY_API_KEY)
+export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
+export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 ```

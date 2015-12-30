@@ -4,6 +4,7 @@ var app = module.exports = require('express')(),
     config = require('acm');
 
 app.get('/page', require('./src/page'));
+app.get('/crunchbase/companies', require('./src/crunchbase').companies);
 app.get('/wiki/search', require('./src/wiki').search);
 app.get('/wiki/extract', require('./src/wiki').extract);
 
