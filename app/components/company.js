@@ -189,7 +189,7 @@ angular.module('tcp').directive('company', [
                 '        <hr>',
 
                 '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
-                '            <button ng-click="vm.event_form.reset(); vm.add_event.show()" i18n="company/add_event"></button>',
+                '            <button ng-click="vm.add_event.show()" i18n="company/add_event"></button>',
                 '        </div>',
 
                 '        <events class="margin-top-medium margin-bottom-xlarge" ',
@@ -200,7 +200,7 @@ angular.module('tcp').directive('company', [
                 '            <company-event',
                 '                api="vm.event_form"',
                 '                on-save="vm.events_timeline.refresh(); vm.add_event.hide()"',
-                '                on-cancel="vm.add_event.hide()"',
+                '                on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
                 '                tied-to="{companies: [company]}"',
                 '            ></company-event>',
                 '        </popover>',
