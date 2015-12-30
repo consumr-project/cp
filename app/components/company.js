@@ -196,7 +196,7 @@ angular.module('tcp').directive('company', [
                 '            api="vm.events_timeline" ',
                 '            id="{{company.id}}"></events>',
 
-                '        <popover popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
+                '        <popover popover-x popover-backdrop popover-api="vm.add_event" class="popover--with-content">',
                 '            <company-event',
                 '                api="vm.event_form"',
                 '                on-save="vm.events_timeline.refresh(); vm.add_event.hide()"',

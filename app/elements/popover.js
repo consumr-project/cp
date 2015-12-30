@@ -5,6 +5,9 @@
  *                      - showNow: show immediatelly
  *
  * @attribute {Boolean} popoverBackdrop include a backdrop element
+ *
+ * @attribute {Boolean} popoverX include a close (x) element in top right hand
+ *                      courner
  */
 angular.module('tcp').directive('popover', [function () {
     'use strict';
@@ -51,7 +54,15 @@ angular.module('tcp').directive('popover', [function () {
         transclude: true,
         template: '<div class="popover"><ng-transclude></ng-transclude></div>',
         link: function (scope, elem, attrs) {
-            var api, backdrop = $();
+            var api, backdrop = $(), x_close = $();
+
+            if ('popoverX' in attrs) {
+                x_close = $('<div></div>')
+                    .addClass('popover__x')
+                    .appendTo(elem);
+
+                x_close.click(apiHide);
+            }
 
             if ('popoverBackdrop' in attrs) {
                 backdrop = $('<div></div>')
