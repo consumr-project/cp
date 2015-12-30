@@ -21,10 +21,6 @@ module.exports = function (sequelize, DataTypes) {
 
         summary: {
             type: DataTypes.TEXT
-        },
-
-        wikipedia_page_id: {
-            type: DataTypes.STRING
         }
     }), u.configuration());
 };
