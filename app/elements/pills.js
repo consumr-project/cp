@@ -31,7 +31,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function create_it($attrs, value) {
         return {
             allowed: !!$attrs.create,
-            value: value,
+            value: lodash.trim(value),
             human: i18n.get('common/create_this', { name: value })
         };
     }
@@ -118,6 +118,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     label: $ev.target.dataset.pillsOptionLabel
                 });
                 $scope.options = unselected($scope.selections, $scope.options, $attrs);
+                $input.val('');
                 break;
 
             case ROLE_CREATE:

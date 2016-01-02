@@ -9,12 +9,12 @@
 }
 
 .pills-element__selections {
-    display: inline-block;
+    display: inline;
 }
 
 input.pills-element__input {
-    border-color: transparent;
-    margin-bottom: 2px;
+    border: none;
+    margin: -4px 0 2px 0;
     min-width: auto;
     padding-left: 0;
     position: relative;
@@ -28,7 +28,7 @@ input.pills-element__input {
     color: #4975AC;
     display: inline-block;
     font-size: 0;
-    margin: 0 6px 3px 0;
+    margin: 3px 6px 3px 0;
     padding: 3px;
 }
 
