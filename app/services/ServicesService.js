@@ -126,6 +126,38 @@ angular.module('tcp').service('ServicesService', ['$http', '$q', 'lodash', funct
         return $http.get('/service/extract/page?url=' + encodeURIComponent(url));
     };
 
+    extractService.wikipedia = {};
+
+    /**
+     * @param {String} query
+     * @return {Promise}
+     */
+    extractService.wikipedia.extract = function (query) {
+        return $http.get('/service/extract/wiki/extract', {
+            timeout: abortable(extractService.wikipedia.extract),
+            params: {
+                q: query
+            }
+        }).then(pluck_data);
+    };
+
+    abortable(extractService.wikipedia.extract);
+
+    /**
+     * @param {String} query
+     * @return {Promise}
+     */
+    extractService.wikipedia.search = function (query) {
+        return $http.get('/service/extract/wiki/search', {
+            timeout: abortable(extractService.wikipedia.search),
+            params: {
+                q: query
+            }
+        }).then(pluck_data);
+    };
+
+    abortable(extractService.wikipedia.search);
+
     /**
      * @param {String} query
      * @return {Promise}

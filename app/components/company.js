@@ -46,21 +46,23 @@ angular.module('tcp').directive('company', [
             };
 
             /**
-             * @param {Object} company
+             * @param {String} name
              * @return {Promise}
              */
-            $scope.set_company = function (company) {
-                utils.assert(company);
+            $scope.set_company = function (name) {
+                utils.assert(name);
 
-                $scope.vm.company_options = null;
-                $scope.company.name = company.name;
-                $scope.company.summary = company.short_description;
-                $scope.company.website_url = company.homepage_url;
-                $scope.company.facebook_url = company.facebook_url;
-                $scope.company.twitter_url = company.twitter_url;
-                $scope.company.linkedin_url = company.linkedin_url;
+                ServicesService.extract.wikipedia.extract.cancel();
+                ServicesService.extract.wikipedia.extract(name).then(function (res) {
+                    $scope.vm.company_options = null;
+                    $scope.company.name = res.body.title;
+                    $scope.company.summary = res.body.extract;
 
-                normalize_company($scope.company);
+                    // XXX
+                    // $scope.company.website_url = company.homepage_url;
+
+                    normalize_company($scope.company);
+                });
             };
 
             /**
@@ -73,8 +75,8 @@ angular.module('tcp').directive('company', [
                 $scope.vm.loading = true;
                 $scope.vm.company_options = null;
 
-                ServicesService.extract.crunchbase.cancel();
-                ServicesService.extract.crunchbase(name).then(function (res) {
+                ServicesService.extract.wikipedia.search.cancel();
+                ServicesService.extract.wikipedia.search(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
                     $scope.company.$loaded = false;
@@ -155,9 +157,6 @@ angular.module('tcp').directive('company', [
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
                     website_url: $scope.company.website_url,
-                    facebook_url: $scope.company.facebook_url,
-                    twitter_url: $scope.company.twitter_url,
-                    linkedin_url: $scope.company.linkedin_url,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
                 };
@@ -224,9 +223,9 @@ angular.module('tcp').directive('company', [
                 '        </section>',
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',
-                '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option)">',
+                '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option.title)">',
                 '                <p>',
-                '                    <b>{{option.name}}</b><span ng-if="option.short_description">: {{option.short_description}}</span>',
+                '                    <b>{{option.title}}</b><span ng-if="option.snippet">: {{option.snippet}}</span>',
                 '                </p>',
                 '            </div>',
                 '        </section>',
