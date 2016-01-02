@@ -45,8 +45,9 @@ module tcp {
                 $scope.id = $routeParams.id;
             }];
 
-            let PropSetterController = (prop) => ['$scope', '$routeParams', function ($scope, $routeParams) {
-                $scope[prop] = $routeParams[prop];
+            let PropSetterController = (props: string[] = [], query: string[] = []) => ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
+                props.map(prop => $scope[prop] = $routeParams[prop]);
+                query.map(prop => $scope[prop] = $location.search()[prop]);
             }];
 
             let UserCheck = {
@@ -77,8 +78,8 @@ module tcp {
             });
 
             $routeProvider.when('/company/:guid?', {
-                template: '<company class="site-content" guid="{{guid}}"></company>',
-                controller: PropSetterController('guid'),
+                template: '<company class="site-content" guid="{{guid}}" create="{{create}}"></company>',
+                controller: PropSetterController(['guid'], ['create']),
                 resolve: UserCheck
             });
 

@@ -162,6 +162,9 @@ angular.module('tcp').directive('company', [
 
             if ($scope.guid) {
                 load($scope.guid);
+            } else if ($scope.create) {
+                $scope.company.name = $scope.create;
+                $scope.find_companies($scope.create);
             }
         }
 
@@ -169,7 +172,8 @@ angular.module('tcp').directive('company', [
             replace: true,
             controller: ['$scope', controller],
             scope: {
-                guid: '@'
+                guid: '@',
+                create: '@'
             },
             template: [
                 '<div>',

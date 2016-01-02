@@ -4,9 +4,12 @@
     <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.empty">
         <center>
             <h2 i18n="common/no_results" data="{query: query}"></h2>
+            <a ng-href="/company?create={{query}}">
+                <h3 i18n="common/create_this" data="{name: query}"></h3>
+            </a>
 
             <h4 ng-if="searches.length" i18n="common/recent_searches"
-                class="margin-bottom-large"></h4>
+                class="margin-top-large margin-bottom-medium"></h4>
 
             <div ng-repeat="query in searches"
                 class="margin-bottom-xsmall animated fadeInUp"
@@ -17,33 +20,33 @@
         </center>
     </section>
 
-    <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.user.length">
-        <h2 i18n="pages/users" class="margin-bottom-large"></h2>
-
-        <div
-            class="entity entity--summary"
-            ng-repeat="hit in results.user"
-            ng-controller="UserController"
-            ng-init="loadUser(hit._id)"
-            ng-click="gotoUser(hit._id)"
-        >
-            <h3 class="take-space">{{::user.fullName}}</h3>
-            <p>{{::user.summary | limitTo : 300}}...</p>
-        </div>
-    </section>
-
-    <section class="copy margin-top-xlarge animated fadeIn" ng-if="results.company.length">
-        <h2 i18n="pages/companies" class="margin-bottom-large"></h2>
-
-        <div
-            class="entity entity--summary"
-            ng-repeat="hit in results.company"
-            ng-controller="CompanyController"
-            ng-init="loadCompany(hit._id)"
-            ng-click="gotoCompany(hit._id)"
-        >
-            <h3 class="take-space">{{::company.name}}</h3>
-            <p>{{::company.summary | limitTo : 300}}...</p>
-        </div>
-    </section>
+    <!-- <section class="copy margin&#45;top&#45;xlarge animated fadeIn" ng&#45;if="results.user.length"> -->
+    <!--     <h2 i18n="pages/users" class="margin&#45;bottom&#45;large"></h2> -->
+    <!--  -->
+    <!--     <div -->
+    <!--         class="entity entity&#45;&#45;summary" -->
+    <!--         ng&#45;repeat="hit in results.user" -->
+    <!--         ng&#45;controller="UserController" -->
+    <!--         ng&#45;init="loadUser(hit._id)" -->
+    <!--         ng&#45;click="gotoUser(hit._id)" -->
+    <!--     > -->
+    <!--         <h3 class="take&#45;space">{{::user.fullName}}</h3> -->
+    <!--         <p>{{::user.summary | limitTo : 300}}...</p> -->
+    <!--     </div> -->
+    <!-- </section> -->
+    <!--  -->
+    <!-- <section class="copy margin&#45;top&#45;xlarge animated fadeIn" ng&#45;if="results.company.length"> -->
+    <!--     <h2 i18n="pages/companies" class="margin&#45;bottom&#45;large"></h2> -->
+    <!--  -->
+    <!--     <div -->
+    <!--         class="entity entity&#45;&#45;summary" -->
+    <!--         ng&#45;repeat="hit in results.company" -->
+    <!--         ng&#45;controller="CompanyController" -->
+    <!--         ng&#45;init="loadCompany(hit._id)" -->
+    <!--         ng&#45;click="gotoCompany(hit._id)" -->
+    <!--     > -->
+    <!--         <h3 class="take&#45;space">{{::company.name}}</h3> -->
+    <!--         <p>{{::company.summary | limitTo : 300}}...</p> -->
+    <!--     </div> -->
+    <!-- </section> -->
 </section>
