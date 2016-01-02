@@ -15,6 +15,7 @@
 input.pills-element__input {
     border-color: transparent;
     margin-bottom: 2px;
+    min-width: auto;
     padding-left: 0;
     position: relative;
     top: 1px;

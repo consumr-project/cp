@@ -24,13 +24,13 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     }
 
     /**
-     * @param {angular.Scope} $scope
+     * @param {angular.Attributes} $attrs
      * @param {String} value
      * @return {Object}
      */
-    function create_it($scope, value) {
+    function create_it($attrs, value) {
         return {
-            allowed: $scope.create instanceof Function,
+            allowed: $attrs.create instanceof Function,
             value: value,
             human: i18n.get('common/create_this', { name: value })
         };
@@ -121,7 +121,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 break;
 
             case ROLE_CREATE:
-                if (create_it($scope).allowed) {
+                if (create_it($attrs).allowed) {
                     create($scope, $elem, $ev.target.dataset.pillsOptionLabel);
                 }
                 break;
@@ -180,7 +180,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     options = unselected($scope.selections, options, $attrs);
                     $scope.options = options;
                     $scope.stats = stats(options, start);
-                    $scope.create_it = create_it($scope, value);
+                    $scope.create_it = create_it($attrs, value);
                 }
 
                 $elem.removeClass('loading--spinner');
@@ -222,21 +222,19 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
         $elem.click(command.bind(null, $scope, $attrs, $elem, $input));
         $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $elem, $input), 300));
-        // $input.blur(hide_results); XXX
 
+        $document.on('focus', '*', check_if_should_hide_results);
         $document.click(check_if_should_hide_results);
+
         $scope.$on('$destroy', function () {
+            $document.off('focus', '*', check_if_should_hide_results);
             $document.off('click', check_if_should_hide_results);
         });
 
-        function hide_results() {
-            $scope.options = null;
-            $scope.$apply();
-        }
-
         function check_if_should_hide_results(ev) {
             if (!$elem.has(ev.target).length) {
-                hide_results();
+                $scope.options = null;
+                $scope.$apply();
             }
         }
     }
