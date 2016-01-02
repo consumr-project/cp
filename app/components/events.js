@@ -104,6 +104,7 @@ angular.module('tcp').directive('events', [
             },
             template: [
                 '<div class="events can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
+                '    <div class="center-aligned loading__only padding-top-large" i18n="common/loading_events"></div>',
                 '    <div ng-repeat="event in events track by event.id" ',
                 '        class="events__event animated fadeInUp" ',
                 '        style="animation-delay: {{$index * .1}}s">',

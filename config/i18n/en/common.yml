@@ -18,3 +18,6 @@ create_this: Create "{name}"
 
 # external sources
 see_wiki: See more from wikipedia
+
+# loading
+loading_events: "Loading events..."

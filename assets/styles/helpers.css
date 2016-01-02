@@ -19,6 +19,14 @@
     background-size: 16px;
 }
 
+.loading__only {
+  display: none;
+}
+
+.loading .loading__only {
+  display: inherit;
+}
+
 .hidden {
     visibility: hidden;
 }
