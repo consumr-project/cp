@@ -75,8 +75,11 @@
         {% endif %}
 
         <script src="build/bundle.js"></script>
+
+        {% if not debugging %}
+        <script src="build/app.js"></script>
         <script>
-        window.Rollbar = Rollbar.init({
+        Rollbar.init({
             captureUncaught: true,
             accessToken: TCP_BUILD_CONFIG.rollbar.token,
             payload: {
@@ -84,9 +87,6 @@
             }
         });
         </script>
-
-        {% if not debugging %}
-        <script src="build/app.js"></script>
         {% else %}
         <script src="app/elements/anchored.js"></script>
         <script src="app/elements/pills.js"></script>
