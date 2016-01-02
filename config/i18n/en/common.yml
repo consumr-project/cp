@@ -15,3 +15,6 @@ search_stats: "{count} results ({time} ms)"
 # object loading
 not_found: Not Found
 create_this: Create "{name}"
+
+# external sources
+see_wiki: See more from wikipedia

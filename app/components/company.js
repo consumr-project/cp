@@ -57,9 +57,7 @@ angular.module('tcp').directive('company', [
                     $scope.vm.company_options = null;
                     $scope.company.name = res.body.title;
                     $scope.company.summary = res.body.extract;
-
-                    // XXX
-                    // $scope.company.website_url = company.homepage_url;
+                    $scope.company.wikipedia_url = 'https://en.wikipedia.org/?curid=' + res.body.id;
 
                     normalize_company($scope.company);
                 });
@@ -156,7 +154,7 @@ angular.module('tcp').directive('company', [
                     name: $scope.company.name,
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
-                    website_url: $scope.company.website_url,
+                    wikipedia_url: $scope.company.wikipedia_url,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
                 };
@@ -237,8 +235,8 @@ angular.module('tcp').directive('company', [
                 '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout">',
                 '        <div class="padding-top-medium desktop-only"></div>',
                 '        <h3 i18n="common/about" class="desktop-only margin-bottom-medium"></h3>',
-                '        <a target="_blank" ng-show="::company.website_url" ng-href="{{::company.website_url}}" class="--action">{{::company.website_url}}</a>',
                 '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
+                '        <a target="_blank" ng-show="::company.wikipedia_url" ng-href="{{::company.wikipedia_url}}" class="--action" i18n="common/see_wiki"></a>',
                 '        <div class="padding-bottom-medium desktop-only"></div>',
                 '    </section>',
                 '</div>'
