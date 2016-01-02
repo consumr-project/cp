@@ -31,7 +31,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function create_it($attrs, value) {
         return {
             allowed: !!$attrs.create,
-            value: lodash.trim(value),
+            value: _.trim(value),
             human: i18n.get('common/create_this', { name: value })
         };
     }
@@ -123,7 +123,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
             case ROLE_CREATE:
                 if (create_it($attrs).allowed) {
-                    create($scope, $elem, $ev.target.dataset.pillsOptionLabel);
+                    create($scope, $elem, $input, $ev.target.dataset.pillsOptionLabel);
                 }
                 break;
 
@@ -136,9 +136,10 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     /**
      * @param {angular.Scope} $scope
      * @param {jQuery} $elem holder
+     * @param {jQuery} $input field
      * @param {String} value
      */
-    function create($scope, $elem, value) {
+    function create($scope, $elem, $input, value) {
         $elem.addClass('loading--spinner');
 
         $scope.create({
@@ -150,6 +151,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 }
 
                 $elem.removeClass('loading--spinner');
+                $input.val('');
             }
         });
     }
