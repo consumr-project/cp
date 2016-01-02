@@ -23,19 +23,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.TEXT
         },
 
+        wikipedia_url: {
+            type: DataTypes.TEXT
+        },
+
         website_url: {
-            type: DataTypes.TEXT
-        },
-
-        facebook_url: {
-            type: DataTypes.TEXT
-        },
-
-        twitter_url: {
-            type: DataTypes.TEXT
-        },
-
-        linkedin_url: {
             type: DataTypes.TEXT
         }
     }), u.configuration());
