@@ -66,6 +66,7 @@ input.pills-element__input {
     z-index: var(--z-index-header);
 }
 
+.pills-results__no_results,
 .pills-results__create,
 .pills-results__option {
     cursor: pointer;
@@ -74,6 +75,7 @@ input.pills-element__input {
     transition: background-color .3s;
 }
 
+.pills-results__no_results,
 .pills-results__create {
     font-weight: bold;
 }

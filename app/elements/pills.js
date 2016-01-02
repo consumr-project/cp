@@ -30,7 +30,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
      */
     function create_it($attrs, value) {
         return {
-            allowed: $attrs.create instanceof Function,
+            allowed: !!$attrs.create,
             value: value,
             human: i18n.get('common/create_this', { name: value })
         };
@@ -265,8 +265,14 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     '</div>',
                     '<input class="pills-element__input" />',
                 '</div>',
-                '<div class="pills-results" ng-if="options.length || (!!options && create_it.allowed && create_it.value)">',
+                '<div class="pills-results" ng-if="!!options">',
                     '<div class="pills-results__stats">{{stats.human}}</div>',
+                    '<div ',
+                        'ng-if="!create_it.allowed && !options.length" ',
+                        'class="pills-results__no_results" ',
+                        'i18n="common/no_results" ',
+                        'data="{query: create_it.value}"',
+                    '>hi</div>',
                     '<div ',
                         'ng-if="create_it.value && create_it.allowed" ',
                         'class="pills-results__create"',
