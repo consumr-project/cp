@@ -1,6 +1,9 @@
 angular.module('tcp').controller('GuideController', [
     '$scope',
-    function ($scope) {
+    '$timeout',
+    'lodash',
+    'ServicesService',
+    function ($scope, $timeout, lodash, ServicesService) {
         'use strict';
 
         $scope.counter = 42;
@@ -25,6 +28,28 @@ angular.module('tcp').controller('GuideController', [
         $scope.incrementCounter = function () {
             $scope.counter++;
         };
+
+// keep indentation
+$scope.create_selection = function (str, done) {
+    $timeout(function () {
+        done(null, {
+            id: Math.random().toString(),
+            label: str
+        });
+    }, 3000);
+}
+
+// keep indentation
+$scope.query_selections = function (str, done) {
+    ServicesService.query.search.tags('en-US', str).then(function (tags) {
+        done(null, lodash.map(tags, function (tag) {
+            return {
+                label: tag['en-US'],
+                id: tag.id
+            };
+        }));
+    }).catch(done);
+};
 
         for (var i = 0; i < 2; i++) {
             $scope.addTag();

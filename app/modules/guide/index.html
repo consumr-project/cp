@@ -8,12 +8,20 @@
 }
 </style>
 <div class="site-content">
+    <h1>pills</h1>
+    <rector-markup>
+        <pills selections="selections" create="create_selection(value, done)" query="query_selections(query, done)"></pills>
+    </rector-markup>
+    <rector-scope static="create_selection"></rector-scope>
+    <rector-scope static="query_selections"></rector-scope>
+    <rector-scope watch-collection="selections"></rector-scope>
+
     <h1>forms</h1>
     <rector-markup>
         <form class="form--listed">
             <h2 i18n="company/add_event"></h2>
             <label i18n="company/field_source"></label>
-            <input type="text" ng-model="source1" autofocus="true" />
+            <input type="text" ng-model="source1" />
             <label i18n="company/field_title"></label>
             <input type="text" />
             <label i18n="company/field_date"></label>
@@ -162,6 +170,7 @@
             </tag>
         </tags>
     </rector-markup>
+    <rector-javascript watch-collection="tags"></rector-javascript>
 
     <h1>indicator</h1>
     <p>
@@ -172,6 +181,7 @@
         <indicator type="highlights" value="counter"></indicator>
         <indicator type="useful" value="counter"></indicator>
     </rector-markup>
+    <rector-javascript watch-collection="counter"></rector-javascript>
 
     <h1>button</h1>
     <rector-markup>

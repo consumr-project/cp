@@ -1,5 +1,7 @@
 /**
  * @attribute {Object[]} selections
+ * @attribute {Function} query
+ * @attribute {Function} create
  * @attribute {String} labelAttr attribute to use in selections to get labels
  * @attribute {String} idAttr attribute to use in selections to get ids
  * @attribute {String} typeAttr attribute to use in selections to get types
@@ -10,7 +12,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     /* globals performance */
 
     var ROLE_REMOVE = 'remove',
-        ROLE_SELECT = 'select';
+        ROLE_SELECT = 'select',
+        ROLE_CREATE = 'create';
 
     /**
      * @return {Number}
@@ -18,6 +21,19 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function now() {
         return 'performance' in window && performance.now ?
             performance.now() : Date.now();
+    }
+
+    /**
+     * @param {angular.Scope} $scope
+     * @param {String} value
+     * @return {Object}
+     */
+    function create_it($scope, value) {
+        return {
+            allowed: $scope.create instanceof Function,
+            value: value,
+            human: i18n.get('common/create_this', { name: value })
+        };
     }
 
     /**
@@ -82,13 +98,13 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     /**
      * @param {angular.Scope} $scope
      * @param {angular.Attributes} $attrs
+     * @param {jQuery} $elem holder
      * @param {jQuery} $input field
      * @param {jQuery.Event} $ev
      */
-    function command($scope, $attrs, $input, $ev) {
+    function command($scope, $attrs, $elem, $input, $ev) {
         switch ($ev.target.dataset.pillsRole) {
             case ROLE_REMOVE:
-                console.log('removing %s', $ev.target.dataset.pillsData);
                 $scope.selections = without(
                     $scope.selections,
                     $ev.target.dataset.pillsData,
@@ -97,12 +113,17 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 break;
 
             case ROLE_SELECT:
-                console.log('selecting %s', $ev.target.dataset.pillsOptionId);
                 $scope.selections.push({
                     id: $ev.target.dataset.pillsOptionId,
                     label: $ev.target.dataset.pillsOptionLabel
                 });
                 $scope.options = unselected($scope.selections, $scope.options, $attrs);
+                break;
+
+            case ROLE_CREATE:
+                if (create_it($scope).allowed) {
+                    create($scope, $elem, $ev.target.dataset.pillsOptionLabel);
+                }
                 break;
 
             default:
@@ -113,29 +134,56 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
     /**
      * @param {angular.Scope} $scope
+     * @param {jQuery} $elem holder
+     * @param {String} value
+     */
+    function create($scope, $elem, value) {
+        $elem.addClass('loading--spinner');
+
+        $scope.create({
+            value: value,
+            done: function (err, option) {
+                if (!err) {
+                    $scope.selections.push(option);
+                    $scope.options = null;
+                }
+
+                $elem.removeClass('loading--spinner');
+            }
+        });
+    }
+
+    /**
+     * @param {angular.Scope} $scope
      * @param {angular.Attributes} $attrs
+     * @param {jQuery} $elem holder
      * @param {jQuery} $input field
      * @param {jQuery.Event} $ev
      */
-    function query($scope, $attrs, $input, $ev) {
+    function query($scope, $attrs, $elem, $input, $ev) {
+        var start, value;
+
         if ($input.data('pillsLastValue') === $ev.target.value) {
             return;
         }
 
-        var start = now();
+        start = now();
+        value = $ev.target.value;
+
         $input.data('pillsLastValue', $ev.target.value);
-        $input.addClass('loading');
+        $elem.addClass('loading--spinner');
 
         $scope.query({
-            query: $ev.target.value,
+            query: value,
             done: function (err, options) {
                 if (!err) {
                     options = unselected($scope.selections, options, $attrs);
                     $scope.options = options;
                     $scope.stats = stats(options, start);
+                    $scope.create_it = create_it($scope, value);
                 }
 
-                $input.removeClass('loading');
+                $elem.removeClass('loading--spinner');
             }
         });
     }
@@ -171,24 +219,37 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
     function link($scope, $elem, $attrs) {
         var $input = $elem.find('input');
-        $elem.click(command.bind(null, $scope, $attrs, $input));
-        $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $input), 300));
-        $document.click(hideResults);
+
+        $elem.click(command.bind(null, $scope, $attrs, $elem, $input));
+        $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $elem, $input), 300));
+        // $input.blur(hide_results); XXX
+
+        $document.click(check_if_should_hide_results);
         $scope.$on('$destroy', function () {
-            $document.off('click', hideResults);
+            $document.off('click', check_if_should_hide_results);
         });
 
-        function hideResults(ev) {
+        function hide_results() {
+            $scope.options = null;
+            $scope.$apply();
+        }
+
+        function check_if_should_hide_results(ev) {
             if (!$elem.has(ev.target).length) {
-                $scope.options = null;
-                $input.val('');
-                $scope.$apply();
+                hide_results();
             }
         }
     }
 
     return {
         replace: true,
+        controller: ['$scope', '$attrs', controller],
+        link: link,
+        scope: {
+            selections: '=',
+            query: '&',
+            create: '&',
+        },
         template: [
             '<div class="pills-container is-non-selectable">',
                 '<div class="pills-element">',
@@ -206,8 +267,14 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     '</div>',
                     '<input class="pills-element__input" />',
                 '</div>',
-                '<div class="pills-results" ng-if="options.length">',
+                '<div class="pills-results" ng-if="options.length || (!!options && create_it.allowed && create_it.value)">',
                     '<div class="pills-results__stats">{{stats.human}}</div>',
+                    '<div ',
+                        'ng-if="create_it.value && create_it.allowed" ',
+                        'class="pills-results__create"',
+                        'data-pills-role="create" ',
+                        'data-pills-option-label="{{::create_it.value}}" ',
+                    '>{{create_it.human}}</div>',
                     '<div ',
                         'class="pills-results__option" ',
                         'ng-repeat="option in options" ',
@@ -218,9 +285,6 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     '>{{::option.label}}</div>',
                 '</div>',
             '</div>'
-        ].join(''),
-        scope: { selections: '=', query: '&', },
-        controller: ['$scope', '$attrs', controller],
-        link: link
+        ].join('')
     };
 }]);

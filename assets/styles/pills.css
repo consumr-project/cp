@@ -5,7 +5,7 @@
 .pills-element {
     border: 1px solid var(--color-std-border-color);
     font-size: var(--font-size-normal);
-    padding: 3px;
+    padding: 3px 6px;
 }
 
 .pills-element__selections {
@@ -14,7 +14,10 @@
 
 input.pills-element__input {
     border-color: transparent;
-    width: 100%;
+    margin-bottom: 2px;
+    padding-left: 0;
+    position: relative;
+    top: 1px;
 }
 
 .pills-element__pill {
@@ -24,7 +27,7 @@ input.pills-element__input {
     color: #4975AC;
     display: inline-block;
     font-size: 0;
-    margin: 0 3px 3px 0;
+    margin: 0 6px 3px 0;
     padding: 3px;
 }
 
@@ -62,13 +65,19 @@ input.pills-element__input {
     z-index: var(--z-index-header);
 }
 
+.pills-results__create,
 .pills-results__option {
     cursor: pointer;
     font-size: 14px;
-    padding: 5px 10px;
+    padding: var(--spacing-xsmall) 10px;
     transition: background-color .3s;
 }
 
+.pills-results__create {
+    font-weight: bold;
+}
+
+.pills-results__create:hover,
 .pills-results__option:hover {
     background: rgba(215, 234, 249, 0.5);
 }
@@ -77,6 +86,7 @@ input.pills-element__input {
     color: var(--color-light-text-color);
     font-size: var(--font-size-xsmall);
     padding: 7px;
+    pointer-events: none;
     position: absolute;
     right: 0;
 }
