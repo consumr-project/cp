@@ -1,10 +1,9 @@
 angular.module('tcp').directive('user', [
-    'NavigationService',
     'ServicesService',
     'SessionService',
     'utils',
     'i18n',
-    function (NavigationService, ServicesService, SessionService, utils, i18n) {
+    function (ServicesService, SessionService, utils, i18n) {
         'use strict';
 
         function controller($scope) {
