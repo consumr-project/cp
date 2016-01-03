@@ -12,6 +12,14 @@ this service is meant to be mounted into the
 app.use('/auth', require('auth-service'));
 ```
 
+additional, `passport` must be initalized *before* routes that require session
+information:
+
+```js
+app.use(require('auth-service').passport.initialize());
+app.use(require('auth-service').passport.session());
+```
+
 ### configuration
 
 the following enviroment variables are needed to run:

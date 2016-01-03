@@ -7,8 +7,10 @@ var app = require('express')(),
 var model = require('./src/model'),
     linkedin = require('./src/linkedin')();
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+if (!module.parent) {
+    app.use(passport.initialize());
+    app.use(passport.session());
+}
 
 passport.serializeUser(model.serialize);
 passport.deserializeUser(model.deserialize);
