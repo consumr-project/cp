@@ -31,6 +31,9 @@ models = {
 };
 
 app.use(body.json());
+module.exports = app;
+module.exports.conn = conn;
+module.exports.models = models;
 require('./src/routes')(app, models);
 
 /**
@@ -40,10 +43,6 @@ require('./src/routes')(app, models);
 function model(name) {
     return require('./src/models/' + name)(conn, require('sequelize/lib/data-types'));
 }
-
-module.exports = app;
-module.exports.conn = conn;
-module.exports.models = models;
 
 if (!module.parent) {
     log('starting sync');
