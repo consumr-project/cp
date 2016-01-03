@@ -142,9 +142,3 @@ hr {
     margin: 0 auto;
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
-
-.company__event textarea {
-    height: 150px;
-    max-width: var(--content-medium-width);
-    width: 70vw;
-}
