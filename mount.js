@@ -8,9 +8,14 @@ var app = require('express')(),
 // copy of `config/rbac.yml`
 config.ref.$paths.push(require('path').join(__dirname, 'config'));
 
+module.exports = app;
+module.exports.passport = passport;
+module.exports.permissions = require('./src/permissions');
+
 var model = require('./src/model'),
-    linkedin = require('./src/linkedin')(),
-    permissions = require('./src/permissions');
+    linkedin = require('./src/linkedin')();
+
+module.exports.loggedin = model.loggedin;
 
 if (!module.parent) {
     app.use(passport.initialize());
@@ -29,8 +34,3 @@ app.get('/linkedin/callback', linkedin.callback, model.js_update);
 if (!module.parent) {
     app.listen(config('port') || 3000);
 }
-
-module.exports = app;
-module.exports.passport = passport;
-module.exports.loggedin = model.loggedin;
-module.exports.permissions = permissions;
