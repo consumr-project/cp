@@ -4,13 +4,13 @@ var app = require('express')(),
     config = require('acm'),
     passport = require('passport');
 
-var model = require('./src/model'),
-    linkedin = require('./src/linkedin')(),
-    permissions = require('./src/permissions');
-
 // XXX bit of a hack, but this is the only way that I can reference the local
 // copy of `config/rbac.yml`
 config.ref.$paths.push(require('path').join(__dirname, 'config'));
+
+var model = require('./src/model'),
+    linkedin = require('./src/linkedin')(),
+    permissions = require('./src/permissions');
 
 if (!module.parent) {
     app.use(passport.initialize());
