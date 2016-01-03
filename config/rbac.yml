@@ -1,0 +1,34 @@
+roles:
+  - admin
+  - user
+  - guest
+
+permissions:
+  CRUD: &CRUD [create, retrieve, update, delete]
+  user: *CRUD
+  tag: *CRUD
+  company: *CRUD
+  event: *CRUD
+
+grants:
+  guest:
+    - create_user
+    - retrieve_user
+    - retrieve_tag
+    - retrieve_company
+    - retrieve_event
+
+  user:
+    - guest
+    - create_tag
+    - update_tag
+    - create_company
+    - update_company
+    - create_event
+    - update_event
+
+  admin:
+    - user
+    - delete_tag
+    - delete_company
+    - delete_event

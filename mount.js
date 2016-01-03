@@ -5,7 +5,8 @@ var app = require('express')(),
     passport = require('passport');
 
 var model = require('./src/model'),
-    linkedin = require('./src/linkedin')();
+    linkedin = require('./src/linkedin')(),
+    permissions = require('./src/permissions');
 
 if (!module.parent) {
     app.use(passport.initialize());
@@ -28,3 +29,4 @@ if (!module.parent) {
 module.exports = app;
 module.exports.passport = passport;
 module.exports.loggedin = model.loggedin;
+module.exports.permissions = permissions;
