@@ -1,13 +1,24 @@
 'use strict';
 
-var User = require('query-service').models.User;
+var User = require('query-service').models.User,
+    permissions = require('./permissions');
 
 /**
  * @param {http.Request} req
  * @param {http.Response} res
  * @param {Function} done
  */
-module.exports.loggedin = function (req, res, next) {
+module.exports.as_guest = function (req, res, next) {
+    req.user = req.user || { role: permissions.roles.GUEST };
+    next();
+};
+
+/**
+ * @param {http.Request} req
+ * @param {http.Response} res
+ * @param {Function} done
+ */
+module.exports.is_logged_in = function (req, res, next) {
     next(req.user ? null : new Error('Login required'));
 };
 
