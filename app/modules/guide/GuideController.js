@@ -37,7 +37,7 @@ $scope.create_selection = function (str, done) {
             label: str
         });
     }, 3000);
-}
+};
 
 // keep indentation
 $scope.query_selections = function (str, done) {
