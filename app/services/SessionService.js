@@ -1,9 +1,8 @@
 angular.module('tcp').service('SessionService', [
     'EventEmitter2',
     'ServicesService',
-    'utils',
     '$document',
-    function (EventEmitter2, ServicesService, utils, $document) {
+    function (EventEmitter2, ServicesService, $document) {
         'use strict';
 
         var events = {
