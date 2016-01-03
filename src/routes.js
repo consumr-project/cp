@@ -71,19 +71,26 @@ module.exports = function (app, models) {
         can('update', 'company'),
         upsert(models.CompanyEvent, ['company_id']));
     get('/companies/:company_id/events/:id?',
-        can('retrieve', 'company'), retrieve(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
+        can('retrieve', 'company'),
+        retrieve(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
     del('/companies/:company_id/events/:id',
-        can('delete', 'company'), remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
+        can('delete', 'company'),
+        remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
 
     // events
     post('/events',
-        can('create', 'event'), create(models.Event));
+        can('create', 'event'),
+        create(models.Event));
     patch('/events',
-        can('create', 'event'), can('update', 'event'), upsert(models.Event));
+        can('create', 'event'),
+        can('update', 'event'),
+        upsert(models.Event));
     del('/events/:id',
-        can('delete', 'event'), remove(models.Event));
+        can('delete', 'event'),
+        remove(models.Event));
     get('/events',
-        can('retrieve', 'event'), retrieve(models.Event));
+        can('retrieve', 'event'),
+        retrieve(models.Event));
     get('/events/:id', can('retrieve', 'event'), parts(models.Event, {
         sources: [models.EventSource, {event_id: 'id'}],
         tags: [models.EventTag, {event_id: 'id'}],
@@ -91,7 +98,8 @@ module.exports = function (app, models) {
 
     patch('/events/:event_id/sources',
         can('create', 'event'),
-        can('update', 'event'), upsert(models.EventSource, ['event_id']));
+        can('update', 'event'),
+        upsert(models.EventSource, ['event_id']));
     get('/events/:event_id/sources/:id?',
         can('retrieve', 'event'),
         retrieve(models.EventSource, {event_id: 'event_id'}));
