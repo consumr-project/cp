@@ -115,6 +115,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             case ROLE_SELECT:
                 $scope.selections.push({
                     id: $ev.target.dataset.pillsOptionId,
+                    type: $ev.target.dataset.pillsOptionType,
                     label: $ev.target.dataset.pillsOptionLabel
                 });
                 $scope.options = unselected($scope.selections, $scope.options, $attrs);
@@ -123,7 +124,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
             case ROLE_CREATE:
                 if (create_it($attrs).allowed) {
-                    create($scope, $elem, $input, $ev.target.dataset.pillsOptionLabel);
+                    create($scope, $elem, $input, $input.val());
                 }
                 break;
 
@@ -141,6 +142,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
      */
     function create($scope, $elem, $input, value) {
         $elem.addClass('loading--spinner');
+        $input.attr('disabled', true);
 
         $scope.create({
             value: value,
@@ -151,6 +153,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 }
 
                 $elem.removeClass('loading--spinner');
+                $input.attr('disabled', false);
                 $input.val('');
             }
         });

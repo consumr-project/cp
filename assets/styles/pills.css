@@ -5,6 +5,7 @@
 .pills-element {
     border: 1px solid var(--color-std-border-color);
     font-size: var(--font-size-normal);
+    min-height: 36px;
     padding: 3px 6px;
 }
 
@@ -14,11 +15,11 @@
 
 input.pills-element__input {
     border: none;
-    margin: -4px 0 2px 0;
+    font-size: 10pt;
+    line-height: 10pt;
+    margin: 3px;
     min-width: auto;
     padding-left: 0;
-    position: relative;
-    top: 1px;
 }
 
 .pills-element__pill {
@@ -92,4 +93,8 @@ input.pills-element__input {
     pointer-events: none;
     position: absolute;
     right: 0;
+}
+
+.pills-element__pill[data-pill-type="tag-approved-false"] {
+    background-color: #ffe8e8;
 }

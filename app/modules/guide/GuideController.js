@@ -33,6 +33,7 @@ angular.module('tcp').controller('GuideController', [
 $scope.create_selection = function (str, done) {
     $timeout(function () {
         done(null, {
+            type: 'tag-approved-false',
             id: Math.random().toString(),
             label: str
         });
@@ -44,6 +45,7 @@ $scope.query_selections = function (str, done) {
     ServicesService.query.search.tags('en-US', str).then(function (tags) {
         done(null, lodash.map(tags, function (tag) {
             return {
+                type: 'tag-approved-' + tag.approved.toString(),
                 label: tag['en-US'],
                 id: tag.id
             };
