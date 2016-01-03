@@ -26,8 +26,20 @@
                 <button ng-if="!session.logged_in" ng-click="login()"
                     i18n="admin/singInUp" class="right animated fadeIn"></button>
 
-                <avatar ng-if="session.logged_in" class="right" ng-click="actions.show = true"
-                    image="{% raw %}{{session.avatar_url}}{% endraw %}" data-main-user-avatar></avatar>
+                <avatar
+                    ng-if="session.logged_in"
+                    class="right"
+                    ng-click="actions.show = true"
+                    image="{% raw %}{{session.avatar_url}}{% endraw %}"
+                    data-main-user-avatar
+                >
+                    <indicator
+                        class="animated zoomIn"
+                        ng-if="session.message_count"
+                        type="counter"
+                        value="session.message_count"
+                    ></indicator>
+                </avatar>
 
                 <button class="search right margin-right-small animated fadeIn screen-small-only"
                     ng-click="nav.search()"></button>

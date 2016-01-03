@@ -6,7 +6,8 @@ angular.module('tcp').directive('avatar', function () {
     }
 
     return {
-        template: '<div class="avatar__image animated fadeIn"></div>',
+        transclude: true,
+        template: '<div class="avatar__image animated fadeIn"><ng-transclude></ng-transclude></div>',
         link: function (scope, elem, attrs) {
             var title = [];
 

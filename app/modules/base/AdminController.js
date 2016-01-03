@@ -55,6 +55,7 @@ angular.module('tcp').controller('AdminController', [
         function updateCurrentUser() {
             $scope.session.avatar_url = SessionService.USER.avatar_url;
             $scope.session.logged_in = true;
+            $scope.session.message_count = 0;
         }
 
         /**
