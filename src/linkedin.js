@@ -1,7 +1,8 @@
 'use strict';
 
 var LinkedInStrategy = require('passport-linkedin').Strategy,
-    User = require('query-service').models.User;
+    User = require('query-service').models.User,
+    roles = require('./permissions').roles;
 
 var passport = require('passport'),
     config = require('acm'),
@@ -40,6 +41,7 @@ function generate_user(profile) {
 
     return {
         id: id,
+        role: roles.USER,
         auth_linkedin_id: profile.id,
         avatar_url: profile._json.pictureUrl,
         company_name: getset(profile._json, 'positions.values.0.company.name'),

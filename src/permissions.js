@@ -29,3 +29,7 @@ function can(action, resource) {
 
 module.exports.rbac = rbac;
 module.exports.can = can;
+module.exports.roles = config('rbac').roles.reduce(function (roles, role) {
+    roles[role.toUpperCase()] = role;
+    return roles;
+}, {});
