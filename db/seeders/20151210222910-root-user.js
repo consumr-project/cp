@@ -20,6 +20,7 @@ module.exports = {
                 title: 'Consurm Project Admin',
                 company_name: 'Consurm Project',
                 lang: 'en',
+                role: 'admin',
             }
         ]);
     },

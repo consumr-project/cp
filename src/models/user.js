@@ -27,6 +27,12 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING
         },
 
+        role: {
+            type: DataTypes.ENUM('admin', 'user'),
+            defaultValue: 'user',
+            allowNull: false
+        },
+
         lang: {
             type: DataTypes.ENUM('en'),
             defaultValue: 'en',
