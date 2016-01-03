@@ -9,6 +9,12 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
 
+        approved: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
+
         'en-US': {
             type: DataTypes.STRING,
             allowNull: false
