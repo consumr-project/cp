@@ -48,15 +48,16 @@ app.use(session({ secret: config('session.secret') }));
 
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
+app.use(auth_service.as_guest);
 app.use('/service/auth', timeout('10s'), auth_service);
 
 app.use('/service/search', timeout('5s'), search_service);
 app.use('/service/extract', timeout('5s'), extract_service);
 
-app.delete('/service/query/*', auth_service.loggedin);
-app.patch('/service/query/*', auth_service.loggedin);
-app.post('/service/query/*', auth_service.loggedin);
-app.put('/service/query/*', auth_service.loggedin);
+app.delete('/service/query/*', auth_service.is_logged_in);
+app.patch('/service/query/*', auth_service.is_logged_in);
+app.post('/service/query/*', auth_service.is_logged_in);
+app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
 
 app.get('*', function (req, res) {
