@@ -24,6 +24,7 @@ module.exports = function (app, models) {
 
     // tags
     get('/tags', all(models.Tag));
+    post('/tags', create(models.Tag));
     get('/tags/:id', retrieve(models.Tag));
 
     // companies
