@@ -40,6 +40,12 @@ header {
     }
 }
 
+@media print {
+    header {
+        display: none;
+    }
+}
+
 header *,
 header button {
     vertical-align: middle;
@@ -137,23 +143,8 @@ header.site-content {
     margin-bottom: calc(var(--body-padding-top) * 5);
 }
 
-.entity.entity--summary + .entity.entity--summary {
-    border-top: 1px solid var(--color-std-thin-border-color);
-    padding-top: var(--spacing-small);
-}
-
-.entity.entity--summary:hover h3 {
-    text-decoration: underline;
-}
-
 .company__event textarea {
     height: 150px;
     max-width: var(--content-medium-width);
     width: 70vw;
-}
-
-@media print {
-    header {
-        display: none;
-    }
 }
