@@ -66,6 +66,15 @@ header .tcp-logo {
     }
 }
 
+header.site-content {
+    margin-bottom: calc(var(--body-padding-top) * 5);
+}
+
+footer.site-content {
+    margin-top: 50px;
+    height: 50px;
+}
+
 [ng-click],
 [ng-click] * {
     cursor: pointer;
@@ -132,15 +141,6 @@ hr {
 .site-element {
     margin: 0 auto;
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
-}
-
-footer.site-content {
-    margin-top: 50px;
-    height: 50px;
-}
-
-header.site-content {
-    margin-bottom: calc(var(--body-padding-top) * 5);
 }
 
 .company__event textarea {
