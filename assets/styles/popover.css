@@ -4,7 +4,7 @@
     border: 1px solid var(--color-std-border-color);
     display: inline-block;
     font-size: var(--font-size-small);
-    transition: opacity .3s;
+    transition: opacity var(--speed-friendly);
     z-index: var(--z-index-popover);
 }
 
@@ -14,7 +14,7 @@
 
 .popover__item {
     padding: 10px 20px;
-    transition: background-color .3s;
+    transition: background-color var(--speed-friendly);
 }
 
 .popover__item,
@@ -45,7 +45,7 @@
     left: 0;
     position: fixed;
     top: 0;
-    transition: opacity .3s;
+    transition: opacity var(--speed-friendly);
     width: 100vw;
     z-index: var(--z-index-popover-backdrop);
 }

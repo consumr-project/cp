@@ -33,14 +33,15 @@ header {
     background: white;
     border-bottom: 1px solid var(--color-std-border-color);
     margin-bottom: var(--spacing-small);
-    padding: var(--spacing-medium) var(--spacing-medium) 60px var(--spacing-medium);
+    padding: var(--spacing-xsmall) var(--spacing-small) calc(var(--spacing-xsmall) * 5) var(--spacing-small);
     position: relative;
-    transition: margin-bottom .4s;
+    transition: margin-bottom var(--speed-friendly), padding var(--speed-friendly);
     z-index: var(--z-index-header);
 }
 
 @media (--media-regular-screens) {
     header {
+        padding: var(--spacing-medium) var(--spacing-medium) calc(var(--spacing-xsmall) * 6) var(--spacing-medium);
         margin-bottom: calc(var(--spacing-xlarge) * 2);
     }
 }
@@ -52,10 +53,10 @@ header button {
 }
 
 header .tcp-logo {
-    height: 37px;
+    height: 40px;
     margin-top: 0;
     position: absolute;
-    transition: height .3s, margin .3s;
+    transition: height var(--speed-friendly), margin var(--speed-friendly);
 }
 
 @media (--media-regular-screens) {

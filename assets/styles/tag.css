@@ -34,7 +34,7 @@ tags {
 }
 
 tags .tags__tags {
-    transition: height .3s, opacity .3s;
+    transition: height var(--speed-friendly), opacity var(--speed-friendly);
 }
 
 tags.keywords .tags__tags {

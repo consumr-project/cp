@@ -72,7 +72,7 @@ input.pills-element__input {
     cursor: pointer;
     font-size: 14px;
     padding: var(--spacing-xsmall) 10px;
-    transition: background-color .3s;
+    transition: background-color var(--speed-friendly);
 }
 
 .pills-results__no_results,
