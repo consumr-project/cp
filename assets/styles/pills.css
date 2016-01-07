@@ -3,10 +3,11 @@
 }
 
 .pills-element {
+    border-radius: var(--input-border-radius);
     border: 1px solid var(--color-std-border-color);
     font-size: var(--font-size-normal);
     min-height: 36px;
-    padding: 3px 6px;
+    padding: calc(var(--input-padding) / 4) var(--input-padding);
 }
 
 .pills-element__selections {
@@ -23,14 +24,16 @@ input.pills-element__input {
 }
 
 .pills-element__pill {
-    background-color: #D7EAF9;
+    background-color: var(--color-cp-brand-light);
     border-radius: 1px;
-    border: 1px solid #9DB7CA;
-    color: #4975AC;
+    border: 1px solid var(--color-cp-brand-light);
+    color: var(--color-cp-brand);
     display: inline-block;
     font-size: 0;
-    margin: 3px 6px 3px 0;
-    padding: 3px;
+    line-height: 4px;
+    margin: 3px var(--input-padding) 3px 0;
+    padding: 4px 5px;
+    text-transform: uppercase;
 }
 
 .pills-element__pill__label {
@@ -41,7 +44,6 @@ input.pills-element__input {
 }
 
 .pills-element__pill__remove {
-    border-left: 1px solid #DADADA;
     cursor: pointer;
     display: inline-block;
     font-size: 0px;
@@ -96,5 +98,5 @@ input.pills-element__input {
 }
 
 .pills-element__pill[data-pill-type="tag-approved-false"] {
-    background-color: #ffe8e8;
+    background-color: var(--color-std-thin-border-color);
 }

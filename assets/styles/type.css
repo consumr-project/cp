@@ -21,6 +21,7 @@ body * {
     font-size: var(--font-size-normal);
 }
 
+textarea,
 p,
 .copy {
     font-size: var(--font-size-normal);

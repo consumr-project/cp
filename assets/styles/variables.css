@@ -17,6 +17,7 @@
 
     --color-separator: rgb(236, 236, 236);
     --color-cp-brand: rgb(39, 184, 232);
+    --color-cp-brand-light: rgba(39, 184, 232, 0.10);
     --color-cp-brand-border-color: rgba(39, 184, 232, .5);
 
     --color-std-background-color: white;
@@ -47,6 +48,9 @@
 
     --body-padding-top: 10px;
     --inline-element-gutter: 6px;
+
+    --input-padding: 8px;
+    --input-border-radius: 3px;
 
     --spacing-xsmall: 10px;
     --spacing-small: 15px;

@@ -1,10 +1,11 @@
 textarea,
 input:not([type="checkbox"]),
 input:not([type="radio"]) {
+    border-radius: var(--input-border-radius);
     border: 1px solid var(--color-std-border-color);
     cursor: text;
     font-size: var(--font-size-normal);
-    padding: 3px 7px;
+    padding: var(--input-padding);
     text-align: left;
     outline: 0;
     word-break: normal;
@@ -59,7 +60,7 @@ form h2 {
 
 .form--listed label:not(.label--inline) {
     display: block;
-    padding: 5px 0;
+    padding: var(--input-padding) 0;
 }
 
 .form--listed label,
@@ -69,7 +70,7 @@ form h2 {
 }
 
 .form--listed label:not(:first-child) {
-    margin-top: var(--spacing-xsmall);
+    margin-top: calc(var(--input-padding) * 2);
 }
 
 .form--listed input,
