@@ -1,46 +1,32 @@
 'use strict';
 
+const uuid = require('node-uuid');
+
+class Message {
+    /**
+     * @param {String} id
+     * @param {Message.TYPE} type
+     * @param {String} subject ie. "welcome" for welcome email
+     * @param {Object} payload
+     */
+    constructor(config) {
+        if (!(config.type in Message.TYPE)) {
+            throw new Error(`Invalid type: ${config.type}`);
+        }
+
+        this.id = config.id || uuid.v4();
+        this.type = config.type;
+        this.subject = config.subject || config.type;
+        this.payload = config.payload || {};
+    }
+}
+
 /**
  * supported message types
  */
-var TYPE = {
-    EMAIL: 0
+Message.TYPE = {
+    EMAIL: 'EMAIL',
+    NOTIFICATION: 'NOTIFICATION'
 };
 
-/**
- * semi-unique identifier
- * @return {String}
- */
-function id() {
-    return (Date.now() + Math.random().toString().substr(2)).substr(0, 25);
-}
-
-/**
- * Message model
- */
-function Message(config) {
-    /**
-     * @type {String}
-     */
-    this.id = config.id || id();
-
-    /**
-     * @type {TYPE}
-     */
-    this.type = config.type;
-
-    /**
-     * ie. "welcome" for welcome email
-     * @type {String}
-     */
-    this.subject = config.subject;
-
-    /**
-     * anything
-     * @type {Object}
-     */
-    this.payload = config.payload || {};
-}
-
 module.exports = Message;
-module.exports.TYPE = TYPE;

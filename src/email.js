@@ -1,10 +1,10 @@
 'use strict';
 
-var KNOWN_EMAILS = ['welcome'];
+const KNOWN_EMAILS = ['welcome'];
 
-var Message = require('./message'),
-    config = require('acm'),
-    debug = require('debug');
+const Message = require('./message');
+const config = require('acm');
+const debug = require('debug');
 
 var log = debug('email'),
     log_error = debug('email:error');
@@ -31,7 +31,6 @@ function init() {
         base: tmpl(read('./templates/base.tmpl')),
         welcome: tmpl(read('./templates/welcome.tmpl'))
     };
-
 }
 
 /**
@@ -43,7 +42,7 @@ function queue(connection, email_to_send, payload) {
     var message = new Message({
         type: Message.TYPE.EMAIL,
         subject: email_to_send,
-        payload: payload
+        payload
     });
 
     connection.publish(config('amqp.queues.emails'), message);
@@ -84,7 +83,7 @@ function send(transport, message, callback) {
         to: message.payload.email,
         subject: templates.i18n[lang].get('common/' + subject + '_email_subject', message.payload),
         html: html
-    }, function (err, info) {
+    }, (err, info) => {
         logStatus(message, err);
         callback(err, info);
     });
