@@ -9,7 +9,6 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
      * @return {Boolean}
      */
     function has_native_date_picker(element) {
-        return 0;
         return element.prop('type') === 'date';
     }
 
