@@ -9,6 +9,7 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
      * @return {Boolean}
      */
     function has_native_date_picker(element) {
+        return 0;
         return element.prop('type') === 'date';
     }
 
@@ -25,8 +26,7 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
      * @return {String}
      */
     function parse_date(date) {
-        date = date || new Date();
-        return [
+        return !date ? '' : [
             pad(date.getMonth() + 1),
             pad(date.getDate()),
             date.getFullYear()
@@ -64,6 +64,24 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
         };
     }
 
+    /**
+     * @param {jQuery} element
+     * @param {Date} date
+     */
+    function set_field_value(element, date) {
+        setTimeout(function () {
+            element.val(is_valid(date) ? parse_date(date) : '');
+        }, 10);
+    }
+
+    /**
+     * @param {Date} date
+     * @return {Boolean}
+     */
+    function is_valid(date) {
+        return date && !isNaN(date.getTime());
+    }
+
     return {
         restrict: 'A',
         require: '?ngModel',
@@ -75,14 +93,14 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
             }
 
             date = scope.$eval(attrs.ngModel);
+            set_field_value(element, date);
 
             // use internal jquery which has bootstrap-datepicker
             element = $(element).attr('type', 'text');
-            setTimeout(function () {
-                element.val(parse_date(date));
-                element.datepicker(build_options(scope, attrs));
-                element.change(update_model(scope, date));
-            }, 10);
+            element.datepicker(build_options(scope, attrs));
+
+            element.change(update_model(scope, date || new Date()));
+            scope.$watch(attrs.ngModel, set_field_value.bind(null, element));
         }
     };
 }]);

@@ -108,6 +108,7 @@ angular.module('tcp').directive('companyEvent', [
          */
         function normalize_tag(tag) {
             return {
+                type: 'tag-approved-' + tag.approved.toString(),
                 label: tag['en-US'],
                 id: tag.id
             };
@@ -246,6 +247,17 @@ angular.module('tcp').directive('companyEvent', [
                     done(null, lodash.map(tags, normalize_tag));
                 }).catch(done);
             };
+
+            // $scope.vm.create_tag = function (str, done) {
+            //     ServicesService.query.tags.create({
+            //         'en-US': str,
+            //         id: ServicesService.query.UUID,
+            //         created_by: SessionService.USER.id,
+            //         updated_by: SessionService.USER.id
+            //     }).then(function (tag) {
+            //         done(null, normalize_tag(tag));
+            //     });
+            // };
         }
 
         function link($scope, $elem) {
@@ -291,13 +303,20 @@ angular.module('tcp').directive('companyEvent', [
                 '        <input type="text" ng-model="ev.title" />',
 
                 '        <label i18n="company/field_date"></label>',
-                '        <input type="date" ng-model="ev.$date" />',
+                '        <input type="date" ng-date-picker ng-model="ev.$date" />',
 
                 '        <label i18n="company/field_tied_to"></label>',
-                '        <pills selections="ev.$companies" query="vm.query_companies(query, done)"></pills>',
+                '        <pills',
+                '            selections="ev.$companies"',
+                '            query="vm.query_companies(query, done)"',
+                '        ></pills>',
 
                 '        <label i18n="company/field_tags"></label>',
-                '        <pills selections="ev.$tags" query="vm.query_tags(query, done)"></pills>',
+                '        <pills',
+                '            selections="ev.$tags"',
+                '            create="vm.create_tag(value, done)"',
+                '            query="vm.query_tags(query, done)"',
+                '        ></pills>',
                 '    </section>',
 
                 '    <section>',
@@ -309,7 +328,7 @@ angular.module('tcp').directive('companyEvent', [
                 '            <label i18n="company/field_source_title"></label>',
                 '            <input type="text" ng-model="source.title" />',
                 '            <label i18n="company/field_pub_date"></label>',
-                '            <input type="date" ng-model="source.$published_date" />',
+                '            <input type="date" ng-date-picker ng-model="source.$published_date" />',
                 '            <label i18n="company/field_quote" data="{limit: 500}"></label>',
                 '            <textarea ng-model="source.summary"></textarea>',
                 '        </div>',
