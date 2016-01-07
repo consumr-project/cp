@@ -2,7 +2,7 @@
 
 require('newrelic');
 
-var app, config, log;
+var app, config, log, debugging;
 
 var express = require('express'),
     index = require('serve-index'),
@@ -22,19 +22,20 @@ var search_service = require('search-service'),
 log = require('debug')('cp:server');
 app = express();
 config = require('acm');
+debugging = !!config('debug');
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/app/modules');
+app.set('views', `${__dirname}/app/modules`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
 app.use('/app', express.static('app'));
 app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
-app.use(favicon(__dirname + '/assets/images/favicon.png'));
+app.use(favicon(`${__dirname}/assets/images/favicon.png`));
 
-if (config('debug')) {
+if (debugging) {
     app.use('/app', index('app'));
     app.use('/assets', index('assets'));
     app.use(errors());
@@ -60,15 +61,11 @@ app.post('/service/query/*', auth_service.is_logged_in);
 app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
 
-app.get('*', function (req, res) {
-    res.render('base/index', {
-        debugging: !!config('debug')
-    });
-});
+app.get('*', (req, res) =>
+    res.render('base/index', { debugging }));
 
-require('query-service').conn.sync().then(function () {
-    log('ready for database requests');
-});
+require('query-service').conn.sync().then(() =>
+    log('ready for database requests'));
 
 log('listening for requests');
 app.listen(config('port') || 3000);
