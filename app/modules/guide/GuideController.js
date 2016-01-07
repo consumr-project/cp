@@ -8,6 +8,7 @@ angular.module('tcp').controller('GuideController', [
 
         $scope.counter = 42;
         $scope.tags = [];
+        $scope.dates = [new Date];
 
         $scope.menu = {
             show: false

@@ -107,6 +107,8 @@ build-app:
 	$(js_min) app/services/SessionService.js >> $(build_app_js)
 	$(js_min) app/modules/search/SearchController.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
+	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)
+	$(js_min) app/vendor/angular/ngDatePicker.js >> $(build_app_js)
 
 install:
 	$(npm) install

@@ -1,5 +1,11 @@
 @import url("../../node_modules/normalize.css/normalize.css");
-@import url("../../node_modules/animate.css/animate.min.css");
+@import url("../../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.standalone.min.css");
+
+/* intead of @import url("../../node_modules/animate.css/animate.min.css"); */
+@import url("../../node_modules/animate.css/source/_base.css");
+@import url("../../node_modules/animate.css/source/zooming_entrances/zoomIn.css");
+@import url("../../node_modules/animate.css/source/fading_entrances/fadeInUp.css");
+@import url("../../node_modules/animate.css/source/fading_entrances/fadeIn.css");
 
 @import url("./variables.css");
 @import url("./type.css");
@@ -20,3 +26,4 @@
 @import url("./message.css");
 @import url("./events.css");
 @import url("./company.css");
+@import url("./datepicker.css");

@@ -7,6 +7,9 @@ import {EventEmitter2} from 'eventemitter2';
 import * as utils from './utils';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 
+import * as jQuery from 'jquery';
+require('bootstrap-datepicker');
+
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
 
@@ -29,6 +32,7 @@ module tcp {
         .value('EventEmitter2', EventEmitter2)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('i18n', i18n) // global
+        .value('jQuery', jQuery)
         .value('lodash', _)
         .value('moment', moment)
         .value('utils', utils);

@@ -1,5 +1,6 @@
 :root {
     --speed-friendly: .4s;
+    --speed-fast: .2s;
 
     --font-height-normal: 30px;
     --font-size-xlarge: 26px;
