@@ -79,10 +79,10 @@ angular.module('tcp').directive('ngDatePicker', ['$parse', 'jQuery', function($p
             // use internal jquery which has bootstrap-datepicker
             element = $(element).attr('type', 'text');
             setTimeout(function () {
-            element.val(parse_date(date))
-            element.datepicker(build_options(scope, attrs));
-            element.change(update_model(scope, date));
-            },10);
+                element.val(parse_date(date));
+                element.datepicker(build_options(scope, attrs));
+                element.change(update_model(scope, date));
+            }, 10);
         }
     };
 }]);
