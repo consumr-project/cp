@@ -12,6 +12,7 @@ angular.module('tcp').directive('companyEvent', [
         function scroll_to_bottom($elem) {
             setTimeout(function () {
                 $elem.scrollTop(Number.MAX_VALUE);
+                $elem.find('[popover-body]').scrollTop(Number.MAX_VALUE);
             }, 10);
         }
 
@@ -284,8 +285,8 @@ angular.module('tcp').directive('companyEvent', [
 
                 '    <section popover-body>',
                 '        <section>',
-                '           <label i18n="company/field_source"></label>',
-                '           <input type="text" ng-model="ev.$sources[0].url" ng-class="{ loading: ev.$sources[0].$loading }" />',
+                '           <label for="source_1_url" i18n="company/field_source"></label>',
+                '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ng-class="{ loading: ev.$sources[0].$loading }" />',
                 '        </section>',
 
                 '        <section>',
@@ -305,11 +306,11 @@ angular.module('tcp').directive('companyEvent', [
                 '        </section>',
 
                 '        <section>',
-                '            <label i18n="company/field_title"></label>',
-                '            <input type="text" ng-model="ev.title" />',
+                '            <label for="event_title" i18n="company/field_title"></label>',
+                '            <input id="event_title" type="text" ng-model="ev.title" />',
 
-                '            <label i18n="company/field_date"></label>',
-                '            <input type="date" ng-date-picker ng-model="ev.$date" />',
+                '            <label for="event_date" i18n="company/field_date"></label>',
+                '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
 
                 '            <label i18n="company/field_tied_to"></label>',
                 '            <pills',
@@ -329,14 +330,14 @@ angular.module('tcp').directive('companyEvent', [
                 '            <div ng-repeat="source in ev.$sources">',
                 '                <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>',
 
-                '                <label i18n="company/field_source"></label>',
-                '                <input type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />',
-                '                <label i18n="company/field_source_title"></label>',
-                '                <input type="text" ng-model="source.title" />',
-                '                <label i18n="company/field_pub_date"></label>',
-                '                <input type="date" ng-date-picker ng-model="source.$published_date" />',
-                '                <label i18n="company/field_quote" data="{limit: 500}"></label>',
-                '                <textarea ng-model="source.summary"></textarea>',
+                '                <label for="event_source_{{$index}}_source" i18n="company/field_source"></label>',
+                '                <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />',
+                '                <label for="event_source_{{$index}}_title" i18n="company/field_source_title"></label>',
+                '                <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
+                '                <label for="event_source_{{$index}}_date" i18n="company/field_pub_date"></label>',
+                '                <input id="event_source_{{$index}}_date" type="date" ng-date-picker ng-model="source.$published_date" />',
+                '                <label for="event_source_{{$index}}_quote" i18n="company/field_quote" data="{limit: 500}"></label>',
+                '                <textarea id="event_source_{{$index}}_quote" ng-model="source.summary"></textarea>',
                 '            </div>',
                 '        </section>',
                 '    </section>',
