@@ -284,7 +284,12 @@ angular.module('tcp').directive('companyEvent', [
 
                 '    <section popover-body>',
                 '        <section>',
-                '            <label class="margin-bottom-small" i18n="company/field_sentiment"></label>',
+                '           <label i18n="company/field_source"></label>',
+                '           <input type="text" ng-model="ev.$sources[0].url" ng-class="{ loading: ev.$sources[0].$loading }" />',
+                '        </section>',
+
+                '        <section>',
+                '            <label i18n="company/field_sentiment"></label>',
                 '            <label class="label--inline margin-right-small">',
                 '                <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
                 '                <span i18n="company/field_sentiment_positive"></span>',
