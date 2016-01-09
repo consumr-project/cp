@@ -80,9 +80,20 @@ popover-separator {
     margin: 5px 0;
 }
 
+popover-body {
+    display: block;
+    height: 60vh;
+    overflow: scroll;
+}
+
 @media (--media-content-max-width) {
     .popover__backdrop {
         display: none !important;
+    }
+
+    popover-body {
+        height: 100%;
+        overflow: visible;
     }
 
     .popover--with-content {
