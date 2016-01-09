@@ -80,7 +80,7 @@ popover-separator {
     margin: 5px 0;
 }
 
-popover-body {
+.popover [popover-body] {
     display: block;
     height: 60vh;
     overflow: scroll;

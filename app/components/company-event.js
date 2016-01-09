@@ -282,7 +282,7 @@ angular.module('tcp').directive('companyEvent', [
                 '<form class="company__event form--listed">',
                 '    <h2 i18n="company/add_event"></h2>',
 
-                '    <popover-body>',
+                '    <section popover-body>',
                 '        <section>',
                 '            <label class="margin-bottom-small" i18n="company/field_sentiment"></label>',
                 '            <label class="label--inline margin-right-small">',
@@ -334,7 +334,7 @@ angular.module('tcp').directive('companyEvent', [
                 '                <textarea ng-model="source.summary"></textarea>',
                 '            </div>',
                 '        </section>',
-                '    </popover-body>',
+                '    </section>',
 
                 '    <button class="right margin-top-small" ng-click="vm.save()"',
                 '        i18n="admin/save"></button>',
