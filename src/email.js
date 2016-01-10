@@ -1,37 +1,27 @@
 'use strict';
 
-const KNOWN_EMAILS = ['welcome'];
-
 const Message = require('./message');
 const config = require('acm');
 const debug = require('debug');
 
-var log = debug('email'),
-    log_error = debug('email:error');
+const tmpl = require('lodash/string/template');
+const yaml = require('yamljs').parse;
+const read = require('fs').readFileSync;
 
-var templates;
+const TYPE = {
+    WELCOME: 'WELCOME'
+};
 
-/**
- * loads i18n and templates
- */
-function init() {
-    var tmpl = require('lodash/string/template'),
-        yaml = require('yamljs').parse,
-        read = require('fs').readFileSync;
+const TEMPLATES = {
+    i18n: require('../build/i18n'),
+    styles: yaml(read('./templates/styles.yml').toString()),
+    images: yaml(read('./templates/images.yml').toString()),
 
-    if (templates) {
-        return;
-    }
+    base: tmpl(read('./templates/base.tmpl')),
+    welcome: tmpl(read('./templates/welcome.tmpl'))
+};
 
-    templates = {
-        i18n: require('../build/i18n'),
-        styles: yaml(read('./templates/styles.yml').toString()),
-        images: yaml(read('./templates/images.yml').toString()),
-
-        base: tmpl(read('./templates/base.tmpl')),
-        welcome: tmpl(read('./templates/welcome.tmpl'))
-    };
-}
+var log = debug('service:notification:email');
 
 /**
  * @param {amqp.Connection} connection
@@ -50,41 +40,56 @@ function queue(connection, email_to_send, payload) {
 }
 
 /**
+ * @param {Message} message
+ * @return {Error|null}
+ */
+function validate(message) {
+    if (!message.subject) {
+        return new Error('a message subject is required to send emails');
+    } else if (!(message.subject in TYPE)) {
+        return new Error(`invalid email: ${message.subject}`);
+    } else if (!message.payload) {
+        return new Error('an email payload is required');
+    } else if (!message.payload.email) {
+        return new Error('an email address is required');
+    }
+}
+
+/**
  * @param {nodemailer.Transport} transport
  * @param {Message} message
- * @param {Function} [callback]
+ * @param {Function} [cb]
  */
-function send(transport, message, callback) {
-    var lang, subject, template_data, html;
+function send(transport, message, cb) {
+    var html, from, to;
 
-    init();
+    var lang = message.payload.lang || 'en',
+        subject = message.subject,
+        callback = cb || function () {};
 
-    if (KNOWN_EMAILS.indexOf(message.subject) === -1) {
-        callback(new Error('Invalid email: ' + message.subject));
+    var template_data = {
+        payload: message.payload,
+        images: TEMPLATES.images,
+        styles: TEMPLATES.styles,
+        i18n: TEMPLATES.i18n[lang]
+    };
+
+    if (validate(message)) {
+        log(validate(message));
+        callback(validate(message));
         return;
     }
 
-    lang = message.payload.lang || 'en';
-    subject = message.subject;
-    callback = callback || function () {};
+    subject = subject.toLowerCase();
+    template_data.body = TEMPLATES[subject](template_data);
+    html = TEMPLATES.base(template_data);
 
-    template_data = {
-        payload: message.payload,
-        images: templates.images,
-        styles: templates.styles,
-        i18n: templates.i18n[lang]
-    };
+    from = config('email.addresses.do_not_reply');
+    to = message.payload.email;
+    subject = TEMPLATES.i18n[lang].get(`common/${subject}_email_subject`, message.payload);
 
-    template_data.body = templates[message.subject](template_data);
-    html = templates.base(template_data);
-
-    transport.sendMail({
-        from: config('email.addresses.do_not_reply'),
-        to: message.payload.email,
-        subject: templates.i18n[lang].get('common/' + subject + '_email_subject', message.payload),
-        html: html
-    }, (err, info) => {
-        logStatus(message, err);
+    transport.sendMail({ from, to, subject, html }, (err, info) => {
+        log_status(message, err);
         callback(err, info);
     });
 }
@@ -93,13 +98,12 @@ function send(transport, message, callback) {
  * @param {Message} message
  * @param {Error} [err]
  */
-function logStatus(message, err) {
-    if (err) {
-        log_error('error sending email %s', message.id, err);
-    } else {
+function log_status(message, err) {
+    return err ? log('error sending email %s', message.id, err) :
         log('successfully sent email %s', message.id);
-    }
 }
+
+module.exports.TYPE = TYPE;
 
 module.exports.queue = queue;
 module.exports.send = send;
