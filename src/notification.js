@@ -47,7 +47,7 @@ function find(coll, subject, extra, cb) {
  * @param {String} user_id
  * @param {Function} cb
  */
-function get_missing_information_notifications(coll, user_id, cb) {
+function get_missing_infos(coll, user_id, cb) {
     find(coll, TYPE.MISSING_INFORMATION, { 'payload.user_id': user_id }, cb);
 }
 
@@ -55,4 +55,4 @@ module.exports.TYPE = TYPE;
 
 module.exports.push = push;
 module.exports.find = find;
-module.exports.get_missing_information_notifications = get_missing_information_notifications;
+module.exports.get_missing_infos = get_missing_infos;
