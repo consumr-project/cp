@@ -9,6 +9,10 @@ install:
 clean:
 	-rm -r node_modules
 
+postgres: postgresql
+postgresql:
+	postgres
+
 migration:
 	@$(sequelize) migration:create --url $(db_url) --migrations-path db/migrations \
 		--name NEWFILE
