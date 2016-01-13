@@ -110,8 +110,6 @@ function pass_coll(fn) {
  * @return {void}
  */
 function is_logged_in(req, res, next) {
-    // XXX
-    req.user = {id: 'b2df88fa-dd25-42ba-b456-3c8d164d3343'};
     next(req.user && req.user.id ? null :
         new Error('Authentication required'));
 }
