@@ -35,12 +35,12 @@ function find(coll, subject, extra, cb) {
         extra = {};
     }
 
+    query = clone(extra || {});
+    query.type = Message.TYPE.NOTIFICATION;
+
     if (subject) {
       query.subject = subject;
     }
-
-    query = clone(extra || {});
-    query.type = Message.TYPE.NOTIFICATION;
 
     coll.find(query).toArray(cb);
 }
