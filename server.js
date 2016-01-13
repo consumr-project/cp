@@ -17,6 +17,7 @@ var express = require('express'),
 var search_service = require('search-service'),
     auth_service = require('auth-service'),
     extract_service = require('extract-service'),
+    notification_service = require('notification-service'),
     query_service = require('query-service');
 
 log = require('debug')('cp:server');
@@ -52,6 +53,9 @@ app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
 app.use('/service/auth', timeout('10s'), auth_service);
 
+app.use('/service/notification', auth_service.is_logged_in);
+app.use('/service/notification', timeout('5s'), notification_service);
+
 app.use('/service/search', timeout('5s'), search_service);
 app.use('/service/extract', timeout('5s'), extract_service);
 
@@ -64,8 +68,11 @@ app.use('/service/query', timeout('60s'), query_service);
 app.get('*', (req, res) =>
     res.render('base/index', { debugging }));
 
-require('query-service').conn.sync().then(() =>
+query_service.conn.sync().then(() =>
     log('ready for database requests'));
 
-log('listening for requests');
+notification_service.connect(() =>
+    log('ready for notification requests'));
+
 app.listen(config('port') || 3000);
+log('listening for requests');

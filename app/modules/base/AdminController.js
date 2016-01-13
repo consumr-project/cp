@@ -1,11 +1,15 @@
 angular.module('tcp').controller('AdminController', [
     '$scope',
+    '$interval',
+    'ServicesService',
     'SessionService',
     'utils',
     'Cookie',
     'lodash',
-    function ($scope, SessionService, utils, Cookie, _) {
+    function ($scope, $interval, ServicesService, SessionService, utils, Cookie, _) {
         'use strict';
+
+        var SYNC_INTERVAL = 300000;
 
         // active session. cached in `client:session` cookie
         $scope.session = getSession();
@@ -55,7 +59,27 @@ angular.module('tcp').controller('AdminController', [
         function updateCurrentUser() {
             $scope.session.avatar_url = SessionService.USER.avatar_url;
             $scope.session.logged_in = true;
-            $scope.session.message_count = 0;
+        }
+
+        /**
+         * @return {Promise}
+         */
+        function getMessages() {
+            ServicesService.notification.get.cancel();
+            return ServicesService.notification.get().then(function (items) {
+                $scope.session.message_count = items.length;
+            });
+        }
+
+        /**
+         * @return {void}
+         */
+        function sync() {
+            SessionService.refresh().then(function (user) {
+                if (user && user.id) {
+                    getMessages();
+                }
+            });
         }
 
         /**
@@ -80,6 +104,7 @@ angular.module('tcp').controller('AdminController', [
             return Cookie.getJSON('client:session') || {};
         }
 
-        SessionService.refresh();
+        sync();
+        $interval(sync, SYNC_INTERVAL);
     }
 ]);

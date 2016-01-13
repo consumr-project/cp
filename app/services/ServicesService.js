@@ -6,6 +6,7 @@ angular.module('tcp').service('ServicesService', [
         'use strict';
 
         var authService = {},
+            notificationService = {},
             extractService = {},
             searchService = {},
             queryService = {};
@@ -232,9 +233,27 @@ angular.module('tcp').service('ServicesService', [
             ].join(','));
         };
 
+        notificationService.TYPE = {
+            MISSING_INFORMATION: 'MISSING_INFORMATION'
+        };
+
+        /**
+         * @param {notificationService.TYPE} [type]
+         * @return {Promise}
+         */
+        notificationService.get = function (type) {
+            type = type ? '/' + type.toLowerCase() : '';
+            return $http.get('/service/notification/notifications' + type, {
+                timeout: abortable(notificationService.get)
+            }).then(pluck_data);
+        };
+
+        abortable(notificationService.get);
+
         return {
             auth: authService,
             extract: extractService,
+            notification: notificationService,
             search: searchService,
             query: queryService
         };
