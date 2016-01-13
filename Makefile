@@ -5,6 +5,9 @@ build_dir = build
 i18n_varname = i18n
 i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
 
+mongodb_os = osx
+mongodb_architecture = x86_64
+mongodb_version = 3.2.1
 rabbitmq_version = 3.5.6
 
 run: install build service
@@ -41,3 +44,14 @@ rabbitmq:
 	echo "build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
 	echo "http://localhost:15672/"
 	build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
+
+mongo: mongodb
+mongodb:
+	if [ ! -d build ]; then mkdir build; fi
+	if [ ! -f build/mongodb-$(mongodb_version).tar.gz ]; then \
+		wget https://fastdl.mongodb.org/$(mongodb_os)/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version).tgz \
+            -O build/mongodb-$(mongodb_version).tar.gz; fi
+	if [ ! -d build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version) ]; then \
+        tar -xf build/mongodb-$(mongodb_version).tar.gz -C build; fi
+	echo "build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod"
+	build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod
