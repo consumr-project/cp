@@ -14,11 +14,16 @@ const notifications_collection = config('mongo.collections.notifications');
 
 var log = debug('service:notification');
 
+// XXX bit of a hack, but this is the only way that I can reference the local
+// copy of `config/rbac.yml`
+config.ref.$paths.push(require('path').join(__dirname, 'config'));
+
 /**
  * @param {Function} [cb]
  */
 function connect(cb) {
     cb = cb || function () {};
+    log('connecting to mongodb');
     mongodb.connect(config('mongo.url'), (err, db) => {
         log('connected to mongodb');
         log('pushing notifications to %s', notifications_collection);
