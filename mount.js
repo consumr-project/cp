@@ -36,10 +36,10 @@ app.use(is_logged_in);
 app.get('/notifications', (req, res, next) =>
     find_for(null, req, res, next));
 
-app.get('/notifications/missing', (req, res, next) =>
+app.get('/notifications/missing_information', (req, res, next) =>
     find_for(Notifications.TYPE.MISSING_INFORMATION, req, res, next));
 
-app.post('/notifications/missing', (req, res, next) =>
+app.post('/notifications/missing_information', (req, res, next) =>
     !validate_missing_info_message(req.body) ? next(MISSING_INFO_FIELDS_ERR) :
         Notifications.push(Notifications.TYPE.MISSING_INFORMATION,
             pick(req.body, MISSING_INFO_FIELDS),
