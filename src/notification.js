@@ -35,24 +35,17 @@ function find(coll, subject, extra, cb) {
         extra = {};
     }
 
+    if (subject) {
+      query.subject = subject;
+    }
+
     query = clone(extra || {});
-    query.subject = subject;
     query.type = Message.TYPE.NOTIFICATION;
 
     coll.find(query).toArray(cb);
-}
-
-/**
- * @param {MongoClient.Collection} coll
- * @param {String} user_id
- * @param {Function} cb
- */
-function get_missing_infos(coll, user_id, cb) {
-    find(coll, TYPE.MISSING_INFORMATION, { 'payload.user_id': user_id }, cb);
 }
 
 module.exports.TYPE = TYPE;
 
 module.exports.push = push;
 module.exports.find = find;
-module.exports.get_missing_infos = get_missing_infos;
