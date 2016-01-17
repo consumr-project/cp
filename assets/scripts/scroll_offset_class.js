@@ -33,6 +33,6 @@ $(function () {
             .removeClass(_.difference(CLASSES, add).join(' '));
     }
 
-    $(window).scroll(_.debounce(set_offset_class, 50));
+    $(window).scroll(_.debounce(_.throttle(set_offset_class, 100), 10));
     set_offset_class();
 });
