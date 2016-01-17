@@ -129,7 +129,12 @@ hr {
         position: fixed;
         right: 0;
         top: 0;
+        transition: padding-top var(--speed-friendly);
         width: var(--content-aside-width);
+    }
+
+    .--scroll-offset-100 .site-content--aside {
+        padding-top: 0;
     }
 
     .site-content--aside-section-standout {

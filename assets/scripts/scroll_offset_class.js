@@ -22,7 +22,7 @@ $(function () {
         var top = document.body.scrollTop,
             add = [];
 
-        if (!top) {
+        if (!top || top < 100) {
             add.push(generate_offset_class(0));
         } else if (top >= 100) {
             add.push(generate_offset_class(100));
