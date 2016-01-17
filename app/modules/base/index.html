@@ -90,16 +90,9 @@
 
         {% if not debugging %}
         <script src="build/app.js"></script>
-        <script>
-        Rollbar.init({
-            captureUncaught: true,
-            accessToken: TCP_BUILD_CONFIG.rollbar.token,
-            payload: {
-                environment: TCP_BUILD_CONFIG.enviroment.name
-            }
-        });
-        </script>
         {% else %}
+        <script src="assets/scripts/rollbar_config.js"></script>
+        <script src="assets/scripts/scroll_offset_class.js"></script>
         <script src="app/elements/anchored.js"></script>
         <script src="app/elements/pills.js"></script>
         <script src="app/elements/popover.js"></script>
