@@ -39,7 +39,7 @@ angular.module('tcp').directive('anchored', [
         };
 
         var ANIMATION_NUDGE_OFFSET = 10,
-            ANIMATION_IN_TIME = 250,
+            ANIMATION_IN_TIME = 50,
             ANIMATION_OUT_TIME = 100;
 
         /**

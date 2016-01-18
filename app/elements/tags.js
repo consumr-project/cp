@@ -15,7 +15,7 @@ angular.module('tcp').directive('tags', function () {
     return {
         transclude: true,
         template: [
-            '<button class="button--link button--slim" ng-click="toggleTags()" i18n="common/showHide">',
+            '<button class="button--link button--slim" ng-click="toggleTags()" i18n="common/show_hide">',
             '</button>',
             '<div class="tags__tags">',
                 '<ng-transclude></ng-transclude>',

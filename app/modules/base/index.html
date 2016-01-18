@@ -24,7 +24,7 @@
                     src="assets/images/brand/consumrproject-black-stamp.png" />
 
                 <button ng-if="!session.logged_in" ng-click="login()"
-                    i18n="admin/singInUp" class="right animated fadeIn"></button>
+                    i18n="admin/sing_in_or_up" class="right animated fadeIn"></button>
 
                 <avatar
                     ng-if="session.logged_in"
@@ -57,7 +57,7 @@
                 anchored-top-offset="5"
                 anchored-auto-hide="true"
             >
-                <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/addCompany"></popover-item>
+                <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/add_company"></popover-item>
                 <popover-separator></popover-separator>
                 <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>
                 <popover-item ng-click="logout()" i18n="admin/logout"></popover-item>

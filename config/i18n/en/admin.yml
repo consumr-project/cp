@@ -1,15 +1,15 @@
 # login
-moreOptions: More Options
-remindLater: Remind me later
-signInWithService: Sign in with {service}
-signInWithEmail: Enter your email address to sign in or create an account
+more_options: More Options
+remind_later: Remind me later
+sing_in_with_service: Sign in with {service}
+sign_in_with_email: Enter your email address to sign in or create an account
 
 # actions
 cancel: Cancel
 save: Save
 logout: Logout
 follow: Follow
-singInUp: Sign in / Sign up
-addCompany: Create company
+sing_in_or_up: Sign in / Sign up
+add_company: Create company
 
 search_placeholder: search
