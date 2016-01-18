@@ -22,19 +22,27 @@ program
 
 program
     .command('generate')
-    .description('generate locate strings object')
+    .description('generate locale strings object')
     .option('--strings_file <file>', 'strings file match')
     .option('--strings_extra <str>', 'strings file non-file name match')
     .action(generateCommand);
 
+/**
+ * @param {String} locale
+ * @return {String}
+ */
+function realLocale(locale) {
+    return locale === 'lolcat' ? 'en' : locale;
+}
+
 function functionsCommand() {
-    var mf = new MessageFormat(program.locale);
+    var mf = new MessageFormat(realLocale(program.locale));
     console.log('window.%s = %s;', program['var'], mf.functions());
     console.log('window.%s.get = %s;', program['var'], i18nGetFunction.toString());
 }
 
 function generateCommand(options) {
-    var mf = new MessageFormat(program.locale);
+    var mf = new MessageFormat(realLocale(program.locale));
     glob(options.strings_file, function (err, files) {
         each(files, function (file) {
             var name = generateSectionName(file, options.strings_extra),

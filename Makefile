@@ -51,7 +51,8 @@ build: clean build-css build-js build-ts build-strings build-bundle build-app
 
 build-strings:
 	./scripts/compile-string-files functions --var $(i18n_varname) --locale en > $(build_dir)/i18n.js
-	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/en.js
+	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
+	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
 
 build-css:
 	./node_modules/.bin/cssnext assets/styles/main.css $(build_css) \

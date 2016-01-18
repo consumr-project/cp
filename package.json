@@ -61,7 +61,10 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
+    "async": "^1.5.2",
     "browserify": "^11.0.1",
+    "cheerio": "^0.19.0",
+    "colors": "^1.1.2",
     "commander": "^2.8.1",
     "cssnext": "^1.8.1",
     "fast-csv": "^0.6.0",

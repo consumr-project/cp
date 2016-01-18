@@ -1,0 +1,18 @@
+update: update
+about: bout
+not_found: 'not findz'
+ignore: ignore
+create_this: 'create "{name}"?'
+searching_for: 'searchin 4 "{query}"'
+no_results: 'no results 4 "{query}"'
+enumeration_comma: ', '
+welcome: 'welcom 2 teh consumr project'
+enumeration_comma_last: ', an '
+see_wiki: 'c moar frum wikipedia'
+loading_events: 'loadin events...'
+intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'
+none: none
+show_hide: 'show / hide'
+search_stats: '{count} results ({time} ms)'
+recent_searches: 'resent searchez:'
+results: 'results:'

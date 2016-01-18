@@ -67,7 +67,10 @@ app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
 
 app.get('*', (req, res) =>
-    res.render('base/index', { debugging }));
+    res.render('base/index', {
+        debugging,
+        lang: req.query.lang
+    }));
 
 query_service.conn.sync().then(() =>
     log('ready for database requests'));

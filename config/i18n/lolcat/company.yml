@@ -1,0 +1,2 @@
+name_placeholder: 'company naym'
+source_count: '{count} {count, plural, one {Source} other {Sources}}'

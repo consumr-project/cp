@@ -13,7 +13,10 @@
         <link rel="stylesheet" href="build/site.css">
         <script src="build/vendor.js"></script>
         <script src="build/i18n.js"></script>
-        <script src="build/en.js"></script>
+        <script src="build/i18n.en.js"></script>
+        {% if lang and lang != 'en' %}
+        <script src="build/i18n.{{lang}}.js"></script>
+        {% endif %}
     </head>
     <body ng-app="tcp" ng-controller="NavigationController" ng-strict-di>
         <div ng-controller="AdminController" ng-cloak>
