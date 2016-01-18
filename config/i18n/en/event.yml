@@ -1,0 +1,17 @@
+add: Add an event
+add_source: Add another source
+
+source_number: Source {number}
+source_url: Source url
+source_title: Source title
+
+sentiment: Choose which sentiment best describes the event
+sentiment_positive: Positive
+sentiment_negative: Negative
+sentiment_neutral: Neutral
+date: Event date
+tied_to: "Companies & Countries involved in the event"
+tags: Tags
+title: Title
+pub_date: Publication date
+quote: Quote (limit {limit} characters)

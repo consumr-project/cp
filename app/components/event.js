@@ -1,4 +1,4 @@
-angular.module('tcp').directive('companyEvent', [
+angular.module('tcp').directive('event', [
     '$q',
     'lodash',
     'ServicesService',
@@ -280,45 +280,45 @@ angular.module('tcp').directive('companyEvent', [
                 onSave: '&'
             },
             template: [
-                '<form class="company__event form--listed">',
-                '    <h2 i18n="company/add_event"></h2>',
+                '<form class="event-elem form--listed">',
+                '    <h2 i18n="event/add"></h2>',
 
                 '    <section popover-body>',
                 '        <section>',
-                '           <label for="source_1_url" i18n="company/field_source"></label>',
+                '           <label for="source_1_url" i18n="event/source_url"></label>',
                 '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ng-class="{ loading: ev.$sources[0].$loading }" />',
                 '        </section>',
 
                 '        <section>',
-                '            <label i18n="company/field_sentiment"></label>',
+                '            <label i18n="event/sentiment"></label>',
                 '            <label class="label--inline margin-right-small">',
                 '                <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
-                '                <span i18n="company/field_sentiment_positive"></span>',
+                '                <span i18n="event/sentiment_positive"></span>',
                 '            </label>',
                 '            <label class="label--inline margin-right-small">',
                 '                <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />',
-                '                <span i18n="company/field_sentiment_negative"></span>',
+                '                <span i18n="event/sentiment_negative"></span>',
                 '            </label>',
                 '            <label class="label--inline">',
                 '                <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />',
-                '                <span i18n="company/field_sentiment_neutral"></span>',
+                '                <span i18n="event/sentiment_neutral"></span>',
                 '            </label>',
                 '        </section>',
 
                 '        <section>',
-                '            <label for="event_title" i18n="company/field_title"></label>',
+                '            <label for="event_title" i18n="event/title"></label>',
                 '            <input id="event_title" type="text" ng-model="ev.title" />',
 
-                '            <label for="event_date" i18n="company/field_date"></label>',
+                '            <label for="event_date" i18n="event/date"></label>',
                 '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
 
-                '            <label i18n="company/field_tied_to"></label>',
+                '            <label i18n="event/tied_to"></label>',
                 '            <pills',
                 '                selections="ev.$companies"',
                 '                query="vm.query_companies(query, done)"',
                 '            ></pills>',
 
-                '            <label i18n="company/field_tags"></label>',
+                '            <label i18n="event/tags"></label>',
                 '            <pills',
                 '                selections="ev.$tags"',
                 '                create="vm.create_tag(value, done)"',
@@ -328,15 +328,15 @@ angular.module('tcp').directive('companyEvent', [
 
                 '        <section>',
                 '            <div ng-repeat="source in ev.$sources">',
-                '                <h3 i18n="company/source_title" data="{number: {{$index + 1}}}"></h3>',
+                '                <h3 i18n="event/source_number" data="{number: {{$index + 1}}}"></h3>',
 
-                '                <label for="event_source_{{$index}}_source" i18n="company/field_source"></label>',
+                '                <label for="event_source_{{$index}}_source" i18n="event/source_url"></label>',
                 '                <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />',
-                '                <label for="event_source_{{$index}}_title" i18n="company/field_source_title"></label>',
+                '                <label for="event_source_{{$index}}_title" i18n="event/source_title"></label>',
                 '                <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
-                '                <label for="event_source_{{$index}}_date" i18n="company/field_pub_date"></label>',
+                '                <label for="event_source_{{$index}}_date" i18n="event/pub_date"></label>',
                 '                <input id="event_source_{{$index}}_date" type="date" ng-date-picker ng-model="source.$published_date" />',
-                '                <label for="event_source_{{$index}}_quote" i18n="company/field_quote" data="{limit: 500}"></label>',
+                '                <label for="event_source_{{$index}}_quote" i18n="event/quote" data="{limit: 500}"></label>',
                 '                <textarea id="event_source_{{$index}}_quote" ng-model="source.summary"></textarea>',
                 '            </div>',
                 '        </section>',
@@ -347,7 +347,7 @@ angular.module('tcp').directive('companyEvent', [
                 '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
                 '        i18n="admin/cancel"></button>',
                 '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
-                '        i18n="company/add_source"></button>',
+                '        i18n="event/add_source"></button>',
                 '</form>'
             ].join('')
         };

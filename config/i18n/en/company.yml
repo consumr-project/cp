@@ -2,22 +2,3 @@ name_placeholder: Company name
 
 # events
 source_count: "{count} {count, plural, one {Source} other {Sources}}"
-
-# add event popup
-add_event: Add an event
-add_source: Add another source
-source_title: Source {number}
-
-field_source: Source url
-field_source_title: Source title
-field_sentiment: Choose which sentiment best describes the event
-field_sentiment_positive: Positive
-field_sentiment_negative: Negative
-field_sentiment_neutral: Neutral
-field_title: Event title
-field_date: Event date
-field_tied_to: "Companies & Countries involved in the event"
-field_tags: Tags
-field_title: Title
-field_pub_date: Publication date
-field_quote: Quote (limit {limit} characters)

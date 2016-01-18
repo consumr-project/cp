@@ -100,7 +100,7 @@ build-app:
 	$(js_min) app/elements/followed-by.js >> $(build_app_js)
 	$(js_min) app/components/user.js >> $(build_app_js)
 	$(js_min) app/components/company.js >> $(build_app_js)
-	$(js_min) app/components/company-event.js >> $(build_app_js)
+	$(js_min) app/components/event.js >> $(build_app_js)
 	$(js_min) app/components/events.js >> $(build_app_js)
 	$(js_min) app/modules/base/AdminController.js >> $(build_app_js)
 	$(js_min) app/modules/base/NavigationController.js >> $(build_app_js)
