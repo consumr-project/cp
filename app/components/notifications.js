@@ -85,7 +85,7 @@ angular.module('tcp').directive('notifications', [
                 '    <h2 i18n="notification/notifications"></h2>',
                 '    <hr />',
 
-                '    <div ng-if="::notifications.MISSING_INFORMATION.company">',
+                '    <div class="animated fadeIn" ng-if="::notifications.MISSING_INFORMATION.company">',
                 '        <div class="notification notification--missing-information can-load" ',
                 '            ng-class="{loading: notification.$loading || notification.$deleted}" ',
                 '            ng-repeat="notification in ::notifications.MISSING_INFORMATION.company">',
