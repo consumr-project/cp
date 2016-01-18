@@ -1,3 +1,25 @@
-.notification--missing-information {
-    margin-top: var(--spacing-large);
+.notification {
+    color: var(--color-light-text-color);
+    margin-top: var(--spacing-small);
+    padding: var(--spacing-small) 0;
+    position: relative;
+}
+
+.notification b {
+    color: black;
+}
+
+.notification::before {
+    transition: opacity var(--speed-fast), left var(--speed-fast);
+    content: '•';
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.notification:hover::before {
+    left: -15px;
+    opacity: 1;
 }

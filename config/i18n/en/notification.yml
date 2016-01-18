@@ -1,6 +1,6 @@
 notifications: Notifications
 
-new_company_details: New company details
-new_tag_details: New tag details
+# new_company_details: New company details
+# new_tag_details: New tag details
 
 new_company_message: "<a href=\"/route?obj_type={obj_type}&obj_id={obj_id}\">{obj_name}</a>, which was created for <a href=\"/route?obj_type={obj_for_type}&obj_id={obj_for_id}\">\"{obj_for_name}\"</a>, is missing the following field(s):"

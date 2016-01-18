@@ -2,6 +2,9 @@ none: none
 about: About
 show_hide: Show / Hide
 
+update: Update
+ignore: Ignore
+
 # brand
 welcome: Welcome to The Consumer Project
 intro: A crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.

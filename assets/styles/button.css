@@ -56,6 +56,11 @@ button.button--slim {
     padding: 0;
 }
 
+button.button--secondary {
+    color: var(--color-light-text-color);
+    border-color: var(--color-std-thin-border-color);
+}
+
 button.button--social-linkedin {
     background-color: #0077B5;
     color: white;
