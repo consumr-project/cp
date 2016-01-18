@@ -13,6 +13,12 @@ for monitoring setup see
 [web-client](https://github.com/consumr-project/web-client#new-relic)'s
 documentation
 
+mongodb configuration
+
+```bash
+export MONGO_URL='utl to mongo db instance with database name'
+```
+
 email transport configuration
 
 ```bash
@@ -38,6 +44,11 @@ heroku ps:scale worker=1
 ```
 
 ### services
+
+#### mongodb
+
+mongolab provides a free [MongoDB instance](https://mongolab.com/) that works
+just fine for a development enviroment.
 
 #### rabbitmq
 
