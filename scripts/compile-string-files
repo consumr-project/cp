@@ -2,14 +2,14 @@
 
 'use strict';
 
-var MessageFormat = require('messageformat').MessageFormat,
-    program = require('commander');
+const MessageFormat = require('messageformat').MessageFormat;
+const program = require('commander');
 
-var path = require('path'),
-    fs = require('fs'),
-    yaml = require('yamljs'),
-    glob = require('glob'),
-    each = require('lodash/collection/each');
+const path = require('path');
+const fs = require('fs');
+const yaml = require('yamljs');
+const glob = require('glob');
+const each = require('lodash/collection/each');
 
 program
     .option('-l --locale <name>', 'name of the locale to compile')
@@ -18,34 +18,41 @@ program
 program
     .command('functions')
     .description('generate the base i18n variable')
-    .action(functionsCommand);
+    .action(command_functions);
 
 program
     .command('generate')
     .description('generate locale strings object')
     .option('--strings_file <file>', 'strings file match')
     .option('--strings_extra <str>', 'strings file non-file name match')
-    .action(generateCommand);
+    .action(command_generate);
 
 /**
  * @param {String} locale
  * @return {String}
  */
-function realLocale(locale) {
+function real_locale(locale) {
     return locale === 'lolcat' ? 'en' : locale;
 }
 
-function functionsCommand() {
-    var mf = new MessageFormat(realLocale(program.locale));
+/**
+ * @return {void}
+ */
+function command_functions() {
+    var mf = new MessageFormat(real_locale(program.locale));
     console.log('window.%s = %s;', program['var'], mf.functions());
-    console.log('window.%s.get = %s;', program['var'], i18nGetFunction.toString());
+    console.log('window.%s.get = %s;', program['var'], i18n_get_function.toString());
 }
 
-function generateCommand(options) {
-    var mf = new MessageFormat(realLocale(program.locale));
+/**
+ * @param {Object} options
+ * @return {void}
+ */
+function command_generate(options) {
+    var mf = new MessageFormat(real_locale(program.locale));
     glob(options.strings_file, function (err, files) {
         each(files, function (file) {
-            var name = generateSectionName(file, options.strings_extra),
+            var name = generate_section_name(file, options.strings_extra),
                 contents = fs.readFileSync(file).toString(),
                 parsed = yaml.parse(contents);
 
@@ -56,7 +63,13 @@ function generateCommand(options) {
     });
 }
 
-function i18nGetFunction (path, data) {
+/**
+ * helper function which is stringified and used by the web client
+ * @param {String} path
+ * @param {Object} data
+ * @return {String}
+ */
+function i18n_get_function (path, data) {
     var parts = path.split('/'),
         fn = parts.pop(),
         name = parts.join('/');
@@ -74,7 +87,7 @@ function i18nGetFunction (path, data) {
  * @param {String} exit
  * @return {String}
  */
-function generateSectionName(file, extra) {
+function generate_section_name(file, extra) {
     return file
         .substr(0, file.lastIndexOf('.'))
         .replace(extra, '');
