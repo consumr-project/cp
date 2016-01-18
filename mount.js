@@ -2,7 +2,9 @@
 
 var COLL;
 
-const MISSING_INFO_FIELDS = ['obj_id', 'obj_type', 'obj_name', 'obj_fields'];
+const MISSING_INFO_FIELDS = ['obj_id', 'obj_type', 'obj_name', 'obj_fields',
+    'obj_for_id', 'obj_for_type', 'obj_for_name'];
+
 const MISSING_INFO_FIELDS_ERR = new Error(`Missing data. Required: ${MISSING_INFO_FIELDS.join(', ')}`);
 
 const express = require('express');
@@ -55,7 +57,8 @@ app.delete('/notifications/:id', (req, res, next) =>
  * @return {Boolean}
  */
 function validate_missing_info_message(data) {
-    return data.obj_id && data.obj_type && data.obj_name && data.obj_fields;
+    return data.obj_id && data.obj_type && data.obj_name && data.obj_fields &&
+        data.obj_for_id && data.obj_for_type && data.obj_for_name;
 }
 
 /**
