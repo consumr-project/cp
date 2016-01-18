@@ -147,9 +147,9 @@ angular.module('tcp').directive('notifications', [
 
                 '            <section popover-body>',
                 '                <div ng-switch="field" ng-repeat="field in vm.selected_notification.payload.obj_fields">',
-                '                    <label ng-switch="field">{{field}}</label>',
-                '                    <textarea ng-switch-when="summary" ng-model="vm.selected_notification.$update[field]"></textarea>',
-                '                    <input ng-switch-default ng-model="vm.selected_notification.$update[field]" />',
+                '                    <label ng-switch="field" for="notification_update_{{$index}}">{{field}}</label>',
+                '                    <textarea ng-switch-when="summary" id="notification_update_{{$index}}" ng-model="vm.selected_notification.$update[field]"></textarea>',
+                '                    <input ng-switch-default id="notification_update_{{$index}}" ng-model="vm.selected_notification.$update[field]" />',
                 '                </div>',
                 '            </section>',
 
