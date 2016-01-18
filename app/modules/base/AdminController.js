@@ -37,6 +37,7 @@ angular.module('tcp').controller('AdminController', [
         SessionService.on(SessionService.EVENT.LOGIN, getMessages);
         SessionService.on(SessionService.EVENT.ERROR, clearSession);
         SessionService.on(SessionService.EVENT.LOGOUT, clearSession);
+        SessionService.on(SessionService.EVENT.NOTIFY, getMessages);
 
         function loginWithLinkedin() {
             console.info('loggin in with linkedin');

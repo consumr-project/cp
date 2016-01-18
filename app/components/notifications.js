@@ -49,6 +49,18 @@ angular.module('tcp').directive('notifications', [
         function controller($scope) {
             $scope.notifications = {};
 
+            $scope.ignore = function (notification) {
+                notification.$loading = true;
+                return ServicesService.notification.delete(notification.id).then(function (action) {
+                    SessionService.emit(SessionService.EVENT.NOTIFY);
+                    notification.$loading = false;
+                    notification.$deleted = action && action.ok;
+                }).catch(function () {
+                    notification.$loading = false;
+                    notification.$deleted = false;
+                });
+            };
+
             /**
              * @param {String} id
              * @return {Promise}
@@ -74,7 +86,8 @@ angular.module('tcp').directive('notifications', [
                 '    <hr />',
 
                 '    <div ng-if="::notifications.MISSING_INFORMATION.company">',
-                '        <div class="notification notification--missing-information" ',
+                '        <div class="notification notification--missing-information can-load" ',
+                '            ng-class="{loading: notification.$loading || notification.$deleted}" ',
                 '            ng-repeat="notification in ::notifications.MISSING_INFORMATION.company">',
                 '            <div>',
                 '                <span i18n="notification/new_company_message" prop="html" data="{',
@@ -89,6 +102,7 @@ angular.module('tcp').directive('notifications', [
                 '                    <span><b>{{::field}}</b>{{ ::$last ? (!$first ? " and " : "") : ", " }}</span>',
                 '                </span>',
                 '            </div>',
+
                 '            <div class="margin-top-small">',
                 '                <button ng-click="update(notification)" i18n="common/update"></button>',
                 '                <button ng-click="ignore(notification)" i18n="common/ignore" class="button--secondary"></button>',

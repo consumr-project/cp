@@ -6,6 +6,7 @@ angular.module('tcp').service('SessionService', [
         'use strict';
 
         var events = {
+            NOTIFY: 'notify',
             LOGIN: 'login',
             LOGOUT: 'logout',
             ERROR: 'error'

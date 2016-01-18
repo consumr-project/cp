@@ -250,6 +250,18 @@ angular.module('tcp').service('ServicesService', [
 
         abortable(notificationService.get);
 
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.delete = function (id) {
+            return $http.delete('/service/notification/notifications/' + id, {
+                timeout: abortable(notificationService.delete)
+            }).then(pluck_data);
+        };
+
+        abortable(notificationService.delete);
+
         return {
             auth: authService,
             extract: extractService,

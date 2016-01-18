@@ -13,13 +13,13 @@
     transition: opacity var(--speed-fast), left var(--speed-fast);
     content: '•';
     position: absolute;
-    left: -25px;
+    left: -35px;
     top: 50%;
     transform: translateY(-50%);
     opacity: 0;
 }
 
 .notification:hover::before {
-    left: -15px;
+    left: -25px;
     opacity: 1;
 }
