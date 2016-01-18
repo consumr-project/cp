@@ -60,6 +60,7 @@ angular.module('tcp').directive('notifications', [
              */
             $scope.ignore = function (notification) {
                 notification.$loading = true;
+
                 return ServicesService.notification.delete(notification.id).then(function (action) {
                     SessionService.emit(SessionService.EVENT.NOTIFY);
                     notification.$loading = false;
@@ -76,6 +77,16 @@ angular.module('tcp').directive('notifications', [
              */
             $scope.update = function (notification) {
                 $scope.vm.notification_popup.hide();
+                notification.$loading = true;
+
+                return ServicesService.notification.delete(notification.id).then(function (action) {
+                    SessionService.emit(SessionService.EVENT.NOTIFY);
+                    notification.$loading = false;
+                    notification.$deleted = action && action.ok;
+                }).catch(function () {
+                    notification.$loading = false;
+                    notification.$deleted = false;
+                });
             };
 
             /**
