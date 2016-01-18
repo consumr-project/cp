@@ -49,6 +49,14 @@ angular.module('tcp').directive('notifications', [
         function controller($scope) {
             $scope.notifications = {};
 
+            $scope.vm = {
+                notification_popup: {},
+            };
+
+            /**
+             * @param {Message} notification
+             * @return {Promise}
+             */
             $scope.ignore = function (notification) {
                 notification.$loading = true;
                 return ServicesService.notification.delete(notification.id).then(function (action) {
@@ -62,18 +70,27 @@ angular.module('tcp').directive('notifications', [
             };
 
             /**
-             * @param {String} id
+             * @param {Message} notification
              * @return {Promise}
              */
-            function load(id) {
-                return ServicesService.notification.get(
+            $scope.update = function (notification) {
+                $scope.vm.notification_popup.hide();
+            };
+
+            /**
+             * @param {Message} notifications
+             * @return {void}
+             */
+            $scope.select = function (notification) {
+                $scope.vm.selected_notification = notification;
+                $scope.vm.notification_popup.show();
+            };
+
+            if (SessionService.USER.id) {
+                ServicesService.notification.get(
                     ServicesService.notification.TYPE.MISSING_INFORMATION)
                         .then(normalize_notifications)
                         .then(utils.scope.set($scope, 'notifications'));
-            }
-
-            if (SessionService.USER.id) {
-                load(SessionService.USER.id);
             }
         }
 
@@ -109,13 +126,32 @@ angular.module('tcp').directive('notifications', [
                 '            </div>',
 
                 '            <div class="margin-top-small">',
-                '                <button ng-click="update(notification)" ',
+                '                <button ng-click="select(notification)" ',
                 '                    i18n="common/update"></button>',
                 '                <button ng-click="ignore(notification)" ',
                 '                    i18n="common/ignore" class="button--secondary"></button>',
                 '            </div>',
                 '        </div>',
                 '    </div>',
+
+                '    <popover popover-x popover-backdrop popover-api="vm.notification_popup" class="popover--with-content">',
+                '        <form class="form--listed">',
+                '            <h2 i18n="event/add"></h2>',
+
+                '            <section popover-body>',
+                '                <div ng-switch="field" ng-repeat="field in vm.selected_notification.payload.obj_fields">',
+                '                    <label ng-switch="field">{{field}}</label>',
+                '                    <textarea ng-switch-when="summary" ng-model="vm.selected_notification.$update[field]"></textarea>',
+                '                    <input ng-switch-default ng-model="vm.selected_notification.$update[field]" />',
+                '                </div>',
+                '            </section>',
+
+                '            <button class="right margin-top-small" ng-click="update(vm.selected_notification)"',
+                '                i18n="admin/save"></button>',
+                '            <button class="right margin-top-small button--link" ng-click="vm.notification_popup.hide()"',
+                '                i18n="admin/cancel"></button>',
+                '        </form>',
+                '    </popover>',
                 '</div>'
             ].join('')
         };

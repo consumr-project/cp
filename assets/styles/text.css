@@ -84,3 +84,7 @@ form h2 {
     position: relative;
     top: 1px;
 }
+
+.form--listed textarea {
+    height: 150px;
+}
