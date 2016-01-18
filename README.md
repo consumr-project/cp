@@ -10,7 +10,7 @@ things we buy, sell, and consume every day.
 ### configuration
 
 for monitoring setup see
-[web-client](https://github.com/consumr-project/web-client#newrelic)'s
+[web-client](https://github.com/consumr-project/web-client#new-relic)'s
 documentation
 
 email transport configuration

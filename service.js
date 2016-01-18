@@ -1,5 +1,6 @@
 'use strict';
 
+process.env.NEW_RELIC_NO_CONFIG_FILE = true;
 require('newrelic');
 
 const Message = require('./src/message');
