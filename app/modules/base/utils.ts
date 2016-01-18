@@ -20,9 +20,9 @@ export function assert(val: any, message?: string): Boolean {
 }
 
 export module scope {
-    export function set<T>($scope: any, prop: string): (val: T) => T {
+    export function set<T>($scope: any, prop: string, forced_value?: T): (val: T) => T {
         return function (val: T): T {
-            deep<T>($scope, prop, val);
+            deep<T>($scope, prop, forced_value !== undefined ? forced_value : val);
             return val;
         };
     }

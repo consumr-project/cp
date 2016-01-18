@@ -43,13 +43,14 @@ angular.module('tcp').directive('notifications', [
                 }
 
                 return group;
-            }, {});
+            }, { count: notifications.length });
         }
 
         function controller($scope) {
             $scope.notifications = {};
 
             $scope.vm = {
+                loading: false,
                 notification_popup: {},
             };
 
@@ -87,10 +88,12 @@ angular.module('tcp').directive('notifications', [
             };
 
             if (SessionService.USER.id) {
+                $scope.vm.loading = true;
                 ServicesService.notification.get(
                     ServicesService.notification.TYPE.MISSING_INFORMATION)
                         .then(normalize_notifications)
-                        .then(utils.scope.set($scope, 'notifications'));
+                        .then(utils.scope.set($scope, 'notifications'))
+                        .then(utils.scope.set($scope, 'vm.loading', false));
             }
         }
 
@@ -101,6 +104,10 @@ angular.module('tcp').directive('notifications', [
                 '<div>',
                 '    <h2 i18n="notification/notifications"></h2>',
                 '    <hr />',
+
+                '    <h3 ng-show="!vm.loading && !notifications.count" ',
+                '        class="margin-top-xlarge center-align" ',
+                '        i18n="notification/no_notifications"></h3>',
 
                 '    <div class="animated fadeIn" ng-if="::notifications.MISSING_INFORMATION.company">',
                 '        <div class="notification notification--missing-information can-load" ',
