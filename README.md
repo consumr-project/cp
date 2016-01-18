@@ -32,16 +32,17 @@ export DEBUG=*
 
 ### services
 
-#### newrelic
+#### new relic
 
 For heroku, follow
-[newrelic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
-and make sure to never hardcode app names or store license keys in code:
+[new relic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
+and [configuration instructions](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration#environment-variable-overrides)
+as well:
 
 ```bash
-export NEWRELIC_KEY=$(echo $NEWRELIC_KEY)
-export NEWRELIC_APP_NAME=$(echo $NEWRELIC_APP_NAME)
-export NEWRELIC_LOG_LEVEL='info'
+export NEW_RELIC_LICENSE_KEY='...'
+export NEW_RELIC_APP_NAME='cp-local-'$(whoami)
+export NEW_RELIC_LOG_LEVEL='info'
 ```
 
 ### logging
@@ -53,7 +54,7 @@ are required as configuration. the `NODE_ENV` variable is checked for the
 environment, with 'development' as the default.
 
 ```bash
-export ROLLBAR_TOKEN=$(echo $ROLLBAR_TOKEN)
+export ROLLBAR_TOKEN='...'
 export NODE_ENV='development'
 ```
 
