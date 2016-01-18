@@ -99,6 +99,7 @@ build-app:
 	$(js_min) app/elements/i18n.js >> $(build_app_js)
 	$(js_min) app/elements/followed-by.js >> $(build_app_js)
 	$(js_min) app/components/user.js >> $(build_app_js)
+	$(js_min) app/components/notifications.js >> $(build_app_js)
 	$(js_min) app/components/company.js >> $(build_app_js)
 	$(js_min) app/components/event.js >> $(build_app_js)
 	$(js_min) app/components/events.js >> $(build_app_js)

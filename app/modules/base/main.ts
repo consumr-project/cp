@@ -56,7 +56,7 @@ module tcp {
 
             let UserCheck = {
                 current_user: ['SessionService', function (SessionService) {
-                    SessionService.refresh();
+                    return SessionService.refresh();
                 }]
             };
 
@@ -74,6 +74,11 @@ module tcp {
             $routeProvider.when('/search', {
                 templateUrl: '/app/modules/search/index.html',
                 controller: 'SearchController'
+            });
+
+            $routeProvider.when('/user/notifications', {
+                template: '<notifications class="site-content"></notifications>',
+                resolve: UserCheck
             });
 
             $routeProvider.when('/user/:id', {

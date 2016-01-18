@@ -10,6 +10,8 @@ save: Save
 logout: Logout
 follow: Follow
 sing_in_or_up: Sign in / Sign up
+
+see_notifications: Notifications
 add_company: Create company
 
 search_placeholder: search

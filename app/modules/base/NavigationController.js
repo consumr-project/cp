@@ -10,6 +10,7 @@ angular.module('tcp').controller('NavigationController', [
             home: NavigationService.home,
             search: NavigationService.search,
             company: NavigationService.company,
+            notifications: NavigationService.notifications,
             profile: function () { NavigationService.user(SessionService.USER.id); }
         };
 

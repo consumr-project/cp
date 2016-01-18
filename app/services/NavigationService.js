@@ -7,7 +7,9 @@ angular.module('tcp').service('NavigationService', [
             COMPANY: '/company',
             HOME: '/',
             SEARCH: '/search',
-            USER: '/user'
+            USER: '/user',
+            EVENT: '/event',
+            NOTIFICATIONS: '/notifications'
         };
 
         /**
@@ -40,6 +42,8 @@ angular.module('tcp').service('NavigationService', [
             company: withoid(BASES.COMPANY),
             home: withoid(BASES.HOME),
             user: withoid(BASES.USER),
+            event: withoid(BASES.EVENT),
+            notifications: withoid(BASES.USER + BASES.NOTIFICATIONS),
 
             /**
              * go to search

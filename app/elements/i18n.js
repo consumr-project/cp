@@ -26,6 +26,11 @@ angular.module('tcp').directive('i18n', [
                     elem.text(value);
                     break;
 
+                case 'html':
+                case 'innerHTML':
+                    elem.html(value);
+                    break;
+
                 default:
                     elem.prop(prop, value);
                     break;
