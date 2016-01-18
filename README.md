@@ -18,7 +18,7 @@ service.
 ### configuration
 
 for monitoring setup see
-[web-client](https://github.com/consumr-project/web-client#newrelic)'s
+[web-client](https://github.com/consumr-project/web-client#new-relic)'s
 documentation
 
 point to elasticsearch instance:
