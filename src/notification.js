@@ -10,13 +10,15 @@ const TYPE = {
 /**
  * @param {MongoClient.Collection} coll
  * @param {String} subject
+ * @param {String} to
  * @param {Object} payload
  * @param {Function} [cb]
  */
-function push(coll, subject, payload, cb) {
+function push(coll, subject, to, payload, cb) {
     coll.insert(new Message({
         subject,
         payload,
+        to,
         type: Message.TYPE.NOTIFICATION
     }), cb || () => {});
 }
@@ -45,7 +47,21 @@ function find(coll, subject, extra, cb) {
     coll.find(query).toArray(cb);
 }
 
+/**
+ * @param {MongoClient.Collection} coll
+ * @param {String} id
+ * @param {String} to
+ * @param {Function} cb
+ */
+function remove(coll, id, to, cb) {
+    coll.remove({id, to}, function () {
+        console.log(arguments);
+        cb();
+    });
+}
+
 module.exports.TYPE = TYPE;
 
 module.exports.push = push;
 module.exports.find = find;
+module.exports.remove = remove;

@@ -2,7 +2,7 @@
 
 var COLL;
 
-const MISSING_INFO_FIELDS = ['user_id', 'obj_id', 'obj_type', 'obj_fields'];
+const MISSING_INFO_FIELDS = ['obj_id', 'obj_type', 'obj_name', 'obj_fields'];
 const MISSING_INFO_FIELDS_ERR = new Error(`Missing data. Required: ${MISSING_INFO_FIELDS.join(', ')}`);
 
 const express = require('express');
@@ -26,6 +26,7 @@ const Notifications = {
     TYPE: NotificationsApi.TYPE,
     push: pass_coll(NotificationsApi.push),
     find: pass_coll(NotificationsApi.find),
+    remove: pass_coll(NotificationsApi.remove),
 };
 
 var log = debug('service:notification');
@@ -42,15 +43,19 @@ app.get('/notifications/missing_information', (req, res, next) =>
 app.post('/notifications/missing_information', (req, res, next) =>
     !validate_missing_info_message(req.body) ? next(MISSING_INFO_FIELDS_ERR) :
         Notifications.push(Notifications.TYPE.MISSING_INFORMATION,
-            pick(req.body, MISSING_INFO_FIELDS),
+            req.user.id, pick(req.body, MISSING_INFO_FIELDS),
             (err, items) => find_for(Notifications.TYPE.MISSING_INFORMATION, req, res, next)));
+
+app.delete('/notifications/:id', (req, res, next) =>
+    Notifications.remove(req.params.id, req.user.id, err =>
+        err ? next(err) : res.json({ ok: true })));
 
 /**
  * @param {Object} data
  * @return {Boolean}
  */
 function validate_missing_info_message(data) {
-    return data.user_id && data.obj_id && data.obj_type && data.obj_fields;
+    return data.obj_id && data.obj_type && data.obj_name && data.obj_fields;
 }
 
 /**
@@ -61,7 +66,7 @@ function validate_missing_info_message(data) {
  * @return {void}
  */
 function find_for(type, req, res, next) {
-    Notifications.find(type, { 'payload.user_id': req.user.id },
+    Notifications.find(type, { to: req.user.id },
         (err, items) => err ? next(err) : res.json(items));
 }
 

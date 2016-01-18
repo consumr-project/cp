@@ -7,6 +7,7 @@ class Message {
      * @param {String} id
      * @param {Message.TYPE} type
      * @param {String} subject ie. "welcome" for welcome email
+     * @param {String} to user id this message is for
      * @param {Object} payload
      */
     constructor(config) {
@@ -16,6 +17,7 @@ class Message {
 
         this.id = config.id || uuid.v4();
         this.type = config.type;
+        this.to = config.to;
         this.subject = config.subject || config.type;
         this.payload = config.payload || {};
     }
