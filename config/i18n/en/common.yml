@@ -1,6 +1,3 @@
-enumeration_comma: ", "
-enumeration_comma_last: ", and "
-
 none: none
 about: About
 show_hide: Show / Hide
@@ -22,9 +19,13 @@ search_stats: "{count} results ({time} ms)"
 # object loading
 not_found: Not Found
 create_this: Create "{name}"?
+loading_events: "Loading events..."
 
 # external sources
 see_wiki: See more from wikipedia
 
-# loading
-loading_events: "Loading events..."
+# grammar
+# http://linguistics.stackexchange.com/questions/6737/what-languages-use-the-serial-comma
+# https://en.wikipedia.org/wiki/Comma#In_lists
+enumeration_comma: ", "
+enumeration_comma_last: ", and "
