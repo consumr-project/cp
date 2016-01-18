@@ -1,3 +1,6 @@
+enumeration_comma: ", "
+enumeration_comma_last: ", and "
+
 none: none
 about: About
 show_hide: Show / Hide

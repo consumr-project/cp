@@ -4,6 +4,10 @@
     -webkit-user-select: none;
 }
 
+.no-white-space {
+    font-size: 0;
+}
+
 .can-load {
     transition: opacity var(--speed-friendly);
 }
