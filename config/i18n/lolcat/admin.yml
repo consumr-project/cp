@@ -1,12 +1,12 @@
-more_options: 'moar opshuns'
-follow: follow
-remind_later: 'remind me latr'
-cancel: cancel
-save: save
-see_notifications: notificashuns
-sing_in_or_up: 'sign in / sign up'
-logout: logout
-sign_in_with_email: 'entr ur email addres 2 sign in or create an akownt'
-sing_in_with_service: 'sign in wif {service}'
-search_placeholder: search
 add_company: 'create company'
+more_options: 'moar opshuns'
+remind_later: 'remind me latr'
+sing_in_or_up: 'sign in / sign up'
+sing_in_with_service: 'sign in wif {service}'
+cancel: cancel
+sign_in_with_email: 'entr ur email addres 2 sign in or create an akownt'
+logout: logout
+see_notifications: notificashuns
+follow: follow
+search_placeholder: search
+save: save

@@ -152,7 +152,7 @@ angular.module('tcp').directive('notifications', [
                 '        </div>',
                 '    </div>',
 
-                '    <popover popover-x popover-backdrop popover-api="vm.notification_popup" class="popover--with-content">',
+                '    <popover with-close-x with-backdrop api="vm.notification_popup" class="popover--with-content">',
                 '        <form class="form--listed">',
                 '            <h2 i18n="event/add"></h2>',
 

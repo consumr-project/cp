@@ -2,6 +2,11 @@
 
 'use strict';
 
+const LOL_IN_FILES = './config/i18n/en/*';
+const LOL_OUT_DIR = './config/i18n/lolcat/';
+const LOL_API_URL = 'http://speaklolcat.com/?';
+const REG_FIELDS = /(\{.+?\})/g;
+
 const MessageFormat = require('messageformat').MessageFormat;
 const program = require('commander');
 
@@ -10,6 +15,15 @@ const fs = require('fs');
 const yaml = require('yamljs');
 const glob = require('glob');
 const each = require('lodash/collection/each');
+
+const cheerio = require('cheerio');
+const read = require('fs').readFileSync;
+const write = require('fs').writeFileSync;
+const request = require('request');
+const colors = require('colors/safe');
+const querystring = require('querystring');
+const async = require('async');
+const map = require('lodash/collection/map');
 
 program
     .option('-l --locale <name>', 'name of the locale to compile')
@@ -27,12 +41,73 @@ program
     .option('--strings_extra <str>', 'strings file non-file name match')
     .action(command_generate);
 
+program
+    .command('lolcat')
+    .description('get a lolcat translation of all english entries')
+    .action(command_lolcat);
+
 /**
  * @param {String} locale
  * @return {String}
  */
 function real_locale(locale) {
     return locale === 'lolcat' ? 'en' : locale;
+}
+
+/**
+ * @return {void}
+ */
+function command_lolcat() {
+    glob(LOL_IN_FILES, function (err, files) {
+        var translations = {};
+
+        async.whilst(
+            // whilst we have files left to process
+            () => files.length,
+
+            // parse yaml files and fetch translations
+            done => {
+                var file = files.pop(),
+                    file_name = path.basename(file),
+                    contents = '';
+
+                clear_and_write(` ${colors.yellow('-')} translating ${file}`);
+                contents = yaml.parse(read(file).toString());
+                translations[file_name] = {};
+
+                async.parallel(
+                    // get translations for every key
+                    map(contents, (val, key) =>
+                        callback => {
+                            request({
+                                url: LOL_API_URL + querystring.stringify({
+                                    from: val
+                                })
+                            }, (err, res, body) => {
+                                translations[file_name][key] = parse_translation(body, val);
+                                callback();
+                            });
+                        }),
+
+                    // all done fetching translations
+                    err => {
+                        clear_and_write(` ${colors.green('+')} ${file} translated\n`);
+                        done();
+                    }
+                );
+            },
+
+            // all done. write translation files
+            err => {
+                each(translations, (contents, file) => {
+                    var file_path = path.join(LOL_OUT_DIR, file);
+                    clear_and_write(` ${colors.yellow('-')} saving ${file_path}`);
+                    write(file_path, yaml.stringify(contents));
+                    clear_and_write(` ${colors.green('+')} ${file_path} saved\n`);
+                });
+            }
+        );
+    });
 }
 
 /**
@@ -91,6 +166,38 @@ function generate_section_name(file, extra) {
     return file
         .substr(0, file.lastIndexOf('.'))
         .replace(extra, '');
+}
+
+/**
+ * @param {String} line
+ * @return {void}
+ */
+function clear_and_write(line) {
+    if (process.stdout && process.stdout.clearLine) {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(line);
+    }
+}
+
+/**
+ * @param {String} html
+ * @param {String} original
+ * @return {String}
+ */
+function parse_translation(html, original) {
+    var translated = cheerio.load(html)('#to').text().toLowerCase(),
+        new_fields = translated.match(REG_FIELDS),
+        orig_fields = original.match(REG_FIELDS);
+
+    // orignal merge fields
+    each(new_fields, (field, i) =>
+        translated = translated.replace(field, orig_fields[i]));
+
+    // special cases
+    translated = translated.replace(/othr/g, 'other');
+
+    return translated;
 }
 
 program.parse(process.argv);

@@ -1,12 +1,12 @@
 /* globals $ */
 
 /**
- * @attribute {Object} popoverApi reference to populate with show/hide api
+ * @attribute {Object} api reference to populate with show/hide api
  *                      - showNow: show immediatelly
  *
- * @attribute {Boolean} popoverBackdrop include a backdrop element
+ * @attribute {Boolean} withBackdrop include a backdrop element
  *
- * @attribute {Boolean} popoverX include a close (x) element in top right hand
+ * @attribute {Boolean} withCloseX include a close (x) element in top right hand
  *                      courner
  */
 angular.module('tcp').directive('popover', [function () {
@@ -56,7 +56,7 @@ angular.module('tcp').directive('popover', [function () {
         link: function (scope, elem, attrs) {
             var api, backdrop = $(), x_close = $();
 
-            if ('popoverX' in attrs) {
+            if ('withCloseX' in attrs) {
                 x_close = $('<div></div>')
                     .addClass('popover__x')
                     .appendTo(elem);
@@ -64,7 +64,7 @@ angular.module('tcp').directive('popover', [function () {
                 x_close.click(apiHide);
             }
 
-            if ('popoverBackdrop' in attrs) {
+            if ('withBackdrop' in attrs) {
                 backdrop = $('<div></div>')
                     .addClass('popover__backdrop')
                     .prependTo('body');
@@ -73,8 +73,8 @@ angular.module('tcp').directive('popover', [function () {
                 backdrop.click(apiHide);
             }
 
-            if (attrs.popoverApi) {
-                api = deep(scope, attrs.popoverApi, deep(scope, attrs.popoverApi) || {});
+            if (attrs.api) {
+                api = deep(scope, attrs.api, deep(scope, attrs.api) || {});
                 api.hide = apiHide;
                 api.show = apiShow;
             }

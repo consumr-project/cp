@@ -2,26 +2,25 @@
 
 'use strict';
 
-const IN_FILES = './config/i18n/en/*';
-const OUT_DIR = './config/i18n/lolcat/';
-
+const LOL_IN_FILES = './config/i18n/en/*';
+const LOL_OUT_DIR = './config/i18n/lolcat/';
+const LOL_API_URL = 'http://speaklolcat.com/?';
 const REG_FIELDS = /(\{.+?\})/g;
-const API_URL = 'http://speaklolcat.com/?';
 
 const cheerio = require('cheerio');
 const read = require('fs').readFileSync;
 const write = require('fs').writeFileSync;
 const request = require('request');
-const glob = require('glob');
+// const glob = require('glob');
 const colors = require('colors/safe');
 const querystring = require('querystring');
-const path = require('path');
-const yaml = require('yamljs');
+// const path = require('path');
+// const yaml = require('yamljs');
 const async = require('async');
-const each = require('lodash/collection/each');
+// const each = require('lodash/collection/each');
 const map = require('lodash/collection/map');
 
-glob(IN_FILES, function (err, files) {
+glob(LOL_IN_FILES, function (err, files) {
     var translations = {};
 
     async.whilst(
@@ -43,7 +42,7 @@ glob(IN_FILES, function (err, files) {
                 map(contents, (val, key) =>
                     callback => {
                         request({
-                            url: API_URL + querystring.stringify({
+                            url: LOL_API_URL + querystring.stringify({
                                 from: val
                             })
                         }, (err, res, body) => {
@@ -63,7 +62,7 @@ glob(IN_FILES, function (err, files) {
         // all done. write translation files
         err => {
             each(translations, (contents, file) => {
-                var file_path = path.join(OUT_DIR, file);
+                var file_path = path.join(LOL_OUT_DIR, file);
                 clear_and_write(` ${colors.yellow('-')} saving ${file_path}`);
                 write(file_path, yaml.stringify(contents));
                 clear_and_write(` ${colors.green('+')} ${file_path} saved\n`);
