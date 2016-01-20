@@ -1,18 +1,19 @@
 update: update
-about: bout
-show_hide: 'show / hide'
 none: none
-welcome: 'welcom 2 teh consumr project'
-intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'
-recent_searches: 'resent searchez:'
-loading_events: 'loadin events...'
-create_this: 'create "{name}"?'
-not_found: 'not findz'
-enumeration_comma_last: ', an '
-enumeration_comma: ', '
 ignore: ignore
-see_wiki: 'c moar frum wikipedia'
+recent_searches: 'resent searchez:'
+show_hide: 'show / hide'
+about: bout
 results: 'results:'
-searching_for: 'searchin 4 "{query}"'
 no_results: 'no results 4 "{query}"'
 search_stats: '{count} results ({time} ms)'
+create_this: 'create "{name}"?'
+error_loading: 'error makin request'
+see_wiki: 'c moar frum wikipedia'
+loading_events: 'loadin events...'
+searching_for: 'searchin 4 "{query}"'
+not_found: 'not findz'
+enumeration_comma: ', '
+enumeration_comma_last: ', an '
+welcome: 'welcom 2 teh consumr project'
+intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'

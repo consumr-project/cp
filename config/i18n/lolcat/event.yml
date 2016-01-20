@@ -1,15 +1,15 @@
-add_source: 'add another source'
-source_title: 'source title'
-source_number: 'source {number}'
-source_url: 'source url'
-sentiment: 'choose which sentiment best describez teh event'
-add: 'add an event'
-quote: 'quote (limit {limit} characters)'
 sentiment_negative: negativ
-tags: tags
+add_source: 'add another source'
+source_url: 'source url'
 sentiment_neutral: neutral
-date: 'event date'
-sentiment_positive: positiv
+source_number: 'source {number}'
+add: 'add an event'
+tags: tags
+title: title
+quote: 'quote (limit {limit} characters)'
 pub_date: 'publicashun date'
 tied_to: 'companiez & countriez involvd in da event'
-title: title
+sentiment_positive: positiv
+source_title: 'source title'
+date: 'event date'
+sentiment: 'choose which sentiment best describez teh event'
