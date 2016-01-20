@@ -17,6 +17,7 @@ recent_searches: "Recent searches:"
 search_stats: "{count} results ({time} ms)"
 
 # object loading
+error_loading: Error making request
 not_found: Not Found
 create_this: Create "{name}"?
 loading_events: "Loading events..."

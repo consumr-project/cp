@@ -66,6 +66,11 @@ app.post('/service/query/*', auth_service.is_logged_in);
 app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.render('base/index', { debugging, err });
+});
+
 app.get('*', (req, res) =>
     res.render('base/index', {
         debugging,

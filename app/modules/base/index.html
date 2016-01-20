@@ -73,10 +73,16 @@
         <footer class="site-content">
         </footer>
 
+        {% if err %}
+        <script>
+        window.ERRORED = true;
+        </script>
+        {% endif %}
+
         {% if debugging %}
         <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
         <script>
-        DEBUGGING = true;
+        window.DEBUGGING = true;
 
         $(function () {
             showAngularStats({
@@ -131,4 +137,10 @@
         <link rel="stylesheet" href="node_modules/rector/rector.css">
         {% endif %}
     </body>
+
+{% if err && debugging %}
+<!--
+[{{err.message}}] -> {{err.stack}}
+-->
+{% endif %}
 </html>

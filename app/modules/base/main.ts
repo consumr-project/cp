@@ -12,6 +12,7 @@ require('bootstrap-datepicker');
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
+    const ERRORED: Boolean = (<any>window).ERRORED;
 
     var deps: Array<string> = ['ngRoute', 'ngAria'];
 
@@ -23,8 +24,9 @@ module tcp {
     angular.module('tcp', deps);
 
     angular.module('tcp')
+        .constant('CONFIG', TCP_BUILD_CONFIG)
         .constant('DEBUGGING', DEBUGGING)
-        .constant('CONFIG', TCP_BUILD_CONFIG);
+        .constant('ERRORED', ERRORED);
 
     angular.module('tcp')
         .value('Cache', Cache)
@@ -93,9 +95,11 @@ module tcp {
             });
 
             $routeProvider.otherwise({
+                controller: ['$scope', 'ERRORED', function ($scope, ERRORED) { $scope.ERRORED = ERRORED; }],
                 template:
                     '<div class="site-content">' +
-                        '<message type="error" i18n="common/not_found"></message>' +
+                        '<message ng-if="!ERRORED" type="error" i18n="common/not_found"></message>' +
+                        '<message ng-if="ERRORED" type="error" i18n="common/error_loading"></message>' +
                     '</div>'
             });
         }
