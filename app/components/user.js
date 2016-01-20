@@ -2,14 +2,12 @@ angular.module('tcp').directive('user', [
     'ServicesService',
     'SessionService',
     'utils',
-    'i18n',
-    function (ServicesService, SessionService, utils, i18n) {
+    function (ServicesService, SessionService, utils) {
         'use strict';
 
         function controller($scope) {
             $scope.vm = {};
             $scope.user = {};
-            $scope.i18n = i18n;
 
             /**
              * @param {String} id
@@ -72,8 +70,10 @@ angular.module('tcp').directive('user', [
                 '                <th i18n="user/elsewhere"></th>',
                 '            </tr>',
                 '            <tr>',
-                '                <td>{{::user.$following_count || i18n.get("common/none")}}</td>',
-                '                <td>{{user.$followers_count || i18n.get("common/none")}}</td>',
+                '                <td ng-if="!user.$following_count" i18n="common/none"></td>',
+                '                <td ng-if="user.$following_count">{{user.$followers_count}}</td>',
+                '                <td ng-if="!user.$followers_count" i18n="common/none"></td>',
+                '                <td ng-if="user.$followers_count">{{user.$followers_count}}</td>',
                 '                <td>',
                 '                    <a ng-if="::user.linkedin_url" href="{{::user.linkedin_url}}" target="_blank">',
                 '                        <img alt="" src="/assets/images/linkedin.png" style="height: 20px; width: 20px" />',
