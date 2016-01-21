@@ -12,8 +12,8 @@
     --font-size-h1: 35px;
 
     --color-neutral: #C7C7C7;
-    --color-negative: rgb(232, 38, 59);
-    --color-positive: rgb(73, 152, 138);
+    --color-negative: #FC363B;
+    --color-positive: #2EC87C;
     --color-link: var(--color-cp-brand);
 
     --color-separator: rgb(236, 236, 236);
