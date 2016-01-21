@@ -20,8 +20,9 @@ for additional configuration options (linkedin, embedly, monitoring, etc.):
 
 - [auth-service](https://github.com/consumr-project/auth-service)
 - [extract-service](https://github.com/consumr-project/extract-service)
-- [search-service](https://github.com/consumr-project/search-service)
+- [notification-service](https://github.com/consumr-project/notification-service)
 - [query-service](https://github.com/consumr-project/query-service)
+- [search-service](https://github.com/consumr-project/search-service)
 
 to build and run application in debug mode:
 
