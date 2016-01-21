@@ -28,15 +28,3 @@
 .key.negative::before {
     background-color: var(--color-negative);
 }
-
-.key--neutral-background {
-    background-color: var(--color-neutral);
-}
-
-.key--positive-background {
-    background-color: var(--color-positive);
-}
-
-.key--negative-background {
-    background-color: var(--color-negative);
-}

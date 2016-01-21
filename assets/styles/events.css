@@ -15,8 +15,28 @@
     display: none;
 }
 
-.events__event avatar {
+.events__event__icon {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    border-radius: 200px;
+    display: inline-block;
+    height: 40px;
+    margin-right: 6px;
     vertical-align: top;
+    width: 40px;
+}
+
+.events__event__icon--neutral {
+    background-color: var(--color-neutral);
+}
+
+.events__event__icon--positive {
+    background-color: var(--color-positive);
+}
+
+.events__event__icon--negative {
+    background-color: var(--color-negative);
 }
 
 .events__event__content {
