@@ -14,7 +14,7 @@ const path = require('path');
 const fs = require('fs');
 const yaml = require('yamljs');
 const glob = require('glob');
-const each = require('lodash/collection/each');
+const each = require('lodash/each');
 
 const cheerio = require('cheerio');
 const read = require('fs').readFileSync;
@@ -23,7 +23,7 @@ const request = require('request');
 const colors = require('colors/safe');
 const querystring = require('querystring');
 const async = require('async');
-const map = require('lodash/collection/map');
+const map = require('lodash/map');
 
 program
     .option('-l --locale <name>', 'name of the locale to compile')
