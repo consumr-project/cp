@@ -260,11 +260,8 @@ angular.module('tcp').directive('event', [
                                 get_normalized_missing_information_company_notification(company, ev));
                         })
                     )).then(function (res) {
-                        console.log(ev, res);
-                        $scope.onSave({
-                            ev: ev,
-                            children: res
-                        });
+                        SessionService.emit(SessionService.EVENT.NOTIFY);
+                        $scope.onSave({ ev: ev, children: res });
                     });
                 });
             };
