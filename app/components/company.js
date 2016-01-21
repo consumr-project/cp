@@ -195,7 +195,7 @@ angular.module('tcp').directive('company', [
                 '        <popover with-close-x with-backdrop api="vm.add_event" class="popover--with-content">',
                 '            <event',
                 '                api="vm.event_form"',
-                '                on-save="vm.events_timeline.refresh(); vm.add_event.hide()"',
+                '                on-save="vm.events_timeline.refresh(); vm.add_event.hide(); vm.event_form.reset()"',
                 '                on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
                 '                tied-to="{companies: [company]}"',
                 '            ></event>',

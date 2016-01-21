@@ -1,9 +1,10 @@
 angular.module('tcp').directive('event', [
     '$q',
     'lodash',
+    'utils',
     'ServicesService',
     'SessionService',
-    function ($q, lodash, ServicesService, SessionService) {
+    function ($q, lodash, utils, ServicesService, SessionService) {
         'use strict';
 
         /**
@@ -249,16 +250,18 @@ angular.module('tcp').directive('event', [
                 }).catch(done);
             };
 
-            // $scope.vm.create_tag = function (str, done) {
-            //     ServicesService.query.tags.create({
-            //         'en-US': str,
-            //         id: ServicesService.query.UUID,
-            //         created_by: SessionService.USER.id,
-            //         updated_by: SessionService.USER.id
-            //     }).then(function (tag) {
-            //         done(null, normalize_tag(tag));
-            //     });
-            // };
+            $scope.vm.create_tag = function (str, done) {
+                utils.assert(SessionService.USER.id);
+
+                ServicesService.query.tags.create({
+                    'en-US': str,
+                    id: ServicesService.query.UUID,
+                    created_by: SessionService.USER.id,
+                    updated_by: SessionService.USER.id
+                }).then(function (tag) {
+                    done(null, normalize_tag(tag));
+                }).catch(done);
+            };
         }
 
         function link($scope, $elem) {
