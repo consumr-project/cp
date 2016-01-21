@@ -11,7 +11,7 @@ angular.module('tcp').directive('followedBy', [
          * @return {Boolean}
          */
         function includesUser(users, current) {
-            return _.contains(_.pluck(users, 'user_id'), current);
+            return _.includes(_.map(users, 'user_id'), current);
         }
 
         /**

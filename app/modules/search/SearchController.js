@@ -34,8 +34,8 @@ angular.module('tcp').controller('SearchController', [
         function normalizeResults(hits) {
             return {
                 empty: !hits.length,
-                company: lodash.where(hits, COMPANY),
-                user: lodash.where(hits, USER)
+                company: lodash.filter(hits, COMPANY),
+                user: lodash.filter(hits, USER)
             };
         }
 
@@ -90,7 +90,7 @@ angular.module('tcp').controller('SearchController', [
          * @param {Object[]} [hits]
          */
         function trackSearch(query, hits) {
-            if (hits && hits.length && !lodash.contains(RecentSearches.get(), query)) {
+            if (hits && hits.length && !lodash.includes(RecentSearches.get(), query)) {
                 RecentSearches.unshift(query);
             }
         }

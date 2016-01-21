@@ -38,7 +38,7 @@ angular.module('tcp').directive('events', [
                 return $q.all(
                     lodash
                         .chain(events)
-                        .pluck('event_id')
+                        .map('event_id')
                         .map(get_event)
                         .value()
                 );

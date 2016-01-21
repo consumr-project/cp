@@ -204,7 +204,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function unselected(selected, available, config) {
         available = normalize(available, config);
         selected = normalize(selected, config);
-        selected = _.pluck(selected, 'id');
+        selected = _.map(selected, 'id');
 
         _.each(selected, function (id) {
             available = without(available, id, config);

@@ -64,7 +64,7 @@ angular.module('tcp').directive('anchored', [
             assert(!isNaN(attrs.anchoredLeftOffset),
                 'Invalid top offset: ' + attrs.anchoredLeftOffset);
 
-            assert(_.contains([
+            assert(_.includes([
                 PLACEMENT.BOTTOM,
                 PLACEMENT.BOTTOM_RIGHT,
                 PLACEMENT.LEFT,
