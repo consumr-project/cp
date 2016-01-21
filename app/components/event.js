@@ -244,6 +244,20 @@ angular.module('tcp').directive('event', [
                 }).catch(done);
             };
 
+            $scope.vm.create_company = function (str, done) {
+                utils.assert(SessionService.USER.id);
+
+                ServicesService.query.companies.create({
+                    id: ServicesService.query.UUID,
+                    name: str,
+                    guid: utils.simplify(str),
+                    created_by: SessionService.USER.id,
+                    updated_by: SessionService.USER.id
+                }).then(function (company) {
+                    done(null, normalize_company(company));
+                }).catch(done);
+            };
+
             $scope.vm.query_tags = function (str, done) {
                 ServicesService.query.search.tags('en-US', str).then(function (tags) {
                     done(null, lodash.map(tags, normalize_tag));
@@ -318,6 +332,7 @@ angular.module('tcp').directive('event', [
                 '            <label i18n="event/tied_to"></label>',
                 '            <pills',
                 '                selections="ev.$companies"',
+                '                create="vm.create_company(value, done)"',
                 '                query="vm.query_companies(query, done)"',
                 '            ></pills>',
 
