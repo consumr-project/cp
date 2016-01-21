@@ -11,9 +11,17 @@ export function pluck<T>(prop: string): (obj: any) => T {
     };
 }
 
-export function assert(val: any, message?: string): Boolean {
+export function assert(val: any, message?: String | Function): Boolean {
+    var err;
+
     if (!val) {
-        throw new Error(message || 'Assertion error: value not set');
+        err = new Error(<string>message || 'Assertion error: value not set');
+
+        if (message && message instanceof Function) {
+            message(err);
+        }
+
+        throw err;
     }
 
     return true;

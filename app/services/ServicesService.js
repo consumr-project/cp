@@ -262,6 +262,15 @@ angular.module('tcp').service('ServicesService', [
 
         abortable(notificationService.delete);
 
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.missing_information = function (payload) {
+            return $http.post('/service/notification/notifications/missing_information', payload)
+              .then(pluck_data);
+        };
+
         return {
             auth: authService,
             extract: extractService,

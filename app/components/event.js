@@ -4,7 +4,8 @@ angular.module('tcp').directive('event', [
     'utils',
     'ServicesService',
     'SessionService',
-    function ($q, lodash, utils, ServicesService, SessionService) {
+    'Domain',
+    function ($q, lodash, utils, ServicesService, SessionService, Domain) {
         'use strict';
 
         /**
@@ -152,6 +153,27 @@ angular.module('tcp').directive('event', [
         }
 
         /**
+         * @param {Company} company
+         * @param {Event} ev
+         * @return {MessagePayload}
+         */
+        function get_normalized_missing_information_company_notification(company, ev) {
+            return {
+                obj_id: company.id,
+                obj_name: company.name,
+                obj_type: Domain.model.company,
+                obj_for_type: Domain.model.event,
+                obj_for_id: ev.id,
+                obj_for_name: ev.title,
+                obj_fields: [
+                    Domain.model.company_props.summary,
+                    Domain.model.company_props.wikipedia_url,
+                    Domain.model.company_props.website_url,
+                ],
+            };
+        }
+
+        /**
          * @param {EventSource} source
          * @param {String} event_id
          * @return {EventSource}
@@ -192,6 +214,8 @@ angular.module('tcp').directive('event', [
         }
 
         function controller($scope) {
+            var has_missing_information = [];
+
             $scope.vm = $scope.vm || {};
             $scope.ev = {
                 $sources: [{}],
@@ -220,13 +244,20 @@ angular.module('tcp').directive('event', [
                 ServicesService.query.events.create(get_normalized_event($scope.ev)).then(function (ev) {
                     $q.all([].concat(
                         lodash.map($scope.ev.$sources, function (source) {
-                            return ServicesService.query.events.sources.upsert(ev.id, get_normalized_event_source(source, ev.id));
+                            return ServicesService.query.events.sources.upsert(ev.id,
+                                get_normalized_event_source(source, ev.id));
                         }),
                         lodash.map($scope.ev.$tags, function (tag) {
-                            return ServicesService.query.events.tags.upsert(ev.id, get_normalized_event_tag(tag, ev.id));
+                            return ServicesService.query.events.tags.upsert(ev.id,
+                                get_normalized_event_tag(tag, ev.id));
                         }),
                         lodash.map($scope.ev.$companies, function (company) {
-                            return ServicesService.query.companies.events.upsert(company.id, get_normalized_company_event(company, ev.id));
+                            return ServicesService.query.companies.events.upsert(company.id,
+                                get_normalized_company_event(company, ev.id));
+                        }),
+                        lodash.map(has_missing_information, function (company) {
+                            return ServicesService.notification.missing_information(
+                                get_normalized_missing_information_company_notification(company, ev));
                         })
                     )).then(function (res) {
                         console.log(ev, res);
@@ -245,6 +276,7 @@ angular.module('tcp').directive('event', [
             };
 
             $scope.vm.create_company = function (str, done) {
+                utils.assert(str, done);
                 utils.assert(SessionService.USER.id);
 
                 ServicesService.query.companies.create({
@@ -254,6 +286,7 @@ angular.module('tcp').directive('event', [
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id
                 }).then(function (company) {
+                    has_missing_information.push(company);
                     done(null, normalize_company(company));
                 }).catch(done);
             };
@@ -265,6 +298,7 @@ angular.module('tcp').directive('event', [
             };
 
             $scope.vm.create_tag = function (str, done) {
+                utils.assert(str, done);
                 utils.assert(SessionService.USER.id);
 
                 ServicesService.query.tags.create({

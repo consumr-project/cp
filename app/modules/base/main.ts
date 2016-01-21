@@ -29,6 +29,19 @@ module tcp {
         .constant('ERRORED', ERRORED);
 
     angular.module('tcp')
+        .constant('Domain', {
+            model: {
+                company: 'company',
+                event: 'event',
+                company_props: {
+                    summary: 'summary',
+                    wikipedia_url: 'wikipedia_url',
+                    website_url: 'website_url',
+                }
+            }
+        });
+
+    angular.module('tcp')
         .value('Cache', Cache)
         .value('Cookie', Cookie)
         .value('EventEmitter2', EventEmitter2)
