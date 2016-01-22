@@ -1,4 +1,7 @@
-.PHONY: build install run test
+.PHONY: build install run test local
+
+services = auth extract notification query search user
+pwd = $(shell pwd)
 
 build_dir = build
 build_bundle_js = $(build_dir)/bundle.js
@@ -70,8 +73,6 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/jquery/dist/jquery.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/lodash/index.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/angular/angular.min.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	cat node_modules/angular-route/angular-route.min.js >> $(build_vendor_js)
@@ -135,3 +136,7 @@ clean:
 
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
+
+local:
+	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
+	-$(foreach service,$(services),ln -s $(pwd)/../$(service)-service node_modules/$(service)-service;)
