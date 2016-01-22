@@ -65,7 +65,7 @@ angular.module('tcp').directive('user', [
                 '    <center ng-if="user.id" class="margin-top-large animated fadeIn">',
                 '        <avatar class="avatar--block" summary="{{::user.$summary}}"',
                 '          title="{{::user.title}}" name="{{::user.name}}"',
-                '          image="{{::user.avatar_url}}"></avatar>',
+                '          email="{{::user.email}}"></avatar>',
 
                 '        <div class="block">',
                 '            <button ng-click="on_start_following()"',

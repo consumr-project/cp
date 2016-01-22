@@ -41,9 +41,9 @@ avatar.avatar--block {
 }
 
 avatar.avatar--block .avatar__image {
-    height: 100px;
+    height: 150px;
     margin: 0 auto;
-    width: 100px;
+    width: 150px;
 }
 
 avatar.avatar--block .avatar__name,

@@ -58,7 +58,8 @@
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.1",
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.1"
   },
   "devDependencies": {
     "async": "^1.5.2",

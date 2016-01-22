@@ -21,6 +21,7 @@ const auth_service = require('auth-service');
 const extract_service = require('extract-service');
 const notification_service = require('notification-service');
 const query_service = require('query-service');
+const user_service = require('user-service');
 
 log = debug('cp:server');
 app = express();
@@ -54,6 +55,8 @@ app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
 app.use('/service/auth', timeout('10s'), auth_service);
+
+app.use('/service/user', timeout('5s'), user_service);
 
 app.use('/service/notification', auth_service.is_logged_in);
 app.use('/service/notification', timeout('5s'), notification_service);
