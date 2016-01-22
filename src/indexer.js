@@ -2,8 +2,8 @@
 
 var INDEX = 'entity';
 
-var contains = require('lodash/collection/contains'),
-    pick = require('lodash/object/pick');
+var includes = require('lodash/includes'),
+    pick = require('lodash/pick');
 
 var debug = require('debug'),
     log = debug('indexer'),
@@ -44,7 +44,7 @@ function indexUpsert(elasticsearch, type, fields) {
             val = ref.val();
 
         var data = pick(val, function (val, key) {
-            return contains(fields, key);
+            return includes(fields, key);
         });
 
         elasticsearch.index({
