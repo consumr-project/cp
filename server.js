@@ -5,23 +5,24 @@ require('newrelic');
 
 var app, config, log, debugging;
 
-var express = require('express'),
-    index = require('serve-index'),
-    errors = require('errorhandler'),
-    favicon = require('serve-favicon'),
-    body_parser = require('body-parser'),
-    cookie = require('cookie-parser'),
-    timeout = require('connect-timeout'),
-    session = require('express-session'),
-    swig = require('swig');
+const express = require('express');
+const index = require('serve-index');
+const errors = require('errorhandler');
+const favicon = require('serve-favicon');
+const body_parser = require('body-parser');
+const cookie = require('cookie-parser');
+const timeout = require('connect-timeout');
+const session = require('express-session');
+const swig = require('swig');
+const debug = require('debug');
 
-var search_service = require('search-service'),
-    auth_service = require('auth-service'),
-    extract_service = require('extract-service'),
-    notification_service = require('notification-service'),
-    query_service = require('query-service');
+const search_service = require('search-service');
+const auth_service = require('auth-service');
+const extract_service = require('extract-service');
+const notification_service = require('notification-service');
+const query_service = require('query-service');
 
-log = require('debug')('cp:server');
+log = debug('cp:server');
 app = express();
 config = require('acm');
 debugging = !!config('debug');
