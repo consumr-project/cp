@@ -7,8 +7,8 @@ var getset = require('deep-get-set'),
     striptags = require('striptags');
 
 var request = require('request'),
-    filter = require('lodash/collection/filter'),
-    map = require('lodash/collection/map');
+    filter = require('lodash/filter'),
+    map = require('lodash/map');
 
 /**
  * interface WikiExtract {

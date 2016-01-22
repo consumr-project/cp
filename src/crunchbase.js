@@ -2,7 +2,7 @@
 
 var config = require('acm'),
     request = require('request'),
-    map = require('lodash/collection/map');
+    map = require('lodash/map');
 
 var CRUNCHBASE_API_KEY = config('crunchbase.api.key');
 
