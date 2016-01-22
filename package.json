@@ -1,0 +1,17 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "acm": "^2.0.1",
+    "express": "^4.13.4",
+    "md5": "^2.0.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.6.4"
+  }
+}
