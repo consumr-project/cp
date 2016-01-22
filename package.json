@@ -20,6 +20,7 @@
     "acm": "^2.0.1",
     "deep-get-set": "^0.1.1",
     "express": "^4.13.3",
+    "lodash": "^4.0.0",
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-linkedin": "^1.0.0",

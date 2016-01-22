@@ -12,7 +12,6 @@ permissions:
 
 grants:
   guest:
-    - create_user
     - retrieve_user
     - retrieve_tag
     - retrieve_company
@@ -29,6 +28,7 @@ grants:
 
   admin:
     - user
+    - create_user
     - delete_tag
     - delete_company
     - delete_event

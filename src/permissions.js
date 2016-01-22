@@ -2,7 +2,7 @@
 
 var RBAC = require('rbac'),
     config = require('acm'),
-    clone = require('lodash/lang/clone'),
+    clone = require('lodash/clone'),
     format = require('util').format;
 
 var rbac = new RBAC(clone(config('rbac')));
