@@ -4,7 +4,7 @@ const Message = require('./message');
 const config = require('acm');
 const debug = require('debug');
 
-const tmpl = require('lodash/string/template');
+const tmpl = require('lodash/template');
 const yaml = require('yamljs').parse;
 const read = require('fs').readFileSync;
 

@@ -13,7 +13,7 @@ const mongodb = require('mongodb').MongoClient;
 const debug = require('debug');
 const config = require('acm');
 const body = require('body-parser');
-const pick = require('lodash/object/pick');
+const pick = require('lodash/pickBy');
 
 const app = express();
 

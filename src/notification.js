@@ -1,7 +1,7 @@
 'use strict';
 
 const Message = require('./message');
-const clone = require('lodash/lang/clone');
+const clone = require('lodash/clone');
 
 const TYPE = {
     MISSING_INFORMATION: 'MISSING_INFORMATION'
