@@ -5,7 +5,7 @@
  * @return {Object}
  */
 function merge() {
-    return require('lodash/object/merge').apply(null, [].splice.call(arguments, 0).reverse());
+    return require('lodash/merge').apply(null, [].splice.call(arguments, 0).reverse());
 }
 
 /**

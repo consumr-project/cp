@@ -1,11 +1,11 @@
 'use strict';
 
-var each = require('lodash/collection/each'),
-    clone = require('lodash/lang/clone'),
-    pluck = require('lodash/collection/pluck'),
-    arr_filter = require('lodash/collection/filter'),
-    reduce = require('lodash/collection/reduce'),
-    find = require('lodash/collection/find'),
+var each = require('lodash/each'),
+    clone = require('lodash/clone'),
+    map = require('lodash/map'),
+    arr_filter = require('lodash/filter'),
+    reduce = require('lodash/reduce'),
+    find = require('lodash/find'),
     uuid = require('node-uuid'),
     q = require('q');
 
@@ -277,7 +277,7 @@ function parts(model, prop_remap, parts_def) {
         error_handler(res, q.all(queries))
             .then(function (results) {
                 response_handler(res)(reduce(parts_wanted, function (body, part) {
-                    body[part] = pluck(find(results, {tag: part}).val, 'dataValues');
+                    body[part] = map(find(results, {tag: part}).val, 'dataValues');
                     return body;
                 }, find(results, {tag: 'main'}).val.dataValues));
             });
