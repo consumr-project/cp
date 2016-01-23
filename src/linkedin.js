@@ -1,6 +1,6 @@
 'use strict';
 
-var LinkedInStrategy = require('passport-linkedin').Strategy,
+var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy,
     User = require('query-service').models.User,
     roles = require('./permissions').roles;
 
@@ -97,13 +97,14 @@ function get_callback_url(req) {
 
 module.exports = function () {
     var configuration = {
-        consumerKey: config('linkedin.client_id'),
-        consumerSecret: config('linkedin.client_secret'),
+        clientID: config('linkedin.client_id'),
+        clientSecret: config('linkedin.client_secret'),
         profileFields: profile_fields,
+        scope: ['r_basicprofile', 'r_emailaddress'],
         callbackURL: '',
     };
 
-    var login = passport.authenticate('linkedin'),
+    var login = passport.authenticate('linkedin', { state: '____' }),
         callback = passport.authenticate('linkedin', { failureRedirect: '/error?with=linkedin-login' }),
         strategy = new LinkedInStrategy(configuration, find_user);
 
