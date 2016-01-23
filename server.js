@@ -1,10 +1,12 @@
 'use strict';
 
-process.env.NEW_RELIC_NO_CONFIG_FILE = true;
-require('newrelic');
+const PCKGE = require('./package.json');
+const STAMP = require('./stamp.json');
 
-var app, config, log, debugging;
-
+/**
+ * process.env.NEW_RELIC_NO_CONFIG_FILE = true;
+ * require('newrelic');
+ */
 const express = require('express');
 const index = require('serve-index');
 const errors = require('errorhandler');
@@ -22,11 +24,11 @@ const extract_service = require('extract-service');
 const notification_service = require('notification-service');
 const query_service = require('query-service');
 const user_service = require('user-service');
+const config = require('acm');
 
-log = debug('cp:server');
-app = express();
-config = require('acm');
-debugging = !!config('debug');
+var log = debug('cp:server'),
+    app = express(),
+    debugging = !!config('debug');
 
 app.set('view cache', true);
 app.set('view engine', 'html');
@@ -69,6 +71,23 @@ app.patch('/service/query/*', auth_service.is_logged_in);
 app.post('/service/query/*', auth_service.is_logged_in);
 app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
+
+app.get('/version', (req, res) => {
+    res.json({
+        date: STAMP.date,
+        head: STAMP.head,
+        branch: STAMP.branch,
+        version: PCKGE.version,
+        services: {
+            auth: PCKGE.dependencies['auth-service'],
+            extract: PCKGE.dependencies['extract-service'],
+            notification: PCKGE.dependencies['notification-service'],
+            query: PCKGE.dependencies['query-service'],
+            search: PCKGE.dependencies['search-service'],
+            user: PCKGE.dependencies['user-service'],
+        }
+    });
+});
 
 app.use((err, req, res, next) => {
     console.error(err);

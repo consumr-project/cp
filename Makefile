@@ -135,8 +135,15 @@ clean:
 	-rm -r $(build_dir)
 
 lint:
-	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
+	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test server.js
 
 local:
 	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
 	-$(foreach service,$(services),ln -s $(pwd)/../$(service)-service node_modules/$(service)-service;)
+
+stamp:
+	echo "{ \
+		\"date\": \"$(shell date)\", \
+		\"head\": \"$(shell git log -1 --format="%H")\", \
+		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
+	}" > stamp.json
