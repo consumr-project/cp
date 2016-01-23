@@ -31,7 +31,7 @@
     "angular-aria": "^1.4.0",
     "angular-route": "^1.4.0",
     "animate.css": "^3.2.5",
-    "auth-service": "git+https://git@github.com/consumr-project/auth-service#v4.2.1",
+    "auth-service": "git+https://git@github.com/consumr-project/auth-service#v4.3.1",
     "body-parser": "^1.13.3",
     "bootstrap-datepicker": "^1.5.1",
     "connect-timeout": "^1.7.0",

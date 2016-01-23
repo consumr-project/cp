@@ -139,7 +139,7 @@ lint:
 
 local:
 	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
-	-$(foreach service,$(services),ln -s $(pwd)/../$(service)-service node_modules/$(service)-service;)
+	-$(foreach service,$(services),npm link ../$(service)-service;)
 
 stamp:
 	echo "{ \
