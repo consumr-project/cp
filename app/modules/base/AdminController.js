@@ -59,7 +59,7 @@ angular.module('tcp').controller('AdminController', [
          * caches user information
          */
         function updateCurrentUser() {
-            $scope.session.avatar_url = SessionService.USER.avatar_url;
+            $scope.session.email = SessionService.USER.email;
             $scope.session.logged_in = true;
         }
 
