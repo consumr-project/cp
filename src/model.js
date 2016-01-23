@@ -46,7 +46,7 @@ module.exports.js_update = function (req, res) {
         '<script>',
         '   (function () {',
         '       var ev = opener.document.createEvent("Events");',
-        '       ev.initEvent("cp:auth");',
+        '       ev.initEvent("cp:auth", true, false);',
         '       opener.document.dispatchEvent(ev);',
         '       window.close();',
         '   })();',
