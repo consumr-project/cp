@@ -52,7 +52,7 @@
     "normalize.css": "^3.0.3",
     "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.2",
     "q": "^1.4.1",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.6.4",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.0",
     "reqwest": "git+https://git@github.com/ded/reqwest.git#v1.1.5",
     "rollbar-browser": "^1.7.5",
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.1",

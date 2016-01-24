@@ -1,9 +1,10 @@
 angular.module('tcp').directive('notifications', [
     'ServicesService',
     'SessionService',
+    'Domain',
     'utils',
     'lodash',
-    function (ServicesService, SessionService, utils, lodash) {
+    function (ServicesService, SessionService, Domain, utils, lodash) {
         'use strict';
 
         /**
@@ -79,14 +80,10 @@ angular.module('tcp').directive('notifications', [
                 $scope.vm.notification_popup.hide();
                 notification.$loading = true;
 
-                return ServicesService.notification.delete(notification.id).then(function (action) {
-                    SessionService.emit(SessionService.EVENT.NOTIFY);
-                    notification.$loading = false;
-                    notification.$deleted = action && action.ok;
-                }).catch(function () {
-                    notification.$loading = false;
-                    notification.$deleted = false;
-                });
+                return ServicesService.query.companies.update(
+                    notification.payload.obj_id,
+                    $scope.vm.selected_notification.$update
+                ).then($scope.ignore.bind(null, notification));
             };
 
             /**
@@ -94,8 +91,25 @@ angular.module('tcp').directive('notifications', [
              * @return {void}
              */
             $scope.select = function (notification) {
+                $scope.vm.loading_obj = true;
                 $scope.vm.selected_notification = notification;
+                $scope.vm.selected_notification.$update = {};
                 $scope.vm.notification_popup.show();
+
+                switch (notification.payload.obj_type) {
+                    case Domain.model.company:
+                        ServicesService.query.companies.retrieve(notification.payload.obj_id).then(function (company) {
+                            $scope.vm.loading_obj = false;
+                            lodash.map(notification.payload.obj_fields, function (field) {
+                                $scope.vm.selected_notification.$update[field] = company[field];
+                            });
+                        });
+                        break;
+
+                    default:
+                        console.err('invalid notification payload %o', notification);
+                        break;
+                }
             };
 
             if (SessionService.USER.id) {
@@ -145,8 +159,10 @@ angular.module('tcp').directive('notifications', [
 
                 '            <div class="margin-top-small">',
                 '                <button ng-click="select(notification)" ',
+                '                    ng-disabled="notification.$deleted"',
                 '                    i18n="common/update"></button>',
                 '                <button ng-click="ignore(notification)" ',
+                '                    ng-disabled="notification.$deleted"',
                 '                    i18n="common/ignore" class="button--secondary"></button>',
                 '            </div>',
                 '        </div>',
@@ -156,7 +172,7 @@ angular.module('tcp').directive('notifications', [
                 '        <form class="form--listed">',
                 '            <h2 i18n="event/add"></h2>',
 
-                '            <section popover-body>',
+                '            <section popover-body ng-class="{ loading: vm.loading_obj }">',
                 '                <div ng-switch="field" ng-repeat="field in vm.selected_notification.payload.obj_fields">',
                 '                    <label ng-switch="field" for="notification_update_{{$index}}">{{field}}</label>',
                 '                    <textarea ng-switch-when="summary" id="notification_update_{{$index}}" ng-model="vm.selected_notification.$update[field]"></textarea>',
