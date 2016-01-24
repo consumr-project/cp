@@ -50,7 +50,7 @@
     "moment": "^2.10.6",
     "newrelic": "^1.23.1",
     "normalize.css": "^3.0.3",
-    "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.2",
+    "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.3",
     "q": "^1.4.1",
     "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.0",
     "reqwest": "git+https://git@github.com/ded/reqwest.git#v1.1.5",

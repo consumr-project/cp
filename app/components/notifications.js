@@ -48,6 +48,7 @@ angular.module('tcp').directive('notifications', [
         }
 
         function controller($scope) {
+            $scope.escape = lodash.escape;
             $scope.notifications = {};
 
             $scope.vm = {
@@ -140,12 +141,12 @@ angular.module('tcp').directive('notifications', [
                 '            ng-repeat="notification in ::notifications.MISSING_INFORMATION.company">',
                 '            <div>',
                 '                <span i18n="notification/new_company_message" prop="html" data="{',
-                '                    obj_id: notification.payload.obj_id,',
-                '                    obj_name: notification.payload.obj_name,',
-                '                    obj_type: notification.payload.obj_type,',
-                '                    obj_for_id: notification.payload.obj_for_id,',
-                '                    obj_for_name: notification.payload.obj_for_name,',
-                '                    obj_for_type: notification.payload.obj_for_type',
+                '                    obj_id: escape(notification.payload.obj_id),',
+                '                    obj_name: escape(notification.payload.obj_name),',
+                '                    obj_type: escape(notification.payload.obj_type),',
+                '                    obj_for_id: escape(notification.payload.obj_for_id),',
+                '                    obj_for_name: escape(notification.payload.obj_for_name),',
+                '                    obj_for_type: escape(notification.payload.obj_for_type)',
                 '                }"></span>',
 
                 '                <span ng-repeat="field in ::notification.payload.obj_fields">',
