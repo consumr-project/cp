@@ -1,5 +1,7 @@
 'use strict';
 
+const ID_MAP = { id: 'id' };
+
 var each = require('lodash/each'),
     clone = require('lodash/clone'),
     map = require('lodash/map'),
@@ -197,9 +199,10 @@ function retrieve(model, prop_remap) {
  * @return {Function(http.Request, http.Response)}
  */
 function update(model) {
-    return function (req, res) {
-        error(res, new Error('update not implemented'));
-    };
+    return (req, res) => error_handler(res, model.update(
+        populate_uuids(populate_dates(req.body)),
+        where(ID_MAP, req.params)
+    )).then(response_handler(res));
 }
 
 /**
