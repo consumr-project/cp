@@ -101,6 +101,12 @@ module tcp {
                 controller: IdSetterController
             });
 
+            $routeProvider.when('/company/id/:id', {
+                template: '<company class="site-content" id="{{id}}"></company>',
+                controller: PropSetterController(['id']),
+                resolve: UserCheck
+            });
+
             $routeProvider.when('/company/:guid?', {
                 template: '<company class="site-content" guid="{{guid}}" create="{{create}}"></company>',
                 controller: PropSetterController(['guid'], ['create']),
@@ -115,7 +121,7 @@ module tcp {
                 controller: ['Domain', 'NavigationService', '$routeParams', '$scope', (Domain, NavigationService, $routeParams, $scope) => {
                     switch ($routeParams.obj_type) {
                         case Domain.model.company:
-                            NavigationService.company($routeParams.obj_id);
+                            NavigationService.company_by_id($routeParams.obj_id);
                             break;
 
                         default:

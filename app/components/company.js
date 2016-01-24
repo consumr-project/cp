@@ -18,7 +18,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
-                existing: !!$scope.guid,
+                existing: !!$scope.guid || $scope.id,
                 events_timeline: {},
                 event_form: {},
                 add_event: {}
@@ -157,6 +157,8 @@ angular.module('tcp').directive('company', [
 
             if ($scope.guid) {
                 load($scope.guid);
+            } else if ($scope.id) {
+                load($scope.id, 'retrieve');
             } else if ($scope.create) {
                 $scope.company.name = $scope.create;
                 $scope.find_companies($scope.create);
@@ -167,6 +169,7 @@ angular.module('tcp').directive('company', [
             replace: true,
             controller: ['$scope', controller],
             scope: {
+                id: '@',
                 guid: '@',
                 create: '@'
             },
