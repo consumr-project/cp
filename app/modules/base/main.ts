@@ -107,6 +107,25 @@ module tcp {
                 resolve: UserCheck
             });
 
+            $routeProvider.when('/route', {
+                template: '<div class="site-content">' +
+                    '<h3 ng-if="!not_found" class="center-align" i18n="common/redirecting"></h3>' +
+                    '<message ng-if="not_found" type="error" i18n="common/not_found"></message>' +
+                '</div>',
+                controller: ['Domain', 'NavigationService', '$routeParams', '$scope', (Domain, NavigationService, $routeParams, $scope) => {
+                    switch ($routeParams.obj_type) {
+                        case Domain.model.company:
+                            NavigationService.company($routeParams.obj_id);
+                            break;
+
+                        default:
+                            console.log('Invlidate reroute call %o', $routeParams);
+                            $scope.not_found = true;
+                            break;
+                    }
+                }]
+            });
+
             $routeProvider.otherwise({
                 controller: ['$scope', 'ERRORED', function ($scope, ERRORED) { $scope.ERRORED = ERRORED; }],
                 template:

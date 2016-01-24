@@ -1,7 +1,7 @@
-users: users
-profile: profile
 companies: companiez
-followed_by_none: 'dis paeg iz not bean followd.'
+profile: profile
 followed_by_you: 'dis paeg iz bean followd by u.'
+users: users
 followed_by_others: 'dis paeg iz bean followd by {count} {count, plural, one {person} other {people}}.'
+followed_by_none: 'dis paeg iz not bean followd.'
 followed_by_you_and_others: 'dis paeg iz bean followd by u an {countMinusOne} other {countMinusOne, plural, one {person} other {people}}.'
