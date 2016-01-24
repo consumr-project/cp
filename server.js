@@ -89,16 +89,22 @@ app.get('/version', (req, res) => {
     });
 });
 
+app.use((req, res, next) => {
+    res.cookie('lang', req.query.lang || req.query.lang || 'en', {
+        expires: new Date('2099-01-01') });
+
+    next();
+});
+
 app.use((err, req, res, next) => {
     console.error(err);
-    res.render('base/index', { debugging, err });
+    res.render('base/index', { debugging, err,
+        lang: req.cookies.lang });
 });
 
 app.get('*', (req, res) =>
-    res.render('base/index', {
-        debugging,
-        lang: req.query.lang
-    }));
+    res.render('base/index', { debugging,
+        lang: req.cookies.lang }));
 
 query_service.conn.sync().then(() =>
     log('ready for database requests'));
