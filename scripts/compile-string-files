@@ -75,6 +75,10 @@ function command_lolcat() {
                 contents = yaml.parse(read(file).toString());
                 translations[file_name] = {};
 
+                // pre-set keys to keep order
+                map(contents, (val, key) =>
+                    translations[file_name][key] = null);
+
                 async.parallel(
                     // get translations for every key
                     map(contents, (val, key) =>

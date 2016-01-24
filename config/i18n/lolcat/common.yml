@@ -1,20 +1,20 @@
 none: none
-show_hide: 'show / hide'
-searching_for: 'searchin 4 "{query}"'
-welcome: 'welcom 2 teh consumr project'
 about: bout
-loading_events: 'loadin events...'
-search_stats: '{count} results ({time} ms)'
-ignore: ignore
-recent_searches: 'resent searchez:'
+show_hide: 'show / hide'
 update: update
+ignore: ignore
+welcome: 'welcom 2 teh consumr project'
+intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'
+results: 'results:'
+no_results: 'no results 4 "{query}"'
+searching_for: 'searchin 4 "{query}"'
+recent_searches: 'resent searchez:'
+search_stats: '{count} results ({time} ms)'
+error_loading: 'error makin request'
+not_found: 'not findz'
+create_this: 'create "{name}"?'
+loading_events: 'loadin events...'
 see_wiki: 'c moar frum wikipedia'
 redirecting: redirectin
 enumeration_comma: ', '
-intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'
 enumeration_comma_last: ', an '
-no_results: 'no results 4 "{query}"'
-results: 'results:'
-not_found: 'not findz'
-create_this: 'create "{name}"?'
-error_loading: 'error makin request'
