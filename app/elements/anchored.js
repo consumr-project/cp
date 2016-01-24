@@ -22,6 +22,8 @@
  * @attribute {Boolean} [anchoredCentered] center the anchored element
  * horizontally if placement eq bottom or top. ignored if placement is left
  * or right (default: false)
+ *
+ * @attribute {Boolean} [anchoredArrow] render an arrow pointing to the anchor
  */
 angular.module('tcp').directive('anchored', [
     '$document',
@@ -156,7 +158,7 @@ angular.module('tcp').directive('anchored', [
                 element: '=anchoredElement'
             },
             link: function (scope, elem, attrs) {
-                var debouncedHandleUpdate = _.debounce(handleUpdate.bind(null, true), 100);
+                var debouncedHandleUpdate = _.debounce(_.throttle(handleUpdate.bind(null, true), 100), 10);
 
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT.TOP;
                 attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
@@ -258,6 +260,18 @@ angular.module('tcp').directive('anchored', [
 
                 angular.element($window).on('resize', debouncedHandleUpdate);
                 scope.$on('$destroy', unlistenToResizes);
+
+                if (attrs.anchoredArrow) {
+                    angular.element('<div></div>')
+                        .addClass('anchored__arrow--outline')
+                        .addClass('anchored__arrow--outline--' + attrs.anchoredPlacement)
+                        .appendTo(elem);
+
+                    angular.element('<div></div>')
+                        .addClass('anchored__arrow')
+                        .addClass('anchored__arrow--' + attrs.anchoredPlacement)
+                        .appendTo(elem);
+                }
 
                 if (attrs.anchoredAutoHide) {
                     angular.element($document).on('click', handleClick);

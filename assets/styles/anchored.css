@@ -1,0 +1,25 @@
+.anchored__arrow,
+.anchored__arrow--outline {
+    border: 0px solid transparent;
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
+.anchored__arrow--bottom-right {
+    border-bottom-color: var(--color-std-background-color);
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-right-width: 5px;
+    right: 14px;
+    top: -5px;
+}
+
+.anchored__arrow--outline--bottom-right {
+    border-bottom-color: var(--color-std-border-color);
+    border-bottom-width: 5px;
+    border-left-width: 6px;
+    border-right-width: 6px;
+    right: 13px;
+    top: -6px;
+}

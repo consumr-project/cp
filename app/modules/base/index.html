@@ -31,7 +31,7 @@
 
                 <avatar
                     ng-if="session.logged_in"
-                    class="right"
+                    class="right no-outline"
                     ng-click="actions.show = true"
                     email="{% raw %}{{session.email}}{% endraw %}"
                     data-main-user-avatar
@@ -57,7 +57,8 @@
                 anchored-element="{% raw %}'[data-main-user-avatar]'{% endraw %}"
                 anchored-show="actions.show"
                 anchored-placement="bottom-right"
-                anchored-top-offset="5"
+                anchored-top-offset="10"
+                anchored-arrow="true"
                 anchored-auto-hide="true"
             >
                 <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/add_company"></popover-item>

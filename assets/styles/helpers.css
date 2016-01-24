@@ -4,6 +4,10 @@
     -webkit-user-select: none;
 }
 
+.no-outline {
+    outline: none;
+}
+
 .no-white-space {
     font-size: 0;
 }

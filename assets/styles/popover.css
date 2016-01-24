@@ -15,6 +15,7 @@
 .popover__item {
     padding: 10px 20px;
     transition: background-color var(--speed-friendly);
+    white-space: nowrap;
 }
 
 .popover__item,
