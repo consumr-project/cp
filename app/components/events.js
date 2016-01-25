@@ -109,10 +109,16 @@ angular.module('tcp').directive('events', [
                 '        class="events__event animated fadeInUp" ',
                 '        style="animation-delay: {{$index * .1}}s">',
 
+                // '        <span class="no-outline is-non-selectable" ng-click="event.$show_details = !event.$show_details">',
                 generate_template_event_content('left'),
                 '        <div style="background-image: url(/assets/images/avatar/avatar-white.svg)" ',
                 '            class="events__event__icon events__event__icon--{{::event.sentiment}}"></div>',
                 generate_template_event_content('right'),
+                // '        </span>',
+                //
+                // '        <div class="animated fadeIn" ng-if="event.$show_details">',
+                // '            {{::event.title}}',
+                // '        </div>',
 
                 '    </div>',
                 '    <div class="events__line animated fadeIn"></div>',
