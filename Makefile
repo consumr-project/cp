@@ -89,6 +89,7 @@ build-app:
 	$(js_min) assets/scripts/rollbar_config.js >> $(build_app_js)
 	$(js_min) assets/scripts/scroll_offset_class.js >> $(build_app_js)
 	$(js_min) app/elements/anchored.js >> $(build_app_js)
+	$(js_min) app/elements/collapsable.js >> $(build_app_js)
 	$(js_min) app/elements/pills.js >> $(build_app_js)
 	$(js_min) app/elements/popover.js >> $(build_app_js)
 	$(js_min) app/elements/popover-item.js >> $(build_app_js)

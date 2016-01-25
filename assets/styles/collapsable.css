@@ -1,0 +1,16 @@
+.collapsable__trigger {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+    padding: var(--font-size-xsmall) 0;
+    transition: padding-left var(--speed-friendly),
+        background-color var(--speed-friendly),
+        border-color var(--speed-friendly);
+}
+
+.collapsable--off .collapsable__trigger {
+    background: var(--color-std-hover-background-color);
+    border-bottom-color: var(--color-std-thin-border-color);
+    border-top-color: var(--color-std-thin-border-color);
+    padding-left: var(--font-size-xsmall);
+}
