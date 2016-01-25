@@ -1,25 +1,13 @@
 .notification {
     color: var(--color-light-text-color);
-    margin-top: var(--spacing-small);
-    padding: var(--spacing-small) 0;
+    padding: var(--spacing-large) 0;
     position: relative;
+}
+
+.notification:not(:first-child) {
+    border-top: 1px solid var(--color-std-thin-border-color);
 }
 
 .notification b {
     color: black;
-}
-
-.notification::before {
-    transition: opacity var(--speed-fast), left var(--speed-fast);
-    content: '•';
-    position: absolute;
-    left: -35px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-}
-
-.notification:hover::before {
-    left: -25px;
-    opacity: 1;
 }

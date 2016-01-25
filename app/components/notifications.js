@@ -135,7 +135,7 @@ angular.module('tcp').directive('notifications', [
                 '        class="margin-top-xlarge center-align" ',
                 '        i18n="notification/no_notifications"></h3>',
 
-                '    <div class="animated fadeIn" ng-if="::notifications.MISSING_INFORMATION.company">',
+                '    <div class="animated fadeIn" ng-if="notifications.MISSING_INFORMATION.company">',
                 '        <div class="notification notification--missing-information can-load" ',
                 '            ng-class="{loading: notification.$loading || notification.$deleted}" ',
                 '            ng-repeat="notification in ::notifications.MISSING_INFORMATION.company">',
