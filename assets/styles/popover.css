@@ -94,6 +94,7 @@ popover-separator {
 
     .popover [popover-body] {
         height: 100%;
+        max-height: none;
         overflow: visible;
     }
 
