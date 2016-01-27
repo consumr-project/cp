@@ -8,11 +8,9 @@ build_bundle_js = $(build_dir)/bundle.js
 build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
-typings_dir = typings
 test_dir = test
 
 npm = npm
-tsd = ./node_modules/.bin/tsd
 tsc = ./node_modules/.bin/tsc
 imageoptim = ./node_modules/.bin/imageoptim
 svgo = ./node_modules/.bin/svgo
@@ -45,6 +43,7 @@ test:
 	$(mocha) test/**/*.js
 
 optimize:
+	$(npm) install svgo imageoptim
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
 	$(svgo) assets/images/avatar/
@@ -62,7 +61,7 @@ build-css:
 		--compress $(css_options)
 
 build-ts:
-	$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
+	-$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
 	$(browserify) $(build_dir)/app/modules/base/main.js -o $(build_bundle_js) $(browserify_options)
@@ -118,10 +117,6 @@ build-app:
 
 install:
 	$(npm) install
-	$(tsd) install
-
-install-tsd:
-	$(tsd) install
 
 deploy-heroku:
 	git push heroku master
@@ -130,7 +125,7 @@ server:
 	node server
 
 reset: clean
-	-rm -fr node_modules $(typings_dir)
+	-rm -fr node_modules
 
 clean:
 	-rm -r $(build_dir)

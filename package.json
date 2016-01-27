@@ -12,7 +12,7 @@
     "typings"
   ],
   "scripts": {
-    "postinstall": "make install-tsd build",
+    "postinstall": "make build",
     "start": "make server"
   },
   "repository": {
@@ -51,9 +51,7 @@
     "newrelic": "^1.23.1",
     "normalize.css": "^3.0.3",
     "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.3",
-    "q": "^1.4.1",
     "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.0",
-    "reqwest": "git+https://git@github.com/ded/reqwest.git#v1.1.5",
     "rollbar-browser": "^1.7.5",
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.1",
     "serve-favicon": "^2.2.1",
@@ -68,17 +66,13 @@
     "colors": "^1.1.2",
     "commander": "^2.8.1",
     "cssnext": "^1.8.1",
-    "fast-csv": "^0.6.0",
     "glob": "^5.0.14",
-    "imageoptim": "^0.4.1",
     "jshint": "^2.8.0",
     "jsmin": "^1.0.1",
     "messageformat": "^0.2.2",
     "mocha": "^2.3.3",
     "ng-stats": "^2.2.0",
     "rector": "minond/rector#v1.0.0",
-    "svgo": "^0.6.1",
-    "tsd": "^0.6.4",
     "typescript": "^1.6.0-beta",
     "yamljs": "^0.2.3"
   }

@@ -1,5 +1,3 @@
-/// <reference path="./typings.d.ts"/>
-
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import * as Cookie from 'js-cookie';
