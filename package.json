@@ -31,7 +31,7 @@
     "angular-aria": "^1.4.0",
     "angular-route": "^1.4.0",
     "animate.css": "^3.2.5",
-    "auth-service": "git+https://git@github.com/consumr-project/auth-service#v4.3.1",
+    "auth-service": "git+https://git@github.com/consumr-project/auth-service#v4.3.2",
     "body-parser": "^1.13.3",
     "bootstrap-datepicker": "^1.5.1",
     "connect-timeout": "^1.7.0",
@@ -51,13 +51,13 @@
     "newrelic": "^1.23.1",
     "normalize.css": "^3.0.3",
     "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.3",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.1",
     "rollbar-browser": "^1.7.5",
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.1",
     "serve-favicon": "^2.2.1",
     "serve-index": "^1.6.4",
     "swig": "^1.4.2",
-    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.1"
+    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.2"
   },
   "devDependencies": {
     "async": "^1.5.2",
