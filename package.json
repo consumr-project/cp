@@ -1,6 +1,6 @@
 {
   "name": "auth-service",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "",
   "main": "mount.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-linkedin-oauth2": "^1.4.0",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.1",
     "rbac": "^3.1.2"
   }
 }
