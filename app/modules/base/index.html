@@ -81,20 +81,9 @@
         {% endif %}
 
         {% if debugging %}
+        <script>window.DEBUGGING = true;</script>
         <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
-        <script>
-        window.DEBUGGING = true;
-
-        $(function () {
-            showAngularStats({
-                position: 'bottomright',
-                digestTimeThreshold: 16,
-                autoload: true,
-                logDigest: true,
-                logWatches: true
-            });
-        });
-        </script>
+        <script src="assets/scripts/perf-stats.js"></script>
         {% endif %}
 
         <script src="build/bundle.js"></script>
@@ -102,8 +91,8 @@
         {% if not debugging %}
         <script src="build/app.js"></script>
         {% else %}
-        <script src="assets/scripts/rollbar_config.js"></script>
-        <script src="assets/scripts/scroll_offset_class.js"></script>
+        <script src="assets/scripts/rollbar-config.js"></script>
+        <script src="assets/scripts/scroll-offset-class.js"></script>
         <script src="app/elements/anchored.js"></script>
         <script src="app/elements/collapsable.js"></script>
         <script src="app/elements/pills.js"></script>
