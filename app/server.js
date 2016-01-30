@@ -1,7 +1,7 @@
 'use strict';
 
-const PCKGE = require('./package.json');
-const STAMP = require('./stamp.json');
+const PCKGE = require('../package.json');
+const STAMP = require('../stamp.json');
 
 /**
  * process.env.NEW_RELIC_NO_CONFIG_FILE = true;
@@ -32,14 +32,14 @@ var log = debug('cp:server'),
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', `${__dirname}/app/modules`);
+app.set('views', `${__dirname}/modules`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
 app.use('/app', express.static('app'));
 app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
-app.use(favicon(`${__dirname}/assets/images/favicon.png`));
+app.use(favicon(`${__dirname}/../assets/images/favicon.png`));
 
 if (debugging) {
     app.use('/app', index('app'));

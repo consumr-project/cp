@@ -122,7 +122,7 @@ deploy-heroku:
 	git push heroku master
 
 server:
-	node server
+	node app/server
 
 reset: clean
 	-rm -fr node_modules
