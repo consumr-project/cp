@@ -4,9 +4,7 @@ import * as Cookie from 'js-cookie';
 import {EventEmitter2} from 'eventemitter2';
 import * as utils from './utils';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
-
 import * as jQuery from 'jquery';
-require('bootstrap-datepicker');
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
