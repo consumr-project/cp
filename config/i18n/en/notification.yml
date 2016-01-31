@@ -4,4 +4,4 @@ no_notifications: "You have no notifications. Yay!!"
 # new_company_details: New company details
 # new_tag_details: New tag details
 
-new_company_message: "<a href=\"/route?obj_type={obj_type}&obj_id={obj_id}\">{obj_name}</a>, which was created for <a href=\"/route?obj_type={obj_for_type}&obj_id={obj_for_id}\">\"{obj_for_name}\"</a>, is missing the following field(s):"
+new_company_message: "<a href=\"/{obj_type}/id/{obj_id}\">{obj_name}</a>, which was created for <a href=\"/{obj_for_type}/id/{obj_for_id}\">\"{obj_for_name}\"</a>, is missing the following field(s):"
