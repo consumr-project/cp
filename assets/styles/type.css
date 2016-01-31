@@ -48,7 +48,9 @@ h6 {
 }
 
 h1 {
+    font-family: Times;
     font-size: var(--font-size-h1);
+    font-weight: 500;
     line-height: var(--font-height-h1);
 }
 

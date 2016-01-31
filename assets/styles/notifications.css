@@ -11,3 +11,7 @@
 .notification b {
     color: black;
 }
+
+.notification__content {
+    max-width: var(--content-aside-width);
+}
