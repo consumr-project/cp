@@ -11,6 +11,7 @@ angular.module('tcp').service('NavigationService', [
             EVENT: '/event',
             NOTIFICATIONS: '/notifications',
             BY_ID: '/id',
+            BY_ME: '/me',
         };
 
         /**
@@ -44,6 +45,7 @@ angular.module('tcp').service('NavigationService', [
             company_by_id: withoid(BASES.COMPANY + BASES.BY_ID),
             home: withoid(BASES.HOME),
             user: withoid(BASES.USER),
+            user_me: withoid(BASES.USER + BASES.BY_ME),
             event: withoid(BASES.EVENT),
             notifications: withoid(BASES.USER + BASES.NOTIFICATIONS),
 

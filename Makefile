@@ -133,7 +133,7 @@ clean:
 	-rm -r $(build_dir)
 
 lint:
-	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test server.js
+	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
 
 local:
 	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)

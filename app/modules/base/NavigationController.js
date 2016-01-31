@@ -11,7 +11,7 @@ angular.module('tcp').controller('NavigationController', [
             search: NavigationService.search,
             company: NavigationService.company,
             notifications: NavigationService.notifications,
-            profile: function () { NavigationService.user(SessionService.USER.id); }
+            profile: NavigationService.user_me,
         };
 
         $rootScope.$on('$locationChangeStart', function () {

@@ -87,6 +87,14 @@ module tcp {
                 controller: 'SearchController'
             });
 
+            $routeProvider.when('/user/me', {
+                template: '<user class="site-content" id="{{id}}"></user>',
+                resolve: UserCheck,
+                controller: ['$scope', 'SessionService', function ($scope, SessionService) {
+                    $scope.id = SessionService.USER.id;
+                }]
+            });
+
             $routeProvider.when('/user/notifications', {
                 template: '<notifications class="site-content"></notifications>',
                 resolve: UserCheck
