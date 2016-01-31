@@ -76,6 +76,14 @@
     margin-top: 50px;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
 .take-space::after {
     content: '\00a0';
     display: inline-block;

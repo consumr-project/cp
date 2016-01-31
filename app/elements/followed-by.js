@@ -111,7 +111,7 @@ angular.module('tcp').directive('followedBy', [
             },
 
             template: [
-                '<div class="followed-by is-non-selectable">',
+                '<div class="followed-by is-non-selectable lowercase">',
                     '<span ng-click="onClick()">{{message}}</span>',
                 '</div>'
             ].join('')

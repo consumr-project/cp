@@ -87,6 +87,10 @@ module tcp {
                 controller: 'SearchController'
             });
 
+            $routeProvider.when('/user', {
+                redirectTo: '/user/me'
+            });
+
             $routeProvider.when('/user/me', {
                 template: '<user class="site-content" id="{{id}}"></user>',
                 resolve: UserCheck,
