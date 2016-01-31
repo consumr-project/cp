@@ -1,7 +1,7 @@
 button {
-    background-color: white;
+    background-color: var(--color-cp-brand);
     border-color: var(--color-cp-brand-border-color);
-    color: var(--color-cp-brand);
+    color: white;
     font-weight: 900;
     min-height: var(--computed-button-height);
     min-width: var(--computed-button-height);
@@ -57,8 +57,8 @@ button.button--slim {
 }
 
 button.button--secondary {
-    color: var(--color-light-text-color);
-    border-color: var(--color-std-thin-border-color);
+    background-color: white;
+    color: var(--color-cp-brand);
 }
 
 button.button--social-linkedin {
