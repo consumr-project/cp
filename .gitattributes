@@ -1,1 +1,1 @@
-build linguist-vendored=true
+build/* linguist-vendored=true
