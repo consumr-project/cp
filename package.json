@@ -9,11 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "acm": "^2.0.1",
-    "debug": "^2.2.0",
-    "elasticsearch": "^9.0.0",
-    "express": "^4.13.3",
-    "lodash": "^4.0.0",
-    "newrelic": "^1.23.1"
+    "acm": "2.0.1",
+    "debug": "2.2.0",
+    "elasticsearch": "9.0.0",
+    "express": "4.13.3",
+    "lodash": "4.0.0",
+    "newrelic": "1.23.1",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.1"
+  },
+  "devDependencies": {
+    "typescript": "1.9.0-dev.20160201",
+    "typings": "0.6.5"
   }
 }

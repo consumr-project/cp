@@ -1,0 +1,10 @@
+"use strict";
+var express = require('express');
+var config = require('acm');
+var Elasticsearch = require('elasticsearch');
+var searcher_1 = require('./searcher');
+var app = express();
+var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
+app.get('/fuzzy', searcher_1.search(es, searcher_1.fuzzy));
+!module.parent && app.listen(config('port'));
+module.exports = app;
