@@ -1,3 +1,4 @@
 /node_modules/
-/build/
+/build/elasticsearch-1.7.3/
+/build/elasticsearch-1.7.3.zip
 /newrelic_agent.log

@@ -24,7 +24,7 @@ documentation
 point to elasticsearch instance:
 
 ```bash
-export ELASTICSEARCH_HOST=$(echo $CP_FACET_FLOW_ES_HOST)
+export ELASTICSEARCH_HOST='http://...'
 ```
 
 to build and run application in debug mode:

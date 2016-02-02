@@ -1,4 +1,5 @@
 es_version = 1.7.3
+services = query
 
 run: install service
 
@@ -11,6 +12,10 @@ install:
 
 service:
 	node service
+
+local:
+	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
+	-$(foreach service,$(services),npm link ../$(service)-service;)
 
 es: elasticsearch
 elasticsearch:
