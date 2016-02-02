@@ -25,14 +25,7 @@ interface WikipediaRequest {
 interface WikiSearchResponse {
     batchcomplete: string;
     query: {
-        pages: {
-            /* [id]: { */
-            /*     extract: string; */
-            /*     ns: number; */
-            /*     pageid: number; */
-            /*     title: string; */
-            /* }; */
-        };
+        pages: { [index: string]: WikipediaResponsePage };
     };
 }
 
