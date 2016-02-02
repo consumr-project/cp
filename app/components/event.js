@@ -100,8 +100,8 @@ angular.module('tcp').directive('event', [
             source.$loading = true;
             return ServicesService.extract.page(source.url).then(function (content) {
                 source.$loading = false;
-                content.data.$source = source;
-                return content.data;
+                content.data.body.$source = source;
+                return content.data.body;
             });
         }
 
