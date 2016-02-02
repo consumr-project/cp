@@ -31,11 +31,8 @@ declare module "query-service" {
 
 declare module "elasticsearch" {
     interface Promise {
-        then(any);
-    }
-
-    interface ConnectionConfig {
-        host: string;
+        then(any): Promise;
+        catch(any): Promise;
     }
 
     interface Query {
@@ -75,11 +72,11 @@ declare module "elasticsearch" {
             total: number;
             max_score: number;
             hits: Array<Hit>
-        }
+        };
     }
 
     export class Client {
-        constructor(ConnectionConfig);
+        constructor({ host: string });
         search(query: Query): Promise;
     }
 }
