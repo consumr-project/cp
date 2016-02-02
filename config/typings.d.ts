@@ -2,7 +2,7 @@
 
 interface CPServiceResponseV1<T> {
     body: T | Array<T> | { [index: string]: T };
-    meta: any;
+    meta?: any;
 }
 
 declare module "acm" {

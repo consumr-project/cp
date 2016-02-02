@@ -31,7 +31,9 @@ function extract(req, res, next) {
             return;
         }
         try {
-            res.json(parse(JSON.parse(body)));
+            res.json({
+                body: parse(JSON.parse(body))
+            });
         }
         catch (ignore) {
             err = new Error('could not parse response');

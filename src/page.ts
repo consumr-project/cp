@@ -61,8 +61,9 @@ export function extract(req: Request, res: Response, next: Function) {
         }
 
         try {
-            /* res.json(<CPServiceResponseV1<PageResponse>>parse(JSON.parse(body))); */
-            res.json(parse(JSON.parse(body)));
+            res.json(<CPServiceResponseV1<PageResponse>>{
+                body: parse(JSON.parse(body))
+            });
         } catch (ignore) {
             err = new Error('could not parse response');
             next(err);
