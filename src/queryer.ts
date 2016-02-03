@@ -22,16 +22,28 @@ function track_metrics(action: Promise<QueryResult>): Promise<CPServiceResponseV
     });
 }
 
-function handle_error(next: Function, action: Promise<QueryResult>): Promise<QueryResult> {
-    return action.catch(err => {
-        console.error(err);
-        next(err);
-    });
+function track_error(next: Function, action: Promise<QueryResult>): Promise<QueryResult> {
+    return action.catch(err =>
+        handle_error(next, err));
+}
+
+function handle_error(next: Function, err: Error): void {
+    console.error('ERROR');
+    console.error(err);
+    next(err);
 }
 
 export function query(conn: Sequelize, sql: string): CPServiceRequestHandler {
-    return (req, res, next) =>
-        track_metrics(handle_error(next, conn.query(sql, {
-            replacements: req.query
-        }))).then(response => res.json(response));
+    return (req, res, next) => {
+        var replacements = req.query,
+            query;
+
+        try {
+            query = conn.query(sql, { replacements });
+            track_metrics(track_error(next, query))
+                .then(response => res.json(response));
+        } catch (err) {
+            handle_error(next, err);
+        }
+    };
 }

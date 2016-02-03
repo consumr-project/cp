@@ -15,17 +15,27 @@ function track_metrics(action) {
         };
     });
 }
-function handle_error(next, action) {
+function track_error(next, action) {
     return action.catch(function (err) {
-        console.error(err);
-        next(err);
+        return handle_error(next, err);
     });
+}
+function handle_error(next, err) {
+    console.error('ERROR');
+    console.error(err);
+    next(err);
 }
 function query(conn, sql) {
     return function (req, res, next) {
-        return track_metrics(handle_error(next, conn.query(sql, {
-            replacements: req.query
-        }))).then(function (response) { return res.json(response); });
+        var replacements = req.query, query;
+        try {
+            query = conn.query(sql, { replacements: replacements });
+            track_metrics(track_error(next, query))
+                .then(function (response) { return res.json(response); });
+        }
+        catch (err) {
+            handle_error(next, err);
+        }
     };
 }
 exports.query = query;
