@@ -1,6 +1,6 @@
 {
   "name": "search-service",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "build/mount.js",
   "scripts": {
