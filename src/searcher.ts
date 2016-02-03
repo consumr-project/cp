@@ -22,13 +22,7 @@ interface Result {
     type: string;
 }
 
-interface ResultMetadata {
-    timed_out: boolean;
-    took: number;
-    total: number;
-}
-
-function get_meta(res: Results): ResultMetadata {
+function get_meta(res: Results): CPSearchServiceResultMetadata {
     return {
         timed_out: res.timed_out,
         took: res.took,
@@ -70,7 +64,7 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise {
     });
 }
 
-export function search(es: Elasticsearch, searcher: SearchFunction): (Request, Response, Function) => void {
+export function search(es: Elasticsearch, searcher: SearchFunction): CPServiceRequestHandler {
     return (req, res, next) =>
         searcher(es, req.query).then(body =>
             res.json(make_response(body)));

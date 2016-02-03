@@ -1,5 +1,13 @@
 ///<reference path="../typings/main.d.ts" />
 
+type CPServiceRequestHandler = (Request, Response, Function) => void;
+
+interface CPSearchServiceResultMetadata {
+    timed_out: boolean;
+    took: number;
+    total: number;
+}
+
 interface CPServiceResponseV1<T> {
     body: T | Array<T> | { [index: string]: T };
     meta?: any;
@@ -11,6 +19,10 @@ declare module "acm" {
 }
 
 declare module "query-service" {
+    import {Sequelize} from 'sequelize';
+
+    export type QueryResult = any;
+
     export interface Model {
         findOne(query: { where: any });
     }
@@ -22,6 +34,8 @@ declare module "query-service" {
 
     export interface Company extends Model {
     }
+
+    export var conn: Sequelize;
 
     export var models: {
         User: User,
