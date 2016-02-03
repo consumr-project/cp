@@ -6,8 +6,16 @@
   "scripts": {
     "start": "make install run"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/consumr-project/search-service.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/consumr-project/search-service/issues"
+  },
+  "homepage": "https://github.com/consumr-project/search-service#readme",
   "dependencies": {
     "acm": "2.0.1",
     "debug": "2.2.0",
