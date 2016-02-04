@@ -31,7 +31,6 @@ function track_error(next: Function, action: Promise<QueryResult>): Promise<Quer
 }
 
 function handle_error(next: Function, err: Error): void {
-    console.error('ERROR');
     console.error(err);
     next(err);
 }
