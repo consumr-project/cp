@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import {map} from 'lodash';
-import {Client as Elasticsearch, Promise, Hit, Results} from 'elasticsearch';
+import { Request, Response } from 'express';
+import { map } from 'lodash';
+import { Client as Elasticsearch, Promise, Hit, Results } from 'elasticsearch';
 import config = require('acm');
 
 type SearchResults = Array<any>;

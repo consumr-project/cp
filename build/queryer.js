@@ -1,4 +1,6 @@
 "use strict";
+var lodash_1 = require('lodash');
+var PARAMS = /:\w+/g;
 function get_meta(start, results) {
     return {
         timed_out: false,
@@ -25,10 +27,22 @@ function handle_error(next, err) {
     console.error(err);
     next(err);
 }
+function get_params(sql) {
+    return lodash_1.map(lodash_1.uniq(sql.match(PARAMS) || []), function (field) {
+        return field.substr(1);
+    });
+}
+function check_params(params, replacements) {
+    if (lodash_1.difference(params, Object.keys(replacements)).length) {
+        throw new Error("Required params: " + params.join(', '));
+    }
+}
 function query(conn, sql) {
+    var params = get_params(sql);
     return function (req, res, next) {
         var replacements = req.query, query;
         try {
+            check_params(params, replacements);
             query = conn.query(sql, { replacements: replacements });
             track_metrics(track_error(next, query))
                 .then(function (response) { return res.json(response); });

@@ -8,8 +8,7 @@ import { fuzzy, search } from './searcher';
 import { query } from './queryer';
 
 var app = express();
-var es = new Elasticsearch.Client({
-    host: config('elasticsearch.host') });
+var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
 
 var sql = name =>
     read(`./config/${name}.sql`).toString();
