@@ -11,7 +11,7 @@ var app = express();
 var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
 
 var sql = name =>
-    read(`./config/${name}.sql`).toString();
+    read(`${__dirname}/../config/${name}.sql`).toString();
 
 app.get('/fuzzy', search(es, fuzzy));
 app.get('/query', query(QueryService.conn, sql('search')));

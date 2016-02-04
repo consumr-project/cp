@@ -9,7 +9,7 @@ var queryer_1 = require('./queryer');
 var app = express();
 var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
 var sql = function (name) {
-    return fs_1.readFileSync("./config/" + name + ".sql").toString();
+    return fs_1.readFileSync(__dirname + "/../config/" + name + ".sql").toString();
 };
 app.get('/fuzzy', searcher_1.search(es, searcher_1.fuzzy));
 app.get('/query', queryer_1.query(QueryService.conn, sql('search')));
