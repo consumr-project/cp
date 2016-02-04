@@ -10,6 +10,12 @@ where c.deleted_date is null
 and name like :q
 
 union
+select e.id, e.title as name, '' as summary, 'event' as type
+from events e
+where e.deleted_date is null
+and title like :q
+
+union
 select t.id, t."en-US" as name, '' as summary, 'tag' as type
 from tags t
 where t.deleted_date is null
