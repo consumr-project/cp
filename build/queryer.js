@@ -23,7 +23,6 @@ function track_error(next, action) {
     });
 }
 function handle_error(next, err) {
-    console.error('ERROR');
     console.error(err);
     next(err);
 }
