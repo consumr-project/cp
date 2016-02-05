@@ -1,6 +1,6 @@
 'use strict';
 var app = require('express')(), config = require('acm'), passport = require('passport');
-config.ref.$paths.push(require('path').join(__dirname, 'config'));
+config.ref.$paths.push(require('path').join(__dirname, '..', 'config'));
 module.exports = app;
 module.exports.passport = passport;
 module.exports.permissions = require('./permissions');

@@ -6,7 +6,7 @@ var app = require('express')(),
 
 // XXX bit of a hack, but this is the only way that I can reference the local
 // copy of `config/rbac.yml`
-config.ref.$paths.push(require('path').join(__dirname, 'config'));
+config.ref.$paths.push(require('path').join(__dirname, '..', 'config'));
 
 module.exports = app;
 module.exports.passport = passport;

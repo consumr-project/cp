@@ -17,15 +17,15 @@
   },
   "homepage": "https://github.com/consumr-project/auth-service",
   "dependencies": {
-    "acm": "^2.0.1",
-    "deep-get-set": "^0.1.1",
-    "express": "^4.13.3",
-    "lodash": "^4.0.0",
-    "node-uuid": "^1.4.7",
-    "passport": "^0.3.2",
-    "passport-linkedin-oauth2": "^1.4.0",
+    "acm": "2.0.1",
+    "deep-get-set": "0.1.1",
+    "express": "4.13.3",
+    "lodash": "4.0.0",
+    "node-uuid": "1.4.7",
+    "passport": "0.3.2",
+    "passport-linkedin-oauth2": "1.4.0",
     "query-service": "git+https://git@github.com/consumr-project/query-service.git#v4.7.1",
-    "rbac": "^3.1.2"
+    "rbac": "3.1.2"
   },
   "devDependencies": {
     "typescript": "1.9.0-dev.20160201",
