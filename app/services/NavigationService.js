@@ -52,8 +52,13 @@ angular.module('tcp').service('NavigationService', [
             /**
              * go to search
              * @param {String} query
+             * @param {Event} [event]
              */
-            search: function (query) {
+            search: function (query, event) {
+                if (event) {
+                    event.preventDefault();
+                }
+
                 $location.url('/search')
                     .search({ q: query });
             },

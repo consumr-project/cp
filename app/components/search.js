@@ -1,12 +1,13 @@
 /**
  * @attribute {Boolean} form include a search form
- * @attribute {Boolean} redirect go to another page intead of fetch results
+ * @attribute {String} query search
  */
 angular.module('tcp').directive('search', [
     'ServicesService',
     'NavigationService',
+    'RecentSearches',
     'lodash',
-    function (ServicesService, NavigationService, lodash) {
+    function (ServicesService, NavigationService, RecentSearches, lodash) {
         'use strict';
 
         /**
@@ -15,7 +16,9 @@ angular.module('tcp').directive('search', [
          */
         function new_state() {
             return {
+                empty: false,
                 loading: false,
+                recent: [],
                 results: {
                     companies: [],
                     users: [],
@@ -24,27 +27,52 @@ angular.module('tcp').directive('search', [
         }
 
         /**
+         * @param {String} query
+         * @param {CPServiceResponseV1} results
+         * @return {String[]}
+         */
+        function track_search(query, results) {
+            if (results.meta.total && !lodash.includes(RecentSearches.get(), query)) {
+                RecentSearches.unshift(query);
+            }
+
+            return RecentSearches.get();
+        }
+
+        /**
+         * @param {String} query
          * @param {Angular.Scope} $scope
          * @return {Promise}
          */
-        function search($scope) {
+        function search(query, $scope) {
+            $scope.query = query;
             $scope.vm.loading = true;
-            return ServicesService.search.query($scope.query).then(function (results) {
+
+            return ServicesService.search.query(query).then(function (results) {
                 var groups = lodash.groupBy(results.body, 'type');
-                $scope.vm.results.companies = $scope.vm.results.companies.concat(groups.company);
-                $scope.vm.results.users = $scope.vm.results.users.concat(groups.user);
+
+                $scope.vm.results.companies = groups.company;
+                $scope.vm.results.users = groups.user;
+                $scope.vm.empty = !results.meta.total;
                 $scope.vm.loading = false;
+                $scope.vm.recent = track_search(query, results);
             });
         }
 
         /**
          * @param {Angular.Scope} $scope
+         * @return {void}
          */
         function controller($scope) {
+            $scope.nav = NavigationService;
+            $scope.vm = new_state();
+
+            $scope.search = function (query) {
+                search(query, $scope);
+            };
+
             if ($scope.query) {
-                $scope.nav = NavigationService;
-                $scope.vm = new_state();
-                search($scope);
+                $scope.search($scope.query);
             }
         }
 
@@ -53,26 +81,48 @@ angular.module('tcp').directive('search', [
             controller: ['$scope', controller],
             scope: {
                 form: '@',
-                redirect: '@',
                 query: '@'
             },
             template: [
                 '<div class="search">',
-                '    <form ng-if="form" action="{{redirect ? \'/search\' : \'\'}}">',
+                '    <form ng-if="form && !query" ng-submit="nav.search(query, $event)">',
                 '        <input prop="placeholder" i18n="admin/search_placeholder" ',
-                '            name="q" tabindex="1" class="search__input" />',
+                '            name="q" tabindex="1" class="search__input" ',
+                '            ng-model="query" />',
                 '    </form>',
 
-                '    <div ng-if="query && form" class="margin-top-xlarge"></div>',
+                '    <form ng-if="form && query" ng-submit="nav.search(query, $event); search(query)">',
+                '        <input prop="placeholder" i18n="admin/search_placeholder" ',
+                '            name="q" tabindex="1" class="search__input" ',
+                '            ng-model="query" />',
+                '    </form>',
 
-                '    <div ng-if="query" class="can-load" ng-class="{loading: vm.loading}">',
-                '        <div class="search__result" ng-click="nav.company_by_id(company.id)" ',
+                '    <div ng-if="query" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
+                '        <div ng-show="!vm.loading && vm.empty" class="center-align animated fadeIn">',
+                '            <h2 i18n="common/no_results" data="{query: query}"></h2>',
+
+                '            <a ng-href="/company?create={{query}}">',
+                '                <h3 i18n="common/create_this" data="{name: query}"></h3>',
+                '            </a>',
+
+                '            <h4 ng-if="vm.recent.length" i18n="common/recent_searches"',
+                '                class="margin-top-xlarge margin-bottom-medium"></h4>',
+
+                '            <div ng-repeat="recent_search in vm.recent"',
+                '                class="margin-bottom-xsmall animated fadeInUp"',
+                '                style="animation-delay: .{{::$index}}s"',
+                '            >',
+                '                <a ng-click="nav.search(recent_search); search(recent_search)">{{recent_search}}</a>',
+                '            </div>',
+                '        </div>',
+
+                '        <div class="search__result animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
                 '            ng-repeat="company in vm.results.companies">',
                 '            <h2>{{::company.name}}</h2>',
                 '            <p>{{::company.summary || company.name}}</p>',
                 '        </div>',
 
-                '        <div class="search__result" ng-click="nav.user(user.id)" ',
+                '        <div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
                 '            ng-repeat="user in vm.results.users">',
                 '            <h2>{{::user.name}}</h2>',
                 '            <p>{{::user.summary || user.name}}</p>',

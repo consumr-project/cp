@@ -81,12 +81,13 @@ module tcp {
             $routeProvider.when('/', {
                 template:
                     '<div class="site-content">' +
-                    '    <search form="true" redirect="true"></search>' +
+                    '    <search form="true"></search>' +
                     '    <p class="copy--large header-spacing--top" i18n="common/intro"></p>' +
                     '</div>'
             });
 
             $routeProvider.when('/search', {
+                reloadOnSearch: false,
                 controller: PropSetterController([], ['q']),
                 template:
                     '<div class="site-content">' +
