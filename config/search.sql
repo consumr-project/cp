@@ -1,10 +1,10 @@
-select u.id, u.name, substring(u.summary from 0 for 300), 'user' as type
+select u.id, u.name, substring(u.summary from 0 for 300) as summary, 'user' as type
 from users u
 where u.deleted_date is null
 and name ilike :q
 
 union
-select c.id, c.name, substring(c.summary from 0 for 300), 'company' as type
+select c.id, c.name, substring(c.summary from 0 for 300) as summary, 'company' as type
 from companies c
 where c.deleted_date is null
 and name ilike :q
