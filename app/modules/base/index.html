@@ -20,7 +20,7 @@
     </head>
     <body ng-app="tcp" ng-controller="NavigationController" ng-strict-di>
         <div ng-controller="AdminController" ng-cloak>
-            <div ng-include="'app/modules/home/login.html'"></div>
+            <div ng-include="'app/modules/base/login.html'"></div>
 
             <header class="site-content--span">
                 <img class="tcp-logo" alt="" ng-click="nav.home()"
@@ -44,12 +44,12 @@
                     ></indicator>
                 </avatar>
 
-                <button class="search right margin-right-small animated fadeIn screen-small-only"
+                <button class="search-button right margin-right-small animated fadeIn screen-small-only"
                     ng-click="nav.search()"></button>
 
-                <div class="desktop-only right margin-right-small"
-                    ng-if="!nav.search.included"
-                    ng-include="'/app/modules/search/search.html'"></div>
+                <search form="true" redirect="true"
+                    class="desktop-only right margin-right-small"
+                    ng-if="!nav.search.included"></search>
             </header>
 
             <popover
@@ -107,6 +107,7 @@
         <script src="app/elements/i18n.js"></script>
         <script src="app/elements/followed-by.js"></script>
         <script src="app/components/user.js"></script>
+        <script src="app/components/search.js"></script>
         <script src="app/components/notifications.js"></script>
         <script src="app/components/company.js"></script>
         <script src="app/components/event.js"></script>
@@ -116,7 +117,6 @@
         <script src="app/services/SessionService.js"></script>
         <script src="app/modules/base/AdminController.js"></script>
         <script src="app/modules/base/NavigationController.js"></script>
-        <script src="app/modules/search/SearchController.js"></script>
         <script src="app/vendor/angular/ngFocus.js"></script>
         <script src="app/vendor/angular/ngInvisible.js"></script>
         <script src="app/vendor/angular/ngDatePicker.js"></script>

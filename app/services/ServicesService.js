@@ -204,6 +204,29 @@ angular.module('tcp').service('ServicesService', [
         };
 
         /**
+         * @param {String} query "%" wrapped
+         * @param {Number} limit (default: 100)
+         * @param {Number} offset (default: 0)
+         * @return {Promise}
+         */
+        searchService.query = function (query, limit, offset) {
+            query = "%" + query + "%";
+            limit = limit || 100;
+            offset = offset || 0;
+
+            return $http.get('/service/search/query', {
+                timeout: abortable(searchService.query),
+                params: {
+                    q: query,
+                    limit: limit,
+                    offset: offset,
+                }
+            }).then(pluck_data);
+        };
+
+        abortable(searchService.query);
+
+        /**
          * @return {Promise}
          */
         authService.user = function () {

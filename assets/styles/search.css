@@ -1,0 +1,24 @@
+.search-button,
+input.search__input {
+    background-position: 10px;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    height: var(--computed-button-height);
+}
+
+input.search__input {
+    background-image: url(/assets/images/magnifying-class-blue.svg);
+    border-color: var(--color-cp-brand-border-color);
+    border-radius: 100px;
+    padding-left: var(--computed-button-height);
+    width: 100%;
+}
+
+.search-button {
+    background-image: url(/assets/images/magnifying-class-white.svg);
+}
+
+.search__result {
+    margin-bottom: var(--spacing-xlarge);
+    color: initial;
+}

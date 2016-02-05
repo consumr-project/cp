@@ -79,12 +79,19 @@ module tcp {
             }
 
             $routeProvider.when('/', {
-                templateUrl: '/app/modules/home/index.html'
+                template:
+                    '<div class="site-content">' +
+                    '    <search form="true" redirect="true"></search>' +
+                    '    <p class="copy--large header-spacing--top" i18n="common/intro"></p>' +
+                    '</div>'
             });
 
             $routeProvider.when('/search', {
-                templateUrl: '/app/modules/search/index.html',
-                controller: 'SearchController'
+                controller: PropSetterController([], ['q']),
+                template:
+                    '<div class="site-content">' +
+                    '    <search form="true" query="{{q}}"></search>' +
+                    '</div>'
             });
 
             $routeProvider.when('/user', {
