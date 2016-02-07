@@ -1,5 +1,7 @@
 .PHONY: install clean migration seed
 
+services = auth
+
 db_url = $(shell node -e "console.log(require('acm')('database.url'))")
 sequelize = node_modules/.bin/sequelize
 
@@ -30,3 +32,7 @@ database-revert-migration:
 
 database-revert-seed:
 	@$(sequelize) db:seed:undo --url $(db_url) --seeders-path db/seeders
+
+local:
+	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
+	-$(foreach service,$(services),npm link ../$(service)-service;)
