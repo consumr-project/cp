@@ -1,8 +1,7 @@
 "use strict";
 var permissions = require('./permissions');
-var query_service_1 = require('query-service');
 var QueryService = require('query-service');
-var User = QueryService.models.User;
+var UserModel = QueryService.models.User;
 function as_guest(req, res, next) {
     req.user = req.user || { role: permissions.roles.GUEST };
     next();
@@ -17,7 +16,7 @@ function serialize(user, done) {
 }
 exports.serialize = serialize;
 function deserialize(user_id, done) {
-    return query_service_1.User.findById(user_id)
+    return UserModel.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);
 }

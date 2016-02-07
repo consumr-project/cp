@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { User, Promise } from 'query-service';
 import QueryService = require('query-service');
 
-const User = QueryService.models.User;
+const UserModel = QueryService.models.User;
 
 export function as_guest(req: Request, res: Response, next: Function): void {
     req.user = req.user || { role: permissions.roles.GUEST };
@@ -19,7 +19,7 @@ export function serialize(user: User, done: Function): void {
 }
 
 export function deserialize(user_id: string, done: Function): Promise {
-    return User.findById(user_id)
+    return UserModel.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);
 }
