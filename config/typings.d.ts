@@ -68,7 +68,11 @@ declare module "node-uuid" {
 }
 
 declare module "acm" {
-    function fn(str: string): any;
+    var fn: {
+        (str: string): any;
+        ref: any;
+    };
+
     export = fn;
 }
 
@@ -172,6 +176,8 @@ declare module "query-service" {
 /* } */
 
 declare module "passport-linkedin-oauth2" {
+    import { Request } from 'express';
+
     export interface Configuration {
         callbackURL: string;
         clientID: string;
@@ -205,6 +211,7 @@ declare module "passport-linkedin-oauth2" {
 
     export class Strategy {
         constructor(config: Configuration, fn: Search);
+        authenticate(req: Request, options?: Object): void;
         _callbackURL: string;
     }
 }
