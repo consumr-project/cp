@@ -136,6 +136,7 @@ reset: clean
 
 clean:
 	-rm -r $(build_dir)
+	mkdir $(build_dir)
 
 lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
