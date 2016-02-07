@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var lodash_1 = require('lodash');
 var RBAC = require('rbac');
 var config = require('acm');

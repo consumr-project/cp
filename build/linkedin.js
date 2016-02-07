@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 var permissions_1 = require('./permissions');
 var lodash_1 = require('lodash');
 var url_1 = require('url');

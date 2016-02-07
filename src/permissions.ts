@@ -1,5 +1,3 @@
-'use strict';
-
 import { clone } from 'lodash';
 
 import RBAC = require('rbac');

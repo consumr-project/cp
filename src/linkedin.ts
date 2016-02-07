@@ -1,5 +1,3 @@
-'use strict';
-
 import { Request, Response } from 'express';
 import { roles } from './permissions';
 import { get } from 'lodash';

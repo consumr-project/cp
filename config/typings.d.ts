@@ -85,6 +85,7 @@ declare module "query-service" {
 
     export interface Model {
         findOne?(query: Object): Promise;
+        findById?(id: string): Promise;
         findOrCreate?({where: Object, defaults: Model}): Promise;
     }
 

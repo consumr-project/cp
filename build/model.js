@@ -1,21 +1,28 @@
-'use strict';
-var User = require('query-service').models.User, permissions = require('./permissions');
-module.exports.as_guest = function (req, res, next) {
+"use strict";
+var permissions = require('./permissions');
+var query_service_1 = require('query-service');
+var QueryService = require('query-service');
+var User = QueryService.models.User;
+function as_guest(req, res, next) {
     req.user = req.user || { role: permissions.roles.GUEST };
     next();
-};
-module.exports.is_logged_in = function (req, res, next) {
+}
+exports.as_guest = as_guest;
+function is_logged_in(req, res, next) {
     next(req.user ? null : new Error('Login required'));
-};
-module.exports.serialize = function (user, done) {
+}
+exports.is_logged_in = is_logged_in;
+function serialize(user, done) {
     done(null, user.id);
-};
-module.exports.deserialize = function (user_id, done) {
-    return User.findById(user_id)
+}
+exports.serialize = serialize;
+function deserialize(user_id, done) {
+    return query_service_1.User.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);
-};
-module.exports.js_update = function (req, res) {
+}
+exports.deserialize = deserialize;
+function js_update(req, res) {
     res.send([
         '<script>',
         '   (function () {',
@@ -26,4 +33,6 @@ module.exports.js_update = function (req, res) {
         '   })();',
         '</script>'
     ].join(''));
-};
+}
+exports.js_update = js_update;
+;
