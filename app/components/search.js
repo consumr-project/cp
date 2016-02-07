@@ -67,7 +67,8 @@ angular.module('tcp').directive('search', [
             $scope.nav = NavigationService;
             $scope.vm = new_state();
 
-            $scope.search = function (query) {
+            $scope.search = function (query, $event) {
+                NavigationService.search(query, $event);
                 search(query, $scope);
             };
 
@@ -85,16 +86,10 @@ angular.module('tcp').directive('search', [
             },
             template: [
                 '<div class="search">',
-                '    <form ng-if="form" ng-submit="nav.search(query, $event)">',
+                '    <form ng-submit="search(query, $event)">',
                 '        <input prop="placeholder" i18n="admin/search_placeholder" ',
                 '            name="q" tabindex="1" class="search__input" ',
-                '            ng-model="query" />',
-                '    </form>',
-
-                '    <form ng-if="!form" ng-submit="nav.search(query, $event); search(query)">',
-                '        <input prop="placeholder" i18n="admin/search_placeholder" ',
-                '            name="q" tabindex="1" class="search__input" ',
-                '            ng-focus="true" ng-model="query" />',
+                '            ng-focus="!form" ng-model="query" />',
                 '    </form>',
 
                 '    <div ng-if="query" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
@@ -112,7 +107,7 @@ angular.module('tcp').directive('search', [
                 '                class="margin-bottom-xsmall animated fadeInUp"',
                 '                style="animation-delay: .{{::$index}}s"',
                 '            >',
-                '                <a ng-click="nav.search(recent_search); search(recent_search)">{{recent_search}}</a>',
+                '                <a ng-click="search(recent_search)">{{recent_search}}</a>',
                 '            </div>',
                 '        </div>',
 
