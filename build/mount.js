@@ -1,18 +1,17 @@
 "use strict";
 var express = require('express');
 var passport = require('passport');
-var permissions = require('./permissions');
 var config = require('acm');
 var app = express();
 config.ref.$paths.push(require('path').join(__dirname, '..', 'config'));
-exports = app;
-exports.passport = passport;
-exports.permissions = permissions;
+module.exports = app;
+module.exports.passport = passport;
+module.exports.permissions = require('./permissions');
 var model = require('./model');
 var linkedin_1 = require('./linkedin');
 var linkedin = linkedin_1["default"]();
-exports.is_logged_in = model.is_logged_in;
-exports.as_guest = model.as_guest;
+module.exports.is_logged_in = model.is_logged_in;
+module.exports.as_guest = model.as_guest;
 if (!module.parent) {
     app.use(passport.initialize());
     app.use(passport.session());

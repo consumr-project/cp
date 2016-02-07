@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as permissions from './permissions';
 import config = require('acm');
 
 var app = express();
@@ -10,17 +9,17 @@ var app = express();
 config.ref.$paths.push(require('path').join(__dirname, '..', 'config'));
 
 // XXX export orders due to import conflict with query-service
-exports = app;
-exports.passport = passport;
-exports.permissions = permissions;
+module.exports = app;
+module.exports.passport = passport;
+module.exports.permissions = require('./permissions');
 
 import * as model from './model';
 import linkedin_auth from './linkedin';
 
 var linkedin = linkedin_auth();
 
-exports.is_logged_in = model.is_logged_in;
-exports.as_guest = model.as_guest;
+module.exports.is_logged_in = model.is_logged_in;
+module.exports.as_guest = model.as_guest;
 
 if (!module.parent) {
     app.use(passport.initialize());
