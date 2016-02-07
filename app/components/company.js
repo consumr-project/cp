@@ -207,7 +207,7 @@ angular.module('tcp').directive('company', [
                 '    </section>',
 
                 '    <section ng-if="!vm.existing">',
-                '        <input class="block title" type="text" autofocus="true"',
+                '        <input class="block title" type="text" ng-focus="true"',
                 '            i18n="company/name_placeholder" prop="placeholder"',
                 '            ng-class="{ loading: vm.loading }"',
                 '            ng-change="find_companies(company.name)"',
