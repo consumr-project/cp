@@ -6,12 +6,12 @@ import { Profile } from 'passport-linkedin-oauth2';
 import { User, Promise } from 'query-service';
 import * as passport from 'passport';
 
-import uuid = require('node-uuid');
 import config = require('acm');
 import QueryService = require('query-service');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
-const User = QueryService.models.User;
+const uuid = require('node-uuid');
+const UserModel = QueryService.models.User;
 const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
 const SCOPE = [
@@ -61,7 +61,7 @@ function generate_user(profile: Profile): User {
 }
 
 function find_user(token: string, tokenSecret: string, profile: Profile, done: Function): Promise {
-    return User.findOrCreate({
+    return UserModel.findOrCreate({
         where: generate_where(profile),
         defaults: generate_user(profile)
     })

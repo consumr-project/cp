@@ -2,12 +2,12 @@
 var permissions_1 = require('./permissions');
 var lodash_1 = require('lodash');
 var url_1 = require('url');
-var query_service_1 = require('query-service');
 var passport = require('passport');
 var config = require('acm');
 var QueryService = require('query-service');
 var PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
-var User = QueryService.models.User;
+var uuid = require('node-uuid');
+var UserModel = QueryService.models.User;
 var LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 var SCOPE = [
     'r_basicprofile',
@@ -51,7 +51,7 @@ function generate_user(profile) {
     };
 }
 function find_user(token, tokenSecret, profile, done) {
-    return query_service_1.User.findOrCreate({
+    return UserModel.findOrCreate({
         where: generate_where(profile),
         defaults: generate_user(profile)
     })
