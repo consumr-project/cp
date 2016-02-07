@@ -124,7 +124,6 @@ build-app:
 
 install:
 	$(npm) install
-	cp -r node_modules/passport node_modules/auth-service/node_modules/
 
 deploy-heroku:
 	git push heroku master
