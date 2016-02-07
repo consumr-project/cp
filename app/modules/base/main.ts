@@ -91,7 +91,7 @@ module tcp {
                 controller: PropSetterController([], ['q']),
                 template:
                     '<div class="site-content">' +
-                    '    <search form="true" query="{{q}}"></search>' +
+                    '    <search query="{{q}}"></search>' +
                     '</div>'
             });
 

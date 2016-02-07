@@ -3,7 +3,8 @@ angular.module('tcp').directive('company', [
     'ServicesService',
     'SessionService',
     'utils',
-    function (NavigationService, ServicesService, SessionService, utils) {
+    'lodash',
+    function (NavigationService, ServicesService, SessionService, utils, lodash) {
         'use strict';
 
         function controller($scope) {
@@ -135,7 +136,7 @@ angular.module('tcp').directive('company', [
                 company.$followed_by = company.$followed_by || [];
                 company.$loaded = true;
                 company.$summary_parts = !company.summary ? [] :
-                    company.summary.split('\n');
+                    lodash.filter(company.summary.split('\n'));
 
                 return company;
             }

@@ -85,16 +85,16 @@ angular.module('tcp').directive('search', [
             },
             template: [
                 '<div class="search">',
-                '    <form ng-if="form && !query" ng-submit="nav.search(query, $event)">',
+                '    <form ng-if="form" ng-submit="nav.search(query, $event)">',
                 '        <input prop="placeholder" i18n="admin/search_placeholder" ',
                 '            name="q" tabindex="1" class="search__input" ',
                 '            ng-model="query" />',
                 '    </form>',
 
-                '    <form ng-if="form && query" ng-submit="nav.search(query, $event); search(query)">',
+                '    <form ng-if="!form" ng-submit="nav.search(query, $event); search(query)">',
                 '        <input prop="placeholder" i18n="admin/search_placeholder" ',
                 '            name="q" tabindex="1" class="search__input" ',
-                '            ng-model="query" />',
+                '            ng-focus="true" ng-model="query" />',
                 '    </form>',
 
                 '    <div ng-if="query" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
