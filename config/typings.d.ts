@@ -13,36 +13,111 @@
 /*     meta: CPSearchServiceResultMetadata */
 /* } */
 
+/* declare module "deep-get-set" { */
+/*     function fn(store: Object, get: string, set?: any): any; */
+/*     export = fn; */
+/* } */
+
+declare module "node-uuid" {
+    interface UUIDOptions {
+
+        /**
+         * Node id as Array of 6 bytes (per 4.1.6).
+         * Default: Randomly generated ID. See note 1.
+         */
+        node?: any[];
+
+        /**
+         * (Number between 0 - 0x3fff) RFC clock sequence.
+         * Default: An internally maintained clockseq is used.
+         */
+        clockseq?: number;
+
+        /**
+         * (Number | Date) Time in milliseconds since unix Epoch.
+         * Default: The current time is used.
+         */
+        msecs?: number|Date;
+
+        /**
+         * (Number between 0-9999) additional time, in 100-nanosecond units. Ignored if msecs is unspecified.
+         * Default: internal uuid counter is used, as per 4.2.1.2.
+         */
+        nsecs?: number;
+    }
+
+    interface UUID {
+        v1(options?: UUIDOptions): string;
+        v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+
+        v2(options?: UUIDOptions): string;
+        v2(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+
+        v3(options?: UUIDOptions): string;
+        v3(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+
+        v4(options?: UUIDOptions): string;
+        v4(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+
+        parse(id: string, buffer?: number[], offset?: number): number[];
+
+        unparse(buffer: number[], offset?: number): string;
+    }
+
+    export = UUID;
+}
+
 declare module "acm" {
     function fn(str: string): any;
     export = fn;
 }
 
-/* declare module "query-service" { */
-/*     import {Sequelize} from 'sequelize'; */
-/*  */
-/*     export type QueryResult = any; */
-/*  */
-/*     export interface Model { */
-/*         findOne(query: { where: any }); */
-/*     } */
-/*  */
-/*     export interface User extends Model { */
-/*         avatar_url?: string; */
-/*         email?: string; */
-/*     } */
-/*  */
-/*     export interface Company extends Model { */
-/*     } */
-/*  */
-/*     export var conn: Sequelize; */
-/*  */
-/*     export var models: { */
-/*         User: User, */
-/*         Company: Company, */
-/*     } */
-/* } */
-/*  */
+declare module "query-service" {
+    /* import {Sequelize} from 'sequelize'; */
+    /*  */
+    /* export type QueryResult = any; */
+
+    export interface Promise {
+        then(fn: Function): Promise;
+        catch(fn: Function): Promise;
+        spread(fn: Function): Promise;
+    }
+
+    export interface Model {
+        findOne?(query: Object): Promise;
+        findOrCreate?({where: Object, defaults: Model}): Promise;
+    }
+
+    export interface User extends Model {
+        id: string;
+        role: string;
+        auth_linkedin_id: string;
+        avatar_url: string;
+        company_name: string;
+        created_by: string;
+        created_date: Date | number;
+        email: string;
+        lang: string;
+        last_login_date: Date | number;
+        linkedin_url: string;
+        name: string;
+        summary: string;
+        title: string;
+        updated_by: string;
+        updated_date: Date | number;
+    }
+
+    /* export interface Company extends Model { */
+    /* } */
+
+    /* export var conn: Sequelize; */
+
+    export var models: {
+        User: User,
+        /* Company: Company, */
+    }
+}
+
 /* declare module "elasticsearch" { */
 /*     interface Promise { */
 /*         then(any): Promise; */
@@ -129,6 +204,7 @@ declare module "passport-linkedin-oauth2" {
 
     export class Strategy {
         constructor(config: Configuration, fn: Search);
+        _callbackURL: string;
     }
 }
 
