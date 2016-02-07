@@ -17,12 +17,10 @@ svgo = ./node_modules/.bin/svgo
 browserify = ./node_modules/.bin/browserify
 mocha = ./node_modules/.bin/mocha
 js_hint = ./node_modules/.bin/jshint
-js_min = ./node_modules/.bin/jsmin
+js_min = ./node_modules/.bin/uglifyjs
 js_sep = @echo ";\n"
 
-browserify_options =
 ts_options =
-css_options =
 build_vars =
 
 global_config_varname = TCP_BUILD_CONFIG
@@ -30,9 +28,7 @@ i18n_varname = i18n
 i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
 
 ifdef DEBUG
-	browserify_options = --debug
 	ts_options = --sourceMap
-	css_options = --sourcemap
 	build_vars = "DEBUG=*"
 	js_min = cat
 endif
@@ -57,14 +53,23 @@ build-strings:
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
 
 build-css:
-	./node_modules/.bin/cssnext assets/styles/main.css $(build_css) \
-		--compress $(css_options)
+ifdef DEBUG
+	./node_modules/.bin/cssnext --sourcemap assets/styles/main.css $(build_css)
+else
+	./node_modules/.bin/cssnext assets/styles/main.css | \
+		./node_modules/.bin/cssmin > $(build_css)
+endif
 
 build-ts:
 	-$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
-	$(browserify) $(build_dir)/app/modules/base/main.js -o $(build_bundle_js) $(browserify_options)
+ifdef DEBUG
+	$(browserify) $(build_dir)/app/modules/base/main.js --debug > $(build_bundle_js)
+else
+	$(browserify) $(build_dir)/app/modules/base/main.js | \
+		./node_modules/.bin/uglifyjs > $(build_bundle_js)
+endif
 
 build-js:
 	echo "" > $(build_vendor_js)
