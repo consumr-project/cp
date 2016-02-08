@@ -7,6 +7,8 @@ sign_in_with_email: Enter your email address to sign in or create an account
 # actions
 cancel: Cancel
 save: Save
+this_is_it: This is the right one
+go_back: Go back
 logout: Logout
 follow: Follow
 sing_in_or_up: Sign in / Sign up

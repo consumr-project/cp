@@ -19,6 +19,8 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
+                pre_search_name: '',
+                search_name: '',
                 existing: !!$scope.guid || $scope.id,
                 events_timeline: {},
                 event_form: {},
@@ -51,6 +53,8 @@ angular.module('tcp').directive('company', [
                 ServicesService.extract.wikipedia.extract.cancel();
                 ServicesService.extract.wikipedia.extract(name).then(function (res) {
                     $scope.vm.company_options = null;
+                    $scope.vm.pre_search_name = $scope.vm.search_name;
+                    $scope.vm.search_name = res.body.title;
                     $scope.company.name = res.body.title;
                     $scope.company.summary = res.body.extract;
                     $scope.company.wikipedia_url = 'https://en.wikipedia.org/?curid=' + res.body.id;
@@ -75,6 +79,13 @@ angular.module('tcp').directive('company', [
                     $scope.vm.company_options = res.body;
                     $scope.company.$loaded = false;
                 });
+            };
+
+            $scope.back_to_search = function () {
+                $scope.company.summary = null;
+                $scope.company.$summary_parts = null;
+                $scope.vm.search_name = $scope.vm.pre_search_name;
+                $scope.find_companies($scope.vm.search_name);
             };
 
             /**
@@ -161,7 +172,7 @@ angular.module('tcp').directive('company', [
             } else if ($scope.id) {
                 load($scope.id, 'retrieve');
             } else if ($scope.create) {
-                $scope.company.name = $scope.create;
+                $scope.vm.search_name = $scope.create;
                 $scope.find_companies($scope.create);
             }
         }
@@ -210,17 +221,13 @@ angular.module('tcp').directive('company', [
                 '        <input class="block title" type="text" ng-focus="true"',
                 '            i18n="company/name_placeholder" prop="placeholder"',
                 '            ng-class="{ loading: vm.loading }"',
-                '            ng-change="find_companies(company.name)"',
-                '            ng-model="company.name" ng-model-options="{ debounce: 300 }" />',
-
-                '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.$loaded">',
-                '            <button ng-click="save()" i18n="admin/save"></button>',
-                '        </div>',
+                '            ng-change="find_companies(vm.search_name)"',
+                '            ng-model="vm.search_name" ng-model-options="{ debounce: 300 }" />',
                 '    </section>',
 
                 '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',
                 '        <section ng-if="!vm.company_options.length" class="center-align">',
-                '            <h2 i18n="common/no_results" data="{query: company.name}"></h2>',
+                '            <h2 i18n="common/no_results" data="{query: vm.search_name}"></h2>',
                 '        </section>',
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',
@@ -241,6 +248,13 @@ angular.module('tcp').directive('company', [
                 '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
                 '        <a target="_blank" ng-show="::company.wikipedia_url" ng-href="{{::company.wikipedia_url}}" class="--action" i18n="common/see_wiki"></a>',
                 '        <div class="padding-bottom-medium desktop-only"></div>',
+                '    </section>',
+
+                '    <section ng-if="!vm.existing">',
+                '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.$loaded">',
+                '            <button ng-click="save()" i18n="admin/this_is_it"></button>',
+                '            <button ng-click="back_to_search()" i18n="admin/go_back" class="button--secondary"></button>',
+                '        </div>',
                 '    </section>',
                 '</div>'
             ].join('')
