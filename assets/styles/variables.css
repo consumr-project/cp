@@ -16,6 +16,7 @@
     --color-positive: #2EC87C;
     --color-link: var(--color-cp-brand);
 
+    --color-highlight: #FCF14D;
     --color-separator: rgb(236, 236, 236);
     --color-cp-brand: rgb(39, 184, 232);
     --color-cp-brand-light: rgba(39, 184, 232, 0.10);

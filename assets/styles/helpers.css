@@ -1,3 +1,11 @@
+.highlight-action {
+    transition: background-color var(--speed-fast);
+}
+
+.highlight-action:hover {
+    background-color: var(--color-highlight);
+}
+
 .is-non-selectable {
     -moz-user-select: none;
     -ms-user-select: none;
@@ -120,11 +128,23 @@
 .margin-bottom-xlarge { margin-bottom: var(--spacing-xlarge); }
 .margin-bottom-xsmall { margin-bottom: var(--spacing-xsmall); }
 
+.margin-bottom-large-negative { margin-bottom: -var(--spacing-large); }
+.margin-bottom-medium-negative { margin-bottom: -var(--spacing-medium); }
+.margin-bottom-small-negative { margin-bottom: -var(--spacing-small); }
+.margin-bottom-xlarge-negative { margin-bottom: -var(--spacing-xlarge); }
+.margin-bottom-xsmall-negative { margin-bottom: -var(--spacing-xsmall); }
+
 .margin-left-large { margin-left: var(--spacing-large); }
 .margin-left-medium { margin-left: var(--spacing-medium); }
 .margin-left-small { margin-left: var(--spacing-small); }
 .margin-left-xlarge { margin-left: var(--spacing-xlarge); }
 .margin-left-xsmall { margin-left: var(--spacing-xsmall); }
+
+.margin-left-large-negative { margin-left: -var(--spacing-large); }
+.margin-left-medium-negative { margin-left: -var(--spacing-medium); }
+.margin-left-small-negative { margin-left: -var(--spacing-small); }
+.margin-left-xlarge-negative { margin-left: -var(--spacing-xlarge); }
+.margin-left-xsmall-negative { margin-left: -var(--spacing-xsmall); }
 
 .margin-right-large { margin-right: var(--spacing-large); }
 .margin-right-medium { margin-right: var(--spacing-medium); }
@@ -132,11 +152,23 @@
 .margin-right-xlarge { margin-right: var(--spacing-xlarge); }
 .margin-right-xsmall { margin-right: var(--spacing-xsmall); }
 
+.margin-right-large-negative { margin-right: -var(--spacing-large); }
+.margin-right-medium-negative { margin-right: -var(--spacing-medium); }
+.margin-right-small-negative { margin-right: -var(--spacing-small); }
+.margin-right-xlarge-negative { margin-right: -var(--spacing-xlarge); }
+.margin-right-xsmall-negative { margin-right: -var(--spacing-xsmall); }
+
 .margin-top-large { margin-top: var(--spacing-large); }
 .margin-top-medium { margin-top: var(--spacing-medium); }
 .margin-top-small { margin-top: var(--spacing-small); }
 .margin-top-xlarge { margin-top: var(--spacing-xlarge); }
 .margin-top-xsmall { margin-top: var(--spacing-xsmall); }
+
+.margin-top-large-negative { margin-top: -var(--spacing-large); }
+.margin-top-medium-negative { margin-top: -var(--spacing-medium); }
+.margin-top-small-negative { margin-top: -var(--spacing-small); }
+.margin-top-xlarge-negative { margin-top: -var(--spacing-xlarge); }
+.margin-top-xsmall-negative { margin-top: -var(--spacing-xsmall); }
 
 .screen-small-only {
     display: initial;

@@ -225,7 +225,7 @@ angular.module('tcp').directive('company', [
                 '        <section ng-if="vm.company_options.length">',
                 '            <h2 i18n="common/results"></h2>',
                 '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option.title)">',
-                '                <p>',
+                '                <p class="highlight-action padding-right-xsmall padding-left-xsmall margin-right-xsmall-negative margin-left-xsmall-negative">',
                 '                    <b>{{option.title}}</b><span ng-if="option.snippet">: {{option.snippet}}</span>',
                 '                </p>',
                 '            </div>',
