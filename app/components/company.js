@@ -19,6 +19,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
+                step: [true],
                 pre_search_name: '',
                 search_name: '',
                 existing: !!$scope.guid || $scope.id,
@@ -58,6 +59,7 @@ angular.module('tcp').directive('company', [
                     $scope.company.name = res.body.title;
                     $scope.company.summary = res.body.extract;
                     $scope.company.wikipedia_url = 'https://en.wikipedia.org/?curid=' + res.body.id;
+                    $scope.company.website_url = 'https://' + utils.simplify(res.body.title) + '.com';
 
                     normalize_company($scope.company);
                 });
@@ -81,11 +83,26 @@ angular.module('tcp').directive('company', [
                 });
             };
 
-            $scope.back_to_search = function () {
+            $scope.next_step = function () {
+                $scope.vm.step.push(true);
+            };
+
+            $scope.is_last_step = function () {
+                return $scope.vm.step.length === 2;
+            };
+
+            $scope.reset = function () {
                 $scope.company.name = null;
                 $scope.company.summary = null;
+                $scope.company.wikipedia_url = null;
+                $scope.company.website_url = null;
                 $scope.company.$summary_parts = null;
                 $scope.vm.search_name = $scope.vm.pre_search_name;
+                $scope.vm.step = [true];
+            };
+
+            $scope.back_to_search = function () {
+                $scope.reset();
                 $scope.find_companies($scope.vm.search_name);
             };
 
@@ -162,6 +179,7 @@ angular.module('tcp').directive('company', [
                     name: $scope.company.name,
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,
+                    website_url: $scope.company.website_url,
                     wikipedia_url: $scope.company.wikipedia_url,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id,
@@ -251,9 +269,17 @@ angular.module('tcp').directive('company', [
                 '        <div class="padding-bottom-medium desktop-only"></div>',
                 '    </section>',
 
+                '    <section ng-if="!vm.existing" ng-switch="vm.step.length">',
+                '        <div ng-switch-when="2" class="animated fadeIn margin-top-xlarge margin-bottom-xlarge">',
+                '            <h1 i18n="company/what_is_the_website" data="{name: company.name}"></h1>',
+                '            <input class="block title" ng-focus="true" ng-model="company.website_url" />',
+                '        </div>',
+                '    </section>',
+
                 '    <section ng-if="!vm.existing">',
                 '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.$loaded">',
-                '            <button ng-click="save()" i18n="admin/this_is_it"></button>',
+                '            <button ng-if="is_last_step()" ng-click="save()" i18n="admin/this_is_it"></button>',
+                '            <button ng-if="!is_last_step()" ng-click="next_step()" i18n="admin/this_is_it"></button>',
                 '            <button ng-click="back_to_search()" i18n="admin/go_back" class="button--secondary"></button>',
                 '        </div>',
                 '    </section>',
