@@ -82,6 +82,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.back_to_search = function () {
+                $scope.company.name = null;
                 $scope.company.summary = null;
                 $scope.company.$summary_parts = null;
                 $scope.vm.search_name = $scope.vm.pre_search_name;
