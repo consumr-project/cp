@@ -12,6 +12,7 @@ angular.module('tcp').directive('company', [
                 $followed_by: [],
                 $loaded: false,
                 $summary_parts: [],
+                $tags: [],
                 id: null,
                 guid: null,
                 name: null,
@@ -88,7 +89,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.is_last_step = function () {
-                return $scope.vm.step.length === 2;
+                return $scope.vm.step.length === 3;
             };
 
             $scope.reset = function () {
@@ -104,6 +105,12 @@ angular.module('tcp').directive('company', [
             $scope.back_to_search = function () {
                 $scope.reset();
                 $scope.find_companies($scope.vm.search_name);
+            };
+
+            $scope.query_tags = function (str, done) {
+                ServicesService.query.search.tags('en-US', str).then(function (tags) {
+                    done(null, lodash.map(tags, normalize_tag));
+                }).catch(done);
             };
 
             /**
@@ -153,6 +160,18 @@ angular.module('tcp').directive('company', [
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'));
+            }
+
+            /**
+             * @param {Object} tag
+             * @return {Object}
+             */
+            function normalize_tag(tag) {
+                return {
+                    type: 'tag-approved-' + tag.approved.toString(),
+                    label: tag['en-US'],
+                    id: tag.id
+                };
             }
 
             /**
@@ -270,9 +289,18 @@ angular.module('tcp').directive('company', [
                 '    </section>',
 
                 '    <section ng-if="!vm.existing" ng-switch="vm.step.length">',
-                '        <div ng-switch-when="2" class="animated fadeIn margin-top-xlarge margin-bottom-xlarge">',
+                '        <div ng-switch-when="2" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
                 '            <h1 i18n="company/what_is_the_website" data="{name: company.name}"></h1>',
                 '            <input class="block title" ng-focus="true" ng-model="company.website_url" />',
+                '        </div>',
+
+                '        <div ng-switch-when="3" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
+                '            <h1 i18n="company/what_do_they_do" data="{name: company.name}"></h1>',
+                '            <pills',
+                '                ng-focus="true"',
+                '                selections="company.$tags"',
+                '                query="query_tags(query, done)"',
+                '            ></pills>',
                 '        </div>',
                 '    </section>',
 
