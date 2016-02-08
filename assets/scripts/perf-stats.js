@@ -1,7 +1,6 @@
+/* global $, showAngularStats */
 $(function () {
     'use strict';
-
-    /* global $, showAngularStats */
 
     showAngularStats({
         position: 'bottomright',
