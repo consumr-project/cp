@@ -98,6 +98,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     console.error(err);
+    res.status(500);
     res.render('base/index', { debugging, err,
         lang: req.cookies.lang });
 });
