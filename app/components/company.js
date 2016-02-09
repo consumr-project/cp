@@ -257,11 +257,14 @@ angular.module('tcp').directive('company', [
                 '    </section>',
 
                 '    <section ng-if="!vm.existing">',
-                '        <input class="block title" type="text" ng-focus="true"',
+                '        <input ng-show="vm.step.length === 1" ',
+                '            class="block title" type="text" ng-focus="true"',
                 '            i18n="company/name_placeholder" prop="placeholder"',
                 '            ng-class="{ loading: vm.loading }"',
                 '            ng-change="find_companies(vm.search_name)"',
                 '            ng-model="vm.search_name" ng-model-options="{ debounce: 300 }" />',
+
+                '        <h1 ng-show="vm.step.length > 1">{{company.name}}</h1>',
                 '    </section>',
 
                 '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',
