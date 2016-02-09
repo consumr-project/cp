@@ -7,6 +7,7 @@ permissions:
   CRUD: &CRUD [create, retrieve, update, delete]
   user: *CRUD
   tag: *CRUD
+  product: *CRUD
   company: *CRUD
   event: *CRUD
 
@@ -14,6 +15,7 @@ grants:
   guest:
     - retrieve_user
     - retrieve_tag
+    - retrieve_product
     - retrieve_company
     - retrieve_event
 
@@ -21,6 +23,8 @@ grants:
     - guest
     - create_tag
     - update_tag
+    - create_product
+    - update_product
     - create_company
     - update_company
     - create_event
@@ -30,5 +34,6 @@ grants:
     - user
     - create_user
     - delete_tag
+    - delete_product
     - delete_company
     - delete_event
