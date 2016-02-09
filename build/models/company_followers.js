@@ -1,17 +1,18 @@
-'use strict';
-var u = require('../../src/utils');
-module.exports = function (sequelize, DataTypes) {
-    var User = require('./user')(sequelize, DataTypes), Company = require('./company')(sequelize, DataTypes);
-    var CompanyFollower = sequelize.define('company_follower', u.merge({
+"use strict";
+var utils_1 = require('../utils');
+var Type = require('sequelize/lib/data-types');
+module.exports = function (sequelize) {
+    var User = require('./user')(sequelize), Company = require('./company')(sequelize);
+    var CompanyFollower = sequelize.define('company_follower', utils_1.merge({
         company_id: {
-            type: DataTypes.UUID,
+            type: Type.UUID,
             allowNull: false
         },
         user_id: {
-            type: DataTypes.UUID,
+            type: Type.UUID,
             allowNull: false
         }
-    }), u.configuration());
+    }), utils_1.CONFIG);
     Company.belongsToMany(User, { through: CompanyFollower });
     User.belongsToMany(Company, { through: CompanyFollower });
     return CompanyFollower;

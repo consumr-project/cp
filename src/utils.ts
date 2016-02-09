@@ -1,37 +1,40 @@
-"use strict";
-var lodash_1 = require('lodash');
-var Type = require('sequelize/lib/data-types');
-function merge() {
-    var args = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i - 0] = arguments[_i];
-    }
-    return lodash_1.merge.apply(null, args.reverse());
+import { merge as lmerge } from 'lodash';
+import { DataTypes } from 'sequelize';
+
+const Type: DataTypes = require('sequelize/lib/data-types');
+
+export function merge(...args: Object[]): Object {
+    return lmerge.apply(null, args.reverse());
 }
-exports.merge = merge;
-exports.CONFIG = {
+
+export const CONFIG: Object = {
     underscored: true,
     paranoid: true,
     deletedAt: 'deleted_date',
     createdAt: 'created_date',
-    updatedAt: 'updated_date'
+    updatedAt: 'updated_date',
 };
-exports.TRACKING = function () {
+
+export const TRACKING = () => {
     return {
         created_by: {
             type: Type.UUID,
-            allowNull: false
+            allowNull: false,
         },
+
         updated_by: {
             type: Type.UUID,
-            allowNull: false
+            allowNull: false,
         },
+
         deleted_by: {
-            type: Type.UUID
-        }
+            type: Type.UUID,
+        },
     };
 };
-function configuration() {
+
+// XXX
+export function configuration(): Object {
     return {
         underscored: true,
         paranoid: true,
@@ -40,20 +43,22 @@ function configuration() {
         updatedAt: 'updated_date'
     };
 }
-exports.configuration = configuration;
-function doneBy() {
+
+// XXX
+export function doneBy(): Object {
     return {
         created_by: {
             type: Type.UUID,
             allowNull: false
         },
+
         updated_by: {
             type: Type.UUID,
-            allowNull: false
+            allowNull: false,
         },
+
         deleted_by: {
             type: Type.UUID
         }
     };
 }
-exports.doneBy = doneBy;

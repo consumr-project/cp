@@ -1,28 +1,37 @@
-"use strict";
-var utils_1 = require('../utils');
-var Type = require('sequelize/lib/data-types');
-module.exports = function (sequelize) {
+import { CONFIG, TRACKING, merge } from '../utils';
+import { DataTypes } from 'sequelize';
+
+const Type: DataTypes = require('sequelize/lib/data-types');
+
+export = sequelize => {
     var Event = require('./event')(sequelize);
-    var EventSource = sequelize.define('event_source', utils_1.merge(utils_1.TRACKING, {
+
+    var EventSource = sequelize.define('event_source', merge(TRACKING, {
         id: {
             type: Type.UUID,
             primaryKey: true
         },
+
         title: {
             type: Type.STRING
         },
+
         url: {
             type: Type.STRING,
             allowNull: false
         },
+
         published_date: {
             type: Type.DATE,
             allowNull: false
         },
+
         summary: {
             type: Type.TEXT
         }
-    }), utils_1.CONFIG);
+    }), CONFIG);
+
     EventSource.belongsTo(Event);
+
     return EventSource;
 };
