@@ -25,6 +25,9 @@ module tcp {
         .constant('ERRORED', ERRORED);
 
     angular.module('tcp')
+        .constant('RUNTIME', {
+            locale: 'en-US',
+        })
         .constant('Domain', {
             model: {
                 company: 'company',

@@ -1,10 +1,11 @@
 angular.module('tcp').directive('company', [
+    'RUNTIME',
     'NavigationService',
     'ServicesService',
     'SessionService',
     'utils',
     'lodash',
-    function (NavigationService, ServicesService, SessionService, utils, lodash) {
+    function (RUNTIME, NavigationService, ServicesService, SessionService, utils, lodash) {
         'use strict';
 
         function controller($scope) {
@@ -108,7 +109,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.query_tags = function (str, done) {
-                ServicesService.query.search.tags('en-US', str).then(function (tags) {
+                ServicesService.query.search.tags(RUNTIME.locale, str).then(function (tags) {
                     done(null, lodash.map(tags, normalize_tag));
                 }).catch(done);
             };
@@ -169,7 +170,7 @@ angular.module('tcp').directive('company', [
             function normalize_tag(tag) {
                 return {
                     type: 'tag-approved-' + tag.approved.toString(),
-                    label: tag['en-US'],
+                    label: tag[RUNTIME.locale],
                     id: tag.id
                 };
             }

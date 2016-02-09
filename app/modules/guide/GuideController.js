@@ -1,9 +1,10 @@
 angular.module('tcp').controller('GuideController', [
+    'RUNTIME',
     '$scope',
     '$timeout',
     'lodash',
     'ServicesService',
-    function ($scope, $timeout, lodash, ServicesService) {
+    function (RUNTIME, $scope, $timeout, lodash, ServicesService) {
         'use strict';
 
         $scope.counter = 42;
@@ -43,11 +44,11 @@ $scope.create_selection = function (str, done) {
 
 // keep indentation
 $scope.query_selections = function (str, done) {
-    ServicesService.query.search.tags('en-US', str).then(function (tags) {
+    ServicesService.query.search.tags(RUNTIME.locale, str).then(function (tags) {
         done(null, lodash.map(tags, function (tag) {
             return {
                 type: 'tag-approved-' + tag.approved.toString(),
-                label: tag['en-US'],
+                label: tag[RUNTIME.locale],
                 id: tag.id
             };
         }));

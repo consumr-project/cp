@@ -1,11 +1,12 @@
 angular.module('tcp').directive('event', [
+    'RUNTIME',
     '$q',
     'lodash',
     'utils',
     'ServicesService',
     'SessionService',
     'Domain',
-    function ($q, lodash, utils, ServicesService, SessionService, Domain) {
+    function (RUNTIME, $q, lodash, utils, ServicesService, SessionService, Domain) {
         'use strict';
 
         /**
@@ -112,7 +113,7 @@ angular.module('tcp').directive('event', [
         function normalize_tag(tag) {
             return {
                 type: 'tag-approved-' + tag.approved.toString(),
-                label: tag['en-US'],
+                label: tag[RUNTIME.locale],
                 id: tag.id
             };
         }
@@ -289,7 +290,7 @@ angular.module('tcp').directive('event', [
             };
 
             $scope.vm.query_tags = function (str, done) {
-                ServicesService.query.search.tags('en-US', str).then(function (tags) {
+                ServicesService.query.search.tags(RUNTIME.locale, str).then(function (tags) {
                     done(null, lodash.map(tags, normalize_tag));
                 }).catch(done);
             };
@@ -298,12 +299,15 @@ angular.module('tcp').directive('event', [
                 utils.assert(str, done);
                 utils.assert(SessionService.USER.id);
 
-                ServicesService.query.tags.create({
-                    'en-US': str,
+                var tag = {
                     id: ServicesService.query.UUID,
                     created_by: SessionService.USER.id,
                     updated_by: SessionService.USER.id
-                }).then(function (tag) {
+                };
+
+                tag[RUNTIME.locale] = str;
+
+                ServicesService.query.tags.create(tag).then(function (tag) {
                     done(null, normalize_tag(tag));
                 }).catch(done);
             };
