@@ -25,6 +25,17 @@ export default (app, models) => {
         can('retrieve', 'user'),
         retrieve(models.User));
 
+    // products
+    get('/products',
+        can('retrieve', 'product'),
+        all(models.Product));
+    post('/products',
+        can('create', 'product'),
+        create(models.Product));
+    get('/products/:id',
+        can('retrieve', 'product'),
+        retrieve(models.Product));
+
     // tags
     get('/tags',
         can('retrieve', 'tag'),
@@ -52,6 +63,17 @@ export default (app, models) => {
     del('/companies/:id',
         can('delete', 'company'),
         remove(models.Company));
+
+    patch('/companies/:company_id/products',
+        can('create', 'company'),
+        can('update', 'company'),
+        upsert(models.CompanyProduct, ['company_id']));
+    get('/companies/:company_id/products/:id?',
+        can('retrieve', 'company'),
+        retrieve(models.CompanyProduct, {company_id: 'company_id', product_id: 'id'}));
+    del('/companies/:company_id/products/:id',
+        can('delete', 'company'),
+        remove(models.CompanyProduct, {company_id: 'company_id', product_id: 'id'}));
 
     patch('/companies/:company_id/followers',
         can('create', 'company'),
@@ -111,6 +133,9 @@ export default (app, models) => {
         retrieve(models.EventTag, {event_id: 'event_id'}));
 
     // search
+    get('/search/products/en-US',
+        can('retrieve', 'product'),
+        like(models.Product, 'en-US'));
     get('/search/tags/en-US',
         can('retrieve', 'tag'),
         like(models.Tag, 'en-US'));

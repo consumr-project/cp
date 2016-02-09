@@ -9,9 +9,11 @@ export default (conn) => {
         Company: model('company', conn),
         CompanyEvent: model('company_events', conn),
         CompanyFollower: model('company_followers', conn),
+        CompanyProduct: model('company_products', conn),
         Event: model('event', conn),
         EventSource: model('event_source', conn),
         EventTag: model('event_tag', conn),
+        Product: model('product', conn),
         Tag: model('tag', conn),
         User: model('user', conn),
     };
