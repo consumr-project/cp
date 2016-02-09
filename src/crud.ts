@@ -5,12 +5,7 @@ import * as q from 'q';
 
 const uuid = require('node-uuid');
 const ID_MAP: SDict = { id: 'id' };
-
-const ID_FIELDS = [
-    'id',
-    'updated_by',
-    'created_by',
-];
+const ID_FIELDS = [ 'id', 'updated_by', 'created_by' ];
 
 type RequestHandler = (req: Request, res: Response) => void
 type SDict = Dictionary<string>;
@@ -42,7 +37,7 @@ function where(prop_remap: SDict, params: SDict): UpdateOptions {
     };
 }
 
-function tag(name): (string) => Tag {
+function tag(name: string): (string) => Tag {
     return (val: string): Tag => {
         return {
             tag: name,

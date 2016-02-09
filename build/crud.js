@@ -3,11 +3,7 @@ var lodash_1 = require('lodash');
 var q = require('q');
 var uuid = require('node-uuid');
 var ID_MAP = { id: 'id' };
-var ID_FIELDS = [
-    'id',
-    'updated_by',
-    'created_by',
-];
+var ID_FIELDS = ['id', 'updated_by', 'created_by'];
 function error(res, err) {
     res.status(500);
     res.json({
