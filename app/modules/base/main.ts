@@ -28,7 +28,7 @@ module tcp {
         .constant('RUNTIME', {
             locale: 'en-US',
         })
-        .constant('Domain', {
+        .constant('DOMAIN', {
             model: {
                 company: 'company',
                 event: 'event',

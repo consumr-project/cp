@@ -1,12 +1,12 @@
 angular.module('tcp').directive('event', [
     'RUNTIME',
+    'DOMAIN',
     '$q',
     'lodash',
     'utils',
     'ServicesService',
     'SessionService',
-    'Domain',
-    function (RUNTIME, $q, lodash, utils, ServicesService, SessionService, Domain) {
+    function (RUNTIME, DOMAIN, $q, lodash, utils, ServicesService, SessionService) {
         'use strict';
 
         /**
@@ -162,14 +162,14 @@ angular.module('tcp').directive('event', [
             return {
                 obj_id: company.id,
                 obj_name: company.name,
-                obj_type: Domain.model.company,
-                obj_for_type: Domain.model.event,
+                obj_type: DOMAIN.model.company,
+                obj_for_type: DOMAIN.model.event,
                 obj_for_id: ev.id,
                 obj_for_name: ev.title,
                 obj_fields: [
-                    Domain.model.company_props.summary,
-                    Domain.model.company_props.wikipedia_url,
-                    Domain.model.company_props.website_url,
+                    DOMAIN.model.company_props.summary,
+                    DOMAIN.model.company_props.wikipedia_url,
+                    DOMAIN.model.company_props.website_url,
                 ],
             };
         }

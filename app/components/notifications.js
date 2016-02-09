@@ -1,10 +1,10 @@
 angular.module('tcp').directive('notifications', [
+    'DOMAIN',
     'ServicesService',
     'SessionService',
-    'Domain',
     'utils',
     'lodash',
-    function (ServicesService, SessionService, Domain, utils, lodash) {
+    function (DOMAIN, ServicesService, SessionService, utils, lodash) {
         'use strict';
 
         /**
@@ -98,7 +98,7 @@ angular.module('tcp').directive('notifications', [
                 $scope.vm.notification_popup.show();
 
                 switch (notification.payload.obj_type) {
-                    case Domain.model.company:
+                    case DOMAIN.model.company:
                         ServicesService.query.companies.retrieve(notification.payload.obj_id).then(function (company) {
                             $scope.vm.loading_obj = false;
                             lodash.map(notification.payload.obj_fields, function (field) {
