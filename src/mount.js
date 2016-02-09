@@ -6,8 +6,8 @@ var Sequelize = require('sequelize'),
     DataTypes = require('sequelize/lib/data-types');
 
 var body = require('body-parser'),
-    crud = require('./src/crud'),
-    utils = require('./src/utils'),
+    crud = require('./crud'),
+    utils = require('./utils'),
     debug = require('debug');
 
 var app = require('express')(),
@@ -19,30 +19,13 @@ conn = new Sequelize(config('database.url'), {
     pool: config('database.pool')
 });
 
-models = {
-    Company: model('company'),
-    CompanyEvent: model('company_events'),
-    CompanyFollower: model('company_followers'),
-    Event: model('event'),
-    EventSource: model('event_source'),
-    EventTag: model('event_tag'),
-    Tag: model('tag'),
-    User: model('user'),
-};
+models = require('./models')(conn);
 
 app.use(body.json());
 module.exports = app;
 module.exports.conn = conn;
 module.exports.models = models;
-require('./src/routes')(app, models);
-
-/**
- * @param {String} name
- * @return {Sequelize.Model}
- */
-function model(name) {
-    return require('./src/models/' + name)(conn, require('sequelize/lib/data-types'));
-}
+require('./routes')(app, models);
 
 if (!module.parent) {
     log('starting sync');

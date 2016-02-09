@@ -1,15 +1,27 @@
-.PHONY: install clean migration seed
+.PHONY: install clean migration seed build
 
 services = auth
 
 db_url = $(shell node -e "console.log(require('acm')('database.url'))")
 sequelize = node_modules/.bin/sequelize
 
+typings = ./node_modules/.bin/typings
+tsc = ./node_modules/.bin/tsc
+
+dir_source = src
+dir_build = build
+
+build:
+	$(tsc) config/typings.d.ts $(dir_source)/* $(dir_source)/models/*  --outDir $(dir_build) \
+		--module commonjs --pretty --removeComments --moduleResolution classic \
+		--allowJs
+
 install:
 	npm install
+	$(typings) install
 
 clean:
-	-rm -r node_modules
+	-rm -r node_modules typings
 
 postgres: postgresql
 postgresql:

@@ -1,0 +1,15 @@
+{
+  "name": "query-service",
+  "dependencies": {},
+  "devDependencies": {},
+  "ambientDependencies": {
+    "bluebird": "github:DefinitelyTyped/DefinitelyTyped/bluebird/bluebird.d.ts#290a1d7ee6c04ccf64c6fcfdf39d935baa91d55b",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#bc92442c075929849ec41d28ab618892ba493504",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#ad1c4f411a9ad949c0c73de4d190be1b2bf08a6f",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743",
+    "sequelize": "github:DefinitelyTyped/DefinitelyTyped/sequelize/sequelize.d.ts#d1777f15c4d7b1bec5253674e577d12d12a7717e",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f",
+    "validator": "github:DefinitelyTyped/DefinitelyTyped/validator/validator.d.ts#25ef75ce61530b82d5b4e7664c109e1ee3bc0c34"
+  }
+}
