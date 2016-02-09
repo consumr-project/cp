@@ -32,33 +32,3 @@ export const TRACKING = () => {
         },
     };
 };
-
-// XXX
-export function configuration(): Object {
-    return {
-        underscored: true,
-        paranoid: true,
-        deletedAt: 'deleted_date',
-        createdAt: 'created_date',
-        updatedAt: 'updated_date'
-    };
-}
-
-// XXX
-export function doneBy(): Object {
-    return {
-        created_by: {
-            type: Type.UUID,
-            allowNull: false
-        },
-
-        updated_by: {
-            type: Type.UUID,
-            allowNull: false,
-        },
-
-        deleted_by: {
-            type: Type.UUID
-        }
-    };
-}

@@ -31,29 +31,3 @@ exports.TRACKING = function () {
         }
     };
 };
-function configuration() {
-    return {
-        underscored: true,
-        paranoid: true,
-        deletedAt: 'deleted_date',
-        createdAt: 'created_date',
-        updatedAt: 'updated_date'
-    };
-}
-exports.configuration = configuration;
-function doneBy() {
-    return {
-        created_by: {
-            type: Type.UUID,
-            allowNull: false
-        },
-        updated_by: {
-            type: Type.UUID,
-            allowNull: false
-        },
-        deleted_by: {
-            type: Type.UUID
-        }
-    };
-}
-exports.doneBy = doneBy;

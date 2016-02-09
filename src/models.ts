@@ -4,7 +4,7 @@ function model(name: string, conn: Sequelize): Model<any, any> {
     return require('./models/' + name)(conn, require('sequelize/lib/data-types'));
 }
 
-module.exports = function (conn) {
+export default (conn) => {
     return {
         Company: model('company', conn),
         CompanyEvent: model('company_events', conn),

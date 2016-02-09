@@ -2,7 +2,8 @@
 function model(name, conn) {
     return require('./models/' + name)(conn, require('sequelize/lib/data-types'));
 }
-module.exports = function (conn) {
+exports.__esModule = true;
+exports["default"] = function (conn) {
     return {
         Company: model('company', conn),
         CompanyEvent: model('company_events', conn),
