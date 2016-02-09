@@ -2,7 +2,9 @@ import { Model } from 'sequelize';
 import * as debug from 'debug';
 import * as body from 'body-parser';
 import * as express from 'express';
+
 import gen_models from './models';
+import gen_routes from './routes';
 
 import Sequelize = require('sequelize');
 
@@ -20,4 +22,4 @@ export var conn = new Sequelize(config('database.url'), {
 export var models = gen_models(conn);
 
 app.use(body.json());
-require('./routes')(app, models);
+gen_routes(app, models);

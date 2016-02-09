@@ -1,9 +1,7 @@
-'use strict';
+export default (app, models) => {
+    var crud = require('./crud'),
+        can = require('auth-service').permissions.can;
 
-var crud = require('./crud'),
-    can = require('auth-service').permissions.can;
-
-module.exports = function (app, models) {
     var post = app.post.bind(app),
         get = app.get.bind(app),
         put = app.put.bind(app),

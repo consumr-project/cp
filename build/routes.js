@@ -1,6 +1,7 @@
-'use strict';
-var crud = require('./crud'), can = require('auth-service').permissions.can;
-module.exports = function (app, models) {
+"use strict";
+exports.__esModule = true;
+exports["default"] = function (app, models) {
+    var crud = require('./crud'), can = require('auth-service').permissions.can;
     var post = app.post.bind(app), get = app.get.bind(app), put = app.put.bind(app), del = app.delete.bind(app), patch = app.patch.bind(app);
     var all = crud.all, create = crud.create, like = crud.like, parts = crud.parts, remove = crud.delete, retrieve = crud.retrieve, update = crud.update, upsert = crud.upsert;
     post('/users', can('create', 'user'), create(models.User));
