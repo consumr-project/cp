@@ -4,7 +4,7 @@ import { DataTypes } from 'sequelize';
 const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize =>
-    sequelize.define('user', merge(TRACKING, {
+    sequelize.define('user', merge(TRACKING(), {
         id: {
             type: Type.UUID,
             primaryKey: true

@@ -6,7 +6,7 @@ const Type: DataTypes = require('sequelize/lib/data-types');
 export = sequelize => {
     var Event = require('./event')(sequelize);
 
-    var EventSource = sequelize.define('event_source', merge(TRACKING, {
+    var EventSource = sequelize.define('event_source', merge(TRACKING(), {
         id: {
             type: Type.UUID,
             primaryKey: true
