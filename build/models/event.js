@@ -2,7 +2,7 @@
 var utils_1 = require('../utils');
 var Type = require('sequelize/lib/data-types');
 module.exports = function (sequelize) {
-    return sequelize.define('event', utils_1.merge(utils_1.TRACKING, {
+    return sequelize.define('event', utils_1.merge(utils_1.TRACKING(), {
         id: {
             type: Type.UUID,
             primaryKey: true
