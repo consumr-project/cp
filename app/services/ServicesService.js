@@ -104,13 +104,17 @@ angular.module('tcp').service('ServicesService', [
 
         queryService = {
             UUID: '$UUID',
-            companies: crud('companies', ['followers', 'events']),
+            companies: crud('companies', ['followers', 'events', 'products']),
             events: crud('events', ['sources', 'tags']),
             tags: crud('tags'),
+            products: crud('products'),
             users: crud('users'),
         };
 
         queryService.search = {
+            products: function (field, query) {
+                return $http.get(url('search/products', field), { params: { q: query } }).then(pluck_data);
+            },
             tags: function (field, query) {
                 return $http.get(url('search/tags', field), { params: { q: query } }).then(pluck_data);
             },

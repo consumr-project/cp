@@ -92,7 +92,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function without(selections, id, config) {
         return _.without(selections,
             _.find(selections,
-                _.zipObject([[attr(config, 'id'), id]])));
+                _.zipObject([attr(config, 'id')],[id])));
     }
 
     /**
@@ -110,6 +110,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     $ev.target.dataset.pillsData,
                     $attrs
                 );
+                $input.focus();
                 break;
 
             case ROLE_SELECT:
@@ -120,6 +121,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 });
                 $scope.options = unselected($scope.selections, $scope.options, $attrs);
                 $input.val('');
+                $input.focus();
                 break;
 
             case ROLE_CREATE:

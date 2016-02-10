@@ -13,7 +13,7 @@ angular.module('tcp').directive('company', [
                 $followed_by: [],
                 $loaded: false,
                 $summary_parts: [],
-                $tags: [],
+                $products: [],
                 id: null,
                 guid: null,
                 name: null,
@@ -99,6 +99,7 @@ angular.module('tcp').directive('company', [
                 $scope.company.wikipedia_url = null;
                 $scope.company.website_url = null;
                 $scope.company.$summary_parts = null;
+                $scope.company.$products = [];
                 $scope.vm.search_name = $scope.vm.pre_search_name;
                 $scope.vm.step = [true];
             };
@@ -108,9 +109,9 @@ angular.module('tcp').directive('company', [
                 $scope.find_companies($scope.vm.search_name);
             };
 
-            $scope.query_tags = function (str, done) {
-                ServicesService.query.search.tags(RUNTIME.locale, str).then(function (tags) {
-                    done(null, lodash.map(tags, normalize_tag));
+            $scope.query_products = function (str, done) {
+                ServicesService.query.search.products(RUNTIME.locale, str).then(function (products) {
+                    done(null, lodash.map(products, normalize_product));
                 }).catch(done);
             };
 
@@ -164,14 +165,14 @@ angular.module('tcp').directive('company', [
             }
 
             /**
-             * @param {Object} tag
+             * @param {Object} product
              * @return {Object}
              */
-            function normalize_tag(tag) {
+            function normalize_product(product) {
                 return {
-                    type: 'tag-approved-' + tag.approved.toString(),
-                    label: tag[RUNTIME.locale],
-                    id: tag.id
+                    type: 'product-approved-' + product.approved.toString(),
+                    label: product[RUNTIME.locale],
+                    id: product.id
                 };
             }
 
@@ -301,8 +302,8 @@ angular.module('tcp').directive('company', [
                 '        <h1 i18n="company/what_do_they_do" data="{name: company.name}"></h1>',
                 '        <pills',
                 '            ng-focus="true"',
-                '            selections="company.$tags"',
-                '            query="query_tags(query, done)"',
+                '            selections="company.$products"',
+                '            query="query_products(query, done)"',
                 '        ></pills>',
                 '    </div>',
 

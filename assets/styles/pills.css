@@ -97,6 +97,7 @@ input.pills-element__input {
     right: 0;
 }
 
+.pills-element__pill[data-pill-type="product-approved-false"],
 .pills-element__pill[data-pill-type="tag-approved-false"] {
     background-color: var(--color-std-thin-border-color);
 }
