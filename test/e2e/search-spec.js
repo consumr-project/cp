@@ -38,4 +38,18 @@ describe('search', () => {
         expect($('.search__result h2').getText())
             .toEqual('Walmart Neighborhood Market');
     });
+
+    it('shows a create link when no results are found', () => {
+        var str = 'randomstringdoesnotexist';
+
+        $('.search__input')
+            .sendKeys(str)
+            .submit();
+
+        expect($('[i18n="common/no_results"]').getText())
+            .toEqual(`No results for "${str}"`);
+
+        expect($('[i18n="common/create_this"]').getText())
+            .toEqual(`create "${str}"?`);
+    });
 });
