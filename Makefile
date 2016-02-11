@@ -2,6 +2,7 @@
 
 typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
+tape = ./node_modules/.bin/tape
 
 dir_source = src
 dir_build = build
@@ -16,3 +17,6 @@ clean:
 install:
 	npm install
 	$(typings) install
+
+test: test/integration/*
+	$(tape) test/integration/*
