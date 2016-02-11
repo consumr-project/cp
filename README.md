@@ -20,3 +20,8 @@ the following enviroment variables are needed to run:
 export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
 export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 ```
+
+### test
+```bash
+make test SERVICE_URL=http://localhost:5000
+```
