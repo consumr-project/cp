@@ -11,3 +11,8 @@ this service is meant to be mounted into the
 ```js
 app.use('/user', require('user-service'));
 ```
+
+### test
+```bash
+make test SERVICE_URL=http://localhost:5000
+```

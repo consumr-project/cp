@@ -18,17 +18,21 @@ var RATING = exports.RATING;
     SIZE[SIZE["FULL"] = 2048] = "FULL";
 })(exports.SIZE || (exports.SIZE = {}));
 var SIZE = exports.SIZE;
-function generate_gravatar_url(user) {
-    return GRAVATAR_URL + md5(user.email.trim().toLowerCase()) + '?' +
+function generate_gravatar_url(req, user) {
+    var fallback = user ? user.avatar_url : '';
+    var email = (user ? user.email : req.query.email)
+        .toLowerCase()
+        .trim();
+    return GRAVATAR_URL + md5(email) + '?' +
         querystring.stringify({
-            d: user.avatar_url,
-            s: SIZE.AVATAR,
-            r: RATING.G
+            d: fallback,
+            s: req.query.size || SIZE.AVATAR,
+            r: req.query.rating || RATING.G
         });
 }
 function http_handler(req, res, next) {
     User.findOne({ where: { email: req.query.email } })
-        .then(function (user) { return res.redirect(generate_gravatar_url(user)); });
+        .then(function (user) { return res.redirect(generate_gravatar_url(req, user)); });
 }
 exports.__esModule = true;
 exports["default"] = http_handler;

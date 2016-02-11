@@ -20,16 +20,21 @@ export enum SIZE {
     FULL = 2048,
 }
 
-function generate_gravatar_url(user: QueryService.User): string {
-    return GRAVATAR_URL + md5(user.email.trim().toLowerCase()) + '?' +
+function generate_gravatar_url(req: Request, user?: QueryService.User): string {
+    let fallback = user ? user.avatar_url : '';
+    let email = (user ? user.email : req.query.email)
+        .toLowerCase()
+        .trim();
+
+    return GRAVATAR_URL + md5(email) + '?' +
         querystring.stringify({
-            d: user.avatar_url,
-            s: SIZE.AVATAR,
-            r: RATING.G,
+            d: fallback,
+            s: req.query.size || SIZE.AVATAR,
+            r: req.query.rating || RATING.G,
         });
 }
 
 export default function http_handler(req: Request, res: Response, next: Function) {
     User.findOne({ where: { email: req.query.email } })
-        .then((user) => res.redirect(generate_gravatar_url(user)));
+        .then(user => res.redirect(generate_gravatar_url(req, user)));
 }
