@@ -8,7 +8,7 @@ before_script:
   - make install
 
 script:
-  - make build test
+  - make build
 
 cache:
   directories:
