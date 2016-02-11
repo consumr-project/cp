@@ -15,7 +15,7 @@ tsc = ./node_modules/.bin/tsc
 imageoptim = ./node_modules/.bin/imageoptim
 svgo = ./node_modules/.bin/svgo
 browserify = ./node_modules/.bin/browserify
-mocha = ./node_modules/.bin/mocha
+protractor = ./node_modules/.bin/protractor
 js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/uglifyjs
 js_sep = @echo ";\n"
@@ -35,8 +35,15 @@ endif
 
 run: clean build server
 
+webdriver:
+	if [ ! -d node_modules/protractor ]; then \
+		npm install protractor@3.1.1; \
+		node_modules/.bin/webdriver-manager update; \
+	fi
+	node_modules/.bin/webdriver-manager start
+
 test:
-	$(mocha) test/**/*.js
+	$(protractor) config/protractor.js
 
 optimize:
 	$(npm) install svgo imageoptim
