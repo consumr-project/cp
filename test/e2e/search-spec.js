@@ -2,11 +2,11 @@
 
 /* global browser, $ */
 
-const navigation = require('./utils').navigation;
+const nav = require('./utils').navigation;
 
 describe('search', () => {
     beforeEach(() =>
-        browser.get(navigation.home()));
+        nav.home());
 
     it('search from the home page', () => {
         $('.search__input')

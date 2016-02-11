@@ -2,6 +2,6 @@
 
 module.exports = {
     navigation: {
-        home: () => 'http://localhost:3000/'
+        home: () => browser.get('http://localhost:3000/')
     }
 };
