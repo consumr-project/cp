@@ -1,6 +1,6 @@
 'use strict';
 
-/* global browser, $ */
+/* global $ */
 
 const nav = require('./utils').navigation;
 

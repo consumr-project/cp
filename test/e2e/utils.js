@@ -1,4 +1,6 @@
-'use strict'
+'use strict';
+
+/* global browser */
 
 module.exports = {
     navigation: {
