@@ -1,12 +1,9 @@
-'use strict';
-
-/* global $, wait */
-
-const nav = require('./utils').navigation;
-
 describe('search', () => {
+    /* global $, wait, navigation */
+    'use strict';
+
     beforeEach(() =>
-        nav.home());
+        navigation.home());
 
     it('search from the home page', () => {
         $('.search__input')
@@ -31,7 +28,7 @@ describe('search', () => {
     });
 
     it('search from the home page', () => {
-        nav.company('walmart-neighborhood-market');
+        navigation.company('walmart-neighborhood-market');
 
         $('.search__input')
             .sendKeys('walmart neighborhood market')

@@ -1,12 +1,10 @@
-'use strict';
-
-/* global $ */
-
-const admin = require('./utils').admin;
-
 describe('login', () => {
+    /* global $, admin */
+    'use strict';
+
     it('logs in through linkedin', () => {
         admin.login();
-        expect($('.avatar__imag')).not.toBeNull();
+        expect($('avatar').getAttribute('email'))
+            .toEqual(admin.login.user.email);
     });
 });
