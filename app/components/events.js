@@ -107,7 +107,7 @@ angular.module('tcp').directive('events', [
                 '    <div class="center-aligned loading__only padding-top-large" i18n="common/loading_events"></div>',
                 '    <div ng-repeat="event in events track by event.id" ',
                 '        class="events__event animated fadeInUp" ',
-                '        style="animation-delay: {{$index * .1}}s">',
+                '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
                 // '        <span class="no-outline is-non-selectable" ng-click="event.$show_details = !event.$show_details">',
                 generate_template_event_content('left'),
