@@ -23,7 +23,7 @@ describe('search', () => {
         wait();
         $('.search__result').click();
 
-        expect($(('.site-content--main h1')).getText())
+        expect($('.site-content--main h1').getText())
             .toEqual('Walmart Neighborhood Market');
     });
 
