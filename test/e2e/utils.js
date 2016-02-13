@@ -15,14 +15,13 @@ var admin = global.admin = {
         $('[i18n="admin/sing_in_with_service"]').click();
         $('[i18n="admin/remind_later"]').click();
 
-        // browser.driver.ignoreSynchronization = true;
         switch_to(1);
 
         browser.driver.findElement(by.id('session_key-oauth2SAuthorizeForm'))
-            .sendKeys(process.env.LINKEDIN_USER);
+            .sendKeys(admin.login.user.email);
 
         browser.driver.findElement(by.id('session_password-oauth2SAuthorizeForm'))
-            .sendKeys(process.env.LINKEDIN_PASS);
+            .sendKeys(admin.login.user.pass());
 
         browser.driver.findElement(by.css('[name="authorize"]'))
             .click();
@@ -31,9 +30,7 @@ var admin = global.admin = {
     }
 };
 
-admin.login.user = {
-    email: process.env.LINKEDIN_USER
-};
+admin.login.user = require('../../config/protractor.js').config.user;
 
 var navigation = global.navigation = {
     home: () =>

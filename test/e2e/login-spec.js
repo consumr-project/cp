@@ -8,6 +8,13 @@ describe('login', () => {
             .toEqual(admin.login.user.email);
     });
 
+    it('can go to the current users profile page', () => {
+        $('avatar').click();
+        $('[i18n="pages/profile"]').click();
+        expect($('.avatar__name').getText())
+            .toBe(admin.login.user.name);
+    });
+
     it('logs out', () => {
         $('avatar').click();
         $('[i18n="admin/logout"]').click();
