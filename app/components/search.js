@@ -93,7 +93,7 @@ angular.module('tcp').directive('search', [
                 '    </form>',
 
                 '    <div ng-if="query" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
-                '        <div ng-show="!vm.loading && vm.empty" class="center-align animated fadeIn">',
+                '        <div ng-if="!vm.loading && vm.empty" class="center-align animated fadeIn">',
                 '            <h2 i18n="common/no_results" data="{query: query}"></h2>',
 
                 '            <a ng-href="/company?create={{query}}">',
