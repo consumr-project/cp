@@ -2,7 +2,7 @@ button {
     background-color: var(--color-cp-brand);
     border-color: var(--color-cp-brand-border-color);
     color: white;
-    font-weight: 900;
+    font-weight: 700;
     min-height: var(--computed-button-height);
     min-width: var(--computed-button-height);
     text-transform: uppercase;
