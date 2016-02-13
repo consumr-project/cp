@@ -1,4 +1,4 @@
-describe('login', () => {
+describe('admin', () => {
     /* global $, admin */
     'use strict';
 
