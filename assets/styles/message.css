@@ -1,38 +1,24 @@
 .message-elem {
-    border-radius: 2px;
-    border-style: solid;
-    border-width: 1px;
+    color: white;
+    font-weight: bold;
     padding: 15px;
-}
-
-.message-elem * {
-    font-size: var(--font-size-small);
+    text-transform: uppercase;
 }
 
 .message-elem + .message-elem {
-    margin-top: 10px;
+    margin-top: var(--spacing-xsmall);
 }
 
 .message-elem.message-elem--error {
-    background-color: var(--color-error-background-color);
-    border-color: var(--color-error-border-color);
-    color: var(--color-error-text-color);
-}
-
-.message-elem.message-elem--warn {
-    background-color: var(--color-warn-background-color);
-    border-color: var(--color-warn-border-color);
-    color: var(--color-warn-text-color);
-}
-
-.message-elem.message-elem--info {
-    background-color: var(--color-info-background-color);
-    border-color: var(--color-info-border-color);
-    color: var(--color-info-text-color);
+    background-color: var(--color-negative);
 }
 
 .message-elem.message-elem--success {
-    background-color: var(--color-success-background-color);
-    border-color: var(--color-success-border-color);
-    color: var(--color-success-text-color);
+    background-color: var(--color-positive);
+}
+
+.message-elem button {
+    background: transparent;
+    border-color: white;
+    margin: -8px 8px;
 }

@@ -15,6 +15,10 @@ angular.module('tcp').controller('GuideController', [
             show: false
         };
 
+        $scope.goodjob = function () {
+            window.alert('good job!');
+        };
+
         $scope.toggleMenu = function () {
             $scope.menu.show = !$scope.menu.show;
         };
