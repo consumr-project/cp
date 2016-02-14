@@ -7,7 +7,7 @@ const superagent = require('superagent');
 
 test('setup', t => {
     t.plan(1);
-    t.ok(SERVICE_URL, 'service url is set');
+    t.ok(SERVICE_URL, 'service url is set (process.env.SERVICE_URL)');
     t.comment(`service url: ${SERVICE_URL}`);
 
     if (!SERVICE_URL) {

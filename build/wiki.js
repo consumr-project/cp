@@ -1,9 +1,11 @@
 "use strict";
 var lodash_1 = require('lodash');
+var parser_1 = require('./parser');
 var getset = require('deep-get-set');
 var striptags = require('striptags');
 var request = require('request');
 var WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php';
+var PART_URLS = 'urls';
 var CHAR_NL = '\n';
 var CHAR_REF = '^';
 function get_or_else(val, def) {
@@ -48,6 +50,9 @@ function wikipedia(req, res, next, params, parser) {
         }
     });
 }
+function get_parts(raw) {
+    return (raw || '').split(',');
+}
 function extract(req, res, next) {
     wikipedia(req, res, next, {
         prop: 'extracts',
@@ -66,3 +71,19 @@ function search(req, res, next) {
     }, function (body) { return lodash_1.map(getset(body, 'query.search'), normalize_search_result); });
 }
 exports.search = search;
+function infobox(req, res, next) {
+    wikipedia(req, res, next, {
+        prop: 'revisions',
+        rvprop: 'content',
+        rvsection: '0',
+        titles: req.query.q
+    }, function (body) {
+        var requested = get_parts(req.query.parts), parts = {};
+        var content = getset(lodash_1.map(body.query.pages), '0.revisions.0.*') || '', article = parser_1.wikitext(content) || { parts: {} }, infobox = parser_1.infobox(lodash_1.head(article.parts[parser_1.Tag.INFOBOX])) || {};
+        if (lodash_1.includes(requested, PART_URLS)) {
+            parts.urls = parser_1.urls(infobox['homepage']);
+        }
+        return { parts: parts, infobox: infobox };
+    });
+}
+exports.infobox = infobox;

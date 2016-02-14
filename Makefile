@@ -18,7 +18,8 @@ install:
 	npm install
 	$(typings) install
 
-test: test-unit test-integration
+test: test/*/*
+	$(tape) test/*/*.js
 
 test-unit: test/src/*
 	$(tape) test/src/*.js

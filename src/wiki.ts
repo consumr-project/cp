@@ -1,10 +1,20 @@
-import {Request, Response} from 'express';
-import {filter, map} from 'lodash';
+import { Request, Response } from 'express';
+import { filter, map, includes, head } from 'lodash';
+
+import {
+    Tag,
+    wikitext as parse_wikitext,
+    infobox as parse_infobox,
+    urls as parse_urls
+} from './parser';
+
 import getset = require('deep-get-set');
 import striptags = require('striptags');
 import request = require('request');
 
 const WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php';
+
+const PART_URLS = 'urls';
 
 const CHAR_NL = '\n';
 const CHAR_REF = '^';
@@ -16,6 +26,8 @@ interface WikipediaRequest {
     format?: string;
     list?: string;
     prop?: string;
+    rvprop?: string;
+    rvsection?: string;
     srlimit?: string;
     srprop?: string;
     srsearch?: string;
@@ -34,6 +46,11 @@ interface WikipediaResponsePage {
     title: string;
     extract?: string;
     snippet?: string;
+    revisions?: {
+        contentformat: string;
+        contentmodel: string;
+        '*': string;
+    }[]
 }
 
 interface WikiResult {}
@@ -101,6 +118,10 @@ function wikipedia<T>(req: Request, res: Response, next: Function, params: Wikip
     });
 }
 
+function get_parts(raw: string): string[] {
+    return (raw || '').split(',');
+}
+
 export function extract(req: Request, res: Response, next: Function) {
     wikipedia<WikiResult>(req, res, next, {
         prop: 'extracts',
@@ -117,4 +138,26 @@ export function search(req: Request, res: Response, next: Function) {
         srlimit: '50',
         srsearch: req.query.q,
     }, body => map(getset(body, 'query.search'), normalize_search_result));
+}
+
+export function infobox(req: Request, res: Response, next: Function) {
+    wikipedia<WikiResult>(req, res, next, {
+        prop: 'revisions',
+        rvprop: 'content',
+        rvsection: '0',
+        titles: req.query.q,
+    }, body => {
+        var requested = get_parts(req.query.parts),
+            parts: any = {};
+
+        var content = getset(map(body.query.pages), '0.revisions.0.*') || '',
+            article = parse_wikitext(content) || { parts: {} },
+            infobox = parse_infobox(head(article.parts[Tag.INFOBOX])) || {};
+
+        if (includes(requested, PART_URLS)) {
+            parts.urls = parse_urls(infobox['homepage']);
+        }
+
+        return { parts, infobox };
+    });
 }
