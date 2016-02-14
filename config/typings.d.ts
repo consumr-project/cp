@@ -29,3 +29,7 @@ declare module "request" {
     function fn(req: Request, callback: Function);
     export = fn;
 }
+
+declare module "urijs" {
+    export function withinString(source: string, callback: (uri: string) => any): any[];
+}

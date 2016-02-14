@@ -1,9 +1,11 @@
 "use strict";
 var lodash_1 = require('lodash');
+var uri = require('urijs');
 var DEBUG = 0;
 var PART_START = '{{';
 var PART_END = '}}';
 var PART_INFOBOX_ITEM = '| ';
+var REGEX_SECTION_META = /\|.+/g;
 var REGEX_INFOBOX_ITEM_LABEL = /\|(.+?)\=/;
 var REGEX_INFOBOX_ITEM_CONTENT = /\|.+?\=\s{0,}(.+)/;
 (function (Tag) {
@@ -35,6 +37,14 @@ function contains(str, needle) {
 function clean_match(match) {
     return match && match[1] ? match[1].trim() : '';
 }
+function urls(line) {
+    var store = [];
+    uri.withinString(line, function (url) {
+        return store.push(url.replace(REGEX_SECTION_META, ''));
+    });
+    return store;
+}
+exports.urls = urls;
 function infobox(lines) {
     var curr;
     return lodash_1.reduce(lines, function (dict, line) {

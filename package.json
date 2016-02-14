@@ -28,6 +28,7 @@
     "deep-get-set": "^1.0.0",
     "lodash": "^4.0.0",
     "request": "^2.65.0",
-    "striptags": "^2.0.4"
+    "striptags": "^2.0.4",
+    "urijs": "1.17.0"
   }
 }

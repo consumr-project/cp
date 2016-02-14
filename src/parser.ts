@@ -1,4 +1,5 @@
 import { reduce } from 'lodash'
+import * as uri from 'urijs';
 
 const DEBUG = 0;
 
@@ -6,6 +7,7 @@ const PART_START = '{{';
 const PART_END = '}}';
 const PART_INFOBOX_ITEM = '| ';
 
+const REGEX_SECTION_META = /\|.+/g;
 const REGEX_INFOBOX_ITEM_LABEL = /\|(.+?)\=/;
 const REGEX_INFOBOX_ITEM_CONTENT = /\|.+?\=\s{0,}(.+)/;
 
@@ -47,6 +49,15 @@ function contains(str: string, needle: string): Boolean {
 
 function clean_match(match: string[]): string {
     return match && match[1] ? match[1].trim() : '';
+}
+
+export function urls(line: string): string[] {
+    var store = [];
+
+    uri.withinString(line, url =>
+        store.push(url.replace(REGEX_SECTION_META, '')));
+
+    return store;
 }
 
 export function infobox(lines: string[]): Dictionary<string> {
