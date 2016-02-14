@@ -5,6 +5,11 @@ const each = require('lodash').each;
 const parser = require('../../build/parser');
 
 const dataset = {
+    'samples/dell.wikitext': {
+        name: 'Dell Inc.',
+        homepage: '{{URL|https://www.dell.com/}}',
+    },
+
     'samples/apple.wikitext': {
         name: 'Apple Inc.',
         homepage: '{{URL|http://www.apple.com}}',
