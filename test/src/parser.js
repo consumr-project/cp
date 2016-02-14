@@ -5,6 +5,11 @@ const each = require('lodash').each;
 const parser = require('../../build/parser');
 
 const dataset = {
+    'samples/albertsons.wikitext': {
+        name: 'Albertsons Companies Inc.<ref name="albertsons.com">{{cite web|url=http://www.albertsons.com/albertsons-files-registration-statement-for-proposed-initial-public-offering/|title=Albertsons  » Albertsons Files Registration Statement for Proposed Initial Public Offering|work=Albertsons|accessdate=5 January 2016}}</ref><ref name="albertsons.com1">{{cite web|url=http://www.albertsons.com/our-company/traditions-history/|title=Albertsons  » About Us|work=Albertsons|accessdate=5 January 2016}}</ref>',
+        homepage: '[http://www.albertsons.com/ Albertsons.com]',
+    },
+
     'samples/dell.wikitext': {
         name: 'Dell Inc.',
         homepage: '{{URL|https://www.dell.com/}}',
