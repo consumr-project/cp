@@ -1,21 +1,33 @@
 'use strict';
 
 const test = require('tape');
+const each = require('lodash').each;
 const parser = require('../../build/parser');
 
-const samples = [
-    read('samples/walmart.wikitext'),
-];
+const dataset = {
+    'samples/walmart.wikitext': {
+        name: 'Wal-Mart Stores, Inc.',
+        homepage: '{{ublist |{{URL|http://corporate.walmart.com/|Corporate website}}|{{URL|http://www.walmart.com/|Commercial website}}}}',
+    },
+};
 
 test('mediawikiparser', t => {
-    var article = parser.wikitext(samples[0]);
-    var infobox = parser.infobox(article.parts[parser.Tag.INFOBOX][0]);
+    var raw, article, infobox;
 
-    // console.log(article.parts[parser.Tag.INFOBOX][0]);
-    console.log(infobox);
+    t.plan(3 * Object.keys(dataset).length);
 
-    t.plan(1);
-    t.equal('walmart.com', 'walmart.com');
+    each(dataset, (expected, file) => {
+        raw = read(file);
+
+        t.comment(`can parse ${file}`);
+        article = parser.wikitext(raw);
+        t.ok(article.parts[parser.Tag.INFOBOX][0], 'main infobox');
+
+        t.comment('gets sections');
+        infobox = parser.infobox(article.parts[parser.Tag.INFOBOX][0]);
+        t.equal(infobox.name, expected.name, 'finds name');
+        t.equal(infobox.homepage, expected.homepage, 'finds homepage');
+    });
 });
 
 /**
