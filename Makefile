@@ -18,6 +18,10 @@ install:
 	npm install
 	$(typings) install
 
-test: test/integration/* test/src/*
+test: test-unit test-integration
+
+test-unit: test/src/*
 	$(tape) test/src/*.js
+
+test-integration: test/integration/*
 	$(tape) test/integration/*
