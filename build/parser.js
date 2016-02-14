@@ -129,4 +129,3 @@ function wikitext(markup) {
     var _a;
 }
 exports.wikitext = wikitext;
-;

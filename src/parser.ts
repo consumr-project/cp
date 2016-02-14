@@ -159,4 +159,4 @@ export function wikitext(markup: string = ''): Article {
     });
 
     return article;
-};
+}
