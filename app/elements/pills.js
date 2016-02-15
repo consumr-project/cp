@@ -5,6 +5,7 @@
  * @attribute {String} labelAttr attribute to use in selections to get labels
  * @attribute {String} idAttr attribute to use in selections to get ids
  * @attribute {String} typeAttr attribute to use in selections to get types
+ * @attribute {String} placeholder i18n key to use to get the placeholder
  */
 angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', function ($document, i18n, _) {
     'use strict';
@@ -216,12 +217,14 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     }
 
     function controller($scope, $attrs) {
+        $scope.placeholder = $attrs.placeholder && i18n.get($attrs.placeholder);
         if (!$scope.selections) {
             $scope.selections = [];
         }
 
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
+            $scope.empty = !$scope.pills.length;
         });
     }
 
@@ -260,6 +263,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             '<div class="pills-container is-non-selectable">',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
+                        '<div class="pills-element__selections__placeholder" ',
+                            'ng-show="empty">{{placeholder}}</div>',
                         '<div ',
                             'class="pills-element__pill" ',
                             'ng-repeat="pill in pills" ',

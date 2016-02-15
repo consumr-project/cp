@@ -14,6 +14,11 @@
     display: inline;
 }
 
+.pills-element__selections__placeholder {
+    color: var(--color-light-text-color);
+    font-size: var(--font-size-xlarge);
+}
+
 input.pills-element__input {
     border: none;
     font-size: 10pt;

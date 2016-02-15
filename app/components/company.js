@@ -314,6 +314,7 @@ angular.module('tcp').directive('company', [
                 '            ng-focus="true"',
                 '            selections="company.$products"',
                 '            query="query_products(query, done)"',
+                '            placeholder="samples/products"',
                 '        ></pills>',
                 '    </div>',
 
