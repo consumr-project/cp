@@ -1,18 +1,20 @@
-import { reduce } from 'lodash'
+import { reduce, head, startsWith as starts_with } from 'lodash'
 import * as uri from 'urijs';
 
 const DEBUG = 0;
 
 const PART_START = '{{';
 const PART_END = '}}';
-const PART_INFOBOX_ITEM = '| ';
+const PART_INFOBOX = '{{Infobox';
+const PART_INFOBOX_ITEM = '|';
 
 const REGEX_SECTION_META = /\|.+/g;
 const REGEX_INFOBOX_ITEM_LABEL = /\|(.+?)\=/;
 const REGEX_INFOBOX_ITEM_CONTENT = /\|.+?\=\s{0,}(.+)/;
 
 export enum Tag {
-    INFOBOX
+    INFOBOX,
+    MACRO,
 };
 
 interface Dictionary<T> {
@@ -24,7 +26,8 @@ interface Article {
 }
 
 function guess_type(line: string): string {
-    return line.substr(0, 2);
+    return line[0] === PART_INFOBOX_ITEM ? PART_INFOBOX_ITEM :
+        line.substr(0, 2);
 }
 
 function new_store() {
@@ -49,6 +52,24 @@ function contains(str: string, needle: string): Boolean {
 
 function clean_match(match: string[]): string {
     return match && match[1] ? match[1].trim() : '';
+}
+
+function save_part(article: Article, store: string[]): Tag {
+    var def = head(store),
+        tag: Tag;
+
+    switch (true) {
+        case starts_with(def, PART_INFOBOX):
+            tag = Tag.INFOBOX;
+            break;
+
+        default:
+            tag = Tag.MACRO;
+            break;
+    }
+
+    article.parts[tag].push(store);
+    return tag;
 }
 
 export function urls(line: string): string[] {
@@ -98,7 +119,8 @@ export function wikitext(markup: string = ''): Article {
 
     var article: Article = {
         parts: {
-            [Tag.INFOBOX]: []
+            [Tag.INFOBOX]: [],
+            [Tag.MACRO]: [],
         }
     };
 
@@ -131,10 +153,10 @@ export function wikitext(markup: string = ''): Article {
 
             case PART_END:
                 level--;
-
                 log({ part: 'PART_END', level, line });
+
                 if (level < 1) {
-                    article.parts[Tag.INFOBOX].push(store);
+                    save_part(article, store);
                     store = new_store();
                 }
 
@@ -142,8 +164,8 @@ export function wikitext(markup: string = ''): Article {
 
             default:
                 store.push(line);
-
                 log({ part: 'DEFAULT', level, line });
+
                 if (contains(line, PART_START)) {
                     level++;
                     log({ part: 'DEFAULT--PART_START', level });
@@ -152,6 +174,11 @@ export function wikitext(markup: string = ''): Article {
                 if (contains(line, PART_END)) {
                     level--;
                     log({ part: 'DEFAULT--PART_END', level });
+                }
+
+                if (level < 1) {
+                    save_part(article, store);
+                    store = new_store();
                 }
 
                 break;

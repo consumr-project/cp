@@ -4,17 +4,20 @@ var uri = require('urijs');
 var DEBUG = 0;
 var PART_START = '{{';
 var PART_END = '}}';
-var PART_INFOBOX_ITEM = '| ';
+var PART_INFOBOX = '{{Infobox';
+var PART_INFOBOX_ITEM = '|';
 var REGEX_SECTION_META = /\|.+/g;
 var REGEX_INFOBOX_ITEM_LABEL = /\|(.+?)\=/;
 var REGEX_INFOBOX_ITEM_CONTENT = /\|.+?\=\s{0,}(.+)/;
 (function (Tag) {
     Tag[Tag["INFOBOX"] = 0] = "INFOBOX";
+    Tag[Tag["MACRO"] = 1] = "MACRO";
 })(exports.Tag || (exports.Tag = {}));
 var Tag = exports.Tag;
 ;
 function guess_type(line) {
-    return line.substr(0, 2);
+    return line[0] === PART_INFOBOX_ITEM ? PART_INFOBOX_ITEM :
+        line.substr(0, 2);
 }
 function new_store() {
     return [];
@@ -36,6 +39,19 @@ function contains(str, needle) {
 }
 function clean_match(match) {
     return match && match[1] ? match[1].trim() : '';
+}
+function save_part(article, store) {
+    var def = lodash_1.head(store), tag;
+    switch (true) {
+        case lodash_1.startsWith(def, PART_INFOBOX):
+            tag = Tag.INFOBOX;
+            break;
+        default:
+            tag = Tag.MACRO;
+            break;
+    }
+    article.parts[tag].push(store);
+    return tag;
 }
 function urls(line) {
     var store = [];
@@ -75,6 +91,7 @@ function wikitext(markup) {
     var article = {
         parts: (_a = {},
             _a[Tag.INFOBOX] = [],
+            _a[Tag.MACRO] = [],
             _a
         )
     };
@@ -107,7 +124,7 @@ function wikitext(markup) {
                 level--;
                 log({ part: 'PART_END', level: level, line: line });
                 if (level < 1) {
-                    article.parts[Tag.INFOBOX].push(store);
+                    save_part(article, store);
                     store = new_store();
                 }
                 break;
@@ -121,6 +138,10 @@ function wikitext(markup) {
                 if (contains(line, PART_END)) {
                     level--;
                     log({ part: 'DEFAULT--PART_END', level: level });
+                }
+                if (level < 1) {
+                    save_part(article, store);
+                    store = new_store();
                 }
                 break;
         }
