@@ -5,6 +5,7 @@ var getset = require('deep-get-set');
 var striptags = require('striptags');
 var request = require('request');
 var WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php';
+var WIKIPEDIA_WEB_URL = 'https://en.wikipedia.org/w/index.php';
 var PART_URLS = 'urls';
 var CHAR_NL = '\n';
 var CHAR_REF = '^';
@@ -24,7 +25,7 @@ function normalize_search_result(obj) {
         snippet: striptags(get_or_else(obj.snippet, ''))
     };
 }
-function wikipedia(req, res, next, params, parser) {
+function wikipedia_api(req, res, next, params, parser) {
     var start_time = Date.now();
     params.action = 'query';
     params.format = 'json';
@@ -50,11 +51,30 @@ function wikipedia(req, res, next, params, parser) {
         }
     });
 }
+function wikipedia_web(req, res, next, params, parser) {
+    var start_time = Date.now();
+    request({
+        uri: WIKIPEDIA_WEB_URL,
+        qs: params
+    }, function (err, xres, body) {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.json({
+            body: parser(body),
+            meta: {
+                elapsed_time: Date.now() - start_time,
+                href: xres.request.url.href
+            }
+        });
+    });
+}
 function get_parts(raw) {
     return (raw || '').split(',');
 }
 function extract(req, res, next) {
-    wikipedia(req, res, next, {
+    wikipedia_api(req, res, next, {
         prop: 'extracts',
         exintro: '',
         explaintext: '',
@@ -63,7 +83,7 @@ function extract(req, res, next) {
 }
 exports.extract = extract;
 function search(req, res, next) {
-    wikipedia(req, res, next, {
+    wikipedia_api(req, res, next, {
         list: 'search',
         srprop: 'snippet',
         srlimit: '50',
@@ -72,14 +92,12 @@ function search(req, res, next) {
 }
 exports.search = search;
 function infobox(req, res, next) {
-    wikipedia(req, res, next, {
-        prop: 'revisions',
-        rvprop: 'content',
-        rvsection: '0',
-        titles: req.query.q
+    wikipedia_web(req, res, next, {
+        action: 'raw',
+        title: req.query.q
     }, function (body) {
         var requested = get_parts(req.query.parts), parts = {};
-        var content = getset(lodash_1.map(body.query.pages), '0.revisions.0.*') || '', article = parser_1.wikitext(content) || { parts: {} }, infobox = parser_1.infobox(lodash_1.head(article.parts[parser_1.Tag.INFOBOX])) || {};
+        var article = parser_1.wikitext(body) || { parts: {} }, infobox = parser_1.infobox(lodash_1.head(article.parts[parser_1.Tag.INFOBOX])) || {};
         if (lodash_1.includes(requested, PART_URLS)) {
             parts.urls = parser_1.urls(infobox['homepage']);
         }

@@ -13,6 +13,7 @@ import striptags = require('striptags');
 import request = require('request');
 
 const WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php';
+const WIKIPEDIA_WEB_URL = 'https://en.wikipedia.org/w/index.php';
 
 const PART_URLS = 'urls';
 
@@ -31,6 +32,7 @@ interface WikipediaRequest {
     srlimit?: string;
     srprop?: string;
     srsearch?: string;
+    title?: string;
     titles?: string;
 }
 
@@ -89,7 +91,7 @@ function normalize_search_result(obj: WikipediaResponsePage): WikiSearchResult {
     };
 }
 
-function wikipedia<T>(req: Request, res: Response, next: Function, params: WikipediaRequest, parser: (WikiSearchResponse) => T) {
+function wikipedia_api<T>(req: Request, res: Response, next: Function, params: WikipediaRequest, parser: (WikiSearchResponse) => T) {
     var start_time = Date.now();
 
     params.action = 'query';
@@ -118,12 +120,34 @@ function wikipedia<T>(req: Request, res: Response, next: Function, params: Wikip
     });
 }
 
+function wikipedia_web<T>(req: Request, res: Response, next: Function, params: WikipediaRequest, parser: (string) => T) {
+    var start_time = Date.now();
+
+    request({
+        uri: WIKIPEDIA_WEB_URL,
+        qs: params
+    }, (err, xres, body) => {
+        if (err) {
+            next(err);
+            return;
+        }
+
+        res.json(<CPServiceResponseV1<WikiResult>>{
+            body: parser(body),
+            meta: {
+                elapsed_time: Date.now() - start_time,
+                href: xres.request.url.href
+            },
+        });
+    });
+}
+
 function get_parts(raw: string): string[] {
     return (raw || '').split(',');
 }
 
 export function extract(req: Request, res: Response, next: Function) {
-    wikipedia<WikiResult>(req, res, next, {
+    wikipedia_api<WikiResult>(req, res, next, {
         prop: 'extracts',
         exintro: '',
         explaintext: '',
@@ -132,7 +156,7 @@ export function extract(req: Request, res: Response, next: Function) {
 }
 
 export function search(req: Request, res: Response, next: Function) {
-    wikipedia<WikiResult[]>(req, res, next, {
+    wikipedia_api<WikiResult[]>(req, res, next, {
         list: 'search',
         srprop: 'snippet',
         srlimit: '50',
@@ -141,17 +165,14 @@ export function search(req: Request, res: Response, next: Function) {
 }
 
 export function infobox(req: Request, res: Response, next: Function) {
-    wikipedia<WikiResult>(req, res, next, {
-        prop: 'revisions',
-        rvprop: 'content',
-        rvsection: '0',
-        titles: req.query.q,
+    wikipedia_web(req, res, next, {
+        action: 'raw',
+        title: req.query.q,
     }, body => {
         var requested = get_parts(req.query.parts),
             parts: any = {};
 
-        var content = getset(map(body.query.pages), '0.revisions.0.*') || '',
-            article = parse_wikitext(content) || { parts: {} },
+        var article = parse_wikitext(body) || { parts: {} },
             infobox = parse_infobox(head(article.parts[Tag.INFOBOX])) || {};
 
         if (includes(requested, PART_URLS)) {
