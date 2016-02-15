@@ -57,6 +57,7 @@
     "serve-favicon": "2.2.1",
     "serve-index": "1.6.4",
     "swig": "1.4.2",
+    "universal-analytics": "0.3.10",
     "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.4"
   },
   "devDependencies": {

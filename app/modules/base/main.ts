@@ -5,12 +5,15 @@ import {EventEmitter2} from 'eventemitter2';
 import * as utils from './utils';
 import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
+import * as analytics from 'universal-analytics';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
     const ERRORED: Boolean = (<any>window).ERRORED;
 
     var deps: Array<string> = ['ngRoute', 'ngAria'];
+    var Visitor = !DEBUGGING ? analytics(TCP_BUILD_CONFIG.analytics.gaid) :
+        analytics(TCP_BUILD_CONFIG.analytics.gaid).debug();
 
     if (DEBUGGING) {
         deps.push('rector');
@@ -49,7 +52,8 @@ module tcp {
         .value('jQuery', jQuery)
         .value('lodash', _)
         .value('moment', moment)
-        .value('utils', utils);
+        .value('utils', utils)
+        .value('Visitor', Visitor);
 
     angular.module('tcp').config([
         '$routeProvider',
@@ -68,20 +72,22 @@ module tcp {
                 query.map(prop => $scope[prop] = $location.search()[prop]);
             }];
 
-            let UserCheck = {
-                current_user: ['SessionService', function (SessionService) {
-                    return SessionService.refresh();
-                }]
-            };
+            let UserCheck = ['SessionService', SessionService =>
+                SessionService.refresh()];
+
+            let PageView = ['Visitor', Visitor =>
+                Visitor.pageview(window.location.pathname + window.location.search).send()];
 
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
+                    resolve: { PageView },
                     templateUrl: '/app/modules/guide/index.html',
                     controller: 'GuideController'
                 });
             }
 
             $routeProvider.when('/', {
+                resolve: { PageView },
                 template:
                     '<div class="site-content">' +
                     '    <search form="true"></search>' +
@@ -90,6 +96,7 @@ module tcp {
             });
 
             $routeProvider.when('/search', {
+                resolve: { PageView },
                 reloadOnSearch: false,
                 controller: PropSetterController([], ['q']),
                 template:
@@ -99,12 +106,13 @@ module tcp {
             });
 
             $routeProvider.when('/user', {
+                resolve: { PageView },
                 redirectTo: '/user/me'
             });
 
             $routeProvider.when('/user/me', {
                 template: '<user class="site-content" id="{{id}}"></user>',
-                resolve: UserCheck,
+                resolve: { UserCheck, PageView },
                 controller: ['$scope', 'SessionService', function ($scope, SessionService) {
                     $scope.id = SessionService.USER.id;
                 }]
@@ -112,10 +120,11 @@ module tcp {
 
             $routeProvider.when('/user/notifications', {
                 template: '<notifications class="site-content"></notifications>',
-                resolve: UserCheck
+                resolve: { UserCheck, PageView }
             });
 
             $routeProvider.when('/user/:id', {
+                resolve: { PageView },
                 template: '<user class="site-content" id="{{id}}"></user>',
                 controller: IdSetterController
             });
@@ -123,16 +132,17 @@ module tcp {
             $routeProvider.when('/company/id/:id', {
                 template: '<company class="site-content" id="{{id}}"></company>',
                 controller: PropSetterController(['id']),
-                resolve: UserCheck
+                resolve: { UserCheck, PageView }
             });
 
             $routeProvider.when('/company/:guid?', {
                 template: '<company class="site-content" guid="{{guid}}" create="{{create}}"></company>',
                 controller: PropSetterController(['guid'], ['create']),
-                resolve: UserCheck
+                resolve: { UserCheck, PageView }
             });
 
             $routeProvider.otherwise({
+                resolve: { PageView },
                 controller: ['$scope', 'ERRORED', function ($scope, ERRORED) { $scope.ERRORED = ERRORED; }],
                 template:
                     '<div class="site-content">' +

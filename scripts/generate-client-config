@@ -8,6 +8,7 @@ var config = require('acm'),
 varname && console.log('var %s =', varname);
 
 console.log({
+    analytics: { gaid: config('google.analytics.account_id') },
     enviroment: { name: config('node.env') || 'development' },
     rollbar: { token: config('rollbar.token') },
     locate: { dateFormat: config('locale.dateFormat') }
