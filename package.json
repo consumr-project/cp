@@ -1,6 +1,6 @@
 {
   "name": "extract-service",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "main": "build/mount.js",
   "scripts": {
