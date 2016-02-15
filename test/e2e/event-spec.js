@@ -12,7 +12,7 @@ describe('event', () => {
             .sendKeys('http://www.bbc.com/news/election-us-2016-35572261');
 
         expect($('#event_title').getAttribute('value'))
-            .toEqual('Donald Trump and Jeb Bush go head to head in debate - BBC News');
+            .toEqual('Trump tangles with rivals in Republican debate knockabout - BBC News');
 
         expect($('#event_date').getAttribute('value'))
             .toEqual('2016-02-13');
@@ -21,7 +21,7 @@ describe('event', () => {
             .toEqual('http://www.bbc.com/news/election-us-2016-35572261');
 
         expect($('#event_source_0_title').getAttribute('value'))
-            .toEqual('Donald Trump and Jeb Bush go head to head in debate - BBC News');
+            .toEqual('Trump tangles with rivals in Republican debate knockabout - BBC News');
 
         expect($('#event_source_0_date').getAttribute('value'))
             .toEqual('2016-02-13');
