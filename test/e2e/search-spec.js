@@ -1,5 +1,5 @@
 describe('search', () => {
-    /* global $, navigation */
+    /* global $, wait, navigation */
     'use strict';
 
     beforeEach(() =>
@@ -10,6 +10,7 @@ describe('search', () => {
             .sendKeys('walmart neighborhood market')
             .submit();
 
+        wait();
         expect($('.search__result h2').getText())
             .toEqual('Walmart Neighborhood Market');
     });
@@ -32,6 +33,7 @@ describe('search', () => {
             .sendKeys('walmart neighborhood market')
             .submit();
 
+        wait();
         expect($('.search__result h2').getText())
             .toEqual('Walmart Neighborhood Market');
     });
@@ -43,6 +45,7 @@ describe('search', () => {
             .sendKeys(str)
             .submit();
 
+        wait();
         expect($('[i18n="common/no_results"]').getText())
             .toEqual(`No results for "${str}"`);
 
