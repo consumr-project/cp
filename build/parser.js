@@ -89,6 +89,7 @@ function wikitext(markup) {
     var level = 0;
     var lines = prep_lines(markup), store = new_store();
     var article = {
+        markup: markup,
         parts: (_a = {},
             _a[Tag.INFOBOX] = [],
             _a[Tag.MACRO] = [],

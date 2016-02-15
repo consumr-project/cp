@@ -22,6 +22,7 @@ interface Dictionary<T> {
 }
 
 interface Article {
+    markup?: string,
     parts: { [index: string]: string[][] }
 }
 
@@ -118,6 +119,7 @@ export function wikitext(markup: string = ''): Article {
         store = new_store();
 
     var article: Article = {
+        markup,
         parts: {
             [Tag.INFOBOX]: [],
             [Tag.MACRO]: [],
