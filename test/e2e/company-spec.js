@@ -61,7 +61,7 @@ describe('company', () => {
             .toEqual(1);
 
         expect($('[ng-model="company.website_url"]').getAttribute('value'))
-            .toEqual('https://corporate.walmart.com');
+            .toEqual('http://corporate.walmart.com/');
     });
 
     it('lets the user type in products', () => {
