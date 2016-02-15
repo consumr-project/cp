@@ -5,7 +5,8 @@ angular.module('tcp').directive('company', [
     'SessionService',
     'utils',
     'lodash',
-    function (RUNTIME, NavigationService, ServicesService, SessionService, utils, lodash) {
+    '$q',
+    function (RUNTIME, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -37,11 +38,19 @@ angular.module('tcp').directive('company', [
                 utils.assert(SessionService.USER, 'login required for action');
                 utils.assert($scope.company.name, 'company name is required');
 
+                // XXX should be one request
                 return ServicesService.query.companies.create(get_new_company_object()).then(function (company) {
                     return $scope.on_start_following(company.id).then(function () {
-                        NavigationService.company(company.guid);
-                        console.info('saved company', company.id);
-                        return company;
+                        return $q.all(lodash.map($scope.company.$products, function (product) {
+                            return ServicesService.query.companies.products.upsert(company.id, {
+                                company_id: company.id,
+                                product_id: product.id,
+                            });
+                        })).then(function () {
+                            NavigationService.company(company.guid);
+                            console.info('saved company', company.id);
+                            return company;
+                        });
                     });
                 });
             };
