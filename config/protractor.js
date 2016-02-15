@@ -5,6 +5,13 @@ exports.config = {
         '../test/e2e/*-spec.js'
     ],
 
+    multiCapabilities: [
+        // https://itisatechiesworld.wordpress.com/2015/04/15/steps-to-get-selenium-webdriver-running-on-safari-browser/
+        // { browserName: 'safari' },
+        // { browserName: 'firefox' },
+        { browserName: 'chrome' },
+    ],
+
     user: {
         email: process.env.LINKEDIN_USER,
         pass: () => process.env.LINKEDIN_PASS,
