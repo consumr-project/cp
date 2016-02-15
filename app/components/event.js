@@ -338,7 +338,9 @@ angular.module('tcp').directive('event', [
                 '    <section popover-body>',
                 '        <section>',
                 '           <label for="source_1_url" i18n="event/source_url"></label>',
-                '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ng-class="{ loading: ev.$sources[0].$loading }" />',
+                '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ',
+                '               ng-model-options="{ debounce: { default: 100 } }"',
+                '               ng-class="{ loading: ev.$sources[0].$loading }" />',
                 '        </section>',
 
                 '        <section>',
@@ -386,7 +388,9 @@ angular.module('tcp').directive('event', [
 
                 '                    <div collapsable-area>',
                 '                        <label for="event_source_{{$index}}_source" i18n="event/source_url"></label>',
-                '                        <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ng-class="{ loading: source.$loading }" />',
+                '                        <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ',
+                '                            ng-model-options="{ debounce: { default: 100 } }"',
+                '                            ng-class="{ loading: source.$loading }" />',
                 '                        <label for="event_source_{{$index}}_title" i18n="event/source_title"></label>',
                 '                        <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
                 '                        <label for="event_source_{{$index}}_date" i18n="event/pub_date"></label>',
