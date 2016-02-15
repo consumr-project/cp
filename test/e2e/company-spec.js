@@ -1,4 +1,4 @@
-describe('search', () => {
+describe('company', () => {
     /* global $, $$, navigation */
     'use strict';
 
