@@ -42,7 +42,7 @@
     "eventemitter2": "0.4.14",
     "express": "4.12.4",
     "express-session": "1.11.3",
-    "extract-service": "git+https://git@github.com/consumr-project/extract-service#v2.1.4",
+    "extract-service": "git+https://git@github.com/consumr-project/extract-service#v2.2.1",
     "jquery": "2.1.4",
     "js-cookie": "2.0.4",
     "jtils": "minond/jtils#e78280ffa09477da6a398b3801d9a6abae37982a",
