@@ -1,5 +1,5 @@
 describe('search', () => {
-    /* global $, navigation */
+    /* global $, $$, navigation */
     'use strict';
 
     beforeEach(() =>
