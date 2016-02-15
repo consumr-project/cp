@@ -25,7 +25,7 @@ describe('search', () => {
             .toEqual('Walmart Neighborhood Market');
     });
 
-    it('search from the home page', () => {
+    it('search from a company page', () => {
         navigation.company('walmart-neighborhood-market');
 
         $('.search__input')
