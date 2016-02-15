@@ -19,6 +19,23 @@ describe('search', () => {
                 'Walmart /ˈwɔːlmɑːrt/, is an American multinational');
     });
 
+    it('can select a company and then go back', () => {
+        $('[i18n="company/name_placeholder"]')
+            .sendKeys('Walmart');
+
+        $('.highlight-action').click();
+        $('[i18n="admin/go_back"]').click();
+
+        expect($('.highlight-action b').getText())
+            .toEqual('Walmart');
+
+        expect($('.highlight-action span').getText())
+            .toEqual(
+                ': the retail chain. For other uses, see Walmart ' +
+                '(disambiguation). Wal-Mart Stores, Inc., doing business as ' +
+                'Walmart /ˈwɔːlmɑːrt/, is an American multinational');
+    });
+
     it('selects a company to add it', () => {
         $('[i18n="company/name_placeholder"]')
             .sendKeys('Walmart');
