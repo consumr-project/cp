@@ -63,7 +63,7 @@ angular.module('tcp').directive('company', [
                 utils.assert(name);
 
                 ServicesService.extract.wikipedia.extract.cancel();
-                ServicesService.extract.wikipedia.extract(name).then(function (res) {
+                return ServicesService.extract.wikipedia.extract(name).then(function (res) {
                     $scope.vm.company_options = null;
                     $scope.vm.pre_search_name = $scope.vm.search_name;
                     $scope.vm.search_name = res.body.title;
@@ -73,6 +73,14 @@ angular.module('tcp').directive('company', [
                     $scope.company.website_url = 'https://' + utils.simplify(res.body.title) + '.com';
 
                     normalize_company($scope.company);
+
+
+                    // get a better website url
+                    ServicesService.extract.wikipedia.infobox.cancel();
+                    return ServicesService.extract.wikipedia.infobox(name).then(function (res) {
+                        $scope.company.website_url = lodash.head(lodash.get(res, 'body.parts.urls')) ||
+                            $scope.company.website_url;
+                    });
                 });
             };
 

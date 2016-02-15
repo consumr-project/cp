@@ -171,6 +171,22 @@ angular.module('tcp').service('ServicesService', [
          * @param {String} query
          * @return {Promise}
          */
+        extractService.wikipedia.infobox = function (query) {
+            return $http.get('/service/extract/wiki/infobox', {
+                timeout: abortable(extractService.wikipedia.infobox),
+                params: {
+                    q: query,
+                    parts: 'urls',
+                }
+            }).then(pluck_data);
+        };
+
+        abortable(extractService.wikipedia.infobox);
+
+        /**
+         * @param {String} query
+         * @return {Promise}
+         */
         extractService.crunchbase = function (query) {
             return $http.get('/service/extract/crunchbase/companies', {
                 timeout: abortable(extractService.crunchbase),
