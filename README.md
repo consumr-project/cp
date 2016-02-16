@@ -65,6 +65,7 @@ a local instance of RabbitMQ can be downloaded and started by running `make rabb
 ### thanks
 
 * development (free) emails sent by [mailgun](http://www.mailgun.com/)
+* development (free) mongodb hosted by [mongolab](https://mongolab.com/)
 
 ### reading
 
