@@ -68,13 +68,13 @@ else
 endif
 
 build-ts:
-	-$(tsc) app/modules/base/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
+	-$(tsc) app/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
 build-bundle:
 ifdef DEBUG
-	$(browserify) $(build_dir)/app/modules/base/main.js --debug > $(build_bundle_js)
+	$(browserify) $(build_dir)/app//main.js --debug > $(build_bundle_js)
 else
-	$(browserify) $(build_dir)/app/modules/base/main.js | \
+	$(browserify) $(build_dir)/app//main.js | \
 		./node_modules/.bin/uglifyjs > $(build_bundle_js)
 endif
 

@@ -32,7 +32,7 @@ var log = debug('cp:server'),
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', `${__dirname}/modules`);
+app.set('views', `${__dirname}/views`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
@@ -99,12 +99,12 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(500);
-    res.render('base/index', { debugging, err,
+    res.render('index', { debugging, err,
         lang: req.cookies.lang });
 });
 
 app.get('*', (req, res) =>
-    res.render('base/index', { debugging,
+    res.render('index', { debugging,
         lang: req.cookies.lang }));
 
 query_service.conn.sync().then(() =>
