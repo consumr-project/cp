@@ -81,8 +81,7 @@ module tcp {
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
                     resolve: { PageView },
-                    templateUrl: '/app/modules/guide/index.html',
-                    controller: 'GuideController'
+                    templateUrl: '/app/modules/base/guide.html',
                 });
             }
 
