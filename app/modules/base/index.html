@@ -19,59 +19,9 @@
         {% endif %}
     </head>
     <body ng-app="tcp" ng-strict-di ng-cloak>
-        <div ng-controller="AdminController">
-            <div ng-include="'app/modules/base/login.html'"></div>
-
-            <header class="site-content--span">
-                <img class="tcp-logo" alt="" ng-click="nav.home()"
-                    src="assets/images/brand/consumrproject-black-stamp.png" />
-
-                <button ng-if="!session.logged_in" ng-click="login()"
-                    i18n="admin/sing_in_or_up" class="right animated fadeIn"></button>
-
-                <avatar
-                    ng-if="session.logged_in"
-                    class="right no-outline"
-                    ng-click="actions.show = true"
-                    email="{% raw %}{{session.email}}{% endraw %}"
-                    data-main-user-avatar
-                >
-                    <indicator
-                        class="animated zoomIn"
-                        ng-if="session.message_count"
-                        type="counter"
-                        value="session.message_count"
-                    ></indicator>
-                </avatar>
-
-                <button class="search-button right margin-right-small animated fadeIn screen-small-only"
-                    ng-click="nav.search()"></button>
-
-                <search class="desktop-only right margin-right-small"
-                    form="true" ng-if="!nav.search.included"></search>
-            </header>
-
-            <popover
-                anchored
-                anchored-element="{% raw %}'[data-main-user-avatar]'{% endraw %}"
-                anchored-show="actions.show"
-                anchored-placement="bottom-right"
-                anchored-top-offset="10"
-                anchored-arrow="true"
-                anchored-auto-hide="true"
-            >
-                <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/add_company"></popover-item>
-                <popover-separator></popover-separator>
-                <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>
-                <popover-item ng-click="nav.notifications(); actions.show = false;" i18n="admin/see_notifications"></popover-item>
-                <popover-item ng-click="logout()" i18n="admin/logout"></popover-item>
-            </popover>
-        </div>
-
+        <div cp-header></div>
         <div ng-view></div>
-
-        <footer class="site-content">
-        </footer>
+        <footer class="site-content"></footer>
 
         {% if err %}
         <script>
@@ -108,13 +58,13 @@
         <script src="app/components/user.js"></script>
         <script src="app/components/search.js"></script>
         <script src="app/components/notifications.js"></script>
+        <script src="app/components/cp-header.js"></script>
         <script src="app/components/company.js"></script>
         <script src="app/components/event.js"></script>
         <script src="app/components/events.js"></script>
         <script src="app/services/ServicesService.js"></script>
         <script src="app/services/NavigationService.js"></script>
         <script src="app/services/SessionService.js"></script>
-        <script src="app/modules/base/AdminController.js"></script>
         <script src="app/vendor/angular/ngFocus.js"></script>
         <script src="app/vendor/angular/ngInvisible.js"></script>
         <script src="app/vendor/angular/ngDatePicker.js"></script>
