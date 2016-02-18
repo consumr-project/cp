@@ -1,4 +1,4 @@
-angular.module('tcp').directive('cpHeader', [
+angular.module('tcp').directive('topmost', [
     '$interval',
     'NavigationService',
     'ServicesService',
