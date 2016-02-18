@@ -18,8 +18,8 @@
         <script src="build/i18n.{{lang}}.js"></script>
         {% endif %}
     </head>
-    <body ng-app="tcp" ng-controller="NavigationController" ng-strict-di>
-        <div ng-controller="AdminController" ng-cloak>
+    <body ng-app="tcp" ng-strict-di ng-cloak>
+        <div ng-controller="AdminController">
             <div ng-include="'app/modules/base/login.html'"></div>
 
             <header class="site-content--span">
@@ -115,7 +115,6 @@
         <script src="app/services/NavigationService.js"></script>
         <script src="app/services/SessionService.js"></script>
         <script src="app/modules/base/AdminController.js"></script>
-        <script src="app/modules/base/NavigationController.js"></script>
         <script src="app/vendor/angular/ngFocus.js"></script>
         <script src="app/vendor/angular/ngInvisible.js"></script>
         <script src="app/vendor/angular/ngDatePicker.js"></script>

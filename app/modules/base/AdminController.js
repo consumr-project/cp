@@ -1,12 +1,14 @@
 angular.module('tcp').controller('AdminController', [
+    '$rootScope',
     '$scope',
     '$interval',
+    'NavigationService',
     'ServicesService',
     'SessionService',
     'utils',
     'Cookie',
     'lodash',
-    function ($scope, $interval, ServicesService, SessionService, utils, Cookie, _) {
+    function ($rootScope, $scope, $interval, NavigationService, ServicesService, SessionService, utils, Cookie, _) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -26,6 +28,14 @@ angular.module('tcp').controller('AdminController', [
             // from popover
             hide: null,
             show: null
+        };
+
+        $scope.nav = {
+            home: NavigationService.home,
+            search: NavigationService.search,
+            company: NavigationService.company,
+            notifications: NavigationService.notifications,
+            profile: NavigationService.user_me,
         };
 
         $scope.withLinkedin = loginWithLinkedin;
@@ -106,7 +116,19 @@ angular.module('tcp').controller('AdminController', [
             return Cookie.getJSON('client:session') || {};
         }
 
+        function update_page_view_status() {
+            $scope.nav.search.active = NavigationService.oneOf([
+                NavigationService.BASES.SEARCH
+            ]);
+
+            $scope.nav.search.included = NavigationService.oneOf([
+                NavigationService.BASES.HOME,
+                NavigationService.BASES.SEARCH
+            ]);
+        }
+
         sync();
         $interval(sync, SYNC_INTERVAL);
+        $rootScope.$on('$locationChangeStart', update_page_view_status);
     }
 ]);
