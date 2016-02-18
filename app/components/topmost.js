@@ -12,7 +12,7 @@ angular.module('tcp').directive('topmost', [
         var SYNC_INTERVAL = 300000;
 
         function controller($rootScope, $scope) {
-            $scope.session = getSession();
+            $scope.session = get_session();
 
             $scope.actions = {
                 show: null
@@ -34,22 +34,22 @@ angular.module('tcp').directive('topmost', [
                 profile: NavigationService.user_me,
             };
 
-            $scope.withLinkedin = loginWithLinkedin;
+            $scope.with_linkedin = login_with_linkedin;
             $scope.login = login;
             $scope.logout = logout;
 
-            $scope.$watchCollection('session', cacheSession);
-            SessionService.on(SessionService.EVENT.LOGIN, updateCurrentUser);
-            SessionService.on(SessionService.EVENT.LOGIN, getMessages);
-            SessionService.on(SessionService.EVENT.ERROR, clearSession);
-            SessionService.on(SessionService.EVENT.LOGOUT, clearSession);
-            SessionService.on(SessionService.EVENT.NOTIFY, getMessages);
+            $scope.$watchCollection('session', cache_session);
+            SessionService.on(SessionService.EVENT.LOGIN, update_current_user);
+            SessionService.on(SessionService.EVENT.LOGIN, get_messages);
+            SessionService.on(SessionService.EVENT.ERROR, clear_session);
+            SessionService.on(SessionService.EVENT.LOGOUT, clear_session);
+            SessionService.on(SessionService.EVENT.NOTIFY, get_messages);
 
             sync();
             $interval(sync, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
 
-            function loginWithLinkedin() {
+            function login_with_linkedin() {
                 console.info('loggin in with linkedin');
                 $scope.login.hide();
                 SessionService.login(SessionService.PROVIDER.LINKEDIN);
@@ -68,7 +68,7 @@ angular.module('tcp').directive('topmost', [
             /**
              * caches user information
              */
-            function updateCurrentUser() {
+            function update_current_user() {
                 $scope.session.email = SessionService.USER.email;
                 $scope.session.logged_in = true;
             }
@@ -76,7 +76,7 @@ angular.module('tcp').directive('topmost', [
             /**
              * @return {Promise}
              */
-            function getMessages() {
+            function get_messages() {
                 ServicesService.notification.get.cancel();
                 return ServicesService.notification.get().then(function (items) {
                     $scope.session.message_count = items.length;
@@ -89,7 +89,7 @@ angular.module('tcp').directive('topmost', [
             function sync() {
                 SessionService.refresh().then(function (user) {
                     if (user && user.id) {
-                        getMessages();
+                        get_messages();
                     }
                 });
             }
@@ -97,14 +97,14 @@ angular.module('tcp').directive('topmost', [
             /**
              * resets session
              */
-            function clearSession() {
+            function clear_session() {
                 $scope.session = {};
             }
 
             /**
              * @param {Object} session (see $scope.session)
              */
-            function cacheSession(session) {
+            function cache_session(session) {
                 console.info('caching %o in session', Object.keys(session));
                 return Cookie.set('client:session', session);
             }
@@ -112,7 +112,7 @@ angular.module('tcp').directive('topmost', [
             /**
              * @return {Object}
              */
-            function getSession() {
+            function get_session() {
                 return Cookie.getJSON('client:session') || {};
             }
 
@@ -139,7 +139,7 @@ angular.module('tcp').directive('topmost', [
                 '            <p i18n="common/intro"></p>',
   
                 '            <div class="margin-bottom-medium">',
-                '                <button class="margin-top-small button--social-linkedin" ng-click="withLinkedin()">',
+                '                <button class="margin-top-small button--social-linkedin" ng-click="with_linkedin()">',
                 '                    <img alt="" src="assets/images/linkedin.png" />',
                 '                    <span i18n="admin/sing_in_with_service" data="{service: \'LinkedIn\'}"></span>',
                 '                </button>',
