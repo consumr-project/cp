@@ -260,7 +260,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             create: '&',
         },
         template: [
-            '<div class="pills-container is-non-selectable">',
+            '<div class="pills-container is-non-selectable" ng-class="{\'pills--empty\': empty}">',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
                         '<div class="pills-element__selections__placeholder" ',

@@ -319,6 +319,7 @@ angular.module('tcp').directive('company', [
                 '    <div ng-if="!vm.existing && vm.step.length > 2" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
                 '        <h1 i18n="company/what_do_they_do" data="{name: company.name}"></h1>',
                 '        <pills',
+                '            class="pills--bigone"',
                 '            ng-focus="true"',
                 '            selections="company.$products"',
                 '            query="query_products(query, done)"',

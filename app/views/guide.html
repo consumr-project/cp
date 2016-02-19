@@ -15,8 +15,10 @@
 
     <h1>pills</h1>
     <rector-markup>
-        <pills selections="selections" create="create_selection(value, done)" query="query_selections(query, done)" placeholder="samples/products"></pills>
         <pills selections="selections" query="query_selections(query, done)" class="margin-top-small"></pills>
+    </rector-markup>
+    <rector-markup>
+        <pills selections="selections" create="create_selection(value, done)" query="query_selections(query, done)" placeholder="samples/products" class="pills--bigone"></pills>
     </rector-markup>
     <rector-scope static="create_selection"></rector-scope>
     <rector-scope static="query_selections"></rector-scope>
