@@ -105,7 +105,7 @@ angular.module('tcp').service('ServicesService', [
         queryService = {
             UUID: '$UUID',
             companies: crud('companies', ['followers', 'events', 'products']),
-            events: crud('events', ['sources', 'tags']),
+            events: crud('events', ['sources', 'tags', 'companies']),
             tags: crud('tags'),
             products: crud('products'),
             users: crud('users'),
