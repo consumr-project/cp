@@ -15,7 +15,9 @@ var admin = global.admin = {
         $('[i18n="admin/sing_in_with_service"]').click();
         $('[i18n="admin/remind_later"]').click();
 
+        wait();
         switch_to(1);
+        wait();
 
         browser.driver.findElement(by.id('session_key-oauth2SAuthorizeForm'))
             .sendKeys(admin.login.user.email);
