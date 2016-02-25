@@ -8,6 +8,8 @@
  *
  * @attribute {Boolean} withCloseX include a close (x) element in top right hand
  *                      courner
+ *
+ * @attribute {Function} onClose triggered when the modal is closed
  */
 angular.module('tcp').directive('popover', [function () {
     'use strict';
@@ -125,6 +127,10 @@ angular.module('tcp').directive('popover', [function () {
                 elemHide(backdrop);
                 elemHide(elem);
                 $('body').css({overflowY: 'initial'});
+
+                if (attrs.onClose) {
+                    scope.$eval(attrs.onClose);
+                }
                 return api;
             }
 

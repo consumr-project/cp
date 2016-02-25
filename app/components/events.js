@@ -1,9 +1,10 @@
 angular.module('tcp').directive('events', [
     '$q',
+    '$timeout',
     'lodash',
     'utils',
     'ServicesService',
-    function ($q, lodash, utils, ServicesService) {
+    function ($q, $timeout, lodash, utils, ServicesService) {
         'use strict';
 
         /**
@@ -71,6 +72,9 @@ angular.module('tcp').directive('events', [
 
         function controller($scope) {
             $scope.vm = {
+                selected_event: null,
+                event_form: {},
+                add_event: {},
                 loading: false
             };
 
@@ -91,6 +95,25 @@ angular.module('tcp').directive('events', [
                     });
             };
 
+            /**
+             * @param {Event} ev
+             * @return {void}
+             */
+            $scope.edit = function (ev) {
+                $scope.vm.selected_event = ev;
+                $scope.vm.add_event.show();
+            };
+
+            /**
+             * @return {void}
+             */
+            $scope.unedit = function () {
+                // let the popup hide before unselecting the event
+                $timeout(function () {
+                    $scope.vm.selected_event = null;
+                }, 300);
+            };
+
             $scope.api = $scope.api || {};
             $scope.api.refresh = $scope.load;
         }
@@ -107,21 +130,30 @@ angular.module('tcp').directive('events', [
                 '    <div class="center-aligned loading__only padding-top-large" i18n="common/loading_events"></div>',
                 '    <div ng-repeat="event in events track by event.id" ',
                 '        class="events__event animated fadeInUp" ',
+                '        ng-click="edit(event)" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
-                // '        <span class="no-outline is-non-selectable" ng-click="event.$show_details = !event.$show_details">',
                 generate_template_event_content('left'),
                 '        <div style="background-image: url(/assets/images/avatar/avatar-white.svg)" ',
                 '            class="events__event__icon events__event__icon--{{::event.sentiment}}"></div>',
                 generate_template_event_content('right'),
-                // '        </span>',
-                //
-                // '        <div class="animated fadeIn" ng-if="event.$show_details">',
-                // '            {{::event.title}}',
-                // '        </div>',
 
                 '    </div>',
                 '    <div class="events__line animated fadeIn"></div>',
+
+                '    <popover with-close-x with-backdrop ',
+                '        api="vm.add_event" ',
+                '        on-close="unedit()" ',
+                '        class="popover--with-content left-align" ',
+                '    >',
+                '        <event',
+                '            ng-if="vm.selected_event"',
+                '            id="{{vm.selected_event.id}}"',
+                '            api="vm.event_form"',
+                '            on-save="vm.events_timeline.refresh(); vm.add_event.hide(); vm.event_form.reset()"',
+                '            on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
+                '        ></event>',
+                '    </popover>',
                 '</div>'
             ].join('')
         };

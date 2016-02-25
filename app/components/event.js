@@ -135,7 +135,8 @@ angular.module('tcp').directive('event', [
          * @return {Promise}
          */
         function fecth_companies_tied_to(ev, tied_to) {
-            ev.$companies = lodash.map(tied_to.companies, normalize_company);
+            ev.$companies = tied_to && tied_to.companies ?
+                lodash.map(tied_to.companies, normalize_company) : [];
         }
 
         /**
@@ -326,6 +327,7 @@ angular.module('tcp').directive('event', [
             controller: ['$scope', controller],
             link: link,
             scope: {
+                id: '@',
                 api: '=',
                 tiedTo: '=',
                 onCancel: '&',
