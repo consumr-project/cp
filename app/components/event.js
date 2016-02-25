@@ -248,8 +248,14 @@ angular.module('tcp').directive('event', [
             $scope.$watch('tiedTo', fecth_companies_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
+                var method = $scope.ev.id ? 'upsert' : 'create';
+
                 // XXX should be one request
-                ServicesService.query.events.create(get_normalized_event($scope.ev)).then(function (ev) {
+                ServicesService.query.events[method](get_normalized_event($scope.ev)).then(function (ev) {
+                    if (!ev.id) {
+                        ev = $scope.ev;
+                    }
+
                     $q.all([].concat(
                         lodash.map($scope.ev.$sources, function (source) {
                             return ServicesService.query.events.sources.upsert(ev.id,
