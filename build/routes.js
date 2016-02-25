@@ -38,6 +38,7 @@ exports["default"] = function (app, models) {
     get('/events/:event_id/sources/:id?', can('retrieve', 'event'), retrieve(models.EventSource, { event_id: 'event_id' }));
     patch('/events/:event_id/tags', can('create', 'event'), can('update', 'event'), upsert(models.EventTag, ['event_id']));
     get('/events/:event_id/tags/:id?', can('retrieve', 'event'), retrieve(models.EventTag, { event_id: 'event_id' }));
+    get('/events/:event_id/companies', can('retrieve', 'event'), can('retrieve', 'company'), retrieve(models.CompanyEvent, { event_id: 'event_id' }));
     get('/search/products/en-US', can('retrieve', 'product'), like(models.Product, 'en-US'));
     get('/search/tags/en-US', can('retrieve', 'tag'), like(models.Tag, 'en-US'));
     get('/search/companies/name', can('retrieve', 'company'), like(models.Company, 'name'));

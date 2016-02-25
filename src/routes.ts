@@ -132,6 +132,12 @@ export default (app, models) => {
         can('retrieve', 'event'),
         retrieve(models.EventTag, {event_id: 'event_id'}));
 
+    // managed through companies
+    get('/events/:event_id/companies',
+        can('retrieve', 'event'),
+        can('retrieve', 'company'),
+        retrieve(models.CompanyEvent, {event_id: 'event_id'}));
+
     // search
     get('/search/products/en-US',
         can('retrieve', 'product'),
