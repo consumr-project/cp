@@ -330,29 +330,16 @@ angular.module('tcp').directive('event', [
              * @return {void}
              */
             function load(id) {
-                // XXX should be one request
-                ServicesService.query.events.retrieve(id, ['tags', 'sources', 'companies']).then(function (ev) {
-                    ServicesService.query.tags.retrieve().then(function (all_tags) {
-                        ServicesService.query.companies.retrieve().then(function (all_companies) {
-                            $scope.ev = ev;
-                            $scope.ev.$date = new Date(ev.date);
-                            $scope.ev.$companies = [];
-
-                            $scope.ev.$sources = lodash.map(ev.sources, function (source) {
-                                // so sources are not fetched on the initial load
-                                source.$loaded_url = source.url;
-                                source.$published_date = new Date(source.published_date);
-                                return source;
-                            });
-
-                            $scope.ev.$tags = lodash.map(lodash.intersectionWith(all_tags, ev.tags, function (tag, etag) {
-                                return etag.tag_id === tag.id;
-                            }), normalize_tag);
-
-                            $scope.ev.$companies = lodash.map(lodash.intersectionWith(all_companies, ev.companies, function (company, ecompany) {
-                                return ecompany.company_id === company.id;
-                            }), normalize_company);
-                        });
+                ServicesService.query.events.retrieve(id, ['sources', 'tags', 'companies'], ['tags', 'companies']).then(function (ev) {
+                    $scope.ev = ev;
+                    $scope.ev.$date = new Date(ev.date);
+                    $scope.ev.$tags = lodash.map(ev.tags, normalize_tag);
+                    $scope.ev.$companies = lodash.map(ev.companies, normalize_company);
+                    $scope.ev.$sources = lodash.map(ev.sources, function (source) {
+                        // so sources are not fetched on the initial load
+                        source.$loaded_url = source.url;
+                        source.$published_date = new Date(source.published_date);
+                        return source;
                     });
                 });
             }
