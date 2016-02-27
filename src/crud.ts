@@ -12,6 +12,10 @@ type SDict = Dictionary<string>;
 type Tag = { tag: string, val: any };
 type Query = any;
 
+interface SModel {
+    dataValues: any;
+}
+
 function error(res: Response, err: Error) {
     res.status(500);
     res.json({
@@ -37,7 +41,7 @@ function where(prop_remap: SDict, params: SDict): UpdateOptions {
     };
 }
 
-function stamp_meta<V, H extends {dataValues: any}>(label: string, val: V): (holder: H) => H {
+function stamp_meta<V, H extends SModel>(label: string, val: V): (holder: H) => H {
     return holder => {
         holder.dataValues['@meta'] = holder['@meta'] || {};
         holder.dataValues['@meta'][label] = val;
@@ -200,7 +204,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
                     results = Array.isArray(results) ? results : [results];
 
                     return q.all(map(results, val =>
-                        model.findOne(where(remap, <SDict>val))
+                        model.findOne(where(remap, (<SModel>val).dataValues))
                             .then(stamp_meta('relationship', val))))
                                 .then(tag(part));
                 });

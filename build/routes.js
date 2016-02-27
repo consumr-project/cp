@@ -33,10 +33,10 @@ exports["default"] = function (app, models) {
     get('/events/:id', can('retrieve', 'event'), parts(models.Event, {
         sources: [models.EventSource, { event_id: 'id' }],
         tags: [models.EventTag, { event_id: 'id' }, {
-                expand: [models.Tag, { tag_id: 'id' }]
+                expand: [models.Tag, { id: 'tag_id' }]
             }],
         companies: [models.CompanyEvent, { event_id: 'id' }, {
-                expand: [models.Company, { company_id: 'id' }]
+                expand: [models.Company, { id: 'company_id' }]
             }]
     }));
     patch('/events/:event_id/sources', can('create', 'event'), can('update', 'event'), upsert(models.EventSource, ['event_id']));

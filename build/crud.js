@@ -159,7 +159,7 @@ function parts(model, prop_remap, parts_def) {
                     var model = meta.expand[0], remap = meta.expand[1];
                     results = Array.isArray(results) ? results : [results];
                     return q.all(lodash_1.map(results, function (val) {
-                        return model.findOne(where(remap, val))
+                        return model.findOne(where(remap, val.dataValues))
                             .then(stamp_meta('relationship', val));
                     }))
                         .then(tag(part));
