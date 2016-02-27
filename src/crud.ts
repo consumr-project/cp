@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Model, UpdateOptions, FindOptions } from 'sequelize';
+import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
 import { includes, each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
 import * as q from 'q';
 
@@ -10,11 +10,9 @@ const ID_FIELDS = [ 'id', 'updated_by', 'created_by' ];
 type RequestHandler = (req: Request, res: Response) => void
 type SDict = Dictionary<string>;
 type Tag = { tag: string, val: any };
-type Query = any;
 
-interface SModel {
-    dataValues: any;
-}
+type Query = SDict & any;
+type QueryOptions = UpdateOptions & DestroyOptions & FindOptions;
 
 function error(res: Response, err: Error) {
     res.status(500);
@@ -35,16 +33,17 @@ function generate_where(schema: SDict, params: SDict): SDict {
     }, {});
 }
 
-function where(prop_remap: SDict, params: SDict): UpdateOptions {
-    return {
-        where: generate_where(prop_remap, params)
-    };
+function build_query(prop_remap: SDict, params: SDict, extras: Object = {}): QueryOptions {
+    var query = <QueryOptions>clone(extras);
+    query.where = generate_where(prop_remap, params);
+    query.raw = true;
+    return query;
 }
 
-function stamp_meta<V, H extends SModel>(label: string, val: V): (holder: H) => H {
+function stamp_meta<V, H>(label: string, val: V): (holder: H) => H {
     return holder => {
-        holder.dataValues['@meta'] = holder['@meta'] || {};
-        holder.dataValues['@meta'][label] = val;
+        holder['@meta'] = holder['@meta'] || {};
+        holder['@meta'][label] = val;
         return holder;
     };
 }
@@ -129,8 +128,9 @@ export function retrieve(model: Model<any, any>, prop_remap: SDict = ID_MAP): Re
         // GET model/:parent_id/sub_model/:id
         if (req.params.id || prop_remap) {
             find = req.params.id ? 'findOne' : 'findAll';
-            error_handler(res, model[find](where(prop_remap, req.params)))
-                .then(response_handler(res));
+            error_handler(res, model[find](build_query(prop_remap, req.params, {
+                order: ['created_date']
+            }))).then(response_handler(res));
         } else {
             error(res, new Error('search not implemented'));
         }
@@ -140,13 +140,13 @@ export function retrieve(model: Model<any, any>, prop_remap: SDict = ID_MAP): Re
 export function update(model: Model<any, any>): RequestHandler {
     return (req, res) => error_handler(res, model.update(
         populate_uuids(populate_dates(req.body)),
-        where(ID_MAP, req.params)
+        build_query(ID_MAP, req.params)
     )).then(response_handler(res));
 }
 
 export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
     return (req, res) =>
-        error_handler(res, model.destroy(where(prop_remap, req.params))
+        error_handler(res, model.destroy(build_query(prop_remap, req.params))
             .then(response_handler(res)));
 }
 
@@ -185,7 +185,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         }
 
         // mian
-        queries.push(model.findOne(where(prop_remap, req.params))
+        queries.push(model.findOne(build_query(prop_remap, req.params))
             .then(tag('main')));
 
         // parts
@@ -194,7 +194,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
                 prop_remap = parts_def[part][1],
                 meta = parts_def[part][2];
 
-            var query = model.findAll(where(prop_remap, req.params));
+            var query = model.findAll(build_query(prop_remap, req.params));
 
             if (meta && meta.expand && includes(expand_wanted, part)) {
                 query = query.then(results => {
@@ -204,7 +204,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
                     results = Array.isArray(results) ? results : [results];
 
                     return q.all(map(results, val =>
-                        model.findOne(where(remap, (<SModel>val).dataValues))
+                        model.findOne(build_query(remap, <SDict>val))
                             .then(stamp_meta('relationship', val))))
                                 .then(tag(part));
                 });
@@ -219,9 +219,9 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         error_handler(res, q.all(queries)
             .then(results => {
                 response_handler(res)(reduce(parts_wanted, (body, part: string) => {
-                    body[part] = map((<Tag>(find(results, {tag: part}) || {})).val, 'dataValues');
+                    body[part] = (<Tag>(find(results, {tag: part}) || {})).val;
                     return body;
-                }, (<Tag>find(results, {tag: 'main'})).val.dataValues));
+                }, (<Tag>find(results, {tag: 'main'})).val));
             })
         );
     };

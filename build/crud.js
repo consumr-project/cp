@@ -20,15 +20,17 @@ function generate_where(schema, params) {
         return prop_remap;
     }, {});
 }
-function where(prop_remap, params) {
-    return {
-        where: generate_where(prop_remap, params)
-    };
+function build_query(prop_remap, params, extras) {
+    if (extras === void 0) { extras = {}; }
+    var query = lodash_1.clone(extras);
+    query.where = generate_where(prop_remap, params);
+    query.raw = true;
+    return query;
 }
 function stamp_meta(label, val) {
     return function (holder) {
-        holder.dataValues['@meta'] = holder['@meta'] || {};
-        holder.dataValues['@meta'][label] = val;
+        holder['@meta'] = holder['@meta'] || {};
+        holder['@meta'][label] = val;
         return holder;
     };
 }
@@ -102,8 +104,9 @@ function retrieve(model, prop_remap) {
     return function (req, res) {
         if (req.params.id || prop_remap) {
             find = req.params.id ? 'findOne' : 'findAll';
-            error_handler(res, model[find](where(prop_remap, req.params)))
-                .then(response_handler(res));
+            error_handler(res, model[find](build_query(prop_remap, req.params, {
+                order: ['created_date']
+            }))).then(response_handler(res));
         }
         else {
             error(res, new Error('search not implemented'));
@@ -112,13 +115,13 @@ function retrieve(model, prop_remap) {
 }
 exports.retrieve = retrieve;
 function update(model) {
-    return function (req, res) { return error_handler(res, model.update(populate_uuids(populate_dates(req.body)), where(ID_MAP, req.params))).then(response_handler(res)); };
+    return function (req, res) { return error_handler(res, model.update(populate_uuids(populate_dates(req.body)), build_query(ID_MAP, req.params))).then(response_handler(res)); };
 }
 exports.update = update;
 function del(model, prop_remap) {
     if (prop_remap === void 0) { prop_remap = ID_MAP; }
     return function (req, res) {
-        return error_handler(res, model.destroy(where(prop_remap, req.params))
+        return error_handler(res, model.destroy(build_query(prop_remap, req.params))
             .then(response_handler(res)));
     };
 }
@@ -149,17 +152,17 @@ function parts(model, prop_remap, parts_def) {
             error(res, new Error("Invalid part(s): " + bad_parts.join(', ')));
             return;
         }
-        queries.push(model.findOne(where(prop_remap, req.params))
+        queries.push(model.findOne(build_query(prop_remap, req.params))
             .then(tag('main')));
         lodash_1.each(parts_wanted, function (part) {
             var model = parts_def[part][0], prop_remap = parts_def[part][1], meta = parts_def[part][2];
-            var query = model.findAll(where(prop_remap, req.params));
+            var query = model.findAll(build_query(prop_remap, req.params));
             if (meta && meta.expand && lodash_1.includes(expand_wanted, part)) {
                 query = query.then(function (results) {
                     var model = meta.expand[0], remap = meta.expand[1];
                     results = Array.isArray(results) ? results : [results];
                     return q.all(lodash_1.map(results, function (val) {
-                        return model.findOne(where(remap, val.dataValues))
+                        return model.findOne(build_query(remap, val))
                             .then(stamp_meta('relationship', val));
                     }))
                         .then(tag(part));
@@ -173,9 +176,9 @@ function parts(model, prop_remap, parts_def) {
         error_handler(res, q.all(queries)
             .then(function (results) {
             response_handler(res)(lodash_1.reduce(parts_wanted, function (body, part) {
-                body[part] = lodash_1.map((lodash_1.find(results, { tag: part }) || {}).val, 'dataValues');
+                body[part] = (lodash_1.find(results, { tag: part }) || {}).val;
                 return body;
-            }, lodash_1.find(results, { tag: 'main' }).val.dataValues));
+            }, lodash_1.find(results, { tag: 'main' }).val));
         }));
     };
 }
