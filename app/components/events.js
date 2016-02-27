@@ -72,6 +72,7 @@ angular.module('tcp').directive('events', [
 
         function controller($scope) {
             $scope.vm = {
+                first_load: 2,
                 selected_event: null,
                 event_form: {},
                 add_event: {},
@@ -83,6 +84,10 @@ angular.module('tcp').directive('events', [
              */
             $scope.load = function () {
                 $scope.vm.loading = true;
+
+                if ($scope.vm.first_load) {
+                    $scope.vm.first_load--;
+                }
 
                 return get_events($scope.id)
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
@@ -127,9 +132,11 @@ angular.module('tcp').directive('events', [
             },
             template: [
                 '<div class="events can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
-                '    <div class="center-aligned loading__only padding-top-large" i18n="common/loading_events"></div>',
-                '    <div ng-repeat="event in events track by event.id" ',
-                '        class="events__event animated fadeInUp" ',
+                '    <div class="center-aligned loading__only padding-top-large"',
+                '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
+                '    <div ng-repeat="event in events" ',
+                '        class="events__event fadeInUp" ',
+                '        ng-class="{animated: vm.first_load}" ',
                 '        ng-click="edit(event)" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
@@ -151,7 +158,7 @@ angular.module('tcp').directive('events', [
                 '            ng-if="vm.selected_event"',
                 '            id="{{vm.selected_event.id}}"',
                 '            api="vm.event_form"',
-                '            on-save="vm.events_timeline.refresh(); vm.add_event.hide(); vm.event_form.reset()"',
+                '            on-save="load(); vm.add_event.hide(); vm.event_form.reset()"',
                 '            on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
                 '        ></event>',
                 '    </popover>',
