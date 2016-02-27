@@ -139,7 +139,8 @@ angular.module('tcp').directive('events', [
                 generate_template_event_content('right'),
 
                 '    </div>',
-                '    <div class="events__line animated fadeIn"></div>',
+                '    <div ng-if="events.length > 1"',
+                '        class="events__line animated fadeIn"></div>',
 
                 '    <popover with-close-x with-backdrop ',
                 '        api="vm.add_event" ',
