@@ -56,7 +56,7 @@ app.use(session({ secret: config('session.secret') }));
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
-app.use('/service/auth', timeout('10s'), auth_service);
+app.use('/service/auth', auth_service);
 
 app.use('/service/user', timeout('5s'), user_service);
 
