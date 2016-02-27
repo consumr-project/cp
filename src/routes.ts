@@ -114,6 +114,7 @@ export default (app, models) => {
     get('/events/:id', can('retrieve', 'event'), parts(models.Event, {
         sources: [models.EventSource, {event_id: 'id'}],
         tags: [models.EventTag, {event_id: 'id'}],
+        companies: [models.CompanyEvent, {event_id: 'id'}],
     }));
 
     patch('/events/:event_id/sources',
