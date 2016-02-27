@@ -30,7 +30,7 @@ exports["default"] = function (app, models) {
     patch('/events', can('create', 'event'), can('update', 'event'), upsert(models.Event));
     del('/events/:id', can('delete', 'event'), remove(models.Event));
     get('/events', can('retrieve', 'event'), retrieve(models.Event));
-    get('/events/:id', can('retrieve', 'event'), parts(models.Event, {
+    get('/events/:id', can('retrieve', 'event'), can('retrieve', 'tag'), can('retrieve', 'company'), parts(models.Event, {
         sources: [models.EventSource, { event_id: 'id' }],
         tags: [models.EventTag, { event_id: 'id' }, {
                 expand: [models.Tag, { id: 'tag_id' }]
