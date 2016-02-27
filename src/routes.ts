@@ -158,4 +158,17 @@ export default (app, models) => {
     get('/search/companies/name',
         can('retrieve', 'company'),
         like(models.Company, 'name'));
+
+    app.use((err, req, res, next) => {
+        console.error(err);
+        res.status(500);
+        res.json(<CPServiceResponseV1<void>>{
+            meta: {
+                ok: false,
+                error: true,
+                error_msg: err.message
+            },
+            body: {}
+        });
+    });
 };

@@ -47,4 +47,16 @@ exports["default"] = function (app, models) {
     get('/search/products/en-US', can('retrieve', 'product'), like(models.Product, 'en-US'));
     get('/search/tags/en-US', can('retrieve', 'tag'), like(models.Tag, 'en-US'));
     get('/search/companies/name', can('retrieve', 'company'), like(models.Company, 'name'));
+    app.use(function (err, req, res, next) {
+        console.error(err);
+        res.status(500);
+        res.json({
+            meta: {
+                ok: false,
+                error: true,
+                error_msg: err.message
+            },
+            body: {}
+        });
+    });
 };
