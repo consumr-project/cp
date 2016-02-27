@@ -25,6 +25,13 @@ function where(prop_remap, params) {
         where: generate_where(prop_remap, params)
     };
 }
+function stamp_meta(label, val) {
+    return function (holder) {
+        holder.dataValues['@meta'] = holder['@meta'] || {};
+        holder.dataValues['@meta'][label] = val;
+        return holder;
+    };
+}
 function tag(name) {
     return function (val) {
         return {
@@ -132,7 +139,7 @@ function parts(model, prop_remap, parts_def) {
         prop_remap = { id: 'id' };
     }
     return function (req, res) {
-        var parts_wanted = lodash_1.filter((req.query.parts || '').split(',')), bad_parts = [], queries = [];
+        var parts_wanted = lodash_1.filter((req.query.parts || '').split(',')), expand_wanted = lodash_1.filter((req.query.expand || '').split(',')), bad_parts = [], queries = [];
         lodash_1.each(parts_wanted, function (part) {
             if (!(part in parts_def)) {
                 bad_parts.push(part);
@@ -145,17 +152,31 @@ function parts(model, prop_remap, parts_def) {
         queries.push(model.findOne(where(prop_remap, req.params))
             .then(tag('main')));
         lodash_1.each(parts_wanted, function (part) {
-            var model = parts_def[part][0], prop_remap = parts_def[part][1];
-            queries.push(model.findAll(where(prop_remap, req.params))
-                .then(tag(part)));
+            var model = parts_def[part][0], prop_remap = parts_def[part][1], meta = parts_def[part][2];
+            var query = model.findAll(where(prop_remap, req.params));
+            if (meta && meta.expand && lodash_1.includes(expand_wanted, part)) {
+                query = query.then(function (results) {
+                    var model = meta.expand[0], remap = meta.expand[1];
+                    results = Array.isArray(results) ? results : [results];
+                    return q.all(lodash_1.map(results, function (val) {
+                        return model.findOne(where(remap, val))
+                            .then(stamp_meta('relationship', val));
+                    }))
+                        .then(tag(part));
+                });
+            }
+            else {
+                query = query.then(tag(part));
+            }
+            queries.push(query);
         });
-        error_handler(res, q.all(queries))
+        error_handler(res, q.all(queries)
             .then(function (results) {
             response_handler(res)(lodash_1.reduce(parts_wanted, function (body, part) {
-                body[part] = lodash_1.map(lodash_1.find(results, { tag: part }).val, 'dataValues');
+                body[part] = lodash_1.map((lodash_1.find(results, { tag: part }) || {}).val, 'dataValues');
                 return body;
             }, lodash_1.find(results, { tag: 'main' }).val.dataValues));
-        });
+        }));
     };
 }
 exports.parts = parts;

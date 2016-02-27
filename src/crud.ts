@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Model, UpdateOptions, FindOptions } from 'sequelize';
-import { each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
+import { includes, each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
 import * as q from 'q';
 
 const uuid = require('node-uuid');
@@ -34,6 +34,14 @@ function generate_where(schema: SDict, params: SDict): SDict {
 function where(prop_remap: SDict, params: SDict): UpdateOptions {
     return {
         where: generate_where(prop_remap, params)
+    };
+}
+
+function stamp_meta<V, H extends {dataValues: any}>(label: string, val: V): (holder: H) => H {
+    return holder => {
+        holder.dataValues['@meta'] = holder['@meta'] || {};
+        holder.dataValues['@meta'][label] = val;
+        return holder;
     };
 }
 
@@ -156,6 +164,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
 
     return (req, res) => {
         var parts_wanted = arr_filter((req.query.parts || '').split(',')),
+            expand_wanted = arr_filter((req.query.expand || '').split(',')),
             bad_parts = [],
             queries = [];
 
@@ -178,20 +187,39 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         // parts
         each(parts_wanted, (part: string) => {
             var model = parts_def[part][0],
-                prop_remap = parts_def[part][1];
+                prop_remap = parts_def[part][1],
+                meta = parts_def[part][2];
 
-            queries.push(model.findAll(where(prop_remap, req.params))
-                .then(tag(part)));
+            var query = model.findAll(where(prop_remap, req.params));
+
+            if (meta && meta.expand && includes(expand_wanted, part)) {
+                query = query.then(results => {
+                    var model = meta.expand[0],
+                        remap = meta.expand[1];
+
+                    results = Array.isArray(results) ? results : [results];
+
+                    return q.all(map(results, val =>
+                        model.findOne(where(remap, <SDict>val))
+                            .then(stamp_meta('relationship', val))))
+                                .then(tag(part));
+                });
+            } else {
+                query = query.then(tag(part));
+            }
+
+            queries.push(query);
         });
 
         // combine `main` and `parts` into a single response object
-        error_handler(res, q.all(queries))
+        error_handler(res, q.all(queries)
             .then(results => {
                 response_handler(res)(reduce(parts_wanted, (body, part: string) => {
-                    body[part] = map((<Tag>find(results, {tag: part})).val, 'dataValues');
+                    body[part] = map((<Tag>(find(results, {tag: part}) || {})).val, 'dataValues');
                     return body;
                 }, (<Tag>find(results, {tag: 'main'})).val.dataValues));
-            });
+            })
+        );
     };
 }
 
