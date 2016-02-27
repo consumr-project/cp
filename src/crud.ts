@@ -16,10 +16,13 @@ type QueryOptions = UpdateOptions & DestroyOptions & FindOptions;
 
 function error(res: Response, err: Error) {
     res.status(500);
-    res.json({
-        ok: false,
-        error: true,
-        error_msg: err.message
+    res.json(<CPServiceResponseV1<SDict>>{
+        meta: {
+            ok: false,
+            error: true,
+            error_msg: err.message
+        },
+        body: {}
     });
 }
 
@@ -99,23 +102,33 @@ function error_handler(res: Response, action): any {
 }
 
 function response_handler(res: Response, property?: string): any {
-    return results =>
-        res.json(property ? results[property] : results);
+    var start_time = Date.now();
+
+    return results => {
+        var body = property ? results[property] : results,
+            meta = {
+                ok: true,
+                error: false,
+                elapsed_time: Date.now() - start_time
+            };
+
+        return res.json(<CPServiceResponseV1<SDict | SDict[]>>{ meta, body });
+    };
 }
 
 export function upsert(model: Model<any, any>, extra_params: string[] = []): RequestHandler {
     return (req, res) => {
         populate_extra_parameters(req, extra_params);
-        error_handler(res, model.upsert(populate_uuids(populate_dates(req.body))))
-            .then(response_handler(res));
+        error_handler(res, model.upsert(populate_uuids(populate_dates(req.body)))
+            .then(response_handler(res)));
     };
 }
 
 export function create(model: Model<any, any>, extra_params: string[] = []): RequestHandler {
     return (req, res) => {
         populate_extra_parameters(req, extra_params);
-        error_handler(res, model.create(populate_uuids(populate_dates(req.body))))
-            .then(response_handler(res));
+        error_handler(res, model.create(populate_uuids(populate_dates(req.body)))
+            .then(response_handler(res)));
     };
 }
 
@@ -130,7 +143,7 @@ export function retrieve(model: Model<any, any>, prop_remap: SDict = ID_MAP): Re
             find = req.params.id ? 'findOne' : 'findAll';
             error_handler(res, model[find](build_query(prop_remap, req.params, {
                 order: ['created_date']
-            }))).then(response_handler(res));
+            })).then(response_handler(res)));
         } else {
             error(res, new Error('search not implemented'));
         }
@@ -141,7 +154,7 @@ export function update(model: Model<any, any>): RequestHandler {
     return (req, res) => error_handler(res, model.update(
         populate_uuids(populate_dates(req.body)),
         build_query(ID_MAP, req.params)
-    )).then(response_handler(res));
+    ).then(response_handler(res)));
 }
 
 export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
@@ -155,8 +168,8 @@ export function like(model: Model<any, any>, field): RequestHandler {
 
     return (req, res) => {
         filter.where[field].$iLike = `%${req.query.q}%`;
-        error_handler(res, model.findAll(filter))
-            .then(response_handler(res));
+        error_handler(res, model.findAll(filter)
+            .then(response_handler(res)));
     };
 }
 
@@ -229,6 +242,6 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
 
 export function all(model: Model<any, any>): RequestHandler {
     return (req, res) =>
-        error_handler(res, model.findAll({}))
-            .then(response_handler(res));
+        error_handler(res, model.findAll({})
+            .then(response_handler(res)));
 }

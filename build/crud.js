@@ -7,9 +7,12 @@ var ID_FIELDS = ['id', 'updated_by', 'created_by'];
 function error(res, err) {
     res.status(500);
     res.json({
-        ok: false,
-        error: true,
-        error_msg: err.message
+        meta: {
+            ok: false,
+            error: true,
+            error_msg: err.message
+        },
+        body: {}
     });
 }
 function generate_where(schema, params) {
@@ -76,16 +79,22 @@ function error_handler(res, action) {
     });
 }
 function response_handler(res, property) {
+    var start_time = Date.now();
     return function (results) {
-        return res.json(property ? results[property] : results);
+        var body = property ? results[property] : results, meta = {
+            ok: true,
+            error: false,
+            elapsed_time: Date.now() - start_time
+        };
+        return res.json({ meta: meta, body: body });
     };
 }
 function upsert(model, extra_params) {
     if (extra_params === void 0) { extra_params = []; }
     return function (req, res) {
         populate_extra_parameters(req, extra_params);
-        error_handler(res, model.upsert(populate_uuids(populate_dates(req.body))))
-            .then(response_handler(res));
+        error_handler(res, model.upsert(populate_uuids(populate_dates(req.body)))
+            .then(response_handler(res)));
     };
 }
 exports.upsert = upsert;
@@ -93,8 +102,8 @@ function create(model, extra_params) {
     if (extra_params === void 0) { extra_params = []; }
     return function (req, res) {
         populate_extra_parameters(req, extra_params);
-        error_handler(res, model.create(populate_uuids(populate_dates(req.body))))
-            .then(response_handler(res));
+        error_handler(res, model.create(populate_uuids(populate_dates(req.body)))
+            .then(response_handler(res)));
     };
 }
 exports.create = create;
@@ -106,7 +115,7 @@ function retrieve(model, prop_remap) {
             find = req.params.id ? 'findOne' : 'findAll';
             error_handler(res, model[find](build_query(prop_remap, req.params, {
                 order: ['created_date']
-            }))).then(response_handler(res));
+            })).then(response_handler(res)));
         }
         else {
             error(res, new Error('search not implemented'));
@@ -115,7 +124,7 @@ function retrieve(model, prop_remap) {
 }
 exports.retrieve = retrieve;
 function update(model) {
-    return function (req, res) { return error_handler(res, model.update(populate_uuids(populate_dates(req.body)), build_query(ID_MAP, req.params))).then(response_handler(res)); };
+    return function (req, res) { return error_handler(res, model.update(populate_uuids(populate_dates(req.body)), build_query(ID_MAP, req.params)).then(response_handler(res))); };
 }
 exports.update = update;
 function del(model, prop_remap) {
@@ -130,8 +139,8 @@ function like(model, field) {
     var filter = { where: (_a = {}, _a[field] = {}, _a) };
     return function (req, res) {
         filter.where[field].$iLike = "%" + req.query.q + "%";
-        error_handler(res, model.findAll(filter))
-            .then(response_handler(res));
+        error_handler(res, model.findAll(filter)
+            .then(response_handler(res)));
     };
     var _a;
 }
@@ -185,8 +194,8 @@ function parts(model, prop_remap, parts_def) {
 exports.parts = parts;
 function all(model) {
     return function (req, res) {
-        return error_handler(res, model.findAll({}))
-            .then(response_handler(res));
+        return error_handler(res, model.findAll({})
+            .then(response_handler(res)));
     };
 }
 exports.all = all;
