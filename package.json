@@ -30,6 +30,8 @@
     "sequelize-cli": "2.2.1"
   },
   "devDependencies": {
+    "superagent": "1.7.2",
+    "tape": "4.4.0",
     "typescript": "1.9.0-dev.20160208",
     "typings": "0.6.7"
   }

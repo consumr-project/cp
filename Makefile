@@ -7,6 +7,7 @@ sequelize = node_modules/.bin/sequelize
 
 typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
+tape = ./node_modules/.bin/tape
 
 dir_source = src
 dir_build = build
@@ -48,3 +49,9 @@ database-revert-seed:
 local:
 	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
 	-$(foreach service,$(services),npm link ../$(service)-service;)
+
+test: test/*/*
+	$(tape) test/*/*.js
+
+test-integration: test/integration/*
+	$(tape) test/integration/*
