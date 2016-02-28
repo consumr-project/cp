@@ -34,6 +34,14 @@ angular.module('tcp').service('ServicesService', [
         }
 
         /**
+         * @param {$http.Response.data} data
+         * @return {$http.Response.data.body}
+         */
+        function pluck_body(data) {
+            return data.body;
+        }
+
+        /**
          * @param {String} model
          * @param {String} id
          * @return {String}
@@ -51,10 +59,12 @@ angular.module('tcp').service('ServicesService', [
             return lodash.reduce(associations, function (methods, assoc) {
                 methods[assoc] = {
                     create: function (parent_id, data) {
-                        return $http.post(url(model, parent_id, assoc), data).then(pluck_data);
+                        return $http.post(url(model, parent_id, assoc), data)
+                            .then(pluck_data).then(pluck_body);
                     },
                     upsert: function (parent_id, data) {
-                        return $http.patch(url(model, parent_id, assoc), data).then(pluck_data);
+                        return $http.patch(url(model, parent_id, assoc), data)
+                            .then(pluck_data).then(pluck_body);
                     },
                     retrieve: function (parent_id, id, parts, expand) {
                         var opt = {};
@@ -69,22 +79,27 @@ angular.module('tcp').service('ServicesService', [
                             opt.params.expand = expand.join(',');
                         }
 
-                        return $http.get(url(model, parent_id, assoc, id), opt).then(pluck_data);
+                        return $http.get(url(model, parent_id, assoc, id), opt)
+                            .then(pluck_data).then(pluck_body);
                     },
                     update: function (parent_id, id, data) {
-                        return $http.put(url(model, parent_id, assoc, id), data).then(pluck_data);
+                        return $http.put(url(model, parent_id, assoc, id), data)
+                            .then(pluck_data).then(pluck_body);
                     },
                     delete: function (parent_id, id) {
-                        return $http.delete(url(model, parent_id, assoc, id)).then(pluck_data);
+                        return $http.delete(url(model, parent_id, assoc, id))
+                            .then(pluck_data).then(pluck_body);
                     }
                 };
                 return methods;
             }, {
                 create: function (data) {
-                    return $http.post(url(model), data).then(pluck_data);
+                    return $http.post(url(model), data)
+                        .then(pluck_data).then(pluck_body);
                 },
                 upsert: function (data) {
-                    return $http.patch(url(model), data).then(pluck_data);
+                    return $http.patch(url(model), data)
+                        .then(pluck_data).then(pluck_body);
                 },
                 retrieve: function (id, parts, expand) {
                     var opt = {};
@@ -99,13 +114,16 @@ angular.module('tcp').service('ServicesService', [
                         opt.params.expand = expand.join(',');
                     }
 
-                    return $http.get(url(model, id), opt).then(pluck_data);
+                    return $http.get(url(model, id), opt)
+                        .then(pluck_data).then(pluck_body);
                 },
                 update: function (id, data) {
-                    return $http.put(url(model, id), data).then(pluck_data);
+                    return $http.put(url(model, id), data)
+                        .then(pluck_data).then(pluck_body);
                 },
                 delete: function (id) {
-                    return $http.delete(url(model, id)).then(pluck_data);
+                    return $http.delete(url(model, id))
+                        .then(pluck_data).then(pluck_body);
                 },
             });
         }
@@ -121,18 +139,22 @@ angular.module('tcp').service('ServicesService', [
 
         queryService.search = {
             products: function (field, query) {
-                return $http.get(url('search/products', field), { params: { q: query } }).then(pluck_data);
+                return $http.get(url('search/products', field), { params: { q: query } })
+                    .then(pluck_data).then(pluck_body);
             },
             tags: function (field, query) {
-                return $http.get(url('search/tags', field), { params: { q: query } }).then(pluck_data);
+                return $http.get(url('search/tags', field), { params: { q: query } })
+                    .then(pluck_data).then(pluck_body);
             },
             companies: function (field, query) {
-                return $http.get(url('search/companies', field), { params: { q: query } }).then(pluck_data);
+                return $http.get(url('search/companies', field), { params: { q: query } })
+                    .then(pluck_data).then(pluck_body);
             }
         };
 
         queryService.companies.guid = function (guid) {
-            return $http.get(url('companies/guid', guid)).then(pluck_data);
+            return $http.get(url('companies/guid', guid))
+                .then(pluck_data).then(pluck_body);
         };
 
         /**
