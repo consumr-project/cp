@@ -175,6 +175,19 @@ declare module "query-service" {
 /*     } */
 /* } */
 
+declare module "passport-localapikey" {
+    import { Request } from 'express';
+
+    export interface Search {
+        (apikey: string, done: (err?: Error) => void): void;
+    }
+
+    export class Strategy {
+        constructor(fn: Search);
+        authenticate(req: Request, options?: Object): void;
+    }
+}
+
 declare module "passport-linkedin-oauth2" {
     import { Request } from 'express';
 
