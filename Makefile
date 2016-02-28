@@ -36,6 +36,8 @@ seed:
 	@$(sequelize) seed:create --url $(db_url) --seeders-path db/seeders \
 		--name NEWFILE
 
+sync: database-update
+
 database-update:
 	@$(sequelize) db:migrate --url $(db_url) --migrations-path db/migrations
 	@$(sequelize) db:seed --url $(db_url) --seeders-path db/seeders
