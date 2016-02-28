@@ -14,7 +14,7 @@ dir_build = build
 
 build:
 	$(tsc) config/typings.d.ts $(dir_source)/* $(dir_source)/models/*  --outDir $(dir_build) \
-		--module commonjs --pretty --removeComments --moduleResolution classic \
+		--module commonjs --removeComments --moduleResolution classic \
 		--allowJs
 
 install:

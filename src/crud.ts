@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
-import { includes, each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
+import { Sequelize, Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
+import { merge, includes, each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
 import * as q from 'q';
 
 const uuid = require('node-uuid');
@@ -38,7 +38,7 @@ function generate_where(schema: SDict, params: SDict): SDict {
 
 function build_query(prop_remap: SDict, params: SDict, extras: Object = {}): QueryOptions {
     var query = <QueryOptions>clone(extras);
-    query.where = generate_where(prop_remap, params);
+    query.where = merge(generate_where(prop_remap, params), query.where);
     query.raw = true;
     return query;
 }
@@ -112,7 +112,7 @@ function response_handler(res: Response, property?: string): any {
                 elapsed_time: Date.now() - start_time
             };
 
-        return res.json(<CPServiceResponseV1<SDict | SDict[]>>{ meta, body });
+        return res.json(<CPServiceResponseV1<SDict | SDict[] | number>>{ meta, body });
     };
 }
 
@@ -158,9 +158,19 @@ export function update(model: Model<any, any>): RequestHandler {
 }
 
 export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
-    return (req, res) =>
-        error_handler(res, model.destroy(build_query(prop_remap, req.params))
-            .then(response_handler(res)));
+    return (req, res) => {
+        var deleted_by = req.user.id,
+            where = { deleted_date: null },
+            force = req.query.purge === 'true' &&
+                req.query.purge_key === process.env.CP_PURGE_KEY &&
+                process.env.CP_PURGE_KEY;
+
+        error_handler(res, (<any>model).sequelize.transaction(transaction =>
+            model.update({ deleted_by }, build_query(ID_MAP, req.params,
+                { transaction, where })).then(() =>
+                model.destroy(build_query(prop_remap, req.params,
+                    { transaction, force }))))).then(response_handler(res));
+    }
 }
 
 export function like(model: Model<any, any>, field): RequestHandler {

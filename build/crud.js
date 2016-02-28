@@ -26,7 +26,7 @@ function generate_where(schema, params) {
 function build_query(prop_remap, params, extras) {
     if (extras === void 0) { extras = {}; }
     var query = lodash_1.clone(extras);
-    query.where = generate_where(prop_remap, params);
+    query.where = lodash_1.merge(generate_where(prop_remap, params), query.where);
     query.raw = true;
     return query;
 }
@@ -130,8 +130,14 @@ exports.update = update;
 function del(model, prop_remap) {
     if (prop_remap === void 0) { prop_remap = ID_MAP; }
     return function (req, res) {
-        return error_handler(res, model.destroy(build_query(prop_remap, req.params))
-            .then(response_handler(res)));
+        var deleted_by = req.user.id, where = { deleted_date: null }, force = req.query.purge === 'true' &&
+            req.query.purge_key === process.env.CP_PURGE_KEY &&
+            process.env.CP_PURGE_KEY;
+        error_handler(res, model.sequelize.transaction(function (transaction) {
+            return model.update({ deleted_by: deleted_by }, build_query(ID_MAP, req.params, { transaction: transaction, where: where })).then(function () {
+                return model.destroy(build_query(prop_remap, req.params, { transaction: transaction, force: force }));
+            });
+        })).then(response_handler(res));
     };
 }
 exports.del = del;
