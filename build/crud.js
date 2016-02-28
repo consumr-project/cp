@@ -114,6 +114,7 @@ function retrieve(model, prop_remap) {
         if (req.params.id || prop_remap) {
             find = req.params.id ? 'findOne' : 'findAll';
             error_handler(res, model[find](build_query(prop_remap, req.params, {
+                paranoid: !req.params.id,
                 order: ['created_date']
             })).then(response_handler(res)));
         }
