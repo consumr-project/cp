@@ -63,5 +63,6 @@ export NODE_ENV='development'
 
 * Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
 * Austin Condiff for the [menu](https://thenounproject.com/search/?q=hamburger&i=70916) icon
+* To Uyen for the [book](https://thenounproject.com/search/?q=book&i=249760) icon
 * Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon
 * Brent Jackson for the [loading](http://jxnblk.com/loading/) svg

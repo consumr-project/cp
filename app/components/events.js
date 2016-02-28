@@ -53,19 +53,11 @@ angular.module('tcp').directive('events', [
         function generate_template_event_content(label) {
             return [
                 '<span class="events__event__content events__event__content--', label, '">',
-                '    <table>',
-                '        <tr>',
-                '            <td>',
-                '                <i18n class="events__event__date" date="{{::event.date}}" format="YYYY"></i18n>',
-                '            </td>',
-                '            <td>',
-                '                <span class="events__event__title">',
-                '                    <span>{{::event.title}}</span>',
-                '                    (<span i18n="company/source_count" data="{count: event.source_count}"></span>)',
-                '                </span>',
-                '            </td>',
-                '        </tr>',
-                '    </table>',
+                '    <div>',
+                '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
+                '        <span class="events__event__sources">{{::event.source_count}}</span>',
+                '    </div>',
+                '    <div class="events__event__title">{{::event.title}}</div>',
                 '</span>',
             ].join('');
         }

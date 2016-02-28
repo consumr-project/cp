@@ -5,6 +5,7 @@
 
 .events__event {
     min-height: 80px;
+    outline: none;
 }
 
 .events__event:nth-child(even) .events__event__content--left * {
@@ -13,6 +14,9 @@
 
 .events__event:nth-child(odd) .events__event__content--right * {
     display: none;
+}
+
+@media (--media-regular-screens) {
 }
 
 .events__event__icon {
@@ -42,53 +46,53 @@
 .events__event__content {
     display: inline-block;
     margin-top: var(--spacing-xsmall);
+    margin-bottom: var(--spacing-small);
+    text-align: left;
     width: 40%;
 }
 
-.events__event__content td {
-    display: block;
-    padding-bottom: var(--spacing-xsmall);
-}
-
-@media (--media-regular-screens) {
-    .events__event__content td {
-        display: table-cell;
-        padding-bottom: 0;
-    }
-}
-
-.events__event__content--left table {
-    float: right;
+.events__event__content--left {
     margin-right: var(--spacing-small);
 }
 
-.events__event__content--right table {
-    float: left;
+.events__event__content--right {
     margin-left: var(--spacing-small);
 }
 
+.events__event__sources,
 .events__event__date {
-    display: block;
+    font-size: var(--font-size-small);
+}
+
+.events__event__date {
     font-weight: 700;
+    text-transform: uppercase;
     width: 50px;
 }
 
-.events__event__content td {
-    vertical-align: top;
-    text-align: left;
+.events__event__sources {
+    background-image: url(/assets/images/book.svg);
+    background-position: -1px -1px;
+    background-repeat: no-repeat;
+    background-size: 17px;
+    float: right;
+    padding-left: 20px;
 }
 
 .events__event__title {
+    border-top: 1px solid var(--color-std-border-color);
     color: var(--color-light-text-color);
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .events__line {
     animation-delay: 1s;
-    background: var(--color-std-border-color);
+    background: var(--color-std-thick-border-color);
     height: calc(100% - 60px);
     left: calc(50% - 2px);
     position: absolute;
     top: 0;
-    width: 1px;
+    width: 2px;
     z-index: var(--z-index-none);
 }
