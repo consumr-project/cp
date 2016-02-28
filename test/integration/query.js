@@ -42,4 +42,37 @@ test('query', t => {
             st.ok(res.body.meta.ok, 'can create a company');
         });
     });
+
+    t.test('get company', st => {
+        st.plan(2);
+
+        get('/companies/' + fixture.company.id).end((err, res) => {
+            st.ok(res.body.meta.ok, 'can retrieve a company');
+            st.equal(fixture.company.name, res.body.body.name);
+        });
+    });
+
+    t.test('delete company', st => {
+        st.plan(2);
+
+        del('/companies/' + fixture.company.id).end((err, res) => {
+            st.ok(res.body.meta.ok, 'can delete a company');
+
+            get('/companies/' + fixture.company.id).end((err, res) => {
+                st.ok(res.body.body.deleted_date)
+            });
+        });
+    });
+
+    t.test('purge company', st => {
+        st.plan(2);
+
+        purge('/companies/' + fixture.company.id).end((err, res) => {
+            st.ok(res.body.meta.ok, 'deleted test company');
+
+            get('/companies/' + fixture.company.id).end((err, res) => {
+                st.notOk(res.body.body)
+            });
+        });
+    });
 });
