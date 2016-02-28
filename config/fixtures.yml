@@ -1,0 +1,9 @@
+integration_tests:
+  admin:
+    purge_key: '<%= process.env.CP_PURGE_KEY %>'
+  user:
+    admin: 'b2df88fa-dd25-42ba-b456-3c8d164d3343'
+  company:
+    id: 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+    name: 'Company for Integration Testing'
+

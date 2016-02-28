@@ -1,0 +1,2 @@
+auth_url: 'http://localhost:3000/service/auth'
+service_url: 'http://localhost:3000/service/query'
