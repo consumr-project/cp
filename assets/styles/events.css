@@ -8,11 +8,11 @@
     outline: none;
 }
 
-.events__event:nth-child(even) .events__event__content--left * {
+.events__event:nth-child(even) .events__event__content--left > * {
     display: none;
 }
 
-.events__event:nth-child(odd) .events__event__content--right * {
+.events__event:nth-child(odd) .events__event__content--right > * {
     display: none;
 }
 
@@ -89,10 +89,16 @@
 .events__line {
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
-    height: calc(100% - 60px);
+    height: calc(100% - 90px);
     left: calc(50% - 2px);
     position: absolute;
     top: 0;
     width: 2px;
     z-index: var(--z-index-none);
+}
+
+@media (--media-regular-screens) {
+    .events__line {
+        height: calc(100% - 70px);
+    }
 }
