@@ -58,5 +58,9 @@ export = sequelize =>
 
         auth_linkedin_id: {
             type: Type.STRING
+        },
+
+        auth_apikey: {
+            type: Type.STRING
         }
     }), CONFIG);
