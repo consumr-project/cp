@@ -14,6 +14,11 @@ type Tag = { tag: string, val: any };
 type Query = SDict & any;
 type QueryOptions = UpdateOptions & DestroyOptions & FindOptions;
 
+interface QueryResultsModelMeta  {
+    count?: number;
+    includes_me?: boolean;
+}
+
 function error(res: Response, err: Error) {
     res.status(500);
     res.json(<CPServiceResponseV1<SDict>>{
@@ -214,26 +219,64 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
 
         // parts
         each(parts_wanted, (part: string) => {
-            var model = parts_def[part][0],
+            var query = null,
+                model = parts_def[part][0],
                 prop_remap = parts_def[part][1],
-                meta = parts_def[part][2];
+                meta = parts_def[part][2] || {};
 
-            var query = model.findAll(build_query(prop_remap, req.params));
+            if (meta.expand && includes(expand_wanted, part)) {
+                query = model.findAll(build_query(prop_remap, req.params))
+                    .then(results => {
+                        var model = meta.expand[0],
+                            remap = meta.expand[1];
 
-            if (meta && meta.expand && includes(expand_wanted, part)) {
-                query = query.then(results => {
-                    var model = meta.expand[0],
-                        remap = meta.expand[1];
+                        results = Array.isArray(results) ? results : [results];
 
-                    results = Array.isArray(results) ? results : [results];
+                        return q.all(map(results, val =>
+                            model.findOne(build_query(remap, <SDict>val))
+                                .then(stamp_meta('relationship', val))))
+                                    .then(tag(part));
+                    });
+            } else if (meta.instead) {
+                query = new Promise((resolve, reject) => {
+                    var instead: QueryResultsModelMeta = {},
+                        user_id = req.user.id,
+                        checks = [];
 
-                    return q.all(map(results, val =>
-                        model.findOne(build_query(remap, <SDict>val))
-                            .then(stamp_meta('relationship', val))))
-                                .then(tag(part));
+                    if (meta.instead.count) {
+                        checks.push(new Promise((resolve, reject) => {
+                            model.findAndCountAll(build_query(prop_remap, req.params))
+                                .then(count => {
+                                    instead.count = count.count;
+                                    resolve();
+                                });
+                        }));
+                    }
+
+                    if (meta.instead.includes_me) {
+                        checks.push(new Promise((resolve, reject) => {
+                            if (!user_id) {
+                                instead.includes_me = false;
+                                resolve();
+                            } else {
+                                model.findOne(build_query(prop_remap, req.params, {
+                                    where: { user_id }
+                                })).then(row => {
+                                    instead.includes_me = !!row;
+                                    resolve();
+                                });
+                            }
+                        }));
+                    }
+
+                    return Promise.all(checks).then(() => q.when({})
+                        .then(stamp_meta('instead', instead))
+                        .then(tag(part))
+                        .then(resolve));
                 });
             } else {
-                query = query.then(tag(part));
+                query = model.findAll(build_query(prop_remap, req.params))
+                    .then(tag(part));
             }
 
             queries.push(query);
