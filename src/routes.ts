@@ -123,6 +123,12 @@ export default (app, models) => {
             companies: [models.CompanyEvent, {event_id: 'id'}, {
                 expand: [models.Company, {id: 'company_id'}]
             }],
+            bookmarks: [models.EventBookmark, {event_id: 'id'}, {
+                instead: {
+                    count: true,
+                    includes_me: true
+                }
+            }],
         }
     ));
 
@@ -147,6 +153,17 @@ export default (app, models) => {
         can('retrieve', 'event'),
         can('retrieve', 'company'),
         retrieve(models.CompanyEvent, {event_id: 'event_id'}));
+
+    patch('/events/:event_id/bookmarks',
+        can('create', 'event'),
+        can('update', 'event'),
+        upsert(models.EventBookmark, ['event_id']));
+    get('/events/:event_id/bookmarks/:id?',
+        can('retrieve', 'event'),
+        retrieve(models.EventBookmark, {event_id: 'event_id', user_id: 'id'}));
+    del('/events/:event_id/bookmarks/:id',
+        can('delete', 'event'),
+        remove(models.EventBookmark, {event_id: 'event_id', user_id: 'id'}));
 
     // search
     get('/search/products/en-US',
