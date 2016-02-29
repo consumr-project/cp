@@ -135,7 +135,7 @@ function del(model, prop_remap) {
             req.query.purge_key === process.env.CP_PURGE_KEY &&
             process.env.CP_PURGE_KEY;
         error_handler(res, model.sequelize.transaction(function (transaction) {
-            return model.update({ deleted_by: deleted_by }, build_query(ID_MAP, req.params, { transaction: transaction, where: where })).then(function () {
+            return model.update({ deleted_by: deleted_by }, build_query(prop_remap, req.params, { transaction: transaction, where: where })).then(function () {
                 return model.destroy(build_query(prop_remap, req.params, { transaction: transaction, force: force }));
             });
         })).then(response_handler(res));

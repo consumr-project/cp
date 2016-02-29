@@ -167,7 +167,7 @@ export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): Request
                 process.env.CP_PURGE_KEY;
 
         error_handler(res, (<any>model).sequelize.transaction(transaction =>
-            model.update({ deleted_by }, build_query(ID_MAP, req.params,
+            model.update({ deleted_by }, build_query(prop_remap, req.params,
                 { transaction, where })).then(() =>
                 model.destroy(build_query(prop_remap, req.params,
                     { transaction, force }))))).then(response_handler(res));
