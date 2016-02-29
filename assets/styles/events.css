@@ -8,17 +8,6 @@
     outline: none;
 }
 
-.events__event:nth-child(even) .events__event__content--left > * {
-    display: none;
-}
-
-.events__event:nth-child(odd) .events__event__content--right > * {
-    display: none;
-}
-
-@media (--media-regular-screens) {
-}
-
 .events__event__icon {
     background-position: center center;
     background-repeat: no-repeat;
@@ -46,9 +35,9 @@
 .events__event__content {
     display: inline-block;
     margin-top: var(--spacing-xsmall);
-    margin-bottom: var(--spacing-small);
+    margin-bottom: var(--spacing-xlarge);
     text-align: left;
-    width: 40%;
+    width: 80%;
 }
 
 .events__event__content--left {
@@ -57,6 +46,31 @@
 
 .events__event__content--right {
     margin-left: var(--spacing-small);
+}
+
+.events__event .events__event__content--left {
+    display: none;
+}
+
+@media (--media-regular-screens) {
+    .events__event__content {
+        margin-bottom: var(--spacing-small);
+        width: 40%;
+    }
+
+    .events__event .events__event__content--left {
+        display: inline-block;
+    }
+
+    .events__event:nth-child(odd) .events__event__content--left > div,
+    .events__event:nth-child(event) .events__event__content--right > div {
+        display: block;
+    }
+
+    .events__event:nth-child(even) .events__event__content--left > div,
+    .events__event:nth-child(odd) .events__event__content--right > div {
+        display: none;
+    }
 }
 
 .events__event__sources,
@@ -89,6 +103,7 @@
 .events__line {
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
+    display: none;
     height: calc(100% - 90px);
     left: calc(50% - 2px);
     position: absolute;
@@ -99,6 +114,7 @@
 
 @media (--media-regular-screens) {
     .events__line {
+        display: block;
         height: calc(100% - 70px);
     }
 }
