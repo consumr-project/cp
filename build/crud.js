@@ -171,10 +171,10 @@ function parts(model, prop_remap, parts_def) {
         queries.push(model.findOne(build_query(prop_remap, req.params))
             .then(tag('main')));
         lodash_1.each(parts_wanted, function (part) {
-            var model = parts_def[part][0], prop_remap = parts_def[part][1], meta = parts_def[part][2];
-            var query = model.findAll(build_query(prop_remap, req.params));
-            if (meta && meta.expand && lodash_1.includes(expand_wanted, part)) {
-                query = query.then(function (results) {
+            var query = null, model = parts_def[part][0], prop_remap = parts_def[part][1], meta = parts_def[part][2] || {};
+            if (meta.expand && lodash_1.includes(expand_wanted, part)) {
+                query = model.findAll(build_query(prop_remap, req.params))
+                    .then(function (results) {
                     var model = meta.expand[0], remap = meta.expand[1];
                     results = Array.isArray(results) ? results : [results];
                     return q.all(lodash_1.map(results, function (val) {
@@ -184,8 +184,43 @@ function parts(model, prop_remap, parts_def) {
                         .then(tag(part));
                 });
             }
+            else if (meta.instead) {
+                query = new Promise(function (resolve, reject) {
+                    var instead = {}, user_id = req.user.id, checks = [];
+                    if (meta.instead.count) {
+                        checks.push(new Promise(function (resolve, reject) {
+                            model.findAndCountAll(build_query(prop_remap, req.params))
+                                .then(function (count) {
+                                instead.count = count.count;
+                                resolve();
+                            });
+                        }));
+                    }
+                    if (meta.instead.includes_me) {
+                        checks.push(new Promise(function (resolve, reject) {
+                            if (!user_id) {
+                                instead.includes_me = false;
+                                resolve();
+                            }
+                            else {
+                                model.findOne(build_query(prop_remap, req.params, {
+                                    where: { user_id: user_id }
+                                })).then(function (row) {
+                                    instead.includes_me = !!row;
+                                    resolve();
+                                });
+                            }
+                        }));
+                    }
+                    return Promise.all(checks).then(function () { return q.when({})
+                        .then(stamp_meta('instead', instead))
+                        .then(tag(part))
+                        .then(resolve); });
+                });
+            }
             else {
-                query = query.then(tag(part));
+                query = model.findAll(build_query(prop_remap, req.params))
+                    .then(tag(part));
             }
             queries.push(query);
         });
