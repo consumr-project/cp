@@ -65,4 +65,5 @@ export NODE_ENV='development'
 * Austin Condiff for the [menu](https://thenounproject.com/search/?q=hamburger&i=70916) icon
 * To Uyen for the [book](https://thenounproject.com/search/?q=book&i=249760) icon
 * Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon
+* artworkbean for the [star](https://thenounproject.com/search/?q=star&i=101463) icon
 * Brent Jackson for the [loading](http://jxnblk.com/loading/) svg

@@ -72,24 +72,34 @@
     }
 }
 
-.events__event__sources,
-.events__event__date {
-    font-size: var(--font-size-small);
-}
-
 .events__event__date {
     font-weight: 700;
     text-transform: uppercase;
     width: 50px;
 }
 
-.events__event__sources {
+.events__event__meta {
+    background-repeat: no-repeat;
+    float: right;
+    font-size: var(--font-size-small);
+    margin-left: var(--spacing-xsmall);
+    padding-left: 22px;
+}
+
+.events__event__meta--sources {
     background-image: url(/assets/images/book.svg);
     background-position: -1px -1px;
-    background-repeat: no-repeat;
     background-size: 17px;
-    float: right;
-    padding-left: 20px;
+}
+
+.events__event__meta--bookmarks {
+    background-image: url(/assets/images/star/star-border.svg);
+    background-position: -3px -4px;
+    background-size: 23px;
+}
+
+.events__event__meta--bookmarks.events__event__meta--bookmarked {
+    background-image: url(/assets/images/star/star-filled.svg);
 }
 
 .events__event__title {

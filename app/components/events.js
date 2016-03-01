@@ -17,7 +17,9 @@ angular.module('tcp').directive('events', [
                 title: utils.ellipsis(ev.title, 100),
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
-                source_count: ev.sources.length
+                source_count: ev.sources.length,
+                bookmark_count: ev.bookmarks['@meta'].instead.count,
+                bookmarked_by_me: ev.bookmarks['@meta'].instead.includes_me,
             };
         }
 
@@ -26,7 +28,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_event(event_id) {
-            return ServicesService.query.events.retrieve(event_id, ['sources']);
+            return ServicesService.query.events.retrieve(event_id, ['sources', 'bookmarks']);
         }
 
         /**
@@ -56,7 +58,9 @@ angular.module('tcp').directive('events', [
                 '    ng-click="edit(event)">',
                 '    <div>',
                 '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
-                '        <span class="events__event__sources">{{::event.source_count}}</span>',
+                '        <span ng-class="{\'events__event__meta--bookmarked\': event.bookmarked_by_me}"',
+                '            class="events__event__meta events__event__meta--bookmarks">{{::event.bookmark_count}}</span>',
+                '        <span class="events__event__meta events__event__meta--sources">{{::event.source_count}}</span>',
                 '    </div>',
                 '    <div class="events__event__title">{{::event.title}}</div>',
                 '</span>',
