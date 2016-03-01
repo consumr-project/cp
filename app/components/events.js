@@ -4,7 +4,8 @@ angular.module('tcp').directive('events', [
     'lodash',
     'utils',
     'ServicesService',
-    function ($q, $timeout, lodash, utils, ServicesService) {
+    'SessionService',
+    function ($q, $timeout, lodash, utils, ServicesService, SessionService) {
         'use strict';
 
         /**
@@ -59,7 +60,8 @@ angular.module('tcp').directive('events', [
                 '    <div>',
                 '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
                 '        <span ng-class="{\'events__event__meta--bookmarked\': event.bookmarked_by_me}"',
-                '            class="events__event__meta events__event__meta--bookmarks">{{::event.bookmark_count}}</span>',
+                '            ng-click="toggle_favorite($event, event)"',
+                '            class="events__event__meta events__event__meta--bookmarks">{{event.bookmark_count}}</span>',
                 '        <span class="events__event__meta events__event__meta--sources">{{::event.source_count}}</span>',
                 '    </div>',
                 '    <div class="events__event__title">{{::event.title}}</div>',
@@ -107,6 +109,10 @@ angular.module('tcp').directive('events', [
                 $scope.vm.add_event.show();
             };
 
+            /**
+             * @param {Event} ev
+             * @return {void}
+             */
             $scope.show = function (ev) {
                 $scope.vm.selected_event_to_show =
                     $scope.vm.selected_event_to_show === ev ? null : ev;
@@ -120,6 +126,33 @@ angular.module('tcp').directive('events', [
                 $timeout(function () {
                     $scope.vm.selected_event_to_edit = null;
                 }, 300);
+            };
+
+            /**
+             * @param {jQuery.Event} $ev
+             * @param {Event} ev
+             * @return {Boolean}
+             */
+            $scope.toggle_favorite = function ($ev, ev) {
+                $ev.preventDefault();
+                $ev.stopPropagation();
+
+                utils.assert(ev && ev.id);
+                utils.assert(SessionService.USER);
+
+                if (ev.bookmarked_by_me) {
+                    ev.bookmarked_by_me = false;
+                    ev.bookmark_count--;
+
+                    ServicesService.query.events.bookmarks.delete(ev.id, SessionService.USER.id);
+                } else {
+                    ev.bookmarked_by_me = true;
+                    ev.bookmark_count++;
+
+                    ServicesService.query.events.bookmarks.upsert(ev.id, {
+                        user_id: SessionService.USER.id
+                    });
+                }
             };
 
             $scope.api = $scope.api || {};
