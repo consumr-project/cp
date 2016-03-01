@@ -12,8 +12,8 @@ test_dir = test
 
 npm = npm
 tsc = ./node_modules/.bin/tsc
-imageoptim = ./node_modules/.bin/imageoptim
-svgo = ./node_modules/.bin/svgo
+imageoptim = imageoptim
+svgo = svgo
 browserify = ./node_modules/.bin/browserify
 protractor = ./node_modules/.bin/protractor
 js_hint = ./node_modules/.bin/jshint
@@ -46,9 +46,9 @@ test:
 	$(protractor) config/protractor.js
 
 optimize:
-	$(npm) install svgo imageoptim
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
+	$(svgo) assets/images/star/
 	$(svgo) assets/images/avatar/
 	$(svgo) assets/images/indicator/
 
