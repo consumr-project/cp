@@ -9,6 +9,47 @@ angular.module('tcp').directive('events', [
         'use strict';
 
         /**
+         * @param {Event[]} evs
+         * @return {Event[]}
+         */
+        function highlight_most_bookmarked_events(evs) {
+            var best_scores = lodash(evs)
+                .map('bookmark_count')
+                .uniq()
+                .filter()
+                .sortBy()
+                .reverse()
+                .value()
+                .shift();
+
+            return lodash(evs)
+                .map(unhighlight)
+                .filter(function (ev) {
+                    return best_scores === ev.bookmark_count;
+                })
+                .map(highlight)
+                .value();
+        }
+
+        /**
+         * @param {Event} ev
+         * @return {Event}
+         */
+        function highlight(ev) {
+            ev.$highlight = true;
+            return ev;
+        }
+
+        /**
+         * @param {Event} ev
+         * @return {Event}
+         */
+        function unhighlight(ev) {
+            ev.$highlight = false;
+            return ev;
+        }
+
+        /**
          * @param {Event} ev
          * @return {Object}
          */
@@ -93,6 +134,7 @@ angular.module('tcp').directive('events', [
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))
+                    .then(highlight_most_bookmarked_events)
                     .then(function (evs) {
                         $scope.events.reverse();
                         $scope.vm.loading = false;
@@ -172,7 +214,7 @@ angular.module('tcp').directive('events', [
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
                 '    <div ng-repeat="event in events" ',
                 '        class="events__event fadeInUp" ',
-                '        ng-class="{animated: vm.first_load}" ',
+                '        ng-class="{animated: vm.first_load, \'events__event--highlight\': event.$highlight}" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
                 generate_template_event_content('left'),
