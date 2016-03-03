@@ -2,14 +2,19 @@
     --speed-friendly: .4s;
     --speed-fast: .2s;
 
+    --letter-spacing-small: .5px;
+
+    --font-height-large: 35px;
     --font-height-normal: 30px;
+    --font-height-small: 26px;
+    --font-height-h1: 37px;
+
+    --font-size-xxlarge: 34px;
     --font-size-xlarge: 26px;
+    --font-size-large: 22px;
     --font-size-normal: 16px;
     --font-size-small: 13px;
     --font-size-xsmall: 10px;
-
-    --font-height-h1: 37px;
-    --font-size-h1: 35px;
 
     --color-neutral: #C7C7C7;
     --color-negative: #FC363B;
@@ -48,8 +53,9 @@
     --content-max-width: 700px;
     --content-main-with-aside-offset: -220px;
     --content-medium-width: 500px;
-    --content-aside-width: 450px;
+    --content-aside-width: 400px;
     --content-horizontal-padding: 20px;
+    --content-aside-horizontal-padding: 40px;
 
     --computed-button-height: 37px;
     --computed-header-height: 85px;
@@ -58,6 +64,8 @@
     --z-index-header: 1;
     --z-index-popover-backdrop: 2;
     --z-index-popover: 3;
+
+    --avatar-size: 40px;
 }
 
 @custom-media --media-content-max-width (max-width: 700px);

@@ -105,7 +105,7 @@ angular.module('tcp').directive('events', [
                 '            class="events__event__meta events__event__meta--bookmarks">{{event.bookmark_count | number}}</span>',
                 '        <span class="events__event__meta events__event__meta--sources">{{::event.source_count | number}}</span>',
                 '    </div>',
-                '    <div class="events__event__title">{{::event.title}}</div>',
+                '    <div class="events__event__title copy">{{::event.title}}</div>',
                 '</span>',
             ].join('');
         }

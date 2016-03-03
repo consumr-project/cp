@@ -7,16 +7,27 @@
     min-height: 80px;
 }
 
+@media (--media-regular-screens) {
+    .events__event--highlight .events__event__title {
+        font-family: Times;
+        font-size: var(--font-size-xxlarge);
+        font-style: italic;
+        line-height: var(--font-height-large);
+    }
+}
+
 .events__event__icon {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 80%;
     border-radius: 200px;
     display: inline-block;
-    height: 40px;
+    height: var(--avatar-size);
     margin-right: 6px;
+    position: relative;
+    top: 20px;
     vertical-align: top;
-    width: 40px;
+    width: var(--avatar-size);
 }
 
 .events__event__icon--neutral {
@@ -73,6 +84,8 @@
 }
 
 .events__event__date {
+    font-size: var(--font-size-small);
+    letter-spacing: var(--letter-spacing-small);
     font-weight: 700;
     text-transform: uppercase;
     width: 50px;
@@ -83,19 +96,19 @@
     float: right;
     font-size: var(--font-size-small);
     margin-left: var(--spacing-xsmall);
-    padding-left: 22px;
+    padding-left: 24px;
 }
 
 .events__event__meta--sources {
     background-image: url(/assets/images/book.svg);
-    background-position: -1px -1px;
-    background-size: 17px;
+    background-position: -1px -3px;
+    background-size: 20px;
 }
 
 .events__event__meta--bookmarks {
     background-image: url(/assets/images/star/star-border.svg);
-    background-position: -3px -4px;
-    background-size: 23px;
+    background-position: -2px -5px;
+    background-size: 24px;
 }
 
 .events__event__meta--bookmarks.events__event__meta--bookmarked {
@@ -105,6 +118,8 @@
 .events__event__title {
     border-top: 1px solid var(--color-std-border-color);
     color: var(--color-light-text-color);
+    font-size: 20px;
+    line-height: var(--font-height-small);
     margin-top: 10px;
     padding-top: 10px;
 }
@@ -116,7 +131,7 @@
     height: calc(100% - 90px);
     left: calc(50% - 2px);
     position: absolute;
-    top: 0;
+    top: 20px;
     width: 2px;
     z-index: var(--z-index-none);
 }
@@ -124,6 +139,6 @@
 @media (--media-regular-screens) {
     .events__line {
         display: block;
-        height: calc(100% - 70px);
+        height: calc(100% - 100px);
     }
 }

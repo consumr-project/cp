@@ -13,8 +13,8 @@ avatar:not(.avatar--block) {
     border-radius: 200px;
     border: 1px solid var(--color-std-border-color);
     box-shadow: 0 0 4px var(--color-std-shadow-color);
-    height: 40px;
-    width: 40px;
+    height: var(--avatar-size);
+    width: var(--avatar-size);
 }
 
 avatar.avatar--block {
@@ -61,7 +61,7 @@ avatar.avatar--block .avatar__summary {
 }
 
 avatar.avatar--block .avatar__name {
-    font-size: var(--font-size-h1);
+    font-size: var(--font-size-xxlarge);
     line-height: var(--font-height-h1);
 }
 
