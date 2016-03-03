@@ -248,7 +248,10 @@ angular.module('tcp').directive('company', [
                 // '    <message class="message-elem--banner" type="success">you added 5 new companies, good job! we just need a few more details.</message>',
 
                 '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)" class="site-content--main">',
-                '        <h1 class="take-space animated fadeIn">{{company.name}}</h1>',
+                '        <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
+                '        <a ng-if="company.website_url" href="{{company.website_url}}"',
+                '            target="_blank" class="linkimg animated fadeIn"></a>',
+
                 '        <followed-by',
                 '            users="company.$followed_by"',
                 '            on-start-following="on_start_following(company.id)"',
