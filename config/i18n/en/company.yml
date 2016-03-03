@@ -3,3 +3,4 @@ name_placeholder: Company name
 # events
 what_is_the_website: "Great! What is the website for {name}?"
 what_do_they_do: "Can you describe what {name} does or sells?"
+company_founded: Company founded

@@ -7,7 +7,20 @@
     min-height: 80px;
 }
 
+.events__event--last .events__event__info {
+    display: none;
+}
+
 @media (--media-regular-screens) {
+    .events__event--last {
+        position: relative;
+        top: 70px;
+    }
+
+    .events__event--last .events__event__icon {
+        top: 0;
+    }
+
     .events__event--highlight .events__event__title {
         font-family: Times;
         font-size: var(--font-size-xxlarge);
@@ -128,7 +141,7 @@
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
     display: none;
-    height: calc(100% - 90px);
+    height: 100%;
     left: calc(50% - 2px);
     position: absolute;
     top: 20px;
@@ -139,6 +152,5 @@
 @media (--media-regular-screens) {
     .events__line {
         display: block;
-        height: calc(100% - 100px);
     }
 }

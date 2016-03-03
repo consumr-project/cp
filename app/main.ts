@@ -34,12 +34,18 @@ module tcp {
         .constant('DOMAIN', {
             model: {
                 company: 'company',
-                event: 'event',
                 company_props: {
                     summary: 'summary',
                     wikipedia_url: 'wikipedia_url',
                     website_url: 'website_url',
-                }
+                },
+
+                event: 'event',
+                event_props: {
+                    sentiments: {
+                        neutral: 'neutral',
+                    }
+                },
             }
         });
 

@@ -1,12 +1,35 @@
 angular.module('tcp').directive('events', [
+    'DOMAIN',
     '$q',
     '$timeout',
     'lodash',
     'utils',
+    'i18n',
     'ServicesService',
     'SessionService',
-    function ($q, $timeout, lodash, utils, ServicesService, SessionService) {
+    function (DOMAIN, $q, $timeout, lodash, utils, i18n, ServicesService, SessionService) {
         'use strict';
+
+        /**
+         * @param {Event[]} evs
+         * @return {Event[]}
+         */
+        function order_events(evs) {
+            return evs.reverse();
+        }
+
+        /**
+         * @param {Event[]} evs
+         * @return {Event[]}
+         */
+        function add_special_events(evs) {
+            evs.push({
+                title: i18n.get('company/company_founded'),
+                sentiment: DOMAIN.model.event_props.sentiments.neutral,
+            });
+
+            return evs;
+        }
 
         /**
          * @param {Event[]} evs
@@ -24,9 +47,7 @@ angular.module('tcp').directive('events', [
 
             return lodash(evs)
                 .map(unhighlight)
-                .filter(function (ev) {
-                    return best_scores === ev.bookmark_count;
-                })
+                .filter(['bookmark_count', best_scores])
                 .map(highlight)
                 .value();
         }
@@ -98,7 +119,7 @@ angular.module('tcp').directive('events', [
             return [
                 '<span class="events__event__content events__event__content--', label, ' is-non-selectable"',
                 '    ng-click="edit(event)">',
-                '    <div>',
+                '    <div class="events__event__info">',
                 '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
                 '        <span ng-class="{\'events__event__meta--bookmarked\': event.bookmarked_by_me}"',
                 '            ng-click="toggle_favorite($event, event)"',
@@ -134,12 +155,10 @@ angular.module('tcp').directive('events', [
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))
-                    .then(highlight_most_bookmarked_events)
-                    .then(function (evs) {
-                        $scope.events.reverse();
-                        $scope.vm.loading = false;
-                        return evs;
-                    });
+                    .then(utils.scope.set($scope, 'vm.loading', false))
+                    .then(order_events)
+                    .then(add_special_events)
+                    .then(highlight_most_bookmarked_events);
             };
 
             /**
@@ -212,9 +231,15 @@ angular.module('tcp').directive('events', [
                 '<div class="events can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
                 '    <div class="center-aligned loading__only padding-top-large"',
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
+
+                '    <span>',
                 '    <div ng-repeat="event in events" ',
                 '        class="events__event fadeInUp" ',
-                '        ng-class="{animated: vm.first_load, \'events__event--highlight\': event.$highlight}" ',
+                '        ng-class="::{',
+                '           \'animated\': vm.first_load,',
+                '           \'events__event--highlight\': event.$highlight,',
+                '           \'events__event--last\': $last',
+                '        }" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
                 generate_template_event_content('left'),
@@ -228,6 +253,8 @@ angular.module('tcp').directive('events', [
                 // '        ></div>',
 
                 '    </div>',
+                '    </span>',
+
                 '    <div ng-if="events.length > 1"',
                 '        class="events__line animated fadeIn"></div>',
 
