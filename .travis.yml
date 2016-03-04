@@ -10,6 +10,7 @@ node_js:
 env:
   -
     CP_ALLOW_APIKEY_AUTH=1
+    CP_PURGE_KEY='allowall'
     DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
     DEBUG=service*
     LINKEDIN_CLIENT_ID=fakedontmatter
