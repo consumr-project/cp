@@ -11,6 +11,8 @@ env:
   -
     DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
     DEBUG=service*
+    LINKEDIN_CLIENT_ID=fakedontmatter
+    LINKEDIN_CLIENT_SECRET=fakedontmatter
     PORT=3100
     TEST_SERVICE_URL=http://localhost:3100
 
