@@ -1,9 +1,15 @@
-integration_tests:
+user:
   admin:
-    purge_key: '<%= process.env.CP_PURGE_KEY %>'
-  user:
-    admin: 'b2df88fa-dd25-42ba-b456-3c8d164d3343'
-  company:
-    id: 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
-    name: 'Company for Integration Testing'
+    id: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    name: 'Admin Test User'
+    email: 'testing@consumr-project.org'
+    role: 'admin'
+    auth_apikey: 'b2df88fa-dd25-42ba-b456-3c8d164d3343'
+    created_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    updated_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
 
+company:
+  id: 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+  name: 'Company for Integration Testing'

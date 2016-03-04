@@ -15,12 +15,12 @@ const user = require('./utils').user;
 const login = require('./utils').login;
 const logout = require('./utils').logout;
 
-const fixture = clone(config('fixtures.integration_tests'));
+const fixture = clone(config('fixtures'));
 
 test('query', t => {
     t.plan(1);
 
-    login(fixture.user.admin).end((err, res) => {
+    login(fixture.user.admin.auth_apikey).end((err, res) => {
         t.error(err);
 
         fixture.company.created_by = res.body.id;
