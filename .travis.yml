@@ -11,7 +11,7 @@ env:
   -
     CP_ALLOW_APIKEY_AUTH=1
     DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
-    DEBUG=*
+    DEBUG=service*
     LINKEDIN_CLIENT_ID=fakedontmatter
     LINKEDIN_CLIENT_SECRET=fakedontmatter
     PORT=3100
