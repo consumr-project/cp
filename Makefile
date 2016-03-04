@@ -1,4 +1,4 @@
-.PHONY: install clean migration seed build
+.PHONY: install clean migration seed build test
 
 services = auth
 

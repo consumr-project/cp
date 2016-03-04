@@ -23,7 +23,7 @@ before_script:
   - make install build
   - node build/mount &
   - sleep 5
-  - make seed
+  - make sync
   - ./scripts/generate user
 
 script:
