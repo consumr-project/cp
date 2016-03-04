@@ -1,4 +1,4 @@
-.PHONY: install clean build
+.PHONY: install clean build test
 
 typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
