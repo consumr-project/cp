@@ -12,11 +12,14 @@ env:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - make install seed
+  - make install build
+  - node build/mount &
+  - sleep 5
+  - make seed
   - ./scripts/generate user
 
 script:
-  - make build test
+  - make test
 
 cache:
   directories:
