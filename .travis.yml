@@ -8,12 +8,7 @@ node_js:
   - 5.3.0
 
 env:
-  - CP_ALLOW_APIKEY_AUTH=1
-  - DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
-  - DEBUG=*
-  - PORT=3100
-  - TEST_AUTH_URL=http://localhost:3100/auth
-  - TEST_SERVICE_URL=http://localhost:3100
+  - CP_ALLOW_APIKEY_AUTH=1 DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test DEBUG=* PORT=3100 TEST_AUTH_URL=http://localhost:3100/auth TEST_SERVICE_URL=http://localhost:3100
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
