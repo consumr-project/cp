@@ -1,14 +1,12 @@
 import { Model } from 'sequelize';
 import * as debug from 'debug';
-import * as body from 'body-parser';
 import * as express from 'express';
 
+import gen_conn from './conn';
 import gen_models from './models';
 import gen_routes from './routes';
 
-import Sequelize = require('sequelize');
-
-var auth, cookie, session;
+var auth, body, cookie, session;
 
 var config = require('acm'),
     log = debug('service:query');
@@ -16,20 +14,17 @@ var config = require('acm'),
 var app = express();
 module.exports = exports = app;
 
-export var conn = new Sequelize(config('database.url'), {
-    logging: debug('service:query:exec'),
-    pool: config('database.pool')
-});
-
+log('connecting to %s', config('database.url'));
+export var conn = gen_conn();
 export var models = gen_models(conn);
-
-app.use(body.json());
 
 if (!module.parent) {
     auth = require('auth-service');
+    body = require('body-parser');
     cookie = require('cookie-parser');
     session = require('express-session');
 
+    app.use(body.json());
     app.use(cookie('session.secret'));
     app.use(session({ secret: 'session.secret' }));
 
@@ -42,5 +37,8 @@ if (!module.parent) {
 gen_routes(app, models);
 
 if (!module.parent) {
-    app.listen(config('port') || 3000);
+    conn.sync().then(() => {
+        app.listen(config('port') || 3000);
+        log('ready for database requests');
+    });
 }

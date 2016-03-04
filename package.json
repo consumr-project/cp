@@ -19,7 +19,6 @@
   "dependencies": {
     "acm": "2.0.1",
     "auth-service": "git+https://git@github.com/consumr-project/auth-service.git#v4.5.0",
-    "body-parser": "1.14.1",
     "debug": "2.2.0",
     "express": "4.13.3",
     "lodash": "4.0.0",
@@ -30,6 +29,8 @@
     "sequelize-cli": "2.2.1"
   },
   "devDependencies": {
+    "body-parser": "1.14.1",
+    "commander": "2.9.0",
     "cookie-parser": "1.4.1",
     "express-session": "1.13.0",
     "superagent": "1.7.2",
