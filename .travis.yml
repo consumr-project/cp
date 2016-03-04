@@ -18,6 +18,7 @@ env:
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - make install seed
+  - ./scripts/generate user
 
 script:
   - make build test
