@@ -42,7 +42,7 @@
     "eventemitter2": "0.4.14",
     "express": "4.12.4",
     "express-session": "1.11.3",
-    "extract-service": "git+https://git@github.com/consumr-project/extract-service#v2.2.1",
+    "extract-service": "git+https://git@github.com/consumr-project/extract-service#v2.2.2",
     "jquery": "2.1.4",
     "js-cookie": "2.0.4",
     "jtils": "minond/jtils#e78280ffa09477da6a398b3801d9a6abae37982a",
@@ -51,14 +51,14 @@
     "newrelic": "1.23.1",
     "normalize.css": "3.0.3",
     "notification-service": "git+https://git@github.com/consumr-project/notification-service.git#v1.2.3",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v5.1.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v5.1.1",
     "rollbar-browser": "1.7.5",
     "search-service": "git+https://git@github.com/consumr-project/search-service.git#v2.0.3",
     "serve-favicon": "2.2.1",
     "serve-index": "1.6.4",
     "swig": "1.4.2",
     "universal-analytics": "0.3.10",
-    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.4"
+    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.5"
   },
   "devDependencies": {
     "async": "1.5.2",
