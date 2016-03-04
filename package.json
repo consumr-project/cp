@@ -18,7 +18,7 @@
   "homepage": "https://github.com/consumr-project/query-service",
   "dependencies": {
     "acm": "2.0.1",
-    "auth-service": "git+https://git@github.com/consumr-project/auth-service.git#v4.4.0",
+    "auth-service": "git+https://git@github.com/consumr-project/auth-service.git#v4.5.0",
     "body-parser": "1.14.1",
     "debug": "2.2.0",
     "express": "4.13.3",
@@ -30,8 +30,11 @@
     "sequelize-cli": "2.2.1"
   },
   "devDependencies": {
+    "cookie-parser": "1.4.1",
+    "express-session": "1.13.0",
     "superagent": "1.7.2",
     "tape": "4.4.0",
+    "tapes": "3.1.0",
     "typescript": "1.9.0-dev.20160208",
     "typings": "0.6.7"
   }
