@@ -1,4 +1,4 @@
-.PHONY: install clean build
+.PHONY: install clean build test
 
 services = query
 

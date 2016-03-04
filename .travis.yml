@@ -1,16 +1,21 @@
 language: node_js
 sudo: false
 
+addons:
+  postgresql: 9.4
+
 node_js:
   - 5.3.0
 
 env:
   -
-    DEBUG=*
+    DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
+    DEBUG=service*
     PORT=3100
     TEST_SERVICE_URL=http://localhost:3100
 
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - make install build
   - node build/mount &
   - sleep 5
