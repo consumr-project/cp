@@ -22,3 +22,8 @@ for heroku, follow
 ```bash
 export DATABASE_URL=$(echo $CP_DATABASE_URL)
 ```
+
+### test
+```bash
+make test TEST_SERVICE_URL=http://localhost:3100 TEST_AUTH_URL=http://localhost:3100/auth
+```
