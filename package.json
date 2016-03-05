@@ -20,11 +20,13 @@
     "express": "^4.13.3",
     "superagent": "1.7.2",
     "tape": "4.4.0",
+    "tapes": "3.1.0",
     "typescript": "1.9.0-dev.20160201",
     "typings": "0.6.5"
   },
   "dependencies": {
     "acm": "^2.0.1",
+    "base-service": "git+https://git@github.com/consumr-project/base-service.git#v1.0.2",
     "deep-get-set": "^1.0.0",
     "lodash": "^4.0.0",
     "request": "^2.65.0",

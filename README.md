@@ -25,5 +25,5 @@ export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 
 ### test
 ```bash
-make test SERVICE_URL=http://localhost:5000
+make test
 ```

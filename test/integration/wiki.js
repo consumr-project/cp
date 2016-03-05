@@ -1,30 +1,29 @@
 'use strict';
 
-const test = require('tape');
-const get = require('./utils').get;
+const cp = require('base-service/test/utils');
 
-test('wiki', t => {
+cp.tape('wiki', t => {
     t.plan(16);
 
-    get('/wiki/search?q=Walmart').end((err, res) => {
+    cp.get('/wiki/search?q=Walmart').end((err, res) => {
         t.comment('search')
         rescheck(t, err, res);
         t.equal('Walmart', res.body.body[0].title);
     });
 
-    get('/wiki/extract?q=Walmart').end((err, res) => {
+    cp.get('/wiki/extract?q=Walmart').end((err, res) => {
         t.comment('extract')
         rescheck(t, err, res);
         t.equal(33589, res.body.body.id);
     });
 
-    get('/wiki/infobox?q=Walmart').end((err, res) => {
+    cp.get('/wiki/infobox?q=Walmart').end((err, res) => {
         t.comment('infobox')
         rescheck(t, err, res);
         t.equal('Wal-Mart Stores, Inc.', res.body.body.infobox.name);
     });
 
-    get('/wiki/infobox?q=Walmart&parts=urls').end((err, res) => {
+    cp.get('/wiki/infobox?q=Walmart&parts=urls').end((err, res) => {
         t.comment('infobox with parts')
         rescheck(t, err, res);
         t.deepEqual(res.body.body.parts.urls,
