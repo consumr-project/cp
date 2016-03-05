@@ -1,12 +1,11 @@
 'use strict';
 
-const test = require('tape');
-const get = require('./utils').get;
+const cp = require('base-service/test/utils');
 
-test('avatar', t => {
+cp.tape('avatar', t => {
     t.plan(9);
 
-    get('/avatar?email=test@test.com').end((err, res) => {
+    cp.get('/avatar?email=test@test.com').end((err, res) => {
         t.comment('goes gravatar test url');
         t.error(err);
         t.equal(200, res.status);
@@ -14,7 +13,7 @@ test('avatar', t => {
             res.request.url);
     });
 
-    get('/avatar?email=test@test.com&size=1024').end((err, res) => {
+    cp.get('/avatar?email=test@test.com&size=1024').end((err, res) => {
         t.comment('specify size');
         t.error(err);
         t.equal(200, res.status);
@@ -22,7 +21,7 @@ test('avatar', t => {
             res.request.url);
     });
 
-    get('/avatar?email=test@test.com&rating=pg').end((err, res) => {
+    cp.get('/avatar?email=test@test.com&rating=pg').end((err, res) => {
         t.comment('specify rating');
         t.error(err);
         t.equal(200, res.status);
