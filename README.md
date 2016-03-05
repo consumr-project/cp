@@ -16,5 +16,5 @@ app.use('/user', require('user-service'));
 
 ### test
 ```bash
-make test SERVICE_URL=http://localhost:5000
+make test TEST_SERVICE_URL=http://localhost:3100 TEST_AUTH_URL=http://localhost:3100/auth
 ```
