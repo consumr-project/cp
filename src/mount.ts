@@ -1,8 +1,10 @@
+import * as debug from 'debug';
 import * as express from 'express';
 import * as passport from 'passport';
 import config = require('acm');
 
-var app = express();
+var app = express(),
+    log = debug('service:auth');
 
 // XXX bit of a hack, but this is the only way that I can reference the local
 // copy of `config/rbac.yml`
@@ -26,13 +28,17 @@ module.exports.is_logged_in = model.is_logged_in;
 module.exports.as_guest = model.as_guest;
 
 if (!module.parent) {
-    app.listen(config('port') || 3000);
     app.use(require('body-parser').json());
     app.use(require('cookie-parser')('session.secret'));
     app.use(require('express-session')({ secret: 'session.secret' }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(model.as_guest);
+
+    require('query-service').conn.sync().then(() => {
+        app.listen(config('port') || 3000);
+        log('ready for database requests');
+    });
 }
 
 passport.serializeUser(model.serialize);

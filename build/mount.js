@@ -1,8 +1,9 @@
 "use strict";
+var debug = require('debug');
 var express = require('express');
 var passport = require('passport');
 var config = require('acm');
-var app = express();
+var app = express(), log = debug('service:auth');
 config.ref.$paths.push(require('path').join(__dirname, '..', 'config'));
 module.exports = app;
 module.exports.passport = passport;
@@ -16,13 +17,16 @@ var user = function (req, res) { res.json(req.user || {}); };
 module.exports.is_logged_in = model.is_logged_in;
 module.exports.as_guest = model.as_guest;
 if (!module.parent) {
-    app.listen(config('port') || 3000);
     app.use(require('body-parser').json());
     app.use(require('cookie-parser')('session.secret'));
     app.use(require('express-session')({ secret: 'session.secret' }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(model.as_guest);
+    require('query-service').conn.sync().then(function () {
+        app.listen(config('port') || 3000);
+        log('ready for database requests');
+    });
 }
 passport.serializeUser(model.serialize);
 passport.deserializeUser(model.deserialize);
