@@ -1,0 +1,27 @@
+{
+  "name": "base-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/consumr-project/base-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/consumr-project/base-client/issues"
+  },
+  "homepage": "https://github.com/consumr-project/base-client",
+  "dependencies": {
+    "acm": "2.0.1"
+  },
+  "devDependencies": {
+    "superagent": "1.7.2",
+    "tape": "4.5.0",
+    "tapes": "3.1.0"
+  }
+}
