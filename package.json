@@ -19,6 +19,7 @@
   "dependencies": {
     "acm": "2.0.1",
     "auth-service": "git+https://git@github.com/consumr-project/auth-service.git#v4.5.0",
+    "base-service": "git+https://git@github.com/consumr-project/base-service.git#v1.0.2",
     "debug": "2.2.0",
     "express": "4.13.3",
     "lodash": "4.0.0",

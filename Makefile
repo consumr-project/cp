@@ -1,6 +1,6 @@
 .PHONY: install clean migration seed build test
 
-services = auth
+services = auth base
 
 db_url = $(shell node -e "console.log(require('acm')('database.url'))")
 sequelize = node_modules/.bin/sequelize
