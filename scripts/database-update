@@ -26,4 +26,8 @@ function query-service() {
     rm -rf $tmp
 }
 
-time query-service
+if [ ! -z "$DATABASE_URL" ]; then
+    time query-service
+else
+    log "no DATABASE_URL found, skipping migrations"
+fi
