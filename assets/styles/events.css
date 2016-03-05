@@ -32,7 +32,7 @@
 .events__event__icon {
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 70%;
     border-radius: 200px;
     display: inline-block;
     height: var(--avatar-size);
@@ -153,4 +153,60 @@
     .events__line {
         display: block;
     }
+}
+
+.event-elem__logo input {
+    display: none;
+}
+
+.event-elem__logo td {
+    padding-right: var(--spacing-xlarge);
+}
+
+.event-elem__logo--animal,
+.event-elem__logo--world,
+.event-elem__logo--hammer {
+    background-color: black;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 45px;
+    border-radius: 200px;
+    height: 60px;
+    margin: var(--spacing-small) auto;
+    transition: background-color var(--speed-fast);
+    width: 60px;
+}
+
+.event-elem__logo input[aria-checked="true"] + div {
+    background-color: var(--color-cp-brand);
+}
+
+.events__event__icon--company_created {
+    background-image: url(/assets/images/megaphone.svg);
+}
+
+.events__event__icon--animal,
+.event-elem__logo--animal {
+    background-image: url(/assets/images/animal.svg);
+}
+
+.events__event__icon--world,
+.event-elem__logo--world {
+    background-image: url(/assets/images/world.svg);
+}
+
+.events__event__icon--hammer,
+.event-elem__logo--hammer {
+    background-image: url(/assets/images/hammer.svg);
+    transform: rotate(-40deg);
+}
+
+.events__event__icon--hammer {
+    background-position: -9px 7px;
+    background-size: 60px;
+}
+
+.event-elem__logo--hammer {
+    background-position: -4px 12px;
+    background-size: 70px;
 }

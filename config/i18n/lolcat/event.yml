@@ -3,6 +3,10 @@ add_source: 'add another source'
 source_number: 'source {number}'
 source_url: 'source url'
 source_title: 'source title'
+logo: 'choose which topic best describez dis event'
+logo_human_rights: 'hooman rights'
+logo_environmental: environmental
+logo_animal_rights: 'animal rights'
 sentiment: 'choose which sentiment best describez teh event'
 sentiment_positive: positiv
 sentiment_negative: negativ

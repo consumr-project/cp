@@ -25,6 +25,7 @@ angular.module('tcp').directive('events', [
         function add_special_events(evs) {
             evs.push({
                 title: i18n.get('company/company_founded'),
+                logo: DOMAIN.model.event_props.type.company_created,
                 sentiment: DOMAIN.model.event_props.sentiments.neutral,
             });
 
@@ -80,6 +81,7 @@ angular.module('tcp').directive('events', [
                 title: utils.ellipsis(ev.title, 100),
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
+                logo: ev.logo,
                 source_count: ev.sources.length,
                 bookmark_count: ev.bookmarks['@meta'].instead.count,
                 bookmarked_by_me: ev.bookmarks['@meta'].instead.includes_me,
@@ -243,8 +245,8 @@ angular.module('tcp').directive('events', [
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
                 generate_template_event_content('left'),
-                '        <div style="background-image: url(/assets/images/avatar/avatar-white.svg)" ',
-                '            class="events__event__icon events__event__icon--{{::event.sentiment}}"',
+                '        <div',
+                '            class="events__event__icon events__event__icon--{{::event.sentiment}} events__event__icon--{{::event.logo}}"',
                 '            ng-click="edit(event)"></div>',
                 generate_template_event_content('right'),
 

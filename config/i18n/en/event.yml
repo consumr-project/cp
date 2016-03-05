@@ -5,6 +5,11 @@ source_number: Source {number}
 source_url: Source url
 source_title: Source title
 
+logo: Choose which topic best describes this event
+logo_human_rights: Human Rights
+logo_environmental: Environmental
+logo_animal_rights: Animal Rights
+
 sentiment: Choose which sentiment best describes the event
 sentiment_positive: Positive
 sentiment_negative: Negative

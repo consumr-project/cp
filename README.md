@@ -67,4 +67,8 @@ export NODE_ENV='development'
 * Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon
 * artworkbean for the [star](https://thenounproject.com/search/?q=star&i=101463) icon
 * Rafaël Massé for the [link](https://thenounproject.com/search/?q=link&i=49479) icon
+* Herbert Spencer for the [hammer](https://thenounproject.com/search/?q=hammer&i=333481) icon
+* Arthur Shlain for the [world](https://thenounproject.com/search/?q=world&i=292103) icon
+* Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
+* Christopher Reyes for the [megaphone](https://thenounproject.com/search/?q=megaphone&i=11770) icon
 * Brent Jackson for the [loading](http://jxnblk.com/loading/) svg
