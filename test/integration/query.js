@@ -18,7 +18,7 @@ cp.tapes('query', t => {
     t.test('setup', st => {
         st.plan(1);
 
-        cp.purge('/companies/' + fixture.company.id).end((err, res) => {
+        cp.purge(`/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
         });
     });
@@ -34,7 +34,7 @@ cp.tapes('query', t => {
     t.test('get company', st => {
         st.plan(2);
 
-        cp.get('/companies/' + fixture.company.id).end((err, res) => {
+        cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve a company');
             st.equal(fixture.company.name, res.body.body.name);
         });
@@ -43,10 +43,10 @@ cp.tapes('query', t => {
     t.test('delete company', st => {
         st.plan(2);
 
-        cp.del('/companies/' + fixture.company.id).end((err, res) => {
+        cp.del(`/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can delete a company');
 
-            cp.get('/companies/' + fixture.company.id).end((err, res) => {
+            cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
                 st.ok(res.body.body.deleted_date)
             });
         });
@@ -55,10 +55,10 @@ cp.tapes('query', t => {
     t.test('purge company', st => {
         st.plan(2);
 
-        cp.purge('/companies/' + fixture.company.id).end((err, res) => {
+        cp.purge(`/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
-            cp.get('/companies/' + fixture.company.id).end((err, res) => {
+            cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
                 st.notOk(res.body.body)
             });
         });
