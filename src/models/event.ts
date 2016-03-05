@@ -20,6 +20,11 @@ export = sequelize =>
             allowNull: false
         },
 
+        logo: {
+            type: Type.STRING,
+            allowNull: false
+        },
+
         sentiment: {
             type: Type.ENUM('positive', 'negative', 'neutral'),
             allowNull: false
