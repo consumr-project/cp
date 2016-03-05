@@ -25,10 +25,18 @@
     "passport": "0.3.2",
     "passport-linkedin-oauth2": "1.4.0",
     "passport-localapikey": "0.0.3",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v5.0.0",
+    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v5.2.0",
+    "base-service": "git+https://git@github.com/consumr-project/base-service.git#v1.0.2",
     "rbac": "3.1.2"
   },
   "devDependencies": {
+    "body-parser": "1.15.0",
+    "commander": "2.9.0",
+    "cookie-parser": "1.4.1",
+    "express-session": "1.13.0",
+    "superagent": "1.7.2",
+    "tape": "4.5.0",
+    "tapes": "3.1.0",
     "typescript": "1.9.0-dev.20160201",
     "typings": "0.6.5"
   }

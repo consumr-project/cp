@@ -26,8 +26,13 @@ module.exports.is_logged_in = model.is_logged_in;
 module.exports.as_guest = model.as_guest;
 
 if (!module.parent) {
+    app.listen(config('port') || 3000);
+    app.use(require('body-parser').json());
+    app.use(require('cookie-parser')('session.secret'));
+    app.use(require('express-session')({ secret: 'session.secret' }));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(model.as_guest);
 }
 
 passport.serializeUser(model.serialize);
@@ -42,8 +47,4 @@ app.get('/linkedin/callback', linkedin.callback, model.js_update);
 
 if (process.env.DEBUG && process.env.CP_ALLOW_APIKEY_AUTH) {
     app.post('/key', apikey.login, user);
-}
-
-if (!module.parent) {
-    app.listen(config('port') || 3000);
 }
