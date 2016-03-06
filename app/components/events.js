@@ -245,7 +245,8 @@ angular.module('tcp').directive('events', [
                 '           \'events__event--last\': $last,',
                 '           \'events__event--selected\': vm.selected_event_to_view === event,',
                 '        }" ',
-                '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
+                '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s"',
+                '    >',
 
                 generate_template_event_content('left'),
                 '        <div',
