@@ -9,6 +9,122 @@ angular.module('tcp').directive('event', [
     function (RUNTIME, DOMAIN, $q, lodash, utils, ServicesService, SessionService) {
         'use strict';
 
+        var HTML_VIEW = [
+            '<div class="event-elem--view">',
+            '    {{::ev.title}}',
+            '</div>',
+        ].join('');
+
+        var HTML_EDIT = [
+            '<form class="event-elem form--listed">',
+            '    <h2 i18n="event/add"></h2>',
+
+            '    <section popover-body>',
+            '        <section>',
+            '           <label for="source_1_url" i18n="event/source_url"></label>',
+            '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ',
+            '               ng-model-options="{ debounce: { default: 100 } }"',
+            '               ng-class="{ loading: ev.$sources[0].$loading }" />',
+            '        </section>',
+
+            '        <section>',
+            '            <label i18n="event/sentiment"></label>',
+            '            <label class="label--inline margin-right-small">',
+            '                <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
+            '                <span i18n="event/sentiment_positive"></span>',
+            '            </label>',
+            '            <label class="label--inline margin-right-small">',
+            '                <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />',
+            '                <span i18n="event/sentiment_negative"></span>',
+            '            </label>',
+            '            <label class="label--inline">',
+            '                <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />',
+            '                <span i18n="event/sentiment_neutral"></span>',
+            '            </label>',
+            '        </section>',
+
+            '        <section class="event-elem__logo">',
+            '            <label i18n="event/logo"></label>',
+            '            <table>',
+            '                <tr>',
+            '                    <td>',
+            '                        <label class="label--inline">',
+            '                            <input type="radio" name="logo" value="hammer" ng-model="ev.logo" />',
+            '                            <div class="event-elem__logo--hammer"></div>',
+            '                            <span i18n="event/logo_human_rights"></span>',
+            '                        </label>',
+            '                    </td>',
+            '                    <td>',
+            '                        <label class="label--inline">',
+            '                            <input type="radio" name="logo" value="world" ng-model="ev.logo" />',
+            '                            <div class="event-elem__logo--world"></div>',
+            '                            <span i18n="event/logo_environmental"></span>',
+            '                        </label>',
+            '                    </td>',
+            '                    <td>',
+            '                        <label class="label--inline">',
+            '                            <input type="radio" name="logo" value="animal" ng-model="ev.logo" />',
+            '                            <div class="event-elem__logo--animal"></div>',
+            '                            <span i18n="event/logo_animal_rights"></span>',
+            '                        </label>',
+            '                    </td>',
+            '                </tr>',
+            '            </table>',
+            '        </section>',
+
+            '        <section>',
+            '            <label for="event_title" i18n="event/title"></label>',
+            '            <input id="event_title" type="text" ng-model="ev.title" />',
+
+            '            <label for="event_date" i18n="event/date"></label>',
+            '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
+
+            '            <label i18n="event/tied_to"></label>',
+            '            <pills',
+            '                selections="ev.$companies"',
+            '                create="vm.create_company(value, done)"',
+            '                query="vm.query_companies(query, done)"',
+            '            ></pills>',
+
+            '            <label i18n="event/tags"></label>',
+            '            <pills',
+            '                selections="ev.$tags"',
+            '                create="vm.create_tag(value, done)"',
+            '                query="vm.query_tags(query, done)"',
+            '            ></pills>',
+            '        </section>',
+
+            '        <section>',
+            '            <div ng-repeat="source in ev.$sources">',
+            '                <div collapsable>',
+            '                    <h3 collapsable-trigger i18n="event/source_number" data="{number: {{$index + 1}}}"></h3>',
+
+            '                    <div collapsable-area>',
+            '                        <label for="event_source_{{$index}}_source" i18n="event/source_url"></label>',
+            '                        <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ',
+            '                            ng-model-options="{ debounce: { default: 100 } }"',
+            '                            ng-class="{ loading: source.$loading }" />',
+            '                        <label for="event_source_{{$index}}_title" i18n="event/source_title"></label>',
+            '                        <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
+            '                        <label for="event_source_{{$index}}_date" i18n="event/pub_date"></label>',
+            '                        <input id="event_source_{{$index}}_date" type="date" ng-date-picker ng-model="source.$published_date" />',
+            '                        <label for="event_source_{{$index}}_quote" i18n="event/quote" data="{limit: 500}"></label>',
+            '                        <textarea id="event_source_{{$index}}_quote" ng-model="source.summary"></textarea>',
+            '                    </div>',
+            '                </div>',
+            '            </div>',
+            '        </section>',
+            '    </section>',
+
+            '    <button class="right margin-top-small" ng-click="vm.save()"',
+            '        i18n="admin/save"></button>',
+            '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
+            '        i18n="admin/cancel"></button>',
+            '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
+            '        i18n="event/add_source"></button>',
+            '</form>',
+        ].join('');
+
         /**
          * @param {jQuery} $elem
          */
@@ -359,9 +475,14 @@ angular.module('tcp').directive('event', [
             };
         }
 
+        function template(elem, attrs) {
+            return attrs.type === 'view' ? HTML_VIEW : HTML_EDIT;
+        }
+
         return {
             replace: true,
             controller: ['$scope', controller],
+            template: template,
             link: link,
             scope: {
                 id: '@',
@@ -370,115 +491,6 @@ angular.module('tcp').directive('event', [
                 onCancel: '&',
                 onSave: '&'
             },
-            template: [
-                '<form class="event-elem form--listed">',
-                '    <h2 i18n="event/add"></h2>',
-
-                '    <section popover-body>',
-                '        <section>',
-                '           <label for="source_1_url" i18n="event/source_url"></label>',
-                '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ',
-                '               ng-model-options="{ debounce: { default: 100 } }"',
-                '               ng-class="{ loading: ev.$sources[0].$loading }" />',
-                '        </section>',
-
-                '        <section>',
-                '            <label i18n="event/sentiment"></label>',
-                '            <label class="label--inline margin-right-small">',
-                '                <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
-                '                <span i18n="event/sentiment_positive"></span>',
-                '            </label>',
-                '            <label class="label--inline margin-right-small">',
-                '                <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />',
-                '                <span i18n="event/sentiment_negative"></span>',
-                '            </label>',
-                '            <label class="label--inline">',
-                '                <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />',
-                '                <span i18n="event/sentiment_neutral"></span>',
-                '            </label>',
-                '        </section>',
-
-                '        <section class="event-elem__logo">',
-                '            <label i18n="event/logo"></label>',
-                '            <table>',
-                '                <tr>',
-                '                    <td>',
-                '                        <label class="label--inline">',
-                '                            <input type="radio" name="logo" value="hammer" ng-model="ev.logo" />',
-                '                            <div class="event-elem__logo--hammer"></div>',
-                '                            <span i18n="event/logo_human_rights"></span>',
-                '                        </label>',
-                '                    </td>',
-                '                    <td>',
-                '                        <label class="label--inline">',
-                '                            <input type="radio" name="logo" value="world" ng-model="ev.logo" />',
-                '                            <div class="event-elem__logo--world"></div>',
-                '                            <span i18n="event/logo_environmental"></span>',
-                '                        </label>',
-                '                    </td>',
-                '                    <td>',
-                '                        <label class="label--inline">',
-                '                            <input type="radio" name="logo" value="animal" ng-model="ev.logo" />',
-                '                            <div class="event-elem__logo--animal"></div>',
-                '                            <span i18n="event/logo_animal_rights"></span>',
-                '                        </label>',
-                '                    </td>',
-                '                </tr>',
-                '            </table>',
-                '        </section>',
-
-                '        <section>',
-                '            <label for="event_title" i18n="event/title"></label>',
-                '            <input id="event_title" type="text" ng-model="ev.title" />',
-
-                '            <label for="event_date" i18n="event/date"></label>',
-                '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
-
-                '            <label i18n="event/tied_to"></label>',
-                '            <pills',
-                '                selections="ev.$companies"',
-                '                create="vm.create_company(value, done)"',
-                '                query="vm.query_companies(query, done)"',
-                '            ></pills>',
-
-                '            <label i18n="event/tags"></label>',
-                '            <pills',
-                '                selections="ev.$tags"',
-                '                create="vm.create_tag(value, done)"',
-                '                query="vm.query_tags(query, done)"',
-                '            ></pills>',
-                '        </section>',
-
-                '        <section>',
-                '            <div ng-repeat="source in ev.$sources">',
-                '                <div collapsable>',
-                '                    <h3 collapsable-trigger i18n="event/source_number" data="{number: {{$index + 1}}}"></h3>',
-
-                '                    <div collapsable-area>',
-                '                        <label for="event_source_{{$index}}_source" i18n="event/source_url"></label>',
-                '                        <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ',
-                '                            ng-model-options="{ debounce: { default: 100 } }"',
-                '                            ng-class="{ loading: source.$loading }" />',
-                '                        <label for="event_source_{{$index}}_title" i18n="event/source_title"></label>',
-                '                        <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
-                '                        <label for="event_source_{{$index}}_date" i18n="event/pub_date"></label>',
-                '                        <input id="event_source_{{$index}}_date" type="date" ng-date-picker ng-model="source.$published_date" />',
-                '                        <label for="event_source_{{$index}}_quote" i18n="event/quote" data="{limit: 500}"></label>',
-                '                        <textarea id="event_source_{{$index}}_quote" ng-model="source.summary"></textarea>',
-                '                    </div>',
-                '                </div>',
-                '            </div>',
-                '        </section>',
-                '    </section>',
-
-                '    <button class="right margin-top-small" ng-click="vm.save()"',
-                '        i18n="admin/save"></button>',
-                '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
-                '        i18n="admin/cancel"></button>',
-                '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
-                '        i18n="event/add_source"></button>',
-                '</form>'
-            ].join('')
         };
     }
 ]);
