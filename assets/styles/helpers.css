@@ -207,3 +207,13 @@
         display: inherit;
     }
 }
+
+.imgview {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.imgview--dot-dot-dot {
+    background-image: url(/assets/images/dot-dot-dot.svg);
+}

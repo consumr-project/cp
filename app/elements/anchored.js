@@ -98,7 +98,7 @@ angular.module('tcp').directive('anchored', [
                 height = anchorElement.outerHeight(),
                 width = anchorElement.outerWidth();
 
-            var offset = anchorTo.offset(),
+            var offset = anchorTo.position(),
                 offset_height = anchorTo.outerHeight(),
                 offset_width = anchorTo.outerWidth();
 

@@ -62,7 +62,7 @@
 
     .events__event .event-elem--view {
         margin-top: 26px;
-        padding: calc(var(--spacing-large) *2) 0;
+        padding: calc(var(--spacing-large) * 2) 0 calc(var(--spacing-large) * 3) 0;
     }
 
     .events__event__icon {
@@ -291,4 +291,9 @@
 .event-elem__logo--hammer {
     background-position: -4px 12px;
     background-size: 70px;
+}
+
+.events__event__edit-menu {
+    float: right;
+    margin-top: -40px;
 }

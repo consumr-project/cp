@@ -138,6 +138,7 @@ angular.module('tcp').directive('events', [
                 first_load: 2,
                 selected_event_to_edit: null,
                 selected_event_to_view: null,
+                event_view_menu: {},
                 event_view_form: {},
                 event_edit_form: {},
                 add_event: {},
@@ -190,6 +191,17 @@ angular.module('tcp').directive('events', [
                 $timeout(function () {
                     $scope.vm.selected_event_to_edit = null;
                 }, 300);
+            };
+
+            /**
+             * @return {void}
+             */
+            $scope.edit_viewing = function () {
+                var ev = $scope.vm.selected_event_to_view;
+                $scope.vm.event_view_menu.show = false;
+                $timeout(function () {
+                    $scope.edit(ev);
+                }, 500);
             };
 
             /**
@@ -254,16 +266,35 @@ angular.module('tcp').directive('events', [
                 '            ng-click="view(event)"></div>',
                 generate_template_event_content('right'),
 
-                '        <event',
-                '            ng-if="vm.selected_event_to_view === event"',
-                '            type="view"',
-                '            id="{{vm.selected_event_to_view.id}}"',
-                '            api="vm.event_view_form"',
-                '            class="left-align fill-background animated fadeIn"',
-                '        ></event>',
+                '        <div ng-if="vm.selected_event_to_view === event"',
+                '            class="left-align fill-background animated fadeIn">',
+                '            <div class="events__event__edit-menu">',
+                '                <div ng-click="vm.event_view_menu.show = true"',
+                '                    class="imgview imgview--dot-dot-dot no-outline"></div>',
+                '            </div>',
+                '            <event',
+                '                type="view"',
+                '                id="{{vm.selected_event_to_view.id}}"',
+                '                api="vm.event_view_form"',
+                '            ></event>',
+                '        </div>',
 
                 '    </div>',
                 '    </span>',
+
+                '    <popover',
+                '        anchored',
+                '        anchored-element="\'.events__event__edit-menu .imgview--dot-dot-dot\'"',
+                '        anchored-show="vm.event_view_menu.show"',
+                '        anchored-placement="bottom-right"',
+                '        anchored-top-offset="10"',
+                '        anchored-left-offset="10"',
+                '        anchored-arrow="true"',
+                '        anchored-auto-hide="true"',
+                '    >',
+                '        <popover-item i18n="admin/edit"',
+                '            ng-click="edit_viewing()"></popover-item>',
+                '    </popover>',
 
                 '    <div ng-if="events.length > 1"',
                 '        class="events__line animated fadeIn"></div>',
