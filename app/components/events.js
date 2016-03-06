@@ -120,7 +120,7 @@ angular.module('tcp').directive('events', [
         function generate_template_event_content(label) {
             return [
                 '<span class="events__event__content events__event__content--', label, ' is-non-selectable"',
-                '    ng-click="edit(event)">',
+                '    ng-click="view(event)">',
                 '    <div class="events__event__info">',
                 '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
                 '        <span ng-class="{\'events__event__meta--bookmarked\': event.bookmarked_by_me}"',
@@ -137,8 +137,9 @@ angular.module('tcp').directive('events', [
             $scope.vm = {
                 first_load: 2,
                 selected_event_to_edit: null,
-                selected_event_to_show: null,
-                event_form: {},
+                selected_event_to_view: null,
+                event_view_form: {},
+                event_edit_form: {},
                 add_event: {},
                 loading: false
             };
@@ -176,9 +177,9 @@ angular.module('tcp').directive('events', [
              * @param {Event} ev
              * @return {void}
              */
-            $scope.show = function (ev) {
-                $scope.vm.selected_event_to_show =
-                    $scope.vm.selected_event_to_show === ev ? null : ev;
+            $scope.view = function (ev) {
+                $scope.vm.selected_event_to_view =
+                    $scope.vm.selected_event_to_view === ev ? null : ev;
             };
 
             /**
@@ -237,22 +238,28 @@ angular.module('tcp').directive('events', [
                 '    <span>',
                 '    <div ng-repeat="event in events" ',
                 '        class="events__event fadeInUp" ',
-                '        ng-class="::{',
+                '        ng-class="{',
                 '           \'animated\': vm.first_load,',
                 '           \'events__event--highlight\': event.$highlight,',
-                '           \'events__event--last\': $last',
+                '           \'events__event--first\': $first,',
+                '           \'events__event--last\': $last,',
+                '           \'events__event--selected\': vm.selected_event_to_view === event,',
                 '        }" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s">',
 
                 generate_template_event_content('left'),
                 '        <div',
                 '            class="events__event__icon events__event__icon--{{::event.sentiment}} events__event__icon--{{::event.logo}}"',
-                '            ng-click="edit(event)"></div>',
+                '            ng-click="view(event)"></div>',
                 generate_template_event_content('right'),
 
-                // '        <div',
-                // '            ng-if="vm.selected_event_to_show === event"',
-                // '        ></div>',
+                '        <event',
+                '            ng-if="vm.selected_event_to_view === event"',
+                '            type="view"',
+                '            id="{{vm.selected_event_to_view.id}}"',
+                '            api="vm.event_view_form"',
+                '            class="left-align fill-background ng-animated"',
+                '        ></event>',
 
                 '    </div>',
                 '    </span>',
@@ -268,9 +275,9 @@ angular.module('tcp').directive('events', [
                 '        <event',
                 '            ng-if="vm.selected_event_to_edit"',
                 '            id="{{vm.selected_event_to_edit.id}}"',
-                '            api="vm.event_form"',
-                '            on-save="load(); vm.add_event.hide(); vm.event_form.reset()"',
-                '            on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
+                '            api="vm.event_edit_form"',
+                '            on-save="load(); vm.add_event.hide(); vm.event_edit_form.reset()"',
+                '            on-cancel="vm.event_edit_form.reset(); vm.add_event.hide()"',
                 '        ></event>',
                 '    </popover>',
                 '</div>'
