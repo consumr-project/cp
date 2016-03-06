@@ -5,6 +5,39 @@
 
 .events__event {
     min-height: 80px;
+    transition: margin-top var(--speed-friendly);
+}
+
+.event-elem--view.ng-animated {
+    padding: var(--spacing-large) 0;
+}
+
+.event-elem--view.ng-animated.ng-enter {
+    transition: all var(--speed-friendly);
+}
+
+.event-elem--view.ng-animated.ng-leave {
+    transition: all var(--speed-friendly) var(--speed-fast), opacity var(--speed-fast);
+}
+
+.event-elem--view.ng-animated.ng-enter {
+    opacity: 0;
+    padding: 0;
+}
+
+.event-elem--view.ng-animated.ng-leave.ng-leave-active {
+    font-size: 0;
+    opacity: 0;
+    padding: 0;
+}
+
+.event-elem--view.ng-animated.ng-leave,
+.event-elem--view.ng-animated.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.event-elem--view.ng-animated.ng-enter.ng-enter-active {
+    padding: var(--spacing-large) 0;
 }
 
 .events__event--last .events__event__info {
@@ -17,8 +50,20 @@
         top: 70px;
     }
 
+    .events__event__icon {
+        transition: transform var(--speed-friendly);
+    }
+
     .events__event--last .events__event__icon {
         top: 0;
+    }
+
+    .events__event--selected .events__event__icon {
+        transform: scale(1.6);
+    }
+
+    .events__event--selected .events__event__icon--hammer {
+        transform: scale(1.6) rotate(-40deg);
     }
 
     .events__event--highlight .events__event__title {
@@ -27,6 +72,18 @@
         font-style: italic;
         line-height: var(--font-height-large);
     }
+
+    .events__event__title {
+        transition: opacity var(--speed-friendly);
+    }
+
+    .events__event--selected .events__event__title {
+        opacity: 0;
+    }
+
+    /* .events__event.events__event--selected:not(.events__event--first):not(.events__event--last) { */
+    /*     margin-top: var(--spacing-xlarge); */
+    /* } */
 }
 
 .events__event__icon {
