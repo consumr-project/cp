@@ -142,6 +142,8 @@
     .events__event__content {
         margin-bottom: var(--spacing-small);
         width: 40%;
+        /* --content-timeline-offside: 289px; */
+        /* width: var(--content-timeline-offside); */
     }
 
     .events__event .events__event__content--left {

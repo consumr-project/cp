@@ -11,7 +11,7 @@ angular.module('tcp').directive('event', [
 
         var HTML_VIEW = [
             '<div class="event-elem--view">',
-            '    {{::ev.title}}',
+            '    <div>{{::ev.title}}</div>',
             '</div>',
         ].join('');
 
@@ -467,12 +467,20 @@ angular.module('tcp').directive('event', [
             }
         }
 
-        function link($scope, $elem) {
+        function link($scope, $elem, $attrs) {
             $scope.vm = $scope.vm || {};
             $scope.vm.add_source = function () {
                 $scope.ev.$sources.push({});
                 scroll_to_bottom($elem.closest('div'));
             };
+
+            // XXX see "event view in timeline animation start" in events css
+            // styles allow event views to have a "slide up" effect this allows
+            // that same event view to be fully displayed without overwriting
+            // the "slide up" logic
+            if ($attrs.type === 'view') {
+                $elem.css('max-height', 'none');
+            }
         }
 
         function template(elem, attrs) {
