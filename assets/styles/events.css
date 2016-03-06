@@ -8,10 +8,6 @@
     transition: margin-top var(--speed-friendly);
 }
 
-.events__event .event-elem--view {
-    padding: var(--spacing-large) 0;
-}
-
 /* event view in timeline animation start */
 .event-elem--view.ng-animated {
     max-height: 100vh;
@@ -54,10 +50,19 @@
     display: none;
 }
 
+.events__event .event-elem--view {
+    margin-top: -var(--spacing-large);
+}
+
 @media (--media-regular-screens) {
     .events__event--last {
         position: relative;
         top: 70px;
+    }
+
+    .events__event .event-elem--view {
+        margin-top: 0;
+        padding: var(--spacing-large) 0;
     }
 
     .events__event__icon {
