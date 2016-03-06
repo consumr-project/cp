@@ -483,9 +483,9 @@ angular.module('tcp').directive('event', [
             // styles allow event views to have a "slide up" effect this allows
             // that same event view to be fully displayed without overwriting
             // the "slide up" logic
-            if ($attrs.type === 'view') {
-                $elem.css('max-height', 'none');
-            }
+            // if ($attrs.type === 'view') {
+            //     $elem.css('max-height', 'none');
+            // }
         }
 
         function template(elem, attrs) {

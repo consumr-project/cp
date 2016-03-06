@@ -8,11 +8,11 @@
     transition: margin-top var(--speed-friendly);
 }
 
-/* event view in timeline animation start */
 .events__event .event-elem--view {
     padding: var(--spacing-large) 0;
 }
 
+/* event view in timeline animation start */
 .event-elem--view.ng-animated {
     max-height: 100vh;
     overflow: scroll;

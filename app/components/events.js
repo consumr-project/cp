@@ -258,7 +258,7 @@ angular.module('tcp').directive('events', [
                 '            type="view"',
                 '            id="{{vm.selected_event_to_view.id}}"',
                 '            api="vm.event_view_form"',
-                '            class="left-align fill-background ng-animated"',
+                '            class="left-align fill-background animated fadeIn"',
                 '        ></event>',
 
                 '    </div>',
