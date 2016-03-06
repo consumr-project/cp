@@ -8,6 +8,7 @@
     transition: margin-top var(--speed-friendly);
 }
 
+/* event view in timeline animation start */
 .event-elem--view.ng-animated {
     padding: var(--spacing-large) 0;
 }
@@ -17,7 +18,7 @@
 }
 
 .event-elem--view.ng-animated.ng-leave {
-    transition: all var(--speed-friendly) var(--speed-fast), opacity var(--speed-fast);
+    transition: all var(--speed-friendly) var(--delay-on-fast), opacity var(--speed-fast);
 }
 
 .event-elem--view.ng-animated.ng-enter {
@@ -39,6 +40,7 @@
 .event-elem--view.ng-animated.ng-enter.ng-enter-active {
     padding: var(--spacing-large) 0;
 }
+/* event view in timeline animation end */
 
 .events__event--last .events__event__info {
     display: none;
@@ -73,11 +75,12 @@
         line-height: var(--font-height-large);
     }
 
-    .events__event__title {
+    .events__event__content {
+        outline: none;
         transition: opacity var(--speed-friendly);
     }
 
-    .events__event--selected .events__event__title {
+    .events__event--selected .events__event__content {
         opacity: 0;
     }
 
