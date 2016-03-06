@@ -1,3 +1,7 @@
+.fill-background {
+    background-color: var(--color-std-background-color);
+}
+
 .highlight-action {
     transition: background-color var(--speed-fast);
 }
