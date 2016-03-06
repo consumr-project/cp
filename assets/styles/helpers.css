@@ -1,3 +1,7 @@
+.line-separated ~ .line-separated {
+    border-top: 1px solid var(--color-std-thin-border-color);
+}
+
 .fill-background {
     background-color: var(--color-std-background-color);
 }

@@ -9,14 +9,14 @@
 }
 
 /* event view in timeline animation start */
-.event-elem--view.ng-animated {
+.events__event .event-elem--view {
     padding: var(--spacing-large) 0;
 }
 
 .event-elem--view.ng-animated {
     max-height: 100vh;
     overflow: scroll;
-    transition: all var(--speed-friendly);
+    transition: all var(--speed-friendly), opacity 1s;
 }
 
 .event-elem--view.ng-animated.ng-leave {
@@ -29,7 +29,8 @@
 }
 
 .event-elem--view.ng-animated.ng-leave.ng-leave-active {
-    font-size: 0;
+    font-size: 0 !important;
+    line-height: 0 !important;
     max-height: 0;
     opacity: 0;
     padding: 0;
@@ -44,6 +45,10 @@
     padding: var(--spacing-large) 0;
 }
 /* event view in timeline animation end */
+
+.event-elem--view .line-separated {
+    padding-top: 20px;
+}
 
 .events__event--last .events__event__info {
     display: none;
