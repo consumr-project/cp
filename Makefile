@@ -48,7 +48,6 @@ test:
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
-	$(svgo) assets/images/star/
 	$(svgo) assets/images/avatar/
 	$(svgo) assets/images/indicator/
 

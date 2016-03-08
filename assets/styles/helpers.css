@@ -246,9 +246,9 @@
 }
 
 .imgview--bookmarks {
-    background-image: url(/assets/images/star/star-border.svg);
+    background-image: url(/assets/images/star-border.svg);
 }
 
 .imgview--bookmarked {
-    background-image: url(/assets/images/star/star-filled.svg);
+    background-image: url(/assets/images/star-filled.svg);
 }
