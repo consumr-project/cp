@@ -17,6 +17,11 @@ input:not([type=radio]):not([type=checkbox]).title {
     padding: 0;
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+  margin-left: 2px;
+}
+
 input.loading {
     background-image: url(/assets/images/loading-spin.svg);
     background-position: right 10px center;
