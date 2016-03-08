@@ -48,7 +48,6 @@ test:
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
-	$(svgo) assets/images/avatar/
 
 build: clean build-css build-js build-ts build-strings build-bundle build-app
 

@@ -26,7 +26,7 @@ avatar.avatar--block {
 }
 
 .avatar__image {
-    background-image: url("/assets/images/avatar/avatar-black.svg");
+    background-image: url("/assets/images/avatar.svg");
 }
 
 .avatar__summary {
