@@ -279,7 +279,7 @@ angular.module('tcp').directive('events', [
                 '                        \'imgview--bookmarked\': event.bookmarked_by_me,',
                 '                    }"',
                 '                    ng-click="toggle_favorite($event, event)"',
-                '                    class="right font-size-small imgview margin-right-xsmall">&nbsp;</span>',
+                '                    class="right font-size-small imgview margin-right-small">&nbsp;</span>',
                 '            </div>',
                 '            <event',
                 '                type="view"',
