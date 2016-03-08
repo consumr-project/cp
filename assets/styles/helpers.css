@@ -194,7 +194,12 @@
 .margin-top-xlarge-negative { margin-top: -var(--spacing-xlarge); }
 .margin-top-xsmall-negative { margin-top: -var(--spacing-xsmall); }
 
+.font-size-xsmall { font-size: var(--font-size-xsmall); }
 .font-size-small { font-size: var(--font-size-small); }
+.font-size-normal { font-size: var(--font-size-normal); }
+.font-size-large { font-size: var(--font-size-large); }
+.font-size-xlarge { font-size: var(--font-size-xlarge); }
+.font-size-xxlarge { font-size: var(--font-size-xxlarge); }
 
 .screen-small-only {
     display: initial;
