@@ -218,6 +218,7 @@ angular.module('tcp').directive('events', [
 
                 utils.assert(ev && ev.id);
                 utils.assert(SessionService.USER);
+                utils.assert(SessionService.USER.id);
 
                 if (ev.bookmarked_by_me) {
                     ev.bookmarked_by_me = false;
