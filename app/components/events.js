@@ -267,7 +267,7 @@ angular.module('tcp').directive('events', [
                 generate_template_event_content('right'),
 
                 '        <div ng-if="vm.selected_event_to_view === event"',
-                '            class="left-align fill-background animated fadeIn">',
+                '            class="left-align fill-background events__event__view">',
                 '            <div class="events__event__edit-menu">',
                 '                <div ng-click="vm.event_view_menu.show = true"',
                 '                    class="imgview imgview--dot-dot-dot no-outline"></div>',

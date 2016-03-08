@@ -8,6 +8,10 @@
     transition: margin-top var(--speed-friendly);
 }
 
+.events__event__view {
+    animation: var(--speed-friendly) fadeIn;
+}
+
 /* event view in timeline animation start */
 .event-elem--view.ng-animated {
     max-height: 100vh;
