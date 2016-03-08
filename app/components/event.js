@@ -14,7 +14,7 @@ angular.module('tcp').directive('event', [
             '    <div ng-if="ev.id" class="margin-bottom-small">',
             '        <i18n class="event-elem__date" date="{{::ev.date}}"',
             '            format="D MMM, YYYY"></i18n>',
-            '        <span class="event-elem__sources">{{::ev.sources.length | number}}</span>',
+            '        <span class="font-size-small margin-left-small imgview imgview--with-content imgview--sources">{{::ev.sources.length | number}}</span>',
             '    </div>',
             '    <h2>{{::ev.title}}</h2>',
             '    <div ng-repeat="source in ev.$sources" class="line-separated">',

@@ -191,27 +191,6 @@
     width: 50px;
 }
 
-.event-elem__sources,
-.events__event__meta {
-    background-repeat: no-repeat;
-    font-size: var(--font-size-small);
-    margin-left: var(--spacing-xsmall);
-    padding-left: 24px;
-}
-
-.events__event__edit-menu .imgview,
-.events__event__meta {
-    float: right;
-}
-
-.event-elem__sources,
-.events__event__meta--sources {
-    height: 20px;
-    background-image: url(/assets/images/book.svg);
-    background-position: -1px -3px;
-    background-size: 20px;
-}
-
 .events__event__title {
     border-top: 1px solid var(--color-std-border-color);
     color: var(--color-light-text-color);

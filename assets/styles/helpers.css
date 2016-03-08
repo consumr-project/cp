@@ -194,6 +194,8 @@
 .margin-top-xlarge-negative { margin-top: -var(--spacing-xlarge); }
 .margin-top-xsmall-negative { margin-top: -var(--spacing-xsmall); }
 
+.font-size-small { font-size: var(--font-size-small); }
+
 .screen-small-only {
     display: initial;
 }
@@ -217,6 +219,7 @@
 
 .imgview--with-content {
     width: auto;
+    padding-left: 24px;
 }
 
 .imgview--dot-dot-dot {
