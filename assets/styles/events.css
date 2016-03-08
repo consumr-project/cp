@@ -178,6 +178,7 @@
     }
 }
 
+.event-elem__date,
 .events__event__date {
     font-size: var(--font-size-small);
     letter-spacing: var(--letter-spacing-small);
@@ -186,14 +187,19 @@
     width: 50px;
 }
 
+.event-elem__sources,
 .events__event__meta {
     background-repeat: no-repeat;
-    float: right;
     font-size: var(--font-size-small);
     margin-left: var(--spacing-xsmall);
     padding-left: 24px;
 }
 
+.events__event__meta {
+    float: right;
+}
+
+.event-elem__sources,
 .events__event__meta--sources {
     background-image: url(/assets/images/book.svg);
     background-position: -1px -3px;

@@ -11,6 +11,11 @@ angular.module('tcp').directive('event', [
 
         var HTML_VIEW = [
             '<div class="event-elem--view">',
+            '    <div ng-if="ev.id" class="margin-bottom-small">',
+            '        <i18n class="event-elem__date" date="{{::ev.date}}"',
+            '            format="D MMM, YYYY"></i18n>',
+            '        <span class="event-elem__sources">{{::ev.sources.length | number}}</span>',
+            '    </div>',
             '    <h2>{{::ev.title}}</h2>',
             '    <div ng-repeat="source in ev.$sources" class="line-separated">',
             '        <a target="_blank" href="{{::source.url}}">{{::source.url}}</a>',
