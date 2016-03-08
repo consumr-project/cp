@@ -49,7 +49,6 @@ optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
 	$(svgo) assets/images/avatar/
-	$(svgo) assets/images/indicator/
 
 build: clean build-css build-js build-ts build-strings build-bundle build-app
 

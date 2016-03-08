@@ -30,7 +30,7 @@ indicator.indicator--counter {
 }
 
 indicator.indicator--useful::before {
-    background-image: url(/assets/images/indicator/heart.svg);
+    background-image: url(/assets/images/heart.svg);
     background-position: 0;
     box-sizing: border-box;
     content: '';
