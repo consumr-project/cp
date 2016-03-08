@@ -212,16 +212,6 @@
     background-size: 20px;
 }
 
-.events__event__meta--bookmarks {
-    background-image: url(/assets/images/star/star-border.svg);
-    background-position: -2px -5px;
-    background-size: 24px;
-}
-
-.events__event__meta--bookmarks.events__event__meta--bookmarked {
-    background-image: url(/assets/images/star/star-filled.svg);
-}
-
 .events__event__title {
     border-top: 1px solid var(--color-std-border-color);
     color: var(--color-light-text-color);
