@@ -42,7 +42,7 @@
 }
 /* event view in timeline animation end */
 
-.event-elem--view .line-separated {
+.event-elem--view .line-separated ~ .line-separated {
     padding-top: 20px;
 }
 
