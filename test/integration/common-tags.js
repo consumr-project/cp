@@ -125,9 +125,15 @@ cp.tapes('common tag', t => {
             st.equal(common[0].id, tags[1].id);
             st.equal(common[1].id, tags[2].id);
             st.equal(common[2].id, tags[0].id);
-            st.equal(common[3].id, tags[4].id);
-            st.equal(common[4].id, tags[5].id);
-            st.equal(common[5].id, tags[3].id);
+
+            st.equal(common[0].amount, 4);
+            st.equal(common[1].amount, 3);
+            st.equal(common[2].amount, 2);
+
+            // st.equal(common[3].id, tags[4].id);
+            // st.equal(common[4].id, tags[5].id);
+            // st.equal(common[5].id, tags[3].id);
+
         });
     });
 
