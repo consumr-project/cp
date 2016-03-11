@@ -1,7 +1,5 @@
 'use strict';
 
-// XXX this test is sometimes failing
-
 const cp = require('base-service/test/utils');
 const clone = require('lodash').clone;
 const config = require('acm');
