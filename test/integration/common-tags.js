@@ -120,6 +120,7 @@ cp.tapes('common tag', t => {
 
             st.error(err);
             st.ok(res.body.meta.ok, 'can create an event');
+            console.log(common);
 
             st.equal(common[0].id, tags[1].id);
             st.equal(common[1].id, tags[2].id);
