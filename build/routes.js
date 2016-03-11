@@ -1,7 +1,11 @@
 "use strict";
+var fs_1 = require('fs');
 exports.__esModule = true;
-exports["default"] = function (app, models) {
-    var crud = require('./crud'), can = require('auth-service').permissions.can;
+exports["default"] = function (app, models, conn) {
+    var crud = require('./crud'), query = require('./query').default, can = require('auth-service').permissions.can;
+    var sql = function (name) {
+        return fs_1.readFileSync(__dirname + "/../db/queries/" + name + ".sql").toString();
+    };
     var post = app.post.bind(app), get = app.get.bind(app), put = app.put.bind(app), del = app.delete.bind(app), patch = app.patch.bind(app);
     var all = crud.all, create = crud.create, like = crud.like, parts = crud.parts, remove = crud.del, retrieve = crud.retrieve, update = crud.update, upsert = crud.upsert;
     post('/users', can('create', 'user'), create(models.User));
@@ -12,6 +16,7 @@ exports["default"] = function (app, models) {
     get('/tags', can('retrieve', 'tag'), all(models.Tag));
     post('/tags', can('create', 'tag'), create(models.Tag));
     get('/tags/:id', can('retrieve', 'tag'), retrieve(models.Tag));
+    del('/tags/:id', can('delete', 'tag'), remove(models.Tag));
     post('/companies', can('create', 'company'), create(models.Company));
     get('/companies/guid/:id', can('retrieve', 'company'), retrieve(models.Company, { guid: 'id' }));
     get('/companies/:id?', can('retrieve', 'company'), retrieve(models.Company));
@@ -26,6 +31,7 @@ exports["default"] = function (app, models) {
     patch('/companies/:company_id/events', can('create', 'company'), can('update', 'company'), upsert(models.CompanyEvent, ['company_id']));
     get('/companies/:company_id/events/:id?', can('retrieve', 'company'), retrieve(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     del('/companies/:company_id/events/:id', can('delete', 'company'), remove(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
+    get('/companies/:company_id/events/tags/common', can('retrieve', 'tag'), query(conn, sql('get-company-common-tags')));
     post('/events', can('create', 'event'), create(models.Event));
     patch('/events', can('create', 'event'), can('update', 'event'), upsert(models.Event));
     del('/events/:id', can('delete', 'event'), remove(models.Event));

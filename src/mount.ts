@@ -32,13 +32,11 @@ if (!module.parent) {
     app.use(auth.passport.session());
     app.use(auth.as_guest);
     app.use('/auth', auth);
-}
 
-gen_routes(app, models);
-
-if (!module.parent) {
     conn.sync().then(() => {
         app.listen(config('port') || 3000);
         log('ready for database requests');
     });
 }
+
+gen_routes(app, models, conn);

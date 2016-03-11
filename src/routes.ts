@@ -1,6 +1,12 @@
-export default (app, models) => {
+import { readFileSync as read } from 'fs';
+
+export default (app, models, conn) => {
     var crud = require('./crud'),
+        query = require('./query').default,
         can = require('auth-service').permissions.can;
+
+    var sql = name =>
+        read(`${__dirname}/../db/queries/${name}.sql`).toString();
 
     var post = app.post.bind(app),
         get = app.get.bind(app),
@@ -46,6 +52,9 @@ export default (app, models) => {
     get('/tags/:id',
         can('retrieve', 'tag'),
         retrieve(models.Tag));
+    del('/tags/:id',
+        can('delete', 'tag'),
+        remove(models.Tag));
 
     // companies
     post('/companies',
@@ -96,6 +105,11 @@ export default (app, models) => {
     del('/companies/:company_id/events/:id',
         can('delete', 'company'),
         remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
+
+    // special company queries
+    get('/companies/:company_id/events/tags/common',
+        can('retrieve', 'tag'),
+        query(conn, sql('get-company-common-tags')));
 
     // events
     post('/events',

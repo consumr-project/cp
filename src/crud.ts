@@ -7,7 +7,7 @@ const uuid = require('node-uuid');
 const ID_MAP: SDict = { id: 'id' };
 const ID_FIELDS = [ 'id', 'updated_by', 'created_by' ];
 
-type RequestHandler = (req: Request, res: Response) => void
+type RequestHandler = (req: Request, res: Response, next?: Function) => void
 type SDict = Dictionary<string>;
 type Tag = { tag: string, val: any };
 

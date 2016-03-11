@@ -5,7 +5,7 @@ const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-cp.tapes('query', t => {
+cp.tapes('company', t => {
     t.plan(1);
 
     cp.login(fixture.user.admin.auth_apikey).end((err, res) => {
@@ -18,9 +18,8 @@ cp.tapes('query', t => {
     t.test('setup', st => {
         st.plan(1);
 
-        cp.purge(`/companies/${fixture.company.id}`).end((err, res) => {
-            st.ok(res.body.meta.ok, 'deleted test company');
-        });
+        cp.purge(`/companies/${fixture.company.id}`).end((err, res) =>
+            st.ok(res.body.meta.ok, 'deleted test company'));
     });
 
     t.test('create company', st => {
@@ -47,7 +46,7 @@ cp.tapes('query', t => {
             st.ok(res.body.meta.ok, 'can delete a company');
 
             cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
-                st.ok(res.body.body.deleted_date)
+                st.ok(res.body.body.deleted_date);
             });
         });
     });
@@ -59,7 +58,7 @@ cp.tapes('query', t => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
             cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
-                st.notOk(res.body.body)
+                st.notOk(res.body.body);
             });
         });
     });

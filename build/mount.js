@@ -23,11 +23,9 @@ if (!module.parent) {
     app.use(auth.passport.session());
     app.use(auth.as_guest);
     app.use('/auth', auth);
-}
-routes_1["default"](app, exports.models);
-if (!module.parent) {
     exports.conn.sync().then(function () {
         app.listen(config('port') || 3000);
         log('ready for database requests');
     });
 }
+routes_1["default"](app, exports.models, exports.conn);
