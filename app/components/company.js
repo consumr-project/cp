@@ -364,7 +364,7 @@ angular.module('tcp').directive('company', [
                 '            <tag ng-click="go_to_company(comp)" class="keyword" label="{{::comp.label}}"',
                 '                ng-repeat="comp in common_companies | limitTo: vm.common_companies_limit"></tag>',
                 '            <i ng-if="!common_companies.length" i18n="common/none"></i>',
-                '            <h5 ng-click="show_more_common_companies()" class="margin-top-xsmall"',
+                '            <h5 ng-click="show_more_common_companies()" class="margin-top-xsmall uppercase font-size-small"',
                 '                ng-if="common_companies.length" i18n="common/show_more"></h5>',
                 '        </div>',
                 '    </section>',
