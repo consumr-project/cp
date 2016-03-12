@@ -15,7 +15,7 @@ error_loading: 'error makin request'
 not_found: 'not findz'
 create_this: 'create "{name}"?'
 loading_events: 'loadin events...'
-see_wiki: 'c moar frum wikipedia'
+see_wiki: '+ c moar frum wikipedia'
 redirecting: redirectin
 enumeration_comma: ', '
 enumeration_comma_last: ', an '

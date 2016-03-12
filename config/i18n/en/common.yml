@@ -24,7 +24,7 @@ create_this: Create "{name}"?
 loading_events: "Loading events..."
 
 # external sources
-see_wiki: See more from wikipedia
+see_wiki: + See more from wikipedia
 redirecting: Redirecting
 
 # grammar
