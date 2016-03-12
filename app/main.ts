@@ -40,6 +40,8 @@ module tcp {
                     website_url: 'website_url',
                 },
 
+                tag: 'tag',
+
                 event: 'event',
                 event_props: {
                     sentiments: {

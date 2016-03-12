@@ -1,12 +1,13 @@
 angular.module('tcp').directive('company', [
     'RUNTIME',
+    'DOMAIN',
     'NavigationService',
     'ServicesService',
     'SessionService',
     'utils',
     'lodash',
     '$q',
-    function (RUNTIME, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
+    function (RUNTIME, DOMAIN, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -28,6 +29,7 @@ angular.module('tcp').directive('company', [
                 common_tags_limit: 5,
                 common_companies_limit: 5,
                 existing: !!$scope.guid || $scope.id,
+                events_filter: [],
                 events_timeline: {},
                 event_form: {},
                 add_event: {}
@@ -175,7 +177,14 @@ angular.module('tcp').directive('company', [
              * @return {void}
              */
             $scope.toggle_common_tag = function (tag) {
+                tag.type = DOMAIN.model.tag;
                 tag.$selected = !tag.$selected;
+
+                if (tag.$selected) {
+                    $scope.vm.events_filter.push(tag);
+                } else {
+                    lodash.pull($scope.vm.events_filter, tag);
+                }
             };
 
             /**
@@ -305,6 +314,7 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <events class="margin-top-medium margin-bottom-xlarge" ',
+                '            filter="vm.events_filter" ',
                 '            api="vm.events_timeline" ',
                 '            id="{{company.id}}"></events>',
 
@@ -349,7 +359,10 @@ angular.module('tcp').directive('company', [
                 '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside">',
                 '        <div class="desktop-only site-content--aside__section">',
                 '            <h3 class="margin-bottom-medium" i18n="company/common_tags"></h3>',
-                '            <div class="tag-elem keyword" ng-repeat="tag in common_tags | limitTo: 5">{{::tag.label}}</div>',
+                '            <tag class="keyword" label="{{::tag.label}}" active="{{tag.$selected}}"',
+                '               ng-click="toggle_common_tag(tag)" ng-repeat="tag in common_tags | limitTo: vm.common_tags_limit"></tag>',
+                '            <h5 ng-click="show_more_common_tags()" class="margin-top-xsmall uppercase font-size-small"',
+                '                ng-if="common_tags.length" i18n="common/show_more"></h5>',
                 '            <i ng-if="!common_tags.length" i18n="common/none"></i>',
                 '        </div>',
 

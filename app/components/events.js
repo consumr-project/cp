@@ -24,6 +24,7 @@ angular.module('tcp').directive('events', [
          */
         function add_special_events(evs) {
             evs.push({
+                $never_filter: true,
                 title: i18n.get('company/company_founded'),
                 logo: DOMAIN.model.event_props.type.company_created,
                 sentiment: DOMAIN.model.event_props.sentiments.neutral,
@@ -82,6 +83,7 @@ angular.module('tcp').directive('events', [
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
                 logo: ev.logo,
+                tags: ev.tags,
                 source_count: ev.sources.length,
                 bookmark_count: ev.bookmarks['@meta'].instead.count,
                 bookmarked_by_me: ev.bookmarks['@meta'].instead.includes_me,
@@ -93,7 +95,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_event(event_id) {
-            return ServicesService.query.events.retrieve(event_id, ['sources', 'bookmarks']);
+            return ServicesService.query.events.retrieve(event_id, ['sources', 'bookmarks', 'tags']);
         }
 
         /**
@@ -162,6 +164,7 @@ angular.module('tcp').directive('events', [
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))
+                    .then(utils.scope.set($scope, 'filtered_events'))
                     .then(utils.scope.set($scope, 'vm.loading', false))
                     .then(order_events)
                     .then(add_special_events)
@@ -245,12 +248,36 @@ angular.module('tcp').directive('events', [
 
             $scope.api = $scope.api || {};
             $scope.api.refresh = $scope.load;
+
+            $scope.$watch('filter', function (filter) {
+                var tag_ids = lodash.map(filter, 'id');
+                $scope.vm.first_load = 0;
+
+                if (!filter || !filter.length) {
+                    $scope.filtered_events = $scope.events;
+                } else {
+                    $scope.filtered_events = lodash.filter($scope.events, function (ev) {
+                        if (ev.$never_filter) {
+                            return true;
+                        } else if (!ev.tags) {
+                            return false;
+                        }
+
+                        for (var i = 0, len = ev.tags.length; i < len; i++) {
+                            if (lodash.includes(tag_ids, ev.tags[i].tag_id)) {
+                                return true;
+                            }
+                        }
+                    });
+                }
+            }, true);
         }
 
         return {
             replace: true,
             controller: ['$scope', controller],
             scope: {
+                filter: '=',
                 api: '=',
                 id: '@',
             },
@@ -260,7 +287,7 @@ angular.module('tcp').directive('events', [
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
 
                 '    <span>',
-                '    <div ng-repeat="event in events" ',
+                '    <div ng-repeat="event in filtered_events" ',
                 '        class="events__event fadeInUp" ',
                 '        ng-class="{',
                 '           \'animated\': vm.first_load,',
