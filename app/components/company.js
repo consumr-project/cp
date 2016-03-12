@@ -362,7 +362,8 @@ angular.module('tcp').directive('company', [
                 '            <tag class="keyword" label="{{::tag.label}}" active="{{tag.$selected}}"',
                 '               ng-click="toggle_common_tag(tag)" ng-repeat="tag in common_tags | limitTo: vm.common_tags_limit"></tag>',
                 '            <h5 ng-click="show_more_common_tags()" class="margin-top-xsmall uppercase font-size-small"',
-                '                ng-if="common_tags.length" i18n="common/show_more"></h5>',
+                '                ng-if="common_tags.length && common_tags.length > vm.common_tags_limit"',
+                '                i18n="common/show_more"></h5>',
                 '            <i ng-if="!common_tags.length" i18n="common/none"></i>',
                 '        </div>',
 
@@ -378,7 +379,8 @@ angular.module('tcp').directive('company', [
                 '                ng-repeat="comp in common_companies | limitTo: vm.common_companies_limit"></tag>',
                 '            <i ng-if="!common_companies.length" i18n="common/none"></i>',
                 '            <h5 ng-click="show_more_common_companies()" class="margin-top-xsmall uppercase font-size-small"',
-                '                ng-if="common_companies.length" i18n="common/show_more"></h5>',
+                '                ng-if="common_companies.length && common_companies.length > vm.common_companies_limit"',
+                '                i18n="common/show_more"></h5>',
                 '        </div>',
                 '    </section>',
 
