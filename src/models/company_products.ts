@@ -5,7 +5,7 @@ const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
     var Product = require('./product')(sequelize),
-        Company = require('./product')(sequelize);
+        Company = require('./company')(sequelize);
 
     var CompanyProduct = sequelize.define('company_products', merge({
         company_id: {

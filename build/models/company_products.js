@@ -2,7 +2,7 @@
 var utils_1 = require('../utils');
 var Type = require('sequelize/lib/data-types');
 module.exports = function (sequelize) {
-    var Product = require('./product')(sequelize), Company = require('./product')(sequelize);
+    var Product = require('./product')(sequelize), Company = require('./company')(sequelize);
     var CompanyProduct = sequelize.define('company_products', utils_1.merge({
         company_id: {
             type: Type.UUID,
