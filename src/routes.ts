@@ -107,7 +107,11 @@ export default (app, models, conn) => {
         remove(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));
 
     // special company queries
-    get('/companies/:company_id/events/tags/common',
+    get('/companies/:company_id/common/companies',
+        can('retrieve', 'company'),
+        query(conn, sql('get-company-related-companies')));
+
+    get('/companies/:company_id/common/tags',
         can('retrieve', 'tag'),
         query(conn, sql('get-company-common-tags')));
 

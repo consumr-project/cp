@@ -31,7 +31,8 @@ exports["default"] = function (app, models, conn) {
     patch('/companies/:company_id/events', can('create', 'company'), can('update', 'company'), upsert(models.CompanyEvent, ['company_id']));
     get('/companies/:company_id/events/:id?', can('retrieve', 'company'), retrieve(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     del('/companies/:company_id/events/:id', can('delete', 'company'), remove(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
-    get('/companies/:company_id/events/tags/common', can('retrieve', 'tag'), query(conn, sql('get-company-common-tags')));
+    get('/companies/:company_id/common/companies', can('retrieve', 'company'), query(conn, sql('get-company-related-companies')));
+    get('/companies/:company_id/common/tags', can('retrieve', 'tag'), query(conn, sql('get-company-common-tags')));
     post('/events', can('create', 'event'), create(models.Event));
     patch('/events', can('create', 'event'), can('update', 'event'), upsert(models.Event));
     del('/events/:id', can('delete', 'event'), remove(models.Event));
