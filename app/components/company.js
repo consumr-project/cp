@@ -314,7 +314,7 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <events class="margin-top-medium margin-bottom-xlarge" ',
-                '            filter="vm.events_filter" ',
+                '            filters="vm.events_filter" ',
                 '            api="vm.events_timeline" ',
                 '            id="{{company.id}}"></events>',
 

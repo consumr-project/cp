@@ -168,7 +168,10 @@ angular.module('tcp').directive('events', [
                     .then(utils.scope.set($scope, 'vm.loading', false))
                     .then(order_events)
                     .then(add_special_events)
-                    .then(highlight_most_bookmarked_events);
+                    .then(highlight_most_bookmarked_events)
+                    .then(function () {
+                        set_filtered_events($scope.filters);
+                    });
             };
 
             /**
@@ -249,13 +252,15 @@ angular.module('tcp').directive('events', [
             $scope.api = $scope.api || {};
             $scope.api.refresh = $scope.load;
 
-            $scope.$watch('filter', function (filter) {
-                var tag_ids = lodash.map(filter, 'id');
-                $scope.vm.first_load = 0;
+            $scope.$watch('filters', set_filtered_events, true);
 
-                if (!filter || !filter.length) {
+            function set_filtered_events(filters) {
+                var tag_ids = lodash.map(filters, 'id');
+
+                if (!filters || !filters.length) {
                     $scope.filtered_events = $scope.events;
                 } else {
+                    $scope.vm.first_load = 0;
                     $scope.filtered_events = lodash.filter($scope.events, function (ev) {
                         if (ev.$never_filter) {
                             return true;
@@ -270,14 +275,14 @@ angular.module('tcp').directive('events', [
                         }
                     });
                 }
-            }, true);
+            }
         }
 
         return {
             replace: true,
             controller: ['$scope', controller],
             scope: {
-                filter: '=',
+                filters: '=',
                 api: '=',
                 id: '@',
             },
@@ -288,9 +293,10 @@ angular.module('tcp').directive('events', [
 
                 '    <span>',
                 '    <div ng-repeat="event in filtered_events" ',
-                '        class="events__event fadeInUp" ',
+                '        class="events__event" ',
                 '        ng-class="{',
-                '           \'animated\': vm.first_load,',
+                '           \'animated fadeInUp\': vm.first_load,',
+                '           \'animated fadeIn\': !vm.first_load,',
                 '           \'events__event--highlight\': event.$highlight,',
                 '           \'events__event--first\': $first,',
                 '           \'events__event--last\': $last,',
