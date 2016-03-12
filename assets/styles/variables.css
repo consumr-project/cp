@@ -41,6 +41,7 @@
 
     --body-padding-top: 10px;
     --inline-element-gutter: 6px;
+    --inline-element-large-gutter: 10px;
 
     --input-padding: 8px;
     --input-border-radius: 3px;
@@ -57,6 +58,7 @@
     --content-aside-width: 400px;
     --content-horizontal-padding: 20px;
     --content-aside-horizontal-padding: 40px;
+    --content-aside-vertical-padding: 30px;
     --content-timeline-offside: 289px;
 
     --computed-button-height: 37px;

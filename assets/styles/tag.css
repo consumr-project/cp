@@ -21,12 +21,14 @@
 }
 
 .tag-elem.keyword {
-    background-color: rgba(245, 245, 245, 0.76);
     border-radius: 2px;
-    border: 1px solid #B3B3B3;
-    color: #525252;
+    border: 1px solid black;
     font-size: 12px;
-    padding: 2px 6px;
+    font-weight: 700;
+    margin-bottom: var(--inline-element-large-gutter);
+    margin-right: var(--inline-element-large-gutter);
+    padding: var(--spacing-xsmall) calc(var(--spacing-xsmall) + 2);
+    text-transform: uppercase;
 }
 
 tags {

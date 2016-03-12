@@ -178,7 +178,16 @@ angular.module('tcp').directive('company', [
                 return ServicesService.query.companies[method](guid)
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
-                    .then(utils.scope.set($scope, 'company'));
+                    .then(utils.scope.set($scope, 'company'))
+                    .then(function (company) {
+                        ServicesService.query.companies.common.tags(company.id)
+                            .then(utils.scope.set($scope, 'common_tags'));
+
+                        ServicesService.query.companies.common.companies(company.id)
+                            .then(utils.scope.set($scope, 'common_companies'));
+
+                        return company;
+                    });
             }
 
             /**
@@ -306,12 +315,24 @@ angular.module('tcp').directive('company', [
                 '    <p ng-if="!vm.existing" class="animated fadeIn" ',
                 '        ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
 
-                '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside site-content--aside-section-standout">',
-                '        <div class="padding-top-medium desktop-only"></div>',
-                '        <h3 i18n="common/about" class="desktop-only margin-bottom-medium"></h3>',
-                '        <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
-                '        <a target="_blank" ng-show="::company.wikipedia_url" ng-href="{{::company.wikipedia_url}}" class="--action" i18n="common/see_wiki"></a>',
-                '        <div class="padding-bottom-medium desktop-only"></div>',
+                '    <section ng-if="vm.existing && company.$loaded" class="site-content--aside">',
+                '        <div class="desktop-only site-content--aside__section">',
+                '            <h3 class="margin-bottom-medium" i18n="company/common_tags"></h3>',
+                '            <div class="tag-elem keyword" ng-repeat="tag in common_tags | limitTo: 5">{{::tag.label}}</div>',
+                '            <i ng-if="!common_tags.length" i18n="common/none"></i>',
+                '        </div>',
+
+                '        <div class="site-content--aside__section site-content--aside__section-standout">',
+                '            <h3 i18n="common/about" class="desktop-only margin-bottom-medium"></h3>',
+                '            <p ng-repeat="paragraph in company.$summary_parts">{{::paragraph}}</p>',
+                '            <a target="_blank" ng-show="::company.wikipedia_url" ng-href="{{::company.wikipedia_url}}" class="--action" i18n="common/see_wiki"></a>',
+                '        </div>',
+
+                '        <div class="desktop-only site-content--aside__section">',
+                '            <h3 class="margin-bottom-medium" i18n="company/related_companies"></h3>',
+                '            <div class="tag-elem keyword" ng-repeat="comp in common_companies | limitTo: 5">{{::comp.label}}</div>',
+                '            <i ng-if="!common_companies.length" i18n="common/none"></i>',
+                '        </div>',
                 '    </section>',
 
                 '    <div ng-if="!vm.existing && vm.step.length > 1" class="animated fadeIn margin-top-large margin-bottom-xlarge">',

@@ -157,6 +157,18 @@ angular.module('tcp').service('ServicesService', [
                 .then(pluck_data).then(pluck_body);
         };
 
+        queryService.companies.common = {
+            companies: function (guid) {
+                return $http.get(url('companies', guid, 'common/companies'))
+                    .then(pluck_data).then(pluck_body);
+            },
+
+            tags: function (guid) {
+                return $http.get(url('companies', guid, 'common/tags'))
+                    .then(pluck_data).then(pluck_body);
+            },
+        };
+
         /**
          * @param {String} url
          * @return {Promise}
