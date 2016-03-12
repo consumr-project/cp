@@ -78,12 +78,12 @@ footer.site-content {
 [ng-click],
 [ng-click] * {
     cursor: pointer;
-    transition: transform .1s;
+    /* transition: transform .1s; */
 }
 
-[ng-click]:active {
-    transform: translateY(1px);
-}
+/* [ng-click]:active { */
+/*     transform: translateY(1px); */
+/* } */
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;

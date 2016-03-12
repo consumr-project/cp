@@ -25,6 +25,8 @@ angular.module('tcp').directive('company', [
                 step: [true],
                 pre_search_name: '',
                 search_name: '',
+                common_tags_limit: 5,
+                common_companies_limit: 5,
                 existing: !!$scope.guid || $scope.id,
                 events_timeline: {},
                 event_form: {},
@@ -166,6 +168,35 @@ angular.module('tcp').directive('company', [
 
                 return ServicesService.query.companies.followers.delete(company_id, SessionService.USER.id)
                     .then(load.bind(null, company_id, 'retrieve'));
+            };
+
+            /**
+             * @param {Object} tag
+             * @return {void}
+             */
+            $scope.toggle_common_tag = function (tag) {
+                tag.$selected = !tag.$selected;
+            };
+
+            /**
+             * @return {void}
+             */
+            $scope.show_more_common_tags = function () {
+                $scope.vm.common_tags_limit += 5;
+            };
+
+            /**
+             * @return {void}
+             */
+            $scope.show_more_common_companies = function () {
+                $scope.vm.common_companies_limit += 5;
+            };
+
+            /**
+             * @return {void}
+             */
+            $scope.go_to_company = function (comp) {
+                NavigationService.company_by_id(comp.id);
             };
 
             /**
@@ -330,8 +361,11 @@ angular.module('tcp').directive('company', [
 
                 '        <div class="desktop-only site-content--aside__section">',
                 '            <h3 class="margin-bottom-medium" i18n="company/related_companies"></h3>',
-                '            <div class="tag-elem keyword" ng-repeat="comp in common_companies | limitTo: 5">{{::comp.label}}</div>',
+                '            <tag ng-click="go_to_company(comp)" class="keyword" label="{{::comp.label}}"',
+                '                ng-repeat="comp in common_companies | limitTo: vm.common_companies_limit"></tag>',
                 '            <i ng-if="!common_companies.length" i18n="common/none"></i>',
+                '            <h5 ng-click="show_more_common_companies()" class="margin-top-xsmall"',
+                '                ng-if="common_companies.length" i18n="common/show_more"></h5>',
                 '        </div>',
                 '    </section>',
 
