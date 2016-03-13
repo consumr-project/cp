@@ -112,7 +112,6 @@ build-app:
 	$(js_min) app/elements/tag.js >> $(build_app_js)
 	$(js_min) app/elements/tags.js >> $(build_app_js)
 	$(js_min) app/elements/i18n.js >> $(build_app_js)
-	$(js_min) app/elements/followed-by.js >> $(build_app_js)
 	$(js_min) app/components/user.js >> $(build_app_js)
 	$(js_min) app/components/search.js >> $(build_app_js)
 	$(js_min) app/components/notifications.js >> $(build_app_js)

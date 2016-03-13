@@ -308,12 +308,6 @@ angular.module('tcp').directive('company', [
                 '            ng-click="on_stop_following(company.id)"',
                 '            ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
 
-                // '        <followed-by',
-                // '            users="company.$followed_by"',
-                // '            on-start-following="on_start_following(company.id)"',
-                // '            on-stop-following="on_stop_following(company.id)"',
-                // '        ></followed-by>',
-
                 '        <hr>',
 
                 '        <div class="margin-top-large half-width" ng-if="vm.events_filter.length">',
