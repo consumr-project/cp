@@ -19,7 +19,12 @@ exports["default"] = function (app, models, conn) {
     del('/tags/:id', can('delete', 'tag'), remove(models.Tag));
     post('/companies', can('create', 'company'), create(models.Company));
     get('/companies/guid/:id', can('retrieve', 'company'), retrieve(models.Company, { guid: 'id' }));
-    get('/companies/:id?', can('retrieve', 'company'), retrieve(models.Company));
+    get('/companies', can('retrieve', 'company'), retrieve(models.Company));
+    get('/companies/:id', can('retrieve', 'company'), can('retrieve', 'product'), parts(models.Company, {
+        products: [models.CompanyProduct, { company_id: 'id' }, {
+                expand: [models.Product, { id: 'product_id' }]
+            }]
+    }));
     put('/companies/:id', can('update', 'company'), update(models.Company));
     del('/companies/:id', can('delete', 'company'), remove(models.Company));
     patch('/companies/:company_id/products', can('create', 'company'), can('update', 'company'), upsert(models.CompanyProduct, ['company_id']));

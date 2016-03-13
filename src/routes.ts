@@ -63,9 +63,18 @@ export default (app, models, conn) => {
     get('/companies/guid/:id',
         can('retrieve', 'company'),
         retrieve(models.Company, {guid: 'id'}));
-    get('/companies/:id?',
+    get('/companies',
         can('retrieve', 'company'),
         retrieve(models.Company));
+    get('/companies/:id',
+        can('retrieve', 'company'),
+        can('retrieve', 'product'),
+        parts(models.Company, {
+            products: [models.CompanyProduct, {company_id: 'id'}, {
+                expand: [models.Product, {id: 'product_id'}]
+            }]
+        }
+    ));
     put('/companies/:id',
         can('update', 'company'),
         update(models.Company));
