@@ -5,7 +5,7 @@ const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-cp.tapes('tag', t => {
+cp.tapes('event', t => {
     t.plan(1);
 
     cp.login(fixture.user.admin.auth_apikey).end((err, res) => {
@@ -44,14 +44,14 @@ cp.tapes('tag', t => {
     });
 
     t.test('delete event', st => {
-        st.plan(2);
+        st.plan(3);
 
         cp.del(`/events/${fixture.events[0].id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can delete an event');
 
             cp.get(`/events/${fixture.events[0].id}`).end((err, res) => {
-                // `parts` method never includes deleted items
                 st.ok(res.body.meta.ok);
+                st.ok(res.body.body.id);
             });
         });
     });

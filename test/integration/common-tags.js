@@ -114,7 +114,7 @@ cp.tapes('common tag', t => {
     t.test('create event', st => {
         st.plan(8);
 
-        cp.get(`/companies/${fixture.company.id}/events/tags/common`).end((err, res) => {
+        cp.get(`/companies/${fixture.company.id}/common/tags`).end((err, res) => {
             var tags = fixture.tags;
             var common = res.body.body;
 

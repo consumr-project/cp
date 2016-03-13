@@ -214,8 +214,9 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         }
 
         // mian
-        queries.push(model.findOne(build_query(prop_remap, req.params))
-            .then(tag('main')));
+        queries.push(model.findOne(build_query(prop_remap, req.params, {
+            paranoid: false
+        })).then(tag('main')));
 
         // parts
         each(parts_wanted, (part: string) => {

@@ -168,8 +168,9 @@ function parts(model, prop_remap, parts_def) {
             error(res, new Error("Invalid part(s): " + bad_parts.join(', ')));
             return;
         }
-        queries.push(model.findOne(build_query(prop_remap, req.params))
-            .then(tag('main')));
+        queries.push(model.findOne(build_query(prop_remap, req.params, {
+            paranoid: false
+        })).then(tag('main')));
         lodash_1.each(parts_wanted, function (part) {
             var query = null, model = parts_def[part][0], prop_remap = parts_def[part][1], meta = parts_def[part][2] || {};
             if (meta.expand && lodash_1.includes(expand_wanted, part)) {
