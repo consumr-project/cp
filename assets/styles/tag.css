@@ -39,24 +39,43 @@
     color: white;
 }
 
+.tag-elem.tag--bigword,
 .tag-elem.tag--word {
     border-bottom: 1px solid black;
     border-left: none;
     border-radius: 0;
     border-right: none;
     border-top: none;
-    font-weight: 600;
-    margin-right: 10px;
     padding: 0 0 2px 0;
+}
+
+.tag-elem.tag--bigword {
+    font-family: Times;
+    font-size: var(--font-size-large);
+    margin-right: var(--spacing-small);
+}
+
+.tag-elem.tag--word {
+    font-weight: 600;
+    margin-right: var(--spacing-xsmall);
     text-transform: uppercase;
 }
 
+.tag--bigword::after,
 .tag--word::after {
     content: ",";
     position: absolute;
+}
+
+.tag--bigword::after {
+    right: -6px;
+}
+
+.tag--word::after {
     right: -5px;
 }
 
+.tag--bigword:last-child::after,
 .tag--word:last-child::after {
     content: " ";
 }

@@ -317,6 +317,12 @@ angular.module('tcp').directive('company', [
 
                 '        <hr>',
 
+                '        <div class="margin-top-large half-width" ng-if="vm.events_filter.length">',
+                '            <h4 i18n="common/only_showing"></h4>',
+                '            <tag ng-repeat="filter in vm.events_filter"',
+                '                class="tag--bigword" label="{{get_label(filter)}}"></tag>',
+                '        </div>',
+
                 '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
                 '            <button ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '        </div>',

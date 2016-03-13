@@ -2,6 +2,7 @@ none: none
 about: About
 show_hide: Show / Hide
 show_more: + show more
+only_showing: only showing
 
 go: Go
 ignore: Ignore

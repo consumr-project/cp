@@ -20,6 +20,10 @@
     -webkit-user-select: none;
 }
 
+.half-width {
+    width: 50%;
+}
+
 .no-outline {
     outline: none;
 }
