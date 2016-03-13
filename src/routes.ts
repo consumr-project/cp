@@ -72,7 +72,12 @@ export default (app, models, conn) => {
         parts(models.Company, {
             products: [models.CompanyProduct, {company_id: 'id'}, {
                 expand: [models.Product, {id: 'product_id'}]
-            }]
+            }],
+            followers: [models.CompanyFollower, {company_id: 'id'}, {
+                instead: {
+                    includes_me: true
+                }
+            }],
         }
     ));
     put('/companies/:id',

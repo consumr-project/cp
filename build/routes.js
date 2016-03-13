@@ -23,6 +23,11 @@ exports["default"] = function (app, models, conn) {
     get('/companies/:id', can('retrieve', 'company'), can('retrieve', 'product'), parts(models.Company, {
         products: [models.CompanyProduct, { company_id: 'id' }, {
                 expand: [models.Product, { id: 'product_id' }]
+            }],
+        followers: [models.CompanyFollower, { company_id: 'id' }, {
+                instead: {
+                    includes_me: true
+                }
             }]
     }));
     put('/companies/:id', can('update', 'company'), update(models.Company));
