@@ -10,6 +10,7 @@ this_is_it: 'dis ar teh teh rite wan'
 go_back: 'go bak'
 logout: logout
 follow: follow
+unfollow: unfollow
 sing_in_or_up: 'sign in / sign up'
 see_notifications: notificashuns
 add_company: 'create company'

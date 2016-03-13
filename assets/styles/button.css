@@ -8,6 +8,11 @@ button {
     text-transform: uppercase;
 }
 
+button.button--unselected {
+    background-color: white;
+    color: var(--color-cp-brand);
+}
+
 button * {
     cursor: pointer;
     vertical-align: middle;

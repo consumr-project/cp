@@ -23,6 +23,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
+                followed_by_me: false,
                 step: [true],
                 pre_search_name: '',
                 search_name: '',
@@ -140,24 +141,13 @@ angular.module('tcp').directive('company', [
              * @param {String} company_id
              * @return {Promise}
              */
-            $scope.load_followers = function (company_id) {
-                utils.assert(company_id);
-
-                return ServicesService.query.companies.followers.retrieve(company_id)
-                    .then(utils.scope.set($scope, 'company.$followed_by'));
-            };
-
-            /**
-             * @param {String} company_id
-             * @return {Promise}
-             */
             $scope.on_start_following = function (company_id) {
                 utils.assert(company_id);
                 utils.assert(SessionService.USER);
 
                 return ServicesService.query.companies.followers.upsert(company_id, {
                     user_id: SessionService.USER.id
-                }).then($scope.load_followers.bind(null, company_id));
+                }).then(utils.scope.set($scope, 'vm.followed_by_me', true));
             };
 
             /**
@@ -169,7 +159,7 @@ angular.module('tcp').directive('company', [
                 utils.assert(SessionService.USER);
 
                 return ServicesService.query.companies.followers.delete(company_id, SessionService.USER.id)
-                    .then(load.bind(null, company_id, 'retrieve'));
+                    .then(utils.scope.set($scope, 'vm.followed_by_me', false));
             };
 
             /**
@@ -224,9 +214,12 @@ angular.module('tcp').directive('company', [
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'))
                     .then(function (company) {
-                        ServicesService.query.companies.retrieve(company.id, ['products'], ['products'])
-                            .then(utils.pluck('products'))
-                            .then(utils.scope.set($scope, 'company_products'));
+                        ServicesService.query.companies.retrieve(company.id, ['products', 'followers'], ['products'])
+                            .then(function (company) {
+                                $scope.vm.followed_by_me = company.followers["@meta"].instead.includes_me;
+                                $scope.company_products = company.products;
+                                return company;
+                            });
 
                         ServicesService.query.companies.common.tags(company.id)
                             .then(utils.scope.set($scope, 'common_tags'));
@@ -300,20 +293,26 @@ angular.module('tcp').directive('company', [
                 create: '@'
             },
             template: [
-                '<div>',
+                '<div class="company-component">',
                 '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
                 // '    <message class="message-elem--banner" type="success">you added 5 new companies, good job! we just need a few more details.</message>',
 
-                '    <section ng-if="vm.existing && company.$loaded" ng-init="load_followers(company.id)" class="site-content--main">',
+                '    <section ng-if="vm.existing && company.$loaded" class="site-content--main">',
                 '        <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
                 '        <a ng-if="company.website_url" href="{{company.website_url}}"',
                 '            target="_blank" class="linkimg animated fadeIn"></a>',
+                '        <button class="company-company__follow margin-left-small button--unselected"',
+                '            ng-click="on_start_following(company.id)"',
+                '            ng-if="!vm.followed_by_me" i18n="admin/follow"></button>',
+                '        <button class="company-company__follow margin-left-small"',
+                '            ng-click="on_stop_following(company.id)"',
+                '            ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
 
-                '        <followed-by',
-                '            users="company.$followed_by"',
-                '            on-start-following="on_start_following(company.id)"',
-                '            on-stop-following="on_stop_following(company.id)"',
-                '        ></followed-by>',
+                // '        <followed-by',
+                // '            users="company.$followed_by"',
+                // '            on-start-following="on_start_following(company.id)"',
+                // '            on-stop-following="on_stop_following(company.id)"',
+                // '        ></followed-by>',
 
                 '        <hr>',
 
