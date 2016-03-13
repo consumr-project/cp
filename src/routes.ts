@@ -106,7 +106,7 @@ export default (app, models, conn) => {
         can('retrieve', 'company'),
         retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
     del('/companies/:company_id/followers/:id',
-        can('delete', 'company'),
+        can('update', 'company'),
         remove(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
     patch('/companies/:company_id/events',

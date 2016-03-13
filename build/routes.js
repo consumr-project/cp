@@ -37,7 +37,7 @@ exports["default"] = function (app, models, conn) {
     del('/companies/:company_id/products/:id', can('delete', 'company'), remove(models.CompanyProduct, { company_id: 'company_id', product_id: 'id' }));
     patch('/companies/:company_id/followers', can('create', 'company'), can('update', 'company'), upsert(models.CompanyFollower, ['company_id']));
     get('/companies/:company_id/followers/:id?', can('retrieve', 'company'), retrieve(models.CompanyFollower, { company_id: 'company_id', user_id: 'id' }));
-    del('/companies/:company_id/followers/:id', can('delete', 'company'), remove(models.CompanyFollower, { company_id: 'company_id', user_id: 'id' }));
+    del('/companies/:company_id/followers/:id', can('update', 'company'), remove(models.CompanyFollower, { company_id: 'company_id', user_id: 'id' }));
     patch('/companies/:company_id/events', can('create', 'company'), can('update', 'company'), upsert(models.CompanyEvent, ['company_id']));
     get('/companies/:company_id/events/:id?', can('retrieve', 'company'), retrieve(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     del('/companies/:company_id/events/:id', can('delete', 'company'), remove(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
