@@ -208,6 +208,10 @@ angular.module('tcp').directive('company', [
                 NavigationService.company_by_id(comp.id);
             };
 
+            $scope.get_label = function (obj) {
+                return obj[RUNTIME.locale] || obj.label;
+            };
+
             /**
              * @param {String} guid
              * @param {String} [method]
@@ -220,6 +224,10 @@ angular.module('tcp').directive('company', [
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'))
                     .then(function (company) {
+                        ServicesService.query.companies.retrieve(company.id, ['products'], ['products'])
+                            .then(utils.pluck('products'))
+                            .then(utils.scope.set($scope, 'company_products'));
+
                         ServicesService.query.companies.common.tags(company.id)
                             .then(utils.scope.set($scope, 'common_tags'));
 
@@ -373,6 +381,10 @@ angular.module('tcp').directive('company', [
                 '            <a target="_blank" ng-show="::company.wikipedia_url"',
                 '                ng-href="{{::company.wikipedia_url}}" class="a--action"',
                 '                i18n="common/see_wiki"></a>',
+                '            <div class="margin-top-medium">',
+                '                <tag ng-repeat="product in company_products"',
+                '                    class="tag--word" label="{{get_label(product)}}"></tag>',
+                '            </div>',
                 '        </div>',
 
                 '        <div class="desktop-only site-content--aside__section">',

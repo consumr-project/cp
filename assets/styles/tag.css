@@ -1,3 +1,5 @@
+/* TODO use BEM */
+
 .tag-elem {
     display: inline-block;
 }
@@ -35,6 +37,28 @@
 .tag-elem.keyword[active="true"] {
     background-color: black;
     color: white;
+}
+
+.tag-elem.tag--word {
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    font-weight: 600;
+    margin-right: 10px;
+    padding: 0 0 2px 0;
+    text-transform: uppercase;
+}
+
+.tag--word::after {
+    content: ",";
+    position: absolute;
+    right: -5px;
+}
+
+.tag--word:last-child::after {
+    content: " ";
 }
 
 tags {
