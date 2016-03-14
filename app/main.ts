@@ -101,7 +101,7 @@ module tcp {
             $routeProvider.when('/', {
                 resolve: { PageView },
                 template:
-                    '<div class="site-content">' +
+                    '<div class="site-content page--home">' +
                     '    <search form="true"></search>' +
                     '    <p class="copy--large header-spacing--top" i18n="common/intro"></p>' +
                     '</div>'
