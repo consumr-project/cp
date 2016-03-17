@@ -131,6 +131,22 @@ angular.module('tcp').directive('company', [
                 $scope.find_companies($scope.vm.search_name);
             };
 
+            $scope.create_product = function (str, done) {
+                var product = {};
+
+                utils.assert(str, done);
+                utils.assert(SessionService.USER.id);
+
+                product.id = ServicesService.query.UUID;
+                product.created_by = SessionService.USER.id;
+                product.updated_by = SessionService.USER.id;
+                product[RUNTIME.locale] = str;
+
+                ServicesService.query.products.create(product).then(function (product) {
+                    done(null, normalize_product(product));
+                }).catch(done);
+            };
+
             $scope.query_products = function (str, done) {
                 ServicesService.query.search.products(RUNTIME.locale, str).then(function (products) {
                     done(null, lodash.map(products, normalize_product));
@@ -408,6 +424,7 @@ angular.module('tcp').directive('company', [
                 '            class="pills--bigone"',
                 '            ng-focus="true"',
                 '            selections="company.$products"',
+                '            create="create_product(value, done)"',
                 '            query="query_products(query, done)"',
                 '            placeholder="samples/products"',
                 '        ></pills>',
