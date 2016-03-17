@@ -222,6 +222,10 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             $scope.selections = [];
         }
 
+        $scope.$watchCollection('options', function (options) {
+            $('body').toggleClass('pills--is-showing-options', options && !!options.length);
+        });
+
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
             $scope.empty = !$scope.pills.length;

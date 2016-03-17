@@ -164,3 +164,7 @@ input.pills-element__input {
     position: absolute;
     right: 0;
 }
+
+.pills--is-showing-options button {
+    z-index: -1;
+}
