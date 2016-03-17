@@ -415,7 +415,7 @@ angular.module('tcp').directive('company', [
 
                 '    <section ng-if="!vm.existing">',
                 '        <div class="margin-top-medium margin-bottom-medium" ng-show="company.$loaded">',
-                '            <button ng-if="is_last_step()" ng-click="save()" i18n="admin/this_is_it"></button>',
+                '            <button ng-if="is_last_step()" ng-click="save()" i18n="company/create"></button>',
                 '            <button ng-if="!is_last_step()" ng-click="next_step()" i18n="admin/this_is_it"></button>',
                 '            <button ng-click="back_to_search()" i18n="admin/go_back" class="button--secondary"></button>',
                 '        </div>',

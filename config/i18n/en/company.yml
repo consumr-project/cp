@@ -1,4 +1,5 @@
 name_placeholder: Company name
+create: Create company
 
 # events
 what_is_the_website: "Great! What is the website for {name}?"

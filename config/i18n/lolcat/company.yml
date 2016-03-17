@@ -1,4 +1,5 @@
 name_placeholder: 'company naym'
+create: 'create company'
 what_is_the_website: 'great! wut iz teh websiet 4 {name}?'
 what_do_they_do: 'can u describe wut {name} doez or sells?'
 company_founded: 'company foundd'
