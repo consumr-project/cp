@@ -31,7 +31,7 @@ angular.module('tcp').directive('event', [
 
             '    <section popover-body>',
             '        <section>',
-            '           <label for="source_1_url" i18n="event/source_url"></label>',
+            '           <label for="source_1_url" i18n="event/source_url_primary"></label>',
             '           <input id="source_1_url" type="text" ng-model="ev.$sources[0].url" ',
             '               ng-model-options="{ debounce: { default: 100 } }"',
             '               ng-class="{ loading: ev.$sources[0].$loading }" />',

@@ -1,6 +1,7 @@
 add: 'add an event'
 add_source: 'add another source'
 source_number: 'source {number}'
+source_url_primary: 'primary source url'
 source_url: 'source url'
 source_title: 'source title'
 logo: 'choose which topic best describez dis event'

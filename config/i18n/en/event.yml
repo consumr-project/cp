@@ -2,6 +2,7 @@ add: Add an event
 add_source: Add another source
 
 source_number: Source {number}
+source_url_primary: Primary Source Url
 source_url: Source url
 source_title: Source title
 
