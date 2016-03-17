@@ -86,7 +86,7 @@ angular.module('tcp').directive('user', [
                 '                <td ng-if="!user.$followers_count" i18n="common/none"></td>',
                 '                <td ng-if="user.$followers_count">{{user.$followers_count}}</td>',
                 '                <td ng-if="::is_elsewhere(user)">',
-                '                    <a ng-if="::user.linkedin_url" href="{{::user.linkedin_url}}" target="_blank">',
+                '                    <a ng-if="::user.linkedin_url" href="{{::user.linkedin_url}}" target="_blank" rel="noreferrer">',
                 '                        <img alt="" src="/assets/images/linkedin.png" style="height: 20px; width: 20px" />',
                 '                    </a>',
                 '                </td>',

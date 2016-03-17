@@ -143,6 +143,7 @@ clean:
 	mkdir $(build_dir)
 
 lint:
+	./scripts/static-analyzis
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
 
 local:
