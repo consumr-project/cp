@@ -223,7 +223,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         }
 
         $scope.$watchCollection('options', function (options) {
-            $('body').toggleClass('pills--is-showing-options', options && !!options.length);
+            angular.element('body').toggleClass('pills--is-showing-options', options && !!options.length);
         });
 
         $scope.$watchCollection('selections', function (selections) {
