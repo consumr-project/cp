@@ -54,6 +54,11 @@
     display: none;
 }
 
+.events__event--special,
+.events__event--special * {
+    cursor: default;
+}
+
 .events__event .event-elem--view {
     margin-top: -var(--spacing-large);
 }

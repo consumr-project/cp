@@ -25,6 +25,8 @@ angular.module('tcp').directive('events', [
         function add_special_events(evs) {
             evs.push({
                 $never_filter: true,
+                $never_expand: true,
+                $is_special: true,
                 title: i18n.get('company/company_founded'),
                 logo: DOMAIN.model.event_props.type.company_created,
                 sentiment: DOMAIN.model.event_props.sentiments.neutral,
@@ -188,6 +190,10 @@ angular.module('tcp').directive('events', [
              * @return {void}
              */
             $scope.view = function (ev) {
+                if (ev.$never_expand) {
+                    return;
+                }
+
                 $scope.vm.selected_event_to_view =
                     $scope.vm.selected_event_to_view === ev ? null : ev;
             };
@@ -300,6 +306,7 @@ angular.module('tcp').directive('events', [
                 '           \'events__event--highlight\': event.$highlight,',
                 '           \'events__event--first\': $first,',
                 '           \'events__event--last\': $last,',
+                '           \'events__event--special\': event.$is_special,',
                 '           \'events__event--selected\': vm.selected_event_to_view === event,',
                 '        }" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s"',
