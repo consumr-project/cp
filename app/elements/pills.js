@@ -233,6 +233,9 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
         $elem.click(command.bind(null, $scope, $attrs, $elem, $input));
         $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $elem, $input), 300));
+        $input.one('keydown', function () {
+            $elem.addClass('pills--changed');
+        });
 
         $document.on('focus', '*', check_if_should_hide_results);
         $document.click(check_if_should_hide_results);

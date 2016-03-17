@@ -63,6 +63,10 @@ input.pills-element__input {
     font-size: var(--font-size-xlarge);
 }
 
+.pills--bigone.pills--changed .pills-element__selections__placeholder {
+    display: none;
+}
+
 .pills--bigone .pills-element__pill {
     background: transparent;
     border: 0;
