@@ -128,7 +128,7 @@ angular.module('tcp').directive('event', [
 
             '    <button class="right margin-top-small" ng-click="vm.save()"',
             '        i18n="admin/save"></button>',
-            '    <button class="right margin-top-small button--link" ng-click="onCancel()"',
+            '    <button class="right margin-top-small button--link" ng-click="cancelTriggered()"',
             '        i18n="admin/cancel"></button>',
             '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
             '        i18n="event/add_source"></button>',
@@ -482,6 +482,11 @@ angular.module('tcp').directive('event', [
             $scope.vm.add_source = function () {
                 $scope.ev.$sources.push({});
                 scroll_to_bottom($elem.closest('div'));
+            };
+
+            $scope.cancelTriggered = function () {
+                $elem.find('.pills-container input').val('');
+                $scope.onCancel();
             };
 
             // XXX see "event view in timeline animation start" in events css
