@@ -317,10 +317,10 @@ angular.module('tcp').directive('company', [
                 '        <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
                 '        <a ng-if="company.website_url" href="{{company.website_url}}"',
                 '            target="_blank" rel="noreferrer" class="linkimg animated fadeIn"></a>',
-                '        <button class="company-company__follow margin-left-small button--unselected"',
+                '        <button class="logged-in-only company-company__follow margin-left-small button--unselected"',
                 '            ng-click="on_start_following(company.id)"',
                 '            ng-if="!vm.followed_by_me" i18n="admin/follow"></button>',
-                '        <button class="company-company__follow margin-left-small"',
+                '        <button class="logged-in-only company-company__follow margin-left-small"',
                 '            ng-click="on_stop_following(company.id)"',
                 '            ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
 
@@ -333,7 +333,7 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
-                '            <button ng-click="vm.add_event.show()" i18n="event/add"></button>',
+                '            <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '        </div>',
 
                 '        <events class="margin-top-medium margin-bottom-xlarge" ',

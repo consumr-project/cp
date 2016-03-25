@@ -18,8 +18,8 @@
         <script src="build/i18n.{{lang}}.js"></script>
         {% endif %}
     </head>
-    <body ng-app="tcp" ng-strict-di ng-cloak>
-        <div topmost></div>
+    <body ng-app="tcp" ng-strict-di ng-cloak tcp-state>
+        <div tcp-topmost></div>
         <div ng-view></div>
         <footer class="site-content"></footer>
 
@@ -58,6 +58,7 @@
         <script src="app/components/search.js"></script>
         <script src="app/components/notifications.js"></script>
         <script src="app/components/topmost.js"></script>
+        <script src="app/components/state.js"></script>
         <script src="app/components/company.js"></script>
         <script src="app/components/event.js"></script>
         <script src="app/components/events.js"></script>

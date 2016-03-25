@@ -20,6 +20,14 @@
     -webkit-user-select: none;
 }
 
+.logged-in-only {
+    visibility: hidden;
+}
+
+.--is-logged-in .logged-in-only {
+    visibility: visible;
+}
+
 .half-width {
     width: 50%;
 }

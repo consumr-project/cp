@@ -322,7 +322,7 @@ angular.module('tcp').directive('events', [
                 '            class="left-align fill-background events__event__view">',
                 '            <div class="events__event__edit-menu">',
                 '                <span ng-click="vm.event_view_menu.show = true"',
-                '                    class="right imgview imgview--dot-dot-dot no-outline"></span>',
+                '                    class="logged-in-only right imgview imgview--dot-dot-dot no-outline"></span>',
                 '                <span ng-class="{',
                 '                        \'imgview--bookmarks\': !event.bookmarked_by_me,',
                 '                        \'imgview--bookmarked\': event.bookmarked_by_me,',

@@ -116,6 +116,7 @@ build-app:
 	$(js_min) app/components/search.js >> $(build_app_js)
 	$(js_min) app/components/notifications.js >> $(build_app_js)
 	$(js_min) app/components/topmost.js >> $(build_app_js)
+	$(js_min) app/components/state.js >> $(build_app_js)
 	$(js_min) app/components/company.js >> $(build_app_js)
 	$(js_min) app/components/event.js >> $(build_app_js)
 	$(js_min) app/components/events.js >> $(build_app_js)
