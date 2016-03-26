@@ -8,6 +8,13 @@
 }
 </style>
 <div class="site-content" ng-controller="GuideController">
+    <h1>chart</h1>
+    <rector-markup>
+        <chart type="hbar" values="chart_values" y-labels="chart_y_labels"></chart>
+    </rector-markup>
+    <rector-scope watch-collection="chart_values"></rector-scope>
+    <rector-scope watch-collection="chart_y_labels"></rector-scope>
+
     <h1>date picker</h1>
     <rector-markup>
         <input type="date" ng-date-picker ng-model="dates[0]" />

@@ -21,6 +21,7 @@
     --color-negative: #FC363B;
     --color-positive: #2EC87C;
     --color-link: var(--color-cp-brand);
+    --color-chart-bar: rgb(31, 202, 121);
 
     --color-highlight: #FCF14D;
     --color-separator: rgb(236, 236, 236);

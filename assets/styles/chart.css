@@ -1,0 +1,30 @@
+.chart__label {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.chart--hbar .chart__row + .chart__row {
+    margin-top: var(--spacing-xsmall);
+}
+
+.chart--hbar .chart__bar {
+    background: var(--color-chart-bar);
+    transition: width .4s;
+    width: 0px;
+}
+
+.chart--hbar .chart__label {
+    padding-right: var(--spacing-medium);
+}
+
+.chart--hbar .chart__value {
+    padding-left: var(--spacing-xsmall);
+}
+
+.chart--hbar .chart__bar,
+.chart--hbar .chart__label,
+.chart--hbar .chart__value {
+    display: table-cell;
+    height: 30px;
+    vertical-align: middle;
+}

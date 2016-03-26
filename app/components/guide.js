@@ -15,6 +15,18 @@ angular.module('tcp').controller('GuideController', [
             show: false
         };
 
+        $scope.chart_values = [
+            54, 75, 49, 32, 12
+        ];
+
+        $scope.chart_y_labels = [
+            '5 heart',
+            '4 heart',
+            '3 heart',
+            '2 heart',
+            '1 heart',
+        ];
+
         $scope.goodjob = function () {
             window.alert('good job!');
         };

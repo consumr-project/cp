@@ -33,3 +33,5 @@ redirecting: Redirecting
 # https://en.wikipedia.org/wiki/Comma#In_lists
 enumeration_comma: ", "
 enumeration_comma_last: ", and "
+
+percentage: "{num}%"

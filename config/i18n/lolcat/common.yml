@@ -20,3 +20,4 @@ see_wiki: '+ c moar frum wikipedia'
 redirecting: redirectin
 enumeration_comma: ', '
 enumeration_comma_last: ', an '
+percentage: '{num}%'
