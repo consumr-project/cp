@@ -9,7 +9,6 @@
 
 .chart--hbar .chart__bar {
     background: var(--color-chart-bar);
-    transition: width .4s;
     width: 0px;
 }
 

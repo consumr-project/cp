@@ -7,6 +7,18 @@ angular.module('tcp').directive('chart', [
     function (i18n, lodash) {
         'use strict';
 
+        var TEMPLATE = [
+            '<div class="chart" ng-switch="type">',
+            '    <div ng-switch-when="hbar" class="chart--hbar">',
+            '        <div ng-repeat="value in ::values" class="chart__row">',
+            '            <span class="chart__label">{{yLabels[$index]}}</span>',
+            '            <span class="chart__bar" ng-style="hbar_styles(value)"></span>',
+            '            <span class="chart__value">{{per_label(calc_per(value))}}</span>',
+            '        </div>',
+            '    </div>',
+            '</div>'
+        ].join('');
+
         var TYPE = {
             hbar: 'hbar',
         };
@@ -25,10 +37,28 @@ angular.module('tcp').directive('chart', [
          * @return {void}
          */
         function controller($scope) {
+            /**
+             * @param {Number} val
+             * @return {Number}
+             */
             $scope.calc_per = function (val) {
                 return Math.round(val / lodash.reduce($scope.values, sum, 0) * 100);
             };
 
+            /**
+             * @param {Number} val
+             * @return {Object}
+             */
+            $scope.hbar_styles = function (val) {
+                return {
+                    width: $scope.calc_per(val) * 4 + 'px'
+                };
+            };
+
+            /**
+             * @param {Number} val
+             * @return {String}
+             */
             $scope.per_label = function (num) {
                 return i18n.get('common/percentage', {
                     num: num
@@ -39,22 +69,12 @@ angular.module('tcp').directive('chart', [
         return {
             replace: true,
             controller: ['$scope', controller],
+            template: TEMPLATE,
             scope: {
                 type: '@',
                 values: '=',
                 yLabels: '=',
             },
-            template: [
-                '<div class="chart" ng-switch="type">',
-                '    <div ng-switch-when="hbar" class="chart--hbar">',
-                '        <div ng-repeat="value in ::values" class="chart__row">',
-                '            <span class="chart__label">{{yLabels[$index]}}</span>',
-                '            <span class="chart__bar" style="width: {{calc_per(value) * 4}}px"></span>',
-                '            <span class="chart__value">{{per_label(calc_per(value))}}</span>',
-                '        </div>',
-                '    </div>',
-                '</div>'
-            ].join('')
         };
     }
 ]);
