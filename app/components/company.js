@@ -2,13 +2,13 @@ angular.module('tcp').directive('company', [
     'RUNTIME',
     'DOMAIN',
     'Feature',
-    'NavigationService',
+    'Navigation',
     'ServicesService',
     'SessionService',
     'utils',
     'lodash',
     '$q',
-    function (RUNTIME, DOMAIN, Feature, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
+    function (RUNTIME, DOMAIN, Feature, Navigation, ServicesService, SessionService, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -54,7 +54,7 @@ angular.module('tcp').directive('company', [
                                 product_id: product.id,
                             });
                         })).then(function () {
-                            NavigationService.company(company.guid);
+                            Navigation.company(company.guid);
                             console.info('saved company', company.id);
                             return company;
                         });
@@ -213,7 +213,7 @@ angular.module('tcp').directive('company', [
              * @return {void}
              */
             $scope.go_to_company = function (comp) {
-                NavigationService.company_by_id(comp.id);
+                Navigation.company_by_id(comp.id);
             };
 
             $scope.get_label = function (obj) {

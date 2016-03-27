@@ -4,10 +4,10 @@
  */
 angular.module('tcp').directive('search', [
     'ServicesService',
-    'NavigationService',
+    'Navigation',
     'RecentSearches',
     'lodash',
-    function (ServicesService, NavigationService, RecentSearches, lodash) {
+    function (ServicesService, Navigation, RecentSearches, lodash) {
         'use strict';
 
         /**
@@ -64,11 +64,11 @@ angular.module('tcp').directive('search', [
          * @return {void}
          */
         function controller($scope) {
-            $scope.nav = NavigationService;
+            $scope.nav = Navigation;
             $scope.vm = new_state();
 
             $scope.search = function (query, $event) {
-                NavigationService.search(query, $event);
+                Navigation.search(query, $event);
                 search(query, $scope);
             };
 

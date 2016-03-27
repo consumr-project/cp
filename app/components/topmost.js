@@ -1,12 +1,12 @@
 angular.module('tcp').directive('tcpTopmost', [
     '$interval',
-    'NavigationService',
+    'Navigation',
     'ServicesService',
     'SessionService',
     'utils',
     'Cookie',
     'lodash',
-    function ($interval, NavigationService, ServicesService, SessionService, utils, Cookie, _) {
+    function ($interval, Navigation, ServicesService, SessionService, utils, Cookie, _) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -27,11 +27,11 @@ angular.module('tcp').directive('tcpTopmost', [
             };
 
             $scope.nav = {
-                home: NavigationService.home,
-                search: NavigationService.search,
-                company: NavigationService.company,
-                notifications: NavigationService.notifications,
-                profile: NavigationService.user_me,
+                home: Navigation.home,
+                search: Navigation.search,
+                company: Navigation.company,
+                notifications: Navigation.notifications,
+                profile: Navigation.user_me,
             };
 
             $scope.with_linkedin = login_with_linkedin;
@@ -117,13 +117,13 @@ angular.module('tcp').directive('tcpTopmost', [
             }
 
             function update_page_view_status() {
-                $scope.nav.search.active = NavigationService.oneOf([
-                    NavigationService.BASES.SEARCH
+                $scope.nav.search.active = Navigation.oneOf([
+                    Navigation.BASES.SEARCH
                 ]);
 
-                $scope.nav.search.included = NavigationService.oneOf([
-                    NavigationService.BASES.HOME,
-                    NavigationService.BASES.SEARCH
+                $scope.nav.search.included = Navigation.oneOf([
+                    Navigation.BASES.HOME,
+                    Navigation.BASES.SEARCH
                 ]);
             }
         }

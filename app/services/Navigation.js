@@ -1,4 +1,4 @@
-angular.module('tcp').service('NavigationService', [
+angular.module('tcp').service('Navigation', [
     '$location',
     function ($location) {
         'use strict';
