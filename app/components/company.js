@@ -1,13 +1,14 @@
 angular.module('tcp').directive('company', [
     'RUNTIME',
     'DOMAIN',
+    'Feature',
     'NavigationService',
     'ServicesService',
     'SessionService',
     'utils',
     'lodash',
     '$q',
-    function (RUNTIME, DOMAIN, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
+    function (RUNTIME, DOMAIN, Feature, NavigationService, ServicesService, SessionService, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -23,6 +24,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
+                feature_company_reviews: Feature.on('company_reviews'),
                 followed_by_me: false,
                 step: [true],
                 pre_search_name: '',
@@ -323,6 +325,7 @@ angular.module('tcp').directive('company', [
                 '        <button class="logged-in-only company-company__follow margin-left-small"',
                 '            ng-click="on_stop_following(company.id)"',
                 '            ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
+                '        <span ng-if="vm.feature_company_reviews">company reviews</span>',
 
                 '        <hr>',
 

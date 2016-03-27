@@ -122,6 +122,7 @@ build-app:
 	$(js_min) app/components/event.js >> $(build_app_js)
 	$(js_min) app/components/events.js >> $(build_app_js)
 	$(js_min) app/services/NavigationService.js >> $(build_app_js)
+	$(js_min) app/services/Feature.js >> $(build_app_js)
 	$(js_min) app/services/ServicesService.js >> $(build_app_js)
 	$(js_min) app/services/SessionService.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)

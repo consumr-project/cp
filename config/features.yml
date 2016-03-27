@@ -1,0 +1,14 @@
+# XXX
+#
+# - delete entries as soon as they are not used
+#
+# - sample entry:
+#   ```
+#   # an explination why this exists
+#   name_of_feature:
+#     enabled: true | false
+#   ```
+
+# show/hide reviews element and reviews section/page for companies
+company_reviews:
+  enabled: false
