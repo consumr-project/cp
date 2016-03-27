@@ -123,7 +123,7 @@ build-app:
 	$(js_min) app/components/events.js >> $(build_app_js)
 	$(js_min) app/services/Navigation.js >> $(build_app_js)
 	$(js_min) app/services/Feature.js >> $(build_app_js)
-	$(js_min) app/services/ServicesService.js >> $(build_app_js)
+	$(js_min) app/services/Services.js >> $(build_app_js)
 	$(js_min) app/services/SessionService.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)

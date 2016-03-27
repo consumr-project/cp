@@ -1,12 +1,12 @@
 angular.module('tcp').directive('tcpTopmost', [
     '$interval',
     'Navigation',
-    'ServicesService',
+    'Services',
     'SessionService',
     'utils',
     'Cookie',
     'lodash',
-    function ($interval, Navigation, ServicesService, SessionService, utils, Cookie, _) {
+    function ($interval, Navigation, Services, SessionService, utils, Cookie, _) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -77,8 +77,8 @@ angular.module('tcp').directive('tcpTopmost', [
              * @return {Promise}
              */
             function get_messages() {
-                ServicesService.notification.get.cancel();
-                return ServicesService.notification.get().then(function (items) {
+                Services.notification.get.cancel();
+                return Services.notification.get().then(function (items) {
                     $scope.session.message_count = items.length;
                 });
             }

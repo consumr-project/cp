@@ -1,8 +1,8 @@
 angular.module('tcp').service('SessionService', [
     'EventEmitter2',
-    'ServicesService',
+    'Services',
     '$document',
-    function (EventEmitter2, ServicesService, $document) {
+    function (EventEmitter2, Services, $document) {
         'use strict';
 
         var events = {
@@ -34,14 +34,14 @@ angular.module('tcp').service('SessionService', [
          * @return {Window}
          */
         function login(provider) {
-            return ServicesService.auth.login(provider);
+            return Services.auth.login(provider);
         }
 
         /**
          * @return {Promise}
          */
         function logout() {
-            return ServicesService.auth.logout().then(refresh);
+            return Services.auth.logout().then(refresh);
         }
 
         /**
@@ -49,7 +49,7 @@ angular.module('tcp').service('SessionService', [
          * @return {Promise}
          */
         function refresh() {
-            return ServicesService.auth.user()
+            return Services.auth.user()
                 .then(set_user)
                 .catch(emit(events.ERROR));
         }

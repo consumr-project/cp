@@ -3,12 +3,12 @@ angular.module('tcp').directive('company', [
     'DOMAIN',
     'Feature',
     'Navigation',
-    'ServicesService',
+    'Services',
     'SessionService',
     'utils',
     'lodash',
     '$q',
-    function (RUNTIME, DOMAIN, Feature, Navigation, ServicesService, SessionService, utils, lodash, $q) {
+    function (RUNTIME, DOMAIN, Feature, Navigation, Services, SessionService, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -46,10 +46,10 @@ angular.module('tcp').directive('company', [
                 utils.assert($scope.company.name, 'company name is required');
 
                 // XXX should be one request
-                return ServicesService.query.companies.create(get_new_company_object()).then(function (company) {
+                return Services.query.companies.create(get_new_company_object()).then(function (company) {
                     return $scope.on_start_following(company.id).then(function () {
                         return $q.all(lodash.map($scope.company.$products, function (product) {
-                            return ServicesService.query.companies.products.upsert(company.id, {
+                            return Services.query.companies.products.upsert(company.id, {
                                 company_id: company.id,
                                 product_id: product.id,
                             });
@@ -69,8 +69,8 @@ angular.module('tcp').directive('company', [
             $scope.set_company = function (name) {
                 utils.assert(name);
 
-                ServicesService.extract.wikipedia.extract.cancel();
-                return ServicesService.extract.wikipedia.extract(name).then(function (res) {
+                Services.extract.wikipedia.extract.cancel();
+                return Services.extract.wikipedia.extract(name).then(function (res) {
                     $scope.vm.company_options = null;
                     $scope.vm.pre_search_name = $scope.vm.search_name;
                     $scope.vm.search_name = res.body.title;
@@ -83,8 +83,8 @@ angular.module('tcp').directive('company', [
 
 
                     // get a better website url
-                    ServicesService.extract.wikipedia.infobox.cancel();
-                    return ServicesService.extract.wikipedia.infobox(name).then(function (res) {
+                    Services.extract.wikipedia.infobox.cancel();
+                    return Services.extract.wikipedia.infobox(name).then(function (res) {
                         $scope.company.website_url = lodash.head(lodash.get(res, 'body.parts.urls')) ||
                             $scope.company.website_url;
                     });
@@ -101,8 +101,8 @@ angular.module('tcp').directive('company', [
                 $scope.vm.loading = true;
                 $scope.vm.company_options = null;
 
-                ServicesService.extract.wikipedia.search.cancel();
-                ServicesService.extract.wikipedia.search(name).then(function (res) {
+                Services.extract.wikipedia.search.cancel();
+                Services.extract.wikipedia.search(name).then(function (res) {
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
                     $scope.company.$loaded = false;
@@ -139,18 +139,18 @@ angular.module('tcp').directive('company', [
                 utils.assert(str, done);
                 utils.assert(SessionService.USER.id);
 
-                product.id = ServicesService.query.UUID;
+                product.id = Services.query.UUID;
                 product.created_by = SessionService.USER.id;
                 product.updated_by = SessionService.USER.id;
                 product[RUNTIME.locale] = str;
 
-                ServicesService.query.products.create(product).then(function (product) {
+                Services.query.products.create(product).then(function (product) {
                     done(null, normalize_product(product));
                 }).catch(done);
             };
 
             $scope.query_products = function (str, done) {
-                ServicesService.query.search.products(RUNTIME.locale, str).then(function (products) {
+                Services.query.search.products(RUNTIME.locale, str).then(function (products) {
                     done(null, lodash.map(products, normalize_product));
                 }).catch(done);
             };
@@ -163,7 +163,7 @@ angular.module('tcp').directive('company', [
                 utils.assert(company_id);
                 utils.assert(SessionService.USER);
 
-                return ServicesService.query.companies.followers.upsert(company_id, {
+                return Services.query.companies.followers.upsert(company_id, {
                     user_id: SessionService.USER.id
                 }).then(utils.scope.set($scope, 'vm.followed_by_me', true));
             };
@@ -176,7 +176,7 @@ angular.module('tcp').directive('company', [
                 utils.assert(company_id);
                 utils.assert(SessionService.USER);
 
-                return ServicesService.query.companies.followers.delete(company_id, SessionService.USER.id)
+                return Services.query.companies.followers.delete(company_id, SessionService.USER.id)
                     .then(utils.scope.set($scope, 'vm.followed_by_me', false));
             };
 
@@ -227,22 +227,22 @@ angular.module('tcp').directive('company', [
              */
             function load(guid, method) {
                 method = method || 'guid';
-                return ServicesService.query.companies[method](guid)
+                return Services.query.companies[method](guid)
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'))
                     .then(function (company) {
-                        ServicesService.query.companies.retrieve(company.id, ['products', 'followers'], ['products'])
+                        Services.query.companies.retrieve(company.id, ['products', 'followers'], ['products'])
                             .then(function (company) {
                                 $scope.vm.followed_by_me = company.followers["@meta"].instead.includes_me;
                                 $scope.company_products = company.products;
                                 return company;
                             });
 
-                        ServicesService.query.companies.common.tags(company.id)
+                        Services.query.companies.common.tags(company.id)
                             .then(utils.scope.set($scope, 'common_tags'));
 
-                        ServicesService.query.companies.common.companies(company.id)
+                        Services.query.companies.common.companies(company.id)
                             .then(utils.scope.set($scope, 'common_companies'));
 
                         return company;
@@ -281,7 +281,7 @@ angular.module('tcp').directive('company', [
              */
             function get_new_company_object() {
                 return {
-                    id: $scope.company.id || ServicesService.query.UUID,
+                    id: $scope.company.id || Services.query.UUID,
                     name: $scope.company.name,
                     guid: utils.simplify($scope.company.name),
                     summary: $scope.company.summary,

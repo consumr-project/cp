@@ -1,4 +1,4 @@
-angular.module('tcp').service('ServicesService', [
+angular.module('tcp').service('Services', [
     '$http',
     '$q',
     'lodash',

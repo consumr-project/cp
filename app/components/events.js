@@ -5,9 +5,9 @@ angular.module('tcp').directive('events', [
     'lodash',
     'utils',
     'i18n',
-    'ServicesService',
+    'Services',
     'SessionService',
-    function (DOMAIN, $q, $timeout, lodash, utils, i18n, ServicesService, SessionService) {
+    function (DOMAIN, $q, $timeout, lodash, utils, i18n, Services, SessionService) {
         'use strict';
 
         /**
@@ -97,7 +97,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_event(event_id) {
-            return ServicesService.query.events.retrieve(event_id, ['sources', 'bookmarks', 'tags']);
+            return Services.query.events.retrieve(event_id, ['sources', 'bookmarks', 'tags']);
         }
 
         /**
@@ -106,7 +106,7 @@ angular.module('tcp').directive('events', [
          * @return {Promise}
          */
         function get_events(company_id) {
-            return ServicesService.query.companies.events.retrieve(company_id).then(function (events) {
+            return Services.query.companies.events.retrieve(company_id).then(function (events) {
                 return $q.all(
                     lodash
                         .chain(events)
@@ -244,12 +244,12 @@ angular.module('tcp').directive('events', [
                     ev.bookmarked_by_me = false;
                     ev.bookmark_count--;
 
-                    ServicesService.query.events.bookmarks.delete(ev.id, SessionService.USER.id);
+                    Services.query.events.bookmarks.delete(ev.id, SessionService.USER.id);
                 } else {
                     ev.bookmarked_by_me = true;
                     ev.bookmark_count++;
 
-                    ServicesService.query.events.bookmarks.upsert(ev.id, {
+                    Services.query.events.bookmarks.upsert(ev.id, {
                         user_id: SessionService.USER.id
                     });
                 }

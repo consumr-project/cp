@@ -3,11 +3,11 @@
  * @attribute {String} query search
  */
 angular.module('tcp').directive('search', [
-    'ServicesService',
+    'Services',
     'Navigation',
     'RecentSearches',
     'lodash',
-    function (ServicesService, Navigation, RecentSearches, lodash) {
+    function (Services, Navigation, RecentSearches, lodash) {
         'use strict';
 
         /**
@@ -48,7 +48,7 @@ angular.module('tcp').directive('search', [
             $scope.query = query;
             $scope.vm.loading = true;
 
-            return ServicesService.search.query(query).then(function (results) {
+            return Services.search.query(query).then(function (results) {
                 var groups = lodash.groupBy(results.body, 'type');
 
                 $scope.vm.results.companies = groups.company;

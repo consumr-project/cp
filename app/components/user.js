@@ -1,8 +1,8 @@
 angular.module('tcp').directive('user', [
-    'ServicesService',
+    'Services',
     'SessionService',
     'utils',
-    function (ServicesService, SessionService, utils) {
+    function (Services, SessionService, utils) {
         'use strict';
 
         function controller($scope) {
@@ -14,7 +14,7 @@ angular.module('tcp').directive('user', [
              * @return {Promise}
              */
             function load(id) {
-                return ServicesService.query.users.retrieve(id).then(function (user) {
+                return Services.query.users.retrieve(id).then(function (user) {
                     $scope.user = user;
                     $scope.user.$summary = utils.summaryze(user.summary || '');
                     $scope.user.$followers_count = 0;

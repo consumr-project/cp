@@ -1,10 +1,10 @@
 angular.module('tcp').directive('notifications', [
     'DOMAIN',
-    'ServicesService',
+    'Services',
     'SessionService',
     'utils',
     'lodash',
-    function (DOMAIN, ServicesService, SessionService, utils, lodash) {
+    function (DOMAIN, Services, SessionService, utils, lodash) {
         'use strict';
 
         /**
@@ -30,7 +30,7 @@ angular.module('tcp').directive('notifications', [
                     normalized = normalize_notification(notification);
 
                 switch (notification.subject) {
-                    case ServicesService.notification.TYPE.MISSING_INFORMATION:
+                    case Services.notification.TYPE.MISSING_INFORMATION:
                         type = notification.payload.obj_type;
                         group[subject] = lodash.get(group, subject, {});
                         group[subject][type] = lodash.get(group[subject], type, []);
@@ -63,7 +63,7 @@ angular.module('tcp').directive('notifications', [
             $scope.ignore = function (notification) {
                 notification.$loading = true;
 
-                return ServicesService.notification.delete(notification.id).then(function (action) {
+                return Services.notification.delete(notification.id).then(function (action) {
                     SessionService.emit(SessionService.EVENT.NOTIFY);
                     notification.$loading = false;
                     notification.$deleted = action && action.ok;
@@ -81,7 +81,7 @@ angular.module('tcp').directive('notifications', [
                 $scope.vm.notification_popup.hide();
                 notification.$loading = true;
 
-                return ServicesService.query.companies.update(
+                return Services.query.companies.update(
                     notification.payload.obj_id,
                     $scope.vm.selected_notification.$update
                 ).then($scope.ignore.bind(null, notification));
@@ -99,7 +99,7 @@ angular.module('tcp').directive('notifications', [
 
                 switch (notification.payload.obj_type) {
                     case DOMAIN.model.company:
-                        ServicesService.query.companies.retrieve(notification.payload.obj_id).then(function (company) {
+                        Services.query.companies.retrieve(notification.payload.obj_id).then(function (company) {
                             $scope.vm.loading_obj = false;
                             lodash.map(notification.payload.obj_fields, function (field) {
                                 $scope.vm.selected_notification.$update[field] = company[field];
@@ -115,8 +115,8 @@ angular.module('tcp').directive('notifications', [
 
             if (SessionService.USER.id) {
                 $scope.vm.loading = true;
-                ServicesService.notification.get(
-                    ServicesService.notification.TYPE.MISSING_INFORMATION)
+                Services.notification.get(
+                    Services.notification.TYPE.MISSING_INFORMATION)
                         .then(normalize_notifications)
                         .then(utils.scope.set($scope, 'notifications'))
                         .then(utils.scope.set($scope, 'vm.loading', false));
