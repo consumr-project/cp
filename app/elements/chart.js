@@ -10,10 +10,10 @@ angular.module('tcp').directive('chart', [
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
             '    <div ng-switch-when="hbar" class="chart--hbar">',
-            '        <div ng-repeat="value in ::values" class="chart__row">',
-            '            <span class="chart__label">{{yLabels[$index]}}</span>',
-            '            <span class="chart__bar" ng-style="hbar_styles(value)"></span>',
-            '            <span class="chart__value">{{per_label(calc_per(value))}}</span>',
+            '        <div ng-repeat="label in ::yLabels" class="chart__row">',
+            '            <span class="chart__label">{{label}}</span>',
+            '            <span class="chart__bar" ng-style="hbar_styles(values[$index])"></span>',
+            '            <span class="chart__value">{{per_label(calc_per(values[$index]))}}</span>',
             '        </div>',
             '    </div>',
             '</div>'
@@ -42,7 +42,7 @@ angular.module('tcp').directive('chart', [
              * @return {Number}
              */
             $scope.calc_per = function (val) {
-                return Math.round(val / lodash.reduce($scope.values, sum, 0) * 100);
+                return !val ? 0 : Math.round(val / lodash.reduce($scope.values, sum, 0) * 100);
             };
 
             /**

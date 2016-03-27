@@ -2,10 +2,28 @@ angular.module('tcp').controller('GuideController', [
     'RUNTIME',
     '$scope',
     '$timeout',
+    '$interval',
     'lodash',
     'ServicesService',
-    function (RUNTIME, $scope, $timeout, lodash, ServicesService) {
+    function (RUNTIME, $scope, $timeout, $interval, lodash, ServicesService) {
         'use strict';
+
+        function randombetween(min, max) {
+            return Math.floor(Math.random()*(max-min+1)+min);
+        }
+
+        function generate(max, thecount) {
+            var r = [];
+            var currsum = 0;
+
+            for(var i = 0; i < thecount - 1; i++) {
+                r[i] = randombetween(1, max-(thecount-i-1)-currsum);
+                currsum += r[i];
+            }
+
+            r[thecount-1] = max - currsum;
+            return r;
+        }
 
         $scope.counter = 42;
         $scope.tags = [];
@@ -15,9 +33,9 @@ angular.module('tcp').controller('GuideController', [
             show: false
         };
 
-        $scope.chart_values = [
-            54, 75, 49, 32, 12
-        ];
+        $interval(function () {
+            $scope.chart_values = generate(100, 5);
+        }, 1000);
 
         $scope.chart_y_labels = [
             '5 heart',
