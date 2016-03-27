@@ -1,8 +1,8 @@
 angular.module('tcp').directive('user', [
     'Services',
-    'SessionService',
+    'Session',
     'utils',
-    function (Services, SessionService, utils) {
+    function (Services, Session, utils) {
         'use strict';
 
         function controller($scope) {
@@ -26,8 +26,8 @@ angular.module('tcp').directive('user', [
              * what can be done in this page?
              */
             function update_actionable_items() {
-                $scope.vm.loggedin = !!SessionService.USER.id;
-                $scope.vm.myself = $scope.id === SessionService.USER.id;
+                $scope.vm.loggedin = !!Session.USER.id;
+                $scope.vm.myself = $scope.id === Session.USER.id;
             }
 
             /**
@@ -50,8 +50,8 @@ angular.module('tcp').directive('user', [
                 load($scope.id);
             }
 
-            SessionService.on(SessionService.EVENT.LOGIN, update_actionable_items);
-            SessionService.on(SessionService.EVENT.LOGOUT, update_actionable_items);
+            Session.on(Session.EVENT.LOGIN, update_actionable_items);
+            Session.on(Session.EVENT.LOGOUT, update_actionable_items);
         }
 
         return {

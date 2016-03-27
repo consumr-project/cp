@@ -5,8 +5,8 @@ angular.module('tcp').directive('event', [
     'lodash',
     'utils',
     'Services',
-    'SessionService',
-    function (RUNTIME, DOMAIN, $q, lodash, utils, Services, SessionService) {
+    'Session',
+    function (RUNTIME, DOMAIN, $q, lodash, utils, Services, Session) {
         'use strict';
 
         var HTML_VIEW = [
@@ -276,8 +276,8 @@ angular.module('tcp').directive('event', [
                 date: new Date(ev.$date).valueOf(),
                 sentiment: ev.sentiment,
                 logo: ev.logo,
-                created_by: ev.created_by || SessionService.USER.id,
-                updated_by: SessionService.USER.id,
+                created_by: ev.created_by || Session.USER.id,
+                updated_by: Session.USER.id,
             };
         }
 
@@ -314,8 +314,8 @@ angular.module('tcp').directive('event', [
                 url: source.url,
                 published_date: new Date(source.$published_date).valueOf(),
                 summary: source.summary,
-                created_by: source.created_by || SessionService.USER.id,
-                updated_by: SessionService.USER.id
+                created_by: source.created_by || Session.USER.id,
+                updated_by: Session.USER.id
             };
         }
 
@@ -402,7 +402,7 @@ angular.module('tcp').directive('event', [
                                 get_normalized_missing_information_company_notification(company, ev));
                         })
                     )).then(function (res) {
-                        SessionService.emit(SessionService.EVENT.NOTIFY);
+                        Session.emit(Session.EVENT.NOTIFY);
                         $scope.onSave({ ev: ev, children: res });
                     });
                 });
@@ -416,14 +416,14 @@ angular.module('tcp').directive('event', [
 
             $scope.vm.create_company = function (str, done) {
                 utils.assert(str, done);
-                utils.assert(SessionService.USER.id);
+                utils.assert(Session.USER.id);
 
                 Services.query.companies.create({
                     id: Services.query.UUID,
                     name: str,
                     guid: utils.simplify(str),
-                    created_by: SessionService.USER.id,
-                    updated_by: SessionService.USER.id
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id
                 }).then(function (company) {
                     has_missing_information.push(company);
                     done(null, normalize_company(company));
@@ -438,12 +438,12 @@ angular.module('tcp').directive('event', [
 
             $scope.vm.create_tag = function (str, done) {
                 utils.assert(str, done);
-                utils.assert(SessionService.USER.id);
+                utils.assert(Session.USER.id);
 
                 var tag = {
                     id: Services.query.UUID,
-                    created_by: SessionService.USER.id,
-                    updated_by: SessionService.USER.id
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id
                 };
 
                 tag[RUNTIME.locale] = str;

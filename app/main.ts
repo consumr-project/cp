@@ -85,8 +85,8 @@ module tcp {
                 query.map(prop => $scope[prop] = $location.search()[prop]);
             }];
 
-            let UserCheck = ['SessionService', SessionService =>
-                SessionService.refresh()];
+            let UserCheck = ['Session', Session =>
+                Session.refresh()];
 
             let PageView = ['Visitor', Visitor =>
                 Visitor.pageview(window.location.pathname + window.location.search).send()];
@@ -125,8 +125,8 @@ module tcp {
             $routeProvider.when('/user/me', {
                 template: '<user class="site-content" id="{{id}}"></user>',
                 resolve: { UserCheck, PageView },
-                controller: ['$scope', 'SessionService', function ($scope, SessionService) {
-                    $scope.id = SessionService.USER.id;
+                controller: ['$scope', 'Session', function ($scope, Session) {
+                    $scope.id = Session.USER.id;
                 }]
             });
 

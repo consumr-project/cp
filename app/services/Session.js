@@ -1,4 +1,4 @@
-angular.module('tcp').service('SessionService', [
+angular.module('tcp').service('Session', [
     'EventEmitter2',
     'Services',
     '$document',

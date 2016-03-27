@@ -2,11 +2,11 @@ angular.module('tcp').directive('tcpTopmost', [
     '$interval',
     'Navigation',
     'Services',
-    'SessionService',
+    'Session',
     'utils',
     'Cookie',
     'lodash',
-    function ($interval, Navigation, Services, SessionService, utils, Cookie, _) {
+    function ($interval, Navigation, Services, Session, utils, Cookie, _) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -39,11 +39,11 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.logout = logout;
 
             $scope.$watchCollection('session', cache_session);
-            SessionService.on(SessionService.EVENT.LOGIN, update_current_user);
-            SessionService.on(SessionService.EVENT.LOGIN, get_messages);
-            SessionService.on(SessionService.EVENT.ERROR, clear_session);
-            SessionService.on(SessionService.EVENT.LOGOUT, clear_session);
-            SessionService.on(SessionService.EVENT.NOTIFY, get_messages);
+            Session.on(Session.EVENT.LOGIN, update_current_user);
+            Session.on(Session.EVENT.LOGIN, get_messages);
+            Session.on(Session.EVENT.ERROR, clear_session);
+            Session.on(Session.EVENT.LOGOUT, clear_session);
+            Session.on(Session.EVENT.NOTIFY, get_messages);
 
             sync();
             $interval(sync, SYNC_INTERVAL);
@@ -52,7 +52,7 @@ angular.module('tcp').directive('tcpTopmost', [
             function login_with_linkedin() {
                 console.info('loggin in with linkedin');
                 $scope.login.hide();
-                SessionService.login(SessionService.PROVIDER.LINKEDIN);
+                Session.login(Session.PROVIDER.LINKEDIN);
             }
 
             function login() {
@@ -61,7 +61,7 @@ angular.module('tcp').directive('tcpTopmost', [
 
             function logout() {
                 console.info('logging out');
-                SessionService.logout();
+                Session.logout();
                 $scope.actions.show = false;
             }
 
@@ -69,7 +69,7 @@ angular.module('tcp').directive('tcpTopmost', [
              * caches user information
              */
             function update_current_user() {
-                $scope.session.email = SessionService.USER.email;
+                $scope.session.email = Session.USER.email;
                 $scope.session.logged_in = true;
             }
 
@@ -87,7 +87,7 @@ angular.module('tcp').directive('tcpTopmost', [
              * @return {void}
              */
             function sync() {
-                SessionService.refresh().then(function (user) {
+                Session.refresh().then(function (user) {
                     if (user && user.id) {
                         get_messages();
                     }

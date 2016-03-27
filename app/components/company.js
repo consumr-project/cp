@@ -4,11 +4,11 @@ angular.module('tcp').directive('company', [
     'Feature',
     'Navigation',
     'Services',
-    'SessionService',
+    'Session',
     'utils',
     'lodash',
     '$q',
-    function (RUNTIME, DOMAIN, Feature, Navigation, Services, SessionService, utils, lodash, $q) {
+    function (RUNTIME, DOMAIN, Feature, Navigation, Services, Session, utils, lodash, $q) {
         'use strict';
 
         function controller($scope) {
@@ -42,7 +42,7 @@ angular.module('tcp').directive('company', [
              * @return {Promise}
              */
             $scope.save = function () {
-                utils.assert(SessionService.USER, 'login required for action');
+                utils.assert(Session.USER, 'login required for action');
                 utils.assert($scope.company.name, 'company name is required');
 
                 // XXX should be one request
@@ -137,11 +137,11 @@ angular.module('tcp').directive('company', [
                 var product = {};
 
                 utils.assert(str, done);
-                utils.assert(SessionService.USER.id);
+                utils.assert(Session.USER.id);
 
                 product.id = Services.query.UUID;
-                product.created_by = SessionService.USER.id;
-                product.updated_by = SessionService.USER.id;
+                product.created_by = Session.USER.id;
+                product.updated_by = Session.USER.id;
                 product[RUNTIME.locale] = str;
 
                 Services.query.products.create(product).then(function (product) {
@@ -161,10 +161,10 @@ angular.module('tcp').directive('company', [
              */
             $scope.on_start_following = function (company_id) {
                 utils.assert(company_id);
-                utils.assert(SessionService.USER);
+                utils.assert(Session.USER);
 
                 return Services.query.companies.followers.upsert(company_id, {
-                    user_id: SessionService.USER.id
+                    user_id: Session.USER.id
                 }).then(utils.scope.set($scope, 'vm.followed_by_me', true));
             };
 
@@ -174,9 +174,9 @@ angular.module('tcp').directive('company', [
              */
             $scope.on_stop_following = function (company_id) {
                 utils.assert(company_id);
-                utils.assert(SessionService.USER);
+                utils.assert(Session.USER);
 
-                return Services.query.companies.followers.delete(company_id, SessionService.USER.id)
+                return Services.query.companies.followers.delete(company_id, Session.USER.id)
                     .then(utils.scope.set($scope, 'vm.followed_by_me', false));
             };
 
@@ -287,8 +287,8 @@ angular.module('tcp').directive('company', [
                     summary: $scope.company.summary,
                     website_url: $scope.company.website_url,
                     wikipedia_url: $scope.company.wikipedia_url,
-                    created_by: SessionService.USER.id,
-                    updated_by: SessionService.USER.id,
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id,
                 };
             }
 

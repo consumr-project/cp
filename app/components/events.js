@@ -6,8 +6,8 @@ angular.module('tcp').directive('events', [
     'utils',
     'i18n',
     'Services',
-    'SessionService',
-    function (DOMAIN, $q, $timeout, lodash, utils, i18n, Services, SessionService) {
+    'Session',
+    function (DOMAIN, $q, $timeout, lodash, utils, i18n, Services, Session) {
         'use strict';
 
         /**
@@ -237,20 +237,20 @@ angular.module('tcp').directive('events', [
                 $ev.stopPropagation();
 
                 utils.assert(ev && ev.id);
-                utils.assert(SessionService.USER);
-                utils.assert(SessionService.USER.id);
+                utils.assert(Session.USER);
+                utils.assert(Session.USER.id);
 
                 if (ev.bookmarked_by_me) {
                     ev.bookmarked_by_me = false;
                     ev.bookmark_count--;
 
-                    Services.query.events.bookmarks.delete(ev.id, SessionService.USER.id);
+                    Services.query.events.bookmarks.delete(ev.id, Session.USER.id);
                 } else {
                     ev.bookmarked_by_me = true;
                     ev.bookmark_count++;
 
                     Services.query.events.bookmarks.upsert(ev.id, {
-                        user_id: SessionService.USER.id
+                        user_id: Session.USER.id
                     });
                 }
             };

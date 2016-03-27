@@ -1,10 +1,10 @@
 angular.module('tcp').directive('notifications', [
     'DOMAIN',
     'Services',
-    'SessionService',
+    'Session',
     'utils',
     'lodash',
-    function (DOMAIN, Services, SessionService, utils, lodash) {
+    function (DOMAIN, Services, Session, utils, lodash) {
         'use strict';
 
         /**
@@ -64,7 +64,7 @@ angular.module('tcp').directive('notifications', [
                 notification.$loading = true;
 
                 return Services.notification.delete(notification.id).then(function (action) {
-                    SessionService.emit(SessionService.EVENT.NOTIFY);
+                    Session.emit(Session.EVENT.NOTIFY);
                     notification.$loading = false;
                     notification.$deleted = action && action.ok;
                 }).catch(function () {
@@ -113,7 +113,7 @@ angular.module('tcp').directive('notifications', [
                 }
             };
 
-            if (SessionService.USER.id) {
+            if (Session.USER.id) {
                 $scope.vm.loading = true;
                 Services.notification.get(
                     Services.notification.TYPE.MISSING_INFORMATION)
