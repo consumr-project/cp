@@ -10,6 +10,7 @@ permissions:
   product: *CRUD
   company: *CRUD
   event: *CRUD
+  review: *CRUD
 
 grants:
   guest:
@@ -18,6 +19,7 @@ grants:
     - retrieve_product
     - retrieve_company
     - retrieve_event
+    - retrieve_review
 
   user:
     - guest
@@ -29,11 +31,15 @@ grants:
     - update_company
     - create_event
     - update_event
+    - create_review
+    - update_review
 
   admin:
     - user
     - create_user
+    - delete_user
     - delete_tag
     - delete_product
     - delete_company
     - delete_event
+    - delete_review
