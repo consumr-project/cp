@@ -40,16 +40,16 @@ function check_params(params: String[], replacements: {}): void {
     }
 }
 
-export default function query(conn: Sequelize, sql: string): RequestHandler {
-    var params = get_params(sql);
-
+export default function query(conn: Sequelize, sql: (any) => string): RequestHandler {
     return (req, res, next) => {
         var replacements = merge(req.query, req.params),
+            merged_sql = sql(req),
+            params = get_params(merged_sql),
             query;
 
         try {
             check_params(params, replacements);
-            query = conn.query(sql, { replacements });
+            query = conn.query(merged_sql, { replacements });
             track_metrics(track_error(next, query))
                 .then(response => res.json(response));
         } catch (err) {

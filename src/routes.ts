@@ -1,4 +1,5 @@
 import { readFileSync as read } from 'fs';
+import { template } from 'lodash';
 
 export default (app, models, conn) => {
     var crud = require('./crud'),
@@ -6,7 +7,7 @@ export default (app, models, conn) => {
         can = require('auth-service').permissions.can;
 
     var sql = name =>
-        read(`${__dirname}/../db/queries/${name}.sql`).toString();
+        template(read(`${__dirname}/../db/queries/${name}.sql`).toString());
 
     var post = app.post.bind(app),
         get = app.get.bind(app),
@@ -30,6 +31,9 @@ export default (app, models, conn) => {
     get('/users/:id',
         can('retrieve', 'user'),
         retrieve(models.User));
+    del('/users/:id',
+        can('delete', 'user'),
+        remove(models.User));
 
     // products
     get('/products',
@@ -128,6 +132,25 @@ export default (app, models, conn) => {
     get('/companies/:company_id/common/tags',
         can('retrieve', 'tag'),
         query(conn, sql('get-company-common-tags')));
+
+    // reviews
+    post('/companies/:company_id/reviews',
+        can('create', 'review'),
+        can('update', 'company'),
+        create(models.Review, ['company_id']));
+    get('/companies/:company_id/reviews',
+        can('retrieve', 'review'),
+        query(conn, sql('get-company-reviews')));
+
+    patch('/reviews/:review_id/usefull',
+        can('update', 'review'),
+        upsert(models.ReviewUsefulness, ['review_id']));
+    del('/reviews/:review_id/usefull/:user_id',
+        can('update', 'review'),
+        remove(models.ReviewUsefulness, {review_id: 'review_id', user_id: 'user_id'}));
+    del('/reviews/:review_id',
+        can('delete', 'review'),
+        remove(models.Review));
 
     // events
     post('/events',
