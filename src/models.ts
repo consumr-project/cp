@@ -1,8 +1,7 @@
 import { Sequelize, Model } from 'sequelize';
 
-function model(name: string, conn: Sequelize): Model<any, any> {
-    return require('./models/' + name)(conn, require('sequelize/lib/data-types'));
-}
+let model = (name: string, conn: Sequelize): Model<any, any> =>
+    require('./models/' + name)(conn, require('sequelize/lib/data-types'));
 
 export default (conn) => {
     return {
@@ -15,7 +14,10 @@ export default (conn) => {
         EventSource: model('event_source', conn),
         EventTag: model('event_tag', conn),
         Product: model('product', conn),
+        Review: model('review', conn),
+        ReviewUsefulness: model('review_usefulness', conn),
         Tag: model('tag', conn),
         User: model('user', conn),
+        UserReport: model('user_report', conn),
     };
 };
