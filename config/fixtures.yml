@@ -1,6 +1,6 @@
 user:
   admin:
-    id: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    id: &user_admin_id 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
     name: 'Admin Test User'
     email: 'testing@consumr-project.org'
     role: 'admin'
@@ -9,9 +9,18 @@ user:
     updated_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
     created_date: '2016-01-21 23:48:32.511-07'
     updated_date: '2016-01-21 23:48:32.511-07'
+  user:
+    id: &user_user_id '845c2609-f51c-4158-91e2-83765b40a272'
+    name: 'Test User'
+    email: 'testing2@consumr-project.org'
+    role: 'user'
+    created_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    updated_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
 
 company:
-  id: 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+  id: &company_id 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
   name: 'Company for Integration Testing'
 
 events:
@@ -75,3 +84,75 @@ tags:
   - id: '84af1f4f-3b01-4459-a61b-9deee097a8a6'
     approved: true
     'en-US': 'test tag 6'
+
+reviews:
+  - id: '1fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    company_id: *company_id
+    score: 5
+    title: 'this is my own review 1'
+    summary: 'all of the information about my review 1'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-08 23:48:32.511-07'
+    updated_date: '2016-01-08 23:48:32.511-07'
+  - id: '2fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    company_id: *company_id
+    score: 5
+    title: 'this is my own review 2'
+    summary: 'all of the information about my review 2'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-11 23:48:32.511-07'
+    updated_date: '2016-01-11 23:48:32.511-07'
+  - id: '3fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    company_id: *company_id
+    score: 3
+    title: 'this is my own review 3'
+    summary: 'all of the information about my review 3'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-13 23:48:32.511-07'
+    updated_date: '2016-01-13 23:48:32.511-07'
+  - id: '4fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    company_id: *company_id
+    score: 2
+    title: 'this is my own review 4'
+    summary: 'all of the information about my review 4'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-17 23:48:32.511-07'
+    updated_date: '2016-01-17 23:48:32.511-07'
+  - id: '5fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    company_id: *company_id
+    score: 1
+    title: 'this is my own review 5'
+    summary: 'all of the information about my review 5'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+
+review_usefulness:
+  - review_id: '4fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+  - review_id: '4fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_admin_id
+    created_by: *user_admin_id
+    updated_by: *user_admin_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+  - review_id: '5fa00a91-f331-47f3-8fcf-c99a5bc9d176'
+    user_id: *user_user_id
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
