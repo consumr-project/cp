@@ -1,15 +1,17 @@
 "use strict";
 var fs_1 = require('fs');
+var lodash_1 = require('lodash');
 exports.__esModule = true;
 exports["default"] = function (app, models, conn) {
     var crud = require('./crud'), query = require('./query').default, can = require('auth-service').permissions.can;
     var sql = function (name) {
-        return fs_1.readFileSync(__dirname + "/../db/queries/" + name + ".sql").toString();
+        return lodash_1.template(fs_1.readFileSync(__dirname + "/../db/queries/" + name + ".sql").toString());
     };
     var post = app.post.bind(app), get = app.get.bind(app), put = app.put.bind(app), del = app.delete.bind(app), patch = app.patch.bind(app);
     var all = crud.all, create = crud.create, like = crud.like, parts = crud.parts, remove = crud.del, retrieve = crud.retrieve, update = crud.update, upsert = crud.upsert;
     post('/users', can('create', 'user'), create(models.User));
     get('/users/:id', can('retrieve', 'user'), retrieve(models.User));
+    del('/users/:id', can('delete', 'user'), remove(models.User));
     get('/products', can('retrieve', 'product'), all(models.Product));
     post('/products', can('create', 'product'), create(models.Product));
     get('/products/:id', can('retrieve', 'product'), retrieve(models.Product));
@@ -43,6 +45,11 @@ exports["default"] = function (app, models, conn) {
     del('/companies/:company_id/events/:id', can('delete', 'company'), remove(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     get('/companies/:company_id/common/companies', can('retrieve', 'company'), query(conn, sql('get-company-related-companies')));
     get('/companies/:company_id/common/tags', can('retrieve', 'tag'), query(conn, sql('get-company-common-tags')));
+    post('/companies/:company_id/reviews', can('create', 'review'), can('update', 'company'), create(models.Review, ['company_id']));
+    get('/companies/:company_id/reviews', can('retrieve', 'review'), query(conn, sql('get-company-reviews')));
+    patch('/reviews/:review_id/usefull', can('update', 'review'), upsert(models.ReviewUsefulness, ['review_id']));
+    del('/reviews/:review_id/usefull/:user_id', can('update', 'review'), remove(models.ReviewUsefulness, { review_id: 'review_id', user_id: 'user_id' }));
+    del('/reviews/:review_id', can('delete', 'review'), remove(models.Review));
     post('/events', can('create', 'event'), create(models.Event));
     patch('/events', can('create', 'event'), can('update', 'event'), upsert(models.Event));
     del('/events/:id', can('delete', 'event'), remove(models.Event));

@@ -29,12 +29,11 @@ function check_params(params, replacements) {
     }
 }
 function query(conn, sql) {
-    var params = get_params(sql);
     return function (req, res, next) {
-        var replacements = lodash_1.merge(req.query, req.params), query;
+        var replacements = lodash_1.merge(req.query, req.params), merged_sql = sql(req), params = get_params(merged_sql), query;
         try {
             check_params(params, replacements);
-            query = conn.query(sql, { replacements: replacements });
+            query = conn.query(merged_sql, { replacements: replacements });
             track_metrics(track_error(next, query))
                 .then(function (response) { return res.json(response); });
         }
