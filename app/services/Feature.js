@@ -16,8 +16,8 @@ angular.module('tcp').service('Feature', [
          * @return {Boolean}
          */
         function on(feature) {
-            return Boolean(localStorage.getItem(ns(feature)) === 'true' ||
-                lodash.get(FEATURES, feature + KEY_ENABLED));
+            return Boolean(lodash.get(FEATURES, feature + KEY_ENABLED) ||
+                (DEBUGGING && localStorage.getItem(ns(feature)) === 'true'));
         }
 
         /**
@@ -55,15 +55,17 @@ angular.module('tcp').service('Feature', [
             localStorage.setItem(ns(feature), false);
         }
 
-        lodash.chain([].concat($location.search()._fon))
-            .filter()
-            .map(enable)
-            .value();
+        if (DEBUGGING) {
+            lodash.chain([].concat($location.search()._fon))
+                .filter()
+                .map(enable)
+                .value();
 
-        lodash.chain([].concat($location.search()._foff))
-            .filter()
-            .map(disable)
-            .value();
+            lodash.chain([].concat($location.search()._foff))
+                .filter()
+                .map(disable)
+                .value();
+        }
 
         return {
             on: on,
