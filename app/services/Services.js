@@ -169,6 +169,16 @@ angular.module('tcp').service('Services', [
             },
         };
 
+        queryService.companies.reviews = function (id) {
+            return $http.get(url('companies', id, 'reviews'))
+                .then(pluck_data).then(pluck_body);
+        };
+
+        queryService.companies.reviews.summary = function (id) {
+            return $http.get(url('companies', id, 'reviews-summary'))
+                .then(pluck_data).then(pluck_body);
+        };
+
         /**
          * @param {String} url
          * @return {Promise}
