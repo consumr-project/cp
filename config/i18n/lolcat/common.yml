@@ -18,6 +18,7 @@ create_this: 'create "{name}"?'
 loading_events: 'loadin events...'
 see_wiki: '+ c moar frum wikipedia'
 redirecting: redirectin
+heart_count: '{count} {count, plural, one {heart} other {hearts}}'
 enumeration_comma: ', '
 enumeration_comma_last: ', an '
 percentage: '{num}%'

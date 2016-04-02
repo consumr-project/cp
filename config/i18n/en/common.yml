@@ -28,6 +28,8 @@ loading_events: "Loading events..."
 see_wiki: + See more from wikipedia
 redirecting: Redirecting
 
+heart_count: "{count} {count, plural, one {heart} other {hearts}}"
+
 # grammar
 # http://linguistics.stackexchange.com/questions/6737/what-languages-use-the-serial-comma
 # https://en.wikipedia.org/wiki/Comma#In_lists
