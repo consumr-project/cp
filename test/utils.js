@@ -55,7 +55,7 @@ module.exports = {
     },
 
     put(path, data) {
-        return agent.post(SERVICE_URL + path, data);
+        return agent.put(SERVICE_URL + path, data);
     },
 
     del(path) {
@@ -68,7 +68,7 @@ module.exports = {
     },
 
     patch(path, data) {
-        return agent.post(SERVICE_URL + path, data);
+        return agent.patch(SERVICE_URL + path).send(data);
     },
 
     login(apikey) {
