@@ -10,11 +10,15 @@ angular.module('tcp').directive('chart', [
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
             '    <div ng-switch-when="hbar" class="chart--hbar">',
-            '        <div ng-repeat="label in ::yLabels" class="chart__row">',
-            '            <span class="chart__label">{{label}}</span>',
-            '            <span class="chart__bar" ng-style="hbar_styles(values[$index])"></span>',
-            '            <span class="chart__value">{{per_label(calc_per(values[$index]))}}</span>',
-            '        </div>',
+            '        <table>',
+            '            <tr ng-repeat="label in ::yLabels">',
+            '                <td class="chart__label">{{label}}</td>',
+            '                <td>',
+            '                    <span class="chart__bar" ng-style="hbar_styles(values[$index])"></span>',
+            '                    <span class="chart__value">{{per_label(calc_per(values[$index]))}}</span>',
+            '                </td>',
+            '            </tr>',
+            '        </table>',
             '    </div>',
             '</div>'
         ].join('');
