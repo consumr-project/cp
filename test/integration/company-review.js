@@ -5,10 +5,6 @@ const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-// XXX fix in base-service
-cp.patch = (path, data) =>
-    cp.agent.patch(process.env.TEST_SERVICE_URL + path).send(data);
-
 // for (var i = 0; i < 10; i++)
 cp.tapes('company review', t => {
     t.plan(1);
