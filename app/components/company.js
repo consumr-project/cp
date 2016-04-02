@@ -335,6 +335,10 @@ angular.module('tcp').directive('company', [
                 '                class="tag--bigword" label="{{get_label(filter)}}"></tag>',
                 '        </div>',
 
+                '        <reviews company-id="{{company.id}}"',
+                '            class="margin-top-medium margin-bottom-xlarge"',
+                '            ng-if="vm.feature_company_reviews"></reviews>',
+
                 '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
                 '            <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '        </div>',
