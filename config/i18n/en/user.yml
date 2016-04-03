@@ -1,3 +1,5 @@
 following: Following
 followers: Followers
 elsewhere: Elsewhere
+
+by_on: "By <a href='/user/{id}'>{name}</a> on <b>{date,date,long}</b>"

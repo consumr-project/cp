@@ -7,7 +7,7 @@ const LOL_OUT_DIR = './config/i18n/lolcat/';
 const LOL_API_URL = 'http://speaklolcat.com/?';
 const REG_FIELDS = /(\{.+?\})/g;
 
-const MessageFormat = require('messageformat').MessageFormat;
+const MessageFormat = require('messageformat');
 const program = require('commander');
 
 const path = require('path');
@@ -28,11 +28,6 @@ const map = require('lodash/map');
 program
     .option('-l --locale <name>', 'name of the locale to compile')
     .option('-v --var <name>', 'i18n variable name', 'i18n');
-
-program
-    .command('functions')
-    .description('generate the base i18n variable')
-    .action(command_functions);
 
 program
     .command('generate')
@@ -114,13 +109,10 @@ function command_lolcat() {
     });
 }
 
-/**
- * @return {void}
- */
-function command_functions() {
-    var mf = new MessageFormat(real_locale(program.locale));
-    console.log('window.%s = %s;', program['var'], mf.functions());
-    console.log('window.%s.get = %s;', program['var'], i18n_get_function.toString());
+function gen_mf() {
+    return new MessageFormat(real_locale(program.locale), null, {
+        date: MessageFormat.formatters.date
+    });
 }
 
 /**
@@ -128,17 +120,22 @@ function command_functions() {
  * @return {void}
  */
 function command_generate(options) {
-    var mf = new MessageFormat(real_locale(program.locale));
+    var mf = gen_mf();
+
     glob(options.strings_file, function (err, files) {
+        var messages = {};
+
         each(files, function (file) {
             var name = generate_section_name(file, options.strings_extra),
                 contents = fs.readFileSync(file).toString(),
                 parsed = yaml.parse(contents);
 
-            console.log('%s["%s"] =', program['var'], name);
-            console.log(mf.precompileObject(parsed));
-            console.log(';');
+            messages[name] = parsed;
         });
+
+        console.log('window.%s = {};', program['var']);
+        console.log('window.%s.get = %s;', program['var'], i18n_get_function.toString());
+        console.log('window.%s.strings = (%s)();', program['var'], mf.compile(messages).toString());
     });
 }
 
@@ -153,11 +150,11 @@ function i18n_get_function (path, data) {
         fn = parts.pop(),
         name = parts.join('/');
 
-    if (!(fn in this[name])) {
+    if (!(fn in this.strings[name])) {
         throw new Error('i18n key does not exists: ' + path);
     }
 
-    return this[name][fn](data);
+    return this.strings[name][fn](data);
 }
 
 /**
