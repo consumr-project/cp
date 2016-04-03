@@ -28,3 +28,35 @@
     position: relative;
     top: -10px;
 }
+
+.chart--heartcout {
+    font-size: 0;
+}
+
+.chart--heartcout__left,
+.chart--heartcout__right {
+    background-size: contain;
+    display: inline-block;
+    height: 25px;
+}
+
+.chart--heartcout__left {
+    background-image: url(/assets/images/heart-black.svg);
+}
+
+.chart--heartcout__right {
+    background-image: url(/assets/images/heart-white.svg);
+}
+
+.chart--heartcout-0 .chart--heartcout__right, .chart--heartcout- .chart--heartcout__right { width: 125px; }
+.chart--heartcout-0 .chart--heartcout__left, .chart--heartcout- .chart--heartcout__left { width: 0; }
+.chart--heartcout-1 .chart--heartcout__right { width: 25px; }
+.chart--heartcout-1 .chart--heartcout__left { width: 100px; }
+.chart--heartcout-2 .chart--heartcout__right { width: 50px; }
+.chart--heartcout-2 .chart--heartcout__left { width: 75px; }
+.chart--heartcout-3 .chart--heartcout__right { width: 75px; }
+.chart--heartcout-3 .chart--heartcout__left { width: 50px; }
+.chart--heartcout-4 .chart--heartcout__right { width: 100px; }
+.chart--heartcout-4 .chart--heartcout__left { width: 25px; }
+.chart--heartcout-5 .chart--heartcout__right { width: 125px; }
+.chart--heartcout-5 .chart--heartcout__left { width: 0; }

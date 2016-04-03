@@ -9,6 +9,10 @@ angular.module('tcp').directive('chart', [
 
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
+            '    <div ng-switch-when="heartcount" class="chart--heartcout chart--heartcout-{{value}}">',
+            '        <div class="chart--heartcout__left"></div>',
+            '        <div class="chart--heartcout__right"></div>',
+            '    </div>',
             '    <div ng-switch-when="hbar" class="chart--hbar">',
             '        <table>',
             '            <tr ng-repeat="label in ::yLabels">',
@@ -76,6 +80,7 @@ angular.module('tcp').directive('chart', [
             template: TEMPLATE,
             scope: {
                 type: '@',
+                value: '=',
                 values: '=',
                 yLabels: '=',
             },
