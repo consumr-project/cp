@@ -9,7 +9,7 @@ angular.module('tcp').directive('chart', [
 
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
-            '    <div ng-switch-when="heartcount" class="chart--heartcout chart--heartcout-{{value}}">',
+            '    <div ng-switch-when="heartcount" class="chart--heartcount chart--heartcount-{{value}}">',
             '        <div class="chart--heartcout__left"></div>',
             '        <div class="chart--heartcout__right"></div>',
             '    </div>',

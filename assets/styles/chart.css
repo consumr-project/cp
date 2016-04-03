@@ -29,7 +29,7 @@
     top: -10px;
 }
 
-.chart--heartcout {
+.chart--heartcount {
     font-size: 0;
 }
 
@@ -48,15 +48,15 @@
     background-image: url(/assets/images/heart-white.svg);
 }
 
-.chart--heartcout-0 .chart--heartcout__left, .chart--heartcout- .chart--heartcout__left { width: 0; }
-.chart--heartcout-0 .chart--heartcout__right, .chart--heartcout- .chart--heartcout__right { width: 125px; }
-.chart--heartcout-1 .chart--heartcout__left { width: 25px; }
-.chart--heartcout-1 .chart--heartcout__right { width: 100px; }
-.chart--heartcout-2 .chart--heartcout__left { width: 50px; }
-.chart--heartcout-2 .chart--heartcout__right { width: 75px; }
-.chart--heartcout-3 .chart--heartcout__left { width: 75px; }
-.chart--heartcout-3 .chart--heartcout__right { width: 50px; }
-.chart--heartcout-4 .chart--heartcout__left { width: 100px; }
-.chart--heartcout-4 .chart--heartcout__right { width: 25px; }
-.chart--heartcout-5 .chart--heartcout__left { width: 125px; }
-.chart--heartcout-5 .chart--heartcout__right { width: 0; }
+.chart--heartcount-0 .chart--heartcout__left, .chart--heartcount- .chart--heartcout__left { width: 0; }
+.chart--heartcount-0 .chart--heartcout__right, .chart--heartcount- .chart--heartcout__right { width: 125px; }
+.chart--heartcount-1 .chart--heartcout__left { width: 25px; }
+.chart--heartcount-1 .chart--heartcout__right { width: 100px; }
+.chart--heartcount-2 .chart--heartcout__left { width: 50px; }
+.chart--heartcount-2 .chart--heartcout__right { width: 75px; }
+.chart--heartcount-3 .chart--heartcout__left { width: 75px; }
+.chart--heartcount-3 .chart--heartcout__right { width: 50px; }
+.chart--heartcount-4 .chart--heartcout__left { width: 100px; }
+.chart--heartcount-4 .chart--heartcout__right { width: 25px; }
+.chart--heartcount-5 .chart--heartcout__left { width: 125px; }
+.chart--heartcount-5 .chart--heartcout__right { width: 0; }
