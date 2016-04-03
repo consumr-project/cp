@@ -1,0 +1,6 @@
+#!/bin/bash
+
+make stamp
+git commit -m "stamp" stamp.json
+git push origin master
+git push heroku master
