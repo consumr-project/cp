@@ -245,6 +245,13 @@ angular.module('tcp').directive('company', [
                         Services.query.companies.common.companies(company.id)
                             .then(utils.scope.set($scope, 'common_companies'));
 
+                        Services.query.companies.reviews.score(company.id)
+                            .then(function (score) {
+                                score.iaverage = Math.round(score.average);
+                                return score;
+                            })
+                            .then(utils.scope.set($scope, 'reviews_score'));
+
                         return company;
                     });
             }
@@ -330,10 +337,10 @@ angular.module('tcp').directive('company', [
                 '                        ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
                 '                </td>',
                 '                <td class="right-align" ng-if="vm.feature_company_reviews">',
-                '                    <chart type="heartcount" value="4"></chart>',
+                '                    <chart type="heartcount" value="reviews_score.iaverage"></chart>',
                 '                </td>',
                 '                <td class="right-align" ng-if="vm.feature_company_reviews">',
-                '                    4',
+                '                    {{reviews_score.count}}',
                 '                </td>',
                 '            </tr>',
                 '        </table>',

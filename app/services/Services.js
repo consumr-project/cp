@@ -179,6 +179,11 @@ angular.module('tcp').service('Services', [
                 .then(pluck_data).then(pluck_body);
         };
 
+        queryService.companies.reviews.score = function (id) {
+            return $http.get(url('companies', id, 'reviews/score'))
+                .then(pluck_data).then(pluck_body);
+        };
+
         /**
          * @param {String} url
          * @return {Promise}
