@@ -47,7 +47,8 @@ exports["default"] = function (app, models, conn) {
     get('/companies/:company_id/common/tags', can('retrieve', 'tag'), query(conn, sql('get-company-common-tags')));
     post('/companies/:company_id/reviews', can('create', 'review'), can('update', 'company'), create(models.Review, ['company_id']));
     get('/companies/:company_id/reviews', can('retrieve', 'review'), query(conn, sql('get-company-reviews')));
-    get('/companies/:company_id/reviews-summary', can('retrieve', 'review'), query(conn, sql('get-company-reviews-summary')));
+    get('/companies/:company_id/reviews/score', can('retrieve', 'review'), query(conn, sql('get-company-reviews-score'), true));
+    get('/companies/:company_id/reviews/summary', can('retrieve', 'review'), query(conn, sql('get-company-reviews-summary')));
     patch('/reviews/:review_id/usefull', can('update', 'review'), upsert(models.ReviewUsefulness, ['review_id']));
     del('/reviews/:review_id/usefull/:user_id', can('update', 'review'), remove(models.ReviewUsefulness, { review_id: 'review_id', user_id: 'user_id' }));
     del('/reviews/:review_id', can('delete', 'review'), remove(models.Review));

@@ -141,7 +141,10 @@ export default (app, models, conn) => {
     get('/companies/:company_id/reviews',
         can('retrieve', 'review'),
         query(conn, sql('get-company-reviews')));
-    get('/companies/:company_id/reviews-summary',
+    get('/companies/:company_id/reviews/score',
+        can('retrieve', 'review'),
+        query(conn, sql('get-company-reviews-score'), true));
+    get('/companies/:company_id/reviews/summary',
         can('retrieve', 'review'),
         query(conn, sql('get-company-reviews-summary')));
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Model as BaseModel, Sequelize } from 'sequelize';
-import { merge, uniq, difference, map } from 'lodash';
+import { head, merge, uniq, difference, map } from 'lodash';
 import * as Promise from 'bluebird';
 
 const PARAMS = /:\w+/g;
@@ -9,12 +9,12 @@ type RequestHandler = (req: Request, res: Response, next?: Function) => void
 type QueryResults = Array<any>;
 type Model = BaseModel<any, any>;
 
-function track_metrics(action: Promise<QueryResults>): Promise<CPServiceResponseV1<Model[]>> {
+function track_metrics(action: Promise<QueryResults>, one_row: Boolean = false): Promise<CPServiceResponseV1<Model[]>> {
     var start = Date.now();
     var meta = { ok: true };
 
     return action.then(res => {
-        var body = res[0];
+        var body = one_row ? head(head(res)) : head(res);
         return { meta, body };
     });
 }
@@ -40,7 +40,7 @@ function check_params(params: String[], replacements: {}): void {
     }
 }
 
-export default function query(conn: Sequelize, sql: (any) => string): RequestHandler {
+export default function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = false): RequestHandler {
     return (req, res, next) => {
         var replacements = merge(req.query, req.params),
             merged_sql = sql(req),
@@ -50,7 +50,7 @@ export default function query(conn: Sequelize, sql: (any) => string): RequestHan
         try {
             check_params(params, replacements);
             query = conn.query(merged_sql, { replacements });
-            track_metrics(track_error(next, query))
+            track_metrics(track_error(next, query), one_row)
                 .then(response => res.json(response));
         } catch (err) {
             handle_error(next, err);

@@ -80,12 +80,21 @@ cp.tapes('company review', t => {
     t.test('get reviews summary', st => {
         st.plan(5);
 
-        cp.get(`/companies/${fixture.company.id}/reviews-summary`).end((err, res) => {
+        cp.get(`/companies/${fixture.company.id}/reviews/summary`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve a company\'s reviews summary');
             st.deepLooseEqual(res.body.body[0], { score: 1, score_count: 1, score_percentage: 20 });
             st.deepLooseEqual(res.body.body[1], { score: 2, score_count: 1, score_percentage: 20 });
             st.deepLooseEqual(res.body.body[2], { score: 3, score_count: 1, score_percentage: 20 });
             st.deepLooseEqual(res.body.body[3], { score: 5, score_count: 2, score_percentage: 40 });
+        });
+    });
+
+    t.test('get reviews score summary', st => {
+        st.plan(2);
+
+        cp.get(`/companies/${fixture.company.id}/reviews/score`).end((err, res) => {
+            st.ok(res.body.meta.ok, 'can retrieve a company\'s score summary');
+            st.deepLooseEqual(res.body.body, { count: 5, average: 3.2 });
         });
     });
 
