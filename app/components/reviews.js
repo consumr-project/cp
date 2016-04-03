@@ -55,7 +55,18 @@ angular.module('tcp').directive('reviews', [
             template: [
                 '<div>',
                 '    <chart type="hbar" values="reviews.summary"',
-                '        y-labels="vm.chart_labels"></chart>',
+                '        y-labels=":: vm.chart_labels"></chart>',
+                '    <div ng-repeat="review in :: reviews.list"',
+                '       class="margin-top-large">',
+                '       <avatar email="{{::review.user_email}}"></avatar>',
+                '       <h2>{{::review.title}}</h2>',
+                '       <span class="uppercase font-size-small" prop="html" i18n="user/by_on" data="{',
+                '           id: review.user_id,',
+                '           name: review.user_name,',
+                '           date: review.created_date,',
+                '       }"></span>',
+                '       <q class="copy block margin-top-small">{{::review.summary}}</q>',
+                '    </div>',
                 '</div>'
             ].join('')
         };
