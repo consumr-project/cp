@@ -1,4 +1,4 @@
-avatar,
+avatar::not(.image-only),
 button,
 .tag-elem {
     font-size: var(--font-size-small);
