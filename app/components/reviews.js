@@ -16,14 +16,33 @@ angular.module('tcp').directive('reviews', [
             }).reverse();
         }
 
-        function controller($scope) {
-            $scope.reviews = {};
+        /**
+         * takes a company review summary response and converts it to an
+         * array of scores
+         * @param {CompanyReportSummary} summary_all
+         * @return {Number[]}
+         */
+        function list_scores(summary_all) {
+            return lodash.reduce(summary_all, function (scores, summary) {
+                scores[summary.score] = summary.score_count;
+                return scores;
+            }, [0, 0, 0, 0, 0]).reverse();
+        }
 
-            $scope.vm = {
-                chart_labels: get_chart_labels()
-            };
+        /**
+         * @param {Angular.Scope} $scope
+         * @return {void}
+         */
+        function controller($scope) {
+            $scope.vm = {};
+            $scope.reviews = {};
+            $scope.vm.chart_labels = get_chart_labels();
+
+            Services.query.companies.reviews($scope.companyId)
+                .then(utils.scope.set($scope, 'reviews.list'));
 
             Services.query.companies.reviews.summary($scope.companyId)
+                .then(list_scores)
                 .then(utils.scope.set($scope, 'reviews.summary'));
         }
 
