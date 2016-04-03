@@ -10,6 +10,10 @@
 <div class="site-content" ng-controller="GuideController">
     <h1>chart</h1>
     <rector-markup>
+        <chart type="heartcount" value="4"></chart>
+    </rector-markup>
+
+    <rector-markup>
         <chart type="hbar" values="chart_values" y-labels="chart_y_labels"></chart>
     </rector-markup>
     <rector-scope watch-collection="chart_values"></rector-scope>
