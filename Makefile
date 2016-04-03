@@ -78,7 +78,7 @@ build-js:
 	echo "" > $(build_vendor_js)
 	./scripts/generate-client-config $(global_config_varname) >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/jquery/dist/jquery.min.js >> $(build_vendor_js)
+	$(js_min) node_modules/jquery/dist/jquery.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/angular/angular.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
@@ -90,9 +90,9 @@ build-js:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	cat node_modules/rollbar-browser/dist/rollbar.umd.nojson.min.js >> $(build_vendor_js)
+	$(js_min) node_modules/rollbar-browser/dist/rollbar.umd.nojson.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	cat node_modules/datedropper/datedropper.min.js >> $(build_vendor_js)
+	$(js_min) node_modules/datedropper/datedropper.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 
 build-app:
