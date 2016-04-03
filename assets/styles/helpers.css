@@ -108,6 +108,14 @@
     width: 100%;
 }
 
+.no-wrap {
+    white-space: nowrap;
+}
+
+.no-span {
+    width: 1px;
+}
+
 .full-span {
     width: 100%;
 }

@@ -31,6 +31,7 @@
 
 .chart--heartcount {
     font-size: 0;
+    white-space: nowrap;
 }
 
 .chart--heartcout__left,
