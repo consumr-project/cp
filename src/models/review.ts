@@ -24,7 +24,7 @@ export = sequelize => {
         },
 
         score: {
-            type: Type.INTEGER.UNSIGNED,
+            type: Type.INTEGER,
             allowNull: false
         },
 

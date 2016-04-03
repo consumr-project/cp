@@ -17,7 +17,7 @@ module.exports = function (sequelize) {
             allowNull: true
         },
         score: {
-            type: Type.INTEGER.UNSIGNED,
+            type: Type.INTEGER,
             allowNull: false
         },
         title: {
