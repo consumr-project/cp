@@ -175,7 +175,7 @@ angular.module('tcp').service('Services', [
         };
 
         queryService.companies.reviews.summary = function (id) {
-            return $http.get(url('companies', id, 'reviews-summary'))
+            return $http.get(url('companies', id, 'reviews/summary'))
                 .then(pluck_data).then(pluck_body);
         };
 
