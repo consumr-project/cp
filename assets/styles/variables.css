@@ -3,6 +3,7 @@
     --speed-friendly: .4s;
     --speed-fast: .2s;
 
+    /* https://matthewlein.com/ceaser */
     --easing-ease: cubic-bezier(0.250, 0.100, 0.250, 1.000);
 
     --letter-spacing-small: .5px;

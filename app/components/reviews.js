@@ -58,7 +58,7 @@ angular.module('tcp').directive('reviews', [
                 '        class="margin-bottom-xlarge"',
                 '        y-labels=":: vm.chart_labels"></chart>',
                 '    <div ng-repeat="review in :: reviews.list"',
-                '       class="margin-top-large">',
+                '       class="margin-top-xlarge">',
                 '       <table>',
                 '           <tr>',
                 '               <td>',
