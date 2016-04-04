@@ -17,6 +17,12 @@ export = sequelize => {
             type: Type.UUID,
             allowNull: false
         },
+
+        // XXX -1 or 1. figure out how to set min/max
+        score: {
+            type: Type.INTEGER,
+            allowNull: false
+        },
     }), CONFIG);
 
     User.belongsToMany(Review, { through: ReviewUsefulness });

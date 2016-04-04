@@ -11,6 +11,10 @@ module.exports = function (sequelize) {
         user_id: {
             type: Type.UUID,
             allowNull: false
+        },
+        score: {
+            type: Type.INTEGER,
+            allowNull: false
         }
     }), utils_1.CONFIG);
     User.belongsToMany(Review, { through: ReviewUsefulness });
