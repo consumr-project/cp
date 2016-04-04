@@ -88,7 +88,7 @@ cp.tapes('company review', t => {
     });
 
     t.test('get reviews for user', st => {
-        st.plan(11);
+        st.plan(21);
 
         cp.get(`/companies/${fixture.company.id}/reviews?user_id=${fixture.user.user.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve a company\'s reviews for a user');
@@ -99,11 +99,23 @@ cp.tapes('company review', t => {
             st.equal(fixture.reviews[3].id, res.body.body[1].id);
             st.equal(fixture.reviews[4].id, res.body.body[0].id);
 
-            st.equal(res.body.body[0].already_found_useful, true);
-            st.equal(res.body.body[1].already_found_useful, true);
-            st.equal(res.body.body[2].already_found_useful, false);
-            st.equal(res.body.body[3].already_found_useful, false);
-            st.equal(res.body.body[4].already_found_useful, false);
+            st.equal(res.body.body[0].user_useful_pos, true);
+            st.equal(res.body.body[1].user_useful_pos, true);
+            st.equal(res.body.body[2].user_useful_pos, false);
+            st.equal(res.body.body[3].user_useful_pos, false);
+            st.equal(res.body.body[4].user_useful_pos, false);
+
+            st.equal(res.body.body[0].user_useful_neg, false);
+            st.equal(res.body.body[1].user_useful_neg, false);
+            st.equal(res.body.body[2].user_useful_neg, false);
+            st.equal(res.body.body[3].user_useful_neg, false);
+            st.equal(res.body.body[4].user_useful_neg, false);
+
+            st.equal(res.body.body[0].usefulness_score, 1);
+            st.equal(res.body.body[1].usefulness_score, 2);
+            st.equal(res.body.body[2].usefulness_score, 0);
+            st.equal(res.body.body[3].usefulness_score, 0);
+            st.equal(res.body.body[4].usefulness_score, 0);
         });
     });
 

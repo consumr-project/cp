@@ -1,6 +1,6 @@
 {
   "name": "query-service",
-  "version": "5.4.9",
+  "version": "5.4.10",
   "description": "",
   "main": "build/mount.js",
   "scripts": {

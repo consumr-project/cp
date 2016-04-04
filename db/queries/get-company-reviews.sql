@@ -4,16 +4,18 @@ select r.id,
     r.summary,
     r.created_date,
 
+    coalesce(sum(ru.score)::"numeric", 0) as usefulness_score,
+
     r.user_id,
     u.name as user_name,
     u.email as user_email,
 
-    count(distinct ru.user_id) as usefulness_score,
-
     <% if (query.user_id) { %>
-    count(ru_user.user_id) > 0 as already_found_useful
+    count(ru_user.user_id) > 0 and min(ru_user.score) > 0 as user_useful_pos,
+    count(ru_user.user_id) > 0 and max(ru_user.score) < 0 as user_useful_neg
     <% } else { %>
-    false as already_found_useful
+    false as user_useful_pos,
+    false as user_useful_neg
     <% } %>
 
 from reviews r
