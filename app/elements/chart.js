@@ -16,8 +16,8 @@ angular.module('tcp').directive('chart', [
             '    <div ng-switch-when="hbar" class="chart--hbar">',
             '        <table>',
             '            <tr ng-repeat="label in ::yLabels">',
-            '                <td class="chart__label">{{label}}</td>',
-            '                <td>',
+            '                <td class="chart__label no-wrap">{{label}}</td>',
+            '                <td class="no-wrap full-span">',
             '                    <span class="chart__bar" ng-style="hbar_styles(values[$index])"></span>',
             '                    <span class="chart__value">{{per_label(calc_per(values[$index]))}}</span>',
             '                </td>',
@@ -27,9 +27,7 @@ angular.module('tcp').directive('chart', [
             '</div>'
         ].join('');
 
-        var TYPE = {
-            hbar: 'hbar',
-        };
+        var MAX_HBAR_WIDTH = 73;
 
         /**
          * @param {Number} a
@@ -58,8 +56,10 @@ angular.module('tcp').directive('chart', [
              * @return {Object}
              */
             $scope.hbar_styles = function (val) {
+                var max = Math.max.apply(Math, $scope.values);
+
                 return {
-                    width: $scope.calc_per(val) * 4 + 'px'
+                    width: val / max * MAX_HBAR_WIDTH + '%'
                 };
             };
 

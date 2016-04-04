@@ -3,6 +3,10 @@
     font-weight: 700;
 }
 
+.chart--hbar {
+    max-width: 500px;
+}
+
 .chart--hbar td {
     vertical-align: middle;
 }
