@@ -7,6 +7,8 @@ angular.module('tcp').directive('chart', [
     function (i18n, lodash) {
         'use strict';
 
+        var MAX_HBAR_WIDTH = 73;
+
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
             '    <div ng-switch-when="heartcount" class="chart--heartcount chart--heartcount-{{value}}">',
@@ -26,8 +28,6 @@ angular.module('tcp').directive('chart', [
             '    </div>',
             '</div>'
         ].join('');
-
-        var MAX_HBAR_WIDTH = 73;
 
         /**
          * @param {Number} a
@@ -56,10 +56,8 @@ angular.module('tcp').directive('chart', [
              * @return {Object}
              */
             $scope.hbar_styles = function (val) {
-                var max = Math.max.apply(Math, $scope.values);
-
                 return {
-                    width: val / max * MAX_HBAR_WIDTH + '%'
+                    width: val / max_value() * MAX_HBAR_WIDTH + '%'
                 };
             };
 
@@ -72,6 +70,13 @@ angular.module('tcp').directive('chart', [
                     num: num
                 });
             };
+
+            /**
+             * @return {Number}
+             */
+            function max_value() {
+                return Math.max.apply(Math, $scope.values);
+            }
         }
 
         return {
