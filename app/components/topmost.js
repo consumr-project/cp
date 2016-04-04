@@ -147,7 +147,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                <button ng-click="more = true" i18n="admin/more_options"></button>',
                 '            </div>',
 
-                '            <button class="button--link" ng-click="login.hide()" i18n="admin/remind_later"></button>',
+                '            <button class="no-wrap button--link" ng-click="login.hide()" i18n="admin/remind_later"></button>',
 
                 '            <div ng-show="more" class="animated fadeInUp">',
                 '                <p i18n="admin/sign_in_with_email"></p>',
