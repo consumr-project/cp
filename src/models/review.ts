@@ -33,11 +33,17 @@ export = sequelize => {
         },
 
         title: {
-            type: Type.STRING
+            type: Type.STRING,
+            validate: {
+                len: [1, 500]
+            },
         },
 
         summary: {
-            type: Type.TEXT
+            type: Type.TEXT,
+            validate: {
+                len: [1, 5000]
+            },
         },
     }), CONFIG);
 
