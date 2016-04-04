@@ -19,7 +19,7 @@
     background: var(--color-chart-bar);
     display: inline-block;
     height: 30px;
-    transition: width var(--speed-friendly);
+    transition: width var(--speed-visible) var(--easing-ease);
     width: 0px;
 }
 

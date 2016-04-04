@@ -1,6 +1,9 @@
 :root {
+    --speed-visible: .6s;
     --speed-friendly: .4s;
     --speed-fast: .2s;
+
+    --easing-ease: cubic-bezier(0.250, 0.100, 0.250, 1.000);
 
     --letter-spacing-small: .5px;
 
