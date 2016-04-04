@@ -34,30 +34,30 @@
     white-space: nowrap;
 }
 
-.chart--heartcout__left,
-.chart--heartcout__right {
+.chart--heartcount__left,
+.chart--heartcount__right {
     background-size: contain;
     display: inline-block;
     height: 25px;
 }
 
-.chart--heartcout__left {
+.chart--heartcount__left {
     background-image: url(/assets/images/heart-black.svg);
 }
 
-.chart--heartcout__right {
+.chart--heartcount__right {
     background-image: url(/assets/images/heart-white.svg);
 }
 
-.chart--heartcount-0 .chart--heartcout__left, .chart--heartcount- .chart--heartcout__left { width: 0; }
-.chart--heartcount-0 .chart--heartcout__right, .chart--heartcount- .chart--heartcout__right { width: 125px; }
-.chart--heartcount-1 .chart--heartcout__left { width: 25px; }
-.chart--heartcount-1 .chart--heartcout__right { width: 100px; }
-.chart--heartcount-2 .chart--heartcout__left { width: 50px; }
-.chart--heartcount-2 .chart--heartcout__right { width: 75px; }
-.chart--heartcount-3 .chart--heartcout__left { width: 75px; }
-.chart--heartcount-3 .chart--heartcout__right { width: 50px; }
-.chart--heartcount-4 .chart--heartcout__left { width: 100px; }
-.chart--heartcount-4 .chart--heartcout__right { width: 25px; }
-.chart--heartcount-5 .chart--heartcout__left { width: 125px; }
-.chart--heartcount-5 .chart--heartcout__right { width: 0; }
+.chart--heartcount-0 .chart--heartcount__left, .chart--heartcount- .chart--heartcount__left { width: 0; }
+.chart--heartcount-0 .chart--heartcount__right, .chart--heartcount- .chart--heartcount__right { width: 125px; }
+.chart--heartcount-1 .chart--heartcount__left { width: 25px; }
+.chart--heartcount-1 .chart--heartcount__right { width: 100px; }
+.chart--heartcount-2 .chart--heartcount__left { width: 50px; }
+.chart--heartcount-2 .chart--heartcount__right { width: 75px; }
+.chart--heartcount-3 .chart--heartcount__left { width: 75px; }
+.chart--heartcount-3 .chart--heartcount__right { width: 50px; }
+.chart--heartcount-4 .chart--heartcount__left { width: 100px; }
+.chart--heartcount-4 .chart--heartcount__right { width: 25px; }
+.chart--heartcount-5 .chart--heartcount__left { width: 125px; }
+.chart--heartcount-5 .chart--heartcount__right { width: 0; }

@@ -1,5 +1,5 @@
 /**
- * @attribute {String} type (see TYPE)
+ * @attribute {String} type (hbar, heartcount)
  */
 angular.module('tcp').directive('chart', [
     'i18n',
@@ -10,8 +10,8 @@ angular.module('tcp').directive('chart', [
         var TEMPLATE = [
             '<div class="chart" ng-switch="type">',
             '    <div ng-switch-when="heartcount" class="chart--heartcount chart--heartcount-{{value}}">',
-            '        <div class="chart--heartcout__left"></div>',
-            '        <div class="chart--heartcout__right"></div>',
+            '        <div class="chart--heartcount__left"></div>',
+            '        <div class="chart--heartcount__right"></div>',
             '    </div>',
             '    <div ng-switch-when="hbar" class="chart--hbar">',
             '        <table>',
