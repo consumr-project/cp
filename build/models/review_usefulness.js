@@ -14,7 +14,11 @@ module.exports = function (sequelize) {
         },
         score: {
             type: Type.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: -1,
+                max: 1
+            }
         }
     }), utils_1.CONFIG);
     User.belongsToMany(Review, { through: ReviewUsefulness });

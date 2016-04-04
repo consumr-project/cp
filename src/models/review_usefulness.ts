@@ -18,10 +18,13 @@ export = sequelize => {
             allowNull: false
         },
 
-        // XXX -1 or 1. figure out how to set min/max
         score: {
             type: Type.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: -1,
+                max: 1,
+            },
         },
     }), CONFIG);
 

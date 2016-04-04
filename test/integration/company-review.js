@@ -44,6 +44,22 @@ cp.tapes('company review', t => {
                 .end((err, res) => st.ok(res.body.meta.ok, 'created test review usefull flag')));
     });
 
+    t.test('usefulness flags have a min and max', st => {
+        var review_usefulness = clone(fixture.review_usefulness[0]);
+
+        st.plan(2);
+
+        review_usefulness.score = -2;
+        cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness).end((err, res) => {
+            st.notOk(res.body.meta.ok);
+        });
+
+        review_usefulness.score = 2;
+        cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness).end((err, res) => {
+            st.notOk(res.body.meta.ok);
+        });
+    });
+
     t.test('get reviews', st => {
         st.plan(6);
 
