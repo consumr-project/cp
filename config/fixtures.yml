@@ -140,18 +140,21 @@ reviews:
 review_usefulness:
   - review_id: '4fa00a91-f331-47f3-8fcf-c99a5bc9d176'
     user_id: *user_user_id
+    score: 1
     created_by: *user_user_id
     updated_by: *user_user_id
     created_date: '2016-01-21 23:48:32.511-07'
     updated_date: '2016-01-21 23:48:32.511-07'
   - review_id: '4fa00a91-f331-47f3-8fcf-c99a5bc9d176'
     user_id: *user_admin_id
+    score: 1
     created_by: *user_admin_id
     updated_by: *user_admin_id
     created_date: '2016-01-21 23:48:32.511-07'
     updated_date: '2016-01-21 23:48:32.511-07'
   - review_id: '5fa00a91-f331-47f3-8fcf-c99a5bc9d176'
     user_id: *user_user_id
+    score: 1
     created_by: *user_user_id
     updated_by: *user_user_id
     created_date: '2016-01-21 23:48:32.511-07'
