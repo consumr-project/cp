@@ -18,7 +18,11 @@ module.exports = function (sequelize) {
         },
         score: {
             type: Type.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 0,
+                max: 5
+            }
         },
         title: {
             type: Type.STRING

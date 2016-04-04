@@ -28,20 +28,18 @@ cp.tapes('company review', t => {
             st.ok(res.body.meta.ok, 'created test user'));
     });
 
-    t.test('create reviews', st => {
-        st.plan(fixture.reviews.length);
+    t.test('reviews have a min and max score', st => {
+        var review = clone(fixture.reviews[0]);
 
-        fixture.reviews.forEach((review, i) => setTimeout(() =>
-            cp.post(`/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
-                st.ok(res.body.meta.ok, 'created test review')), 200 * ++i));
-    });
+        st.plan(2);
 
-    t.test('set usefulness flags', st => {
-        st.plan(fixture.review_usefulness.length);
+        review.score = -1;
+        cp.post(`/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+            st.notOk(res.body.meta.ok));
 
-        fixture.review_usefulness.forEach(review_usefulness =>
-            cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness)
-                .end((err, res) => st.ok(res.body.meta.ok, 'created test review usefull flag')));
+        review.score = 6;
+        cp.post(`/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+            st.notOk(res.body.meta.ok));
     });
 
     t.test('usefulness flags have a min and max', st => {
@@ -58,6 +56,22 @@ cp.tapes('company review', t => {
         cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness).end((err, res) => {
             st.notOk(res.body.meta.ok);
         });
+    });
+
+    t.test('create reviews', st => {
+        st.plan(fixture.reviews.length);
+
+        fixture.reviews.forEach((review, i) => setTimeout(() =>
+            cp.post(`/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+                st.ok(res.body.meta.ok, 'created test review')), 200 * ++i));
+    });
+
+    t.test('set usefulness flags', st => {
+        st.plan(fixture.review_usefulness.length);
+
+        fixture.review_usefulness.forEach(review_usefulness =>
+            cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness)
+                .end((err, res) => st.ok(res.body.meta.ok, 'created test review usefull flag')));
     });
 
     t.test('get reviews', st => {
