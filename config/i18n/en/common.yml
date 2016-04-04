@@ -37,3 +37,6 @@ enumeration_comma: ", "
 enumeration_comma_last: ", and "
 
 percentage: "{num}%"
+
+yes: yes
+no: no

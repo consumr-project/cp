@@ -22,3 +22,5 @@ heart_count: '{count} {count, plural, one {heart} other {hearts}}'
 enumeration_comma: ', '
 enumeration_comma_last: ', an '
 percentage: '{num}%'
+yes: yez
+no: no

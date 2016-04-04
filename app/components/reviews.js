@@ -55,6 +55,7 @@ angular.module('tcp').directive('reviews', [
             template: [
                 '<div>',
                 '    <chart type="hbar" values="reviews.summary"',
+                '        class="margin-bottom-xlarge"',
                 '        y-labels=":: vm.chart_labels"></chart>',
                 '    <div ng-repeat="review in :: reviews.list"',
                 '       class="margin-top-large">',
@@ -75,6 +76,9 @@ angular.module('tcp').directive('reviews', [
                 '           date: review.created_date,',
                 '       }"></span>',
                 '       <q class="copy block margin-top-small">{{::review.summary}}</q>',
+                '       <h4 class="copy block margin-top-small" i18n="company/did_review_help"></h4>',
+                '       <button class="button--thin button--unselected" i18n="common/yes"></button>',
+                '       <button class="button--thin button--unselected" i18n="common/no"></button>',
                 '    </div>',
                 '</div>'
             ].join('')
