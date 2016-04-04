@@ -48,12 +48,12 @@ cp.tapes('company review', t => {
         st.plan(2);
 
         review_usefulness.score = -2;
-        cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness).end((err, res) => {
+        cp.patch(`/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
             st.notOk(res.body.meta.ok);
         });
 
         review_usefulness.score = 2;
-        cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness).end((err, res) => {
+        cp.patch(`/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
             st.notOk(res.body.meta.ok);
         });
     });
@@ -70,8 +70,8 @@ cp.tapes('company review', t => {
         st.plan(fixture.review_usefulness.length);
 
         fixture.review_usefulness.forEach(review_usefulness =>
-            cp.patch(`/reviews/${review_usefulness.review_id}/usefull`, review_usefulness)
-                .end((err, res) => st.ok(res.body.meta.ok, 'created test review usefull flag')));
+            cp.patch(`/reviews/${review_usefulness.review_id}/useful`, review_usefulness)
+                .end((err, res) => st.ok(res.body.meta.ok, 'created test review useful flag')));
     });
 
     t.test('get reviews', st => {
@@ -138,7 +138,7 @@ cp.tapes('company review', t => {
                 st.ok(res.body.meta.ok, 'deleted test company'));
 
             fixture.review_usefulness.forEach(review_usefulness =>
-                cp.purge(`/reviews/${review_usefulness.review_id}/usefull/${review_usefulness.user_id}`)
+                cp.purge(`/reviews/${review_usefulness.review_id}/useful/${review_usefulness.user_id}`)
                     .end((err, res) => st.ok(res.body.meta.ok, 'deleted test review flag')));
 
             fixture.reviews.forEach((review, i) => setTimeout(() =>

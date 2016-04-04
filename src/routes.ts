@@ -148,10 +148,10 @@ export default (app, models, conn) => {
         can('retrieve', 'review'),
         query(conn, sql('get-company-reviews-summary')));
 
-    patch('/reviews/:review_id/usefull',
+    patch('/reviews/:review_id/useful',
         can('update', 'review'),
         upsert(models.ReviewUsefulness, ['review_id']));
-    del('/reviews/:review_id/usefull/:user_id',
+    del('/reviews/:review_id/useful/:user_id',
         can('update', 'review'),
         remove(models.ReviewUsefulness, {review_id: 'review_id', user_id: 'user_id'}));
     del('/reviews/:review_id',
