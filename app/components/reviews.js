@@ -38,12 +38,32 @@ angular.module('tcp').directive('reviews', [
             $scope.reviews = {};
             $scope.vm.chart_labels = get_chart_labels();
 
-            Services.query.companies.reviews($scope.companyId)
+            Services.query.companies.reviews($scope.companyId, Session.USER.id)
                 .then(utils.scope.set($scope, 'reviews.list'));
 
             Services.query.companies.reviews.summary($scope.companyId)
                 .then(list_scores)
                 .then(utils.scope.set($scope, 'reviews.summary'));
+
+            /**
+             * @param {Review} review
+             * @param {Number} score
+             * @return {Promise}
+             */
+            $scope.useful = function (review, score) {
+                utils.assert(Session.USER.id, 'login required for action');
+                utils.assert(score && review && review.id);
+
+                review.user_useful_neg = score < 0;
+                review.user_useful_pos = score > 0;
+
+                return Services.query.reviews.useful.upsert(review.id, {
+                    score: score,
+                    user_id: Session.USER.id,
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id,
+                });
+            };
         }
 
         return {
@@ -77,8 +97,12 @@ angular.module('tcp').directive('reviews', [
                 '       }"></span>',
                 '       <q class="copy block margin-top-small">{{::review.summary}}</q>',
                 '       <h4 class="copy block margin-top-small" i18n="company/did_review_help"></h4>',
-                '       <button class="button--thin button--unselected" i18n="common/yes"></button>',
-                '       <button class="button--thin button--unselected" i18n="common/no"></button>',
+                '       <button class="button--thin"',
+                '           ng-class="{\'button--unselected\': !review.user_useful_pos}"',
+                '           ng-click="useful(review, +1)" i18n="common/yes"></button>',
+                '       <button class="button--thin"',
+                '           ng-class="{\'button--unselected\': !review.user_useful_neg}"',
+                '           ng-click="useful(review, -1)" i18n="common/no"></button>',
                 '    </div>',
                 '</div>'
             ].join('')

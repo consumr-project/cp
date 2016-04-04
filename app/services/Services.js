@@ -135,6 +135,7 @@ angular.module('tcp').service('Services', [
             tags: crud('tags'),
             products: crud('products'),
             users: crud('users'),
+            reviews: crud('reviews', ['useful']),
         };
 
         queryService.search = {
@@ -169,8 +170,12 @@ angular.module('tcp').service('Services', [
             },
         };
 
-        queryService.companies.reviews = function (id) {
-            return $http.get(url('companies', id, 'reviews'))
+        queryService.companies.reviews = function (id, user_id) {
+            return $http.get(url('companies', id, 'reviews'), {
+                params: {
+                    user_id: user_id
+                }
+            })
                 .then(pluck_data).then(pluck_body);
         };
 
