@@ -103,6 +103,8 @@ build-app:
 	$(js_min) app/elements/collapsable.js >> $(build_app_js)
 	$(js_min) app/elements/pills.js >> $(build_app_js)
 	$(js_min) app/elements/chart.js >> $(build_app_js)
+	$(js_min) app/elements/options.js >> $(build_app_js)
+	$(js_min) app/elements/options-item.js >> $(build_app_js)
 	$(js_min) app/elements/popover.js >> $(build_app_js)
 	$(js_min) app/elements/popover-item.js >> $(build_app_js)
 	$(js_min) app/elements/avatar.js >> $(build_app_js)

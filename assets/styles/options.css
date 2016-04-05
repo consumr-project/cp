@@ -1,0 +1,24 @@
+.options {
+    font-size: 0;
+}
+
+.options--label,
+.options__item {
+    font-size: var(--font-size-normal);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.options__item {
+    transition: color var(--speed-fast);
+}
+
+.options__item + .options__item::before {
+    color: black;
+    content: '/';
+    padding: 0 5px;
+}
+
+.options__item[selected] {
+    color: var(--color-cp-brand);
+}
