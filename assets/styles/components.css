@@ -1,1 +1,10 @@
-/* empty */
+.reviews-component__sort {
+    position: relative;
+    top: 10px;
+}
+
+@media (--media-regular-screens) {
+    .reviews-component__sort {
+        float: right
+    }
+}

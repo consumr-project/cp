@@ -104,15 +104,19 @@ angular.module('tcp').directive('reviews', [
                 companyId: '@'
             },
             template: [
-                '<div>',
-                '    <span class="options--label" i18n="common/sort_by_col"></span>',
-                '    <options on-change="order(value)">',
-                '        <options-item value="time" selected i18n="company/time"></options-item>',
-                '        <options-item value="usefulness" i18n="company/usefulness"></options-item>',
-                '    </options>',
+                '<div class="reviews-component">',
                 '    <chart type="hbar" values="reviews.summary"',
                 '        class="margin-bottom-xlarge"',
                 '        y-labels=":: vm.chart_labels"></chart>',
+
+                '    <div class="margin-bottom-medium reviews-component__sort">',
+                '        <span class="options--label" i18n="common/sort_by_col"></span>',
+                '        <options on-change="order(value)">',
+                '            <options-item value="time" selected i18n="company/time"></options-item>',
+                '            <options-item value="usefulness" i18n="company/usefulness"></options-item>',
+                '        </options>',
+                '    </div>',
+
                 '    <div ng-repeat="review in reviews.list"',
                 '       class="margin-top-xlarge">',
                 '       <table>',
