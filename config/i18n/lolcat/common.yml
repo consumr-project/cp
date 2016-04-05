@@ -24,3 +24,4 @@ enumeration_comma_last: ', an '
 percentage: '{num}%'
 yes: yez
 no: no
+sort_by_col: 'sort by:'

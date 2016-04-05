@@ -9,6 +9,9 @@ angular.module('tcp').directive('reviews', [
 
         var SCORE_LIST_LEN = 6;
 
+        var ORDER_TIME = 'time',
+            ORDER_USEFULNESS = 'usefulness';
+
         /**
          * @return {String[]}
          */
@@ -66,6 +69,32 @@ angular.module('tcp').directive('reviews', [
                     updated_by: Session.USER.id,
                 });
             };
+
+            /**
+             * @param {ORDER_*} by
+             */
+            $scope.order = function (by) {
+                var fields = [],
+                    orders = [];
+
+                switch (by) {
+                    case ORDER_TIME:
+                        fields = ['created_date'];
+                        orders = ['desc'];
+                        break;
+
+                    case ORDER_USEFULNESS:
+                        fields = ['usefulness_score', 'id'];
+                        orders = ['desc', 'desc'];
+                        break;
+
+                    default:
+                        throw new Error('Invalid order option: ' + by);
+                }
+
+                $scope.reviews.list = lodash.orderBy(
+                    $scope.reviews.list, fields, orders);
+            };
         }
 
         return {
@@ -76,10 +105,15 @@ angular.module('tcp').directive('reviews', [
             },
             template: [
                 '<div>',
+                '    <span class="options--label" i18n="common/sort_by_col"></span>',
+                '    <options on-change="order(value)">',
+                '        <options-item value="time" selected i18n="company/time"></options-item>',
+                '        <options-item value="usefulness" i18n="company/usefulness"></options-item>',
+                '    </options>',
                 '    <chart type="hbar" values="reviews.summary"',
                 '        class="margin-bottom-xlarge"',
                 '        y-labels=":: vm.chart_labels"></chart>',
-                '    <div ng-repeat="review in :: reviews.list"',
+                '    <div ng-repeat="review in reviews.list"',
                 '       class="margin-top-xlarge">',
                 '       <table>',
                 '           <tr>',
