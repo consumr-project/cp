@@ -7,12 +7,14 @@ angular.module('tcp').directive('reviews', [
     function (lodash, utils, i18n, Services, Session) {
         'use strict';
 
+        var SCORE_LIST_LEN = 6;
+
         /**
          * @return {String[]}
          */
         function get_chart_labels() {
-            return lodash.times(5, function (count) {
-                return i18n.get('common/heart_count', { count: count + 1 });
+            return lodash.times(SCORE_LIST_LEN, function (count) {
+                return i18n.get('common/heart_count', { count: count });
             }).reverse();
         }
 
@@ -26,7 +28,7 @@ angular.module('tcp').directive('reviews', [
             return lodash.reduce(summary_all, function (scores, summary) {
                 scores[summary.score] = summary.score_count;
                 return scores;
-            }, [0, 0, 0, 0, 0]).reverse();
+            }, lodash.range(0, SCORE_LIST_LEN, 0)).reverse();
         }
 
         /**
