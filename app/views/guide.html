@@ -8,6 +8,14 @@
 }
 </style>
 <div class="site-content" ng-controller="GuideController">
+    <h1>options</h1>
+    <rector-markup>
+        <options on-change="action(value)">
+            <options-item value="time" selected i18n="company/time"></options-item>
+            <options-item value="usefulness" i18n="company/usefulness"></options-item>
+        </options>
+    </rector-markup>
+
     <h1>chart</h1>
     <rector-markup>
         <chart type="heartcount" value="4"></chart>
