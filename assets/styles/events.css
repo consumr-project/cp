@@ -154,11 +154,17 @@
 }
 
 .events__event__content--left {
-    margin-right: var(--spacing-small);
+    margin-right: var(--spacing-xsmall);
 }
 
-.events__event__content--right {
-    margin-left: var(--spacing-small);
+@media (--media-regular-screens) {
+    .events__event__content--left {
+        margin-right: var(--spacing-small);
+    }
+
+    .events__event__content--right {
+        margin-left: var(--spacing-small);
+    }
 }
 
 .events__event .events__event__content--left {
