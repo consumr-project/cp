@@ -3,8 +3,8 @@ select e.id,
     e.sentiment,
     e.logo,
     e.date,
-    count(es.*)::"numeric" as source_count,
-    count(eb.*)::"numeric" as bookmark_count,
+    count(distinct es.id)::"numeric" as source_count,
+    count(distinct eb.user_id)::"numeric" as bookmark_count,
 
     <% if (query.user_id) { %>
     count(me.*) > 0 as bookmarked_by_user,
@@ -31,7 +31,7 @@ left join event_bookmarks me on (e.id = me.event_id
 <% } %>
 
 where ce.company_id = :company_id
--- where ce.company_id = 'f45853f5-6e6d-4b9d-b56f-1e92d3186873'
+-- where ce.company_id = '2bf642c5-7682-494a-b3e9-8961d655befc'
 and e.deleted_date is null
 
 group by e.id
