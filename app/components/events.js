@@ -85,7 +85,7 @@ angular.module('tcp').directive('events', [
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
                 logo: ev.logo,
-                tags: ev.tag_ids,
+                tag_ids: lodash.filter(ev.tag_ids),
                 source_count: ev.source_count,
                 bookmark_count: ev.bookmark_count,
                 bookmarked_by_me: ev.bookmarked_by_user,
@@ -245,12 +245,12 @@ angular.module('tcp').directive('events', [
                     $scope.filtered_events = lodash.filter($scope.events, function (ev) {
                         if (ev.$never_filter) {
                             return true;
-                        } else if (!ev.tags) {
+                        } else if (!ev.tag_ids || !ev.tag_ids.length) {
                             return false;
                         }
 
-                        for (var i = 0, len = ev.tags.length; i < len; i++) {
-                            if (lodash.includes(tag_ids, ev.tags[i].tag_id)) {
+                        for (var i = 0, len = tag_ids.length; i < len; i++) {
+                            if (lodash.includes(ev.tag_ids, tag_ids[i])) {
                                 return true;
                             }
                         }
