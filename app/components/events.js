@@ -85,36 +85,11 @@ angular.module('tcp').directive('events', [
                 date: new Date(ev.date).valueOf(),
                 sentiment: ev.sentiment,
                 logo: ev.logo,
-                tags: ev.tags,
-                source_count: ev.sources.length,
-                bookmark_count: ev.bookmarks['@meta'].instead.count,
-                bookmarked_by_me: ev.bookmarks['@meta'].instead.includes_me,
+                tags: ev.tag_ids,
+                source_count: ev.source_count,
+                bookmark_count: ev.bookmark_count,
+                bookmarked_by_me: ev.bookmarked_by_user,
             };
-        }
-
-        /**
-         * @param {String} event_id
-         * @return {Promise}
-         */
-        function get_event(event_id) {
-            return Services.query.events.retrieve(event_id, ['sources', 'bookmarks', 'tags']);
-        }
-
-        /**
-         * XXX should be one request
-         * @param {String} company_id
-         * @return {Promise}
-         */
-        function get_events(company_id) {
-            return Services.query.companies.events.retrieve(company_id).then(function (events) {
-                return $q.all(
-                    lodash
-                        .chain(events)
-                        .map('event_id')
-                        .map(get_event)
-                        .value()
-                );
-            });
         }
 
         /**
@@ -162,7 +137,7 @@ angular.module('tcp').directive('events', [
                     $scope.vm.first_load--;
                 }
 
-                return get_events($scope.id)
+                return Services.query.companies.events.timeline($scope.id, Session.USER.id)
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))

@@ -170,13 +170,20 @@ angular.module('tcp').service('Services', [
             },
         };
 
+        queryService.companies.events.timeline = function (id, user_id) {
+            return $http.get(url('companies', id, 'events/timeline'), {
+                params: {
+                    user_id: user_id
+                }
+            }).then(pluck_data).then(pluck_body);
+        };
+
         queryService.companies.reviews = function (id, user_id) {
             return $http.get(url('companies', id, 'reviews'), {
                 params: {
                     user_id: user_id
                 }
-            })
-                .then(pluck_data).then(pluck_body);
+            }).then(pluck_data).then(pluck_body);
         };
 
         queryService.companies.reviews.summary = function (id) {
