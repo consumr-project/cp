@@ -117,6 +117,10 @@ export default (app, models, conn) => {
         can('create', 'company'),
         can('update', 'company'),
         upsert(models.CompanyEvent, ['company_id']));
+    get('/companies/:company_id/events/timeline',
+        can('retrieve', 'company'),
+        can('retrieve', 'event'),
+        query(conn, sql('get-company-events')));
     get('/companies/:company_id/events/:id?',
         can('retrieve', 'company'),
         retrieve(models.CompanyEvent, {company_id: 'company_id', event_id: 'id'}));

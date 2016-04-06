@@ -41,6 +41,7 @@ exports["default"] = function (app, models, conn) {
     get('/companies/:company_id/followers/:id?', can('retrieve', 'company'), retrieve(models.CompanyFollower, { company_id: 'company_id', user_id: 'id' }));
     del('/companies/:company_id/followers/:id', can('update', 'company'), remove(models.CompanyFollower, { company_id: 'company_id', user_id: 'id' }));
     patch('/companies/:company_id/events', can('create', 'company'), can('update', 'company'), upsert(models.CompanyEvent, ['company_id']));
+    get('/companies/:company_id/events/timeline', can('retrieve', 'company'), can('retrieve', 'event'), query(conn, sql('get-company-events')));
     get('/companies/:company_id/events/:id?', can('retrieve', 'company'), retrieve(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     del('/companies/:company_id/events/:id', can('delete', 'company'), remove(models.CompanyEvent, { company_id: 'company_id', event_id: 'id' }));
     get('/companies/:company_id/common/companies', can('retrieve', 'company'), query(conn, sql('get-company-related-companies')));
