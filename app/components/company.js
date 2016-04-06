@@ -356,8 +356,10 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <section ng-if="vm.feature_company_reviews">',
+                '            <review company-id="{{company.id}}" company-name="{{company.name}}"></review>',
+
                 '            <div class="margin-top-xlarge margin-bottom-medium">',
-                '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
+                '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="review/add"></button>',
                 '            </div>',
 
                 '            <reviews company-id="{{company.id}}"',

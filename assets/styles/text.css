@@ -11,6 +11,15 @@ input:not([type="radio"]) {
     word-break: normal;
 }
 
+.textarea--inlined {
+    border-color: transparent;
+    padding: 0;
+}
+
+.textarea--summary {
+    height: 200px;
+}
+
 input:not([type=radio]):not([type=checkbox]).title {
     border-color: transparent;
     font-size: var(--font-size-xlarge);

@@ -122,6 +122,7 @@ build-app:
 	$(js_min) app/components/company.js >> $(build_app_js)
 	$(js_min) app/components/event.js >> $(build_app_js)
 	$(js_min) app/components/events.js >> $(build_app_js)
+	$(js_min) app/components/review.js >> $(build_app_js)
 	$(js_min) app/components/reviews.js >> $(build_app_js)
 	$(js_min) app/services/Navigation.js >> $(build_app_js)
 	$(js_min) app/services/Feature.js >> $(build_app_js)

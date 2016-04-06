@@ -32,6 +32,10 @@
     width: 50%;
 }
 
+.not-half-width-but-not-full-either {
+    width: 85%;
+}
+
 .no-outline {
     outline: none;
 }
