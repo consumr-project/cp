@@ -24,7 +24,6 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
-                feature_company_reviews: Feature.on('company_reviews'),
                 followed_by_me: false,
                 step: [true],
                 pre_search_name: '',
@@ -369,10 +368,10 @@ angular.module('tcp').directive('company', [
                 '                        ng-click="on_stop_following(company.id)"',
                 '                        ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
                 '                </td>',
-                '                <td ng-click="toggle_show_reviews()" class="right-align no-span" ng-if="vm.feature_company_reviews">',
+                '                <td ng-click="toggle_show_reviews()" class="right-align no-span">',
                 '                    <chart type="heartcount" value="{{::reviews_score.iaverage}}"></chart>',
                 '                </td>',
-                '                <td ng-click="toggle_show_reviews()" class="right-align padding-left-small no-wrap no-span" ng-if="vm.feature_company_reviews">',
+                '                <td ng-click="toggle_show_reviews()" class="right-align padding-left-small no-wrap no-span">',
                 '                    {{::reviews_score.count}}',
                 '                </td>',
                 '            </tr>',
@@ -390,7 +389,7 @@ angular.module('tcp').directive('company', [
                 '            on-cancel="hide_review_form()"',
                 '            ng-if="vm.show_review_form"></review>',
 
-                '        <section ng-if="vm.feature_company_reviews && vm.show_reviews">',
+                '        <section ng-if="vm.show_reviews">',
                 '            <button class="logged-in-only margin-top-xlarge margin-bottom-medium"',
                 '                ng-click="show_review_form()" i18n="review/add"></button>',
                 '            <reviews company-id="{{company.id}}"',

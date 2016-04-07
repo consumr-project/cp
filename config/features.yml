@@ -11,4 +11,4 @@
 
 # show/hide reviews element and reviews section/page for companies
 company_reviews:
-  enabled: false
+  enabled: true
