@@ -38,30 +38,28 @@
     white-space: nowrap;
 }
 
-.chart--heartcount__left,
-.chart--heartcount__right {
+.chart--heartcount__n {
+    background-image: url(/assets/images/heart-white.svg);
     background-size: contain;
     display: inline-block;
     height: 25px;
+    width: 25px;
 }
 
-.chart--heartcount__left {
+.chart[value="1"] .chart--heartcount__1,
+.chart[value="2"] .chart--heartcount__1,
+.chart[value="2"] .chart--heartcount__2,
+.chart[value="3"] .chart--heartcount__1,
+.chart[value="3"] .chart--heartcount__2,
+.chart[value="3"] .chart--heartcount__3,
+.chart[value="4"] .chart--heartcount__1,
+.chart[value="4"] .chart--heartcount__2,
+.chart[value="4"] .chart--heartcount__3,
+.chart[value="4"] .chart--heartcount__4,
+.chart[value="5"] .chart--heartcount__1,
+.chart[value="5"] .chart--heartcount__2,
+.chart[value="5"] .chart--heartcount__3,
+.chart[value="5"] .chart--heartcount__4,
+.chart[value="5"] .chart--heartcount__5 {
     background-image: url(/assets/images/heart-black.svg);
 }
-
-.chart--heartcount__right {
-    background-image: url(/assets/images/heart-white.svg);
-}
-
-.chart--heartcount-0 .chart--heartcount__left, .chart--heartcount- .chart--heartcount__left { width: 0; }
-.chart--heartcount-0 .chart--heartcount__right, .chart--heartcount- .chart--heartcount__right { width: 125px; }
-.chart--heartcount-1 .chart--heartcount__left { width: 25px; }
-.chart--heartcount-1 .chart--heartcount__right { width: 100px; }
-.chart--heartcount-2 .chart--heartcount__left { width: 50px; }
-.chart--heartcount-2 .chart--heartcount__right { width: 75px; }
-.chart--heartcount-3 .chart--heartcount__left { width: 75px; }
-.chart--heartcount-3 .chart--heartcount__right { width: 50px; }
-.chart--heartcount-4 .chart--heartcount__left { width: 100px; }
-.chart--heartcount-4 .chart--heartcount__right { width: 25px; }
-.chart--heartcount-5 .chart--heartcount__left { width: 125px; }
-.chart--heartcount-5 .chart--heartcount__right { width: 0; }

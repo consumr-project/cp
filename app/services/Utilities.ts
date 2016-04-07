@@ -112,3 +112,7 @@ export function summaryze(text: string): string {
     var paragraphs = text.split('\n');
     return paragraphs[0];
 }
+
+export function truthy(val: string | Boolean): Boolean {
+    return val && (val.toString() === 'true' || val.toString() === '1');
+}

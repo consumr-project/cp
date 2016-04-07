@@ -125,7 +125,7 @@ angular.module('tcp').directive('reviews', [
                 '                   <avatar email="{{::review.user_email}}" class="image-only"></avatar>',
                 '               </td>',
                 '               <td class="padding-left-small">',
-                '                   <chart type="heartcount" value="::review.score"></chart>',
+                '                   <chart type="heartcount" value="{{::review.score}}"></chart>',
                 '               </td>',
                 '           </tr>',
                 '       </table>',
