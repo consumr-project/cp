@@ -34,7 +34,7 @@ angular.module('tcp').directive('review', [
                     summary: $scope.vm.summary,
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id,
-                });
+                }).then($scope.onSave);
             };
         }
 
@@ -45,6 +45,7 @@ angular.module('tcp').directive('review', [
                 companyId: '@',
                 companyName: '@',
                 onCancel: '&',
+                onSave: '&',
             },
             template: [
                 '<div class="not-half-width-but-not-full-either">',
@@ -57,7 +58,7 @@ angular.module('tcp').directive('review', [
                 '        prop="placeholder" i18n="review/summary_placeholder"',
                 '        ng-model="vm.summary"></textarea>',
                 '    <button i18n="admin/save" ng-click="save()"></button>',
-                '    <button i18n="admin/cancel" ng-click="onCancel()"></button>',
+                '    <button i18n="admin/cancel" ng-click="onCancel()" class="button--link"></button>',
                 '</div>',
             ].join('')
         };

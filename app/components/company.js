@@ -386,11 +386,12 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
+                '            on-save="hide_review_form()"',
                 '            on-cancel="hide_review_form()"',
                 '            ng-if="vm.show_review_form"></review>',
 
                 '        <section ng-if="vm.show_reviews">',
-                '            <button class="logged-in-only margin-top-xlarge margin-bottom-medium"',
+                '            <button class="logged-in-only margin-top-xlarge margin-bottom-xsmall"',
                 '                ng-click="show_review_form()" i18n="review/add"></button>',
                 '            <reviews company-id="{{company.id}}"',
                 '                class="margin-top-medium margin-bottom-xlarge"></reviews>',
