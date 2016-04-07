@@ -35,7 +35,38 @@ angular.module('tcp').directive('company', [
                 events_filter: [],
                 events_timeline: {},
                 event_form: {},
-                add_event: {}
+                add_event: {},
+
+                show_review_form: false,
+                show_reviews: false,
+                show_events: true,
+            };
+
+            $scope.toggle_show_reviews = function () {
+                if ($scope.vm.show_events) {
+                    $scope.vm.show_reviews = true;
+                    $scope.vm.show_events = false;
+                } else {
+                    $scope.vm.show_review_form = false;
+                    $scope.vm.show_reviews = false;
+                    $scope.vm.show_events = true;
+                }
+            };
+
+            $scope.show_events = function () {
+                $scope.vm.show_review_form = false;
+                $scope.vm.show_reviews = false;
+                $scope.vm.show_events = true;
+            };
+
+            $scope.show_review_form = function () {
+                $scope.vm.show_review_form = true;
+                $scope.vm.show_reviews = false;
+            };
+
+            $scope.hide_review_form = function () {
+                $scope.vm.show_review_form = false;
+                $scope.vm.show_reviews = true;
             };
 
             /**
@@ -326,7 +357,7 @@ angular.module('tcp').directive('company', [
                 '        <table class="full-span">',
                 '            <tr>',
                 '                <td>',
-                '                    <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
+                '                    <h1 class="take-space animated fadeIn inline-block" ng-click="show_events()">{{company.name}}</h1>',
                 '                    <a ng-if="company.website_url" href="{{company.website_url}}"',
                 '                        target="_blank" rel="noreferrer" class="linkimg animated fadeIn"></a>',
                 '                </td>',
@@ -338,10 +369,10 @@ angular.module('tcp').directive('company', [
                 '                        ng-click="on_stop_following(company.id)"',
                 '                        ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
                 '                </td>',
-                '                <td class="right-align no-span" ng-if="vm.feature_company_reviews">',
+                '                <td ng-click="toggle_show_reviews()" class="right-align no-span" ng-if="vm.feature_company_reviews">',
                 '                    <chart type="heartcount" value="{{::reviews_score.iaverage}}"></chart>',
                 '                </td>',
-                '                <td class="right-align padding-left-small no-wrap no-span" ng-if="vm.feature_company_reviews">',
+                '                <td ng-click="toggle_show_reviews()" class="right-align padding-left-small no-wrap no-span" ng-if="vm.feature_company_reviews">',
                 '                    {{::reviews_score.count}}',
                 '                </td>',
                 '            </tr>',
@@ -355,25 +386,26 @@ angular.module('tcp').directive('company', [
                 '                class="tag--bigword" label="{{get_label(filter)}}"></tag>',
                 '        </div>',
 
-                '        <section ng-if="vm.feature_company_reviews">',
-                '            <review company-id="{{company.id}}" company-name="{{company.name}}"></review>',
+                '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
+                '            on-cancel="hide_review_form()"',
+                '            ng-if="vm.show_review_form"></review>',
 
-                '            <div class="margin-top-xlarge margin-bottom-medium">',
-                '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="review/add"></button>',
-                '            </div>',
-
+                '        <section ng-if="vm.feature_company_reviews && vm.show_reviews">',
+                '            <button class="logged-in-only margin-top-xlarge margin-bottom-medium"',
+                '                ng-click="show_review_form()" i18n="review/add"></button>',
                 '            <reviews company-id="{{company.id}}"',
                 '                class="margin-top-medium margin-bottom-xlarge"></reviews>',
                 '        </section>',
 
-                '        <div class="margin-top-xlarge margin-bottom-medium center-align">',
-                '            <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
-                '        </div>',
-
-                '        <events class="margin-top-medium margin-bottom-xlarge" ',
-                '            filters="vm.events_filter" ',
-                '            api="vm.events_timeline" ',
-                '            id="{{company.id}}"></events>',
+                '        <section ng-if="vm.show_events">',
+                '            <div class="margin-top-xlarge margin-bottom-medium center-align">',
+                '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
+                '            </div>',
+                '            <events class="margin-top-medium margin-bottom-xlarge" ',
+                '                filters="vm.events_filter" ',
+                '                api="vm.events_timeline" ',
+                '                id="{{company.id}}"></events>',
+                '        </section>',
 
                 '        <popover with-close-x with-backdrop api="vm.add_event" class="popover--with-content">',
                 '            <event',

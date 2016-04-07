@@ -44,6 +44,7 @@ angular.module('tcp').directive('review', [
             scope: {
                 companyId: '@',
                 companyName: '@',
+                onCancel: '&',
             },
             template: [
                 '<div class="not-half-width-but-not-full-either">',
@@ -56,6 +57,7 @@ angular.module('tcp').directive('review', [
                 '        prop="placeholder" i18n="review/summary_placeholder"',
                 '        ng-model="vm.summary"></textarea>',
                 '    <button i18n="admin/save" ng-click="save()"></button>',
+                '    <button i18n="admin/cancel" ng-click="onCancel()"></button>',
                 '</div>',
             ].join('')
         };
