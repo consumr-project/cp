@@ -95,6 +95,10 @@ angular.module('tcp').directive('reviews', [
                 $scope.reviews.list = lodash.orderBy(
                     $scope.reviews.list, fields, orders);
             };
+
+            $scope.usefulness_score_line = function (score) {
+                return score > 0 ? score : 0;
+            };
         }
 
         return {
@@ -112,8 +116,8 @@ angular.module('tcp').directive('reviews', [
                 '    <div class="margin-bottom-medium reviews-component__sort">',
                 '        <span class="options--label" i18n="common/sort_by_col"></span>',
                 '        <options on-change="order(value)">',
-                '            <options-item value="time" selected i18n="company/time"></options-item>',
-                '            <options-item value="usefulness" i18n="company/usefulness"></options-item>',
+                '            <options-item value="time" selected i18n="review/time"></options-item>',
+                '            <options-item value="usefulness" i18n="review/usefulness"></options-item>',
                 '        </options>',
                 '    </div>',
 
@@ -136,7 +140,8 @@ angular.module('tcp').directive('reviews', [
                 '           date: review.created_date,',
                 '       }"></span>',
                 '       <q class="copy block margin-top-small">{{::review.summary}}</q>',
-                '       <h4 class="copy block margin-top-small" i18n="company/did_review_help"></h4>',
+                '       <h4 class="copy block margin-top-small" i18n="review/did_review_help"',
+                '           data="{count: usefulness_score_line(review.usefulness_score)}"></h4>',
                 '       <button class="button--thin"',
                 '           ng-class="{\'button--unselected\': !review.user_useful_pos}"',
                 '           ng-click="useful(review, +1)" i18n="common/yes"></button>',
