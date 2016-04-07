@@ -339,7 +339,7 @@ angular.module('tcp').directive('company', [
                 '                        ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
                 '                </td>',
                 '                <td class="right-align no-span" ng-if="vm.feature_company_reviews">',
-                '                    <chart type="heartcount" value="::reviews_score.iaverage"></chart>',
+                '                    <chart type="heartcount" value="{{::reviews_score.iaverage}}"></chart>',
                 '                </td>',
                 '                <td class="right-align padding-left-small no-wrap no-span" ng-if="vm.feature_company_reviews">',
                 '                    {{::reviews_score.count}}',
