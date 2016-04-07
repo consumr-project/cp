@@ -43,7 +43,7 @@ angular.module('tcp').directive('reviews', [
             $scope.reviews = {};
             $scope.vm.chart_labels = get_chart_labels();
 
-            Services.query.companies.reviews($scope.companyId, Session.USER.id)
+            Services.query.companies.reviews.view($scope.companyId, Session.USER.id)
                 .then(utils.scope.set($scope, 'reviews.list'));
 
             Services.query.companies.reviews.summary($scope.companyId)

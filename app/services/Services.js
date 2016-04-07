@@ -130,7 +130,7 @@ angular.module('tcp').service('Services', [
 
         queryService = {
             UUID: '$UUID',
-            companies: crud('companies', ['followers', 'events', 'products']),
+            companies: crud('companies', ['followers', 'events', 'products', 'reviews']),
             events: crud('events', ['sources', 'tags', 'companies', 'bookmarks']),
             tags: crud('tags'),
             products: crud('products'),
@@ -178,7 +178,7 @@ angular.module('tcp').service('Services', [
             }).then(pluck_data).then(pluck_body);
         };
 
-        queryService.companies.reviews = function (id, user_id) {
+        queryService.companies.reviews.view = function (id, user_id) {
             return $http.get(url('companies', id, 'reviews'), {
                 params: {
                     user_id: user_id

@@ -15,14 +15,26 @@ angular.module('tcp').directive('review', [
                 summary: '',
             };
 
+            /**
+             * @return {Promise}
+             */
             $scope.save = function () {
                 var score = $scope.vm.score;
 
+                utils.assert(Session.USER.id, 'must be logged in');
                 utils.assert(score >= 0 && score <= 5, 'review score between 0-5');
                 utils.assert($scope.vm.title, 'review title required');
                 utils.assert($scope.vm.summary, 'review summary required');
 
-                // XXX save review here
+                return Services.query.companies.reviews.create($scope.companyId, {
+                    id: Services.query.UUID,
+                    user_id: Session.USER.id,
+                    score: $scope.vm.score,
+                    title: $scope.vm.title,
+                    summary: $scope.vm.summary,
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id,
+                });
             };
         }
 
