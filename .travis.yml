@@ -24,7 +24,7 @@ before_script:
   - sleep 5
 
 script:
-  - make test-unit test-integration
+  - make lint test-unit test-integration
 
 cache:
   directories:
