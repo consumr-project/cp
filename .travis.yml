@@ -32,8 +32,9 @@ before_script:
   # - mongo mydb_test --eval 'db.addUser("travis", "test");'
   - psql -c 'create database travis_ci_test;' -U postgres
   - make build
-  - DEBUG=* make server &
+  - ./scripts/database-update
   - ./scripts/generate user
+  - DEBUG=* make server &
   - sleep 5
 
 script:
