@@ -29,18 +29,19 @@ TEST_SERVICE_URL=http://localhost:3000 make test
 
 ### configuration
 
-configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
-expected configuration variables. declare `DEBUG` to run (server and client
-logs) and build (source maps) in debug mode. declare `PORT` to run web server
-in a port other than `3000`. see `config/` directory for additional
-configuration options (linkedin, embedly, monitoring, etc.):
+configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
+`config/` directory for additional configuration options (linkedin, embedly,
+monitoring, etc.)
 
 to build and run application in debug mode:
 
 ```bash
 export NPM_CONFIG_PRODUCTION=false
 export DEBUG=*
+export PORT=3000
 ```
+
+additional services and service providers:
 
 ```bash
 export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
@@ -48,7 +49,14 @@ export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 ```
 
 ```bash
+export EMAIL_SERVICE_NAME=$(echo $CP_EMAIL_SERVICE_NAME)
+export EMAIL_SERVICE_USER=$(echo $CP_EMAIL_SERVICE_USER)
+export EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo $password)
+```
+
+```bash
 export ELASTICSEARCH_HOST='http://...'
+export MONGO_URL='utl to mongo db instance with database name'
 ```
 
 ### services
@@ -76,8 +84,26 @@ environment, with 'development' as the default.
 export ROLLBAR_TOKEN='...'
 export NODE_ENV='development'
 ```
+#### mongodb
 
-### thanks
+mongolab provides a free [MongoDB instance](https://mongolab.com/) that works
+just fine for a development enviroment.
+
+a local instance of mongo can be downloaded and started by running `make mongodb`
+
+#### rabbitmq
+
+heroku provides a free [RabbitMQ
+plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
+installed with the following command:
+
+```bash
+heroku addons:create rabbitmq-bigwig:pipkin
+```
+
+a local instance of RabbitMQ can be downloaded and started by running `make rabbitmq`
+
+### thanks for content
 
 * Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
 * Austin Condiff for the [menu](https://thenounproject.com/search/?q=hamburger&i=70916) icon
@@ -90,4 +116,14 @@ export NODE_ENV='development'
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * Christopher Reyes for the [megaphone](https://thenounproject.com/search/?q=megaphone&i=11770) icon
 * Brent Jackson for the [loading](http://jxnblk.com/loading/) svg
+
+### thanks for services
+
 * development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)
+* development (free) emails sent by [mailgun](http://www.mailgun.com/)
+* development (free) mongodb hosted by [mongolab](https://mongolab.com/)
+
+### reading
+
+* [HTML Email Basics](http://templates.mailchimp.com/getting-started/html-email-basics/) - Mail Chimp
+* [20 Email Design Best Practices and Resources for Beginners](http://code.tutsplus.com/tutorials/20-email-design-best-practices-and-resources-for-beginners--net-7309) - tutsplus

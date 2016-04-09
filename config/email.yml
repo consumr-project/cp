@@ -1,0 +1,12 @@
+addresses:
+  do_not_reply: 'consumr project <do-not-reply@consumrproject.org>'
+
+smtp_pool:
+  # use up to 5 parallel connections
+  max_connections: 5
+
+  # do not send more than 10 messages per connection
+  max_messages: 10
+
+  # no not send more than 5 messages in a second
+  rate_limit: 5

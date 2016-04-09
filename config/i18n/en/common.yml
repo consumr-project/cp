@@ -42,3 +42,6 @@ yes: yes
 no: no
 
 sort_by_col: "sort by:"
+# unsubscribe: unsubscribe
+# welcome_email_subject: Thank you for joining the consumr project!
+# welcome_email_text: Welcome {name}, and thank you for joining the consumr project, a crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.
