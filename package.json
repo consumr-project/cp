@@ -12,7 +12,7 @@
     "typings"
   ],
   "scripts": {
-    "postinstall": "make build",
+    "postinstall": "typings install; make build",
     "start": "make server"
   },
   "repository": {
