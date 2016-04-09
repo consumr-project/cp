@@ -3,4 +3,5 @@
 /typings/
 /newrelic_agent.log
 /.query-service/
+/bin/
 *.DS_Store*

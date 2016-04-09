@@ -7,8 +7,10 @@ things we buy, sell, and consume every day.
 
 ### usage
 
-`make build server` will install depedencies, compile source, and start a web
-server.
+```
+foreman start
+make build server
+```
 
 ### test
 
