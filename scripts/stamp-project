@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "{
+    \"date\": \"$(date)\",
+    \"head\": \"$(git log -1 --format="%H")\",
+    \"branch\": \"$(git rev-parse --abbrev-ref HEAD)\"
+}"

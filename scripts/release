@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make stamp
+./scripts/stamp-project > stamp.json
 git commit -m "stamp" stamp.json
 git push origin master
 git push heroku master

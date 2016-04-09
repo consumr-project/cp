@@ -60,13 +60,6 @@ lint:
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		app assets scripts test
 
-stamp:
-	echo "{ \
-		\"date\": \"$(shell date)\", \
-		\"head\": \"$(shell git log -1 --format="%H")\", \
-		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
-	}" > stamp.json
-
 test-start-webdriver:
 	if [ ! -d node_modules/protractor ]; then \
 		npm install protractor@3.1.1; \
