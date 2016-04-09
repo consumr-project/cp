@@ -53,6 +53,12 @@ export EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo 
 ```
 
 ```bash
+export LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
+export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
+export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
+```
+
+```bash
 export ELASTICSEARCH_HOST='http://...'
 export MONGO_URL='utl to mongo db instance with database name'
 ```

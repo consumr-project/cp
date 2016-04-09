@@ -1,0 +1,45 @@
+roles:
+  - admin
+  - user
+  - guest
+
+permissions:
+  CRUD: &CRUD [create, retrieve, update, delete]
+  user: *CRUD
+  tag: *CRUD
+  product: *CRUD
+  company: *CRUD
+  event: *CRUD
+  review: *CRUD
+
+grants:
+  guest:
+    - retrieve_user
+    - retrieve_tag
+    - retrieve_product
+    - retrieve_company
+    - retrieve_event
+    - retrieve_review
+
+  user:
+    - guest
+    - create_tag
+    - update_tag
+    - create_product
+    - update_product
+    - create_company
+    - update_company
+    - create_event
+    - update_event
+    - create_review
+    - update_review
+
+  admin:
+    - user
+    - create_user
+    - delete_user
+    - delete_tag
+    - delete_product
+    - delete_company
+    - delete_event
+    - delete_review

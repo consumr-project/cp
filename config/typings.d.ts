@@ -184,3 +184,76 @@ declare module "node-uuid" {
 
     export = UUID;
 }
+
+declare module "passport-localapikey" {
+    import { Request } from 'express';
+
+    export interface Search {
+        (apikey: string, done: (err?: Error) => void): void;
+    }
+
+    export class Strategy {
+        constructor(fn: Search);
+        authenticate(req: Request, options?: Object): void;
+    }
+}
+
+declare module "passport-linkedin-oauth2" {
+    import { Request } from 'express';
+
+    export interface Configuration {
+        callbackURL: string;
+        clientID: string;
+        clientSecret: string;
+        profileFields: string[];
+        scope: string[];
+    }
+
+    export interface Search {
+        (token: string, secret: string, profile: Profile, done: (err?: Error) => void): void;
+    }
+
+    export interface Profile {
+        id: string;
+        displayName: string;
+        _json: {
+            pictureUrl: string;
+            emailAddress: string;
+            publicProfileUrl: string;
+            summary: string;
+            headline: string;
+            positions: {
+                values: Array<{
+                    company: {
+                        name: string;
+                    }
+                }>
+            }
+        }
+    }
+
+    export class Strategy {
+        constructor(config: Configuration, fn: Search);
+        authenticate(req: Request, options?: Object): void;
+        _callbackURL: string;
+    }
+}
+
+declare module "rbac" {
+    interface Allowed {
+        (err?: Error, allowed?: Boolean): void;
+    }
+
+    interface Configuration {
+        roles: string[];
+        permissions: { [index: string]: string[] };
+        grants: { [index: string]: string[] };
+    }
+
+    class RBAC {
+        constructor(config: Configuration);
+        can(role: string, action: string, resource: string, fn: Allowed): void;
+    }
+
+    export = RBAC;
+}

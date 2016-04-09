@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const config = require('acm');
+
+const gen_conn = require('query-service/build/conn').default;
+const gen_models = require('query-service/build/models').default;
+
+const Models = gen_models(gen_conn());
+const User = Models.User;
+
+program
+    .command('user')
+    .description('generate a test user')
+    .action(() => {
+        var user = config('fixtures.user.admin');
+
+        console.log('ensuring user#%s exists', user.id);
+        User.findOrCreate({
+            defaults: user,
+            where: {
+                id: user.id
+            }
+        })
+            .then(() => {
+                console.log('added user');
+                process.exit(0);
+            })
+            .catch((err) => {
+                console.error('error creating test user:');
+                console.dir(err)
+                process.exit(1);
+            });
+    });
+
+program.parse(process.argv);
