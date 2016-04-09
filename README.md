@@ -31,9 +31,7 @@ TEST_SERVICE_URL=http://localhost:3000 make test
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
 `config/` directory for additional configuration options (linkedin, embedly,
-monitoring, etc.)
-
-to build and run application in debug mode:
+monitoring, etc.). to build and run application in debug mode:
 
 ```bash
 export NPM_CONFIG_PRODUCTION=false
@@ -87,21 +85,19 @@ export NODE_ENV='development'
 #### mongodb
 
 mongolab provides a free [MongoDB instance](https://mongolab.com/) that works
-just fine for a development enviroment.
-
-a local instance of mongo can be downloaded and started by running `make mongodb`
+just fine for a development enviroment. a local instance of mongo can be
+downloaded and started by running `make mongodb`
 
 #### rabbitmq
 
 heroku provides a free [RabbitMQ
 plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
-installed with the following command:
+installed with the command below. a local instance of RabbitMQ can be
+downloaded and started by running `make rabbitmq`
 
 ```bash
 heroku addons:create rabbitmq-bigwig:pipkin
 ```
-
-a local instance of RabbitMQ can be downloaded and started by running `make rabbitmq`
 
 ### thanks for content
 
@@ -119,6 +115,6 @@ a local instance of RabbitMQ can be downloaded and started by running `make rabb
 
 ### thanks for services
 
-* development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)
-* development (free) emails sent by [mailgun](http://www.mailgun.com/)
-* development (free) mongodb hosted by [mongolab](https://mongolab.com/)
+* development/free elasticsearch hosting provided by [facet flow](https://facetflow.com/)
+* development/free emails sent by [mailgun](http://www.mailgun.com/)
+* development/free mongodb hosted by [mongolab](https://mongolab.com/)
