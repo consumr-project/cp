@@ -45,6 +45,10 @@ export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
 export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 ```
 
+```bash
+export ELASTICSEARCH_HOST='http://...'
+```
+
 ### services
 
 #### new relic
@@ -84,3 +88,4 @@ export NODE_ENV='development'
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * Christopher Reyes for the [megaphone](https://thenounproject.com/search/?q=megaphone&i=11770) icon
 * Brent Jackson for the [loading](http://jxnblk.com/loading/) svg
+* development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)

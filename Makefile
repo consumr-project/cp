@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .PHONY: build install run test local clean
 
 services = auth extract notification query search user
@@ -164,3 +165,17 @@ build-client-src:
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngDatePicker.js >> $(build_app_js)
+
+#=======
+#es_version = 1.7.3
+#
+#es: elasticsearch
+#elasticsearch:
+#	if [ ! -d bin ]; then mkdir bin; fi
+#	if [ ! -f bin/elasticsearch-$(es_version).zip ]; then \
+#        wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$(es_version).zip \
+#            -O bin/elasticsearch-$(es_version).zip; fi
+#	if [ ! -d bin/elasticsearch-$(es_version) ]; then \
+#        unzip bin/elasticsearch-$(es_version).zip -d bin/elasticsearch-$(es_version); fi
+#	bin/elasticsearch-$(es_version)/elasticsearch-$(es_version)/bin/elasticsearch
+#>>>>>>> 5b4eaba5db5aec535bbfa36a3edc077c8b491308

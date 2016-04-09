@@ -1,0 +1,2 @@
+host: localhost:9200
+fuzziness: 0.6
