@@ -1,11 +1,11 @@
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import * as moment from 'moment/moment';
 import * as Cookie from 'js-cookie';
-import {EventEmitter2} from 'eventemitter2';
+import { EventEmitter2 } from 'eventemitter2';
 import * as utils from './services/Utilities';
-import {Cache, LocalStorageListCache} from 'jtils/dist/cache';
+import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
-import * as analytics from 'universal-analytics';
+import * as analytics from 'universal-analytics/index';
 
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;

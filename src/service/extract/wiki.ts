@@ -152,7 +152,7 @@ export function extract(req: Request, res: Response, next: Function) {
         exintro: '',
         explaintext: '',
         titles: req.query.q,
-    }, body => map(getset(body, 'query.pages'), normalize_extract).pop());
+    }, body => map(<WikiResult[]>getset(body, 'query.pages'), normalize_extract).pop());
 }
 
 export function search(req: Request, res: Response, next: Function) {
@@ -161,7 +161,7 @@ export function search(req: Request, res: Response, next: Function) {
         srprop: 'snippet',
         srlimit: '50',
         srsearch: req.query.q,
-    }, body => map(getset(body, 'query.search'), normalize_search_result));
+    }, body => map(<WikiResult[]>getset(body, 'query.search'), normalize_search_result));
 }
 
 export function infobox(req: Request, res: Response, next: Function) {

@@ -98,7 +98,8 @@ else
 endif
 
 build-client:
-	-$(tsc) app/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
+	$(tsc) config/typings.d.ts app/main.ts --outDir $(build_dir) \
+		--module commonjs $(ts_options) --rootDir ./
 
 build-client-bundle:
 ifdef DEBUG
@@ -109,7 +110,7 @@ else
 endif
 
 build-server:
-	$(tsc) config/typings.d.ts src/server/main.ts  --outDir build/ \
+	$(tsc) config/typings.d.ts src/server/main.ts  --outDir $(build_dir) \
 		--module commonjs --pretty --removeComments --moduleResolution classic
 
 build-client-deps:

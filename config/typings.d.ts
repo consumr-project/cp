@@ -2,6 +2,16 @@
 
 type CPServiceRequestHandler = (Request, Response, Function) => void;
 
+declare var i18n: any;
+
+declare var TCP_BUILD_CONFIG: {
+    features: any;
+    analytics: { gaid: string; };
+    environment: { name: string; };
+    rollbar: { token: string; };
+    locate: { dateFormat: string; };
+}
+
 interface CPSearchServiceResultMetadata {
     timed_out: boolean;
     took: number;
@@ -19,8 +29,10 @@ declare module "acm" {
 }
 
 declare module "deep-get-set" {
-    function fn(store: Object, get: string, set?: any): any;
-    export = fn;
+    /* function fn(store: any, get: string, set?: any): any; */
+    /* export = fn; */
+    function deep<T>(holder: any, prop: string, val?: T): T;
+    export = deep;
 }
 
 declare module "striptags" {
