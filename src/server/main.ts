@@ -1,4 +1,5 @@
 import { app as extract_service } from './extract';
+import { app as user_service } from './user';
 
 const PCKGE = require('../../package.json');
 const STAMP = require('../../stamp.json');
@@ -19,7 +20,7 @@ const auth_service = require('auth-service');
 /* const extract_service = require('./extract-service'); */
 const notification_service = require('notification-service');
 const query_service = require('query-service');
-const user_service = require('user-service');
+/* const user_service = require('user-service'); */
 const config = require('acm');
 
 var log = debug('cp:server'),

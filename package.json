@@ -61,8 +61,7 @@
     "striptags": "2.0.4",
     "swig": "1.4.2",
     "universal-analytics": "0.3.10",
-    "urijs": "1.17.0",
-    "user-service": "git+https://git@github.com/consumr-project/user-service.git#v1.0.5"
+    "urijs": "1.17.0"
   },
   "devDependencies": {
     "async": "1.5.2",
