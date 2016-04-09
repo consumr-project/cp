@@ -1,5 +1,5 @@
-import { app as extract_service } from './extract';
-import { app as user_service } from './user';
+import { app as extract_endpoints } from './extract';
+import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
 const express = require('express');
@@ -15,10 +15,8 @@ const debug = require('debug');
 
 const search_service = require('search-service');
 const auth_service = require('auth-service');
-/* const extract_service = require('./extract-service'); */
 const notification_service = require('notification-service');
 const query_service = require('query-service');
-/* const user_service = require('user-service'); */
 const config = require('acm');
 
 var log = debug('cp:server'),
@@ -53,13 +51,13 @@ app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
 app.use('/service/auth', auth_service);
 
-app.use('/service/user', timeout('5s'), user_service);
+app.use('/service/user', timeout('5s'), user_endpoints);
 
 app.use('/service/notification', auth_service.is_logged_in);
 app.use('/service/notification', timeout('5s'), notification_service);
 
 app.use('/service/search', timeout('5s'), search_service);
-app.use('/service/extract', timeout('5s'), extract_service);
+app.use('/service/extract', timeout('5s'), extract_endpoints);
 
 app.delete('/service/query/*', auth_service.is_logged_in);
 app.patch('/service/query/*', auth_service.is_logged_in);
