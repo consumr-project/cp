@@ -3,12 +3,27 @@
 A crowd sourced platform to help us all learn a little bit more about the
 things we buy, sell, and consume every day.
 
-[![Build Status](https://travis-ci.org/consumr-project/web-client.svg)](https://travis-ci.org/consumr-project/web-client)
+[![Build Status](https://travis-ci.org/consumr-project/cp.svg)](https://travis-ci.org/consumr-project/cp)
 
 ### usage
 
 `make build server` will install depedencies, compile source, and start a web
 server.
+
+### test
+
+the following targes are available: `test-e2e`, `test-integration`,
+`test-unit`, and `test` which triggers the first three.  the e2e tests require
+that webdriver be runnig which can be done with `make test-start-webdriver`.
+the integration tests require the server to be running and a `TEST_SERVICE_URL`
+environment variable to be declared pointing to the root of the server
+(`http://localhost:3000`). no external processes are required to run the unit
+tests.
+
+```bash
+make test-start-webdriver
+TEST_SERVICE_URL=http://localhost:3000 make test
+```
 
 ### configuration
 
@@ -44,8 +59,6 @@ export NEW_RELIC_LICENSE_KEY='...'
 export NEW_RELIC_APP_NAME='cp-local-'$(whoami)
 export NEW_RELIC_LOG_LEVEL='info'
 ```
-
-### logging
 
 #### rollbar
 

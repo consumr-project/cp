@@ -36,7 +36,37 @@ endif
 
 run: clean build server
 
-webdriver:
+test: test-unit test-integration test-e2e
+
+build: clean build-client-css build-client-deps build-client \
+	build-client-strings build-client-bundle build-client-src build-server
+
+install:
+	$(npm) install
+	$(typings) install
+
+server:
+	node build/server/main
+
+reset: clean
+	-rm -fr node_modules typings
+
+clean:
+	-rm -r $(build_dir)
+	mkdir $(build_dir)
+
+lint:
+	./scripts/static-analyzis
+	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
+
+stamp:
+	echo "{ \
+		\"date\": \"$(shell date)\", \
+		\"head\": \"$(shell git log -1 --format="%H")\", \
+		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
+	}" > stamp.json
+
+test-start-webdriver:
 	if [ ! -d node_modules/protractor ]; then \
 		npm install protractor@3.1.1; \
 		node_modules/.bin/webdriver-manager update; \
@@ -55,9 +85,6 @@ test-unit:
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
-
-build: clean build-client-css build-client-deps build-client \
-	build-client-strings build-client-bundle build-client-src build-server
 
 build-client-strings:
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
@@ -143,28 +170,3 @@ build-client-src:
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngDatePicker.js >> $(build_app_js)
-
-install:
-	$(npm) install
-	$(typings) install
-
-server:
-	node build/server/main
-
-reset: clean
-	-rm -fr node_modules typings
-
-clean:
-	-rm -r $(build_dir)
-	mkdir $(build_dir)
-
-lint:
-	./scripts/static-analyzis
-	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
-
-stamp:
-	echo "{ \
-		\"date\": \"$(shell date)\", \
-		\"head\": \"$(shell git log -1 --format="%H")\", \
-		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
-	}" > stamp.json
