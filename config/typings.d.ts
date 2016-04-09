@@ -33,3 +33,23 @@ declare module "request" {
 declare module "urijs" {
     export function withinString(source: string, callback: (uri: string) => any): any[];
 }
+
+declare module "md5" {
+    function fn(str: string): string;
+    export = fn;
+}
+
+declare module "query-service" {
+    export interface Model {
+        findOne(query: { where: any });
+    }
+
+    export interface User extends Model {
+        avatar_url?: string;
+        email?: string;
+    }
+
+    export var models: {
+        User: User
+    }
+}

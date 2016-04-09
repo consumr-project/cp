@@ -4,6 +4,7 @@
   "ambientDependencies": {
     "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#dd4626a4e23ce8d6d175e0fe8244a99771c8c3f2",
     "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#df712b17fa4737fdb3eb52118b1465cd3be81a1d",
+    "md5": "github:DefinitelyTyped/DefinitelyTyped/js-md5/md5.d.ts#6e996ab243e91e705ac6f9cec3a8bf37ccb5409f",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#1c56e368e17bb28ca57577250624ca5bd561aa81",
     "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f"

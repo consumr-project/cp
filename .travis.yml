@@ -1,26 +1,32 @@
 language: node_js
 sudo: false
 
+addons:
+  postgresql: 9.4
+
 node_js:
   - 5.3.0
 
 env:
-  # matrix:
-  #   -
-  #     DEBUG=*
-  #     PORT=3100
-  #     TEST_SERVICE_URL=http://localhost:3100
+  matrix:
+    -
+      DEBUG=*
+      PORT=3000
+      TEST_SERVICE_URL=http://localhost:3000
+      DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
+      # LINKEDIN_CLIENT_ID=fakedontmatter
+      # LINKEDIN_CLIENT_SECRET=fakedontmatter
   global:
     secure: Pxx/oz24vQZaRC5nFQLvi9h7vrQuJxfNRfB/OHXCSX3k/2/NKvglglNLkms68wFLzpcB8im4Ep4mFhG5Jr53ymFbi/g6afCcV0WWO7DrrTZOq0/KimOstV21VweFQb5h1FmFxA/KGCDgcfheY8lPkFgFQ39D5K/Q9BH7TYQas6R8fr9M2cnRrgwvwEmW2oQRdpOtZ2KdJORjdEhHupTYoK8cgDckOJuTv2zl6FqQA4wFZSoosMvGNZhQGN/sQ5JksHy7yRhtyJqU02RKSsncc3ujV19orlYpvA2swc/bTGxeve7ByhEPPcR5I8nnXj2CHKqu594a7DxDtSMgiosUsWSntamvdCfILh8ZGXqsduD8fSYp3hoPtZBgTRCGwjfrAP38bB/XCUbQ2YuM1AJcnmLeUTjWatIrsts6bR/1Rg6h8RLtaV+Q0ig6tpvcyEBmzA+yIIFTmN1BYNxnMACe/64mc1Sx55kcOkifhKxrl/UCK85WXkZgUgcPuDsMbYO5tDi45nTVZWYldi5JGCp+em6ZQKxEnJfUHqrp/5Cem2jOT9Tjr2RWRBcXcPUUyBVN99riQ0L4EkODgRU1zdtuEtSHkTCJ7/UdIix1VECDnIbz4DeQ7SLmouFtF8aNKq9D0YVA6orK1pyKI9UwZlBMRxja6Dp3JE3ENCBdWYc/Eow=
 
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - make install build
-  - node build/mount &
+  - make server &
   - sleep 5
 
 script:
-  - make lint test
->>>>>>> fd8dabffce959a040e3e537805da7e45250f377d
+  - make test
 
 cache:
   directories:
