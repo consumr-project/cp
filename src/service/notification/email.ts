@@ -14,11 +14,11 @@
 //
 // const TEMPLATES = {
 //     i18n: require('../build/i18n'),
-//     styles: yaml(read('./assets/emails/styles.yml').toString()),
-//     images: yaml(read('./assets/emails/images.yml').toString()),
+//     styles: yaml(read('./content/emails/styles.yml').toString()),
+//     images: yaml(read('./content/emails/images.yml').toString()),
 //
-//     base: tmpl(read('./assets/emails/base.tmpl')),
-//     welcome: tmpl(read('./assets/emails/welcome.tmpl'))
+//     base: tmpl(read('./content/emails/base.tmpl')),
+//     welcome: tmpl(read('./content/emails/welcome.tmpl'))
 // };
 //
 // var log = debug('service:notification:email');
