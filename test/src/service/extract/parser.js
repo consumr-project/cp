@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const each = require('lodash').each;
-const parser = require('../../build/parser');
+const parser = require('../../../../build/service/extract/parser.js');
 
 const dataset = {
     'samples/albertsons.wikitext': {

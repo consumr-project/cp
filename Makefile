@@ -43,11 +43,14 @@ webdriver:
 	fi
 	node_modules/.bin/webdriver-manager start
 
-test:
+test-e2e:
 	$(protractor) config/protractor.js
 
-test-integration: test/integration/*
-	$(tape) test/integration/*
+test-integration:
+	$(tape) `find test/integration -name "*.js"`
+
+test-unit:
+	$(tape) `find test/src -name "*.js"`
 
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
