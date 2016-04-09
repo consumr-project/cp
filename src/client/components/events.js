@@ -40,18 +40,19 @@ angular.module('tcp').directive('events', [
          * @return {Event[]}
          */
         function highlight_most_bookmarked_events(evs) {
-            var best_scores = lodash(evs)
+            var scores = lodash(evs.concat({ bookmark_count: 1 }))
                 .map('bookmark_count')
-                .uniq()
                 .filter()
-                .sortBy()
-                .reverse()
-                .value()
-                .shift();
+                .value();
+
+            var high_score = Math.max.apply(Math, scores);
+            var high_percent = high_score * 0.9;
 
             return lodash(evs)
                 .map(unhighlight)
-                .filter(['bookmark_count', best_scores])
+                .filter(function (ev) {
+                    return ev.bookmark_count >= high_percent;
+                })
                 .map(highlight)
                 .value();
         }
