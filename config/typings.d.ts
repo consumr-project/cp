@@ -62,15 +62,40 @@ declare module "md5" {
 declare module "query-service" {
     import {Sequelize} from 'sequelize';
 
+    export interface Promise {
+        then(fn: Function): Promise;
+        catch(fn: Function): Promise;
+        spread(fn: Function): Promise;
+    }
+
     export type QueryResult = any;
 
+    /* export interface Model { */
+    /*     findOne(query: { where: any }); */
+    /* } */
     export interface Model {
-        findOne(query: { where: any });
+        findOne?(query: Object): Promise;
+        findById?(id: string): Promise;
+        findOrCreate?({where: Object, defaults: Model}): Promise;
     }
 
     export interface User extends Model {
-        avatar_url?: string;
+        id: string;
+        role: string;
+        auth_linkedin_id: string;
+        avatar_url: string;
+        company_name: string;
+        created_by: string;
+        created_date: Date | number;
         email?: string;
+        lang: string;
+        last_login_date: Date | number;
+        linkedin_url: string;
+        name: string;
+        summary: string;
+        title: string;
+        updated_by: string;
+        updated_date: Date | number;
     }
 
     export interface Company extends Model {

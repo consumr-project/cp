@@ -3,7 +3,7 @@ import { clone } from 'lodash';
 import RBAC = require('rbac');
 import config = require('acm');
 
-const RULES = clone(config('rbac'));
+const RULES = /* XXX */<any>clone(config('rbac'));
 
 export const rbac = new RBAC(RULES);
 export const roles = RULES.roles.reduce(make_enum, {});

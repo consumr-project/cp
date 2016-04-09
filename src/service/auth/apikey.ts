@@ -1,5 +1,3 @@
-'use strict';
-
 import * as passport from 'passport';
 
 import LocalApiKey = require('passport-localapikey');

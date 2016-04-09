@@ -1,9 +1,11 @@
+import { app as auth_endpoints } from './auth';
 import { app as extract_endpoints } from './extract';
 import { app as notification_endpoints } from './notification';
 import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
+import * as auth_service from './auth';
 import * as notification_service from './notification';
 
 const express = require('express');
@@ -17,7 +19,6 @@ const session = require('express-session');
 const swig = require('swig');
 const debug = require('debug');
 
-const auth_service = require('auth-service');
 const query_service = require('query-service');
 const config = require('acm');
 
@@ -51,7 +52,7 @@ app.use(session({ secret: config('session.secret') }));
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
-app.use('/service/auth', auth_service);
+app.use('/service/auth', auth_endpoints);
 
 app.use('/service/user', timeout('5s'), user_endpoints);
 
