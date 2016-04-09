@@ -1,4 +1,4 @@
 es: make elasticsearch
-mongo: cd ../notification-service; make mongo
+mongo: make mongodb
 postgres: cd ../query-service; make postgres
 webdriver: make test-start-webdriver

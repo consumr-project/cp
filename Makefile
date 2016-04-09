@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .PHONY: build install run test local clean
 
 services = auth extract notification query search user
@@ -38,13 +37,14 @@ endif
 all: build
 
 include src/service/search/Makefile.mk
+include src/service/notification/Makefile.mk
 
 run: clean build server
 
 test: test-unit test-integration test-e2e
 
 build: clean build-client-css build-client-deps build-client \
-	build-client-strings build-client-bundle build-client-src build-server
+	build-strings build-client-bundle build-client-src build-server
 
 install:
 	$(npm) install
@@ -85,7 +85,7 @@ optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
 
-build-client-strings:
+build-strings:
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
 
@@ -169,40 +169,3 @@ build-client-src:
 	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)
 	$(js_min) app/vendor/angular/ngDatePicker.js >> $(build_app_js)
-
-# build-strings:
-# 	-mkdir build
-# 	echo "var $(i18n_varname) = {};" > $(build_dir)/i18n.js
-# 	./scripts/compile-string-files functions --var $(i18n_varname) --locale en >> $(build_dir)/i18n.js
-# 	./scripts/compile-string-files functions --var $(i18n_varname).en --locale en >> $(build_dir)/i18n.js
-# 	./scripts/compile-string-files generate  --var $(i18n_varname).en $(call i18n_locale_arguments,en) >> $(build_dir)/i18n.js
-# 	echo "module.exports = $(i18n_varname);" >> $(build_dir)/i18n.js
-
-# mongodb_os = osx
-# mongodb_architecture = x86_64
-# mongodb_version = 3.2.1
-# rabbitmq_version = 3.5.6
-#
-# rmq: rabbitmq
-# rabbit: rabbitmq
-# rabbitmq:
-# 	if [ ! -d build ]; then mkdir build; fi
-# 	if [ ! -f build/rabbitmq-$(rabbitmq_version).tar.gz ]; then \
-# 		wget https://www.rabbitmq.com/releases/rabbitmq-server/v$(rabbitmq_version)/rabbitmq-server-mac-standalone-$(rabbitmq_version).tar.gz \
-#             -O build/rabbitmq-$(rabbitmq_version).tar.gz; fi
-# 	if [ ! -d build/rabbitmq_server-$(rabbitmq_version) ]; then \
-#         tar -xf build/rabbitmq-$(rabbitmq_version).tar.gz -C build; fi
-# 	echo "build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
-# 	echo "http://localhost:15672/"
-# 	build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
-#
-# mongo: mongodb
-# mongodb:
-# 	if [ ! -d build ]; then mkdir build; fi
-# 	if [ ! -f build/mongodb-$(mongodb_version).tar.gz ]; then \
-# 		wget https://fastdl.mongodb.org/$(mongodb_os)/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version).tgz \
-#             -O build/mongodb-$(mongodb_version).tar.gz; fi
-# 	if [ ! -d build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version) ]; then \
-#         tar -xf build/mongodb-$(mongodb_version).tar.gz -C build; fi
-# 	echo "build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod"
-# 	build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod
