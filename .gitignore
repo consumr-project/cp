@@ -5,3 +5,5 @@
 /.query-service/
 /bin/
 *.DS_Store*
+
+/db/seeders/*NEWFILE*

@@ -1,3 +1,5 @@
+url: postgres://localhost:5432/marcosminond
+
 pool:
   max: 5
   min: 0

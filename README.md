@@ -61,6 +61,7 @@ export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
 ```bash
 export ELASTICSEARCH_HOST='http://...'
 export MONGO_URL='utl to mongo db instance with database name'
+export DATABASE_URL=$(echo $CP_DATABASE_URL)
 ```
 
 ### services
@@ -93,6 +94,13 @@ export NODE_ENV='development'
 mongolab provides a free [MongoDB instance](https://mongolab.com/) that works
 just fine for a development enviroment. a local instance of mongo can be
 downloaded and started by running `make mongodb`
+
+#### postgres
+
+heroku provides a free
+[Postgres plugin](https://elements.heroku.com/addons/heroku-postgresql). a
+local instance of Postgres can be downloaded and started by running
+`make postgres`
 
 #### rabbitmq
 

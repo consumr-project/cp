@@ -2,12 +2,30 @@
 
 const program = require('commander');
 const config = require('acm');
+const faker = require('faker');
+const uuid = require('uuid');
 
-const gen_conn = require('query-service/build/conn').default;
-const gen_models = require('query-service/build/models').default;
+const gen_conn = require('../build/conn').default;
+const gen_models = require('../build/models').default;
 
 const Models = gen_models(gen_conn());
 const User = Models.User;
+const Review = Models.Review;
+
+function msg_success(label) {
+    return function () {
+        console.log('succesfully created %s', label);
+        process.exit();
+    };
+}
+
+function msg_error(label) {
+    return function (err) {
+        console.log('error creating %s', label);
+        console.dir(err);
+        process.exit(1);
+    };
+}
 
 program
     .command('user')
@@ -31,6 +49,30 @@ program
                 console.dir(err)
                 process.exit(1);
             });
+    });
+
+program
+    .command('review')
+    .option('--company-id [id]', 'ID of the company to add review to')
+    .option('--user-id [id]', 'ID of the user to add create review as')
+    .description('generate a random review for a company')
+    .action((cmd) => {
+        var user = config('fixtures.user.admin');
+
+        Review.create({
+            id: uuid.v4(),
+            user_id: cmd.userId,
+            company_id: cmd.companyId,
+            score: faker.random.number({ max: 5 }).toString(),
+            title: faker.company.companyName() + ' has ' + faker.company.bs(),
+            summary: faker.lorem.paragraphs(2),
+            created_by: user.id,
+            updated_by: user.id,
+            created_date: Date.now(),
+            updated_date: Date.now(),
+        })
+            .then(msg_success('review'))
+            .catch(msg_error('review'));
     });
 
 program.parse(process.argv);
