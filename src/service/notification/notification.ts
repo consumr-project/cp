@@ -4,7 +4,7 @@ import { clone } from 'lodash';
 import { Collection } from 'mongodb';
 
 export enum TYPE {
-    MISSING_INFORMATION
+    MISSING_INFORMATION = <any>'MISSING_INFORMATION'
 };
 
 export function push(coll: Collection, subject: string, to: string, payload: any, cb: Function) {

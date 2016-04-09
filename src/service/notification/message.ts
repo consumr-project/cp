@@ -1,8 +1,8 @@
 const uuid = require('node-uuid');
 
 export enum TYPE {
-    EMAIL,
-    NOTIFICATION,
+    EMAIL = <any>'EMAIL',
+    NOTIFICATION = <any>'NOTIFICATION',
 };
 
 export default class Message {
