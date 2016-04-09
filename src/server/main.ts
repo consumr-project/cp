@@ -1,12 +1,8 @@
-'use strict';
+import { app as extract_service } from './extract';
 
-const PCKGE = require('../package.json');
-const STAMP = require('../stamp.json');
+const PCKGE = require('../../package.json');
+const STAMP = require('../../stamp.json');
 
-/**
- * process.env.NEW_RELIC_NO_CONFIG_FILE = true;
- * require('newrelic');
- */
 const express = require('express');
 const index = require('serve-index');
 const errors = require('errorhandler');
@@ -20,7 +16,7 @@ const debug = require('debug');
 
 const search_service = require('search-service');
 const auth_service = require('auth-service');
-const extract_service = require('extract-service');
+/* const extract_service = require('./extract-service'); */
 const notification_service = require('notification-service');
 const query_service = require('query-service');
 const user_service = require('user-service');
@@ -32,14 +28,14 @@ var log = debug('cp:server'),
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', `${__dirname}/views`);
+app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
 app.use('/app', express.static('app'));
 app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
-app.use(favicon(`${__dirname}/../assets/images/favicon.png`));
+app.use(favicon(`${__dirname}/../../assets/images/favicon.png`));
 
 if (debugging) {
     app.use('/app', index('app'));

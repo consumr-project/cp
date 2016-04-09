@@ -9,10 +9,6 @@ build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
 
-test_dir = test
-dir_source = src
-dir_build = build
-
 npm = npm
 typings = ./node_modules/.bin/typings
 tape = ./node_modules/.bin/tape
@@ -57,13 +53,14 @@ optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
 
-build: clean build-css build-js build-ts build-strings build-bundle build-app
+build: clean build-client-css build-client-deps build-client \
+	build-client-strings build-client-bundle build-client-src build-server
 
-build-strings:
+build-client-strings:
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
 	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
 
-build-css:
+build-client-css:
 ifdef DEBUG
 	./node_modules/.bin/cssnext --sourcemap assets/styles/main.css $(build_css)
 else
@@ -71,18 +68,22 @@ else
 		./node_modules/.bin/cssmin > $(build_css)
 endif
 
-build-ts:
+build-client:
 	-$(tsc) app/main.ts --outDir $(build_dir) --module commonjs $(ts_options) --rootDir ./
 
-build-bundle:
+build-client-bundle:
 ifdef DEBUG
-	$(browserify) $(build_dir)/app//main.js --debug > $(build_bundle_js)
+	$(browserify) $(build_dir)/app/main.js --debug > $(build_bundle_js)
 else
-	$(browserify) $(build_dir)/app//main.js | \
+	$(browserify) $(build_dir)/app/main.js | \
 		./node_modules/.bin/uglifyjs > $(build_bundle_js)
 endif
 
-build-js:
+build-server:
+	$(tsc) config/typings.d.ts src/server/main.ts  --outDir build/ \
+		--module commonjs --pretty --removeComments --moduleResolution classic
+
+build-client-deps:
 	echo "" > $(build_vendor_js)
 	./scripts/generate-client-config $(global_config_varname) >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
@@ -103,7 +104,7 @@ build-js:
 	$(js_min) node_modules/datedropper/datedropper.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 
-build-app:
+build-client-src:
 	echo "" > $(build_app_js)
 	$(js_min) assets/scripts/rollbar-config.js >> $(build_app_js)
 	$(js_min) assets/scripts/scroll-offset-class.js >> $(build_app_js)
@@ -145,7 +146,7 @@ install:
 	$(typings) install
 
 server:
-	node app/server
+	node build/server/main
 
 reset: clean
 	-rm -fr node_modules typings
@@ -164,7 +165,3 @@ stamp:
 		\"head\": \"$(shell git log -1 --format="%H")\", \
 		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
 	}" > stamp.json
-
-# build:
-# 	$(tsc) config/typings.d.ts $(dir_source)/*  --outDir $(dir_build) \
-# 		--module commonjs --pretty --removeComments --moduleResolution classic
