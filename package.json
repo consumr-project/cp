@@ -12,7 +12,7 @@
     "typings"
   ],
   "scripts": {
-    "postinstall": "make build; cp -r node_modules/passport node_modules/auth-service/node_modules/; ./scripts/database-update",
+    "postinstall": "make build; cp -r node_modules/passport node_modules/auth-service/node_modules/",
     "start": "make server"
   },
   "repository": {

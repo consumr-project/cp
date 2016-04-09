@@ -135,9 +135,6 @@ build-app:
 install:
 	$(npm) install
 
-deploy-heroku:
-	git push heroku master
-
 server:
 	node app/server
 
@@ -151,10 +148,6 @@ clean:
 lint:
 	./scripts/static-analyzis
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors app assets scripts test
-
-local:
-	-$(foreach service,$(services),rm -r node_modules/$(service)-service;)
-	-$(foreach service,$(services),npm link ../$(service)-service;)
 
 stamp:
 	echo "{ \
