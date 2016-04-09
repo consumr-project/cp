@@ -1,4 +1,4 @@
-.PHONY: build install run test local
+.PHONY: build install run test local clean
 
 services = auth extract notification query search user
 pwd = $(shell pwd)
@@ -8,9 +8,14 @@ build_bundle_js = $(build_dir)/bundle.js
 build_app_js = $(build_dir)/app.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
+
 test_dir = test
+dir_source = src
+dir_build = build
 
 npm = npm
+typings = ./node_modules/.bin/typings
+tape = ./node_modules/.bin/tape
 tsc = ./node_modules/.bin/tsc
 imageoptim = imageoptim
 svgo = svgo
@@ -44,6 +49,9 @@ webdriver:
 
 test:
 	$(protractor) config/protractor.js
+
+test-integration: test/integration/*
+	$(tape) test/integration/*
 
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
@@ -134,12 +142,13 @@ build-app:
 
 install:
 	$(npm) install
+	$(typings) install
 
 server:
 	node app/server
 
 reset: clean
-	-rm -fr node_modules
+	-rm -fr node_modules typings
 
 clean:
 	-rm -r $(build_dir)
@@ -155,3 +164,7 @@ stamp:
 		\"head\": \"$(shell git log -1 --format="%H")\", \
 		\"branch\": \"$(shell git rev-parse --abbrev-ref HEAD)\" \
 	}" > stamp.json
+
+# build:
+# 	$(tsc) config/typings.d.ts $(dir_source)/*  --outDir $(dir_build) \
+# 		--module commonjs --pretty --removeComments --moduleResolution classic

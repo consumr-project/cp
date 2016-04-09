@@ -13,22 +13,21 @@ server.
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm).
-expected configuration variables. `DEBUG` to run (server and client logs) and
-build (source maps) in debug mode. `PORT` to run web server in a port other
-than `3000`. see `config/` and `docs/` directories and the following services
-for additional configuration options (linkedin, embedly, monitoring, etc.):
-
-- [auth-service](https://github.com/consumr-project/auth-service)
-- [extract-service](https://github.com/consumr-project/extract-service)
-- [notification-service](https://github.com/consumr-project/notification-service)
-- [query-service](https://github.com/consumr-project/query-service)
-- [search-service](https://github.com/consumr-project/search-service)
+expected configuration variables. declare `DEBUG` to run (server and client
+logs) and build (source maps) in debug mode. declare `PORT` to run web server
+in a port other than `3000`. see `config/` directory for additional
+configuration options (linkedin, embedly, monitoring, etc.):
 
 to build and run application in debug mode:
 
 ```bash
 export NPM_CONFIG_PRODUCTION=false
 export DEBUG=*
+```
+
+```bash
+export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
+export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
 ```
 
 ### services
