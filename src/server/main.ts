@@ -32,7 +32,7 @@ app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
-app.use('/app', express.static('app'));
+app.use('/src/client', express.static('src/client'));
 app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(favicon(`${__dirname}/../../assets/images/favicon.png`));

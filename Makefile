@@ -1,11 +1,11 @@
-.PHONY: build install run test local clean
+.PHONY: build install run test clean
 
 services = auth extract notification query search user
 pwd = $(shell pwd)
 
 build_dir = build
 build_bundle_js = $(build_dir)/bundle.js
-build_app_js = $(build_dir)/app.js
+build_client_js = $(build_dir)/client.js
 build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
 
@@ -26,7 +26,8 @@ build_vars =
 
 global_config_varname = TCP_BUILD_CONFIG
 i18n_varname = i18n
-i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' --strings_extra config/i18n/$(1)/
+i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' \
+	--strings_extra config/i18n/$(1)/
 
 ifdef DEBUG
 	ts_options = --sourceMap
@@ -43,8 +44,7 @@ run: clean build server
 
 test: test-unit test-integration test-e2e
 
-build: clean build-client-css build-client-deps build-client \
-	build-strings build-client-bundle build-client-src build-server
+build: clean build-css build-strings build-client build-server
 
 install:
 	$(npm) install
@@ -63,7 +63,7 @@ clean:
 lint:
 	./scripts/static-analyzis
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
-		app assets scripts test
+		src assets scripts test
 
 test-start-webdriver:
 	if [ ! -d node_modules/protractor ]; then \
@@ -86,10 +86,12 @@ optimize:
 	$(svgo) assets/images/
 
 build-strings:
-	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
-	./scripts/compile-string-files generate  --var $(i18n_varname) $(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
+	./scripts/compile-string-files generate  --var $(i18n_varname) \
+		$(call i18n_locale_arguments,en) > $(build_dir)/i18n.en.js
+	./scripts/compile-string-files generate  --var $(i18n_varname) \
+		$(call i18n_locale_arguments,lolcat) > $(build_dir)/i18n.lolcat.js
 
-build-client-css:
+build-css:
 ifdef DEBUG
 	./node_modules/.bin/cssnext --sourcemap assets/styles/main.css $(build_css)
 else
@@ -97,21 +99,24 @@ else
 		./node_modules/.bin/cssmin > $(build_css)
 endif
 
-build-client:
-	$(tsc) config/typings.d.ts app/main.ts --outDir $(build_dir) \
+build-server:
+	$(tsc) config/typings.d.ts src/server/main.ts  --outDir $(build_dir) \
+		--module commonjs --pretty --removeComments --moduleResolution classic
+
+build-client: build-css build-client-deps build-client-app \
+	build-client-bundle build-client-src
+
+build-client-app:
+	$(tsc) config/typings.d.ts src/client/main.ts --outDir $(build_dir) \
 		--module commonjs $(ts_options) --rootDir ./
 
 build-client-bundle:
 ifdef DEBUG
-	$(browserify) $(build_dir)/app/main.js --debug > $(build_bundle_js)
+	$(browserify) $(build_dir)/src/client/main.js --debug > $(build_bundle_js)
 else
-	$(browserify) $(build_dir)/app/main.js | \
+	$(browserify) $(build_dir)/src/client/main.js | \
 		./node_modules/.bin/uglifyjs > $(build_bundle_js)
 endif
-
-build-server:
-	$(tsc) config/typings.d.ts src/server/main.ts  --outDir $(build_dir) \
-		--module commonjs --pretty --removeComments --moduleResolution classic
 
 build-client-deps:
 	echo "" > $(build_vendor_js)
@@ -135,38 +140,38 @@ build-client-deps:
 	$(js_sep) >> $(build_vendor_js)
 
 build-client-src:
-	echo "" > $(build_app_js)
-	$(js_min) assets/scripts/rollbar-config.js >> $(build_app_js)
-	$(js_min) assets/scripts/scroll-offset-class.js >> $(build_app_js)
-	$(js_min) app/elements/anchored.js >> $(build_app_js)
-	$(js_min) app/elements/collapsable.js >> $(build_app_js)
-	$(js_min) app/elements/pills.js >> $(build_app_js)
-	$(js_min) app/elements/chart.js >> $(build_app_js)
-	$(js_min) app/elements/options.js >> $(build_app_js)
-	$(js_min) app/elements/options-item.js >> $(build_app_js)
-	$(js_min) app/elements/popover.js >> $(build_app_js)
-	$(js_min) app/elements/popover-item.js >> $(build_app_js)
-	$(js_min) app/elements/avatar.js >> $(build_app_js)
-	$(js_min) app/elements/message.js >> $(build_app_js)
-	$(js_min) app/elements/indicator.js >> $(build_app_js)
-	$(js_min) app/elements/key.js >> $(build_app_js)
-	$(js_min) app/elements/tag.js >> $(build_app_js)
-	$(js_min) app/elements/tags.js >> $(build_app_js)
-	$(js_min) app/elements/i18n.js >> $(build_app_js)
-	$(js_min) app/components/user.js >> $(build_app_js)
-	$(js_min) app/components/search.js >> $(build_app_js)
-	$(js_min) app/components/notifications.js >> $(build_app_js)
-	$(js_min) app/components/topmost.js >> $(build_app_js)
-	$(js_min) app/components/state.js >> $(build_app_js)
-	$(js_min) app/components/company.js >> $(build_app_js)
-	$(js_min) app/components/event.js >> $(build_app_js)
-	$(js_min) app/components/events.js >> $(build_app_js)
-	$(js_min) app/components/review.js >> $(build_app_js)
-	$(js_min) app/components/reviews.js >> $(build_app_js)
-	$(js_min) app/services/Navigation.js >> $(build_app_js)
-	$(js_min) app/services/Feature.js >> $(build_app_js)
-	$(js_min) app/services/Services.js >> $(build_app_js)
-	$(js_min) app/services/Session.js >> $(build_app_js)
-	$(js_min) app/vendor/angular/ngFocus.js >> $(build_app_js)
-	$(js_min) app/vendor/angular/ngInvisible.js >> $(build_app_js)
-	$(js_min) app/vendor/angular/ngDatePicker.js >> $(build_app_js)
+	echo "" > $(build_client_js)
+	$(js_min) assets/scripts/rollbar-config.js >> $(build_client_js)
+	$(js_min) assets/scripts/scroll-offset-class.js >> $(build_client_js)
+	$(js_min) src/client/elements/anchored.js >> $(build_client_js)
+	$(js_min) src/client/elements/collapsable.js >> $(build_client_js)
+	$(js_min) src/client/elements/pills.js >> $(build_client_js)
+	$(js_min) src/client/elements/chart.js >> $(build_client_js)
+	$(js_min) src/client/elements/options.js >> $(build_client_js)
+	$(js_min) src/client/elements/options-item.js >> $(build_client_js)
+	$(js_min) src/client/elements/popover.js >> $(build_client_js)
+	$(js_min) src/client/elements/popover-item.js >> $(build_client_js)
+	$(js_min) src/client/elements/avatar.js >> $(build_client_js)
+	$(js_min) src/client/elements/message.js >> $(build_client_js)
+	$(js_min) src/client/elements/indicator.js >> $(build_client_js)
+	$(js_min) src/client/elements/key.js >> $(build_client_js)
+	$(js_min) src/client/elements/tag.js >> $(build_client_js)
+	$(js_min) src/client/elements/tags.js >> $(build_client_js)
+	$(js_min) src/client/elements/i18n.js >> $(build_client_js)
+	$(js_min) src/client/components/user.js >> $(build_client_js)
+	$(js_min) src/client/components/search.js >> $(build_client_js)
+	$(js_min) src/client/components/notifications.js >> $(build_client_js)
+	$(js_min) src/client/components/topmost.js >> $(build_client_js)
+	$(js_min) src/client/components/state.js >> $(build_client_js)
+	$(js_min) src/client/components/company.js >> $(build_client_js)
+	$(js_min) src/client/components/event.js >> $(build_client_js)
+	$(js_min) src/client/components/events.js >> $(build_client_js)
+	$(js_min) src/client/components/review.js >> $(build_client_js)
+	$(js_min) src/client/components/reviews.js >> $(build_client_js)
+	$(js_min) src/client/services/Navigation.js >> $(build_client_js)
+	$(js_min) src/client/services/Feature.js >> $(build_client_js)
+	$(js_min) src/client/services/Services.js >> $(build_client_js)
+	$(js_min) src/client/services/Session.js >> $(build_client_js)
+	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
+	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
+	$(js_min) src/client/vendor/angular/ngDatePicker.js >> $(build_client_js)

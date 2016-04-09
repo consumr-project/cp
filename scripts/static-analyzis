@@ -1,6 +1,6 @@
 #!/bin/sh
 
-grep -Ir _blank app | grep -v 'rel="noreferrer"'
+grep -Ir _blank src assets | grep -v 'rel="noreferrer"'
 
 if [ $? -eq 0 ]; then
     exit 1
