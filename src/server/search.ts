@@ -1,20 +1,20 @@
 import * as express from 'express';
 import * as QueryService from 'query-service';
 import { readFileSync as read } from 'fs';
+
 import Elasticsearch = require('elasticsearch');
 import config = require('acm');
 
-import { fuzzy, search } from './searcher';
-import { query } from './queryer';
+import { fuzzy, search } from '../service/search/searcher';
+import { query } from '../service/search/queryer';
 
-var app = express();
+export var app = express();
 var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
 
 var sql = name =>
-    read(`${__dirname}/../config/${name}.sql`).toString();
+    read(`${__dirname}/../../config/${name}.sql`).toString();
 
 app.get('/fuzzy', search(es, fuzzy));
-app.get('/query', query(QueryService.conn, sql('search')));
 
-!module.parent && app.listen(config('port'));
-export = app;
+// XXX move into query endpoints
+app.get('/query', query(QueryService.conn, sql('search')));

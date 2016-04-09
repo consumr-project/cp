@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .PHONY: build install run test local clean
 
 services = auth extract notification query search user
