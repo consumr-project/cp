@@ -28,7 +28,7 @@ var log = debug('cp:server'),
 
 app.set('view cache', true);
 app.set('view engine', 'html');
-app.set('views', `${__dirname}/../../content/views`);
+app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
 app.use('/build', express.static('build'));
