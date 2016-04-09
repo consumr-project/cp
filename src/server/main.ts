@@ -1,8 +1,6 @@
 import { app as extract_service } from './extract';
 import { app as user_service } from './user';
-
-const PCKGE = require('../../package.json');
-const STAMP = require('../../stamp.json');
+import { app as version_endpoints } from './version';
 
 const express = require('express');
 const index = require('serve-index');
@@ -68,23 +66,7 @@ app.patch('/service/query/*', auth_service.is_logged_in);
 app.post('/service/query/*', auth_service.is_logged_in);
 app.put('/service/query/*', auth_service.is_logged_in);
 app.use('/service/query', timeout('60s'), query_service);
-
-app.get('/version', (req, res) => {
-    res.json({
-        date: STAMP.date,
-        head: STAMP.head,
-        branch: STAMP.branch,
-        version: PCKGE.version,
-        services: {
-            auth: PCKGE.dependencies['auth-service'],
-            extract: PCKGE.dependencies['extract-service'],
-            notification: PCKGE.dependencies['notification-service'],
-            query: PCKGE.dependencies['query-service'],
-            search: PCKGE.dependencies['search-service'],
-            user: PCKGE.dependencies['user-service'],
-        }
-    });
-});
+app.use('/version', version_endpoints);
 
 app.use((req, res, next) => {
     res.cookie('lang', req.query.lang || req.query.lang || 'en', {
