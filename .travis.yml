@@ -19,7 +19,6 @@ cache:
 env:
   global:
     - secure: HYlDPTVWx6XUF1sr9elIMP9aSUtTqhgcNarcQJ6oofIA1HIGCQxS92V8bbS4YKaaEXTOlJDVedxaSCJSZ9aG1JhKSgkeW6mAUqEPZ5x+CHYYaHhPTqLwQfAc86+F5pYADuKAtIkIB+pwiVIX81XBhc/StazGw22/VNgRmfN7qwSY+2HpRyboRseIw1/9PQmj/tx9F4cN3ttWdk4PytWEQcB43hxAeb37GVjwW7MJPvJ6LtBnmm/eTIjz71cN0QgpPtM01sPrEyR/RBcF+2Y8j3bYmTXex0fWMdz+CMNElC73qbohRVFnPNtV7Uoxpd5GuAqdKH3eHZ0/A0t/Q9Wu4ZPwM4riv6kRLHNjT51MfKrgU/5bArkyxaBUIq52ctYh9gKfHmOtd9VnRjj54BlDAn9hWfJ9gUmN//vBwjjSGCbFfaMWHOquVNEHO1BK27BFYkCn4XfrLkox+n5C56G5Dwlql9Q4bAzyqldpc2K2aZUeVrZ5/aPAZH3hblvWZl23w1ZsFX3TOQBrGlYLPV2AuEVKlmuqtlGXeWSIz0wH3HoT6XsZqpJPdy4kqVor7Tf9tR16PuIi4aDLP+ystNdelgSPPKEH+RVc4taxCoaV6E9P7qAgKWxG/hKdjPipTwfYUgHByAOQ7eCiDVHE+MwZtjNx1qdxizAOZZObC3x6Mnw=
-    - DEBUG=*
     - PORT=3000
     - CP_ALLOW_APIKEY_AUTH=1
     - TEST_SERVICE_URL=http://localhost:3000
@@ -33,7 +32,7 @@ before_script:
   # - mongo mydb_test --eval 'db.addUser("travis", "test");'
   - psql -c 'create database travis_ci_test;' -U postgres
   - make install build
-  - make server &
+  - DEBUG=* make server &
   - ./scripts/generate user
   - sleep 5
 
