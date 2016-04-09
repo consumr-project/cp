@@ -122,8 +122,3 @@ a local instance of RabbitMQ can be downloaded and started by running `make rabb
 * development (free) elasticsearch hosting provided by [facet flow](https://facetflow.com/)
 * development (free) emails sent by [mailgun](http://www.mailgun.com/)
 * development (free) mongodb hosted by [mongolab](https://mongolab.com/)
-
-### reading
-
-* [HTML Email Basics](http://templates.mailchimp.com/getting-started/html-email-basics/) - Mail Chimp
-* [20 Email Design Best Practices and Resources for Beginners](http://code.tutsplus.com/tutorials/20-email-design-best-practices-and-resources-for-beginners--net-7309) - tutsplus
