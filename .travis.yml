@@ -8,16 +8,14 @@ node_js:
   - 5.3.0
 
 env:
-  matrix:
-    -
-      DEBUG=*
-      PORT=3000
-      TEST_SERVICE_URL=http://localhost:3000
-      DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
-      # LINKEDIN_CLIENT_ID=fakedontmatter
-      # LINKEDIN_CLIENT_SECRET=fakedontmatter
   global:
-    secure: Pxx/oz24vQZaRC5nFQLvi9h7vrQuJxfNRfB/OHXCSX3k/2/NKvglglNLkms68wFLzpcB8im4Ep4mFhG5Jr53ymFbi/g6afCcV0WWO7DrrTZOq0/KimOstV21VweFQb5h1FmFxA/KGCDgcfheY8lPkFgFQ39D5K/Q9BH7TYQas6R8fr9M2cnRrgwvwEmW2oQRdpOtZ2KdJORjdEhHupTYoK8cgDckOJuTv2zl6FqQA4wFZSoosMvGNZhQGN/sQ5JksHy7yRhtyJqU02RKSsncc3ujV19orlYpvA2swc/bTGxeve7ByhEPPcR5I8nnXj2CHKqu594a7DxDtSMgiosUsWSntamvdCfILh8ZGXqsduD8fSYp3hoPtZBgTRCGwjfrAP38bB/XCUbQ2YuM1AJcnmLeUTjWatIrsts6bR/1Rg6h8RLtaV+Q0ig6tpvcyEBmzA+yIIFTmN1BYNxnMACe/64mc1Sx55kcOkifhKxrl/UCK85WXkZgUgcPuDsMbYO5tDi45nTVZWYldi5JGCp+em6ZQKxEnJfUHqrp/5Cem2jOT9Tjr2RWRBcXcPUUyBVN99riQ0L4EkODgRU1zdtuEtSHkTCJ7/UdIix1VECDnIbz4DeQ7SLmouFtF8aNKq9D0YVA6orK1pyKI9UwZlBMRxja6Dp3JE3ENCBdWYc/Eow=
+    - secure: HYlDPTVWx6XUF1sr9elIMP9aSUtTqhgcNarcQJ6oofIA1HIGCQxS92V8bbS4YKaaEXTOlJDVedxaSCJSZ9aG1JhKSgkeW6mAUqEPZ5x+CHYYaHhPTqLwQfAc86+F5pYADuKAtIkIB+pwiVIX81XBhc/StazGw22/VNgRmfN7qwSY+2HpRyboRseIw1/9PQmj/tx9F4cN3ttWdk4PytWEQcB43hxAeb37GVjwW7MJPvJ6LtBnmm/eTIjz71cN0QgpPtM01sPrEyR/RBcF+2Y8j3bYmTXex0fWMdz+CMNElC73qbohRVFnPNtV7Uoxpd5GuAqdKH3eHZ0/A0t/Q9Wu4ZPwM4riv6kRLHNjT51MfKrgU/5bArkyxaBUIq52ctYh9gKfHmOtd9VnRjj54BlDAn9hWfJ9gUmN//vBwjjSGCbFfaMWHOquVNEHO1BK27BFYkCn4XfrLkox+n5C56G5Dwlql9Q4bAzyqldpc2K2aZUeVrZ5/aPAZH3hblvWZl23w1ZsFX3TOQBrGlYLPV2AuEVKlmuqtlGXeWSIz0wH3HoT6XsZqpJPdy4kqVor7Tf9tR16PuIi4aDLP+ystNdelgSPPKEH+RVc4taxCoaV6E9P7qAgKWxG/hKdjPipTwfYUgHByAOQ7eCiDVHE+MwZtjNx1qdxizAOZZObC3x6Mnw=
+    - DEBUG=*
+    - PORT=3000
+    - TEST_SERVICE_URL=http://localhost:3000
+    - DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
+    - LINKEDIN_CLIENT_ID=fakedontmatter
+    - LINKEDIN_CLIENT_SECRET=fakedontmatter
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -26,7 +24,7 @@ before_script:
   - sleep 5
 
 script:
-  - make test
+  - make test-unit
 
 cache:
   directories:
