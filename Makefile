@@ -66,11 +66,14 @@ lint:
 		src assets scripts test
 
 test-start-webdriver:
-	if [ ! -d node_modules/protractor ]; then \
+	if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -d bin/node_modules/protractor ]; then \
+		cd bin; \
+		npm init -y; \
 		npm install protractor@3.1.1; \
 		node_modules/.bin/webdriver-manager update; \
 	fi
-	node_modules/.bin/webdriver-manager start
+	bin/node_modules/.bin/webdriver-manager start
 
 test-e2e:
 	$(protractor) config/protractor.js

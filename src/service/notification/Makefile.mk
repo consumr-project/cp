@@ -14,23 +14,23 @@ rabbitmq_version = 3.5.6
 rmq: rabbitmq
 rabbit: rabbitmq
 rabbitmq:
-	if [ ! -d build ]; then mkdir build; fi
-	if [ ! -f build/rabbitmq-$(rabbitmq_version).tar.gz ]; then \
+	-if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -f bin/rabbitmq-$(rabbitmq_version).tar.gz ]; then \
 		wget https://www.rabbitmq.com/releases/rabbitmq-server/v$(rabbitmq_version)/rabbitmq-server-mac-standalone-$(rabbitmq_version).tar.gz \
-            -O build/rabbitmq-$(rabbitmq_version).tar.gz; fi
-	if [ ! -d build/rabbitmq_server-$(rabbitmq_version) ]; then \
-        tar -xf build/rabbitmq-$(rabbitmq_version).tar.gz -C build; fi
-	echo "build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
+            -O bin/rabbitmq-$(rabbitmq_version).tar.gz; fi
+	if [ ! -d bin/rabbitmq_server-$(rabbitmq_version) ]; then \
+        tar -xf bin/rabbitmq-$(rabbitmq_version).tar.gz -C bin; fi
+	echo "bin/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
 	echo "http://localhost:15672/"
-	build/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
+	bin/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
 
 mongo: mongodb
 mongodb:
-	if [ ! -d build ]; then mkdir build; fi
-	if [ ! -f build/mongodb-$(mongodb_version).tar.gz ]; then \
+	-if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -f bin/mongodb-$(mongodb_version).tar.gz ]; then \
 		wget https://fastdl.mongodb.org/$(mongodb_os)/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version).tgz \
-            -O build/mongodb-$(mongodb_version).tar.gz; fi
-	if [ ! -d build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version) ]; then \
-        tar -xf build/mongodb-$(mongodb_version).tar.gz -C build; fi
-	echo "build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod"
-	build/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod
+            -O bin/mongodb-$(mongodb_version).tar.gz; fi
+	if [ ! -d bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version) ]; then \
+        tar -xf bin/mongodb-$(mongodb_version).tar.gz -C bin; fi
+	echo "bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod"
+	bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod
