@@ -5,7 +5,7 @@ var config = require('acm');
 
 module.exports = {
     up: function (queryInterface, Sequelize) {
-        var User = require(`${process.cwd()}/build/models/user`)
+        var User = require(`${process.cwd()}/build/service/query/models/user`)
             (queryInterface.sequelize, DataTypes);
 
         var id = config('seed.root_user_id'),
