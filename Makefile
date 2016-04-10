@@ -37,8 +37,9 @@ endif
 
 all: build
 
-include src/service/search/Makefile.mk
 include src/service/notification/Makefile.mk
+include src/service/query/Makefile.mk
+include src/service/search/Makefile.mk
 
 run: clean build server
 
@@ -179,31 +180,3 @@ build-client-src:
 	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngDatePicker.js >> $(build_client_js)
-# db_url = $(shell node -e "console.log(require('acm')('database.url'))")
-# sequelize = node_modules/.bin/sequelize
-#
-# postgres: postgresql
-# postgresql:
-# 	postgres
-#
-# migration:
-# 	@$(sequelize) migration:create --url $(db_url) --migrations-path db/migrations \
-# 		--name NEWFILE
-#
-# seed:
-# 	@$(sequelize) seed:create --url $(db_url) --seeders-path db/seeders \
-# 		--name NEWFILE
-#
-# sync:
-# 	@$(sequelize) db:seed --url $(db_url) --seeders-path db/seeders
-#
-# migrate:
-# 	@$(sequelize) db:migrate --url $(db_url) --migrations-path db/migrations
-#
-# update: sync migrate
-#
-# database-revert-migration:
-# 	@$(sequelize) db:migrate:undo --url $(db_url) --seeders-path db/migrations
-#
-# database-revert-seed:
-# 	@$(sequelize) db:seed:undo --url $(db_url) --seeders-path db/seeders

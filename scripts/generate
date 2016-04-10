@@ -5,8 +5,8 @@ const config = require('acm');
 const faker = require('faker');
 const uuid = require('uuid');
 
-const gen_conn = require('../build/conn').default;
-const gen_models = require('../build/models').default;
+const gen_conn = require('../build/service/query/conn').default;
+const gen_models = require('../build/service/query/models').default;
 
 const Models = gen_models(gen_conn());
 const User = Models.User;
