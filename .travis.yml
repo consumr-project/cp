@@ -29,12 +29,10 @@ env:
     - LINKEDIN_CLIENT_SECRET=fakedontmatter
 
 before_script:
-  # - sleep 10
-  # - mongo mydb_test --eval 'db.addUser("travis", "test");'
   - psql -c 'create database travis_ci_test;' -U postgres
-  - make build
   - DEBUG=* make server &
-  - make database-update
+  - sleep 5
+  - make database-sync
   - ./scripts/generate user
   - sleep 5
 
