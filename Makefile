@@ -125,7 +125,7 @@ endif
 
 build-client-deps:
 	echo "" > $(build_vendor_js)
-	./scripts/generate-client-config $(global_config_varname) >> $(build_vendor_js)
+	./scripts/compile-client-config $(global_config_varname) >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/jquery/dist/jquery.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
