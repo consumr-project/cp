@@ -30,7 +30,7 @@ env:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - DEBUG=* make server & &> server.log
+  - DEBUG=* make server &> server.log &
   - sleep 5
   - make database-sync
   - ./scripts/generate user
