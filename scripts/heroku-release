@@ -1,6 +1,6 @@
 #!/bin/bash
 
 ./scripts/compile-project-stamp > stamp.json
-git commit -m "stamp" stamp.json
+git commit -m "[skip ci] stamp" stamp.json
 git push origin master
 git push heroku master

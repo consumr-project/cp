@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $(dirname "$0")/cli.sh
+
+use heroku:env
+use heroku:addons
+
+heroku:addon heroku-postgresql hobby-dev
+heroku:envar CRUNCHBASE_API_KEY
+heroku:envar DATABASE_URL
+heroku:envar ELASTICSEARCH_HOST
+heroku:envar EMBEDLY_API_KEY
+heroku:envar GOOGLE_ANALYTICS_ACCOUNT_ID
+heroku:envar LINKEDIN_CLIENT_ID
+heroku:envar LINKEDIN_CLIENT_SECRET
+heroku:envar MONGO_URL
+heroku:envar ROLLBAR_TOKEN
