@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minond/the-consumer-project.git"
+    "url": "https://github.com/minond/cp.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/minond/the-consumer-project/issues"
+    "url": "https://github.com/minond/cp/issues"
   },
-  "homepage": "https://github.com/minond/the-consumer-project",
+  "homepage": "https://github.com/minond/cp",
   "dependencies": {
     "acm": "2.0.1",
     "amqp": "0.2.4",
