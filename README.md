@@ -42,26 +42,17 @@ export PORT=3000
 additional services and service providers:
 
 ```bash
-export EMBEDLY_API_KEY=$(echo $CP_EMBEDLY_API_KEY)
-export CRUNCHBASE_API_KEY=$(echo $CP_CRUNCHBASE_API_KEY)
-```
-
-```bash
-export EMAIL_SERVICE_NAME=$(echo $CP_EMAIL_SERVICE_NAME)
-export EMAIL_SERVICE_USER=$(echo $CP_EMAIL_SERVICE_USER)
-export EMAIL_SERVICE_PASS=$(read -p "email transport password: " password; echo $password)
-```
-
-```bash
-export LINKEDIN_CLIENT_ID=$(echo $LINKEDIN_CLIENT_ID)
-export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
-export LINKEDIN_CLIENT_SECRET=$(echo $LINKEDIN_CLIENT_SECRET)
-```
-
-```bash
+export CRUNCHBASE_API_KEY='...'
+export DATABASE_URL='postgres://...'
 export ELASTICSEARCH_HOST='http://...'
-export MONGO_URL='utl to mongo db instance with database name'
-export DATABASE_URL=$(echo $CP_DATABASE_URL)
+export EMAIL_SERVICE_NAME='...'
+export EMAIL_SERVICE_PASS='...'
+export EMAIL_SERVICE_USER='...'
+export EMBEDLY_API_KEY='...'
+export GOOGLE_ANALYTICS_ACCOUNT_ID='...'
+export LINKEDIN_CLIENT_ID='...'
+export LINKEDIN_CLIENT_SECRET='...'
+export MONGO_URL='mongodb://...'
 ```
 
 ### services

@@ -1,7 +1,7 @@
 {
   "name": "consumr-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "a crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day",
   "main": "server.js",
   "engines": {
     "node": "5.3.0"
