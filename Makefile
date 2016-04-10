@@ -49,7 +49,6 @@ build: clean build-css build-strings build-client build-server
 
 install:
 	$(npm) install
-	$(typings) install
 
 server:
 	node build/server/main

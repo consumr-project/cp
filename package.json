@@ -95,7 +95,7 @@
     "tapes": "3.1.0",
     "typescript": "1.9.0-dev.20160201",
     "typings": "0.6.5",
-    "uglifyjs": "2.4.10",
+    "uglify-js": "2.6.2",
     "yamljs": "0.2.3"
   }
 }

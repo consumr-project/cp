@@ -9,6 +9,7 @@ things we buy, sell, and consume every day.
 
 ```
 foreman start
+make install
 make
 make server
 ```
