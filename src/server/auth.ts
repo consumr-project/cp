@@ -5,7 +5,7 @@ import config = require('acm');
 
 import { Request, Response } from 'express';
 import { User, Promise } from 'query-service';
-import QueryService = require('query-service');
+import * as QueryService from './query';
 
 import * as permissions from '../service/auth/permissions';
 import linkedin_auth from '../service/auth/linkedin';
@@ -38,7 +38,7 @@ function serialize(user: User, done: Function): void {
     done(null, user.id);
 }
 
-function deserialize(user_id: string, done: Function): Promise {
+function deserialize(user_id: string, done: (err: any) => any): Promise {
     return UserModel.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);

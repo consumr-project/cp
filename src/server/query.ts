@@ -12,8 +12,7 @@ import gen_models from '../service/query/models';
 
 export var app = express();
 export var conn = gen_conn();
-
-var models = gen_models(conn);
+export var models = gen_models(conn);
 
 var post = app.post.bind(app),
     get = app.get.bind(app),

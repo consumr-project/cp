@@ -4,10 +4,11 @@ import { get } from 'lodash';
 import { parse } from 'url';
 import { Profile } from 'passport-linkedin-oauth2';
 import { User, Promise } from 'query-service';
+import { WhereOptions } from 'sequelize';
 import * as passport from 'passport';
+import * as QueryService from '../../server/query';
 
 import config = require('acm');
-import QueryService = require('query-service');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
 const uuid = require('node-uuid');
@@ -31,7 +32,7 @@ const PROFILE_FIELDS = [
     'public-profile-url',
 ];
 
-function generate_where(profile: Profile): Object {
+function generate_where(profile: Profile): WhereOptions {
     return {
         auth_linkedin_id: profile.id
     };
@@ -60,7 +61,7 @@ function generate_user(profile: Profile): User {
     };
 }
 
-function find_user(token: string, tokenSecret: string, profile: Profile, done: Function): Promise {
+function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise {
     return UserModel.findOrCreate({
         where: generate_where(profile),
         defaults: generate_user(profile)

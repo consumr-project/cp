@@ -1,10 +1,11 @@
-import * as QueryService from 'query-service';
+import { User } from 'query-service';
+import * as QueryService from '../../server/query';
 import * as querystring from 'querystring';
 import {Request, Response} from 'express';
 import md5 = require('md5');
 
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
-const User = QueryService.models.User;
+const UserModel = QueryService.models.User;
 
 export enum RATING {
     G = <any>'g',
@@ -20,7 +21,7 @@ export enum SIZE {
     FULL = 2048,
 }
 
-function generate_gravatar_url(req: Request, user?: QueryService.User): string {
+function generate_gravatar_url(req: Request, user?: User): string {
     let fallback = user ? user.avatar_url : '';
     let email = (user ? user.email : req.query.email)
         .toLowerCase()
@@ -35,6 +36,6 @@ function generate_gravatar_url(req: Request, user?: QueryService.User): string {
 }
 
 export default function http_handler(req: Request, res: Response, next: Function) {
-    User.findOne({ where: { email: req.query.email } })
+    UserModel.findOne({ where: { email: req.query.email } })
         .then(user => res.redirect(generate_gravatar_url(req, user)));
 }

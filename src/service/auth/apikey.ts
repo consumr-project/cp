@@ -1,7 +1,6 @@
 import * as passport from 'passport';
-
+import * as QueryService from '../../server/query';
 import LocalApiKey = require('passport-localapikey');
-import QueryService = require('query-service');
 
 const ApiKey = LocalApiKey.Strategy;
 const UserModel = QueryService.models.User;
