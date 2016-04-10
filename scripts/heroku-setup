@@ -5,6 +5,10 @@ source $(dirname "$0")/cli.sh
 use heroku:env
 use heroku:addons
 
+# heroku buildpacks:add heroku/nodejs
+# heroku config:set NODE_ENV=development
+# heroku config:set NODE_MODULES_CACHE=false
+
 heroku:addon heroku-postgresql hobby-dev
 heroku:envar CRUNCHBASE_API_KEY
 heroku:envar DATABASE_URL
