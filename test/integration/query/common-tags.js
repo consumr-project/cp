@@ -1,15 +1,18 @@
 'use strict';
 
-const cp = require('base-service/test/utils');
+const tapes = require('tapes');
+const http = require('../utils/http');
+const auth = require('../utils/auth');
+
 const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
 // for (var i = 0; i < 10; i++)
-cp.tapes('common tag', t => {
+tapes('common tag', t => {
     t.plan(1);
 
-    cp.login(fixture.user.admin.auth_apikey).end((err, res) => {
+    auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
         t.error(err);
 
         fixture.company.created_by = res.body.id;
@@ -33,15 +36,15 @@ cp.tapes('common tag', t => {
             fixture.tags.length
         );
 
-        cp.purge(`/companies/${fixture.company.id}`).end((err, res) =>
+        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
             st.ok(res.body.meta.ok, 'deleted test company'));
 
         fixture.events.forEach(ev =>
-            cp.purge(`/events/${ev.id}`).end((err, res) =>
+            http.purge(`/service/query/events/${ev.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, `deleted test event (${ev.id})`)));
 
         fixture.tags.forEach(tag =>
-            cp.purge(`/tags/${tag.id}`).end((err, res) =>
+            http.purge(`/service/query/tags/${tag.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, `deleted test tag (${tag.id})`)));
     });
 
@@ -57,26 +60,26 @@ cp.tapes('common tag', t => {
             fixture.events.length * 2
         );
 
-        cp.post('/companies', fixture.company).end((err, res) => {
+        http.post('/service/query/companies', fixture.company).end((err, res) => {
             st.error(err);
             st.ok(res.body.meta.ok, `created test company (${fixture.company.id})`);
         });
 
         fixture.events.forEach(ev =>
-            cp.post('/events', ev).end((err, res) => {
+            http.post('/service/query/events', ev).end((err, res) => {
                 st.error(err, 'no error');
                 st.ok(res.body.meta.ok, `created test event (${ev.id})`);
             }));
 
         fixture.tags.forEach(tag =>
-            cp.post('/tags', tag).end((err, res) => {
+            http.post('/service/query/tags', tag).end((err, res) => {
                 st.error(err, 'no error');
                 st.ok(res.body.meta.ok, `created test tag (${tag.id})`);
             }));
 
         fixture.events.forEach((ev, i) => {
             setTimeout(() => {
-                cp.patch(`/companies/${fixture.company.id}/events`, {
+                http.patch(`/service/query/companies/${fixture.company.id}/events`, {
                     event_id: ev.id
                 }).end((err, res) => {
                     st.error(err, 'no error');
@@ -96,7 +99,7 @@ cp.tapes('common tag', t => {
 
             tags.forEach((tag, i) => {
                 setTimeout(() => {
-                    cp.patch(`/events/${ev.id}/tags`, {
+                    http.patch(`/service/query/events/${ev.id}/tags`, {
                         tag_id: tag.id
                     }).end((err, res) => {
                         st.error(err, 'no error');
@@ -110,7 +113,7 @@ cp.tapes('common tag', t => {
     t.test('create event', st => {
         st.plan(8);
 
-        cp.get(`/companies/${fixture.company.id}/common/tags`).end((err, res) => {
+        http.get(`/service/query/companies/${fixture.company.id}/common/tags`).end((err, res) => {
             var tags = fixture.tags;
             var common = res.body.body;
 
@@ -134,12 +137,12 @@ cp.tapes('common tag', t => {
             fixture.tags.length
         );
 
-        cp.purge(`/companies/${fixture.company.id}`).end((err, res) => {
+        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
             fixture.events.forEach((ev, i) => {
                 setTimeout(() => {
-                    cp.purge(`/events/${ev.id}`).end((err, res) =>
+                    http.purge(`/service/query/events/${ev.id}`).end((err, res) =>
                         st.ok(res.body.meta.ok, `deleted test event (${ev.id})`));
                 }, 100 * i);
             });
@@ -147,7 +150,7 @@ cp.tapes('common tag', t => {
             setTimeout(() => {
                 fixture.tags.forEach((tag, i) => {
                     setTimeout(() => {
-                        cp.purge(`/tags/${tag.id}`).end((err, res) =>
+                        http.purge(`/service/query/tags/${tag.id}`).end((err, res) =>
                             st.ok(res.body.meta.ok, `deleted test tag (${tag.id})`));
                     }, 100 * i);
                 });

@@ -1,17 +1,20 @@
 'use strict';
 
-const http = require('./http');
+function create(http) {
+    function login(apikey) {
+        return http.post('/service/auth/key', { apikey });
+    }
 
-function login(apikey) {
-    return http.post('/service/auth/key', { apikey });
+    function logout() {
+        return http.get('/service/auth/logout');
+    }
+
+    function user() {
+        return http.get('/service/auth/user');
+    }
+
+    return { login, logout, user };
 }
 
-function logout() {
-    return http.get('/service/auth/logout');
-}
-
-function user() {
-    return http.get('/service/auth/user');
-}
-
-module.exports = { login, logout, user };
+module.exports = create(require('./http'));
+module.exports.create = create;

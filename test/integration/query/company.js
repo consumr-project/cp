@@ -1,14 +1,17 @@
 'use strict';
 
-const cp = require('base-service/test/utils');
+const tapes = require('tapes');
+const http = require('../utils/http');
+const auth = require('../utils/auth');
+
 const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-cp.tapes('company', t => {
+tapes('company', t => {
     t.plan(1);
 
-    cp.login(fixture.user.admin.auth_apikey).end((err, res) => {
+    auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
         t.error(err);
 
         fixture.company.created_by = res.body.id;
@@ -18,14 +21,14 @@ cp.tapes('company', t => {
     t.test('setup', st => {
         st.plan(1);
 
-        cp.purge(`/companies/${fixture.company.id}`).end((err, res) =>
+        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
             st.ok(res.body.meta.ok, 'deleted test company'));
     });
 
     t.test('create company', st => {
         st.plan(1);
 
-        cp.post('/companies', fixture.company).end((err, res) => {
+        http.post('/service/query/companies', fixture.company).end((err, res) => {
             st.ok(res.body.meta.ok, 'can create a company');
         });
     });
@@ -33,7 +36,7 @@ cp.tapes('company', t => {
     t.test('get company', st => {
         st.plan(2);
 
-        cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
+        http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve a company');
             st.equal(fixture.company.name, res.body.body.name);
         });
@@ -42,10 +45,10 @@ cp.tapes('company', t => {
     t.test('delete company', st => {
         st.plan(2);
 
-        cp.del(`/companies/${fixture.company.id}`).end((err, res) => {
+        http.del(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can delete a company');
 
-            cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
+            http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
                 st.ok(res.body.body.deleted_date);
             });
         });
@@ -54,10 +57,10 @@ cp.tapes('company', t => {
     t.test('purge company', st => {
         st.plan(2);
 
-        cp.purge(`/companies/${fixture.company.id}`).end((err, res) => {
+        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
-            cp.get(`/companies/${fixture.company.id}`).end((err, res) => {
+            http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
                 st.notOk(res.body.body);
             });
         });

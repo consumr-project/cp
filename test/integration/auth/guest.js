@@ -1,7 +1,8 @@
 'use strict';
 
 const tapes = require('tapes');
-const auth = require('../utils/auth');
+const http = require('../utils/http').create();
+const auth = require('../utils/auth').create(http);
 
 tapes('guest', t => {
     t.plan(1);
