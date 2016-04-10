@@ -1,12 +1,14 @@
 import { app as auth_endpoints } from './auth';
 import { app as extract_endpoints } from './extract';
 import { app as notification_endpoints } from './notification';
+import { app as query_endpoints } from './query';
 import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
 import * as auth_service from './auth';
 import * as notification_service from './notification';
+import * as query_service from './query';
 
 const express = require('express');
 const index = require('serve-index');
@@ -19,7 +21,6 @@ const session = require('express-session');
 const swig = require('swig');
 const debug = require('debug');
 
-const query_service = require('query-service');
 const config = require('acm');
 
 var log = debug('cp:server'),
@@ -66,7 +67,7 @@ app.delete('/service/query/*', auth_service.is_logged_in);
 app.patch('/service/query/*', auth_service.is_logged_in);
 app.post('/service/query/*', auth_service.is_logged_in);
 app.put('/service/query/*', auth_service.is_logged_in);
-app.use('/service/query', timeout('60s'), query_service);
+app.use('/service/query', timeout('60s'), query_endpoints);
 app.use('/version', version_endpoints);
 
 app.use((req, res, next) => {

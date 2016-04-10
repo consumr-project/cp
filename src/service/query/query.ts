@@ -1,3 +1,6 @@
+import { readFileSync as read } from 'fs';
+import { template } from 'lodash';
+
 import { Request, Response } from 'express';
 import { Model as BaseModel, Sequelize } from 'sequelize';
 import { head, merge, uniq, difference, map } from 'lodash';
@@ -40,7 +43,12 @@ function check_params(params: String[], replacements: {}): void {
     }
 }
 
-export default function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = false): RequestHandler {
+export function sql(name) {
+    var buff = read(`${__dirname}/../../../db/queries/${name}.sql`);
+    return template(buff.toString());
+}
+
+export function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = false): RequestHandler {
     return (req, res, next) => {
         var replacements = merge(req.query, req.params),
             merged_sql = sql(req),

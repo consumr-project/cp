@@ -155,7 +155,7 @@ cp.tapes('company review', t => {
 
             fixture.reviews.forEach((review, i) => setTimeout(() =>
                 cp.purge(`/reviews/${review.id}`).end((err, res) =>
-                    st.ok(res.body.meta.ok, 'deleted test review')), 200 * ++i))
+                    st.ok(res.body.meta.ok, 'deleted test review')), 200 * ++i));
         });
 
         t.test('clean up', st => {

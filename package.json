@@ -64,7 +64,6 @@
     "passport-localapikey": "0.0.3",
     "pg": "4.4.3",
     "q": "1.4.1",
-    "query-service": "git+https://git@github.com/consumr-project/query-service.git#v5.4.12",
     "rbac": "3.1.2",
     "request": "2.65.0",
     "rollbar-browser": "1.7.5",
