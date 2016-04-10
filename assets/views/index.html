@@ -31,7 +31,7 @@
         {% if debugging %}
         <script>window.DEBUGGING = true;</script>
         <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
-        <script src="assets/scripts/perf-stats.js"></script>
+        <script src="src/client/initializers/perf-stats.js"></script>
         {% endif %}
 
         <script src="build/bundle.js"></script>
@@ -39,8 +39,8 @@
         {% if not debugging %}
         <script src="build/client.js"></script>
         {% else %}
-        <script src="assets/scripts/rollbar-config.js"></script>
-        <script src="assets/scripts/scroll-offset-class.js"></script>
+        <script src="src/client/initializers/rollbar-config.js"></script>
+        <script src="src/client/initializers/scroll-offset-class.js"></script>
         <script src="src/client/elements/anchored.js"></script>
         <script src="src/client/elements/collapsable.js"></script>
         <script src="src/client/elements/pills.js"></script>
