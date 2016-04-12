@@ -19,4 +19,5 @@ heroku:envar LINKEDIN_CLIENT_SECRET
 heroku:envar MONGO_URL
 heroku:envar NODE_ENV development
 heroku:envar NODE_MODULES_CACHE false
+heroku:envar NPM_CONFIG_PRODUCTION false
 heroku:envar ROLLBAR_TOKEN

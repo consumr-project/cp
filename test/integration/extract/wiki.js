@@ -22,7 +22,7 @@ tape('wiki', t => {
     http.get('/service/extract/wiki/infobox?q=Walmart').end((err, res) => {
         t.comment('infobox');
         check.rescheck(t, err, res);
-        t.equal('Wal-Mart Stores, Inc.', res.body.body.infobox.name);
+        t.equal('Walmart Stores, Inc.', res.body.body.infobox.name);
     });
 
     http.get('/service/extract/wiki/infobox?q=Walmart&parts=urls').end((err, res) => {
