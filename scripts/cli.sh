@@ -49,7 +49,7 @@ heroku:buildpack() {
     echo $CACHE_BUILDP | grep "$name" &> /dev/null
     if [ "$?" -ne 0 ]; then
         log "setting $name buildpack"
-        heroku buildpacks:add "$name"
+        heroku buildpacks:add "$name" &> /dev/null
         logstat
     else
         log "using $name buildpack"
