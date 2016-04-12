@@ -2,6 +2,7 @@
 
 CACHE_ADDONS=
 CACHE_ENVVAR=
+CACHE_BUILDP=
 
 use() {
     case "$1" in
@@ -14,6 +15,12 @@ use() {
         heroku:addons)
             log "getting heroku addon information"
             CACHE_ADDONS=$(heroku addons)
+            logstat
+            ;;
+
+        heroku:buildpacks)
+            log "getting heroku buildpack information"
+            CACHE_BUILDP=$(heroku buildpacks)
             logstat
             ;;
     esac
@@ -36,6 +43,20 @@ logstat() {
     fi
 }
 
+heroku:buildpack() {
+    local name=$1
+
+    echo $CACHE_BUILDP | grep "$name" &> /dev/null
+    if [ "$?" -ne 0 ]; then
+        log "setting $name buildpack"
+        heroku buildpacks:add "$name"
+        logstat
+    else
+        log "using $name buildpack"
+        logstat
+    fi
+}
+
 heroku:addon() {
     local name=$1
     local version=$2
@@ -53,13 +74,15 @@ heroku:addon() {
 
 heroku:envar() {
     local name=$1
-    local val=
+    local val=$2
 
     echo $CACHE_ENVVAR | grep "$name" &> /dev/null
     if [ "$?" -ne 0 ]; then
-        log "set $name:"
-        read -s val
-        logstat
+        if [ -z "$val" ]; then
+            log "set $name:"
+            read -s val
+            logstat
+        fi
 
         log "pushing $name"
         heroku config:set "$name=$val" &> /dev/null

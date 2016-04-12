@@ -4,12 +4,11 @@ source $(dirname "$0")/cli.sh
 
 use heroku:env
 use heroku:addons
+use heroku:buildpacks
 
-# heroku buildpacks:add heroku/nodejs
-# heroku config:set NODE_ENV=development
-# heroku config:set NODE_MODULES_CACHE=false
-
+heroku:buildpack heroku/nodejs
 heroku:addon heroku-postgresql hobby-dev
+
 heroku:envar CRUNCHBASE_API_KEY
 heroku:envar DATABASE_URL
 heroku:envar ELASTICSEARCH_HOST
@@ -18,4 +17,6 @@ heroku:envar GOOGLE_ANALYTICS_ACCOUNT_ID
 heroku:envar LINKEDIN_CLIENT_ID
 heroku:envar LINKEDIN_CLIENT_SECRET
 heroku:envar MONGO_URL
+heroku:envar NODE_ENV development
+heroku:envar NODE_MODULES_CACHE false
 heroku:envar ROLLBAR_TOKEN
