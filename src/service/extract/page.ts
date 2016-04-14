@@ -1,9 +1,13 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
+import { reduce, map, uniq, sortBy as sort } from 'lodash';
+
 import config = require('acm');
 import request = require('request');
 
 const EMBED_URL = 'http://api.embed.ly/1/extract';
 const EMBED_KEY = config('embedly.api.key');
+
+type EmbedScoredWords = { score: number; name: string; }[];
 
 interface EmbedRequest {
     key: string;
@@ -14,7 +18,8 @@ interface EmbedRequest {
 
 interface EmbedResponse {
     description: string;
-    keywords: Array<string>;
+    keywords: EmbedScoredWords;
+    entities: EmbedScoredWords;
     published: string;
     title: string;
     type: string;
@@ -23,7 +28,7 @@ interface EmbedResponse {
 
 interface PageResponse {
     description: string;
-    keywords: Array<string>;
+    keywords: string[];
     published: string;
     title: string;
     type: string;
@@ -41,13 +46,22 @@ function query(req: Request): EmbedRequest {
 
 function parse(body: EmbedResponse): PageResponse {
     return {
-        description: body.description,
-        keywords: body.keywords,
-        published: body.published,
         title: body.title,
+        published: body.published,
         type: body.type,
-        url: body.url
+        url: body.url,
+        description: body.description,
+        keywords: make_keywords(body.keywords, body.entities),
     };
+}
+
+function make_keywords(... words_arr: EmbedScoredWords[]): string[] {
+    return sort(uniq(all_lowercase(reduce(words_arr, (store, words) =>
+        map(words, 'name'), []))));
+}
+
+function all_lowercase(strs: string[]): string[] {
+    return map(strs, str => str.toLowerCase());
 }
 
 export function extract(req: Request, res: Response, next: Function) {
