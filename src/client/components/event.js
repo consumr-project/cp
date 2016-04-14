@@ -191,8 +191,11 @@ angular.module('tcp').directive('event', [
         function populate_source(source, content) {
             source.title = content.title;
             source.published_date = content.published;
-            source.$published_date = new Date(content.published);
             source.$loaded_url = source.url;
+
+            if (content.published) {
+                source.$published_date = new Date(content.published);
+            }
         }
 
         /**
