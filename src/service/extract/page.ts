@@ -55,13 +55,13 @@ function parse(body: EmbedResponse): PageResponse {
     };
 }
 
-function make_keywords(... words_arr: EmbedScoredWords[]): string[] {
-    return sort(uniq(all_lowercase(reduce(words_arr, (store, words) =>
-        map(words, 'name'), []))));
-}
-
 function all_lowercase(strs: string[]): string[] {
     return map(strs, str => str.toLowerCase());
+}
+
+export function make_keywords(... words_arr: EmbedScoredWords[]): string[] {
+    return sort(uniq(all_lowercase(reduce(words_arr, (store, words) =>
+        map(words, 'name'), []))));
 }
 
 export function extract(req: Request, res: Response, next: Function) {
