@@ -53,7 +53,7 @@ angular.module('tcp').directive('search', [
 
                 $scope.vm.results.companies = groups.company;
                 $scope.vm.results.users = groups.user;
-                $scope.vm.empty = !results.meta.total;
+                $scope.vm.empty = !results.body || !results.body.length;
                 $scope.vm.loading = false;
                 $scope.vm.recent = track_search(query, results);
             });
