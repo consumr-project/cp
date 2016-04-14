@@ -257,6 +257,12 @@
     background-size: 21px;
 }
 
+.imgview--warning {
+    background-image: url(/assets/images/warning.svg);
+    background-position: 0;
+    background-size: 19px;
+}
+
 .imgview--sources {
     background-image: url(/assets/images/book.svg);
     background-position: -1px -1px;

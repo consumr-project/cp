@@ -88,6 +88,7 @@ angular.module('tcp').directive('events', [
                 logo: ev.logo,
                 tag_ids: lodash.filter(ev.tag_ids),
                 source_count: ev.source_count,
+                needs_sources: ev.source_count <= 1,
                 bookmark_count: ev.bookmark_count,
                 bookmarked_by_me: ev.bookmarked_by_user,
             };
@@ -110,6 +111,7 @@ angular.module('tcp').directive('events', [
                 '            ng-click="toggle_favorite($event, event)"',
                 '            class="right margin-left-xsmall font-size-small imgview imgview--with-content">{{event.bookmark_count | number}}</span>',
                 '        <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::event.source_count | number}}</span>',
+                '        <span ng-show="::event.needs_sources" class="right margin-right-small imgview imgview--warning"></span>',
                 '    </div>',
                 '    <div class="events__event__title copy">{{::event.title}}</div>',
                 '</span>',
