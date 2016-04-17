@@ -103,7 +103,7 @@ else
 endif
 
 build-server:
-	$(tsc) config/typings.d.ts src/server/main.ts src/service/query/models/* \
+	$(tsc) src/typings.d.ts src/server/main.ts src/service/query/models/* \
 		--outDir $(build_dir) --module commonjs --pretty --removeComments \
 		--moduleResolution classic
 
@@ -111,7 +111,7 @@ build-client: build-css build-client-deps build-client-app \
 	build-client-bundle build-client-src
 
 build-client-app:
-	$(tsc) config/typings.d.ts src/client/main.ts --outDir $(build_dir) \
+	$(tsc) src/typings.d.ts src/client/main.ts --outDir $(build_dir) \
 		--module commonjs $(ts_options) --rootDir ./
 
 build-client-bundle:
