@@ -3,7 +3,9 @@ import * as QueryService from '../../server/query';
 import * as querystring from 'querystring';
 import {Request, Response} from 'express';
 import md5 = require('md5');
+import config = require('acm');
 
+const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
 const UserModel = QueryService.models.User;
 
@@ -22,7 +24,7 @@ export enum SIZE {
 }
 
 function generate_gravatar_url(req: Request, user?: User): string {
-    let fallback = user ? user.avatar_url : '';
+    let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
     let email = (user ? user.email : req.query.email)
         .toLowerCase()
         .trim();
