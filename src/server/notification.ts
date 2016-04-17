@@ -56,9 +56,15 @@ app.delete('/notifications/:id', (req, res, next) =>
 export function connect(cb: Function = () => {}) {
     log('connecting to mongodb');
     MongoClient.connect(config('mongo.url'), (err, db) => {
-        log('connected to mongodb');
-        log('pushing notifications to %s collection', NOTIFICATIONS_COLLECTION);
-        __coll__ = db.collection(NOTIFICATIONS_COLLECTION);
+        if (err) {
+            log('error connecting to mongo');
+            log(err);
+        } else {
+            log('connected to mongodb');
+            log('pushing notifications to %s collection', NOTIFICATIONS_COLLECTION);
+            __coll__ = db.collection(NOTIFICATIONS_COLLECTION);
+        }
+
         cb(err, db);
     });
 }

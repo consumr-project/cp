@@ -8,7 +8,7 @@ import * as Promise from 'bluebird';
 
 const PARAMS = /:\w+/g;
 
-type RequestHandler = (req: Request, res: Response, next?: Function) => void
+type RequestHandler = (req: Request, res: Response, next?: (err?: any) => {}) => void
 type QueryResults = Array<any>;
 type Model = BaseModel<any, any>;
 
@@ -22,7 +22,7 @@ function track_metrics(action: Promise<QueryResults>, one_row: Boolean = false):
     });
 }
 
-function track_error(next: Function, action: Promise<QueryResults>): Promise<QueryResults> {
+function track_error(next: Function, action: Promise<any>): Promise<any> {
     return action.catch(err =>
         handle_error(next, err));
 }
@@ -58,8 +58,9 @@ export function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = 
         try {
             check_params(params, replacements);
             query = conn.query(merged_sql, { replacements });
-            track_metrics(track_error(next, query), one_row)
-                .then(response => res.json(response));
+
+            track_error(next, track_metrics(query, one_row)
+                .then(response => res.json(response)));
         } catch (err) {
             handle_error(next, err);
         }
