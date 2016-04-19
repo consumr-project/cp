@@ -71,10 +71,14 @@ module tcp {
         '$locationProvider',
         '$compileProvider',
         '$animateProvider',
-        function ($routeProvider, $locationProvider, $compileProvider, $animateProvider) {
+        '$provide',
+        function ($routeProvider, $locationProvider, $compileProvider, $animateProvider, $provide) {
             $animateProvider.classNameFilter(/ng-animated/);
             $locationProvider.html5Mode(true);
             $compileProvider.debugInfoEnabled(DEBUGGING);
+
+            // for infinite-scroll
+            $provide.value('THROTTLE_MILLISECONDS', 100);
 
             let IdSetterController = ['$scope', '$routeParams', function ($scope, $routeParams) {
                 $scope.id = $routeParams.id;
