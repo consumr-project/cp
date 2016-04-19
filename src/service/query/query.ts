@@ -48,9 +48,9 @@ export function sql(name) {
     return template(buff.toString());
 }
 
-export function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = false): RequestHandler {
+export function query(conn: Sequelize, sql: (any) => string, one_row: Boolean = false, defaults: any = {}): RequestHandler {
     return (req, res, next) => {
-        var replacements = merge(req.query, req.params),
+        var replacements = merge(merge(req.query, req.params), defaults),
             merged_sql = sql(req),
             params = get_params(merged_sql),
             query;

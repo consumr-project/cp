@@ -149,7 +149,7 @@ post('/companies/:company_id/reviews',
     create(models.Review, ['company_id']));
 get('/companies/:company_id/reviews',
     can('retrieve', 'review'),
-    query(conn, sql('get-company-reviews')));
+    query(conn, sql('get-company-reviews'), false, { offset: 0 }));
 get('/companies/:company_id/reviews/score',
     can('retrieve', 'review'),
     query(conn, sql('get-company-reviews-score'), true));
