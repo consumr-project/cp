@@ -36,4 +36,5 @@ where r.company_id = :company_id
 group by r.id, u.id
 order by r.created_date desc
 
-limit 25
+limit 10
+offset :offset

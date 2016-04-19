@@ -20,6 +20,8 @@ search_stats: "{count} results ({time} ms)"
 
 # object loading
 error_loading: Error making request
+error_loading_content: "Error loading content, please try again later."
+
 not_found: Not Found
 create_this: Create "{name}"?
 loading_events: "Loading events..."

@@ -178,9 +178,10 @@ angular.module('tcp').service('Services', [
             }).then(pluck_data).then(pluck_body);
         };
 
-        queryService.companies.reviews.view = function (id, user_id) {
+        queryService.companies.reviews.view = function (id, user_id, offset) {
             return $http.get(url('companies', id, 'reviews'), {
                 params: {
+                    offset: offset || 0,
                     user_id: user_id
                 }
             }).then(pluck_data).then(pluck_body);

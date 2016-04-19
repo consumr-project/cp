@@ -136,6 +136,8 @@ build-client-deps:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/angular-animate/angular-animate.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
+	$(js_min) node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js >> $(build_vendor_js)
+	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/rollbar-browser/dist/rollbar.umd.nojson.js >> $(build_vendor_js)

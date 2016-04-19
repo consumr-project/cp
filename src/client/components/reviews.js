@@ -39,16 +39,18 @@ angular.module('tcp').directive('reviews', [
          * @return {void}
          */
         function controller($scope) {
-            $scope.vm = {};
-            $scope.reviews = {};
-            $scope.vm.chart_labels = get_chart_labels();
+            var offset = 0;
 
-            Services.query.companies.reviews.view($scope.companyId, Session.USER.id)
-                .then(utils.scope.set($scope, 'reviews.list'));
+            $scope.vm = {
+                viewing_all: false,
+                loading: false,
+                chart_labels: get_chart_labels(),
+            };
 
-            Services.query.companies.reviews.summary($scope.companyId)
-                .then(list_scores)
-                .then(utils.scope.set($scope, 'reviews.summary'));
+            $scope.reviews = {
+                list: [],
+                summary: [],
+            };
 
             /**
              * @param {Review} review
@@ -99,6 +101,22 @@ angular.module('tcp').directive('reviews', [
             $scope.usefulness_score_line = function (score) {
                 return score > 0 ? score : 0;
             };
+
+            $scope.next_page = function () {
+                $scope.vm.loading = true;
+
+                Services.query.companies.reviews.view($scope.companyId, Session.USER.id, offset).then(function (reviews) {
+                    offset += reviews.length;
+                    $scope.vm.loading = false;
+                    $scope.vm.viewing_all = !reviews.length;
+                    $scope.reviews.list = $scope.reviews.list.concat(reviews);
+                });
+            };
+
+            $scope.next_page();
+            Services.query.companies.reviews.summary($scope.companyId)
+                .then(list_scores)
+                .then(utils.scope.set($scope, 'reviews.summary'));
         }
 
         return {
@@ -121,34 +139,37 @@ angular.module('tcp').directive('reviews', [
                 '        </options>',
                 '    </div>',
 
-                '    <div ng-repeat="review in reviews.list"',
-                '       class="margin-top-xlarge">',
-                '       <table>',
-                '           <tr>',
-                '               <td>',
-                '                   <avatar email="{{::review.user_email}}" class="image-only"></avatar>',
-                '               </td>',
-                '               <td class="padding-left-small">',
-                '                   <chart type="heartcount" value="{{::review.score}}"></chart>',
-                '               </td>',
-                '           </tr>',
-                '       </table>',
-                '       <h2 class="margin-top-small">{{::review.title}}</h2>',
-                '       <span class="uppercase font-size-small" prop="html" i18n="user/by_on" data="{',
-                '           id: review.user_id,',
-                '           name: review.user_name,',
-                '           date: review.created_date,',
-                '       }"></span>',
-                '       <q class="copy block margin-top-small">{{::review.summary}}</q>',
-                '       <h4 class="copy block margin-top-small" i18n="review/did_review_help"',
-                '           data="{count: usefulness_score_line(review.usefulness_score)}"></h4>',
-                '       <button class="button--thin"',
-                '           ng-class="{\'button--unselected\': !review.user_useful_pos}"',
-                '           ng-click="useful(review, +1)" i18n="common/yes"></button>',
-                '       <button class="button--thin"',
-                '           ng-class="{\'button--unselected\': !review.user_useful_neg}"',
-                '           ng-click="useful(review, -1)" i18n="common/no"></button>',
-                '    </div>',
+                '    <section infinite-scroll="next_page()" infinite-scroll-distance="3" ',
+                '        infinite-scroll-disabled="vm.loading || vm.viewing_all">',
+                '        <div ng-repeat="review in reviews.list"',
+                '           class="margin-top-xlarge">',
+                '           <table>',
+                '               <tr>',
+                '                   <td>',
+                '                       <avatar email="{{::review.user_email}}" class="image-only"></avatar>',
+                '                   </td>',
+                '                   <td class="padding-left-small">',
+                '                       <chart type="heartcount" value="{{::review.score}}"></chart>',
+                '                   </td>',
+                '               </tr>',
+                '           </table>',
+                '           <h2 class="margin-top-small">{{::review.title}}</h2>',
+                '           <span class="uppercase font-size-small" prop="html" i18n="user/by_on" data="{',
+                '               id: review.user_id,',
+                '               name: review.user_name,',
+                '               date: review.created_date,',
+                '           }"></span>',
+                '           <q class="copy block margin-top-small">{{::review.summary}}</q>',
+                '           <h4 class="copy block margin-top-small" i18n="review/did_review_help"',
+                '               data="{count: usefulness_score_line(review.usefulness_score)}"></h4>',
+                '           <button class="button--thin"',
+                '               ng-class="{\'button--unselected\': !review.user_useful_pos}"',
+                '               ng-click="useful(review, +1)" i18n="common/yes"></button>',
+                '           <button class="button--thin"',
+                '               ng-class="{\'button--unselected\': !review.user_useful_neg}"',
+                '               ng-click="useful(review, -1)" i18n="common/no"></button>',
+                '        </div>',
+                '    </section>',
                 '</div>'
             ].join('')
         };
