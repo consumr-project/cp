@@ -2,7 +2,7 @@ angular.module('tcp').directive('avatar', function () {
     'use strict';
 
     var template =
-        '<div class="avatar__image animated fadeIn">' +
+        '<div class="avatar__image animated fadeIn" afkl-lazy-image="{{src}}" afkl-lazy-image-options="{background: true}">' +
             '<ng-transclude></ng-transclude>' +
         '</div>';
 
@@ -31,9 +31,11 @@ angular.module('tcp').directive('avatar', function () {
         var title = [];
 
         if (attrs.image) {
-            elem.find('.avatar__image').css('background-image', url(attrs.image));
+            // elem.find('.avatar__image').css('background-image', url(attrs.image));
+            scope.src = attrs.image;
         } else if (attrs.email) {
-            elem.find('.avatar__image').css('background-image', url(avatar(attrs.email)));
+            // elem.find('.avatar__image').css('background-image', url(avatar(attrs.email)));
+            scope.src = avatar(attrs.email);
         }
 
         if (attrs.name) {

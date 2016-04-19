@@ -11,7 +11,7 @@ module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
     const ERRORED: Boolean = (<any>window).ERRORED;
 
-    var deps: Array<string> = ['ngRoute', 'ngAria', 'ngAnimate', 'infinite-scroll'];
+    var deps: Array<string> = ['ngRoute', 'ngAria', 'ngAnimate', 'infinite-scroll', 'afkl.lazyImage'];
     var Visitor = !DEBUGGING ? analytics(TCP_BUILD_CONFIG.analytics.gaid) :
         analytics(TCP_BUILD_CONFIG.analytics.gaid).debug();
 

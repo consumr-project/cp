@@ -31,6 +31,7 @@
     "angular": "1.5.0",
     "angular-animate": "1.5.0",
     "angular-aria": "1.4.0",
+    "angular-lazy-image": "0.3.1",
     "angular-route": "1.4.0",
     "animate.css": "3.2.5",
     "body-parser": "1.13.3",
