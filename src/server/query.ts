@@ -58,6 +58,20 @@ get('/tags',
 post('/tags',
     can('create', 'tag'),
     create(models.Tag));
+get('/tags/like',
+    can('retrieve', 'tag'),
+    (req, res, next) => {
+        if (req.query.s && req.query.s) {
+            req.query.s = [].concat(req.query.s);
+            req.query.s.forEach((val, i) => {
+                req.query['slist' + i] = val;
+                req.query['ilist' + i] = '%' + val + '%';
+            });
+        }
+
+        next();
+    },
+    query(conn, sql('get-like-tags')));
 get('/tags/:id',
     can('retrieve', 'tag'),
     retrieve(models.Tag));

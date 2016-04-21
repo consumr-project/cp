@@ -6,7 +6,8 @@ import { Model as BaseModel, Sequelize } from 'sequelize';
 import { head, merge, uniq, difference, map } from 'lodash';
 import * as Promise from 'bluebird';
 
-const PARAMS = /:\w+/g;
+const PARAMS = /[^:]:\w+/g;
+const CLEAN_PARAM = /\W+/;
 
 type RequestHandler = (req: Request, res: Response, next?: (err?: any) => {}) => void
 type QueryResults = Array<any>;
@@ -34,7 +35,7 @@ function handle_error(next: Function, err: Error): void {
 
 function get_params(sql: String): String[] {
     return map(uniq(sql.match(PARAMS) || []), field =>
-        field.substr(1));
+        field.replace(CLEAN_PARAM, ''));
 }
 
 function check_params(params: String[], replacements: {}): void {

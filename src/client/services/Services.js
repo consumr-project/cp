@@ -138,6 +138,13 @@ angular.module('tcp').service('Services', [
             reviews: crud('reviews', ['useful']),
         };
 
+        queryService.multi_search = {
+            tags: function (tags) {
+                return $http.get(url('tags/like'), { params: { s: tags } })
+                    .then(pluck_data).then(pluck_body);
+            }
+        };
+
         queryService.search = {
             products: function (field, query) {
                 return $http.get(url('search/products', field), { params: { q: query } })
