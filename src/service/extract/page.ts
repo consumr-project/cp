@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
-import { reduce, map, uniq, sortBy as sort } from 'lodash';
+import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 
 import config = require('acm');
 import request = require('request');
 
 const EMBED_URL = 'http://api.embed.ly/1/extract';
 const EMBED_KEY = config('embedly.api.key');
-
-type EmbedScoredWords = { score: number; name: string; }[];
 
 interface EmbedRequest {
     key: string;
@@ -18,12 +16,18 @@ interface EmbedRequest {
 
 interface EmbedResponse {
     description: string;
-    keywords: EmbedScoredWords;
-    entities: EmbedScoredWords;
+    keywords: EmbedScoredWord[];
+    entities: EmbedScoredWord[];
     published: string;
     title: string;
     type: string;
     url: string;
+}
+
+interface EmbedScoredWord {
+    score?: number;
+    count?: number;
+    name: string;
 }
 
 interface PageResponse {
@@ -59,9 +63,8 @@ function all_lowercase(strs: string[]): string[] {
     return map(strs, str => str.toLowerCase());
 }
 
-export function make_keywords(... words_arr: EmbedScoredWords[]): string[] {
-    return sort(uniq(all_lowercase(reduce(words_arr, (store, words) =>
-        map(words, 'name'), []))));
+export function make_keywords(...words_arr: EmbedScoredWord[][]): string[] {
+    return sort(uniq(all_lowercase(filter(<string[]>map(flatten(words_arr), 'name')))));
 }
 
 export function extract(req: Request, res: Response, next: Function) {
