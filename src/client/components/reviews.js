@@ -139,8 +139,7 @@ angular.module('tcp').directive('reviews', [
                 '        </options>',
                 '    </div>',
 
-                '    <section infinite-scroll="next_page()" infinite-scroll-distance="3" ',
-                '        infinite-scroll-disabled="vm.loading || vm.viewing_all">',
+                '    <section>',
                 '        <div ng-repeat="review in reviews.list"',
                 '           class="margin-top-xlarge">',
                 '           <table>',

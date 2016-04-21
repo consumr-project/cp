@@ -11,7 +11,7 @@ module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
     const ERRORED: Boolean = (<any>window).ERRORED;
 
-    var deps: Array<string> = ['ngRoute', 'ngAria', 'ngAnimate', 'infinite-scroll', 'afkl.lazyImage'];
+    var deps: Array<string> = ['ngRoute', 'ngAria', 'ngAnimate', 'afkl.lazyImage'];
     var Visitor = !DEBUGGING ? analytics(TCP_BUILD_CONFIG.analytics.gaid) :
         analytics(TCP_BUILD_CONFIG.analytics.gaid).debug();
 
@@ -71,14 +71,10 @@ module tcp {
         '$locationProvider',
         '$compileProvider',
         '$animateProvider',
-        '$provide',
-        function ($routeProvider, $locationProvider, $compileProvider, $animateProvider, $provide) {
+        function ($routeProvider, $locationProvider, $compileProvider, $animateProvider) {
             $animateProvider.classNameFilter(/ng-animated/);
             $locationProvider.html5Mode(true);
             $compileProvider.debugInfoEnabled(DEBUGGING);
-
-            // for infinite-scroll
-            $provide.value('THROTTLE_MILLISECONDS', 100);
 
             let IdSetterController = ['$scope', '$routeParams', function ($scope, $routeParams) {
                 $scope.id = $routeParams.id;
