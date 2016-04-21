@@ -9,7 +9,7 @@ const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-tapes('tags', t => {
+tapes('tag', t => {
     t.plan(1);
 
     auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
