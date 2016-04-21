@@ -401,7 +401,7 @@ angular.module('tcp').directive('company', [
                 '            <div class="margin-top-xlarge margin-bottom-medium center-align">',
                 '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '            </div>',
-                '            <events class="margin-top-medium margin-bottom-xlarge" ',
+                '            <events class="margin-top-medium company-component__events" ',
                 '                filters="vm.events_filter" ',
                 '                api="vm.events_timeline" ',
                 '                id="{{company.id}}"></events>',

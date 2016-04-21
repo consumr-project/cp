@@ -3,6 +3,10 @@
     top: 10px;
 }
 
+.company-component__events {
+    margin-bottom: 120px;
+}
+
 @media (--media-regular-screens) {
     .reviews-component__sort {
         float: right
