@@ -386,6 +386,7 @@ angular.module('tcp').directive('company', [
                 '        </div>',
 
                 '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
+                '            class="margin-bottom-xlarge"',
                 '            on-save="hide_review_form()"',
                 '            on-cancel="hide_review_form()"',
                 '            ng-if="vm.show_review_form"></review>',
