@@ -1,0 +1,141 @@
+#!/bin/bash
+
+DB_CMD=
+DB_ERR=0
+MIGRATIONS_DIR=./config/migrations
+
+if [ -z "$NO_COLORS" ]; then
+    COL_BOLD=$(tput bold)
+    COL_RED=$(tput setaf 1)
+    COL_GREEN=$(tput setaf 34)
+    COL_YELLOW=$(tput setaf 3)
+    COL_RESET=$(tput sgr0)
+fi
+
+log_msg() {
+    echo -n "   - $@"
+}
+
+log_msg_sep() {
+    echo =====================================
+}
+
+log_msg_err() {
+    echo "[${COL_BOLD}${COL_RED}error${COL_RESET}] $@"
+}
+
+log_stat_ok() {
+    [ ! -z "$1" ] && log_msg "$@"
+    echo " [${COL_BOLD}${COL_GREEN}ok${COL_RESET}]"
+}
+
+log_stat_skipped() {
+    [ ! -z "$1" ] && log_msg "$@"
+    echo " [${COL_BOLD}${COL_YELLOW}skipped${COL_RESET}]"
+}
+
+log_stat_err() {
+    [ ! -z "$1" ] && log_msg "$@"
+    echo " [${COL_BOLD}${COL_RED}error${COL_RESET}]"
+}
+
+cmd_help() {
+    echo "usage: $(basename $0) <command>"
+    echo "    create <name>     generate a new migration file in $MIGRATIONS_DIR"
+    echo "    run [file]        run all migrations or a specific one"
+    echo "    help              show this help text"
+}
+
+cmd_create() {
+    local name="$1"
+    local now=$(date +%s)
+    local fname="$MIGRATIONS_DIR/$now-$name.sql"
+
+    if [ -z "$name" ]; then
+        log_msg_err "name option is required"
+        cmd_help
+        exit 1
+    fi
+
+    touch "$fname"
+    log_stat_ok "$fname"
+}
+
+cmd_run() {
+    local specific="$1"
+    local files=
+
+    if [ -z "$DB_CMD" ]; then
+        log_msg_err "\$DB_CMD is not set"
+        cmd_help
+        exit 1
+    fi
+
+    if [ ! -z "$specific" ]; then
+        files=("$specific")
+    else
+        files=$(find "$MIGRATIONS_DIR" | grep ".sql$" | sort)
+    fi
+
+    log_msg "running $(echo "$files" | wc -l | tr -d '[[:space:]]') migration(s)"
+    echo
+    for file in $files; do db_run "$file"; done
+
+    log_msg "done running"
+    echo
+    test $DB_ERR -eq 0
+}
+
+db_run() {
+    local out=
+    local file="$1"
+    local fname=$(basename "$file")
+    log_msg "running $fname"
+
+    if [ $DB_ERR -ne 0 ]; then
+        log_stat_skipped
+        return
+    fi
+
+    out=$(db_exec "$file" 2>&1)
+    if [ $? -eq 0 ]; then
+        log_stat_ok
+    else
+        log_stat_err
+        log_msg_sep
+        log_msg_err "command and output from $fname"
+        log_msg_err "$out"
+        log_msg_sep
+        DB_ERR=1
+    fi
+}
+
+db_exec() {
+    local file="$1"
+    echo $DB_CMD "$file"
+    $DB_CMD "$file" | grep -v ERROR
+}
+
+[ -f ./config/migrations.sh ] && source ./config/migrations.sh
+
+case "$1" in
+    create)
+        shift
+        cmd_create $@
+        ;;
+
+    run)
+        shift
+        cmd_run $@
+        ;;
+
+    help)
+        cmd_help
+        ;;
+
+    *)
+        log_msg_err "invalid option $1"
+        cmd_help
+        exit 1
+        ;;
+esac
