@@ -1,7 +1,7 @@
 create table if not exists review_usefulnesses (
     review_id uuid not null,
     user_id uuid not null,
-    score integer,
+    score smallint,
 
     created_by uuid not null,
     updated_by uuid not null,
@@ -30,7 +30,7 @@ create table if not exists reviews (
     user_id uuid not null,
     company_id uuid,
 
-    score integer not null,
+    score smallint not null,
     title character varying(255),
     summary text,
 
