@@ -66,3 +66,25 @@ create table if not exists company_events (
             on update cascade
             on delete cascade
 );
+
+
+create table if not exists company_products (
+    company_id uuid not null,
+    product_id uuid not null,
+    created_date timestamp with time zone not null,
+    updated_date timestamp with time zone not null,
+    deleted_date timestamp with time zone
+
+    constraint company_products_pkey
+        primary key (company_id, product_id),
+
+    constraint company_products_company_id_fkey
+        foreign key (company_id) references companies(id)
+            on update cascade
+            on delete cascade,
+
+    constraint company_products_product_id_fkey
+        foreign key (product_id) references products(id)
+            on update cascade
+            on delete cascade
+);
