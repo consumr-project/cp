@@ -24,7 +24,10 @@ create table if not exists reviews (
 
     constraint reviews_user_id_fkey
         foreign key (user_id) references users(id)
-            on update cascade
+            on update cascade,
+
+    constraint reviews_score_min_max
+        check (score >= 0 and score <= 5)
 );
 
 
