@@ -90,9 +90,6 @@ app.get('*', (req, res) =>
     res.render('index', { debugging,
         lang: req.cookies.lang }));
 
-query_service.conn.sync().then(() =>
-    log('ready for database requests'));
-
 notification_service.connect(() =>
     log('ready for notification requests'));
 
