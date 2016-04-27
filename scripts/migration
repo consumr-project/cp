@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DB_CMD=
+DB_CMD="$DB_CMD"
 DB_ERR=0
 MIGRATIONS_DIR=./config/migrations
 
@@ -77,8 +77,7 @@ cmd_run() {
         files=$(find "$MIGRATIONS_DIR" | grep ".sql$" | sort)
     fi
 
-    log_msg "running $(echo "$files" | wc -l | tr -d '[[:space:]]') migration(s)"
-    echo
+    log_msg "$(echo "$files" | wc -l | tr -d '[[:space:]]') migration(s) (command: \`$DB_CMD\`)"; echo
     for file in $files; do db_run "$file"; done
 
     log_msg "done running"
