@@ -9,7 +9,7 @@ end$$;
 do $$
 begin
     if not exists (select 1 from pg_type where typname = 'enum_users_role') then
-        create type enum_users_role as enum ('admin', 'user');
+        create type enum_users_role as enum ('user', 'admin');
     end if;
 end$$;
 
@@ -21,8 +21,8 @@ create table if not exists users (
     title varchar(100) not null,
     email varchar(100) not null,
     summary text,
-    lang enum_users_lang,
-    role enum_users_role,
+    lang enum_users_lang not null default 'en',
+    role enum_users_role not null default 'user',
     company_name varchar(100) not null,
     avatar_url varchar(100),
     linkedin_url varchar(100),

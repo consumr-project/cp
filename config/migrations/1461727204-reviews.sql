@@ -4,7 +4,7 @@ create table if not exists reviews (
     company_id uuid,
 
     score smallint not null,
-    title character varying(255),
+    title character varying(100),
     summary text,
 
     created_by uuid not null,
