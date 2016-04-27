@@ -96,25 +96,3 @@ create table if not exists event_tags (
             on update cascade
             on delete cascade
 );
-
-
-create table if not exists company_events (
-    company_id uuid not null,
-    event_id uuid not null,
-    created_date timestamp with time zone not null,
-    updated_date timestamp with time zone not null,
-    deleted_date timestamp with time zone
-
-    constraint company_events_pkey
-        primary key (company_id, event_id),
-
-    constraint company_events_company_id_fkey
-        foreign key (company_id) references companies(id)
-            on update cascade
-            on delete cascade,
-
-    constraint company_events_event_id_fkey
-        foreign key (event_id) references events(id)
-            on update cascade
-            on delete cascade
-);
