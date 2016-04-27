@@ -32,7 +32,7 @@ create table if not exists event_bookmarks (
     user_id uuid not null,
     created_date timestamp with time zone not null,
     updated_date timestamp with time zone not null,
-    deleted_date timestamp with time zone
+    deleted_date timestamp with time zone,
 
     constraint event_bookmarks_pkey
         primary key (event_id, user_id),

@@ -51,7 +51,7 @@ create table if not exists company_events (
     event_id uuid not null,
     created_date timestamp with time zone not null,
     updated_date timestamp with time zone not null,
-    deleted_date timestamp with time zone
+    deleted_date timestamp with time zone,
 
     constraint company_events_pkey
         primary key (company_id, event_id),
@@ -73,7 +73,7 @@ create table if not exists company_products (
     product_id uuid not null,
     created_date timestamp with time zone not null,
     updated_date timestamp with time zone not null,
-    deleted_date timestamp with time zone
+    deleted_date timestamp with time zone,
 
     constraint company_products_pkey
         primary key (company_id, product_id),

@@ -1,30 +1,3 @@
-create table if not exists review_usefulnesses (
-    review_id uuid not null,
-    user_id uuid not null,
-    score smallint,
-
-    created_by uuid not null,
-    updated_by uuid not null,
-    deleted_by uuid,
-    created_date timestamp with time zone not null,
-    updated_date timestamp with time zone not null,
-    deleted_date timestamp with time zone,
-
-    constraint review_usefulnesses_pkey
-        primary key (review_id, user_id),
-
-    constraint review_usefulnesses_review_id_fkey
-        foreign key (review_id) references reviews(id)
-            on update cascade
-            on delete cascade,
-
-    constraint review_usefulnesses_user_id_fkey
-        foreign key (user_id) references users(id)
-            on update cascade
-            on delete cascade
-);
-
-
 create table if not exists reviews (
     id uuid not null,
     user_id uuid not null,
@@ -52,6 +25,33 @@ create table if not exists reviews (
     constraint reviews_user_id_fkey
         foreign key (user_id) references users(id)
             on update cascade
+);
+
+
+create table if not exists review_usefulnesses (
+    review_id uuid not null,
+    user_id uuid not null,
+    score smallint,
+
+    created_by uuid not null,
+    updated_by uuid not null,
+    deleted_by uuid,
+    created_date timestamp with time zone not null,
+    updated_date timestamp with time zone not null,
+    deleted_date timestamp with time zone,
+
+    constraint review_usefulnesses_pkey
+        primary key (review_id, user_id),
+
+    constraint review_usefulnesses_review_id_fkey
+        foreign key (review_id) references reviews(id)
+            on update cascade
+            on delete cascade,
+
+    constraint review_usefulnesses_user_id_fkey
+        foreign key (user_id) references users(id)
+            on update cascade
+            on delete cascade
 );
 
 
