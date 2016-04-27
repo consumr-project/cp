@@ -1,7 +1,7 @@
 do $$
 begin
     if not exists (select 1 from pg_type where typname = 'enum_users_lang') then
-        create type enum_users_lang as ('en');
+        create type enum_users_lang as enum ('en');
     end if;
 end$$;
 
@@ -9,7 +9,7 @@ end$$;
 do $$
 begin
     if not exists (select 1 from pg_type where typname = 'enum_users_role') then
-        create type enum_users_role as ('admin', 'user');
+        create type enum_users_role as enum ('admin', 'user');
     end if;
 end$$;
 
