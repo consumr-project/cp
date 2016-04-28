@@ -1,1 +1,18 @@
-root_user_id: 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+root_user_id: &root_user_id 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+
+user:
+  root:
+    id: *root_user_id
+    last_login_date: '2016-04-28T04:09:52.510Z'
+    name: 'Zaphod Beeblebrox'
+    email: 'root@consumrproject.org'
+    title: 'Big Z'
+    company_name: 'Consurm Project'
+    lang: 'en'
+    role: 'admin'
+    avatar_url: 'http://i.imgur.com/0rURPQO.jpg'
+    summary: 'It is said that his birth was marked by earthquakes, tidal waves, tornadoes, firestorms, the explosion of three neighbouring stars, and, shortly afterwards, by the issuing of over six and three quarter million writs for damages from all of the major landowners in his Galactic sector. However, the only person by whom this is said is Beeblebrox himself, and there are several possible theories to explain this.'
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: '2016-04-28T04:09:52.510Z'
+    updated_date: '2016-04-28T04:09:52.510Z'

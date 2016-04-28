@@ -31,28 +31,14 @@ program
     .command('app user')
     .description('generate base user')
     .action(() => {
-        var id = config('seed.root_user_id'),
-            now = (new Date()).toISOString();
+        var user = config('seed.user.root');
 
-        console.log('ensuring user#%s exists', id);
+        console.log('ensuring user#%s exists', user.id);
         User.findOrCreate({
-            where: { id },
-            defaults: {
-                id,
-                created_by: id,
-                updated_by: id,
-                created_date: now,
-                updated_date: now,
-                last_login_date: now,
-                name: 'Zaphod Beeblebrox',
-                email: 'root@consumrproject.org',
-                title: 'Big Z',
-                company_name: 'Consurm Project',
-                lang: 'en',
-                role: 'admin',
-                avatar_url: 'http://i.imgur.com/0rURPQO.jpg',
-                summary: 'It is said that his birth was marked by earthquakes, tidal waves, tornadoes, firestorms, the explosion of three neighbouring stars, and, shortly afterwards, by the issuing of over six and three quarter million writs for damages from all of the major landowners in his Galactic sector. However, the only person by whom this is said is Beeblebrox himself, and there are several possible theories to explain this.',
-            }
+            defaults: user,
+            where: {
+                id: user.id
+            },
         })
             .then(() => {
                 console.log('added user');
