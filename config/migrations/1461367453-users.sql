@@ -18,12 +18,12 @@ create table if not exists users (
     id uuid not null,
 
     name varchar(100) not null,
-    title varchar(100) not null,
+    title varchar(100),
     email varchar(100) not null,
     summary text,
     lang enum_users_lang not null default 'en',
     role enum_users_role not null default 'user',
-    company_name varchar(100) not null,
+    company_name varchar(100),
     avatar_url varchar(255),
     linkedin_url varchar(255),
 
