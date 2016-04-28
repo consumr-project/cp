@@ -53,7 +53,7 @@ function generate_user(profile: Profile): User {
         lang: 'en',
         last_login_date: Date.now(),
         linkedin_url: profile._json.publicProfileUrl,
-        name: profile.displayName,
+        name: profile.displayName || [profile._json.firstName, profile._json.lastName].join(' '),
         summary: profile._json.summary,
         title: profile._json.headline,
         updated_by: id,

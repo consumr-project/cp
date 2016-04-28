@@ -243,6 +243,8 @@ declare module "passport-linkedin-oauth2" {
         id: string;
         displayName: string;
         _json: {
+            firstName: string;
+            lastName: string;
             pictureUrl: string;
             emailAddress: string;
             publicProfileUrl: string;
