@@ -3,4 +3,4 @@
 ./scripts/compile-project-stamp > stamp.json
 git commit -m "[skip ci] stamp" stamp.json
 git push origin master
-git push heroku master
+git push heroku master && heroku run "time ./scripts/migration run"
