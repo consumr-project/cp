@@ -54,7 +54,7 @@ create table if not exists event_sources (
     event_id uuid,
 
     title character varying(100),
-    url character varying(60) not null,
+    url character varying(255) not null,
     published_date timestamp with time zone not null,
     summary text,
 

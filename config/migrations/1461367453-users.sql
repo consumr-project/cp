@@ -24,8 +24,8 @@ create table if not exists users (
     lang enum_users_lang not null default 'en',
     role enum_users_role not null default 'user',
     company_name varchar(100) not null,
-    avatar_url varchar(100),
-    linkedin_url varchar(100),
+    avatar_url varchar(255),
+    linkedin_url varchar(255),
 
     auth_linkedin_id varchar(100),
     auth_apikey varchar(100),

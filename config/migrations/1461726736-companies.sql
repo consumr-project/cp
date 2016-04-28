@@ -5,8 +5,8 @@ create table if not exists companies (
     summary text,
 
     guid character varying(50),
-    website_url character varying(60),
-    wikipedia_url character varying(60),
+    website_url character varying(255),
+    wikipedia_url character varying(255),
 
     created_by uuid not null,
     updated_by uuid not null,
