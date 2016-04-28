@@ -36,19 +36,10 @@ program
         console.log('ensuring user#%s exists', user.id);
         User.findOrCreate({
             defaults: user,
-            where: {
-                id: user.id
-            },
+            where: { id: user.id },
         })
-            .then(() => {
-                console.log('added user');
-                process.exit(0);
-            })
-            .catch((err) => {
-                console.error('error creating base user:');
-                console.dir(err)
-                process.exit(1);
-            });
+            .then(msg_success('app user'))
+            .catch(msg_error('app user'));
     });
 
 program
@@ -60,19 +51,10 @@ program
         console.log('ensuring user#%s exists', user.id);
         User.findOrCreate({
             defaults: user,
-            where: {
-                id: user.id
-            }
+            where: { id: user.id },
         })
-            .then(() => {
-                console.log('added user');
-                process.exit(0);
-            })
-            .catch((err) => {
-                console.error('error creating test user:');
-                console.dir(err)
-                process.exit(1);
-            });
+            .then(msg_success('test user'))
+            .catch(msg_error('test user'));
     });
 
 program
