@@ -2,7 +2,7 @@ create table if not exists products (
     id uuid not null,
 
     approved boolean default false not null,
-    "en-us" character varying(50) not null,
+    "en-US" character varying(50) not null,
 
     created_by uuid not null,
     updated_by uuid not null,

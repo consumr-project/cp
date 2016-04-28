@@ -2,7 +2,7 @@ create table if not exists tags (
     id uuid not null,
 
     approved boolean default false not null,
-    "en-us" character varying(100) not null,
+    "en-US" character varying(100) not null,
 
     created_by uuid not null,
     updated_by uuid not null,
