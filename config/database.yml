@@ -1,4 +1,4 @@
-url: postgres://localhost:5432/marcosminond
+url: postgres://localhost:5432/cp_db
 
 pool:
   max: 5
