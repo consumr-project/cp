@@ -28,7 +28,43 @@ function msg_error(label) {
 }
 
 program
-    .command('user')
+    .command('app user')
+    .description('generate base user')
+    .action(() => {
+        var id = config('seed.root_user_id'),
+            now = (new Date()).toISOString();
+
+        console.log('ensuring user#%s exists', id);
+        User.findOrCreate({
+            where: { id },
+            defaults: {
+                id,
+                created_by: id,
+                updated_by: id,
+                created_date: now,
+                updated_date: now,
+                last_login_date: now,
+                name: 'Consurm Project',
+                email: 'root@consumrproject.org',
+                title: 'Consurm Project Admin',
+                company_name: 'Consurm Project',
+                lang: 'en',
+                role: 'admin',
+            }
+        })
+            .then(() => {
+                console.log('added user');
+                process.exit(0);
+            })
+            .catch((err) => {
+                console.error('error creating base user:');
+                console.dir(err)
+                process.exit(1);
+            });
+    });
+
+program
+    .command('test user')
     .description('generate a test user')
     .action(() => {
         var user = config('fixtures.user.admin');
