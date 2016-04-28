@@ -33,6 +33,7 @@ before_script:
   - DEBUG=* make server &> server.log &
   - sleep 5
   - make database-sync
+  - ./scripts/migration run
   - ./scripts/generate user
   - sleep 5
 

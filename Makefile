@@ -37,9 +37,9 @@ endif
 
 all: build
 
-include src/service/notification/Makefile.mk
-include src/service/query/Makefile.mk
-include src/service/search/Makefile.mk
+include scripts/makefile-notification.mk
+include scripts/makefile-query.mk
+include scripts/makefile-search.mk
 
 run: clean build server
 
