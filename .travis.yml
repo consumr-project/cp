@@ -34,8 +34,10 @@ before_script:
   - sleep 5
   - make database-sync
   - ./scripts/migration run
-  - ./scripts/generate app user
-  - ./scripts/generate test user
+  - ./scripts/generate app:user
+  - ./scripts/generate app:tags
+  - ./scripts/generate app:products
+  - ./scripts/generate test:user
   - sleep 5
 
 after_failure:

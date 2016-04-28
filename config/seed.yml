@@ -1,9 +1,10 @@
 root_user_id: &root_user_id 'e68a1d8e-256e-4dcd-b111-f7dd0e7f63e4'
+now: &now '2016-04-28T04:09:52.510Z'
 
 user:
   root:
     id: *root_user_id
-    last_login_date: '2016-04-28T04:09:52.510Z'
+    last_login_date: *now
     name: 'Zaphod Beeblebrox'
     email: 'root@consumrproject.org'
     title: 'Big Z'
@@ -14,5 +15,135 @@ user:
     summary: 'It is said that his birth was marked by earthquakes, tidal waves, tornadoes, firestorms, the explosion of three neighbouring stars, and, shortly afterwards, by the issuing of over six and three quarter million writs for damages from all of the major landowners in his Galactic sector. However, the only person by whom this is said is Beeblebrox himself, and there are several possible theories to explain this.'
     created_by: *root_user_id
     updated_by: *root_user_id
-    created_date: '2016-04-28T04:09:52.510Z'
-    updated_date: '2016-04-28T04:09:52.510Z'
+    created_date: *now
+    updated_date: *now
+
+tags:
+  - id: '69b3c19b-56d2-4c5f-a011-78f16f548764'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Consumerism'
+  - id: 'cbe7af61-d3ee-413a-9704-844b084cdb25'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Fishing'
+  - id: 'aa28bb37-62a5-4f8c-8f98-c3ca6125ef75'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Logging'
+  - id: '322074d2-fab9-4021-935a-955e3882c731'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Mining'
+  - id: '2cd0e8b2-7fcc-4213-aae7-353e973c9275'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Pollution'
+  - id: 'c7ee4e81-ac12-4c14-bc69-ae02042a69d8'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Resource'
+  - id: 'daf9d0b3-6a21-4baf-a9d2-02602913971a'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Toxicants'
+  - id: 'd7591d06-44d5-4d2c-bfa3-20c126d8af9a'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Waste'
+  - id: '807cad2f-e3ab-4507-896d-71348dfd4aa0'
+    approved: true
+    created_by: *root_user_id
+    updated_by: *root_user_id
+    created_date: *now
+    updated_date: *now
+    'en-US': 'Water'
+
+products:
+    - id: '674fecec-c20a-4178-860d-1250ab9931af'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Apparel'
+    - id: '5a57ad06-acde-47d8-bb83-35fb184cd5fe'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Produce'
+    - id: '372db508-ce56-4c42-a989-11898eeeab33'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Medicine'
+    - id: 'c5391b93-9226-42e2-86d3-ca08e6c015cc'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Shoes'
+    - id: '9a0885d3-dd80-439e-8941-9188efabb95d'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Jeans'
+    - id: '43262996-374d-4501-9093-2c4de30e26be'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Fruits'
+    - id: '9c0685c9-640e-4e0c-a4fb-4be401faa64a'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Chocolate'
+    - id: '87a85299-cf93-4a3d-be8a-f6054b018712'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Furniture'
+    - id: '88062f30-a981-439b-b1a9-7d197d002b03'
+      approved: true
+      created_by: *root_user_id
+      updated_by: *root_user_id
+      created_date: *now
+      updated_date: *now
+      'en-US': 'Automobiles'

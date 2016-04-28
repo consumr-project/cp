@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony_destructuring
 
 const program = require('commander');
 const config = require('acm');
@@ -8,9 +8,7 @@ const uuid = require('uuid');
 const gen_conn = require('../build/service/query/conn').default;
 const gen_models = require('../build/service/query/models').default;
 
-const Models = gen_models(gen_conn());
-const User = Models.User;
-const Review = Models.Review;
+const { User, Review, Tag, Product } = gen_models(gen_conn());
 
 function msg_success(label) {
     return function () {
@@ -28,7 +26,7 @@ function msg_error(label) {
 }
 
 program
-    .command('app user')
+    .command('app:user')
     .description('generate base user')
     .action(() => {
         var user = config('seed.user.root');
@@ -43,7 +41,37 @@ program
     });
 
 program
-    .command('test user')
+    .command('app:products')
+    .description('generate base tags')
+    .action(() => {
+        var products = config('seed.products');
+
+        Promise.all(products.map(product =>
+            Product.findOrCreate({
+                where: { id: product.id },
+                defaults: product,
+            })))
+                .then(msg_success('app products'))
+                .catch(msg_error('app products'));
+    });
+
+program
+    .command('app:tags')
+    .description('generate base tags')
+    .action(() => {
+        var tags = config('seed.tags');
+
+        Promise.all(tags.map(tag =>
+            Tag.findOrCreate({
+                where: { id: tag.id },
+                defaults: tag,
+            })))
+                .then(msg_success('app tags'))
+                .catch(msg_error('app tags'));
+    });
+
+program
+    .command('test:user')
     .description('generate a test user')
     .action(() => {
         var user = config('fixtures.user.admin');
