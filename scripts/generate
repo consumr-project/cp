@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony_destructuring
+#!/usr/bin/env node
 
 const program = require('commander');
 const config = require('acm');
@@ -8,7 +8,11 @@ const uuid = require('uuid');
 const gen_conn = require('../build/service/query/conn').default;
 const gen_models = require('../build/service/query/models').default;
 
-const { User, Review, Tag, Product } = gen_models(gen_conn());
+const Models = gen_models(gen_conn());
+const User = Models.User;
+const Review = Models.Review;
+const Tag = Models.Tag;
+const Product = Models.Product;
 
 function msg_success(label) {
     return function () {
