@@ -14,6 +14,8 @@ export default (conn) => {
         EventSource: model('event_source', conn),
         EventTag: model('event_tag', conn),
         Product: model('product', conn),
+        Question: model('question', conn),
+        QuestionVote: model('question_vote', conn),
         Review: model('review', conn),
         ReviewUsefulness: model('review_usefulness', conn),
         Tag: model('tag', conn),
