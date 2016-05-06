@@ -31,8 +31,18 @@ tapes('company question', t => {
             st.ok(res.body.meta.ok, 'created test user'));
     });
 
-    // t.test('questions default to not approved', st => {
-    // });
+    t.test('questions default to not approved by default', st => {
+        st.plan(3);
+
+        http.post(`/service/query/companies/${fixture.company.id}/questions`, fixture.questions[0]).end((err, res) => {
+            st.ok(res.body.meta.ok, 'created test question');
+
+            http.get(`/service/query/questions/${fixture.questions[0].id}`).end((err, res) => {
+                st.error(err);
+                st.equal(res.body.body.id, fixture.questions[0].id);
+            });
+        });
+    });
 
     // t.test('setup', st => {
     //     st.plan(2);
@@ -159,18 +169,22 @@ tapes('company question', t => {
     clean_up();
 
     function clean_up() {
-        t.test('clean up', st => {
-            st.plan(1 + fixture.questions.length);
+        t.test('clean up questions', st => {
+            st.plan(fixture.questions.length);
+
+            fixture.questions.forEach((question, i) => setTimeout(() =>
+                http.purge(`/service/query/questions/${question.id}`).end((err, res) =>
+                    st.ok(res.body.meta.ok, 'deleted test question')), 100 * i));
+        });
+
+        t.test('clean up company', st => {
+            st.plan(1);
 
             http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, 'deleted test company'));
-
-            fixture.questions.forEach(question =>
-                http.purge(`/service/query/questions/${question.id}`).end((err, res) =>
-                    st.ok(res.body.meta.ok, 'deleted test question')));
         });
 
-        t.test('clean up', st => {
+        t.test('clean up user', st => {
             st.plan(1);
 
             http.purge(`/service/query/users/${fixture.user.user.id}`).end((err, res) =>

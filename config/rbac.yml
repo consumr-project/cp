@@ -21,6 +21,7 @@ grants:
     - retrieve_company
     - retrieve_event
     - retrieve_review
+    - retrieve_question
 
   user:
     - guest

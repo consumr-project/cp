@@ -191,7 +191,10 @@ get('/companies/:company_id/questions',
 patch('/questions/:question_id/vote',
     can('update', 'question'),
     upsert(models.QuestionVote, ['question_id']));
-del('/questions/:question_id',
+get('/questions/:id',
+    can('retrieve', 'question'),
+    retrieve(models.Question));
+del('/questions/:id',
     can('delete', 'question'),
     remove(models.Question));
 
