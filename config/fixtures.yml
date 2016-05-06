@@ -159,3 +159,57 @@ review_usefulness:
     updated_by: *user_user_id
     created_date: '2016-01-21 23:48:32.511-07'
     updated_date: '2016-01-21 23:48:32.511-07'
+
+questions:
+  - id: '7c943a56-9404-4cf7-b656-b5c936bb0a19'
+    company_id: *company_id
+    title: 'my own question'
+    answer: 'here you go'
+    answered_by: *user_user_id
+    answered_date: '2016-01-21 23:48:32.511-07'
+    approved: true
+    approved_by: *user_admin_id
+    approved_date: '2016-01-21 23:48:32.511-07'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+  - id: '1ef44bb9-1e80-4723-b07e-798337213a48'
+    company_id: *company_id
+    title: 'my own question'
+    answer: 'here you go'
+    answered_by: *user_user_id
+    answered_date: '2016-01-21 23:48:32.511-07'
+    approved: true
+    approved_by: *user_admin_id
+    approved_date: '2016-01-21 23:48:32.511-07'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+  - id: 'b1eef69b-a9dc-424e-b40f-e422397d6333'
+    company_id: *company_id
+    title: 'my own question'
+    answer: 'here you go'
+    answered_by: *user_user_id
+    answered_date: '2016-01-21 23:48:32.511-07'
+    approved: true
+    approved_by: *user_admin_id
+    approved_date: '2016-01-21 23:48:32.511-07'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+  - id: '4f73a49e-5ef2-465d-b013-3a34e54f8193'
+    company_id: *company_id
+    title: 'my own question'
+    answer: 'here you go'
+    answered_by: *user_user_id
+    answered_date: '2016-01-21 23:48:32.511-07'
+    approved: true
+    approved_by: *user_admin_id
+    approved_date: '2016-01-21 23:48:32.511-07'
+    created_by: *user_user_id
+    updated_by: *user_user_id
+    created_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
+    updated_date: '2016-01-21 23:48:32.511-07'
