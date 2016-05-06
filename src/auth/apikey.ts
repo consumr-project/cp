@@ -1,5 +1,5 @@
 import * as passport from 'passport';
-import * as QueryService from '../../server/query';
+import * as QueryService from '../server/query';
 import LocalApiKey = require('passport-localapikey');
 
 const ApiKey = LocalApiKey.Strategy;

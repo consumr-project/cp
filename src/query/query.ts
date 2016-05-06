@@ -45,7 +45,7 @@ function check_params(params: String[], replacements: {}): void {
 }
 
 export function sql(name) {
-    var buff = read(`${__dirname}/../../../src/service/query/queries/${name}.sql`);
+    var buff = read(`${__dirname}/../../src/query/queries/${name}.sql`);
     return template(buff.toString());
 }
 

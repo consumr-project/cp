@@ -1,5 +1,5 @@
 import { User } from 'query-service';
-import * as QueryService from '../../server/query';
+import * as QueryService from '../server/query';
 import * as querystring from 'querystring';
 import {Request, Response} from 'express';
 import md5 = require('md5');

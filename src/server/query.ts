@@ -3,12 +3,12 @@ import { Request, Response } from 'express';
 import * as express from 'express';
 import config = require('acm');
 
-import * as crud from '../service/query/crud';
-import { sql, query } from '../service/query/query';
-import { can } from '../service/auth/permissions';
+import * as crud from '../query/crud';
+import { sql, query } from '../query/query';
+import { can } from '../auth/permissions';
 
-import gen_conn from '../service/query/conn';
-import gen_models from '../service/query/models';
+import gen_conn from '../query/conn';
+import gen_models from '../query/models';
 
 export var app = express();
 export var conn = gen_conn();

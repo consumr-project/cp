@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import * as debug from 'debug';
-import * as NotificationsApi from '../service/notification/notification';
+import * as NotificationsApi from '../notification/notification';
 import { MongoClient } from 'mongodb';
 import { pick } from 'lodash';
 import config = require('acm');

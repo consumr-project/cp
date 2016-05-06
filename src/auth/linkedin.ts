@@ -6,7 +6,7 @@ import { Profile } from 'passport-linkedin-oauth2';
 import { User, Promise } from 'query-service';
 import { WhereOptions } from 'sequelize';
 import * as passport from 'passport';
-import * as QueryService from '../../server/query';
+import * as QueryService from '../server/query';
 
 import config = require('acm');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');

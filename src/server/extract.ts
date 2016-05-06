@@ -1,9 +1,9 @@
 import * as express from 'express';
 import config = require('acm');
 
-import { companies } from '../service/extract/crunchbase';
-import { extract as p_extract } from '../service/extract/page';
-import { search, infobox, extract as w_extract } from '../service/extract/wiki';
+import { companies } from '../extract/crunchbase';
+import { extract as p_extract } from '../extract/page';
+import { search, infobox, extract as w_extract } from '../extract/wiki';
 
 export var app = express();
 

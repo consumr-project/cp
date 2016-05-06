@@ -103,7 +103,7 @@ else
 endif
 
 build-server:
-	$(tsc) src/typings.d.ts src/server/main.ts src/service/query/models/* \
+	$(tsc) src/typings.d.ts src/server/main.ts src/query/models/* \
 		--outDir $(build_dir) --module commonjs --pretty --removeComments \
 		--moduleResolution classic
 

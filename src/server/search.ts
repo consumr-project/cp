@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { conn } from './query';
-import { sql, query } from '../service/query/query';
-import { fuzzy, search } from '../service/search/searcher';
+import { sql, query } from '../query/query';
+import { fuzzy, search } from '../search/searcher';
 
 import Elasticsearch = require('elasticsearch');
 import config = require('acm');

@@ -7,9 +7,9 @@ import { Request, Response } from 'express';
 import { User, Promise } from 'query-service';
 import * as QueryService from './query';
 
-import * as permissions from '../service/auth/permissions';
-import linkedin_auth from '../service/auth/linkedin';
-import apikey_auth from '../service/auth/apikey';
+import * as permissions from '../auth/permissions';
+import linkedin_auth from '../auth/linkedin';
+import apikey_auth from '../auth/apikey';
 
 const UserModel = QueryService.models.User;
 
