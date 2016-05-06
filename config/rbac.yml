@@ -11,6 +11,7 @@ permissions:
   company: *CRUD
   event: *CRUD
   review: *CRUD
+  question: *CRUD
 
 grants:
   guest:
@@ -33,6 +34,8 @@ grants:
     - update_event
     - create_review
     - update_review
+    - create_question
+    - update_question
 
   admin:
     - user
@@ -43,3 +46,4 @@ grants:
     - delete_company
     - delete_event
     - delete_review
+    - delete_question

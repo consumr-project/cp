@@ -170,7 +170,6 @@ get('/companies/:company_id/reviews/score',
 get('/companies/:company_id/reviews/summary',
     can('retrieve', 'review'),
     query(conn, sql('get-company-reviews-summary')));
-
 patch('/reviews/:review_id/useful',
     can('update', 'review'),
     upsert(models.ReviewUsefulness, ['review_id']));
@@ -180,6 +179,21 @@ del('/reviews/:review_id/useful/:user_id',
 del('/reviews/:review_id',
     can('delete', 'review'),
     remove(models.Review));
+
+// questions
+post('/companies/:company_id/questions',
+    can('create', 'question'),
+    can('update', 'company'),
+    create(models.Question, ['company_id']));
+get('/companies/:company_id/questions',
+    can('retrieve', 'question'),
+    query(conn, sql('get-company-questions'), false, { offset: 0 }));
+patch('/questions/:question_id/vote',
+    can('update', 'question'),
+    upsert(models.QuestionVote, ['question_id']));
+del('/questions/:question_id',
+    can('delete', 'question'),
+    remove(models.Question));
 
 // events
 post('/events',
