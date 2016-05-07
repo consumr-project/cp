@@ -1,0 +1,4 @@
+site:
+  en:
+    api: https://en.wikipedia.org/w/api.php
+    web: https://en.wikipedia.org/w/index.php

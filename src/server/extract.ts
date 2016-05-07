@@ -2,7 +2,7 @@ import * as express from 'express';
 import config = require('acm');
 
 import { extract as p_extract } from '../extract/page';
-import { search, infobox, extract as w_extract } from '../extract/wiki';
+import { search, infobox, extract as w_extract } from '../extract/wikipedia';
 
 export var app = express();
 

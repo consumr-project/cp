@@ -289,3 +289,53 @@ declare module "rbac" {
 
     export = RBAC;
 }
+
+declare module "wikipedia" {
+    export interface WikipediaResult {}
+
+    export interface WikipediaRequest {
+        action?: string;
+        exintro?: string;
+        explaintext?: string;
+        format?: string;
+        list?: string;
+        prop?: string;
+        rvprop?: string;
+        rvsection?: string;
+        srlimit?: string;
+        srprop?: string;
+        srsearch?: string;
+        title?: string;
+        titles?: string;
+    }
+
+    export interface WikipediaSearchResponse {
+        batchcomplete: string;
+        query: {
+            pages: { [index: string]: WikipediaResponsePage };
+        };
+    }
+
+    export interface WikipediaResponsePage {
+        pageid: number;
+        title: string;
+        extract?: string;
+        snippet?: string;
+        revisions?: {
+            contentformat: string;
+            contentmodel: string;
+            '*': string;
+        }[]
+    }
+
+    export interface WikipediaExtract extends WikipediaResult {
+        id: number;
+        title: string;
+        extract: string;
+    }
+
+    export interface WikipediaSearchResult extends WikipediaResult {
+        title: string;
+        snippet: string;
+    }
+}
