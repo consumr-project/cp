@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const page = require('../../../../build/service/extract/page');
+const page = require('../../../build/extract/page');
 
 const keywords_and_entities = [
     [
