@@ -44,7 +44,6 @@ export PORT=3000
 additional services and service providers:
 
 ```bash
-export CRUNCHBASE_API_KEY='...'
 export DATABASE_URL='postgres://...'
 export ELASTICSEARCH_HOST='http://...'
 export EMAIL_SERVICE_NAME='...'

@@ -9,7 +9,6 @@ use heroku:buildpacks
 heroku:buildpack heroku/nodejs
 heroku:addon heroku-postgresql hobby-dev
 
-heroku:envar CRUNCHBASE_API_KEY
 heroku:envar DATABASE_URL
 heroku:envar ELASTICSEARCH_HOST
 heroku:envar EMBEDLY_API_KEY

@@ -261,21 +261,6 @@ angular.module('tcp').service('Services', [
         abortable(extractService.wikipedia.infobox);
 
         /**
-         * @param {String} query
-         * @return {Promise}
-         */
-        extractService.crunchbase = function (query) {
-            return $http.get('/service/extract/crunchbase/companies', {
-                timeout: abortable(extractService.crunchbase),
-                params: {
-                    q: query
-                }
-            }).then(pluck_data);
-        };
-
-        abortable(extractService.crunchbase);
-
-        /**
          * interface SearchConfiguration {
          *     index: String (default: entity)
          *     type: String (default: undefined)
