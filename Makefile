@@ -43,9 +43,10 @@ include scripts/makefile-search.mk
 
 run: clean build server
 
-test: test-unit test-integration test-e2e
-
 build: clean build-css build-strings build-client build-server
+
+test:
+	$(tape) `find test/integration -name "*.js"` `find test/src -name "*.js"`
 
 install:
 	$(npm) install

@@ -43,4 +43,4 @@ after_failure:
   - cat server.log
 
 script:
-  - make lint test-unit test-integration
+  - make lint test
