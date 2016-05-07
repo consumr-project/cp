@@ -339,3 +339,37 @@ declare module "wikipedia" {
         snippet: string;
     }
 }
+
+declare module "embedly" {
+    export interface EmbedlyRequest {
+        key: string;
+        url: string;
+        maxwidth: number;
+        maxheight: number;
+    }
+
+    export interface EmbedlyResponse {
+        description: string;
+        keywords: EmbedlyScoredWord[];
+        entities: EmbedlyScoredWord[];
+        published: string;
+        title: string;
+        type: string;
+        url: string;
+    }
+
+    export interface EmbedlyScoredWord {
+        score?: number;
+        count?: number;
+        name: string;
+    }
+
+    export interface EmbedlyPageResponse {
+        description: string;
+        keywords: string[];
+        published: string;
+        title: string;
+        type: string;
+        url: string;
+    }
+}

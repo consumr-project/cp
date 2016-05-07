@@ -1,54 +1,26 @@
 import { Request, Response } from 'express';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
+import { service_response } from '../utilities';
+
+import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
+    EmbedlyPageResponse } from 'embedly';
 
 import config = require('acm');
 import request = require('request');
 
-const EMBED_URL = 'http://api.embed.ly/1/extract';
-const EMBED_KEY = config('embedly.api.key');
+const EMBEDLY_URL = config('embedly.api.url');
+const EMBEDLY_KEY = config('embedly.api.key');
 
-interface EmbedRequest {
-    key: string;
-    url: string;
-    maxwidth: number;
-    maxheight: number;
-}
-
-interface EmbedResponse {
-    description: string;
-    keywords: EmbedScoredWord[];
-    entities: EmbedScoredWord[];
-    published: string;
-    title: string;
-    type: string;
-    url: string;
-}
-
-interface EmbedScoredWord {
-    score?: number;
-    count?: number;
-    name: string;
-}
-
-interface PageResponse {
-    description: string;
-    keywords: string[];
-    published: string;
-    title: string;
-    type: string;
-    url: string;
-}
-
-function query(req: Request): EmbedRequest {
+function build_query(url: string): EmbedlyRequest {
     return {
-        key: EMBED_KEY,
+        key: EMBEDLY_KEY,
         maxwidth: 1000,
         maxheight: 1000,
-        url: req.query.url
+        url: url
     };
 }
 
-function parse(body: EmbedResponse): PageResponse {
+function parse_response(body: EmbedlyResponse): EmbedlyPageResponse {
     return {
         title: body.title,
         published: body.published,
@@ -63,28 +35,34 @@ function all_lowercase(strs: string[]): string[] {
     return map(strs, str => str.toLowerCase());
 }
 
-export function make_keywords(...words_arr: EmbedScoredWord[][]): string[] {
+export function make_keywords(...words_arr: EmbedlyScoredWord[][]): string[] {
     return sort(uniq(all_lowercase(filter(<string[]>map(flatten(words_arr), 'name')))));
 }
 
-export function extract(req: Request, res: Response, next: Function) {
-    request({
-        uri: EMBED_URL,
-        qs: query(req)
-    }, (err, xres, body) => {
-        if (err) {
-            next(err);
-            return;
-        }
+export function extract(url: string) {
+    return new Promise<EmbedlyPageResponse>((resolve, reject) => {
+        request({
+            uri: EMBEDLY_URL,
+            qs: build_query(url)
+        }, (err, res, body) => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-        try {
-            res.json(<CPServiceResponseV1<PageResponse>>{
-                body: parse(JSON.parse(body)),
-                meta: { ok: true }
-            });
-        } catch (ignore) {
-            err = new Error('could not parse response');
-            next(err);
-        }
+            try {
+                resolve(parse_response(JSON.parse(body)));
+            } catch (ignore) {
+                reject(new Error('could not parse response'));
+            }
+        });
     });
+}
+
+export function extract_handler(): CPServiceRequestHandler {
+    return (req, res, next) => {
+        extract(req.query.url)
+            .then(body => res.json(service_response(body)))
+            .catch(next);
+    };
 }

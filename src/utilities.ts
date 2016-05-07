@@ -14,3 +14,10 @@ export function get_or_else<T>(val: T, def: T): T {
 export function get_url_parts(raw: string): string[] {
     return (raw || '').split(',');
 }
+
+export function service_response<T>(body: T, ok: Boolean = true): CPServiceResponseV1<T> {
+    return {
+        body,
+        meta: { ok },
+    };
+}
