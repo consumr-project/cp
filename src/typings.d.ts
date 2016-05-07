@@ -25,7 +25,7 @@ interface CPServiceResponseV1<T> {
 }
 
 declare module "acm" {
-    function fn(str: string): string;
+    function fn<T>(str: string): T | Object | string | any;
     export = fn;
 }
 
@@ -267,16 +267,20 @@ declare module "passport-linkedin-oauth2" {
     }
 }
 
-declare module "rbac" {
-    interface Allowed {
+declare module "rbac-interface" {
+    export interface Allowed {
         (err?: Error, allowed?: Boolean): void;
     }
 
-    interface Configuration {
+    export interface Configuration {
         roles: string[];
         permissions: { [index: string]: string[] };
         grants: { [index: string]: string[] };
     }
+}
+
+declare module "rbac" {
+    import { Allowed, Configuration } from 'rbac-interface';
 
     class RBAC {
         constructor(config: Configuration);
