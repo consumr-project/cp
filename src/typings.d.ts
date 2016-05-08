@@ -21,7 +21,6 @@ interface CPSearchServiceResultMetadata {
 interface CPServiceResponseV1<T> {
     body: T | Array<T> | { [index: string]: T };
     meta: CPSearchServiceResultMetadata | any
-    /* meta?: any; */
 }
 
 declare module "acm" {
@@ -30,8 +29,6 @@ declare module "acm" {
 }
 
 declare module "deep-get-set" {
-    /* function fn(store: any, get: string, set?: any): any; */
-    /* export = fn; */
     function deep<T>(holder: any, prop: string, val?: T): T;
     export = deep;
 }
@@ -71,9 +68,6 @@ declare module "query-service" {
 
     export type QueryResult = any;
 
-    /* export interface Model { */
-    /*     findOne(query: { where: any }); */
-    /* } */
     export interface Model {
         findOne?(query: Object): Promise;
         findById?(id: string): Promise;
@@ -164,29 +158,9 @@ declare module "elasticsearch" {
 
 declare module "node-uuid" {
     interface UUIDOptions {
-
-        /**
-         * Node id as Array of 6 bytes (per 4.1.6).
-         * Default: Randomly generated ID. See note 1.
-         */
         node?: any[];
-
-        /**
-         * (Number between 0 - 0x3fff) RFC clock sequence.
-         * Default: An internally maintained clockseq is used.
-         */
         clockseq?: number;
-
-        /**
-         * (Number | Date) Time in milliseconds since unix Epoch.
-         * Default: The current time is used.
-         */
         msecs?: number|Date;
-
-        /**
-         * (Number between 0-9999) additional time, in 100-nanosecond units. Ignored if msecs is unspecified.
-         * Default: internal uuid counter is used, as per 4.2.1.2.
-         */
         nsecs?: number;
     }
 
