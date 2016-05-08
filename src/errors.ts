@@ -28,3 +28,8 @@ export class NotFoundError extends HttpError {
     code = 404;
     name = 'Not Found';
 }
+
+export class BadGatewayError extends HttpError {
+    code = 502;
+    name = 'Bad Gateway';
+}

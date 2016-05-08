@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { BadGatewayError } from '../errors';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 import { service_response } from '../utilities';
 
@@ -53,7 +54,7 @@ export function extract(url: string) {
             try {
                 resolve(parse_response(JSON.parse(body)));
             } catch (ignore) {
-                reject(new Error('could not parse response'));
+                reject(new BadGatewayError('could not parse response from embedly'));
             }
         });
     });
