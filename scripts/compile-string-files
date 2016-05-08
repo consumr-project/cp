@@ -25,22 +25,6 @@ const querystring = require('querystring');
 const async = require('async');
 const map = require('lodash/map');
 
-program
-    .option('-l --locale <name>', 'name of the locale to compile')
-    .option('-v --var <name>', 'i18n variable name', 'i18n');
-
-program
-    .command('generate')
-    .description('generate locale strings object')
-    .option('--strings_file <file>', 'strings file match')
-    .option('--strings_extra <str>', 'strings file non-file name match')
-    .action(command_generate);
-
-program
-    .command('lolcat')
-    .description('get a lolcat translation of all english entries')
-    .action(command_lolcat);
-
 /**
  * @param {String} locale
  * @return {String}
@@ -145,7 +129,7 @@ function command_generate(options) {
  * @param {Object} data
  * @return {String}
  */
-function i18n_get_function (path, data) {
+function i18n_get_function(path, data) {
     var parts = path.split('/'),
         fn = parts.pop(),
         name = parts.join('/');
@@ -200,5 +184,21 @@ function parse_translation(html, original) {
 
     return translated;
 }
+
+program
+    .option('-l --locale <name>', 'name of the locale to compile')
+    .option('-v --var <name>', 'i18n variable name', 'i18n');
+
+program
+    .command('generate')
+    .description('generate locale strings object')
+    .option('--strings_file <file>', 'strings file match')
+    .option('--strings_extra <str>', 'strings file non-file name match')
+    .action(command_generate);
+
+program
+    .command('lolcat')
+    .description('get a lolcat translation of all english entries')
+    .action(command_lolcat);
 
 program.parse(process.argv);
