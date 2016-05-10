@@ -12,6 +12,11 @@ declare var TCP_BUILD_CONFIG: {
     locate: { dateFormat: string; };
 }
 
+interface CPServiceResultMetadata {
+    ok: boolean;
+    took?: number;
+}
+
 interface CPSearchServiceResultMetadata {
     timed_out: boolean;
     took: number;
@@ -20,7 +25,7 @@ interface CPSearchServiceResultMetadata {
 
 interface CPServiceResponseV1<T> {
     body: T | Array<T> | { [index: string]: T };
-    meta: CPSearchServiceResultMetadata | any
+    meta: CPServiceResultMetadata | CPSearchServiceResultMetadata | any
 }
 
 declare module "acm" {

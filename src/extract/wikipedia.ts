@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { filter, map, includes, head } from 'lodash';
-import { get_or_else, get_url_parts } from '../utilities';
+import { BadGatewayError } from '../errors';
+import { get, filter, map, includes, head } from 'lodash';
+import { get_or_else, get_url_parts, service_response, service_handler } from '../utilities';
 
 import { WikipediaResult, WikipediaRequest, WikipediaSearchResponse,
     WikipediaResponsePage, WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
@@ -39,81 +40,69 @@ function normalize_search_result(obj: WikipediaResponsePage): WikipediaSearchRes
     };
 }
 
-function wikipedia_api<T>(req: Request, res: Response, next: Function, params: WikipediaRequest, parser: (WikipediaSearchResponse) => T) {
-    var start_time = Date.now();
+function api<T>(params: WikipediaRequest, parser: (WikipediaResult) => T) {
+    return new Promise<T>((resolve, reject) => {
+        params.action = 'query';
+        params.format = 'json';
 
-    params.action = 'query';
-    params.format = 'json';
+        request({
+            uri: WIKIPEDIA_API_URL,
+            qs: params
+        }, (err, res, body) => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-    request({
-        uri: WIKIPEDIA_API_URL,
-        qs: params
-    }, (err, xres, body) => {
-        if (err) {
-            next(err);
-            return;
-        }
-
-        try {
-            res.json(<CPServiceResponseV1<T>>{
-                body: parser(JSON.parse(body)),
-                meta: {
-                    elapsed_time: Date.now() - start_time,
-                    href: xres.request.url.href
-                },
-            });
-        } catch (err) {
-            next(err);
-        }
-    });
-}
-
-function wikipedia_web<T>(req: Request, res: Response, next: Function, params: WikipediaRequest, parser: (string) => T) {
-    var start_time = Date.now();
-
-    request({
-        uri: WIKIPEDIA_WEB_URL,
-        qs: params
-    }, (err, xres, body) => {
-        if (err) {
-            next(err);
-            return;
-        }
-
-        res.json(<CPServiceResponseV1<WikipediaResult>>{
-            body: parser(body),
-            meta: {
-                elapsed_time: Date.now() - start_time,
-                href: xres.request.url.href
-            },
+            try {
+                resolve(parser(JSON.parse(body)));
+            } catch (err) {
+                reject(new BadGatewayError('could parse response from wikipedia'));
+            }
         });
     });
 }
 
-export function extract(req: Request, res: Response, next: Function) {
-    wikipedia_api<WikipediaResult>(req, res, next, {
+function web<T>(params: WikipediaRequest, parser: (string) => T) {
+    return new Promise<T>((resolve, reject) => {
+        request({
+            uri: WIKIPEDIA_WEB_URL,
+            qs: params
+        }, (err, res, body) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve(parser(body));
+        });
+    });
+}
+
+export function extract(query: string): Promise<WikipediaResult> {
+    return api<WikipediaResult>({
         prop: 'extracts',
         exintro: '',
         explaintext: '',
-        titles: req.query.q,
-    }, body => map(<WikipediaResult[]>getset(body, 'query.pages'), normalize_extract).pop());
+        titles: query,
+    }, body => head(map(get<WikipediaResult[]>(body, 'query.pages'), normalize_extract)));
 }
 
-export function search(req: Request, res: Response, next: Function) {
-    wikipedia_api<WikipediaResult[]>(req, res, next, {
+export function search(query: string): Promise<WikipediaResult> {
+    return api<WikipediaResult[]>({
         list: 'search',
         srprop: 'snippet',
         srlimit: '50',
-        srsearch: req.query.q,
-    }, body => map(<WikipediaResult[]>getset(body, 'query.search'), normalize_search_result));
+        srsearch: query,
+    }, body => map(get<WikipediaResult[]>(body, 'query.search'), normalize_search_result));
 }
 
-export function infobox(req: Request, res: Response, next: Function) {
-    wikipedia_web(req, res, next, {
+export function infobox(query: string, rparts: string): Promise<Object> {
+    return web({
         action: 'raw',
-        title: req.query.q,
+        title: query,
     }, body => {
-        var requested = get_url_parts(req.query.parts),
+        var requested = get_url_parts(rparts),
             parts: any = {};
 
         var article = parse_wikitext(body) || { parts: {} },
@@ -126,3 +115,12 @@ export function infobox(req: Request, res: Response, next: Function) {
         return { parts, infobox };
     });
 }
+
+export const extract_handler: CPServiceRequestHandler = service_handler(req =>
+    extract(req.query.q));
+
+export const search_handler: CPServiceRequestHandler = service_handler(req =>
+    search(req.query.q));
+
+export const infobox_handler: CPServiceRequestHandler = service_handler(req =>
+    infobox(req.query.q, req.query.parts));

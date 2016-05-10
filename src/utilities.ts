@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export function make_enum_entry(store: Object, val: string): Object {
     store[val.toUpperCase()] = val;
     return store;
@@ -15,9 +17,15 @@ export function get_url_parts(raw: string): string[] {
     return (raw || '').split(',');
 }
 
-export function service_response<T>(body: T, ok: Boolean = true): CPServiceResponseV1<T> {
-    return {
-        body,
-        meta: { ok },
+export function service_response<T>(body: T, ok: Boolean = true, meta: CPServiceResultMetadata | any = {}): CPServiceResponseV1<T> {
+    meta.ok = ok;
+    return { body, meta };
+}
+
+export function service_handler<T>(from_req: (Request) => Promise<T>): CPServiceRequestHandler {
+    return (req, res, next) => {
+        from_req(req)
+            .then(body => res.json(service_response(body)))
+            .catch(next);
     };
 }

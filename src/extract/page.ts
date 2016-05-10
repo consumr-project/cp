@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { BadGatewayError } from '../errors';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
-import { service_response } from '../utilities';
+import { service_handler, service_response } from '../utilities';
 
 import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';
@@ -60,10 +60,5 @@ export function extract(url: string) {
     });
 }
 
-export function extract_handler(): CPServiceRequestHandler {
-    return (req, res, next) => {
-        extract(req.query.url)
-            .then(body => res.json(service_response(body)))
-            .catch(next);
-    };
-}
+export const extract_handler: CPServiceRequestHandler = service_handler(req =>
+    extract(req.query.url));
