@@ -51,6 +51,14 @@ module tcp {
                         company_created: 'company_created'
                     }
                 },
+
+                feedback_props: {
+                    type: {
+                        question: 'question',
+                        suggestion: 'suggestion',
+                        problem: 'problem',
+                    }
+                },
             }
         });
 

@@ -22,12 +22,12 @@
 }
 
 .feedback__opt {
+    background-position: var(--spacing-medium) var(--spacing-medium);
     background-repeat: no-repeat;
     background-size: 20px;
     font-size: var(--font-size-normal);
     font-weight: 700;
-    margin: var(--spacing-large);
-    padding-left: var(--spacing-xlarge);
+    padding: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) calc(var(--spacing-large) * 2);
     text-transform: uppercase;
 }
 
