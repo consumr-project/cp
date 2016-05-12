@@ -269,6 +269,9 @@ del('/events/:event_id/bookmarks/:id',
 post('/feedback',
     can('create', 'feedback'),
     create(models.Feedback));
+get('/feedback/:id',
+    can('retrieve', 'feedback'),
+    retrieve(models.Feedback));
 del('/feedback/:id',
     can('delete', 'feedback'),
     remove(models.Feedback));

@@ -43,6 +43,7 @@ grants:
   admin:
     - user
     - create_user
+    - retrieve_feedback
     - delete_feedback
     - delete_user
     - delete_tag
