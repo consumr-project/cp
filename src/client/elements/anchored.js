@@ -7,7 +7,10 @@
  * @attribute {Number} [anchoredTopOffset] pixels element should be above/below
  * anchor
  *
- * @attribute {Number} [anchoredLeftOffset] pixels element should be left/right
+ * @attribute {Number} [anchoredRightOffset] pixels element should be right
+ * anchor
+ *
+ * @attribute {Number} [anchoredLeftOffset] pixels element should be right
  * anchor
  *
  * @attribute {Number} [anchoredAnimationOffset] slide in animation offset.
@@ -157,6 +160,8 @@ angular.module('tcp').directive('anchored', [
             sumIfPresent(coors, 'initialTop', attrs.anchoredTopOffset);
             sumIfPresent(coors, 'left', attrs.anchoredLeftOffset);
             sumIfPresent(coors, 'initialLeft', attrs.anchoredLeftOffset);
+            sumIfPresent(coors, 'right', attrs.anchoredRightOffset);
+            sumIfPresent(coors, 'initialRight', attrs.anchoredRightOffset);
 
             return coors;
         }
