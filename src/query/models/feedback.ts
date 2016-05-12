@@ -3,11 +3,14 @@ import { DataTypes } from 'sequelize';
 
 const Type: DataTypes = require('sequelize/lib/data-types');
 
-export = sequelize =>
-    sequelize.define('feedback', merge(TRACKING(), {
+export = sequelize => {
+    var User = require('./user')(sequelize);
+
+    var Feedback = sequelize.define('feedback', merge(TRACKING(), {
         id: {
             type: Type.UUID,
-            allowNull: false
+            allowNull: false,
+            primaryKey: true
         },
 
         user_id: {
@@ -36,3 +39,8 @@ export = sequelize =>
     }), merge(CONFIG, {
         tableName: 'feedback'
     }));
+
+    Feedback.belongsTo(User);
+
+    return Feedback;
+};
