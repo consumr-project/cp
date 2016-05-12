@@ -265,6 +265,14 @@ del('/events/:event_id/bookmarks/:id',
     can('delete', 'event'),
     remove(models.EventBookmark, {event_id: 'event_id', user_id: 'id'}));
 
+// feedback
+post('/feedback',
+    can('create', 'feedback'),
+    create(models.Feedback));
+del('/feedback/:id',
+    can('delete', 'feedback'),
+    remove(models.Feedback));
+
 // search
 get('/search/products/en-US',
     can('retrieve', 'product'),
