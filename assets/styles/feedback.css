@@ -64,7 +64,6 @@
 }
 
 .feedback__message button {
-    display: inline-block;
-    float: right;
+    display: block;
     margin: var(--spacing-small);
 }
