@@ -31,14 +31,12 @@ tapes('feedback', t => {
 
         fixture.feedback.forEach(feedback =>
             http.get(`/service/query/feedback/${feedback.id}`).end((err, res) => {
-                console.log(res.body.body);
                 st.error(err);
                 st.equal(res.body.body.id, feedback.id);
                 st.equal(res.body.body.referrer, feedback.referrer);
                 st.equal(res.body.body.type, feedback.type);
                 st.equal(res.body.body.message, feedback.message);
                 st.equal(res.body.body.user_id, feedback.user_id);
-                // st.ok(res.body.meta.ok, `created test feedback (${feedback.id})`);
             }));
     });
 
