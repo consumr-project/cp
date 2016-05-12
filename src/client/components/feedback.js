@@ -40,6 +40,7 @@ angular.module('tcp').directive('feedback', [
             '            <div class="feedback__message">',
             '                <textarea i18n="feedback/whats_up" prop="placeholder"',
             '                    class="textarea--inlined"></textarea>',
+            '                <button i18n="admin/submit"></button>',
             '            </div>',
             '        </section>',
             '    </div>',

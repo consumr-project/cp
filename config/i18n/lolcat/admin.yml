@@ -2,6 +2,7 @@ more_options: 'moar opshuns'
 remind_later: 'remind me latr'
 sing_in_with_service: 'sign in wif {service}'
 sign_in_with_email: 'entr ur email addres 2 sign in or create an akownt'
+submit: submit
 cancel: cancel
 save: save
 edit: edit
