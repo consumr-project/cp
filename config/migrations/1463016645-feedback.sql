@@ -9,9 +9,9 @@ end$$;
 create table if not exists feedback (
     user_id uuid not null,
 
-    type enum_feedback_type,
-    referrer varchar(100),
-    message text,
+    type enum_feedback_type not null,
+    referrer varchar(100) not null,
+    message text not null,
 
     created_by uuid not null,
     updated_by uuid not null,

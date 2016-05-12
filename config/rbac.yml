@@ -6,6 +6,7 @@ roles:
 permissions:
   CRUD: &CRUD [create, retrieve, update, delete]
   user: *CRUD
+  feedback: *CRUD
   tag: *CRUD
   product: *CRUD
   company: *CRUD
@@ -25,6 +26,7 @@ grants:
 
   user:
     - guest
+    - create_feedback
     - create_tag
     - update_tag
     - create_product
