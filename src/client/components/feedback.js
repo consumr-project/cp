@@ -7,7 +7,7 @@ angular.module('tcp').directive('feedback', [
 
         var template = [
             '<div class="feedback">',
-            '    <div class="feedback__action" ng-click="take_feedback()">',
+            '    <div class="feedback__action" ng-click="start()">',
             '    </div>',
             '    <div',
             '        class="feedback__container"',
@@ -20,17 +20,24 @@ angular.module('tcp').directive('feedback', [
             '        anchored-arrow="true"',
             '        anchored-auto-hide="true"',
             '    >',
-            '        <div ng-click="message(type.question)"',
-            '            class="feedback__opt feedback__opt--question"',
-            '            i18n="feedback/question"></div>',
+            '        <section ng-class="{',
+            '            \'feedback__container--adding\': vm.type,',
+            '            \'feedback__container--adding--question\': vm.type === type.question,',
+            '            \'feedback__container--adding--suggestion\': vm.type === type.suggestion,',
+            '            \'feedback__container--adding--problem\': vm.type === type.problem,',
+            '        }">',
+            '            <div ng-click="vm.type = type.question"',
+            '                class="feedback__opt feedback__opt--question"',
+            '                i18n="feedback/question"></div>',
 
-            '        <div ng-click="message(type.suggestion)"',
-            '            class="feedback__opt feedback__opt--suggestion"',
-            '            i18n="feedback/suggestion"></div>',
+            '            <div ng-click="vm.type = type.suggestion"',
+            '                class="feedback__opt feedback__opt--suggestion"',
+            '                i18n="feedback/suggestion"></div>',
 
-            '        <div ng-click="message(type.problem)"',
-            '            class="feedback__opt feedback__opt--problem"',
-            '            i18n="feedback/problem"></div>',
+            '            <div ng-click="vm.type = type.problem"',
+            '                class="feedback__opt feedback__opt--problem"',
+            '                i18n="feedback/problem"></div>',
+            '        </section>',
             '    </div>',
             '</div>',
         ].join('');
@@ -43,14 +50,12 @@ angular.module('tcp').directive('feedback', [
 
             $scope.vm = {
                 expand: false,
+                type: null,
             };
 
-            $scope.take_feedback = function () {
+            $scope.start = function () {
                 $scope.vm.expand = true;
-            };
-
-            $scope.message = function (type) {
-                console.log(type);
+                $scope.vm.type = null;
             };
         }
 
