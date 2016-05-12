@@ -37,6 +37,7 @@ angular.module('tcp').directive('anchored', [
             BOTTOM_RIGHT: 'bottom-right',
             LEFT: 'left',
             RIGHT: 'right',
+            RIGHT_BOTTOM: 'right-bottom',
             TOP: 'top'
         };
 
@@ -69,6 +70,7 @@ angular.module('tcp').directive('anchored', [
             assert(_.includes([
                 PLACEMENT.BOTTOM,
                 PLACEMENT.BOTTOM_RIGHT,
+                PLACEMENT.RIGHT_BOTTOM,
                 PLACEMENT.LEFT,
                 PLACEMENT.RIGHT,
                 PLACEMENT.TOP
@@ -127,6 +129,13 @@ angular.module('tcp').directive('anchored', [
 
                     coors.initialLeft = coors.left;
                     coors.initialTop = coors.top + attrs.anchoredAnimationOffset;
+                    break;
+
+                case PLACEMENT.RIGHT_BOTTOM:
+                    coors.bottom = offset.top;
+                    coors.left = offset.left + offset_width;
+                    coors.initialLeft = coors.left + attrs.anchoredAnimationOffset;
+                    coors.initialBottom = coors.top;
                     break;
 
                 case PLACEMENT.RIGHT:
@@ -190,20 +199,26 @@ angular.module('tcp').directive('anchored', [
                     if (now === true) {
                         elem.show().css({
                             opacity: 1,
-                            top: coor.top,
+                            bottom: coor.bottom,
                             left: coor.left,
+                            right: coor.right,
+                            top: coor.top,
                         });
                     } else {
                         elem.show().css({
-                            top: coor.initialTop,
+                            opacity: 0,
+                            bottom: coor.initialBottom,
                             left: coor.initialLeft,
-                            opacity: 0
+                            right: coor.initialRight,
+                            top: coor.initialTop,
                         });
 
                         elem.stop().animate({
                             opacity: 1,
-                            top: coor.top,
+                            bottom: coor.bottom,
                             left: coor.left,
+                            right: coor.right,
+                            top: coor.top,
                         }, ANIMATION_IN_TIME);
                     }
                 }
