@@ -5,9 +5,14 @@ const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize =>
     sequelize.define('feedback', merge(TRACKING(), {
+        id: {
+            type: Type.UUID,
+            allowNull: false
+        },
+
         user_id: {
             type: Type.UUID,
-            allowNull: true
+            allowNull: false
         },
 
         type: {

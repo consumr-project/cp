@@ -7,6 +7,7 @@ end$$;
 
 
 create table if not exists feedback (
+    id uuid not null,
     user_id uuid not null,
 
     type enum_feedback_type not null,
@@ -19,6 +20,9 @@ create table if not exists feedback (
     created_date timestamp with time zone not null,
     updated_date timestamp with time zone not null,
     deleted_date timestamp with time zone,
+
+    constraint feedback_pkey
+        primary key (id),
 
     constraint feeback_user_id_fkey
         foreign key (user_id) references users (id),
