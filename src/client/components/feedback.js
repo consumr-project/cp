@@ -1,8 +1,9 @@
 angular.module('tcp').directive('feedback', [
+    'utils',
     'DOMAIN',
     'Services',
     'Session',
-    function (DOMAIN, Services, Session) {
+    function (utils, DOMAIN, Services, Session) {
         'use strict';
 
         var template = [
@@ -39,8 +40,10 @@ angular.module('tcp').directive('feedback', [
             '                i18n="feedback/problem"></div>',
             '            <div class="feedback__message">',
             '                <textarea i18n="feedback/whats_up" prop="placeholder"',
-            '                    class="textarea--inlined"></textarea>',
-            '                <button i18n="admin/submit"></button>',
+            '                    class="textarea--inlined"',
+            '                    ng-model="vm.message"',
+            '                    ng-focus="vm.type"></textarea>',
+            '                <button i18n="admin/submit" ng-click="submit()"></button>',
             '            </div>',
             '        </section>',
             '    </div>',
@@ -59,8 +62,24 @@ angular.module('tcp').directive('feedback', [
             };
 
             $scope.start = function () {
+                utils.assert(Session.USER && Session.USER.id, 'login required for action');
+
                 $scope.vm.expand = true;
                 $scope.vm.type = null;
+            };
+
+            $scope.submit = function () {
+                utils.assert(Session.USER && Session.USER.id, 'login required for action');
+
+                Services.query.feedback.create({
+                    id: Services.query.UUID,
+                    referrer: location.href,
+                    user_id: Session.USER.id,
+                    type: $scope.vm.type,
+                    message: $scope.vm.message,
+                    created_by: Session.USER.id,
+                    updated_by: Session.USER.id,
+                });
             };
         }
 

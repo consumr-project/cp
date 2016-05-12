@@ -135,6 +135,7 @@ angular.module('tcp').service('Services', [
             tags: crud('tags'),
             products: crud('products'),
             users: crud('users'),
+            feedback: crud('feedback'),
             reviews: crud('reviews', ['useful']),
         };
 
