@@ -1,7 +1,6 @@
 import { Model } from 'sequelize';
 import { Request, Response } from 'express';
 import * as express from 'express';
-import config = require('acm');
 
 import * as crud from '../query/crud';
 import { sql, query } from '../query/query';

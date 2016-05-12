@@ -1,7 +1,6 @@
 import * as debug from 'debug';
 import * as express from 'express';
 import * as passport from 'passport';
-import config = require('acm');
 
 import { Request, Response } from 'express';
 import { User, Promise } from 'query-service';

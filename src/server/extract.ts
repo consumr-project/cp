@@ -1,5 +1,4 @@
 import * as express from 'express';
-import config = require('acm');
 
 import { extract_handler as p_extract_handler } from '../extract/page';
 import { search_handler, infobox_handler,
