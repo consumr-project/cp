@@ -69,7 +69,10 @@ angular.module('tcp').directive('feedback', [
             };
 
             $scope.submit = function () {
-                utils.assert(Session.USER && Session.USER.id, 'login required for action');
+                utils.assert(Session.USER, 'login required for action');
+                utils.assert(Session.USER.id, 'login required for action');
+                utils.assert($scope.vm.type);
+                utils.assert($scope.vm.message);
 
                 Services.query.feedback.create({
                     id: Services.query.UUID,
