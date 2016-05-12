@@ -1,7 +1,8 @@
+import { service_redirect } from '../utilities';
 import { User } from 'query-service';
 import * as QueryService from '../server/query';
 import * as querystring from 'querystring';
-import {Request, Response} from 'express';
+
 import md5 = require('md5');
 import config = require('acm');
 
@@ -23,21 +24,25 @@ export enum SIZE {
     FULL = 2048,
 }
 
-function generate_gravatar_url(req: Request, user?: User): string {
+export function generate_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: User): string {
     let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
-    let email = (user ? user.email : req.query.email)
+
+    email = (user && user.email ? user.email : email)
         .toLowerCase()
         .trim();
 
     return GRAVATAR_URL + md5(email) + '?' +
         querystring.stringify({
             d: fallback,
-            s: req.query.size || SIZE.AVATAR,
-            r: req.query.rating || RATING.G,
+            s: size,
+            r: rating,
         });
 }
 
-export default function http_handler(req: Request, res: Response, next: Function) {
-    UserModel.findOne({ where: { email: req.query.email } })
-        .then(user => res.redirect(generate_gravatar_url(req, user)));
+export function get_user_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G): Promise<string> {
+    return UserModel.findOne({ where: { email } })
+        .then(user => generate_gravatar_url(email, size, rating, user));
 }
+
+export const get_user_gravatar_url_handler: CPServiceRequestHandler = service_redirect(req =>
+    get_user_gravatar_url(req.query.email, req.query.size, req.query.rating));

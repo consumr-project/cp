@@ -29,3 +29,11 @@ export function service_handler<T>(from_req: (Request) => Promise<T>): CPService
             .catch(next);
     };
 }
+
+export function service_redirect<T>(from_req: (Request) => Promise<T>): CPServiceRequestHandler {
+    return (req, res, next) => {
+        from_req(req)
+            .then(url => res.redirect(url))
+            .catch(next);
+    };
+}
