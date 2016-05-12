@@ -118,7 +118,11 @@ heroku addons:create rabbitmq-bigwig:pipkin
 * Richard Schumann for the [warning](https://thenounproject.com/search/?q=warning&i=50611) icon
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * Christopher Reyes for the [megaphone](https://thenounproject.com/search/?q=megaphone&i=11770) icon
-* Brent Jackson for the [loading](http://jxnblk.com/loading/) svg
+* Brent Jackson for the [loading](http://jxnblk.com/loading/) icon
+* Andrew Sivko for the [add comment](https://thenounproject.com/search/?q=add%20comment&i=24079) icon
+* Leif Michelsen for the [question mark](https://thenounproject.com/search/?q=question+mark&i=447554) icon
+* Creative Stall for the [pencil](https://thenounproject.com/search/?q=pencil&i=382196) icon
+* Alain LOUBET for the [alert](https://thenounproject.com/search/?q=warning&i=14055) icon
 
 ### thanks for services
 
