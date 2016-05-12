@@ -1,0 +1,32 @@
+.feedback {
+    bottom: 20px;
+    left: 20px;
+    position: absolute;
+}
+
+.feedback__action {
+    background-color: var(--color-std-highlight-background-color);
+    background-image: url(/assets/images/feedback.svg);
+    background-position: 45% 50%;
+    background-repeat: no-repeat;
+    background-size: 27px;
+    border-radius: 200px;
+    box-sizing: border-box;
+    height: 45px;
+    width: 45px;
+}
+
+.feedback__container {
+    border: 3px solid var(--color-std-thin-border-color);
+    white-space: nowrap;
+}
+
+.feedback__opt {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: var(--spacing-large);
+    font-size: var(--font-size-normal);
+}
+
+/* .feedback__opt--question { */
+/*     backgrond */
