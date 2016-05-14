@@ -20,3 +20,7 @@ heroku:envar NODE_ENV development
 heroku:envar NODE_MODULES_CACHE false
 heroku:envar NPM_CONFIG_PRODUCTION false
 heroku:envar ROLLBAR_TOKEN
+heroku:envar TRELLO_BOARD_ID
+heroku:envar TRELLO_KEY
+heroku:envar TRELLO_LIST_ID
+heroku:envar TRELLO_TOKEN

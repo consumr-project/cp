@@ -54,6 +54,10 @@ export GOOGLE_ANALYTICS_ACCOUNT_ID='...'
 export LINKEDIN_CLIENT_ID='...'
 export LINKEDIN_CLIENT_SECRET='...'
 export MONGO_URL='mongodb://...'
+export TRELLO_BOARD_ID='...'
+export TRELLO_KEY='...'
+export TRELLO_LIST_ID='...'
+export TRELLO_TOKEN='...'
 ```
 
 ### services
