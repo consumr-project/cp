@@ -129,10 +129,15 @@ export function upsert(model: Model<any, any>, extra_params: string[] = []): Req
     };
 }
 
-export function create(model: Model<any, any>, extra_params: string[] = []): RequestHandler {
+/**
+ * XXX instead of a callback this should pass the response down so that
+ * handlers can just be appended.
+ */
+export function create(model: Model<any, any>, extra_params: string[] = [], cb?: (Model) => Promise<Model<any, any>>): RequestHandler {
     return (req, res) => {
         populate_extra_parameters(req, extra_params);
         error_handler(res, model.create(populate_uuids(populate_dates(req.body)))
+            .then(model => cb ? cb(model) : model)
             .then(response_handler(res)));
     };
 }

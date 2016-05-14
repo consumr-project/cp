@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as crud from '../query/crud';
 import { sql, query } from '../query/query';
 import { can } from '../auth/permissions';
+import { card } from '../notification/trello';
 
 import gen_conn from '../query/conn';
 import gen_models from '../query/models';
@@ -268,7 +269,8 @@ del('/events/:event_id/bookmarks/:id',
 // feedback
 post('/feedback',
     can('create', 'feedback'),
-    create(models.Feedback));
+    create(models.Feedback, [], (feedback) =>
+        card.add(feedback.gen_name(), feedback.gen_desc())));
 get('/feedback/:id',
     can('retrieve', 'feedback'),
     retrieve(models.Feedback));

@@ -95,6 +95,20 @@ declare module "query-service" {
     export interface Company extends Model {
     }
 
+    export enum FeedbackType {
+        question,
+        suggestion,
+        problem
+    }
+
+    export interface Feedback extends Model {
+        id: string;
+        user_id: string;
+        message: string;
+        referrer: string;
+        type: FeedbackType;
+    }
+
     export var conn: Sequelize;
 
     export var models: {

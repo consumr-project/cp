@@ -1,4 +1,3 @@
-import { service_handler } from '../utilities';
 import { BadGatewayError } from '../errors';
 
 import Trello = require('trello');
@@ -26,9 +25,6 @@ export module card {
         return trello.deleteCard(id)
             .then(errw);
     }
-
-    export const add_handler = service_handler(req =>
-        add(req.body.name, req.body.desc));
 }
 
 function errw(ack) {
