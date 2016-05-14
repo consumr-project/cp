@@ -29,6 +29,16 @@ make test-start-webdriver
 TEST_SERVICE_URL=http://localhost:3000 make test
 ```
 
+the following environment variables are required to put parts of the
+application in "test" mode and allow additional authentication and database
+methods (eg. api key logins, hard-deleteds, etc. a lot of tests will not work
+without these features enabled):
+
+```bash
+export CP_ALLOW_APIKEY_AUTH=1
+export CP_PURGE_KEY='...'
+```
+
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see

@@ -163,6 +163,11 @@ export function update(model: Model<any, any>): RequestHandler {
     ).then(response_handler(res)));
 }
 
+/**
+ * NOTE this will always do a soft-delete unless "purge=true" is passed as a
+ * query paramter along with a valid "purge_key" value. this "purge_key" is
+ * retrieved from the CP_PURGE_KEY env var.
+ */
 export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
     return (req, res) => {
         var deleted_by = req.user.id,

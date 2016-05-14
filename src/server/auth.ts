@@ -29,7 +29,7 @@ app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_clie
 app.get('/linkedin', linkedin.pre_base, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
 
-if (process.env.DEBUG && process.env.CP_ALLOW_APIKEY_AUTH) {
+if (process.env.CP_ALLOW_APIKEY_AUTH) {
     app.post('/key', apikey.login, (req, res) => res.json(req.user || {}));
 }
 
