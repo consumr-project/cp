@@ -22,7 +22,7 @@ export module card {
     export function del(id: string) {
         return trello.deleteCard(id);
     }
-}
 
-export const add_card_handler = service_handler(req =>
-    card.add(req.body.name, req.body.desc));
+    export const add_handler = service_handler(req =>
+        add(req.body.name, req.body.desc));
+}
