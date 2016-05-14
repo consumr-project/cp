@@ -2,6 +2,7 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import * as debug from 'debug';
 import * as NotificationsApi from '../notification/notification';
+import { add_card_handler } from '../notification/trello';
 import { MongoClient } from 'mongodb';
 import { pick } from 'lodash';
 import config = require('acm');
@@ -52,6 +53,8 @@ app.post('/notifications/missing_information', (req, res, next) =>
 app.delete('/notifications/:id', (req, res, next) =>
     Notifications.remove(req.params.id, req.user.id, err =>
         err ? next(err) : res.json({ ok: true })));
+
+app.post('/trello/card', add_card_handler);
 
 export function connect(cb: Function = () => {}) {
     log('connecting to mongodb');
