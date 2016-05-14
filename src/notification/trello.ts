@@ -1,4 +1,5 @@
 import { service_handler } from '../utilities';
+import { BadGatewayError } from '../errors';
 
 import Trello = require('trello');
 import config = require('acm');
@@ -12,17 +13,28 @@ export const trello = new Trello(TRELLO_KEY, TRELLO_TOKEN);
 
 export module card {
     export function add(name: string, desc: string) {
-        return trello.addCard(name, desc, TRELLO_LIST_ID);
+        return trello.addCard(name, desc, TRELLO_LIST_ID)
+            .then(errw);
     }
 
     export function get(id: string) {
-        return trello.getCard(TRELLO_BOARD_ID, id);
+        return trello.getCard(TRELLO_BOARD_ID, id)
+            .then(errw);
     }
 
     export function del(id: string) {
-        return trello.deleteCard(id);
+        return trello.deleteCard(id)
+            .then(errw);
     }
 
     export const add_handler = service_handler(req =>
         add(req.body.name, req.body.desc));
+}
+
+function errw(ack) {
+    if (typeof ack === 'string') {
+        throw new BadGatewayError(ack);
+    }
+
+    return ack;
 }

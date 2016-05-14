@@ -355,7 +355,7 @@ declare module "embedly" {
 
 declare module "trello-interface" {
     export type ErrorMessage = string;
-    export type ActionAck = Object;
+    export type Ack = Object;
 
     export interface Card {
         id: string;
@@ -400,13 +400,13 @@ declare module "trello-interface" {
 }
 
 declare module "trello" {
-    import { Card, ErrorMessage, ActionAck } from 'trello-interface';
+    import { Card, Ack, ErrorMessage } from 'trello-interface';
 
     class Trello {
         constructor(key: string, token: string);
-        addCard(name: string, description: string, listId: string): Promise<Card>;
-        getCard(boardId: string, cardId: string): Promise<Card>;
-        deleteCard(cardId: string): Promise<ErrorMessage | ActionAck>;
+        addCard(name: string, description: string, listId: string): Promise<ErrorMessage | Card>;
+        getCard(boardId: string, cardId: string): Promise<ErrorMessage | Card>;
+        deleteCard(cardId: string): Promise<ErrorMessage | Ack>;
     }
 
     export = Trello;
