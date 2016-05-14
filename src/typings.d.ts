@@ -65,18 +65,12 @@ declare module "md5" {
 declare module "query-service" {
     import {Sequelize} from 'sequelize';
 
-    export interface Promise {
-        then(fn: Function): Promise;
-        catch(fn: Function): Promise;
-        spread(fn: Function): Promise;
-    }
-
     export type QueryResult = any;
 
     export interface Model {
-        findOne?(query: Object): Promise;
-        findById?(id: string): Promise;
-        findOrCreate?({where: Object, defaults: Model}): Promise;
+        findOne?(query: Object): Promise<Model>;
+        findById?(id: string): Promise<Model>;
+        findOrCreate?({where: Object, defaults: Model}): Promise<Model>;
     }
 
     export interface User extends Model {
@@ -110,11 +104,6 @@ declare module "query-service" {
 }
 
 declare module "elasticsearch" {
-    interface Promise {
-        then(any): Promise;
-        catch(any): Promise;
-    }
-
     interface Query {
         from?: number;
         index: string;
@@ -157,7 +146,7 @@ declare module "elasticsearch" {
 
     export class Client {
         constructor({ host: string });
-        search(query: Query): Promise;
+        search(query: Query): Promise<Results>;
     }
 }
 

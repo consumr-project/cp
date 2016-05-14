@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { map } from 'lodash';
-import { Client as Elasticsearch, Promise, Hit, Results } from 'elasticsearch';
+import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
 import config = require('acm');
 
 type SearchResults = Array<any>;
-type SearchFunction = (Elasticsearch, Request) => Promise;
+type SearchFunction = (Elasticsearch, Request) => Promise<Results>;
 
 interface Query {
     from?: number;
@@ -47,7 +47,7 @@ function make_response(res: Results): CPServiceResponseV1<Result> {
     };
 }
 
-export function fuzzy(es: Elasticsearch, query: Query): Promise {
+export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
     return es.search({
         from: query.from,
         index: query.index,

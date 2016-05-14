@@ -3,7 +3,7 @@ import { roles } from './permissions';
 import { get } from 'lodash';
 import { parse } from 'url';
 import { Profile } from 'passport-linkedin-oauth2';
-import { User, Promise } from 'query-service';
+import { User } from 'query-service';
 import { WhereOptions } from 'sequelize';
 import * as passport from 'passport';
 import * as QueryService from '../server/query';
@@ -61,7 +61,7 @@ function generate_user(profile: Profile): User {
     };
 }
 
-function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise {
+function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise<User> {
     return UserModel.findOrCreate({
         where: generate_where(profile),
         defaults: generate_user(profile)

@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as passport from 'passport';
 
 import { Request, Response } from 'express';
-import { User, Promise } from 'query-service';
+import { User } from 'query-service';
 import * as QueryService from './query';
 
 import * as permissions from '../auth/permissions';
@@ -37,7 +37,7 @@ function serialize(user: User, done: Function): void {
     done(null, user.id);
 }
 
-function deserialize(user_id: string, done: (err: any) => any): Promise {
+function deserialize(user_id: string, done: (err: any) => any): Promise<User> {
     return UserModel.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);
