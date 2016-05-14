@@ -6,7 +6,7 @@ const trello = require('../../../build/notification/trello');
 tapes('trello', t => {
     var card;
 
-    var card_name = '[test] my own card';
+    var card_name = '[test] my own card ' + new Date();
     var card_desc = '[test] here is my description';
 
     t.plan(3);
