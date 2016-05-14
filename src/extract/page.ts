@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import { BadGatewayError } from '../errors';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
-import { service_handler, service_response } from '../utilities';
+import { service_handler } from '../utilities';
 
 import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';

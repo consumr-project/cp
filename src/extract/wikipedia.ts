@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
 import { BadGatewayError } from '../errors';
 import { get, filter, map, includes, head } from 'lodash';
-import { get_or_else, get_url_parts, service_response, service_handler } from '../utilities';
+import { get_or_else, get_url_parts, service_handler } from '../utilities';
 
 import { WikipediaResult, WikipediaRequest, WikipediaSearchResponse,
     WikipediaResponsePage, WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
