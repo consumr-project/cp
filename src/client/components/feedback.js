@@ -43,7 +43,8 @@ angular.module('tcp').directive('feedback', [
             '                    class="textarea--inlined"',
             '                    ng-model="vm.message"',
             '                    ng-focus="vm.type"></textarea>',
-            '                <button i18n="admin/submit" ng-click="submit()"></button>',
+            '                <button ng-disabled="vm.loading" i18n="admin/submit"',
+            '                    ng-click="submit()"></button>',
             '            </div>',
             '        </section>',
             '    </div>',
@@ -55,6 +56,7 @@ angular.module('tcp').directive('feedback', [
          */
         function clean_state() {
             return {
+                loading: false,
                 expand: false,
                 type: null,
                 message: '',
@@ -80,6 +82,8 @@ angular.module('tcp').directive('feedback', [
                 utils.assert(Session.USER.id, 'login required for action');
                 utils.assert($scope.vm.type);
                 utils.assert($scope.vm.message);
+
+                $scope.vm.loading = true;
 
                 Services.query.feedback.create({
                     id: Services.query.UUID,
