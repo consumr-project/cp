@@ -51,21 +51,28 @@ angular.module('tcp').directive('feedback', [
         ].join('');
 
         /**
+         * @return {Object}
+         */
+        function clean_state() {
+            return {
+                expand: false,
+                type: null,
+                message: '',
+            };
+        }
+
+        /**
          * @param {Angular.Scope} $scope
          */
         function controller($scope) {
             $scope.type = DOMAIN.model.feedback_props.type;
 
-            $scope.vm = {
-                expand: false,
-                type: null,
-            };
+            $scope.vm = clean_state();
 
             $scope.start = function () {
                 utils.assert(Session.USER && Session.USER.id, 'login required for action');
-
+                $scope.vm = clean_state();
                 $scope.vm.expand = true;
-                $scope.vm.type = null;
             };
 
             $scope.submit = function () {
