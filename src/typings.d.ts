@@ -352,3 +352,62 @@ declare module "embedly" {
         url: string;
     }
 }
+
+declare module "trello-interface" {
+    export type ErrorMessage = string;
+    export type ActionAck = Object;
+
+    export interface Card {
+        id: string;
+        name: string;
+        desc: string;
+        closed: boolean;
+
+        due?: boolean;
+        email?: string;
+        idAttachmentCover?: string;
+        idBoard: string;
+        idChecklists: string[];
+        idList: string[];
+        idMembers: string[];
+        idShort: number;
+        labels: any[];
+        manualCoverAttachment: boolean;
+        pos: number;
+        shortUrl: string;
+        stickers: any[]
+        url: string;
+
+        checkItemStates: any[];
+        dateLastActivity: Date | string;
+        descData: {
+            emoji: any;
+        };
+
+        badges: {
+            votes: number;
+            viewingMemberVoted: boolean;
+            subscribed: boolean;
+            fogbugz: string;
+            checkItems: number;
+            checkItemsChecked: number;
+            comments: number;
+            attachments: number;
+            description: boolean;
+            due?: boolean;
+        };
+    }
+}
+
+declare module "trello" {
+    import { Card, ErrorMessage, ActionAck } from 'trello-interface';
+
+    class Trello {
+        constructor(key: string, token: string);
+        addCard(name: string, description: string, listId: string): Promise<Card>;
+        getCard(boardId: string, cardId: string): Promise<Card>;
+        deleteCard(cardId: string): Promise<ErrorMessage | ActionAck>;
+    }
+
+    export = Trello;
+}
