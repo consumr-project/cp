@@ -89,6 +89,10 @@ angular.module('tcp').directive('feedback', [
                     message: $scope.vm.message,
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id,
+                }).then(function () {
+                    $scope.vm.expand = false;
+                }).catch(function () {
+                    $scope.vm.expand = false;
                 });
             };
         }
