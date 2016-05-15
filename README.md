@@ -17,7 +17,7 @@ make server
 ### test
 
 the following targes are available: `test-e2e`, `test-integration`,
-`test-unit`, and `test` which triggers the first three.  the e2e tests require
+`test-unit`, and `test` which triggers the last two.  the e2e tests require
 that webdriver be runnig which can be done with `make test-start-webdriver`.
 the integration tests require the server to be running and a `TEST_SERVICE_URL`
 environment variable to be declared pointing to the root of the server
@@ -25,8 +25,12 @@ environment variable to be declared pointing to the root of the server
 tests.
 
 ```bash
+make test TEST_SERVICE_URL=http://localhost:3000
+```
+
+```bash
 make test-start-webdriver
-TEST_SERVICE_URL=http://localhost:3000 make test
+make test-e2e
 ```
 
 the following environment variables are required to put parts of the
