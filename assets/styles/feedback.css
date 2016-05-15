@@ -1,7 +1,7 @@
 .feedback {
     bottom: 20px;
     left: 20px;
-    position: absolute;
+    position: fixed;
 }
 
 .feedback__action {
