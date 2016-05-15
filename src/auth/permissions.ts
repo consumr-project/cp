@@ -1,14 +1,14 @@
 import { ServiceRequestHandler } from 'cp';
-import { Configuration as RbacConfiguration } from 'rbac-interface';
-import { clone } from 'lodash';
+import { Configuration } from 'rbac-interface';
 
+import { clone } from 'lodash';
 import { make_enum } from '../utilities';
 import { UnauthorizedError } from '../errors';
 
 import Rbac = require('rbac');
 import config = require('acm');
 
-const RULES = clone(config<RbacConfiguration>('rbac'));
+const RULES = clone(config<Configuration>('rbac'));
 const ROLES = make_enum(RULES.roles);
 
 

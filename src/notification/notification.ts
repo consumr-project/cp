@@ -1,7 +1,6 @@
 import Message, { TYPE as MessageType } from './message';
-import { MongoCallback } from 'mongodb';
+import { MongoCallback, Collection } from 'mongodb';
 import { clone } from 'lodash';
-import { Collection } from 'mongodb';
 
 export enum TYPE {
     MISSING_INFORMATION = <any>'MISSING_INFORMATION'

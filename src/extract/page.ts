@@ -1,10 +1,10 @@
 import { ServiceRequestHandler } from 'cp';
-import { BadGatewayError } from '../errors';
-import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
-import { service_handler } from '../utilities';
-
 import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';
+
+import { BadGatewayError } from '../errors';
+import { service_handler } from '../utilities';
+import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 
 import config = require('acm');
 import request = require('request');

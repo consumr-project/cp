@@ -1,5 +1,6 @@
 import { Request } from 'express';
-import { ServiceRequestHandler, ServiceResultMetadata, ServiceResponseV1 } from 'cp';
+import { ServiceRequestHandler, ServiceResultMetadata,
+    ServiceResponseV1 } from 'cp';
 
 export function make_enum_entry(store: Object, val: string): Object {
     store[val.toUpperCase()] = val;

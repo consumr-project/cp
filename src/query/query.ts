@@ -1,9 +1,9 @@
 import { ServiceResponseV1 } from 'cp';
-import { readFileSync as read } from 'fs';
-import { template } from 'lodash';
-
 import { Request, Response } from 'express';
 import { Model as BaseModel, Sequelize } from 'sequelize';
+
+import { readFileSync as read } from 'fs';
+import { template } from 'lodash';
 import { head, merge, uniq, difference, map } from 'lodash';
 
 const PARAMS = /[^:]:\w+/g;

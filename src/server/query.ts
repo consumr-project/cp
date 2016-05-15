@@ -1,8 +1,8 @@
 import { ServiceResponseV1 } from 'cp';
-import { Model } from 'sequelize';
 import { Request, Response } from 'express';
-import * as express from 'express';
+import { Model } from 'sequelize';
 
+import * as express from 'express';
 import * as crud from '../query/crud';
 import { sql, query } from '../query/query';
 import { can } from '../auth/permissions';

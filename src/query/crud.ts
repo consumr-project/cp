@@ -1,6 +1,7 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 import { Sequelize, Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
+
 import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     Dictionary } from 'lodash';
 

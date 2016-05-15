@@ -1,10 +1,10 @@
 import { ServiceRequestHandler } from 'cp';
-import { BadGatewayError } from '../errors';
-import { get, filter, map, includes, head } from 'lodash';
-import { get_or_else, get_url_parts, service_handler } from '../utilities';
-
 import { WikipediaResult, WikipediaRequest, WikipediaSearchResponse,
     WikipediaResponsePage, WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
+
+import { BadGatewayError } from '../errors';
+import { get_or_else, get_url_parts, service_handler } from '../utilities';
+import { get, filter, map, includes, head } from 'lodash';
 
 import { Tag, wikitext as parse_wikitext, infobox as parse_infobox,
     urls as parse_urls } from './parser';
