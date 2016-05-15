@@ -1,3 +1,4 @@
+import { ServiceRequestHandler } from 'cp';
 import { service_redirect } from '../utilities';
 import { User } from 'query-service';
 import * as QueryService from '../server/query';
@@ -44,5 +45,5 @@ export function get_user_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, r
         .then(user => generate_gravatar_url(email, size, rating, user));
 }
 
-export const get_user_gravatar_url_handler: CPServiceRequestHandler = service_redirect(req =>
+export const get_user_gravatar_url_handler: ServiceRequestHandler = service_redirect(req =>
     get_user_gravatar_url(req.query.email, req.query.size, req.query.rating));

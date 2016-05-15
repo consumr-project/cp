@@ -1,3 +1,6 @@
+import { ServiceRequestHandler, SearchServiceResultMetadata,
+    ServiceResponseV1 } from 'cp';
+
 import { Request, Response } from 'express';
 import { map } from 'lodash';
 import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
@@ -22,7 +25,7 @@ interface Result {
     type: string;
 }
 
-function get_meta(res: Results): CPSearchServiceResultMetadata {
+function get_meta(res: Results): SearchServiceResultMetadata {
     return {
         timed_out: res.timed_out,
         took: res.took,
@@ -40,7 +43,7 @@ function make_result(hit: Hit): Result {
     };
 }
 
-function make_response(res: Results): CPServiceResponseV1<Result> {
+function make_response(res: Results): ServiceResponseV1<Result> {
     return {
         meta: get_meta(res),
         body: map(res.hits.hits, make_result),
@@ -64,7 +67,7 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
     });
 }
 
-export function search(es: Elasticsearch, searcher: SearchFunction): CPServiceRequestHandler {
+export function search(es: Elasticsearch, searcher: SearchFunction): ServiceRequestHandler {
     return (req, res, next) =>
         searcher(es, req.query).then(body =>
             res.json(make_response(body)));

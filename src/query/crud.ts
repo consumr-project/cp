@@ -1,6 +1,9 @@
+import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 import { Sequelize, Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
-import { merge, includes, each, clone, map, filter as arr_filter, reduce, find, Dictionary } from 'lodash';
+import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
+    Dictionary } from 'lodash';
+
 import * as q from 'q';
 
 const uuid = require('node-uuid');
@@ -21,7 +24,7 @@ interface QueryResultsModelMeta  {
 
 function error(res: Response, err: Error) {
     res.status(500);
-    res.json(<CPServiceResponseV1<SDict>>{
+    res.json(<ServiceResponseV1<SDict>>{
         meta: {
             ok: false,
             error: true,
@@ -117,7 +120,7 @@ function response_handler(res: Response, property?: string): any {
                 elapsed_time: Date.now() - start_time
             };
 
-        return res.json(<CPServiceResponseV1<SDict | SDict[] | number>>{ meta, body });
+        return res.json(<ServiceResponseV1<SDict | SDict[] | number>>{ meta, body });
     };
 }
 

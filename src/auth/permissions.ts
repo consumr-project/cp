@@ -1,3 +1,4 @@
+import { ServiceRequestHandler } from 'cp';
 import { Configuration as RbacConfiguration } from 'rbac-interface';
 import { clone } from 'lodash';
 
@@ -29,7 +30,7 @@ export function check(role: string, action: string, resource: string) {
     });
 }
 
-export function can(action: string, resource: string): CPServiceRequestHandler {
+export function can(action: string, resource: string): ServiceRequestHandler {
     return (req, res, next) => {
         check(req.user.role, action, resource)
             .then(() => next(null))

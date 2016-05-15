@@ -1,3 +1,4 @@
+import { ServiceRequestHandler } from 'cp';
 import { BadGatewayError } from '../errors';
 import { get, filter, map, includes, head } from 'lodash';
 import { get_or_else, get_url_parts, service_handler } from '../utilities';
@@ -115,11 +116,11 @@ export function infobox(query: string, rparts: string): Promise<Object> {
     });
 }
 
-export const extract_handler: CPServiceRequestHandler = service_handler(req =>
+export const extract_handler: ServiceRequestHandler = service_handler(req =>
     extract(req.query.q));
 
-export const search_handler: CPServiceRequestHandler = service_handler(req =>
+export const search_handler: ServiceRequestHandler = service_handler(req =>
     search(req.query.q));
 
-export const infobox_handler: CPServiceRequestHandler = service_handler(req =>
+export const infobox_handler: ServiceRequestHandler = service_handler(req =>
     infobox(req.query.q, req.query.parts));

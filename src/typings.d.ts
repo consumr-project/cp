@@ -1,31 +1,25 @@
 ///<reference path="../typings/main.d.ts" />
 
-type CPServiceRequestHandler = (Request, Response, Function) => void;
+declare module "cp" {
+    import { Request, Response } from 'express';
 
-declare var i18n: any;
+    type ServiceRequestHandler = (Request, Response, Function) => void;
 
-declare var TCP_BUILD_CONFIG: {
-    features: any;
-    analytics: { gaid: string; };
-    environment: { name: string; };
-    rollbar: { token: string; };
-    locate: { dateFormat: string; };
-}
+    interface ServiceResponseV1<T> {
+        body: T | Array<T> | { [index: string]: T };
+        meta: ServiceResultMetadata | SearchServiceResultMetadata | any
+    }
 
-interface CPServiceResultMetadata {
-    ok: boolean;
-    took?: number;
-}
+    interface ServiceResultMetadata {
+        ok: boolean;
+        took?: number;
+    }
 
-interface CPSearchServiceResultMetadata {
-    timed_out: boolean;
-    took: number;
-    total: number;
-}
-
-interface CPServiceResponseV1<T> {
-    body: T | Array<T> | { [index: string]: T };
-    meta: CPServiceResultMetadata | CPSearchServiceResultMetadata | any
+    interface SearchServiceResultMetadata {
+        timed_out: boolean;
+        took: number;
+        total: number;
+    }
 }
 
 declare module "acm" {

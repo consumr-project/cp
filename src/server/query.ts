@@ -1,3 +1,4 @@
+import { ServiceResponseV1 } from 'cp';
 import { Model } from 'sequelize';
 import { Request, Response } from 'express';
 import * as express from 'express';
@@ -292,7 +293,7 @@ get('/search/companies/name',
 app.use((err: any, req: Request, res: Response, next: Function) => {
     console.error(err);
     res.status(500);
-    res.json(<CPServiceResponseV1<void>>{
+    res.json(<ServiceResponseV1<void>>{
         meta: {
             ok: false,
             error: true,

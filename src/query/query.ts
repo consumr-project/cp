@@ -1,10 +1,10 @@
+import { ServiceResponseV1 } from 'cp';
 import { readFileSync as read } from 'fs';
 import { template } from 'lodash';
 
 import { Request, Response } from 'express';
 import { Model as BaseModel, Sequelize } from 'sequelize';
 import { head, merge, uniq, difference, map } from 'lodash';
-import * as Promise from 'bluebird';
 
 const PARAMS = /[^:]:\w+/g;
 const CLEAN_PARAM = /\W+/;
@@ -13,7 +13,7 @@ type RequestHandler = (req: Request, res: Response, next?: (err?: any) => {}) =>
 type QueryResults = Array<any>;
 type Model = BaseModel<any, any>;
 
-function track_metrics(action: Promise<QueryResults>, one_row: Boolean = false): Promise<CPServiceResponseV1<Model[]>> {
+function track_metrics(action: Promise<QueryResults>, one_row: Boolean = false): Promise<ServiceResponseV1<Model[]>> {
     var start = Date.now();
     var meta = { ok: true };
 

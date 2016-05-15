@@ -1,3 +1,4 @@
+import { ServiceRequestHandler } from 'cp';
 import { BadGatewayError } from '../errors';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 import { service_handler } from '../utilities';
@@ -59,5 +60,5 @@ export function extract(url: string) {
     });
 }
 
-export const extract_handler: CPServiceRequestHandler = service_handler(req =>
+export const extract_handler: ServiceRequestHandler = service_handler(req =>
     extract(req.query.url));

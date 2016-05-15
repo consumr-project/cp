@@ -7,6 +7,16 @@ import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
 
+declare var i18n: any;
+
+declare var TCP_BUILD_CONFIG: {
+    features: any;
+    analytics: { gaid: string; };
+    environment: { name: string; };
+    rollbar: { token: string; };
+    locate: { dateFormat: string; };
+}
+
 module tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
     const ERRORED: Boolean = (<any>window).ERRORED;
