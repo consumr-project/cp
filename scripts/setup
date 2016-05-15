@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source $(dirname "$0")/cli.sh
+
+case "$1" in
+    base)
+        ./scripts/generate app:user
+        ./scripts/generate app:tags
+        ./scripts/generate app:products
+        ;;
+
+    test)
+        ./scripts/generate test:user
+        ;;
+
+    heroku)
+        use heroku:env
+        use heroku:addons
+        use heroku:buildpacks
+
+        heroku:buildpack heroku/nodejs
+        heroku:addon heroku-postgresql hobby-dev
+
+        heroku:envar DATABASE_URL
+        heroku:envar ELASTICSEARCH_HOST
+        heroku:envar EMBEDLY_API_KEY
+        heroku:envar GOOGLE_ANALYTICS_ACCOUNT_ID
+        heroku:envar LINKEDIN_CLIENT_ID
+        heroku:envar LINKEDIN_CLIENT_SECRET
+        heroku:envar MONGO_URL
+        heroku:envar NODE_ENV development
+        heroku:envar NODE_MODULES_CACHE false
+        heroku:envar NPM_CONFIG_PRODUCTION false
+        heroku:envar ROLLBAR_TOKEN
+        heroku:envar TRELLO_BOARD_ID
+        heroku:envar TRELLO_KEY
+        heroku:envar TRELLO_LIST_ID
+        heroku:envar TRELLO_TOKEN
+        ;;
+
+    *)
+        echo "invalid option $1"
+        echo "available options: base, test, heroku"
+        exit 1
+esac

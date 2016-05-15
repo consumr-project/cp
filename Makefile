@@ -64,7 +64,7 @@ clean:
 	mkdir $(build_dir)
 
 lint:
-	./scripts/static-analyzis
+	./scripts/lint
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		src scripts test
 

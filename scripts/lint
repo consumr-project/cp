@@ -3,5 +3,8 @@
 grep -Ir _blank src assets | grep -v 'rel="noreferrer"'
 
 if [ $? -eq 0 ]; then
+    echo err
     exit 1
+else
+    echo ok
 fi
