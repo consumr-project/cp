@@ -46,7 +46,6 @@ before_script:
   - ./scripts/generate app:tags
   - ./scripts/generate app:products
   - ./scripts/generate test:user
-  - sleep 5
 
 after_failure:
   - cat server.log
