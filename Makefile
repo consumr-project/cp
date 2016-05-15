@@ -29,6 +29,12 @@ i18n_varname = i18n
 i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' \
 	--strings_extra config/i18n/$(1)/
 
+mongodb_os = osx
+mongodb_architecture = x86_64
+mongodb_version = 3.2.1
+rabbitmq_version = 3.5.6
+es_version = 1.7.3
+
 ifdef DEBUG
 	ts_options = --sourceMap
 	build_vars = "DEBUG=*"
@@ -36,10 +42,6 @@ ifdef DEBUG
 endif
 
 all: build
-
-include scripts/makefile-notification.mk
-include scripts/makefile-query.mk
-include scripts/makefile-search.mk
 
 run: clean build server
 
@@ -183,3 +185,41 @@ build-client-src:
 	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngDatePicker.js >> $(build_client_js)
+
+postgres: postgresql
+postgresql:
+	postgres
+
+es: elasticsearch
+elasticsearch:
+	-if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -f bin/elasticsearch-$(es_version).zip ]; then \
+        wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-$(es_version).zip \
+            -O bin/elasticsearch-$(es_version).zip; fi
+	if [ ! -d bin/elasticsearch-$(es_version) ]; then \
+        unzip bin/elasticsearch-$(es_version).zip -d bin/elasticsearch-$(es_version); fi
+	bin/elasticsearch-$(es_version)/elasticsearch-$(es_version)/bin/elasticsearch
+
+rmq: rabbitmq
+rabbit: rabbitmq
+rabbitmq:
+	-if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -f bin/rabbitmq-$(rabbitmq_version).tar.gz ]; then \
+		wget https://www.rabbitmq.com/releases/rabbitmq-server/v$(rabbitmq_version)/rabbitmq-server-mac-standalone-$(rabbitmq_version).tar.gz \
+            -O bin/rabbitmq-$(rabbitmq_version).tar.gz; fi
+	if [ ! -d bin/rabbitmq_server-$(rabbitmq_version) ]; then \
+        tar -xf bin/rabbitmq-$(rabbitmq_version).tar.gz -C bin; fi
+	echo "bin/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-plugins enable rabbitmq_management"
+	echo "http://localhost:15672/"
+	bin/rabbitmq_server-$(rabbitmq_version)/sbin/rabbitmq-server
+
+mongo: mongodb
+mongodb:
+	-if [ ! -d bin ]; then mkdir bin; fi
+	if [ ! -f bin/mongodb-$(mongodb_version).tar.gz ]; then \
+		wget https://fastdl.mongodb.org/$(mongodb_os)/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version).tgz \
+            -O bin/mongodb-$(mongodb_version).tar.gz; fi
+	if [ ! -d bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version) ]; then \
+        tar -xf bin/mongodb-$(mongodb_version).tar.gz -C bin; fi
+	echo "bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod"
+	bin/mongodb-$(mongodb_os)-$(mongodb_architecture)-$(mongodb_version)/bin/mongod

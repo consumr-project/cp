@@ -1,3 +1,0 @@
-postgres: postgresql
-postgresql:
-	postgres
