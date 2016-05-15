@@ -1,6 +1,6 @@
 import { ServiceRequestHandler } from 'cp';
+import { User } from 'cp/query';
 import { service_redirect } from '../utilities';
-import { User } from 'query-service';
 import * as QueryService from '../server/query';
 import * as querystring from 'querystring';
 

@@ -3,7 +3,7 @@ import { roles } from './permissions';
 import { get } from 'lodash';
 import { parse } from 'url';
 import { Profile } from 'passport-linkedin-oauth2';
-import { User } from 'query-service';
+import { User } from 'cp/query';
 import { WhereOptions } from 'sequelize';
 import * as passport from 'passport';
 import * as QueryService from '../server/query';

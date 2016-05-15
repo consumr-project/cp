@@ -1,29 +1,12 @@
 import { ServiceRequestHandler, SearchServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
 
-import { Request, Response } from 'express';
-import { map } from 'lodash';
+import { Searcher, Query, Result } from 'cp/search';
 import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
+import { Request, Response } from 'express';
+
+import { map } from 'lodash';
 import config = require('acm');
-
-type SearchResults = Array<any>;
-type SearchFunction = (Elasticsearch, Request) => Promise<Results>;
-
-interface Query {
-    from?: number;
-    index: string;
-    query: string;
-    size?: number;
-    type: string;
-}
-
-interface Result {
-    id: string;
-    index: string;
-    score: number;
-    source: any;
-    type: string;
-}
 
 function get_meta(res: Results): SearchServiceResultMetadata {
     return {
@@ -67,7 +50,7 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
     });
 }
 
-export function search(es: Elasticsearch, searcher: SearchFunction): ServiceRequestHandler {
+export function search(es: Elasticsearch, searcher: Searcher): ServiceRequestHandler {
     return (req, res, next) =>
         searcher(es, req.query).then(body =>
             res.json(make_response(body)));

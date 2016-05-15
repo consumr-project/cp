@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as passport from 'passport';
 
 import { Request, Response } from 'express';
-import { User } from 'query-service';
+import { User } from 'cp/query';
 import * as QueryService from './query';
 
 import * as permissions from '../auth/permissions';

@@ -22,42 +22,8 @@ declare module "cp" {
     }
 }
 
-declare module "acm" {
-    function fn<T>(str: string): T | Object | string | any;
-    export = fn;
-}
-
-declare module "deep-get-set" {
-    function deep<T>(holder: any, prop: string, val?: T): T;
-    export = deep;
-}
-
-declare module "striptags" {
-    function fn(html: string): string;
-    export = fn;
-}
-
-declare module "request" {
-    interface Request {
-        uri: string,
-        qs?: string | {},
-    }
-
-    function fn(req: Request, callback: Function);
-    export = fn;
-}
-
-declare module "urijs" {
-    export function withinString(source: string, callback: (uri: string) => any): any[];
-}
-
-declare module "md5" {
-    function fn(str: string): string;
-    export = fn;
-}
-
-declare module "query-service" {
-    import {Sequelize} from 'sequelize';
+declare module "cp/query" {
+    import { Sequelize } from 'sequelize';
 
     export type QueryResult = any;
 
@@ -110,6 +76,61 @@ declare module "query-service" {
         User: User,
         Company: Company,
     }
+}
+
+declare module "cp/search" {
+    import { Client as Elasticsearch, Results } from 'elasticsearch';
+    type Searcher = (Elasticsearch, Request) => Promise<Results>;
+
+    interface Query {
+        from?: number;
+        index: string;
+        query: string;
+        size?: number;
+        type: string;
+    }
+
+    interface Result {
+        id: string;
+        index: string;
+        score: number;
+        source: any;
+        type: string;
+    }
+}
+
+declare module "acm" {
+    function fn<T>(str: string): T | Object | string | any;
+    export = fn;
+}
+
+declare module "deep-get-set" {
+    function deep<T>(holder: any, prop: string, val?: T): T;
+    export = deep;
+}
+
+declare module "striptags" {
+    function fn(html: string): string;
+    export = fn;
+}
+
+declare module "request" {
+    interface Request {
+        uri: string,
+        qs?: string | {},
+    }
+
+    function fn(req: Request, callback: Function);
+    export = fn;
+}
+
+declare module "urijs" {
+    export function withinString(source: string, callback: (uri: string) => any): any[];
+}
+
+declare module "md5" {
+    function fn(str: string): string;
+    export = fn;
 }
 
 declare module "elasticsearch" {
