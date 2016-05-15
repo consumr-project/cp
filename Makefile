@@ -11,12 +11,10 @@ build_css = $(build_dir)/site.css
 
 npm = npm
 typings = ./node_modules/.bin/typings
-tape = ./node_modules/.bin/tape
 tsc = ./node_modules/.bin/tsc
 imageoptim = imageoptim
 svgo = svgo
 browserify = ./node_modules/.bin/browserify
-protractor = ./node_modules/.bin/protractor
 js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/uglifyjs
 js_sep = @echo ";\n"
@@ -48,7 +46,7 @@ run: clean build server
 build: clean build-css build-strings build-client build-server
 
 test:
-	$(tape) `find test/integration -name "*.js"` `find test/src -name "*.js"`
+	./scripts/test
 
 install:
 	$(npm) install
@@ -79,13 +77,13 @@ test-start-webdriver:
 	bin/node_modules/.bin/webdriver-manager start
 
 test-e2e:
-	$(protractor) config/protractor.js
+	./scripts/test e2e
 
 test-integration:
-	$(tape) `find test/integration -name "*.js"`
+	./scripts/test integration
 
 test-unit:
-	$(tape) `find test/src -name "*.js"`
+	./scripts/test unit
 
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
