@@ -60,6 +60,7 @@
 .feedback__message textarea {
     border-top: 1px solid var(--color-std-thin-border-color);
     height: 135px;
+    max-width: 80vw;
     padding: 15px;
     resize: none;
     width: 400px;

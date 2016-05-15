@@ -4,14 +4,17 @@
  * @attribute {Node|String} anchoredElement node or node selector to anchor
  * element to
  *
- * @attribute {Number} [anchoredTopOffset] pixels element should be above/below
+ * @attribute {Number} [anchoredTopOffset] pixels element should be above the
  * anchor
  *
- * @attribute {Number} [anchoredRightOffset] pixels element should be right
+ * @attribute {Number} [anchoredRightOffset] pixels element should be to the
+ * right of the anchor
+ *
+ * @attribute {Number} [anchoredBottomOffset] pixels element should be below
  * anchor
  *
- * @attribute {Number} [anchoredLeftOffset] pixels element should be right
- * anchor
+ * @attribute {Number} [anchoredLeftOffset] pixels element should be to the
+ * left of the anchor
  *
  * @attribute {Number} [anchoredAnimationOffset] slide in animation offset.
  * (default: ANIMATION_NUDGE_OFFSET)
@@ -109,12 +112,11 @@ angular.module('tcp').directive('anchored', [
 
             switch (placement) {
                 case PLACEMENT.TOP:
-                    coors.top = offset.top - height;
-                    coors.left = !attrs.anchoredCentered ? offset.left :
-                        total_width / 2 - width / 2;
+                    coors.bottom = offset.top + offset_height;
+                    coors.left = offset.left;
 
                     coors.initialLeft = coors.left;
-                    coors.initialTop = coors.top - attrs.anchoredAnimationOffset;
+                    coors.initialBottom = coors.top;
                     break;
 
                 case PLACEMENT.BOTTOM:
@@ -162,6 +164,8 @@ angular.module('tcp').directive('anchored', [
             sumIfPresent(coors, 'initialLeft', attrs.anchoredLeftOffset);
             sumIfPresent(coors, 'right', attrs.anchoredRightOffset);
             sumIfPresent(coors, 'initialRight', attrs.anchoredRightOffset);
+            sumIfPresent(coors, 'bottom', attrs.anchoredBottomOffset);
+            sumIfPresent(coors, 'initialBottom', attrs.anchoredBottomOffset);
 
             return coors;
         }
@@ -175,8 +179,10 @@ angular.module('tcp').directive('anchored', [
                 var debouncedHandleUpdate = _.debounce(_.throttle(handleUpdate.bind(null, true), 100), 10);
 
                 attrs.anchoredPlacement = attrs.anchoredPlacement || PLACEMENT.TOP;
-                attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
+                attrs.anchoredBottomOffset = parseFloat(attrs.anchoredBottomOffset) || 0;
                 attrs.anchoredLeftOffset = parseFloat(attrs.anchoredLeftOffset) || 0;
+                attrs.anchoredRightOffset = parseFloat(attrs.anchoredRightOffset) || 0;
+                attrs.anchoredTopOffset = parseFloat(attrs.anchoredTopOffset) || 0;
                 attrs.anchoredAnimationOffset = parseFloat(attrs.anchoredAnimationOffset) || ANIMATION_NUDGE_OFFSET;
                 attrs.anchoredCentered = 'anchoredCentered' in attrs;
                 attrs.anchoredAutoHide = 'anchoredAutoHide' in attrs;
