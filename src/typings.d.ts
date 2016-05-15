@@ -85,6 +85,7 @@ declare module "query-service" {
         lang: string;
         last_login_date: Date | number;
         linkedin_url: string;
+        member_number?: number;
         name: string;
         summary: string;
         title: string;

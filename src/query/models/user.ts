@@ -44,6 +44,11 @@ export = sequelize =>
             type: Type.TEXT
         },
 
+        member_number: {
+            type: Type.INTEGER,
+            allowNull: false,
+        },
+
         avatar_url: {
             type: Type.STRING
         },
