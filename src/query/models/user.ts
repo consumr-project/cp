@@ -46,7 +46,6 @@ export = sequelize =>
 
         member_number: {
             type: Type.INTEGER,
-            allowNull: false,
         },
 
         avatar_url: {
