@@ -42,4 +42,5 @@ case "$1" in
         echo "invalid option $1"
         echo "available options: base, test, heroku"
         exit 1
+        ;;
 esac

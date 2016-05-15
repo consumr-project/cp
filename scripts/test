@@ -4,8 +4,19 @@ tape=./node_modules/.bin/tape
 protractor=./node_modules/.bin/protractor
 
 case "$1" in
-    e2e) $protractor config/protractor.js ;;
-    unit) $tape $(find test/src -name "*.js") ;;
-    integration) $tape $(find test/integration -name "*.js") ;;
-    *) $tape $(find test/integration -name "*.js") $(find test/src -name "*.js") ;;
+    e2e)
+        $protractor config/protractor.js
+        ;;
+
+    unit)
+        $tape $(find test/src -name "*.js")
+        ;;
+
+    integration)
+        $tape $(find test/integration -name "*.js")
+        ;;
+
+    *)
+        $tape $(find test/integration -name "*.js") $(find test/src -name "*.js")
+        ;;
 esac
