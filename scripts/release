@@ -11,4 +11,4 @@ COMMAND)
 git commit -m "[skip ci] stamp" stamp.json
 git push origin master
 git push heroku master
-heroku run "$migrations_command"
+heroku run "$(echo $migrations_command)"
