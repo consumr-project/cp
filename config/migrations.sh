@@ -1,7 +1,7 @@
 source scripts/cli.sh
 
 hostname=$(url:parse $DATABASE_URL hostname)
-username=$(url:parse $DATABASE_URL auth | cut -d'_' -f 1)
+username=$(url:parse $DATABASE_URL auth | cut -d':' -f 1)
 database=$(node -e "console.log(require('acm')('database.url').split('/').pop())")
 userflag=""
 
