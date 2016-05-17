@@ -1,6 +1,14 @@
 #!/bin/bash
 
+migrations_command=$(cat << COMMAND
+touch ~/.pgpass;
+chmod 0600 ~/.pgpass;
+./scripts/setup postgres > ~/.pgpass;
+./scripts/migration run;
+COMMAND)
+
 ./scripts/compile-project-stamp > stamp.json
 git commit -m "[skip ci] stamp" stamp.json
 git push origin master
-git push heroku master && heroku run "time ./scripts/migration run"
+git push heroku master
+heroku run "$migrations_command"
