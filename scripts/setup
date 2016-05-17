@@ -38,9 +38,16 @@ case "$1" in
         heroku:envar TRELLO_TOKEN
         ;;
 
+    postgres)
+        host=$(url:parse $DATABASE_URL hostname)
+        port=$(url:parse $DATABASE_URL port)
+        auth=$(url:parse $DATABASE_URL auth)
+        echo "$host:$port:*:$auth"
+        ;;
+
     *)
         echo "invalid option $1"
-        echo "available options: base, test, heroku"
+        echo "available options: base, test, heroku, postgres"
         exit 1
         ;;
 esac
