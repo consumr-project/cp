@@ -96,5 +96,5 @@ heroku:envar() {
 url:parse() {
     local url="$1"
     local part="$2"
-    echo $(node -e "console.log(require('url').parse('$url').$part)")
+    echo $(node -e "console.log(require('url').parse('$url').$part || '')")
 }

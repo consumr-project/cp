@@ -1,9 +1,12 @@
-config() {
-    echo $(node -e "console.log(require('acm')('$1'))")
-}
+source scripts/cli.sh
 
-config_databasename() {
-    echo $(node -e "console.log(require('acm')('database.url').split('/').pop())")
-}
+hostname=$(url:parse $DATABASE_URL hostname)
+username=$(url:parse $DATABASE_URL auth | cut -d'_' -f 1)
+database=$(node -e "console.log(require('acm')('database.url').split('/').pop())")
+userflag=""
 
-[ -z "$DB_CMD" ] && DB_CMD="psql $(config_databasename) -f"
+if [ ! -z "$username" ]; then
+    userflag="-U $username"
+fi
+
+[ -z "$DB_CMD" ] && DB_CMD="psql -h $hostname $userflag $database -f"
