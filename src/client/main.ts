@@ -159,11 +159,11 @@ module tcp {
                 controller: IdSetterController
             });
 
-            /* $routeProvider.when('/tag/:id', { */
-            /*     template: '<tag-view class="site-content" id="{{id}}"></tag-view>', */
-            /*     controller: PropSetterController(['id']), */
-            /*     resolve: { UserCheck, PageView } */
-            /* }); */
+            if (DEBUGGING) $routeProvider.when('/tag/:id', {
+                template: '<tag-view class="site-content" id="{{id}}"></tag-view>',
+                controller: PropSetterController(['id']),
+                resolve: { UserCheck, PageView }
+            });
 
             $routeProvider.when('/company/id/:id', {
                 template: '<company class="site-content" id="{{id}}"></company>',

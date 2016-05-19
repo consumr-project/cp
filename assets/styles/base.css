@@ -141,6 +141,10 @@ hr {
         padding: var(--content-aside-vertical-padding) var(--content-aside-horizontal-padding);
     }
 
+    .site-content--aside__section + .site-content--aside__section {
+        border-top: 1px solid var(--color-std-border-color);
+    }
+
     .site-content--aside__section-standout {
         background-color: var(--color-std-hover-background-color);
     }
