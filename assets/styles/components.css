@@ -1,3 +1,7 @@
+tag-view {
+    display: block;
+}
+
 .reviews-component__sort {
     position: relative;
     top: 10px;
