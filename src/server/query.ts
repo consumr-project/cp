@@ -80,6 +80,10 @@ del('/tags/:id',
     can('delete', 'tag'),
     remove(models.Tag));
 
+get('/tags/:tag_id/common/companies',
+    can('retrieve', 'company'),
+    query(conn, sql('get-tag-common-companies')));
+
 // companies
 post('/companies',
     can('create', 'company'),

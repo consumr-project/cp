@@ -178,6 +178,13 @@ angular.module('tcp').service('Services', [
             },
         };
 
+        queryService.tags.common = {
+            companies: function (id) {
+                return $http.get(url('tags', id, 'common/companies'))
+                    .then(pluck_data).then(pluck_body);
+            },
+        };
+
         queryService.companies.events.timeline = function (id, user_id) {
             return $http.get(url('companies', id, 'events/timeline'), {
                 params: {
