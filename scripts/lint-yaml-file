@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const clone = require('lodash/clone');
+const yaml = require('yamljs');
+const fs = require('fs');
+
+var argv = clone(process.argv);
+
+argv.shift();
+argv.shift();
+argv.forEach(file => {
+    try {
+        console.log('checking %s', file);
+        yaml.parse(fs.readFileSync(file).toString());
+    } catch (err) {
+        console.log('error parsing %s', file);
+        process.exit(1);
+    }
+});

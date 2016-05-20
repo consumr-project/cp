@@ -65,6 +65,8 @@ clean:
 
 lint:
 	./scripts/lint
+	./scripts/lint-yaml-file .travis.yml \
+		$(shell find config -name "*.yml")
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		$(shell find src -name "*.js") \
