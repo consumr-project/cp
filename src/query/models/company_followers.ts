@@ -1,4 +1,5 @@
-import { CONFIG, TRACKING, merge } from '../utils';
+import { CONFIG, merge } from '../utils';
+// XXX import { CONFIG, TRACKING, merge } from '../utils';
 import { DataTypes } from 'sequelize';
 
 const Type: DataTypes = require('sequelize/lib/data-types');
@@ -7,7 +8,7 @@ export = sequelize => {
     var User = require('./user')(sequelize),
         Company = require('./company')(sequelize);
 
-    var CompanyFollower = sequelize.define('company_follower', merge(TRACKING(), {
+    var CompanyFollower = sequelize.define('company_follower', merge({
         company_id: {
             type: Type.UUID,
             allowNull: false
