@@ -64,7 +64,7 @@ clean:
 	mkdir $(build_dir)
 
 lint:
-	./scripts/lint
+	./scripts/lint-html-links
 	./scripts/lint-yaml-file .travis.yml \
 		$(shell find config -name "*.yml")
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
