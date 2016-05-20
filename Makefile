@@ -13,6 +13,7 @@ npm = npm
 typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
 ts_lint = ./node_modules/.bin/tslint
+json_lint = ./node_modules/.bin/jsonlint-cli
 imageoptim = imageoptim
 svgo = svgo
 browserify = ./node_modules/.bin/browserify
@@ -66,7 +67,13 @@ lint:
 	./scripts/lint
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
-		src scripts test
+		$(shell find src -name "*.js") \
+		$(shell find test -name "*.js") \
+		$(shell find config -name "*.js") \
+		$(shell find assets -name "*.js") \
+		$(shell find scripts -name "*.js")
+	$(json_lint) --validate \
+		$(shell find config -name "*.json")
 
 test-start-webdriver:
 	if [ ! -d bin ]; then mkdir bin; fi

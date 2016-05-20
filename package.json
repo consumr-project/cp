@@ -88,6 +88,7 @@
     "cssnext": "1.8.1",
     "faker": "3.1.0",
     "jshint": "2.8.0",
+    "jsonlint-cli": "1.0.1",
     "messageformat": "0.3.1",
     "mocha": "2.3.3",
     "ng-stats": "2.2.0",
