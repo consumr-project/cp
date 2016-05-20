@@ -7,7 +7,7 @@ export = sequelize => {
     var Event = require('./event')(sequelize),
         Company = require('./company')(sequelize);
 
-    var CompanyEvent = sequelize.define('company_event', merge({
+    var CompanyEvent = sequelize.define('company_event', merge(TRACKING(), {
         company_id: {
             type: Type.UUID,
             allowNull: false

@@ -24,7 +24,7 @@ export function service_response<T>(body: T, ok: Boolean = true, meta: ServiceRe
     return { body, meta };
 }
 
-export function service_handler<T>(from_req: (Request) => Promise<T>): ServiceRequestHandler {
+export function service_handler<T>(from_req: (req: Request) => Promise<T>): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req)
             .then(body => res.json(service_response(body)))
@@ -32,7 +32,7 @@ export function service_handler<T>(from_req: (Request) => Promise<T>): ServiceRe
     };
 }
 
-export function service_redirect<T>(from_req: (Request) => Promise<T>): ServiceRequestHandler {
+export function service_redirect(from_req: (req: Request) => Promise<string>): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req)
             .then(url => res.redirect(url))

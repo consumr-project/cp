@@ -8,7 +8,6 @@ import { app as version_endpoints } from './version';
 
 import * as auth_service from './auth';
 import * as notification_service from './notification';
-import * as query_service from './query';
 
 const express = require('express');
 const index = require('serve-index');

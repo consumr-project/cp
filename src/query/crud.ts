@@ -1,6 +1,6 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
-import { Sequelize, Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
+import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
 
 import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     Dictionary } from 'lodash';
@@ -190,7 +190,7 @@ export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): Request
                 { transaction, where })).then(() =>
                 model.destroy(build_query(prop_remap, req.params,
                     { transaction, force }))))).then(response_handler(res));
-    }
+    };
 }
 
 export function like(model: Model<any, any>, field): RequestHandler {

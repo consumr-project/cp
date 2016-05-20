@@ -1,6 +1,6 @@
 import { ServiceRequestHandler } from 'cp';
-import { WikipediaResult, WikipediaRequest, WikipediaSearchResponse,
-    WikipediaResponsePage, WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
+import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
+    WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
 
 import { BadGatewayError } from '../errors';
 import { get_or_else, get_url_parts, service_handler } from '../utilities';
@@ -10,7 +10,6 @@ import { Tag, wikitext as parse_wikitext, infobox as parse_infobox,
     urls as parse_urls } from './parser';
 
 import config = require('acm');
-import getset = require('deep-get-set');
 import striptags = require('striptags');
 import request = require('request');
 

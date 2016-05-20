@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { User } from 'cp/query';
 
-import * as debug from 'debug';
 import * as express from 'express';
 import * as passport from 'passport';
 import * as QueryService from './query';
@@ -14,7 +13,6 @@ const UserModel = QueryService.models.User;
 export var app = express();
 export { passport };
 
-var log = debug('service:auth');
 var linkedin = linkedin_auth();
 var apikey = apikey_auth();
 

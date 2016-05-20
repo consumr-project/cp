@@ -1,13 +1,13 @@
 ///<reference path="../typings/main.d.ts" />
 
-declare module "cp" {
+declare module 'cp' {
     import { Request, Response } from 'express';
 
-    type ServiceRequestHandler = (Request, Response, Function) => void;
+    type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
 
     interface ServiceResponseV1<T> {
         body: T | Array<T> | { [index: string]: T };
-        meta: ServiceResultMetadata | SearchServiceResultMetadata | any
+        meta: ServiceResultMetadata | SearchServiceResultMetadata | any;
     }
 
     interface ServiceResultMetadata {
@@ -22,15 +22,16 @@ declare module "cp" {
     }
 }
 
-declare module "cp/query" {
+declare module 'cp/query' {
     import { Sequelize } from 'sequelize';
 
+    type FindOrCreate = { where?: Object, defaults?: Model };
     export type QueryResult = any;
 
     export interface Model {
         findOne?(query: Object): Promise<Model>;
         findById?(id: string): Promise<Model>;
-        findOrCreate?({where: Object, defaults: Model}): Promise<Model>;
+        findOrCreate?(FindOrCreate): Promise<Model>;
     }
 
     export interface User extends Model {
@@ -73,14 +74,15 @@ declare module "cp/query" {
     export var conn: Sequelize;
 
     export var models: {
-        User: User,
-        Company: Company,
-    }
+        User: User;
+        Company: Company;
+    };
 }
 
-declare module "cp/search" {
+declare module 'cp/search' {
     import { Client as Elasticsearch, Results } from 'elasticsearch';
-    type Searcher = (Elasticsearch, Request) => Promise<Results>;
+
+    type Searcher = (es: Elasticsearch, q: Query) => Promise<Results>;
 
     interface Query {
         from?: number;
@@ -99,41 +101,43 @@ declare module "cp/search" {
     }
 }
 
-declare module "acm" {
+declare module 'acm' {
     function fn<T>(str: string): T | Object | string | any;
     export = fn;
 }
 
-declare module "deep-get-set" {
+declare module 'deep-get-set' {
     function deep<T>(holder: any, prop: string, val?: T): T;
     export = deep;
 }
 
-declare module "striptags" {
+declare module 'striptags' {
     function fn(html: string): string;
     export = fn;
 }
 
-declare module "request" {
+declare module 'request' {
     interface Request {
-        uri: string,
-        qs?: string | {},
+        uri: string;
+        qs?: string | {};
     }
 
     function fn(req: Request, callback: Function);
     export = fn;
 }
 
-declare module "urijs" {
+declare module 'urijs' {
     export function withinString(source: string, callback: (uri: string) => any): any[];
 }
 
-declare module "md5" {
+declare module 'md5' {
     function fn(str: string): string;
     export = fn;
 }
 
-declare module "elasticsearch" {
+declare module 'elasticsearch' {
+    type Connection = { host: string };
+
     interface Query {
         from?: number;
         index: string;
@@ -146,7 +150,7 @@ declare module "elasticsearch" {
                     like_text: string;
                 }
             }
-        }
+        };
     }
 
     export interface Hit {
@@ -175,12 +179,12 @@ declare module "elasticsearch" {
     }
 
     export class Client {
-        constructor({ host: string });
+        constructor(Connection);
         search(query: Query): Promise<Results>;
     }
 }
 
-declare module "node-uuid" {
+declare module 'node-uuid' {
     interface UUIDOptions {
         node?: any[];
         clockseq?: number;
@@ -209,7 +213,7 @@ declare module "node-uuid" {
     export = UUID;
 }
 
-declare module "passport-localapikey" {
+declare module 'passport-localapikey' {
     import { Request } from 'express';
 
     export interface Search {
@@ -222,7 +226,7 @@ declare module "passport-localapikey" {
     }
 }
 
-declare module "passport-linkedin-oauth2" {
+declare module 'passport-linkedin-oauth2' {
     import { Request } from 'express';
 
     export interface Configuration {
@@ -255,7 +259,7 @@ declare module "passport-linkedin-oauth2" {
                     }
                 }>
             }
-        }
+        };
     }
 
     export class Strategy {
@@ -265,7 +269,7 @@ declare module "passport-linkedin-oauth2" {
     }
 }
 
-declare module "rbac-interface" {
+declare module 'rbac-interface' {
     export interface Allowed {
         (err?: Error, allowed?: Boolean): void;
     }
@@ -277,7 +281,7 @@ declare module "rbac-interface" {
     }
 }
 
-declare module "rbac" {
+declare module 'rbac' {
     import { Allowed, Configuration } from 'rbac-interface';
 
     class RBAC {
@@ -288,7 +292,7 @@ declare module "rbac" {
     export = RBAC;
 }
 
-declare module "wikipedia" {
+declare module 'wikipedia' {
     export interface WikipediaResult {}
 
     export interface WikipediaRequest {
@@ -323,7 +327,7 @@ declare module "wikipedia" {
             contentformat: string;
             contentmodel: string;
             '*': string;
-        }[]
+        }[];
     }
 
     export interface WikipediaExtract extends WikipediaResult {
@@ -338,7 +342,7 @@ declare module "wikipedia" {
     }
 }
 
-declare module "embedly" {
+declare module 'embedly' {
     export interface EmbedlyRequest {
         key: string;
         url: string;
@@ -372,7 +376,7 @@ declare module "embedly" {
     }
 }
 
-declare module "trello-interface" {
+declare module 'trello-interface' {
     export type ErrorMessage = string;
     export type Ack = Object;
 
@@ -394,7 +398,7 @@ declare module "trello-interface" {
         manualCoverAttachment: boolean;
         pos: number;
         shortUrl: string;
-        stickers: any[]
+        stickers: any[];
         url: string;
 
         checkItemStates: any[];
@@ -418,7 +422,7 @@ declare module "trello-interface" {
     }
 }
 
-declare module "trello" {
+declare module 'trello' {
     import { Card, Ack, ErrorMessage } from 'trello-interface';
 
     class Trello {

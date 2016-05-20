@@ -10,7 +10,7 @@ const TRELLO_BOARD_ID = config('trello.board_id');
 
 export const trello = new Trello(TRELLO_KEY, TRELLO_TOKEN);
 
-export module card {
+export namespace card {
     export function add(name: string, desc: string) {
         return trello.addCard(name, desc, TRELLO_LIST_ID)
             .then(errw);

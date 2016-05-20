@@ -12,6 +12,7 @@ build_css = $(build_dir)/site.css
 npm = npm
 typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
+ts_lint = ./node_modules/.bin/tslint
 imageoptim = imageoptim
 svgo = svgo
 browserify = ./node_modules/.bin/browserify
@@ -63,6 +64,7 @@ clean:
 
 lint:
 	./scripts/lint
+	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		src scripts test
 

@@ -14,7 +14,6 @@ type QueryResults = Array<any>;
 type Model = BaseModel<any, any>;
 
 function track_metrics(action: Promise<QueryResults>, one_row: Boolean = false): Promise<ServiceResponseV1<Model[]>> {
-    var start = Date.now();
     var meta = { ok: true };
 
     return action.then(res => {

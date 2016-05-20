@@ -15,9 +15,9 @@ declare var TCP_BUILD_CONFIG: {
     environment: { name: string; };
     rollbar: { token: string; };
     locate: { dateFormat: string; };
-}
+};
 
-module tcp {
+namespace tcp {
     const DEBUGGING: Boolean = (<any>window).DEBUGGING;
     const ERRORED: Boolean = (<any>window).ERRORED;
 
@@ -159,11 +159,13 @@ module tcp {
                 controller: IdSetterController
             });
 
-            if (DEBUGGING) $routeProvider.when('/tag/:id', {
-                template: '<tag-view class="site-content" id="{{id}}"></tag-view>',
-                controller: PropSetterController(['id']),
-                resolve: { UserCheck, PageView }
-            });
+            if (DEBUGGING) {
+                $routeProvider.when('/tag/:id', {
+                    template: '<tag-view class="site-content" id="{{id}}"></tag-view>',
+                    controller: PropSetterController(['id']),
+                    resolve: { UserCheck, PageView }
+                });
+            }
 
             $routeProvider.when('/company/id/:id', {
                 template: '<company class="site-content" id="{{id}}"></company>',

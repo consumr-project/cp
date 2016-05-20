@@ -74,6 +74,7 @@
     "striptags": "2.0.4",
     "swig": "1.4.2",
     "trello": "0.5.1",
+    "tslint": "3.10.2",
     "universal-analytics": "0.3.10",
     "urijs": "1.17.0"
   },

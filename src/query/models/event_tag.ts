@@ -7,7 +7,7 @@ export = sequelize => {
     var Event = require('./event')(sequelize),
         Tag = require('./tag')(sequelize);
 
-    var EventTag = sequelize.define('event_tag', merge({
+    var EventTag = sequelize.define('event_tag', merge(TRACKING(), {
         event_id: {
             type: Type.UUID,
             allowNull: false

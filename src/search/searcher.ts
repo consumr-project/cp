@@ -3,8 +3,6 @@ import { ServiceRequestHandler, SearchServiceResultMetadata,
 
 import { Searcher, Query, Result } from 'cp/search';
 import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
-import { Request, Response } from 'express';
-
 import { map } from 'lodash';
 import config = require('acm');
 

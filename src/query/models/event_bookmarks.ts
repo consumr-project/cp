@@ -7,7 +7,7 @@ export = sequelize => {
     var User = require('./user')(sequelize),
         Event = require('./event')(sequelize);
 
-    var EventBookmark = sequelize.define('event_bookmarks', merge({
+    var EventBookmark = sequelize.define('event_bookmarks', merge(TRACKING(), {
         event_id: {
             type: Type.UUID,
             allowNull: false

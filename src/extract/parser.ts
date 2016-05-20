@@ -1,4 +1,4 @@
-import { reduce, head, startsWith as starts_with } from 'lodash'
+import { reduce, head, startsWith as starts_with } from 'lodash';
 import * as uri from 'urijs';
 
 const DEBUG = 0;
@@ -22,8 +22,8 @@ interface Dictionary<T> {
 }
 
 interface Article {
-    markup?: string,
-    parts: { [index: string]: string[][] }
+    markup?: string;
+    parts: { [index: string]: string[][] };
 }
 
 function guess_type(line: string): string {

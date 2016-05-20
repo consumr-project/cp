@@ -1,4 +1,4 @@
-import {map, each, remove} from 'lodash';
+import { map } from 'lodash';
 import deep = require('deep-get-set');
 
 const M_SPACES: RegExp = / /g;
@@ -27,7 +27,7 @@ export function assert(val: any, message?: String | Function): Boolean {
     return true;
 }
 
-export module scope {
+export namespace scope {
     export function set<T>($scope: any, prop: string, forced_value?: T): (val: T) => T {
         return function (val: T): T {
             deep<T>($scope, prop, forced_value !== undefined ? forced_value : val);

@@ -1,6 +1,5 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
-import { Model } from 'sequelize';
 
 import * as express from 'express';
 import * as crud from '../query/crud';
