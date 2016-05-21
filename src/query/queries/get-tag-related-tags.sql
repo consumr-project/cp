@@ -2,12 +2,16 @@ select t.id,
     count(t.id) as amount,
     t."en-US" as label
 
-from tags t
+from event_tags et
+left join tags t on (t.id = et.tag_id)
 
--- where t.id = :tag_id
-where t.id = '322074d2-fab9-4021-935a-955e3882c731'
+where et.tag_id != :tag_id
+and et.event_id in (
+    select et.event_id
+    from event_tags et
+    where et.tag_id = :tag_id
+)
 
 group by t.id
 order by amount desc
-
 limit 50;

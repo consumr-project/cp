@@ -183,6 +183,11 @@ angular.module('tcp').service('Services', [
                 return $http.get(url('tags', id, 'common/companies'))
                     .then(pluck_data).then(pluck_body);
             },
+
+            tags: function (id) {
+                return $http.get(url('tags', id, 'common/tags'))
+                    .then(pluck_data).then(pluck_body);
+            },
         };
 
         queryService.companies.events.timeline = function (id, user_id) {

@@ -83,6 +83,10 @@ get('/tags/:tag_id/common/companies',
     can('retrieve', 'company'),
     query(conn, sql('get-tag-common-companies')));
 
+get('/tags/:tag_id/common/tags',
+    can('retrieve', 'tag'),
+    query(conn, sql('get-tag-related-tags')));
+
 // companies
 post('/companies',
     can('create', 'company'),
