@@ -5,6 +5,7 @@ angular.module('tcp').service('Navigation', [
 
         var BASES = {
             COMPANY: '/company',
+            TAG: '/tag',
             HOME: '/',
             SEARCH: '/search',
             USER: '/user',
@@ -41,6 +42,7 @@ angular.module('tcp').service('Navigation', [
              * reroute functions:
              * @param {String} [id]
              */
+            tag: withoid(BASES.TAG),
             company: withoid(BASES.COMPANY),
             company_by_id: withoid(BASES.COMPANY + BASES.BY_ID),
             home: withoid(BASES.HOME),

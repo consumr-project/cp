@@ -12,6 +12,8 @@ angular.module('tcp').directive('company', [
         'use strict';
 
         function controller($scope) {
+            $scope.nav = Navigation;
+
             $scope.company = {
                 $followed_by: [],
                 $loaded: false,
@@ -382,6 +384,7 @@ angular.module('tcp').directive('company', [
                 '        <div class="margin-top-large half-width" ng-if="vm.events_filter.length">',
                 '            <h4 i18n="common/only_showing"></h4>',
                 '            <tag ng-repeat="filter in vm.events_filter"',
+                '                ng-click="nav.tag(filter.id)"',
                 '                class="tag--bigword" label="{{get_label(filter)}}"></tag>',
                 '        </div>',
 
