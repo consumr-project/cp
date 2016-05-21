@@ -1,0 +1,5 @@
+#!/bin/bash
+
+open https://travis-ci.org/consumr-project/cp
+open https://trello.com/b/EUDlDd1k/consumr-project
+open http://localhost:3000/
