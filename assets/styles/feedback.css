@@ -108,3 +108,13 @@
     display: block;
     margin: var(--spacing-small);
 }
+
+@media (--media-regular-screens) {
+    .feedback__container--status--success.feedback__container--adding--suggestion .feedback__response--suggestion {
+        background-image: url(/assets/images/zack-morris.jpg);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 115px;
+        padding-left: 140px;
+    }
+}
