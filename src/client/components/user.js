@@ -6,8 +6,11 @@ angular.module('tcp').directive('user', [
         'use strict';
 
         function controller($scope) {
-            $scope.vm = {};
             $scope.user = {};
+
+            $scope.vm = {
+                followed_by_me: null,
+            };
 
             /**
              * @param {String} id
@@ -19,6 +22,7 @@ angular.module('tcp').directive('user', [
                     $scope.user.$summary = utils.summaryze(user.summary || '');
                     $scope.user.$followers_count = 0;
                     $scope.user.$following_count = 0;
+                    $scope.vm.followed_by_me = false;
                 });
             }
 
@@ -31,10 +35,23 @@ angular.module('tcp').directive('user', [
             }
 
             /**
-             * @return {void}
+             * @param {String} user_id
+             * @return {Promise}
              */
-            $scope.on_start_following = function () {
-                $scope.user.$followers_count++;
+            $scope.on_start_following = function (user_id) {
+                utils.assert(user_id);
+                utils.assert(Session.USER, 'must be logged in');
+                utils.assert(Session.USER.id, 'must be logged in');
+            };
+
+            /**
+             * @param {String} user_id
+             * @return {Promise}
+             */
+            $scope.on_stop_following = function (user_id) {
+                utils.assert(user_id);
+                utils.assert(Session.USER, 'must be logged in');
+                utils.assert(Session.USER.id, 'must be logged in');
             };
 
             /**
@@ -70,10 +87,16 @@ angular.module('tcp').directive('user', [
                 '        <p class="uppercase" i18n="user/member_number"',
                 '            data="{num: user.member_number}"></p>',
 
-                '        <div ng-invisible="vm.myself || !vm.loggedin"',
+                '        <div ng-invisible="xxx.vm.myself || !vm.loggedin"',
                 '            class="block margin-top-xlarge margin-bottom-xlarge">',
-                // '            <button ng-click="on_start_following()"',
-                // '                i18n="admin/follow"></button>',
+                '            <button class="button--unselected"',
+                '                ng-click="on_start_following(user.id)"',
+                '                ng-if="vm.followed_by_me === false"',
+                '                i18n="admin/follow"></button>',
+                '            <button',
+                '                ng-click="on_stop_following(user.id)"',
+                '                ng-if="vm.followed_by_me === true"',
+                '                i18n="admin/unfollow"></button>',
                 '        </div>',
 
                 '        <table class="table--content center-align">',
