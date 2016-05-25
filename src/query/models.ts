@@ -22,6 +22,7 @@ export default (conn) => {
         Tag: model('tag', conn),
         TagFollower: model('tag_follower', conn),
         User: model('user', conn),
+        UserFollower: model('user_follower', conn),
         UserReport: model('user_report', conn),
     };
 };

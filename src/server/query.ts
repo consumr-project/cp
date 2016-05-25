@@ -40,6 +40,16 @@ del('/users/:id',
     can('delete', 'user'),
     remove(models.User));
 
+patch('/users/:user_id/followers',
+    can('update', 'user'),
+    upsert(models.UserFollower, ['user_id']));
+get('/users/:user_id/followers/:id?',
+    can('retrieve', 'user'),
+    retrieve(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
+del('/users/:user_id/followers/:id',
+    can('update', 'user'),
+    remove(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
+
 // products
 get('/products',
     can('retrieve', 'product'),
