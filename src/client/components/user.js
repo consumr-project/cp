@@ -87,7 +87,7 @@ angular.module('tcp').directive('user', [
                 '        <p class="uppercase" i18n="user/member_number"',
                 '            data="{num: user.member_number}"></p>',
 
-                '        <div ng-invisible="xxx.vm.myself || !vm.loggedin"',
+                '        <div ng-invisible="vm.myself || !vm.loggedin"',
                 '            class="block margin-top-xlarge margin-bottom-xlarge">',
                 '            <button class="button--unselected"',
                 '                ng-click="on_start_following(user.id)"',
