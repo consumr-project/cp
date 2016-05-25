@@ -74,7 +74,13 @@ get('/tags/like',
     query(conn, sql('get-like-tags')));
 get('/tags/:id',
     can('retrieve', 'tag'),
-    retrieve(models.Tag));
+    parts(models.Tag, {
+        followers: [models.TagFollower, {tag_id: 'id'}, {
+            instead: {
+                includes_me: true
+            }
+        }],
+    }));
 del('/tags/:id',
     can('delete', 'tag'),
     remove(models.Tag));
@@ -91,6 +97,17 @@ get('/tags/:tag_id/events/timeline',
     can('retrieve', 'tag'),
     can('retrieve', 'event'),
     query(conn, sql('get-tag-events')));
+
+patch('/tags/:tag_id/followers',
+    can('create', 'tag'),
+    can('update', 'tag'),
+    upsert(models.TagFollower, ['tag_id']));
+get('/tags/:tag_id/followers/:id?',
+    can('retrieve', 'tag'),
+    retrieve(models.TagFollower, {tag_id: 'tag_id', user_id: 'id'}));
+del('/tags/:tag_id/followers/:id',
+    can('update', 'tag'),
+    remove(models.TagFollower, {tag_id: 'tag_id', user_id: 'id'}));
 
 // companies
 post('/companies',

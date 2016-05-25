@@ -20,6 +20,7 @@ export default (conn) => {
         Review: model('review', conn),
         ReviewUsefulness: model('review_usefulness', conn),
         Tag: model('tag', conn),
+        TagFollower: model('tag_follower', conn),
         User: model('user', conn),
         UserReport: model('user_report', conn),
     };
