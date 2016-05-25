@@ -100,6 +100,10 @@ angular.module('tcp').directive('feedback', [
             $scope.STAT = STAT;
 
             $scope.start = function () {
+                if ($scope.vm.expand) {
+                    return;
+                }
+
                 utils.assert(Session.USER && Session.USER.id, 'login required for action');
                 $scope.vm = clean_state();
                 $scope.vm.expand = true;
