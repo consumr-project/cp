@@ -44,6 +44,22 @@ followers as (
     where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
 
     group by u.id
+),
+
+favorites as (
+    select
+        count(distinct eb.user_id)::"numeric" as favorites_events,
+        count(distinct qv.user_id)::"numeric" as favorites_questions
+
+    from users u
+
+    left join event_bookmarks eb on (u.id = eb.user_id and eb.deleted_date is null)
+    left join question_votes qv on (u.id = qv.user_id and qv.deleted_date is null)
+
+    -- where u.id = :user_id
+    where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+
+    group by u.id
 )
 
 select
@@ -57,11 +73,16 @@ select
     fg.following_tags,
 
     fr.followers_users as followers,
-    fr.followers_users
+    fr.followers_users,
+
+    fv.favorites_events + fv.favorites_questions as favorites,
+    fv.favorites_questions,
+    fv.favorites_events
 
 from
     contributions cn,
     following fg,
-    followers fr
+    followers fr,
+    favorites fv
 
 ;
