@@ -59,7 +59,12 @@
     text-align: center;
 }
 
+.feedback__response,
 .feedback__message,
+.feedback__response--question,
+.feedback__response--suggestion,
+.feedback__response--problem,
+.feedback__response--failure,
 .feedback__opt--success,
 .feedback__opt--failure,
 .feedback__container--adding .feedback__opt {
@@ -69,19 +74,34 @@
 :not(.feedback__container--status).feedback__container--adding--question .feedback__opt--question,
 :not(.feedback__container--status).feedback__container--adding--suggestion .feedback__opt--suggestion,
 :not(.feedback__container--status).feedback__container--adding--problem .feedback__opt--problem,
+:not(.feedback__container--status).feedback__container--adding .feedback__message,
+.feedback__container--status--success.feedback__container--adding--question .feedback__response--question,
+.feedback__container--status--success.feedback__container--adding--suggestion .feedback__response--suggestion,
+.feedback__container--status--success.feedback__container--adding--problem .feedback__response--problem,
+.feedback__container--status--failure .feedback__response--failure,
 .feedback__container--status--success .feedback__opt--success,
 .feedback__container--status--failure .feedback__opt--failure,
-.feedback__container--adding .feedback__message {
+.feedback__container--status .feedback__response {
     display: block;
+}
+
+.feedback__response {
+    box-sizing: border-box;
+    padding: 0 var(--spacing-large);
+    white-space: normal;
+}
+
+.feedback__response,
+.feedback__message textarea {
+    max-width: calc(100vw - var(--spacing-medium) * 2);
+    width: 500px;
 }
 
 .feedback__message textarea {
     border-top: 1px solid var(--color-std-thin-border-color);
     height: 135px;
-    max-width: calc(100vw - var(--spacing-medium) * 2);
     padding: var(--spacing-small);
     resize: none;
-    width: 500px;
 }
 
 .feedback__message button {
