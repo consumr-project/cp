@@ -21,3 +21,8 @@ see_notifications: Notifications
 add_company: Create company
 
 search_placeholder: search
+
+# statuses
+thanks: "thanks!"
+oops: "oops!"
+try_later: "uh oh, something happened, def not us (but seriously try again later.)"

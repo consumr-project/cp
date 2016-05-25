@@ -6,6 +6,11 @@ angular.module('tcp').directive('feedback', [
     function (utils, DOMAIN, Services, Session) {
         'use strict';
 
+        var STAT = {
+            SUCCESS: 1,
+            FAILURE: 2,
+        };
+
         var template = [
             '<div class="feedback">',
             '    <div class="feedback__action" ng-click="start()">',
@@ -26,6 +31,9 @@ angular.module('tcp').directive('feedback', [
             '            \'feedback__container--adding--question\': vm.type === type.question,',
             '            \'feedback__container--adding--suggestion\': vm.type === type.suggestion,',
             '            \'feedback__container--adding--problem\': vm.type === type.problem,',
+            '            \'feedback__container--status\': vm.status,',
+            '            \'feedback__container--status--success\': vm.status === STAT.SUCCESS,',
+            '            \'feedback__container--status--failure\': vm.status === STAT.FAILURE,',
             '        }">',
             '            <div ng-click="vm.type = type.question"',
             '                class="feedback__opt feedback__opt--question"',
@@ -38,6 +46,13 @@ angular.module('tcp').directive('feedback', [
             '            <div ng-click="vm.type = type.problem"',
             '                class="feedback__opt feedback__opt--problem"',
             '                i18n="feedback/problem"></div>',
+
+            '            <div class="feedback__opt feedback__opt--failure"',
+            '                i18n="admin/oops"></div>',
+
+            '            <div class="feedback__opt feedback__opt--success"',
+            '                i18n="admin/thanks"></div>',
+
             '            <div class="feedback__message">',
             '                <textarea i18n="feedback/whats_up" prop="placeholder"',
             '                    class="textarea--inlined"',
@@ -58,6 +73,7 @@ angular.module('tcp').directive('feedback', [
             return {
                 loading: false,
                 expand: false,
+                status: null,
                 type: null,
                 message: '',
             };
@@ -70,6 +86,7 @@ angular.module('tcp').directive('feedback', [
             $scope.type = DOMAIN.model.feedback_props.type;
 
             $scope.vm = clean_state();
+            $scope.STAT = STAT;
 
             $scope.start = function () {
                 utils.assert(Session.USER && Session.USER.id, 'login required for action');
@@ -94,9 +111,9 @@ angular.module('tcp').directive('feedback', [
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id,
                 }).then(function () {
-                    $scope.vm.expand = false;
+                    $scope.vm.status = STAT.SUCCESS;
                 }).catch(function () {
-                    $scope.vm.expand = false;
+                    $scope.vm.status = STAT.FAILURE;
                 });
             };
         }

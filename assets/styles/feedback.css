@@ -1,6 +1,6 @@
 .feedback {
-    bottom: 20px;
-    left: 20px;
+    bottom: var(--spacing-medium);
+    left: var(--spacing-medium);
     position: fixed;
 }
 
@@ -45,14 +45,32 @@
     background-image: url(/assets/images/alert.svg);
 }
 
+.feedback__opt--success {
+    background-color: var(--color-success);
+}
+
+.feedback__opt--failure {
+    background-color: var(--color-failure);
+}
+
+.feedback__opt--success,
+.feedback__opt--failure {
+    padding-left: var(--spacing-medium);
+    text-align: center;
+}
+
 .feedback__message,
+.feedback__opt--success,
+.feedback__opt--failure,
 .feedback__container--adding .feedback__opt {
     display: none;
 }
 
-.feedback__container--adding--question .feedback__opt--question,
-.feedback__container--adding--suggestion .feedback__opt--suggestion,
-.feedback__container--adding--problem .feedback__opt--problem,
+:not(.feedback__container--status).feedback__container--adding--question .feedback__opt--question,
+:not(.feedback__container--status).feedback__container--adding--suggestion .feedback__opt--suggestion,
+:not(.feedback__container--status).feedback__container--adding--problem .feedback__opt--problem,
+.feedback__container--status--success .feedback__opt--success,
+.feedback__container--status--failure .feedback__opt--failure,
 .feedback__container--adding .feedback__message {
     display: block;
 }
@@ -60,10 +78,10 @@
 .feedback__message textarea {
     border-top: 1px solid var(--color-std-thin-border-color);
     height: 135px;
-    max-width: 80vw;
-    padding: 15px;
+    max-width: calc(100vw - var(--spacing-medium) * 2);
+    padding: var(--spacing-small);
     resize: none;
-    width: 400px;
+    width: 500px;
 }
 
 .feedback__message button {
