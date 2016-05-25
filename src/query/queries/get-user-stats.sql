@@ -47,9 +47,9 @@ followers as (
 )
 
 select
-    c.contributions_companies + c.contributions_events as contributions,
-    c.contributions_companies,
-    c.contributions_events,
+    cn.contributions_companies + cn.contributions_events as contributions,
+    cn.contributions_companies,
+    cn.contributions_events,
 
     fg.following_companies + fg.following_tags + fg.following_users as following,
     fg.following_companies,
@@ -60,7 +60,7 @@ select
     fr.followers_users
 
 from
-    contributions c,
+    contributions cn,
     following fg,
     followers fr
 
