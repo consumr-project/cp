@@ -16,7 +16,7 @@ angular.module('tcp').component('tagView', {
         '    <table class="full-span">',
         '        <tr>',
         '            <td>',
-        '                <h1 class="take-space inline-block">{{$ctrl.tag.name}}</h1>',
+        '                <h1 class="take-space inline-block animated fadeIn">{{$ctrl.tag.name}}</h1>',
         '            </td>',
         '            <td class="right-align">',
         '                <button class="logged-in-only button--unselected"',
