@@ -132,7 +132,7 @@ angular.module('tcp').service('Services', [
             UUID: '$UUID',
             companies: crud('companies', ['followers', 'events', 'products', 'reviews']),
             events: crud('events', ['sources', 'tags', 'companies', 'bookmarks']),
-            tags: crud('tags'),
+            tags: crud('tags', ['followers']),
             products: crud('products'),
             users: crud('users'),
             feedback: crud('feedback'),

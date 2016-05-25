@@ -26,7 +26,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.vm = {
-                followed_by_me: false,
+                followed_by_me: null,
                 step: [true],
                 pre_search_name: '',
                 search_name: '',
@@ -266,7 +266,7 @@ angular.module('tcp').directive('company', [
                     .then(function (company) {
                         Services.query.companies.retrieve(company.id, ['products', 'followers'], ['products'])
                             .then(function (company) {
-                                $scope.vm.followed_by_me = company.followers["@meta"].instead.includes_me;
+                                $scope.vm.followed_by_me = company.followers['@meta'].instead.includes_me;
                                 $scope.company_products = company.products;
                                 return company;
                             });
@@ -365,10 +365,10 @@ angular.module('tcp').directive('company', [
                 '                <td class="no-wrap no-span padding-left-small padding-right-small">',
                 '                    <button class="logged-in-only button--unselected"',
                 '                        ng-click="on_start_following(company.id)"',
-                '                        ng-if="!vm.followed_by_me" i18n="admin/follow"></button>',
+                '                        ng-if="vm.followed_by_me === false" i18n="admin/follow"></button>',
                 '                    <button class="logged-in-only"',
                 '                        ng-click="on_stop_following(company.id)"',
-                '                        ng-if="vm.followed_by_me" i18n="admin/unfollow"></button>',
+                '                        ng-if="vm.followed_by_me === true" i18n="admin/unfollow"></button>',
                 '                </td>',
                 '                <td ng-click="toggle_show_reviews()" class="right-align no-span">',
                 '                    <chart type="heartcount" value="{{::reviews_score.iaverage}}"></chart>',

@@ -5,6 +5,7 @@ angular.module('tcp').component('tagView', {
         event_form: '=?',
         event_popover: '=?',
         events_timeline: '=?',
+        followed_by_me: '=?',
         id: '@',
         related_tags: '=?',
         related_tags_limit: '=?',
@@ -18,10 +19,12 @@ angular.module('tcp').component('tagView', {
         '                <h1 class="take-space inline-block">{{$ctrl.tag.name}}</h1>',
         '            </td>',
         '            <td class="right-align">',
-                                        /* XXX */
-        '                <button class="hidden xx-logged-in-only button--unselected"',
-        '                    ng-click="toggle_follow($ctrl.tag.id)"',
-        '                    i18n="admin/follow"></button>',
+        '                <button class="logged-in-only button--unselected"',
+        '                    ng-click="$ctrl.on_start_following($ctrl.tag.id)"',
+        '                    ng-if="$ctrl.followed_by_me === false" i18n="admin/follow"></button>',
+        '                <button class="logged-in-only"',
+        '                    ng-click="$ctrl.on_stop_following($ctrl.tag.id)"',
+        '                    ng-if="$ctrl.followed_by_me === true" i18n="admin/unfollow"></button>',
         '            </td>',
         '        </tr>',
         '    </table>',
@@ -67,11 +70,12 @@ angular.module('tcp').component('tagView', {
         '    </div>',
         '</section>',
     ].join(''),
-    controller: ['RUNTIME', 'Navigation', 'Services', function (RUNTIME, Navigation, Services) {
+    controller: ['RUNTIME', 'Navigation', 'Services', 'Session', 'utils', function (RUNTIME, Navigation, Services, Session, utils) {
         'use strict';
 
         this.common_companies_limit = 5;
         this.related_tags_limit = 5;
+        this.followed_by_me = null;
 
         this.nav = Navigation;
         this.event_form = {};
@@ -91,9 +95,10 @@ angular.module('tcp').component('tagView', {
                 this.related_tags = tags;
             }.bind(this));
 
-            Services.query.tags.retrieve(id).then(function (tag) {
+            Services.query.tags.retrieve(id, ['followers']).then(function (tag) {
                 this.tag = tag;
                 this.tag.name = tag[RUNTIME.locale];
+                this.followed_by_me = tag.followers['@meta'].instead.includes_me;
             }.bind(this));
         };
 
@@ -103,6 +108,25 @@ angular.module('tcp').component('tagView', {
 
         this.show_more_common_companies = function () {
             this.common_companies_limit += 5;
+        };
+
+        this.on_stop_following = function (tag_id) {
+            utils.assert(tag_id);
+            utils.assert(Session.USER, 'must be logged in');
+            utils.assert(Session.USER.id, 'must be logged in');
+
+            return Services.query.tags.followers.delete(tag_id, Session.USER.id)
+                .then(utils.scope.set(this, 'followed_by_me', false));
+        };
+
+        this.on_start_following = function (tag_id) {
+            utils.assert(tag_id);
+            utils.assert(Session.USER, 'must be logged in');
+            utils.assert(Session.USER.id, 'must be logged in');
+
+            return Services.query.tags.followers.upsert(tag_id, {
+                user_id: Session.USER.id
+            }).then(utils.scope.set(this, 'followed_by_me', true));
         };
 
         this.init = function () {
