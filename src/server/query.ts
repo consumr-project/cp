@@ -35,20 +35,26 @@ post('/users',
     create(models.User));
 get('/users/:id',
     can('retrieve', 'user'),
-    retrieve(models.User));
+    parts(models.User, {
+        followers: [models.UserFollower, {f_user_id: 'id'}, {
+            instead: {
+                includes_me: true
+            }
+        }],
+    }));
 del('/users/:id',
     can('delete', 'user'),
     remove(models.User));
 
-patch('/users/:user_id/followers',
+patch('/users/:f_user_id/followers',
     can('follow', 'user'),
-    upsert(models.UserFollower, ['user_id']));
-get('/users/:user_id/followers/:id?',
+    upsert(models.UserFollower, ['f_user_id']));
+get('/users/:f_user_id/followers/:id?',
     can('follow', 'user'),
-    retrieve(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
-del('/users/:user_id/followers/:id',
+    retrieve(models.UserFollower, {f_user_id: 'f_user_id', user_id: 'id'}));
+del('/users/:f_user_id/followers/:id',
     can('follow', 'user'),
-    remove(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
+    remove(models.UserFollower, {f_user_id: 'f_user_id', user_id: 'id'}));
 
 // products
 get('/products',

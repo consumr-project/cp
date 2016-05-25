@@ -8,17 +8,18 @@ export = sequelize => {
     var User = require('./user')(sequelize);
 
     var UserFollower = sequelize.define('user_follower', merge({
-        user_id: {
+        f_user_id: {
             type: Type.UUID,
             allowNull: false
         },
 
-        f_user_id: {
+        user_id: {
             type: Type.UUID,
             allowNull: false
         }
     }), CONFIG);
 
+    User.belongsToMany(User, { through: UserFollower, as: 'user_id' });
     User.belongsToMany(User, { through: UserFollower, as: 'f_user_id' });
 
     return UserFollower;
