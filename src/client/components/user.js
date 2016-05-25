@@ -17,12 +17,12 @@ angular.module('tcp').directive('user', [
              * @return {Promise}
              */
             function load(id) {
-                return Services.query.users.retrieve(id).then(function (user) {
+                return Services.query.users.retrieve(id, ['followers']).then(function (user) {
                     $scope.user = user;
                     $scope.user.$summary = utils.summaryze(user.summary || '');
                     $scope.user.$followers_count = 0;
                     $scope.user.$following_count = 0;
-                    $scope.vm.followed_by_me = false;
+                    $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
                 });
             }
 
@@ -42,6 +42,10 @@ angular.module('tcp').directive('user', [
                 utils.assert(user_id);
                 utils.assert(Session.USER, 'must be logged in');
                 utils.assert(Session.USER.id, 'must be logged in');
+
+                return Services.query.users.followers.upsert(user_id, {
+                    user_id: Session.USER.id
+                }).then(utils.scope.set($scope, 'vm.followed_by_me', true));
             };
 
             /**
@@ -52,6 +56,9 @@ angular.module('tcp').directive('user', [
                 utils.assert(user_id);
                 utils.assert(Session.USER, 'must be logged in');
                 utils.assert(Session.USER.id, 'must be logged in');
+
+                return Services.query.users.followers.delete(user_id, Session.USER.id)
+                    .then(utils.scope.set($scope, 'vm.followed_by_me', false));
             };
 
             /**

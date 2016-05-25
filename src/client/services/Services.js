@@ -134,7 +134,7 @@ angular.module('tcp').service('Services', [
             events: crud('events', ['sources', 'tags', 'companies', 'bookmarks']),
             tags: crud('tags', ['followers']),
             products: crud('products'),
-            users: crud('users'),
+            users: crud('users', ['followers']),
             feedback: crud('feedback'),
             reviews: crud('reviews', ['useful']),
         };
