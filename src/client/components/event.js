@@ -263,6 +263,16 @@ angular.module('tcp').directive('event', [
          * @param {Object} tied_to
          * @return {Promise}
          */
+        function fecth_tags_tied_to(ev, tied_to) {
+            ev.$tags = tied_to && tied_to.tags ?
+                lodash.map(lodash.filter(tied_to.tags), normalize_tag) : [];
+        }
+
+        /**
+         * @param {Event} ev
+         * @param {Object} tied_to
+         * @return {Promise}
+         */
         function fecth_companies_tied_to(ev, tied_to) {
             ev.$companies = tied_to && tied_to.companies ?
                 lodash.map(tied_to.companies, normalize_company) : [];
@@ -373,10 +383,12 @@ angular.module('tcp').directive('event', [
                 $scope.ev.$tags = [];
 
                 fecth_companies_tied_to($scope.ev, $scope.tiedTo);
+                fecth_tags_tied_to($scope.ev, $scope.tiedTo);
             };
 
             $scope.$watch('ev.$sources', fetch_sources.bind(null, $scope.ev), true);
             $scope.$watch('tiedTo', fecth_companies_tied_to.bind(null, $scope.ev));
+            $scope.$watch('tiedTo', fecth_tags_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
                 var method = $scope.ev.id ? 'upsert' : 'create';

@@ -2,6 +2,8 @@ angular.module('tcp').component('tagView', {
     bindings: {
         common_companies: '=?',
         common_companies_limit: '=?',
+        event_form: '=?',
+        event_popover: '=?',
         events_timeline: '=?',
         id: '@',
         related_tags: '=?',
@@ -26,13 +28,22 @@ angular.module('tcp').component('tagView', {
         '    <hr>',
 
         '    <div class="margin-top-xlarge margin-bottom-medium center-align">',
-                                /* XXX */
-        '        <button class="hidden xx-logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
+        '        <button class="logged-in-only" ng-click="$ctrl.event_popover.show()"',
+        '            i18n="event/add"></button>',
         '    </div>',
         '    <events class="component__events"',
-        '        api="events_timeline"',
+        '        api="$ctrl.events_timeline"',
         '        parent="tags"',
         '        id="{{$ctrl.id}}"></events>',
+
+        '        <popover with-close-x with-backdrop api="$ctrl.event_popover" class="popover--with-content">',
+        '            <event',
+        '                api="$ctrl.event_form"',
+        '                on-save="$ctrl.events_timeline.refresh(); $ctrl.event_popover.hide(); $ctrl.event_form.reset()"',
+        '                on-cancel="$ctrl.event_form.reset(); $ctrl.event_popover.hide()"',
+        '                tied-to="{tags: [$ctrl.tag]}"',
+        '            ></event>',
+        '        </popover>',
         '</section>',
 
         '<section class="site-content--aside">',
@@ -63,6 +74,8 @@ angular.module('tcp').component('tagView', {
         this.related_tags_limit = 5;
 
         this.nav = Navigation;
+        this.event_form = {};
+        this.event_popover = {};
         this.events_timeline = {};
 
         /**
