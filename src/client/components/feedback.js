@@ -26,7 +26,8 @@ angular.module('tcp').directive('feedback', [
             '        anchored-arrow="true"',
             '        anchored-auto-hide="true"',
             '    >',
-            '        <section ng-class="{',
+            '        <section class="can-load" ng-class="{',
+            '            \'loading\': vm.loading,',
             '            \'feedback__container--adding\': vm.type,',
             '            \'feedback__container--adding--question\': vm.type === type.question,',
             '            \'feedback__container--adding--suggestion\': vm.type === type.suggestion,',
@@ -126,8 +127,10 @@ angular.module('tcp').directive('feedback', [
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id,
                 }).then(function () {
+                    $scope.vm.loading = false;
                     $scope.vm.status = STAT.SUCCESS;
                 }).catch(function () {
+                    $scope.vm.loading = false;
                     $scope.vm.status = STAT.FAILURE;
                 });
             };
