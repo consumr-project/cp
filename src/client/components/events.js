@@ -109,7 +109,7 @@ angular.module('tcp').directive('events', [
                 '                \'imgview--bookmarked\': event.bookmarked_by_me,',
                 '            }"',
                 '            ng-click="toggle_favorite($event, event)"',
-                '            class="right margin-left-xsmall font-size-small imgview imgview--with-content">{{event.bookmark_count | number}}</span>',
+                '            class="right no-outline margin-left-xsmall font-size-small imgview imgview--with-content">{{event.bookmark_count | number}}</span>',
                 '        <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::event.source_count | number}}</span>',
                 '        <span ng-show="::event.needs_sources" class="right margin-right-small imgview imgview--warning"></span>',
                 '    </div>',
@@ -118,7 +118,7 @@ angular.module('tcp').directive('events', [
             ].join('');
         }
 
-        function controller($scope) {
+        function controller($scope, $attrs) {
             $scope.vm = {
                 first_load: 2,
                 selected_event_to_edit: null,
@@ -140,7 +140,7 @@ angular.module('tcp').directive('events', [
                     $scope.vm.first_load--;
                 }
 
-                return Services.query.companies.events.timeline($scope.id, Session.USER.id)
+                return Services.query[ $attrs.parent ].events.timeline($scope.id, Session.USER.id)
                     .then(lodash.curryRight(lodash.map, 2)(visible_event))
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))
@@ -264,7 +264,7 @@ angular.module('tcp').directive('events', [
 
         return {
             replace: true,
-            controller: ['$scope', controller],
+            controller: ['$scope', '$attrs', controller],
             scope: {
                 filters: '=',
                 api: '=',
@@ -306,7 +306,7 @@ angular.module('tcp').directive('events', [
                 '                        \'imgview--bookmarked\': event.bookmarked_by_me,',
                 '                    }"',
                 '                    ng-click="toggle_favorite($event, event)"',
-                '                    class="right font-size-small imgview margin-right-small">&nbsp;</span>',
+                '                    class="right no-outline font-size-small imgview margin-right-small">&nbsp;</span>',
                 '            </div>',
                 '            <event',
                 '                type="view"',

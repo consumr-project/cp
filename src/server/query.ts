@@ -87,6 +87,11 @@ get('/tags/:tag_id/common/tags',
     can('retrieve', 'tag'),
     query(conn, sql('get-tag-related-tags')));
 
+get('/tags/:tag_id/events/timeline',
+    can('retrieve', 'tag'),
+    can('retrieve', 'event'),
+    query(conn, sql('get-tag-events')));
+
 // companies
 post('/companies',
     can('create', 'company'),
@@ -271,7 +276,7 @@ get('/events/:event_id/bookmarks/:id?',
     can('retrieve', 'event'),
     retrieve(models.EventBookmark, {event_id: 'event_id', user_id: 'id'}));
 del('/events/:event_id/bookmarks/:id',
-    can('delete', 'event'),
+    can('update', 'event'),
     remove(models.EventBookmark, {event_id: 'event_id', user_id: 'id'}));
 
 // feedback

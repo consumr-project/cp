@@ -190,6 +190,15 @@ angular.module('tcp').service('Services', [
             },
         };
 
+        queryService.tags.events = queryService.tags.events || {};
+        queryService.tags.events.timeline = function (id, user_id) {
+            return $http.get(url('tags', id, 'events/timeline'), {
+                params: {
+                    user_id: user_id
+                }
+            }).then(pluck_data).then(pluck_body);
+        };
+
         queryService.companies.events.timeline = function (id, user_id) {
             return $http.get(url('companies', id, 'events/timeline'), {
                 params: {

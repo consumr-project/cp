@@ -2,6 +2,7 @@ angular.module('tcp').component('tagView', {
     bindings: {
         common_companies: '=?',
         common_companies_limit: '=?',
+        events_timeline: '=?',
         id: '@',
         related_tags: '=?',
         related_tags_limit: '=?',
@@ -15,13 +16,25 @@ angular.module('tcp').component('tagView', {
         '                <h1 class="take-space inline-block">{{$ctrl.tag.name}}</h1>',
         '            </td>',
         '            <td class="right-align">',
-        '                <button class="logged-in-only button--unselected"',
+                                        /* XXX */
+        '                <button class="hidden xx-logged-in-only button--unselected"',
         '                    ng-click="toggle_follow($ctrl.tag.id)"',
         '                    i18n="admin/follow"></button>',
         '            </td>',
         '        </tr>',
         '    </table>',
+        '    <hr>',
+
+        '    <div class="margin-top-xlarge margin-bottom-medium center-align">',
+                                /* XXX */
+        '        <button class="hidden xx-logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
+        '    </div>',
+        '    <events class="component__events"',
+        '        api="events_timeline"',
+        '        parent="tags"',
+        '        id="{{$ctrl.id}}"></events>',
         '</section>',
+
         '<section class="site-content--aside">',
         '    <div class="site-content--aside__section">',
         '        <h3 class="margin-bottom-medium" i18n="tag/common_companies"></h3>',
@@ -48,7 +61,9 @@ angular.module('tcp').component('tagView', {
 
         this.common_companies_limit = 5;
         this.related_tags_limit = 5;
+
         this.nav = Navigation;
+        this.events_timeline = {};
 
         /**
          * @param {String} id
