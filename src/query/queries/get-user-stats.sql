@@ -8,8 +8,7 @@ with contributions as (
     left join companies c on (u.id = c.created_by and c.deleted_date is null)
     left join events e on (u.id = e.created_by and e.deleted_date is null)
 
-    -- where u.id = :user_id
-    where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+    where u.id = :id
 
     group by u.id
 ),
@@ -26,8 +25,7 @@ following as (
     left join tag_followers tf on (u.id = tf.user_id and tf.deleted_date is null)
     left join user_followers uf on (u.id = uf.user_id and uf.deleted_date is null)
 
-    -- where u.id = :user_id
-    where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+    where u.id = :id
 
     group by u.id
 ),
@@ -40,8 +38,7 @@ followers as (
 
     left join user_followers uf on (u.id = uf.f_user_id and uf.deleted_date is null)
 
-    -- where u.id = :user_id
-    where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+    where u.id = :id
 
     group by u.id
 ),
@@ -56,8 +53,7 @@ favorites as (
     left join event_bookmarks eb on (u.id = eb.user_id and eb.deleted_date is null)
     left join question_votes qv on (u.id = qv.user_id and qv.deleted_date is null)
 
-    -- where u.id = :user_id
-    where u.id = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+    where u.id = :id
 
     group by u.id
 )
