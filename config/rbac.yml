@@ -1,57 +1,58 @@
+CRUD: &CRUD [create, retrieve, update, delete]
+
 roles:
   - admin
-  - user
   - guest
+  - user
 
 permissions:
-  CRUD: &CRUD [create, retrieve, update, delete]
-  user: [create, retrieve, update, delete, follow]
-  feedback: *CRUD
-  tag: [create, retrieve, update, delete, follow]
-  product: *CRUD
   company: [create, retrieve, update, delete, follow]
   event: *CRUD
-  review: *CRUD
+  feedback: *CRUD
+  product: *CRUD
   question: *CRUD
+  review: *CRUD
+  tag: [create, retrieve, update, delete, follow]
+  user: [create, retrieve, update, delete, follow]
 
 grants:
   guest:
-    - retrieve_user
-    - retrieve_tag
-    - retrieve_product
     - retrieve_company
     - retrieve_event
-    - retrieve_review
+    - retrieve_product
     - retrieve_question
+    - retrieve_review
+    - retrieve_tag
+    - retrieve_user
 
   user:
     - guest
-    - create_feedback
-    - create_tag
-    - update_tag
-    - create_product
-    - update_product
     - create_company
-    - update_company
     - create_event
-    - update_event
-    - create_review
-    - update_review
+    - create_feedback
+    - create_product
     - create_question
-    - update_question
-    - follow_user
-    - follow_tag
+    - create_review
+    - create_tag
     - follow_company
+    - follow_tag
+    - follow_user
+    - update_company
+    - update_event
+    - update_product
+    - update_question
+    - update_review
+    - update_tag
 
   admin:
     - user
     - create_user
-    - retrieve_feedback
-    - delete_feedback
-    - delete_user
-    - delete_tag
-    - delete_product
     - delete_company
     - delete_event
-    - delete_review
+    - delete_feedback
+    - delete_product
     - delete_question
+    - delete_review
+    - delete_tag
+    - delete_user
+    - retrieve_feedback
