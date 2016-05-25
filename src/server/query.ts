@@ -41,13 +41,13 @@ del('/users/:id',
     remove(models.User));
 
 patch('/users/:user_id/followers',
-    can('update', 'user'),
+    can('follow', 'user'),
     upsert(models.UserFollower, ['user_id']));
 get('/users/:user_id/followers/:id?',
-    can('retrieve', 'user'),
+    can('follow', 'user'),
     retrieve(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
 del('/users/:user_id/followers/:id',
-    can('update', 'user'),
+    can('follow', 'user'),
     remove(models.UserFollower, {user_id: 'user_id', f_user_id: 'id'}));
 
 // products
@@ -109,14 +109,13 @@ get('/tags/:tag_id/events/timeline',
     query(conn, sql('get-tag-events')));
 
 patch('/tags/:tag_id/followers',
-    can('create', 'tag'),
-    can('update', 'tag'),
+    can('follow', 'tag'),
     upsert(models.TagFollower, ['tag_id']));
 get('/tags/:tag_id/followers/:id?',
-    can('retrieve', 'tag'),
+    can('follow', 'tag'),
     retrieve(models.TagFollower, {tag_id: 'tag_id', user_id: 'id'}));
 del('/tags/:tag_id/followers/:id',
-    can('update', 'tag'),
+    can('follow', 'tag'),
     remove(models.TagFollower, {tag_id: 'tag_id', user_id: 'id'}));
 
 // companies
@@ -162,14 +161,13 @@ del('/companies/:company_id/products/:id',
     remove(models.CompanyProduct, {company_id: 'company_id', product_id: 'id'}));
 
 patch('/companies/:company_id/followers',
-    can('create', 'company'),
-    can('update', 'company'),
+    can('follow', 'company'),
     upsert(models.CompanyFollower, ['company_id']));
 get('/companies/:company_id/followers/:id?',
-    can('retrieve', 'company'),
+    can('follow', 'company'),
     retrieve(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 del('/companies/:company_id/followers/:id',
-    can('update', 'company'),
+    can('follow', 'company'),
     remove(models.CompanyFollower, {company_id: 'company_id', user_id: 'id'}));
 
 patch('/companies/:company_id/events',

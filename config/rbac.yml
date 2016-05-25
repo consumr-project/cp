@@ -5,11 +5,11 @@ roles:
 
 permissions:
   CRUD: &CRUD [create, retrieve, update, delete]
-  user: *CRUD
+  user: [create, retrieve, update, delete, follow]
   feedback: *CRUD
-  tag: *CRUD
+  tag: [create, retrieve, update, delete, follow]
   product: *CRUD
-  company: *CRUD
+  company: [create, retrieve, update, delete, follow]
   event: *CRUD
   review: *CRUD
   question: *CRUD
@@ -39,6 +39,9 @@ grants:
     - update_review
     - create_question
     - update_question
+    - follow_user
+    - follow_tag
+    - follow_company
 
   admin:
     - user
