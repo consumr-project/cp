@@ -63,15 +63,17 @@ angular.module('tcp').directive('user', [
             template: [
                 '<div>',
                 '    <center ng-if="user.id" class="margin-top-large animated fadeIn">',
-                '        <avatar class="avatar--block" summary="{{::user.$summary}}"',
-                '          title="{{::user.title}}" name="{{::user.name}}"',
-                '          email="{{::user.email}}"></avatar>',
+                '        <avatar class="avatar--block"',
+                '            title="{{::user.title}}" name="{{::user.name}}"',
+                '            email="{{::user.email}}"></avatar>',
 
-                '        <div class="block">',
-                '            <button ng-click="on_start_following()"',
-                '              ng-invisible="vm.myself || !vm.loggedin"',
-                '              class="margin-top-xlarge margin-bottom-xlarge"',
-                '              i18n="admin/follow"></button>',
+                '        <p class="uppercase" i18n="user/member_number"',
+                '            data="{num: user.member_number}"></p>',
+
+                '        <div ng-invisible="vm.myself || !vm.loggedin"',
+                '            class="block margin-top-xlarge margin-bottom-xlarge">',
+                // '            <button ng-click="on_start_following()"',
+                // '                i18n="admin/follow"></button>',
                 '        </div>',
 
                 '        <table class="table--content center-align">',

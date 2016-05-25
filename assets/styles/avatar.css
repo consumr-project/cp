@@ -34,6 +34,11 @@ avatar.avatar--block {
     display: none;
 }
 
+.avatar__name,
+.avatar__title {
+    font-family: "Times New Roman";
+}
+
 .avatar__image,
 .avatar__name,
 .avatar__title {
@@ -61,9 +66,15 @@ avatar.avatar--block .avatar__summary {
     display: block;
 }
 
-avatar.avatar--block .avatar__name {
+avatar.avatar--block .avatar__name,
+avatar.avatar--block .avatar__title {
     font-size: var(--font-size-xxlarge);
+    font-weight: normal;
     line-height: var(--font-height-h1);
+}
+
+avatar.avatar--block .avatar__title {
+    font-style: italic;
 }
 
 avatar.avatar--block .avatar__summary {

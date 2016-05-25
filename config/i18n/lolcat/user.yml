@@ -2,3 +2,4 @@ following: followin
 followers: followers
 elsewhere: elsewhere
 by_on: 'by {id} on {name}'
+member_number: 'consumr project membr #{num}'
