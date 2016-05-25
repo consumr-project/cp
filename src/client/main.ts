@@ -179,6 +179,10 @@ namespace tcp {
                 resolve: { UserCheck, PageView }
             });
 
+            $routeProvider.when('/noop', {
+                template: ''
+            });
+
             $routeProvider.otherwise({
                 resolve: { PageView },
                 controller: ['$scope', 'ERRORED', function ($scope, ERRORED) { $scope.ERRORED = ERRORED; }],
