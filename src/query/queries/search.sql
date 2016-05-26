@@ -9,11 +9,11 @@ from companies c
 where c.deleted_date is null
 and name ilike :q
 
-union
-select e.id, e.title as name, '' as summary, 'event' as type
-from events e
-where e.deleted_date is null
-and title ilike :q
+-- union
+-- select e.id, e.title as name, '' as summary, 'event' as type
+-- from events e
+-- where e.deleted_date is null
+-- and title ilike :q
 
 union
 select t.id, t."en-US" as name, '' as summary, 'tag' as type
