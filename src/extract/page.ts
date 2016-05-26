@@ -2,7 +2,7 @@ import { ServiceRequestHandler } from 'cp';
 import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';
 
-import { BadGatewayError } from '../errors';
+import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
 import { service_handler } from '../utilities';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 
@@ -54,7 +54,7 @@ export function extract(url: string) {
             try {
                 resolve(parse_response(JSON.parse(body)));
             } catch (ignore) {
-                reject(new BadGatewayError('could not parse response from embedly'));
+                reject(new BadGatewayError(ERR_MSG_PARSING_ERROR('embedly')));
             }
         });
     });

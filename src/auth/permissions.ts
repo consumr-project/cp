@@ -3,7 +3,7 @@ import { Configuration } from 'rbac-interface';
 
 import { clone } from 'lodash';
 import { make_enum } from '../utilities';
-import { UnauthorizedError } from '../errors';
+import { UnauthorizedError, ERR_MSG_RBAC_FAILURE } from '../errors';
 
 import Rbac = require('rbac');
 import config = require('acm');
@@ -22,7 +22,7 @@ export function check(role: string, action: string, resource: string) {
             if (err) {
                 reject(err);
             } else if (!can) {
-                reject(new UnauthorizedError(`user(${role}) cannot ${action} ${resource}`));
+                reject(new UnauthorizedError(ERR_MSG_RBAC_FAILURE(role, action, resource)));
             } else {
                 resolve(true);
             }

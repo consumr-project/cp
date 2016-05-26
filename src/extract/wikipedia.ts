@@ -2,7 +2,7 @@ import { ServiceRequestHandler } from 'cp';
 import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
     WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
 
-import { BadGatewayError } from '../errors';
+import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
 import { get_or_else, get_url_parts, service_handler } from '../utilities';
 import { get, filter, map, includes, head } from 'lodash';
 
@@ -56,7 +56,7 @@ function api<T>(params: WikipediaRequest, parser: (WikipediaResult) => T) {
             try {
                 resolve(parser(JSON.parse(body)));
             } catch (err) {
-                reject(new BadGatewayError('could parse response from wikipedia'));
+                reject(new BadGatewayError(ERR_MSG_PARSING_ERROR('wikipedia')));
             }
         });
     });

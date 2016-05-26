@@ -1,3 +1,15 @@
+export const ERR_MSG_ONLY_BY_OWNER = 'Only the resource owner can take this action.';
+export const ERR_MSG_MUST_BE_LOGGED_IN = 'Must be logged in to take this action.';
+
+export const ERR_MSG_PARSING_ERROR = (service: string) =>
+    `Could parse response from ${service}`;
+
+export const ERR_MSG_EXTERNAL_ERROR = (msg: string) =>
+    `External error: ${msg}`;
+
+export const ERR_MSG_RBAC_FAILURE = (role: string, action: string, resource: string) =>
+    `user(${role}) cannot ${action} ${resource}`;
+
 // @link https://tools.ietf.org/html/rfc7231
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 export class HttpError extends Error {

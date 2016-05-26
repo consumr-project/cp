@@ -2,6 +2,13 @@ import { Request } from 'express';
 import { ServiceRequestHandler, ServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
 
+export type None = Object;
+export type Maybe<T> = None | T;
+
+export function none(): None {
+    return {};
+}
+
 export function make_enum_entry(store: Object, val: string): Object {
     store[val.toUpperCase()] = val;
     return store;

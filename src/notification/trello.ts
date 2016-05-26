@@ -1,4 +1,4 @@
-import { BadGatewayError } from '../errors';
+import { BadGatewayError, ERR_MSG_EXTERNAL_ERROR } from '../errors';
 
 import Trello = require('trello');
 import config = require('acm');
@@ -29,7 +29,7 @@ export namespace card {
 
 function errw(ack) {
     if (typeof ack === 'string') {
-        throw new BadGatewayError(ack);
+        throw new BadGatewayError(ERR_MSG_EXTERNAL_ERROR(ack));
     }
 
     return ack;
