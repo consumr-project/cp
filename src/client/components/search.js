@@ -3,11 +3,12 @@
  * @attribute {String} query search
  */
 angular.module('tcp').directive('search', [
+    'DOMAIN',
     'Services',
     'Navigation',
     'RecentSearches',
     'lodash',
-    function (Services, Navigation, RecentSearches, lodash) {
+    function (DOMAIN, Services, Navigation, RecentSearches, lodash) {
         'use strict';
 
         /**
@@ -22,6 +23,7 @@ angular.module('tcp').directive('search', [
                 results: {
                     companies: [],
                     users: [],
+                    tags: [],
                 }
             };
         }
@@ -49,13 +51,35 @@ angular.module('tcp').directive('search', [
             $scope.vm.loading = true;
 
             return Services.search.query(query).then(function (results) {
-                var groups = lodash.groupBy(results.body, 'type');
+                var groups = lodash.groupBy(results.body, 'type'),
+                    result = lodash.head(results.body);
 
                 $scope.vm.results.companies = groups.company;
                 $scope.vm.results.users = groups.user;
+                $scope.vm.results.tags = groups.tag;
+
                 $scope.vm.empty = !results.body || !results.body.length;
                 $scope.vm.loading = false;
                 $scope.vm.recent = track_search(query, results);
+
+                if (results.body.length === 1) {
+                    switch (result.type) {
+                        case DOMAIN.model.company:
+                            Navigation.company_by_id(result.id);
+                            break;
+
+                        case DOMAIN.model.user:
+                            Navigation.user(result.id);
+                            break;
+
+                        case DOMAIN.model.tag:
+                            Navigation.tag(result.id);
+                            break;
+
+                        // NOTE events don't have their own page
+                        // case DOMAIN.model.events
+                    }
+                }
             });
         }
 
@@ -121,6 +145,12 @@ angular.module('tcp').directive('search', [
                 '            ng-repeat="user in vm.results.users">',
                 '            <h2>{{::user.name}}</h2>',
                 '            <p>{{::user.summary || user.name}}</p>',
+                '        </div>',
+
+                '        <div class="search__result animated fadeIn" ng-click="nav.tag(tag.id)" ',
+                '            ng-repeat="tag in vm.results.tags">',
+                '            <h2>{{::tag.name}}</h2>',
+                '            <p>{{::tag.name}}</p>',
                 '        </div>',
                 '    </div>',
                 '</div>'

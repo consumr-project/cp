@@ -50,6 +50,7 @@ namespace tcp {
                     website_url: 'website_url',
                 },
 
+                user: 'user',
                 tag: 'tag',
 
                 event: 'event',
