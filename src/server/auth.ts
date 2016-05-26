@@ -53,10 +53,6 @@ function js_update_client_auth(req: Request, res: Response): void {
     ].join(''));
 };
 
-export function is_logged_in(req: Request, res: Response, next: Function): void {
-    next(req.user ? null : new Error('Login required'));
-}
-
 export function as_guest(req: Request, res: Response, next: Function): void {
     req.user = req.user || { role: permissions.roles.GUEST };
     next();
