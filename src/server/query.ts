@@ -48,7 +48,7 @@ del('/users/:id',
 
 get('/users/:id/stats',
     can('retrieve', 'user'),
-    query(conn, sql('get-user-stats')));
+    query(conn, sql('get-user-stats'), true));
 
 patch('/users/:f_user_id/followers',
     can('follow', 'user'),
