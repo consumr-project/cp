@@ -22,7 +22,7 @@ angular.module('tcp').directive('feedback', [
             '        anchored-show="vm.expand"',
             '        anchored-placement="right-bottom"',
             '        anchored-animation-offset="1"',
-            '        anchored-left-offset="10"',
+            '        anchored-left-offset="20"',
             '        anchored-bottom-offset="0"',
             '        anchored-arrow="true"',
             '        anchored-auto-hide="true"',
@@ -38,6 +38,7 @@ angular.module('tcp').directive('feedback', [
             '            \'feedback__container--status--failure\': vm.status === STAT.FAILURE,',
             '        }">',
             '            <div class="close-x" ng-click="vm.expand = false"></div>',
+            '            <div class="arrow arrow--left"></div>',
 
             '            <div ng-click="vm.type = type.question"',
             '                class="feedback__opt feedback__opt--question"',

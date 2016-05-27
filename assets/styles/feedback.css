@@ -95,10 +95,10 @@
 .feedback__message textarea {
     width: 500px;
 
-    /* xsmall = left offset on anchor */
+    /* xsmall * 2 = left offset on anchor */
     /* medium = feedback button margin */
     /* xlarge = feedback button size */
-    max-width: calc(100vw - 2 * (var(--spacing-xsmall) + var(--spacing-medium) + var(--spacing-xlarge)));
+    max-width: calc(100vw - 2 * (var(--spacing-xsmall) + var(--spacing-xsmall) + var(--spacing-medium) + var(--spacing-xlarge)));
 }
 
 .feedback__message textarea {
@@ -121,6 +121,11 @@
     display: block;
     right: 24px;
     top: 18px;
+}
+
+.feedback .arrow {
+    bottom: 10px;
+    left: -12px;
 }
 
 @media (--media-regular-screens) {

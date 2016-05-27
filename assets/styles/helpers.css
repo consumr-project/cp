@@ -1,3 +1,17 @@
+.arrow {
+    background: white;
+    border: 3px solid var(--color-std-thin-border-color);
+    height: 20px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 20px;
+}
+
+.arrow--left {
+    border-right: 0;
+    border-top: 0;
+}
+
 .close-x {
     font-size: 25px;
     position: absolute;
