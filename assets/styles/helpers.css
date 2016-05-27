@@ -1,3 +1,14 @@
+.close-x {
+    font-size: 25px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.close-x::after {
+    content: "×"
+}
+
 .line-separated ~ .line-separated {
     border-top: 1px solid var(--color-std-thin-border-color);
 }

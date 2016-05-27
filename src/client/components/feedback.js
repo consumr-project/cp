@@ -37,6 +37,8 @@ angular.module('tcp').directive('feedback', [
             '            \'feedback__container--status--success\': vm.status === STAT.SUCCESS,',
             '            \'feedback__container--status--failure\': vm.status === STAT.FAILURE,',
             '        }">',
+            '            <div class="close-x" ng-click="vm.expand = false"></div>',
+
             '            <div ng-click="vm.type = type.question"',
             '                class="feedback__opt feedback__opt--question"',
             '                i18n="feedback/question"></div>',
