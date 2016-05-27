@@ -93,8 +93,12 @@
 
 .feedback__response,
 .feedback__message textarea {
-    max-width: calc(100vw - var(--spacing-medium) * 2);
     width: 500px;
+
+    /* xsmall = left offset on anchor */
+    /* medium = feedback button margin */
+    /* xlarge = feedback button size */
+    max-width: calc(100vw - 2 * (var(--spacing-xsmall) + var(--spacing-medium) + var(--spacing-xlarge)));
 }
 
 .feedback__message textarea {
