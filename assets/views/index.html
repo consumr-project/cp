@@ -20,7 +20,7 @@
     <body ng-app="tcp" ng-strict-di ng-cloak tcp-state>
         <div tcp-topmost></div>
         <div ng-view></div>
-        <feedback></feedback>
+        <feedback class="logged-in-only"></feedback>
         <footer class="site-content"></footer>
 
         {% if err %}
