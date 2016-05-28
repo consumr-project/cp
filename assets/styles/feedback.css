@@ -129,11 +129,20 @@
 }
 
 @media (--media-regular-screens) {
-    .feedback__container--status--success.feedback__container--adding--suggestion .feedback__response--suggestion {
-        background-image: url(/assets/images/zack-morris.jpg);
+    .feedback__container--status--success.feedback__container--adding--suggestion .feedback__response--suggestion,
+    .feedback__container--status--success.feedback__container--adding--question .feedback__response--question {
         background-position: 0 0;
         background-repeat: no-repeat;
         background-size: 115px;
         padding-left: 140px;
+    }
+
+    .feedback__container--status--success.feedback__container--adding--question .feedback__response--question {
+        background-image: url(/assets/images/hang-loose.gif);
+        padding-bottom: var(--spacing-large);
+    }
+
+    .feedback__container--status--success.feedback__container--adding--suggestion .feedback__response--suggestion {
+        background-image: url(/assets/images/zack-morris.jpg);
     }
 }

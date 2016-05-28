@@ -2,3 +2,6 @@ question: question
 suggestion: suggestion
 problem: problem
 whats_up: "What's up?"
+thanks_for_question: "Thanks for your question. We'll get back to you soon brah."
+thanks_for_suggestion: "\"You're the most important person to me. And that's why I'm taking your suggestion so seriously\""
+thanks_for_bug_report: "Ony true friends let you know when your fly is down."

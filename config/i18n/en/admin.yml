@@ -24,8 +24,5 @@ search_placeholder: search
 
 # statuses
 thanks: "thanks!"
-thanks_for_question: "Your question is being delivered by laser-trained dolphins. Please allow 24 hours for them to swim back."
-thanks_for_suggestion: "\"You're the most important person to me. And that's why I'm taking your suggestion so seriously\""
-thanks_for_bug_report: "Ony true friends let you know when your fly is down."
 oops: "oops!"
 try_later: "Uh oh, something happened, def not us (but seriously try again later.)"
