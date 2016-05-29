@@ -217,6 +217,10 @@ angular.module('tcp').directive('company', [
              * @return {void}
              */
             $scope.toggle_common_tag = function (tag) {
+                if (!$scope.vm.show_events) {
+                    return false;
+                }
+
                 tag.type = DOMAIN.model.tag;
                 tag.$selected = !tag.$selected;
 
@@ -381,13 +385,6 @@ angular.module('tcp').directive('company', [
 
                 '        <hr>',
 
-                '        <div class="margin-top-large half-width" ng-if="vm.events_filter.length">',
-                '            <h4 i18n="common/only_showing"></h4>',
-                '            <tag ng-repeat="filter in vm.events_filter"',
-                '                ng-click="nav.tag(filter.id)"',
-                '                class="tag--bigword" label="{{get_label(filter)}}"></tag>',
-                '        </div>',
-
                 '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
                 '            class="margin-bottom-xlarge"',
                 '            on-save="hide_review_form()"',
@@ -402,9 +399,17 @@ angular.module('tcp').directive('company', [
                 '        </section>',
 
                 '        <section ng-if="vm.show_events">',
+                '            <div class="margin-top-large half-width" ng-if="vm.events_filter.length">',
+                '                <h4 i18n="common/only_showing"></h4>',
+                '                <tag ng-repeat="filter in vm.events_filter"',
+                '                    ng-click="nav.tag(filter.id)"',
+                '                    class="tag--bigword" label="{{get_label(filter)}}"></tag>',
+                '            </div>',
+
                 '            <div class="margin-top-xlarge margin-bottom-medium center-align">',
                 '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '            </div>',
+
                 '            <events class="margin-top-medium component__events" ',
                 '                filters="vm.events_filter" ',
                 '                api="vm.events_timeline" ',
