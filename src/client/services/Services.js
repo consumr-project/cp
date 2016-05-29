@@ -67,7 +67,9 @@ angular.module('tcp').service('Services', [
                             .then(pluck_data).then(pluck_body);
                     },
                     retrieve: function (parent_id, id, parts, expand) {
-                        var opt = {};
+                        var opt = {
+                            cache: true
+                        };
 
                         if (parts) {
                             opt.params = {
@@ -102,7 +104,9 @@ angular.module('tcp').service('Services', [
                         .then(pluck_data).then(pluck_body);
                 },
                 retrieve: function (id, parts, expand) {
-                    var opt = {};
+                    var opt = {
+                        cache: true
+                    };
 
                     if (parts) {
                         opt.params = {
@@ -162,30 +166,30 @@ angular.module('tcp').service('Services', [
         };
 
         queryService.companies.guid = function (guid) {
-            return $http.get(url('companies/guid', guid))
+            return $http.get(url('companies/guid', guid), { cache: true })
                 .then(pluck_data).then(pluck_body);
         };
 
         queryService.companies.common = {
             companies: function (guid) {
-                return $http.get(url('companies', guid, 'common/companies'))
+                return $http.get(url('companies', guid, 'common/companies'), { cache: true })
                     .then(pluck_data).then(pluck_body);
             },
 
             tags: function (guid) {
-                return $http.get(url('companies', guid, 'common/tags'))
+                return $http.get(url('companies', guid, 'common/tags'), { cache: true })
                     .then(pluck_data).then(pluck_body);
             },
         };
 
         queryService.tags.common = {
             companies: function (id) {
-                return $http.get(url('tags', id, 'common/companies'))
+                return $http.get(url('tags', id, 'common/companies'), { cache: true })
                     .then(pluck_data).then(pluck_body);
             },
 
             tags: function (id) {
-                return $http.get(url('tags', id, 'common/tags'))
+                return $http.get(url('tags', id, 'common/tags'), { cache: true })
                     .then(pluck_data).then(pluck_body);
             },
         };
@@ -193,6 +197,7 @@ angular.module('tcp').service('Services', [
         queryService.tags.events = queryService.tags.events || {};
         queryService.tags.events.timeline = function (id, user_id) {
             return $http.get(url('tags', id, 'events/timeline'), {
+                cache: true,
                 params: {
                     user_id: user_id
                 }
@@ -201,6 +206,7 @@ angular.module('tcp').service('Services', [
 
         queryService.companies.events.timeline = function (id, user_id) {
             return $http.get(url('companies', id, 'events/timeline'), {
+                cache: true,
                 params: {
                     user_id: user_id
                 }
@@ -209,6 +215,7 @@ angular.module('tcp').service('Services', [
 
         queryService.companies.reviews.view = function (id, user_id, offset) {
             return $http.get(url('companies', id, 'reviews'), {
+                cache: true,
                 params: {
                     offset: offset || 0,
                     user_id: user_id
@@ -217,12 +224,12 @@ angular.module('tcp').service('Services', [
         };
 
         queryService.companies.reviews.summary = function (id) {
-            return $http.get(url('companies', id, 'reviews/summary'))
+            return $http.get(url('companies', id, 'reviews/summary'), { cache: true })
                 .then(pluck_data).then(pluck_body);
         };
 
         queryService.companies.reviews.score = function (id) {
-            return $http.get(url('companies', id, 'reviews/score'))
+            return $http.get(url('companies', id, 'reviews/score'), { cache: true })
                 .then(pluck_data).then(pluck_body);
         };
 
@@ -231,7 +238,7 @@ angular.module('tcp').service('Services', [
          * @return {Promise}
          */
         extractService.page = function (url) {
-            return $http.get('/service/extract/page?url=' + encodeURIComponent(url));
+            return $http.get('/service/extract/page?url=' + encodeURIComponent(url), { cache: true });
         };
 
         extractService.wikipedia = {};
@@ -242,6 +249,7 @@ angular.module('tcp').service('Services', [
          */
         extractService.wikipedia.extract = function (query) {
             return $http.get('/service/extract/wiki/extract', {
+                cache: true,
                 timeout: abortable(extractService.wikipedia.extract),
                 params: {
                     q: query
@@ -257,6 +265,7 @@ angular.module('tcp').service('Services', [
          */
         extractService.wikipedia.search = function (query) {
             return $http.get('/service/extract/wiki/search', {
+                cache: true,
                 timeout: abortable(extractService.wikipedia.search),
                 params: {
                     q: query
@@ -272,6 +281,7 @@ angular.module('tcp').service('Services', [
          */
         extractService.wikipedia.infobox = function (query) {
             return $http.get('/service/extract/wiki/infobox', {
+                cache: true,
                 timeout: abortable(extractService.wikipedia.infobox),
                 params: {
                     q: query,
