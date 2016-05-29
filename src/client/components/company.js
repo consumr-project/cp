@@ -374,7 +374,7 @@ angular.module('tcp').directive('company', [
                 '                    <chart type="heartcount" value="{{::reviews_score.iaverage}}"></chart>',
                 '                </td>',
                 '                <td ng-click="toggle_show_reviews()" class="right-align padding-left-small no-wrap no-span">',
-                '                    {{::reviews_score.count || "0"}}',
+                '                    {{reviews_score.count || "0"}}',
                 '                </td>',
                 '            </tr>',
                 '        </table>',
