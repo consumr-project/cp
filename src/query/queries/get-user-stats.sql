@@ -2,6 +2,7 @@ with stats as (
     select u.id,
         count(distinct c.id)::"numeric" as contributions_companies,
         count(distinct e.id)::"numeric" as contributions_events,
+        count(distinct es.id)::"numeric" as contributions_sources,
         count(distinct r.id)::"numeric" as contributions_reviews,
         count(distinct q.id)::"numeric" as contributions_questions,
         count(distinct cf.company_id)::"numeric" as following_companies,
@@ -14,6 +15,7 @@ with stats as (
 
     left join companies c on (u.id = c.created_by and c.deleted_date is null)
     left join events e on (u.id = e.created_by and e.deleted_date is null)
+    left join event_sources es on (u.id = es.created_by and es.deleted_date is null)
     left join reviews r on (u.id = r.created_by and r.deleted_date is null)
     left join questions q on (u.id = q.created_by and q.deleted_date is null)
     left join company_followers cf on (u.id = cf.user_id and cf.deleted_date is null)
@@ -28,11 +30,12 @@ with stats as (
 
 select id,
 
-    contributions_companies + contributions_events +
+    contributions_companies + contributions_events + contributions_sources +
         contributions_reviews + contributions_questions as contributions,
 
     contributions_companies,
     contributions_events,
+    contributions_sources,
     contributions_reviews,
     contributions_questions,
 
