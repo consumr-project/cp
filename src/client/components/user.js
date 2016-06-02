@@ -5,10 +5,20 @@ angular.module('tcp').directive('user', [
     function (Services, Session, utils) {
         'use strict';
 
+        var STAT_CONTRIBUTIONS = {},
+            STAT_FOLLOWING = {},
+            STAT_FOLLOWERS = {},
+            STAT_FAVORITES = {};
+
         function controller($scope) {
-            $scope.user = {};
+            $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
+            $scope.STAT_FAVORITES = STAT_FAVORITES;
+            $scope.STAT_FOLLOWERS = STAT_FOLLOWERS;
+            $scope.STAT_FOLLOWING = STAT_FOLLOWING;
 
             $scope.vm = {
+                stats: null,
+                cur_stat: null,
                 followed_by_me: null,
             };
 
@@ -18,11 +28,12 @@ angular.module('tcp').directive('user', [
              */
             function load(id) {
                 return Services.query.users.retrieve(id, ['followers']).then(function (user) {
-                    $scope.user = user;
-                    $scope.user.$summary = utils.summaryze(user.summary || '');
-                    $scope.user.$followers_count = 0;
-                    $scope.user.$following_count = 0;
+                    $scope.vm.user = user;
                     $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
+
+                    Services.query.users.stats(id)
+                        .then(utils.scope.set($scope, 'vm.stats'))
+                        .then(utils.scope.set($scope, 'vm.cur_stat', STAT_CONTRIBUTIONS));
                 });
             }
 
@@ -61,14 +72,6 @@ angular.module('tcp').directive('user', [
                     .then(utils.scope.set($scope, 'vm.followed_by_me', false));
             };
 
-            /**
-             * @param {User} user
-             * @return {Boolean}
-             */
-            $scope.is_elsewhere = function (user) {
-                return !!user.linkedin_url;
-            };
-
             if ($scope.id) {
                 update_actionable_items();
                 load($scope.id);
@@ -86,44 +89,48 @@ angular.module('tcp').directive('user', [
             },
             template: [
                 '<div>',
-                '    <center ng-if="user.id" class="margin-top-large animated fadeIn">',
+                '    <center ng-if="vm.user.id" class="margin-top-large">',
                 '        <avatar class="avatar--block"',
-                '            title="{{::user.title}}" name="{{::user.name}}"',
-                '            email="{{::user.email}}"></avatar>',
+                '            title="{{::vm.user.title}}" name="{{::vm.user.name}}"',
+                '            email="{{::vm.user.email}}"></avatar>',
 
                 '        <p class="uppercase" i18n="user/member_number"',
-                '            data="{num: user.member_number}"></p>',
+                '            data="{num: vm.user.member_number}"></p>',
 
                 '        <div ng-invisible="vm.myself || !vm.loggedin"',
                 '            class="block margin-top-xlarge margin-bottom-xlarge">',
                 '            <button class="button--unselected"',
-                '                ng-click="on_start_following(user.id)"',
+                '                ng-click="on_start_following(vm.user.id)"',
                 '                ng-if="vm.followed_by_me === false"',
                 '                i18n="admin/follow"></button>',
                 '            <button',
-                '                ng-click="on_stop_following(user.id)"',
+                '                ng-click="on_stop_following(vm.user.id)"',
                 '                ng-if="vm.followed_by_me === true"',
                 '                i18n="admin/unfollow"></button>',
                 '        </div>',
 
-                // '        <table class="table--content center-align">',
-                // '            <tr>',
-                // '                <th i18n="user/following"></th>',
-                // '                <th i18n="user/followers"></th>',
-                // '                <th i18n="user/elsewhere" ng-if="::is_elsewhere(user)"></th>',
-                // '            </tr>',
-                // '            <tr>',
-                // '                <td ng-if="!user.$following_count" i18n="common/none"></td>',
-                // '                <td ng-if="user.$following_count">{{user.$followers_count}}</td>',
-                // '                <td ng-if="!user.$followers_count" i18n="common/none"></td>',
-                // '                <td ng-if="user.$followers_count">{{user.$followers_count}}</td>',
-                // '                <td ng-if="::is_elsewhere(user)">',
-                // '                    <a ng-if="::user.linkedin_url" href="{{::user.linkedin_url}}" target="_blank" rel="noreferrer">',
-                // '                        <img alt="" src="/assets/images/linkedin.png" style="height: 20px; width: 20px" />',
-                // '                    </a>',
-                // '                </td>',
-                // '            </tr>',
-                // '        </table>',
+                '        <section ng-if="vm.stats">',
+                '            <div class="snav">',
+                '                <div class="snav__item" i18n="user/contributions" data="{count: vm.stats.contributions}"></div>',
+                '                <div class="snav__item" i18n="user/following" data="{count: vm.stats.following}"></div>',
+                '                <div class="snav__item" i18n="user/followers" data="{count: vm.stats.followers}"></div>',
+                '                <div class="snav__item" i18n="user/favorites" data="{count: vm.stats.favorites}"></div>',
+                '            </div>',
+
+                '            <div class="snav">',
+                '                <div class="snav__item" i18n="user/contributions_events" data="{count: vm.stats.contributions_events}"></div>',
+                '                <div class="snav__item" i18n="user/contributions_questions" data="{count: vm.stats.contributions_questions}"></div>',
+                '                <div class="snav__item" i18n="user/contributions_companies" data="{count: vm.stats.contributions_companies}"></div>',
+                '                <div class="snav__item" i18n="user/contributions_reviews" data="{count: vm.stats.contributions_reviews}"></div>',
+                '                <div class="snav__item" i18n="user/contributions_sources" data="{count: vm.stats.contributions_sources}"></div>',
+                '            </div>',
+
+                '            <div class="snav">',
+                '                <div class="snav__item" i18n="user/following_companies" data="{count: vm.stats.following_companies}"></div>',
+                '                <div class="snav__item" i18n="user/following_users" data="{count: vm.stats.following_users}"></div>',
+                '                <div class="snav__item" i18n="user/following_tags" data="{count: vm.stats.following_tags}"></div>',
+                '            </div>',
+                '        </section>',
                 '    </center>',
                 '</div>'
             ].join('')

@@ -1,0 +1,16 @@
+.snav {
+    border-top: 1px solid var(--color-std-border-color);
+    display: inline-block;
+    margin-top: var(--spacing-xsmall);
+    max-width: 100%;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+.snav__item {
+    display: inline-block;
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    padding: var(--spacing-small);
+    text-transform: uppercase;
+}
