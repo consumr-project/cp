@@ -1,6 +1,3 @@
-following: followin
-followers: followers
-elsewhere: elsewhere
 by_on: 'by {id} on {name}'
 member_number: 'consumr project membr #{num}'
 contributions: 'contribushuns {count}'
@@ -9,7 +6,9 @@ contributions_questions: 'queshuns {count}'
 contributions_companies: 'companiez {count}'
 contributions_reviews: 'reviews {count}'
 contributions_sources: 'sourcez {count}'
+following: 'followin {count}'
 following_companies: 'companiez {count}'
 following_users: 'peeps {count}'
 following_tags: 'tags {count}'
+followers: 'followers {count}'
 favorites: 'favoritez {count}'
