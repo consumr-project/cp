@@ -13,4 +13,5 @@
     font-weight: 700;
     padding: var(--spacing-small);
     text-transform: uppercase;
+    outline: none;
 }
