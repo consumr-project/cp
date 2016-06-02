@@ -49,6 +49,9 @@ del('/users/:id',
 get('/users/:id/stats',
     can('retrieve', 'user'),
     query(conn, sql('get-user-stats'), true));
+get('/users/:id/stats/contributions/events',
+    can('retrieve', 'user'),
+    query(conn, sql('get-user-contributions-events')));
 
 patch('/users/:f_user_id/followers',
     can('follow', 'user'),
