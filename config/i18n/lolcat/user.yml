@@ -3,3 +3,13 @@ followers: followers
 elsewhere: elsewhere
 by_on: 'by {id} on {name}'
 member_number: 'consumr project membr #{num}'
+contributions: 'contribushuns {count}'
+contributions_events: 'events {count}'
+contributions_questions: 'queshuns {count}'
+contributions_companies: 'companiez {count}'
+contributions_reviews: 'reviews {count}'
+contributions_sources: 'sourcez {count}'
+following_companies: 'companiez {count}'
+following_users: 'peeps {count}'
+following_tags: 'tags {count}'
+favorites: 'favoritez {count}'

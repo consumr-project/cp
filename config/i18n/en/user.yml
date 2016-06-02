@@ -4,3 +4,16 @@ elsewhere: Elsewhere
 
 by_on: "By <a href='/user/{id}'>{name}</a> on <b>{date,date,long}</b>"
 member_number: "consumr project member #{num}"
+
+contributions: "contributions {count}"
+contributions_events: "events {count}"
+contributions_questions: "questions {count}"
+contributions_companies: "companies {count}"
+contributions_reviews: "reviews {count}"
+contributions_sources: "sources {count}"
+following: "following {count}"
+following_companies: "companies {count}"
+following_users: "people {count}"
+following_tags: "tags {count}"
+followers: "followers {count}"
+favorites: "favorites {count}"
