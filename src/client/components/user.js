@@ -10,11 +10,31 @@ angular.module('tcp').directive('user', [
             STAT_FOLLOWERS = {},
             STAT_FAVORITES = {};
 
+        var STAT_CONTRIBUTIONS_EVENTS = {},
+            STAT_CONTRIBUTIONS_QUESTIONS = {},
+            STAT_CONTRIBUTIONS_COMPANIES = {},
+            STAT_CONTRIBUTIONS_SOURCES = {},
+            STAT_CONTRIBUTIONS_REVIEWS = {};
+
+        var STAT_FOLLOWING_COMPANIES = {},
+            STAT_FOLLOWING_USERS = {},
+            STAT_FOLLOWING_TAGS = {};
+
         function controller($scope) {
             $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
             $scope.STAT_FAVORITES = STAT_FAVORITES;
             $scope.STAT_FOLLOWERS = STAT_FOLLOWERS;
             $scope.STAT_FOLLOWING = STAT_FOLLOWING;
+
+            $scope.STAT_CONTRIBUTIONS_EVENTS = STAT_CONTRIBUTIONS_EVENTS;
+            $scope.STAT_CONTRIBUTIONS_QUESTIONS = STAT_CONTRIBUTIONS_QUESTIONS;
+            $scope.STAT_CONTRIBUTIONS_COMPANIES = STAT_CONTRIBUTIONS_COMPANIES;
+            $scope.STAT_CONTRIBUTIONS_SOURCES = STAT_CONTRIBUTIONS_SOURCES;
+            $scope.STAT_CONTRIBUTIONS_REVIEWS = STAT_CONTRIBUTIONS_REVIEWS;
+
+            $scope.STAT_FOLLOWING_COMPANIES = STAT_FOLLOWING_COMPANIES;
+            $scope.STAT_FOLLOWING_USERS = STAT_FOLLOWING_USERS;
+            $scope.STAT_FOLLOWING_TAGS = STAT_FOLLOWING_TAGS;
 
             $scope.vm = {
                 stats: null,
@@ -73,7 +93,31 @@ angular.module('tcp').directive('user', [
             };
 
             $scope.load_stat = function (stat) {
-                $scope.vm.cur_stat = stat;
+                switch (stat) {
+                case STAT_CONTRIBUTIONS:
+                case STAT_CONTRIBUTIONS_COMPANIES:
+                case STAT_CONTRIBUTIONS_EVENTS:
+                case STAT_CONTRIBUTIONS_QUESTIONS:
+                case STAT_CONTRIBUTIONS_REVIEWS:
+                case STAT_CONTRIBUTIONS_SOURCES:
+                    $scope.vm.cur_stat = STAT_CONTRIBUTIONS;
+                    break;
+
+                case STAT_FOLLOWING:
+                case STAT_FOLLOWING_COMPANIES:
+                case STAT_FOLLOWING_TAGS:
+                case STAT_FOLLOWING_USERS:
+                    $scope.vm.cur_stat = STAT_FOLLOWING;
+                    break;
+
+                case STAT_FAVORITES:
+                    $scope.vm.cur_stat = STAT_FAVORITES;
+                    break;
+
+                case STAT_FOLLOWERS:
+                    $scope.vm.cur_stat = STAT_FOLLOWERS;
+                    break;
+                }
             };
 
             if ($scope.id) {
@@ -122,17 +166,17 @@ angular.module('tcp').directive('user', [
                 '            </div>',
 
                 '            <div class="snav" ng-show="vm.cur_stat === STAT_CONTRIBUTIONS">',
-                '                <div class="snav__item" i18n="user/contributions_events" data="{count: vm.stats.contributions_events}"></div>',
-                '                <div class="snav__item" i18n="user/contributions_questions" data="{count: vm.stats.contributions_questions}"></div>',
-                '                <div class="snav__item" i18n="user/contributions_companies" data="{count: vm.stats.contributions_companies}"></div>',
-                '                <div class="snav__item" i18n="user/contributions_reviews" data="{count: vm.stats.contributions_reviews}"></div>',
-                '                <div class="snav__item" i18n="user/contributions_sources" data="{count: vm.stats.contributions_sources}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_CONTRIBUTIONS_EVENTS)" i18n="user/contributions_events" data="{count: vm.stats.contributions_events}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_CONTRIBUTIONS_QUESTIONS)" i18n="user/contributions_questions" data="{count: vm.stats.contributions_questions}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_CONTRIBUTIONS_COMPANIES)" i18n="user/contributions_companies" data="{count: vm.stats.contributions_companies}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_CONTRIBUTIONS_REVIEWS)" i18n="user/contributions_reviews" data="{count: vm.stats.contributions_reviews}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_CONTRIBUTIONS_SOURCES)" i18n="user/contributions_sources" data="{count: vm.stats.contributions_sources}"></div>',
                 '            </div>',
 
                 '            <div class="snav" ng-show="vm.cur_stat === STAT_FOLLOWING">',
-                '                <div class="snav__item" i18n="user/following_companies" data="{count: vm.stats.following_companies}"></div>',
-                '                <div class="snav__item" i18n="user/following_users" data="{count: vm.stats.following_users}"></div>',
-                '                <div class="snav__item" i18n="user/following_tags" data="{count: vm.stats.following_tags}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_FOLLOWING_COMPANIES)" i18n="user/following_companies" data="{count: vm.stats.following_companies}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_FOLLOWING_USERS)" i18n="user/following_users" data="{count: vm.stats.following_users}"></div>',
+                '                <div class="snav__item" ng-click="load_stat(STAT_FOLLOWING_TAGS)" i18n="user/following_tags" data="{count: vm.stats.following_tags}"></div>',
                 '            </div>',
                 '        </section>',
                 '    </center>',
