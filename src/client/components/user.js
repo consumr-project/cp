@@ -41,6 +41,7 @@ angular.module('tcp').directive('user', [
             $scope.vm = {
                 stats: null,
                 cur_stat: null,
+                exp_stat: null,
                 followed_by_me: null,
             };
 
@@ -103,6 +104,7 @@ angular.module('tcp').directive('user', [
                 case STAT_CONTRIBUTIONS_REVIEWS:
                 case STAT_CONTRIBUTIONS_SOURCES:
                     $scope.vm.cur_stat = STAT_CONTRIBUTIONS;
+                    $scope.vm.exp_stat = stat;
                     break;
 
                 case STAT_FOLLOWING:
@@ -110,14 +112,17 @@ angular.module('tcp').directive('user', [
                 case STAT_FOLLOWING_TAGS:
                 case STAT_FOLLOWING_USERS:
                     $scope.vm.cur_stat = STAT_FOLLOWING;
+                    $scope.vm.exp_stat = stat;
                     break;
 
                 case STAT_FAVORITES:
                     $scope.vm.cur_stat = STAT_FAVORITES;
+                    $scope.vm.exp_stat = STAT_FAVORITES;
                     break;
 
                 case STAT_FOLLOWERS:
                     $scope.vm.cur_stat = STAT_FOLLOWERS;
+                    $scope.vm.exp_stat = STAT_FOLLOWERS;
                     break;
                 }
             };
