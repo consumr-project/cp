@@ -11,7 +11,7 @@
     display: inline-block;
     font-size: var(--font-size-small);
     font-weight: 700;
+    outline: none;
     padding: var(--spacing-small);
     text-transform: uppercase;
-    outline: none;
 }
