@@ -51,6 +51,27 @@ angular.module('tcp').service('Services', [
         }
 
         /**
+         * @param {String} method
+         * @param {String} url
+         * @param {Object} [args]
+         * @return {Promise}
+         */
+        function http(method, url, args) {
+            return $http[method](url, args)
+                .then(pluck_data)
+                .then(pluck_body);
+        }
+
+        /**
+         * @param {String} url
+         * @param {Object} [args]
+         * @return {Promise}
+         */
+        function get(url, args) {
+            return http('get', url, args);
+        }
+
+        /**
          * @param {String} model
          * @param {Array} [associataions]
          * @return {Object}
@@ -141,6 +162,10 @@ angular.module('tcp').service('Services', [
             users: crud('users', ['followers']),
             feedback: crud('feedback'),
             reviews: crud('reviews', ['useful']),
+        };
+
+        queryService.users.stats = function (id) {
+            return get(url('users', id, 'stats'));
         };
 
         queryService.multi_search = {
