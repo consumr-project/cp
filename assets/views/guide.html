@@ -6,6 +6,10 @@
 .guide-block-avatars avatar + avatar {
     margin-top: 15px;
 }
+
+.guide-inline-avatars avatar + avatar {
+    margin-left: 15px;
+}
 </style>
 <div class="site-content" ng-controller="GuideController">
     <h1>snav</h1>
@@ -187,7 +191,7 @@
 
         <avatar title="Theoretical Physicist"></avatar>
     </rector-markup>
-    <rector-markup>
+    <rector-markup class="guide-inline-avatars">
         <avatars>
             <avatar name="Albert Einstein" title="Theoretical Physicist" image="https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"></avatar>
 
