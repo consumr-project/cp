@@ -204,7 +204,7 @@ angular.module('tcp').directive('user', [
                 '        </section>',
                 '    </center>',
 
-                '    <section ng-switch="vm.exp_stat" class="margin-top-large">',
+                '    <section class="margin-top-large">',
                 '        <div ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_EVENTS" ng-repeat="ev in vm.stats_data">',
                 '            <span class="right margin-left-xsmall font-size-small imgview imgview--with-content imgview--bookmarks">{{::ev.bookmark_count | number}}</span>',
                 '            <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::ev.source_count | number}}</span>',
