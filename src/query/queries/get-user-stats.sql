@@ -16,7 +16,7 @@ with stats as (
     left join companies c on (u.id = c.created_by and c.deleted_date is null)
     left join events e on (u.id = e.created_by and e.deleted_date is null)
     left join event_sources es on (u.id = es.created_by and es.deleted_date is null)
-    left join reviews r on (u.id = r.created_by and r.deleted_date is null)
+    left join reviews r on (u.id = r.user_id and r.deleted_date is null)
     left join questions q on (u.id = q.created_by and q.deleted_date is null)
     left join company_followers cf on (u.id = cf.user_id and cf.deleted_date is null)
     left join tag_followers tf on (u.id = tf.user_id and tf.deleted_date is null)
