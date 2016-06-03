@@ -172,6 +172,10 @@ angular.module('tcp').service('Services', [
         queryService.users.stats.followers = {};
         queryService.users.stats.following = {};
 
+        queryService.users.stats.contributions.reviews = function (id) {
+            return get(url('users', id, 'stats/contributions/reviews'), { cache: true });
+        };
+
         queryService.users.stats.contributions.events = function (id) {
             return get(url('users', id, 'stats/contributions/events'), { cache: true });
         };

@@ -27,6 +27,7 @@ angular.module('tcp').directive('user', [
             STAT_FOLLOWING_TAGS = 12;
 
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_EVENTS] = Services.query.users.stats.contributions.events;
+        STAT_GETTER_MAP[STAT_CONTRIBUTIONS_REVIEWS] = Services.query.users.stats.contributions.reviews;
         STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
         STAT_GETTER_MAP[STAT_FOLLOWERS] = Services.query.users.stats.followers.users;
 
@@ -216,6 +217,11 @@ angular.module('tcp').directive('user', [
                 '            name="{{::user.name}}"',
                 '            title="{{::user.title}}"',
                 '            email="{{::user.email}}"></avatar>',
+                '        <review ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_REVIEWS"',
+                '            ng-repeat="review in vm.stats_data"',
+                '            class="margin-top-large"',
+                '            model="review"',
+                '            type="view"></review>',
                 '    </section>',
                 '</div>'
             ].join('')
