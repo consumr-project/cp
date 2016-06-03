@@ -64,6 +64,9 @@ angular.module('tcp').directive('avatar', function () {
     return {
         transclude: true,
         template: template,
-        link: link
+        link: link,
+        scope: {
+            src: '@'
+        }
     };
 });

@@ -10,7 +10,7 @@ avatar:not(.avatar--block) {
 .avatar__image {
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
     border-radius: 200px;
     border: 1px solid var(--color-std-border-color);
     box-shadow: 0 0 4px var(--color-std-shadow-color);
