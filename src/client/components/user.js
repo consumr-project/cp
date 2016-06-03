@@ -7,7 +7,8 @@ angular.module('tcp').directive('user', [
         'use strict';
 
         var STAT_MAP = {},
-            STAT_CHILD_MAP = {};
+            STAT_CHILD_MAP = {},
+            STAT_GETTER_MAP = {}
 
         var STAT_CONTRIBUTIONS = 1,
             STAT_FOLLOWING = 2,
@@ -23,6 +24,9 @@ angular.module('tcp').directive('user', [
         var STAT_FOLLOWING_COMPANIES = 10,
             STAT_FOLLOWING_USERS = 11,
             STAT_FOLLOWING_TAGS = 12;
+
+        STAT_GETTER_MAP[STAT_CONTRIBUTIONS_EVENTS] = Services.query.users.stats.contributions.events;
+        STAT_GETTER_MAP[STAT_FOLLOWERS] = Services.query.users.stats.followers.users;
 
         STAT_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS;
         STAT_MAP[STAT_CONTRIBUTIONS_COMPANIES] = STAT_CONTRIBUTIONS;
@@ -126,21 +130,11 @@ angular.module('tcp').directive('user', [
             };
 
             $scope.load_stat = function (stat) {
-                var req = $q.when([]);
+                var req = STAT_CHILD_MAP[stat] in STAT_GETTER_MAP ?
+                    STAT_GETTER_MAP[STAT_CHILD_MAP[stat]]($scope.id) : $q.when([]);
 
                 $scope.vm.cur_stat = STAT_MAP[stat];
                 $scope.vm.exp_stat = STAT_CHILD_MAP[stat];
-
-                switch (STAT_CHILD_MAP[stat]) {
-                    case STAT_CONTRIBUTIONS_EVENTS:
-                        req = Services.query.users.stats.contributions.events($scope.id);
-                        break;
-
-                    case STAT_FOLLOWERS:
-                        req = Services.query.users.stats.followers.users($scope.id);
-                        break;
-                }
-
                 req.then(utils.scope.set($scope, 'vm.stats_data'));
             };
 
