@@ -26,6 +26,7 @@ angular.module('tcp').directive('user', [
             STAT_FOLLOWING_TAGS = 12;
 
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_EVENTS] = Services.query.users.stats.contributions.events;
+        STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
         STAT_GETTER_MAP[STAT_FOLLOWERS] = Services.query.users.stats.followers.users;
 
         STAT_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS;
@@ -206,7 +207,7 @@ angular.module('tcp').directive('user', [
                 '            ng-repeat="ev in vm.stats_data"',
                 '            api="{}"',
                 '            type="view" id="{{ev.id}}"></event>',
-                '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS"',
+                '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS || vm.exp_stat === STAT_FOLLOWING_USERS"',
                 '            ng-repeat="user in vm.stats_data"',
                 '            class="margin-top-large"',
                 '            name="{{::user.name}}"',

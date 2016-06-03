@@ -52,6 +52,9 @@ get('/users/:id/stats',
 get('/users/:id/stats/contributions/events',
     can('retrieve', 'event'),
     query(conn, sql('get-user-contributions-events'), false, { offset: 0 }));
+get('/users/:id/stats/following/users',
+    can('retrieve', 'user'),
+    query(conn, sql('get-user-following-users'), false, { offset: 0 }));
 get('/users/:id/stats/followers/users',
     can('retrieve', 'user'),
     query(conn, sql('get-user-followers-users'), false, { offset: 0 }));
