@@ -15,6 +15,7 @@ angular.module('tcp').directive('event', [
             '        <i18n class="event-elem__date" date="{{::ev.date}}"',
             '            format="D MMM, YYYY"></i18n>',
             '        <span class="font-size-small margin-left-small imgview imgview--with-content imgview--sources">{{::ev.sources.length | number}}</span>',
+            '        <span class="font-size-small margin-left-xsmall imgview imgview--with-content imgview--bookmarks">{{::ev.bookmarks["@meta"].instead.count | number}}</span>',
             '    </div>',
             '    <h2>{{::ev.title}}</h2>',
             '    <div ng-repeat="source in ev.$sources" class="line-separated">',
@@ -473,7 +474,7 @@ angular.module('tcp').directive('event', [
              * @return {void}
              */
             function load(id) {
-                Services.query.events.retrieve(id, ['sources', 'tags', 'companies'], ['tags', 'companies']).then(function (ev) {
+                Services.query.events.retrieve(id, ['bookmarks', 'sources', 'tags', 'companies'], ['tags', 'companies']).then(function (ev) {
                     $scope.ev = ev;
                     $scope.ev.$date = new Date(ev.date);
                     $scope.ev.$tags = lodash.map(ev.tags, normalize_tag);

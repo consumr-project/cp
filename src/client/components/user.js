@@ -156,7 +156,7 @@ angular.module('tcp').directive('user', [
                 id: '@'
             },
             template: [
-                '<div>',
+                '<div class="user-component">',
                 '    <center ng-if="vm.user.id" class="margin-top-large">',
                 '        <avatar class="avatar--block"',
                 '            title="{{::vm.user.title}}" name="{{::vm.user.name}}"',
@@ -203,13 +203,11 @@ angular.module('tcp').directive('user', [
                 '    </center>',
 
                 '    <section class="margin-top-large">',
-                '        <div ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_EVENTS" ng-repeat="ev in vm.stats_data">',
-                '            <span class="right margin-left-xsmall font-size-small imgview imgview--with-content imgview--bookmarks">{{::ev.bookmark_count | number}}</span>',
-                '            <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::ev.source_count | number}}</span>',
-                '            <h2 class="margin-top-medium">{{::ev.title}}</h2>',
-                '            <i18n date="{{::ev.date}}" format="D MMM, YYYY"></i18n>',
-                '            <p>{{::ev.source_summary}}</p>',
-                '        </div>',
+                '        <event ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_EVENTS"',
+                '            class="margin-top-large"',
+                '            ng-repeat="ev in vm.stats_data"',
+                '            api="{}"',
+                '            type="view" id="{{ev.id}}"></event>',
                 '    </section>',
                 '</div>'
             ].join('')

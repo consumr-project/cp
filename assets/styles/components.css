@@ -11,6 +11,11 @@ tag-view {
     margin-bottom: 120px;
 }
 
+.events__event__view .event-elem--view .imgview--bookmarks ,
+.user-component .event-elem--view .line-separated + .line-separated {
+    display: none;
+}
+
 @media (--media-regular-screens) {
     .reviews-component__sort {
         float: right
