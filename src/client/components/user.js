@@ -8,7 +8,7 @@ angular.module('tcp').directive('user', [
 
         var STAT_MAP = {},
             STAT_CHILD_MAP = {},
-            STAT_GETTER_MAP = {}
+            STAT_GETTER_MAP = {};
 
         var STAT_CONTRIBUTIONS = 1,
             STAT_FOLLOWING = 2,
