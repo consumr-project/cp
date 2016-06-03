@@ -8,10 +8,18 @@
 }
 
 .snav__item {
+    color: var(--color-light-text-color);
     display: inline-block;
     font-size: var(--font-size-small);
     font-weight: 700;
     outline: none;
     padding: var(--spacing-small);
     text-transform: uppercase;
+    transition: color var(--speed-fast);
+}
+
+.snav__item:hover,
+.snav__item:active,
+.snav__item:focus {
+    color: var(--color-std-text-color);
 }
