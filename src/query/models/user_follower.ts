@@ -5,8 +5,6 @@ import { DataTypes } from 'sequelize';
 const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
-    var User = require('./user')(sequelize);
-
     var UserFollower = sequelize.define('user_follower', merge({
         f_user_id: {
             type: Type.UUID,
@@ -17,10 +15,18 @@ export = sequelize => {
             type: Type.UUID,
             allowNull: false
         }
-    }), CONFIG);
+    }), merge({
+        indexes: [
+            {
+                name: 'user_followers_pkey',
+                unique: true,
+                method: 'BTREE',
+                fields: ['f_user_id', 'user_id']
+            }
+        ]
+    }, CONFIG));
 
-    User.belongsToMany(User, { through: UserFollower, as: 'user_id' });
-    User.belongsToMany(User, { through: UserFollower, as: 'f_user_id' });
+    UserFollower.removeAttribute('id');
 
     return UserFollower;
 };
