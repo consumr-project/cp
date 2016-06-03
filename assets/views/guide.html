@@ -8,11 +8,37 @@
 }
 </style>
 <div class="site-content" ng-controller="GuideController">
+    <h1>snav</h1>
+    <rector-markup>
+        <snav>
+            <snav-item i18n="pages/profile"></snav-item>
+            <snav-item i18n="pages/users"></snav-item>
+            <snav-item i18n="pages/companies"></snav-item>
+        </snav>
+
+        <br>
+
+        <snav>
+            <snav-item i18n="pages/profile"></snav-item>
+            <snav-item i18n="pages/users"></snav-item>
+            <snav-item i18n="pages/companies"></snav-item>
+            <snav-item i18n="pages/profile"></snav-item>
+            <snav-item i18n="pages/users"></snav-item>
+            <snav-item i18n="pages/companies"></snav-item>
+            <snav-item i18n="pages/profile"></snav-item>
+            <snav-item i18n="pages/users"></snav-item>
+            <snav-item i18n="pages/companies"></snav-item>
+            <snav-item i18n="pages/profile"></snav-item>
+            <snav-item i18n="pages/users"></snav-item>
+            <snav-item i18n="pages/companies"></snav-item>
+        </snav>
+    </rector-markup>
+
     <h1>options</h1>
     <rector-markup>
         <options on-change="action(value)">
-            <options-item value="time" selected i18n="company/time"></options-item>
-            <options-item value="usefulness" i18n="company/usefulness"></options-item>
+            <options-item value="time" selected i18n="admin/edit"></options-item>
+            <options-item value="usefulness" i18n="admin/report"></options-item>
         </options>
     </rector-markup>
 
