@@ -113,7 +113,7 @@ namespace tcp {
             if (DEBUGGING) {
                 $routeProvider.when('/guide', {
                     resolve: { PageView },
-                    templateUrl: '/app/views/guide.html',
+                    templateUrl: '/assets/views/guide.html',
                 });
             }
 
