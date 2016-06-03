@@ -165,7 +165,12 @@ angular.module('tcp').service('Services', [
         };
 
         queryService.users.stats = function (id) {
-            return get(url('users', id, 'stats'));
+            return get(url('users', id, 'stats'), { cache: true });
+        };
+
+        queryService.users.stats.contributions = {};
+        queryService.users.stats.contributions.events = function (id) {
+            return get(url('users', id, 'stats/contributions/events'), { cache: true });
         };
 
         queryService.multi_search = {

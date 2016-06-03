@@ -2,23 +2,53 @@ angular.module('tcp').directive('user', [
     'Services',
     'Session',
     'utils',
-    function (Services, Session, utils) {
+    '$q',
+    function (Services, Session, utils, $q) {
         'use strict';
 
-        var STAT_CONTRIBUTIONS = {},
-            STAT_FOLLOWING = {},
-            STAT_FOLLOWERS = {},
-            STAT_FAVORITES = {};
+        var STAT_MAP = {},
+            STAT_CHILD_MAP = {};
 
-        var STAT_CONTRIBUTIONS_EVENTS = {},
-            STAT_CONTRIBUTIONS_QUESTIONS = {},
-            STAT_CONTRIBUTIONS_COMPANIES = {},
-            STAT_CONTRIBUTIONS_SOURCES = {},
-            STAT_CONTRIBUTIONS_REVIEWS = {};
+        var STAT_CONTRIBUTIONS = 1,
+            STAT_FOLLOWING = 2,
+            STAT_FOLLOWERS = 3,
+            STAT_FAVORITES = 4;
 
-        var STAT_FOLLOWING_COMPANIES = {},
-            STAT_FOLLOWING_USERS = {},
-            STAT_FOLLOWING_TAGS = {};
+        var STAT_CONTRIBUTIONS_EVENTS = 5,
+            STAT_CONTRIBUTIONS_QUESTIONS = 6,
+            STAT_CONTRIBUTIONS_COMPANIES = 7,
+            STAT_CONTRIBUTIONS_SOURCES = 8,
+            STAT_CONTRIBUTIONS_REVIEWS = 9;
+
+        var STAT_FOLLOWING_COMPANIES = 10,
+            STAT_FOLLOWING_USERS = 11,
+            STAT_FOLLOWING_TAGS = 12;
+
+        STAT_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_CONTRIBUTIONS_COMPANIES] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_CONTRIBUTIONS_EVENTS] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_CONTRIBUTIONS_QUESTIONS] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_CONTRIBUTIONS_REVIEWS] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_CONTRIBUTIONS_SOURCES] = STAT_CONTRIBUTIONS;
+        STAT_MAP[STAT_FOLLOWING] = STAT_FOLLOWING;
+        STAT_MAP[STAT_FOLLOWING_COMPANIES] = STAT_FOLLOWING;
+        STAT_MAP[STAT_FOLLOWING_TAGS] = STAT_FOLLOWING;
+        STAT_MAP[STAT_FOLLOWING_USERS] = STAT_FOLLOWING;
+        STAT_MAP[STAT_FAVORITES] = STAT_FAVORITES;
+        STAT_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS;
+
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS_EVENTS;
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS_COMPANIES] = STAT_CONTRIBUTIONS_COMPANIES;
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS_EVENTS] = STAT_CONTRIBUTIONS_EVENTS;
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS_QUESTIONS] = STAT_CONTRIBUTIONS_QUESTIONS;
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS_REVIEWS] = STAT_CONTRIBUTIONS_REVIEWS;
+        STAT_CHILD_MAP[STAT_CONTRIBUTIONS_SOURCES] = STAT_CONTRIBUTIONS_SOURCES;
+        STAT_CHILD_MAP[STAT_FOLLOWING] = STAT_FOLLOWING_COMPANIES;
+        STAT_CHILD_MAP[STAT_FOLLOWING_COMPANIES] = STAT_FOLLOWING_COMPANIES;
+        STAT_CHILD_MAP[STAT_FOLLOWING_TAGS] = STAT_FOLLOWING_TAGS;
+        STAT_CHILD_MAP[STAT_FOLLOWING_USERS] = STAT_FOLLOWING_USERS;
+        STAT_CHILD_MAP[STAT_FAVORITES] = STAT_FAVORITES;
+        STAT_CHILD_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS;
 
         function controller($scope) {
             $scope.S_EMPTY = '';
@@ -42,6 +72,7 @@ angular.module('tcp').directive('user', [
                 stats: null,
                 cur_stat: null,
                 exp_stat: null,
+                stats_data: [],
                 followed_by_me: null,
             };
 
@@ -56,7 +87,8 @@ angular.module('tcp').directive('user', [
 
                     Services.query.users.stats(id)
                         .then(utils.scope.set($scope, 'vm.stats'))
-                        .then(utils.scope.set($scope, 'vm.cur_stat', STAT_CONTRIBUTIONS));
+                        .then(utils.scope.set($scope, 'vm.cur_stat', STAT_CONTRIBUTIONS))
+                        .then($scope.load_stat.bind(null, STAT_CONTRIBUTIONS_EVENTS));
                 });
             }
 
@@ -96,35 +128,18 @@ angular.module('tcp').directive('user', [
             };
 
             $scope.load_stat = function (stat) {
-                switch (stat) {
-                case STAT_CONTRIBUTIONS:
-                case STAT_CONTRIBUTIONS_COMPANIES:
-                case STAT_CONTRIBUTIONS_EVENTS:
-                case STAT_CONTRIBUTIONS_QUESTIONS:
-                case STAT_CONTRIBUTIONS_REVIEWS:
-                case STAT_CONTRIBUTIONS_SOURCES:
-                    $scope.vm.cur_stat = STAT_CONTRIBUTIONS;
-                    $scope.vm.exp_stat = stat;
-                    break;
+                var req = $q.when([]);
 
-                case STAT_FOLLOWING:
-                case STAT_FOLLOWING_COMPANIES:
-                case STAT_FOLLOWING_TAGS:
-                case STAT_FOLLOWING_USERS:
-                    $scope.vm.cur_stat = STAT_FOLLOWING;
-                    $scope.vm.exp_stat = stat;
-                    break;
+                $scope.vm.cur_stat = STAT_MAP[stat];
+                $scope.vm.exp_stat = STAT_CHILD_MAP[stat];
 
-                case STAT_FAVORITES:
-                    $scope.vm.cur_stat = STAT_FAVORITES;
-                    $scope.vm.exp_stat = STAT_FAVORITES;
-                    break;
-
-                case STAT_FOLLOWERS:
-                    $scope.vm.cur_stat = STAT_FOLLOWERS;
-                    $scope.vm.exp_stat = STAT_FOLLOWERS;
-                    break;
+                switch (STAT_CHILD_MAP[stat]) {
+                    case STAT_CONTRIBUTIONS_EVENTS:
+                        req = Services.query.users.stats.contributions.events($scope.id);
+                        break;
                 }
+
+                req.then(utils.scope.set($scope, 'vm.stats_data'));
             };
 
             if ($scope.id) {
@@ -185,8 +200,18 @@ angular.module('tcp').directive('user', [
                 '                <div class="snav__item" ng-click="load_stat(STAT_FOLLOWING_USERS)" i18n="user/following_users" data="{count: vm.stats.following_users || S_EMPTY}"></div>',
                 '                <div class="snav__item" ng-click="load_stat(STAT_FOLLOWING_TAGS)" i18n="user/following_tags" data="{count: vm.stats.following_tags || S_EMPTY}"></div>',
                 '            </div>',
+
                 '        </section>',
                 '    </center>',
+
+                '    <section ng-switch="vm.exp_stat" class="margin-top-large">',
+                '        <div ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_EVENTS" ng-repeat="ev in vm.stats_data">',
+                '            <span class="right margin-left-xsmall font-size-small imgview imgview--with-content imgview--bookmarks">{{::ev.bookmark_count | number}}</span>',
+                '            <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::ev.source_count | number}}</span>',
+                '            <h2 class="margin-top-medium">{{::ev.title}}</h2>',
+                '            <i18n date="{{::ev.date}}" format="D MMM, YYYY"></i18n>',
+                '        </div>',
+                '    </section>',
                 '</div>'
             ].join('')
         };
