@@ -51,7 +51,7 @@ get('/users/:id/stats',
     query(conn, sql('get-user-stats'), true));
 get('/users/:id/stats/contributions/events',
     can('retrieve', 'user'),
-    query(conn, sql('get-user-contributions-events')));
+    query(conn, sql('get-user-contributions-events'), false, { offset: 0 }));
 
 patch('/users/:f_user_id/followers',
     can('follow', 'user'),
