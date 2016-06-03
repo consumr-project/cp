@@ -212,7 +212,7 @@ angular.module('tcp').directive('user', [
                 '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS || vm.exp_stat === STAT_FOLLOWING_USERS"',
                 '            ng-repeat="user in vm.stats_data"',
                 '            ng-click="nav.user(user.id)"',
-                '            class="margin-top-large"',
+                '            class="margin-top-large block"',
                 '            name="{{::user.name}}"',
                 '            title="{{::user.title}}"',
                 '            email="{{::user.email}}"></avatar>',
