@@ -19,7 +19,6 @@
 }
 
 .snav__item:hover,
-.snav__item:active,
-.snav__item:focus {
+.snav__item.snav__item--active {
     color: var(--color-std-text-color);
 }

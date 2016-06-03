@@ -170,6 +170,8 @@ build-client-src:
 	$(js_min) src/client/elements/popover.js >> $(build_client_js)
 	$(js_min) src/client/elements/popover-item.js >> $(build_client_js)
 	$(js_min) src/client/elements/avatar.js >> $(build_client_js)
+	$(js_min) src/client/elements/snav.js >> $(build_client_js)
+	$(js_min) src/client/elements/snav-item.js >> $(build_client_js)
 	$(js_min) src/client/elements/message.js >> $(build_client_js)
 	$(js_min) src/client/elements/indicator.js >> $(build_client_js)
 	$(js_min) src/client/elements/key.js >> $(build_client_js)
