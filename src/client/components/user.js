@@ -210,6 +210,7 @@ angular.module('tcp').directive('user', [
                 '            <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::ev.source_count | number}}</span>',
                 '            <h2 class="margin-top-medium">{{::ev.title}}</h2>',
                 '            <i18n date="{{::ev.date}}" format="D MMM, YYYY"></i18n>',
+                '            <p>{{::ev.source_summary}}</p>',
                 '        </div>',
                 '    </section>',
                 '</div>'

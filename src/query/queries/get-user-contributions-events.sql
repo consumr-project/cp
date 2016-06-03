@@ -3,39 +3,32 @@ select e.id,
     e."date",
 
     count(distinct es.id)::"numeric" as source_count,
-    count(eb.event_id)::"numeric" as bookmark_count
+    count(eb.event_id)::"numeric" as bookmark_count,
 
-    -- distinct on (es.id) 8
-    -- s.id
-    -- es.id
-    -- source 1 url
-    -- source 1 date
-    -- source 1 quote
+    s.url as source_url,
+    s.published_date as source_publised_date,
+    s.summary as source_summary
 
 from events e
 
 left join event_bookmarks eb on (e.id = eb.event_id and eb.deleted_date is null)
 left join event_sources es on (e.id = es.event_id and es.deleted_date is null)
 
--- left join (
---     select es.id,
---         es.event_id
---
---     from event_sources es
---
---     where es.deleted_date is null
---
---     limit 1
--- ) as s on (e.id = s.event_id)
+left join (
+    select es.event_id,
+        es.url,
+        es.published_date,
+        es.summary
 
--- where e.created_by = '4a9cb039-2a8c-458e-839f-78b4d951c226'
+    from event_sources es
+    where es.deleted_date is null
+    limit 1
+) as s on (e.id = s.event_id)
+
 where e.created_by = :id
 and e.deleted_date is null
 
--- group by e.id, es.id
--- order by es.id, es.created_date desc, e.created_date desc
-
-group by e.id
+group by e.id, s.event_id, s.url, s.published_date, s.summary
 order by e.created_date desc
 
 ;
