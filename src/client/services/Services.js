@@ -169,8 +169,14 @@ angular.module('tcp').service('Services', [
         };
 
         queryService.users.stats.contributions = {};
+        queryService.users.stats.followers = {};
+
         queryService.users.stats.contributions.events = function (id) {
             return get(url('users', id, 'stats/contributions/events'), { cache: true });
+        };
+
+        queryService.users.stats.followers.users = function (id) {
+            return get(url('users', id, 'stats/followers/users'), { cache: true });
         };
 
         queryService.multi_search = {

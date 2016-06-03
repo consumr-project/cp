@@ -135,6 +135,10 @@ angular.module('tcp').directive('user', [
                     case STAT_CONTRIBUTIONS_EVENTS:
                         req = Services.query.users.stats.contributions.events($scope.id);
                         break;
+
+                    case STAT_FOLLOWERS:
+                        req = Services.query.users.stats.followers.users($scope.id);
+                        break;
                 }
 
                 req.then(utils.scope.set($scope, 'vm.stats_data'));
@@ -208,6 +212,12 @@ angular.module('tcp').directive('user', [
                 '            ng-repeat="ev in vm.stats_data"',
                 '            api="{}"',
                 '            type="view" id="{{ev.id}}"></event>',
+                '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS"',
+                '            ng-repeat="user in vm.stats_data"',
+                '            class="margin-top-large"',
+                '            name="{{::user.name}}"',
+                '            title="{{::user.title}}"',
+                '            email="{{::user.email}}"></avatar>',
                 '    </section>',
                 '</div>'
             ].join('')
