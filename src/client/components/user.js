@@ -1,9 +1,10 @@
 angular.module('tcp').directive('user', [
     'Services',
     'Session',
+    'Navigation',
     'utils',
     '$q',
-    function (Services, Session, utils, $q) {
+    function (Services, Session, Navigation, utils, $q) {
         'use strict';
 
         var STAT_MAP = {},
@@ -71,6 +72,7 @@ angular.module('tcp').directive('user', [
             $scope.STAT_FOLLOWING_USERS = STAT_FOLLOWING_USERS;
             $scope.STAT_FOLLOWING_TAGS = STAT_FOLLOWING_TAGS;
 
+            $scope.nav = Navigation;
             $scope.vm = {
                 stats: null,
                 cur_stat: null,
@@ -209,6 +211,7 @@ angular.module('tcp').directive('user', [
                 '            type="view" id="{{ev.id}}"></event>',
                 '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS || vm.exp_stat === STAT_FOLLOWING_USERS"',
                 '            ng-repeat="user in vm.stats_data"',
+                '            ng-click="nav.user(user.id)"',
                 '            class="margin-top-large"',
                 '            name="{{::user.name}}"',
                 '            title="{{::user.title}}"',
