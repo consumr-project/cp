@@ -12,6 +12,22 @@
 }
 </style>
 <div class="site-content" ng-controller="GuideController">
+    <h1>chart</h1>
+    <rector-markup>
+        <chart type="hbar" values="chart_values" y-labels="chart_y_labels"></chart>
+    </rector-markup>
+    <rector-scope watch-collection="chart_values"></rector-scope>
+    <rector-scope watch-collection="chart_y_labels"></rector-scope>
+
+    <rector-markup>
+        <chart type="heartcount" value="5"></chart>
+        <chart type="heartcount" value="4"></chart>
+        <chart type="heartcount" value="3"></chart>
+        <chart type="heartcount" value="2"></chart>
+        <chart type="heartcount" value="1"></chart>
+        <chart type="heartcount" editable="true"></chart>
+    </rector-markup>
+
     <h1>snav</h1>
     <rector-markup>
         <snav>
@@ -45,22 +61,6 @@
             <options-item value="usefulness" i18n="admin/report"></options-item>
         </options>
     </rector-markup>
-
-    <h1>chart</h1>
-    <rector-markup>
-        <chart type="heartcount" value="5"></chart>
-        <chart type="heartcount" value="4"></chart>
-        <chart type="heartcount" value="3"></chart>
-        <chart type="heartcount" value="2"></chart>
-        <chart type="heartcount" value="1"></chart>
-        <chart type="heartcount" editable="true"></chart>
-    </rector-markup>
-
-    <rector-markup>
-        <chart type="hbar" values="chart_values" y-labels="chart_y_labels"></chart>
-    </rector-markup>
-    <rector-scope watch-collection="chart_values"></rector-scope>
-    <rector-scope watch-collection="chart_y_labels"></rector-scope>
 
     <h1>date picker</h1>
     <rector-markup>

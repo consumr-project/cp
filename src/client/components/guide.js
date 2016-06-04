@@ -35,8 +35,9 @@ angular.module('tcp').controller('GuideController', [
 
         $interval(function () {
             $scope.chart_values = generate(100, 5);
-        }, 1000);
+        }, 3000);
 
+        $scope.chart_values = generate(100, 5);
         $scope.chart_y_labels = [
             '5 heart',
             '4 heart',
