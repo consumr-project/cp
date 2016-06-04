@@ -12,9 +12,13 @@ angular.module('tcp').directive('user', [
             STAT_GETTER_MAP = {};
 
         var STAT_CONTRIBUTIONS = 1,
-            STAT_FOLLOWING = 2,
-            STAT_FOLLOWERS = 3,
-            STAT_FAVORITES = 4;
+            STAT_FOLLOWING = 2;
+
+        var STAT_FOLLOWERS = 3,
+            STAT_FOLLOWERS_USERS = 13;
+
+        var STAT_FAVORITES = 4,
+            STAT_FAVORITES_EVENTS = 14;
 
         var STAT_CONTRIBUTIONS_EVENTS = 5,
             STAT_CONTRIBUTIONS_QUESTIONS = 6,
@@ -29,7 +33,7 @@ angular.module('tcp').directive('user', [
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_EVENTS] = Services.query.users.stats.contributions.events;
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_REVIEWS] = Services.query.users.stats.contributions.reviews;
         STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
-        STAT_GETTER_MAP[STAT_FOLLOWERS] = Services.query.users.stats.followers.users;
+        STAT_GETTER_MAP[STAT_FOLLOWERS_USERS] = Services.query.users.stats.followers.users;
 
         STAT_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS;
         STAT_MAP[STAT_CONTRIBUTIONS_COMPANIES] = STAT_CONTRIBUTIONS;
@@ -42,7 +46,9 @@ angular.module('tcp').directive('user', [
         STAT_MAP[STAT_FOLLOWING_TAGS] = STAT_FOLLOWING;
         STAT_MAP[STAT_FOLLOWING_USERS] = STAT_FOLLOWING;
         STAT_MAP[STAT_FAVORITES] = STAT_FAVORITES;
+        STAT_MAP[STAT_FAVORITES_EVENTS] = STAT_FAVORITES;
         STAT_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS;
+        STAT_MAP[STAT_FOLLOWERS_USERS] = STAT_FOLLOWERS;
 
         STAT_CHILD_MAP[STAT_CONTRIBUTIONS] = STAT_CONTRIBUTIONS_EVENTS;
         STAT_CHILD_MAP[STAT_CONTRIBUTIONS_COMPANIES] = STAT_CONTRIBUTIONS_COMPANIES;
@@ -54,14 +60,20 @@ angular.module('tcp').directive('user', [
         STAT_CHILD_MAP[STAT_FOLLOWING_COMPANIES] = STAT_FOLLOWING_COMPANIES;
         STAT_CHILD_MAP[STAT_FOLLOWING_TAGS] = STAT_FOLLOWING_TAGS;
         STAT_CHILD_MAP[STAT_FOLLOWING_USERS] = STAT_FOLLOWING_USERS;
-        STAT_CHILD_MAP[STAT_FAVORITES] = STAT_FAVORITES;
-        STAT_CHILD_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS;
+        STAT_CHILD_MAP[STAT_FAVORITES] = STAT_FAVORITES_EVENTS;
+        STAT_CHILD_MAP[STAT_FAVORITES_EVENTS] = STAT_FAVORITES_EVENTS;
+        STAT_CHILD_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS_USERS;
+        STAT_CHILD_MAP[STAT_FOLLOWERS_USERS] = STAT_FOLLOWERS_USERS;
 
         function controller($scope) {
             $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
-            $scope.STAT_FAVORITES = STAT_FAVORITES;
-            $scope.STAT_FOLLOWERS = STAT_FOLLOWERS;
             $scope.STAT_FOLLOWING = STAT_FOLLOWING;
+
+            $scope.STAT_FAVORITES = STAT_FAVORITES;
+            $scope.STAT_FAVORITES_EVENTS = STAT_FAVORITES_EVENTS;
+
+            $scope.STAT_FOLLOWERS = STAT_FOLLOWERS;
+            $scope.STAT_FOLLOWERS_USERS = STAT_FOLLOWERS_USERS;
 
             $scope.STAT_CONTRIBUTIONS_EVENTS = STAT_CONTRIBUTIONS_EVENTS;
             $scope.STAT_CONTRIBUTIONS_QUESTIONS = STAT_CONTRIBUTIONS_QUESTIONS;
@@ -210,7 +222,7 @@ angular.module('tcp').directive('user', [
                 '            ng-repeat="ev in vm.stats_data"',
                 '            api="{}"',
                 '            type="view" id="{{ev.id}}"></event>',
-                '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS || vm.exp_stat === STAT_FOLLOWING_USERS"',
+                '        <avatar ng-if="vm.exp_stat === STAT_FOLLOWERS_USERS || vm.exp_stat === STAT_FOLLOWING_USERS"',
                 '            ng-repeat="user in vm.stats_data"',
                 '            ng-click="nav.user(user.id)"',
                 '            class="margin-top-large block"',
