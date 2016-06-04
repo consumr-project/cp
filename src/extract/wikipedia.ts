@@ -3,7 +3,7 @@ import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
     WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
 
 import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
-import { get_or_else, get_url_parts, service_handler } from '../utilities';
+import { option, get_url_parts, service_handler } from '../utilities';
 import { get, filter, map, includes, head } from 'lodash';
 
 import { Tag, wikitext as parse_wikitext, infobox as parse_infobox,
@@ -23,10 +23,10 @@ const CHAR_REF = '^';
 function normalize_extract(obj: WikipediaResponsePage): WikipediaExtract {
     return {
         id: obj.pageid,
-        title: get_or_else(obj.title, ''),
+        title: option(obj.title).get_or_else(''),
         extract: filter(
             // removes reference lines
-            get_or_else(obj.extract, '').split(CHAR_NL),
+            option(obj.extract).get_or_else('').split(CHAR_NL),
             line => line[0] !== CHAR_REF
         ).join(CHAR_NL).trim()
     };
@@ -35,7 +35,7 @@ function normalize_extract(obj: WikipediaResponsePage): WikipediaExtract {
 function normalize_search_result(obj: WikipediaResponsePage): WikipediaSearchResult {
     return {
         title: obj.title,
-        snippet: striptags(get_or_else(obj.snippet, ''))
+        snippet: striptags(option(obj.snippet).get_or_else(''))
     };
 }
 
