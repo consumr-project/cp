@@ -9,7 +9,7 @@ with stats as (
         count(distinct tf.tag_id)::"numeric" as following_tags,
         count(distinct uf1.f_user_id)::"numeric" as following_users,
         count(distinct uf2.user_id)::"numeric" as followers_users,
-        count(distinct eb.user_id)::"numeric" as favorites_events
+        count(distinct eb.event_id)::"numeric" as favorites_events
 
     from users u
 
