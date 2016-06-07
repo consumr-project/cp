@@ -1,4 +1,4 @@
-angular.module('tcp').directive('events', [
+angular.module('tcp').directive('timeline', [
     'DOMAIN',
     '$q',
     '$timeout',
@@ -100,10 +100,10 @@ angular.module('tcp').directive('events', [
          */
         function generate_template_event_content(label) {
             return [
-                '<span class="events__event__content events__event__content--', label, ' is-non-selectable"',
+                '<span class="timeline__event__content timeline__event__content--', label, ' is-non-selectable"',
                 '    ng-click="view(event)">',
-                '    <div class="events__event__info">',
-                '        <i18n class="events__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
+                '    <div class="timeline__event__info">',
+                '        <i18n class="timeline__event__date" date="{{::event.date}}" format="D MMM, YYYY"></i18n>',
                 '        <span ng-class="{',
                 '                \'imgview--bookmarks\': !event.bookmarked_by_me,',
                 '                \'imgview--bookmarked\': event.bookmarked_by_me,',
@@ -113,7 +113,7 @@ angular.module('tcp').directive('events', [
                 '        <span class="right font-size-small imgview imgview--with-content imgview--sources">{{::event.source_count | number}}</span>',
                 '        <span ng-show="::event.needs_sources" class="right margin-right-small imgview imgview--warning"></span>',
                 '    </div>',
-                '    <div class="events__event__title copy">{{::event.title}}</div>',
+                '    <div class="timeline__event__title copy">{{::event.title}}</div>',
                 '</span>',
             ].join('');
         }
@@ -271,34 +271,34 @@ angular.module('tcp').directive('events', [
                 id: '@',
             },
             template: [
-                '<div class="events can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
+                '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
                 '    <div class="center-aligned loading__only padding-top-large"',
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
 
                 '    <span>',
                 '    <div ng-repeat="event in filtered_events" ',
-                '        class="events__event" ',
+                '        class="timeline__event" ',
                 '        ng-class="{',
                 '           \'animated fadeInUp\': vm.first_load,',
                 '           \'animated fadeIn\': !vm.first_load,',
-                '           \'events__event--highlight\': event.$highlight,',
-                '           \'events__event--first\': $first,',
-                '           \'events__event--last\': $last,',
-                '           \'events__event--special\': event.$is_special,',
-                '           \'events__event--selected\': vm.selected_event_to_view === event,',
+                '           \'timeline__event--highlight\': event.$highlight,',
+                '           \'timeline__event--first\': $first,',
+                '           \'timeline__event--last\': $last,',
+                '           \'timeline__event--special\': event.$is_special,',
+                '           \'timeline__event--selected\': vm.selected_event_to_view === event,',
                 '        }" ',
                 '        style="animation-delay: {{$index < 10 ? $index * .1 : 1}}s"',
                 '    >',
 
                 generate_template_event_content('left'),
                 '        <div',
-                '            class="events__event__icon events__event__icon--{{::event.sentiment}} events__event__icon--{{::event.logo}}"',
+                '            class="timeline__event__icon timeline__event__icon--{{::event.sentiment}} timeline__event__icon--{{::event.logo}}"',
                 '            ng-click="view(event)"></div>',
                 generate_template_event_content('right'),
 
                 '        <div ng-if="vm.selected_event_to_view === event"',
-                '            class="left-align fill-background events__event__view">',
-                '            <div class="events__event__edit-menu">',
+                '            class="left-align fill-background timeline__event__view">',
+                '            <div class="timeline__event__edit-menu">',
                 '                <span ng-click="vm.event_view_menu.show = true"',
                 '                    class="logged-in-only right imgview imgview--dot-dot-dot no-outline"></span>',
                 '                <span ng-class="{',
@@ -321,7 +321,7 @@ angular.module('tcp').directive('events', [
                 '    <popover',
                 '        class="left-align"',
                 '        anchored',
-                '        anchored-element="\'.events__event__edit-menu .imgview--dot-dot-dot\'"',
+                '        anchored-element="\'.timeline__event__edit-menu .imgview--dot-dot-dot\'"',
                 '        anchored-show="vm.event_view_menu.show"',
                 '        anchored-placement="bottom-right"',
                 '        anchored-top-offset="10"',
@@ -336,7 +336,7 @@ angular.module('tcp').directive('events', [
                 '    </popover>',
 
                 '    <div ng-if="events.length > 1"',
-                '        class="events__line animated fadeIn"></div>',
+                '        class="timeline__line animated fadeIn"></div>',
 
                 '    <popover with-close-x with-backdrop ',
                 '        api="vm.add_event" ',

@@ -410,11 +410,11 @@ angular.module('tcp').directive('company', [
                 '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
                 '            </div>',
 
-                '            <events class="margin-top-medium component__events" ',
+                '            <timeline class="margin-top-medium component__timeline" ',
                 '                filters="vm.events_filter" ',
                 '                api="vm.events_timeline" ',
                 '                parent="companies" ',
-                '                id="{{company.id}}"></events>',
+                '                id="{{company.id}}"></timeline>',
                 '        </section>',
 
                 '        <popover with-close-x with-backdrop api="vm.add_event" class="popover--with-content">',

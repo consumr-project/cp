@@ -1,14 +1,14 @@
-.events {
+.timeline {
     position: relative;
     text-align: center;
 }
 
-.events__event {
+.timeline__event {
     min-height: 80px;
     transition: margin-top var(--speed-friendly);
 }
 
-.events__event__view {
+.timeline__event__view {
     animation: var(--speed-friendly) fadeIn;
 }
 
@@ -50,76 +50,76 @@
     padding-top: 20px;
 }
 
-.events__event--last .events__event__info {
+.timeline__event--last .timeline__event__info {
     display: none;
 }
 
-.events__event--special,
-.events__event--special * {
+.timeline__event--special,
+.timeline__event--special * {
     cursor: default;
 }
 
-.events__event .event-elem--view {
+.timeline__event .event-elem--view {
     margin-top: -var(--spacing-large);
 }
 
 @media (--media-regular-screens) {
-    .events__event--last {
+    .timeline__event--last {
         position: relative;
         top: 70px;
     }
 
-    .events__event .event-elem--view {
+    .timeline__event .event-elem--view {
         margin-top: 26px;
         padding: calc(var(--spacing-large) * 2) 0;
     }
 
-    .events__event__icon {
+    .timeline__event__icon {
         outline: none;
         transition: transform var(--speed-friendly);
     }
 
-    .events__event--last .events__event__icon {
+    .timeline__event--last .timeline__event__icon {
         top: 0;
     }
 
-    .events__event--selected .events__event__icon {
+    .timeline__event--selected .timeline__event__icon {
         transform: scale(1.6);
     }
 
-    .events__event--selected .events__event__icon--hammer {
+    .timeline__event--selected .timeline__event__icon--hammer {
         transform: scale(1.6) rotate(-40deg);
     }
 
-    .events__event--highlight .events__event__title {
+    .timeline__event--highlight .timeline__event__title {
         font-family: Times;
         font-size: var(--font-size-xxlarge);
         font-style: italic;
         line-height: var(--font-height-large);
     }
 
-    .events__event__content {
+    .timeline__event__content {
         outline: none;
         transition: opacity var(--speed-friendly);
     }
 
-    .events__event--selected .events__event__content * {
+    .timeline__event--selected .timeline__event__content * {
         font-size: 0;
         height: 0;
         line-height: 0;
         opacity: 0;
     }
 
-    .events__event.events__event--selected:not(.events__event--first):not(.events__event--last) {
+    .timeline__event.timeline__event--selected:not(.timeline__event--first):not(.timeline__event--last) {
         margin-top: var(--spacing-xlarge);
     }
 
-    .events__event--selected ~ .events__event {
+    .timeline__event--selected ~ .timeline__event {
         margin-top: -20px;
     }
 }
 
-.events__event__icon {
+.timeline__event__icon {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 70%;
@@ -133,19 +133,19 @@
     width: var(--avatar-size);
 }
 
-.events__event__icon--neutral {
+.timeline__event__icon--neutral {
     background-color: var(--color-neutral);
 }
 
-.events__event__icon--positive {
+.timeline__event__icon--positive {
     background-color: var(--color-positive);
 }
 
-.events__event__icon--negative {
+.timeline__event__icon--negative {
     background-color: var(--color-negative);
 }
 
-.events__event__content {
+.timeline__event__content {
     display: inline-block;
     margin-top: var(--spacing-xsmall);
     margin-bottom: var(--spacing-xlarge);
@@ -153,48 +153,48 @@
     width: 80%;
 }
 
-.events__event__content--left {
+.timeline__event__content--left {
     margin-right: var(--spacing-xsmall);
 }
 
 @media (--media-regular-screens) {
-    .events__event__content--left {
+    .timeline__event__content--left {
         margin-right: var(--spacing-small);
     }
 
-    .events__event__content--right {
+    .timeline__event__content--right {
         margin-left: var(--spacing-small);
     }
 }
 
-.events__event .events__event__content--left {
+.timeline__event .timeline__event__content--left {
     display: none;
 }
 
 @media (--media-regular-screens) {
-    .events__event__content {
+    .timeline__event__content {
         margin-bottom: var(--spacing-small);
         /* width: 40%; */
         width: var(--content-timeline-offside);
     }
 
-    .events__event .events__event__content--left {
+    .timeline__event .timeline__event__content--left {
         display: inline-block;
     }
 
-    .events__event:nth-child(odd) .events__event__content--left > div,
-    .events__event:nth-child(event) .events__event__content--right > div {
+    .timeline__event:nth-child(odd) .timeline__event__content--left > div,
+    .timeline__event:nth-child(event) .timeline__event__content--right > div {
         display: block;
     }
 
-    .events__event:nth-child(even) .events__event__content--left > div,
-    .events__event:nth-child(odd) .events__event__content--right > div {
+    .timeline__event:nth-child(even) .timeline__event__content--left > div,
+    .timeline__event:nth-child(odd) .timeline__event__content--right > div {
         display: none;
     }
 }
 
 .event-elem__date,
-.events__event__date {
+.timeline__event__date {
     font-size: var(--font-size-small);
     letter-spacing: var(--letter-spacing-small);
     font-weight: 700;
@@ -202,7 +202,7 @@
     width: 50px;
 }
 
-.events__event__title {
+.timeline__event__title {
     border-top: 1px solid var(--color-std-border-color);
     color: var(--color-light-text-color);
     font-size: 20px;
@@ -211,7 +211,7 @@
     padding-top: 10px;
 }
 
-.events__line {
+.timeline__line {
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
     display: none;
@@ -224,7 +224,7 @@
 }
 
 @media (--media-regular-screens) {
-    .events__line {
+    .timeline__line {
         display: block;
     }
 }
@@ -255,27 +255,27 @@
     background-color: var(--color-cp-brand);
 }
 
-.events__event__icon--company_created {
+.timeline__event__icon--company_created {
     background-image: url(/assets/images/megaphone.svg);
 }
 
-.events__event__icon--animal,
+.timeline__event__icon--animal,
 .event-elem__logo--animal {
     background-image: url(/assets/images/animal.svg);
 }
 
-.events__event__icon--world,
+.timeline__event__icon--world,
 .event-elem__logo--world {
     background-image: url(/assets/images/world.svg);
 }
 
-.events__event__icon--hammer,
+.timeline__event__icon--hammer,
 .event-elem__logo--hammer {
     background-image: url(/assets/images/hammer.svg);
     transform: rotate(-40deg);
 }
 
-.events__event__icon--hammer {
+.timeline__event__icon--hammer {
     background-position: -9px 7px;
     background-size: 60px;
 }
@@ -285,7 +285,7 @@
     background-size: 70px;
 }
 
-.events__event__edit-menu {
+.timeline__event__edit-menu {
     float: right;
     margin-top: -40px;
 }

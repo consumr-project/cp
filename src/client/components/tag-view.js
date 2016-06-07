@@ -34,10 +34,10 @@ angular.module('tcp').component('tagView', {
         '        <button class="logged-in-only" ng-click="$ctrl.event_popover.show()"',
         '            i18n="event/add"></button>',
         '    </div>',
-        '    <events class="component__events"',
+        '    <timeline class="component__timeline"',
         '        api="$ctrl.events_timeline"',
         '        parent="tags"',
-        '        id="{{$ctrl.id}}"></events>',
+        '        id="{{$ctrl.id}}"></timeline>',
 
         '        <popover with-close-x with-backdrop api="$ctrl.event_popover" class="popover--with-content">',
         '            <event',
