@@ -35,6 +35,7 @@ angular.module('tcp').directive('user', [
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_SOURCES] = Services.query.users.stats.contributions.sources;
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_COMPANIES] = Services.query.users.stats.contributions.companies;
         STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
+        STAT_GETTER_MAP[STAT_FOLLOWING_COMPANIES] = Services.query.users.stats.following.companies;
         STAT_GETTER_MAP[STAT_FOLLOWERS_USERS] = Services.query.users.stats.followers.users;
         STAT_GETTER_MAP[STAT_FAVORITES_EVENTS] = Services.query.users.stats.favorites.events;
 
@@ -241,7 +242,7 @@ angular.module('tcp').directive('user', [
                 '            ng-repeat="source in vm.stats_data"',
                 '            model="source"',
                 '            type="view"></source>',
-                '        <company ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_COMPANIES"',
+                '        <company ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_COMPANIES || vm.exp_stat === STAT_FOLLOWING_COMPANIES"',
                 '            ng-repeat="company in vm.stats_data"',
                 '            ng-click="nav.company(company.guid)"',
                 '            class="margin-top-large"',
