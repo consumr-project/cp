@@ -64,6 +64,9 @@ get('/users/:id/stats/favorites/events',
 get('/users/:id/stats/contributions/reviews',
     can('retrieve', 'review'),
     query(conn, sql('get-user-contributions-reviews'), false, { offset: 0 }));
+get('/users/:id/stats/following/tags',
+    can('retrieve', 'tag'),
+    query(conn, sql('get-user-following-tags'), false, { offset: 0 }));
 get('/users/:id/stats/following/companies',
     can('retrieve', 'company'),
     query(conn, sql('get-user-following-companies'), false, { offset: 0 }));

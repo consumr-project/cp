@@ -193,6 +193,10 @@ angular.module('tcp').service('Services', [
             return get(url('users', id, 'stats/favorites/events'), { cache: true });
         };
 
+        queryService.users.stats.following.tags = function (id) {
+            return get(url('users', id, 'stats/following/tags'), { cache: true });
+        };
+
         queryService.users.stats.following.companies = function (id) {
             return get(url('users', id, 'stats/following/companies'), { cache: true });
         };

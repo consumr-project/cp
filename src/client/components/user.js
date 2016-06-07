@@ -36,6 +36,7 @@ angular.module('tcp').directive('user', [
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_COMPANIES] = Services.query.users.stats.contributions.companies;
         STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
         STAT_GETTER_MAP[STAT_FOLLOWING_COMPANIES] = Services.query.users.stats.following.companies;
+        STAT_GETTER_MAP[STAT_FOLLOWING_TAGS] = Services.query.users.stats.following.tags;
         STAT_GETTER_MAP[STAT_FOLLOWERS_USERS] = Services.query.users.stats.followers.users;
         STAT_GETTER_MAP[STAT_FAVORITES_EVENTS] = Services.query.users.stats.favorites.events;
 
@@ -247,7 +248,14 @@ angular.module('tcp').directive('user', [
                 '            ng-click="nav.company(company.guid)"',
                 '            class="margin-top-large"',
                 '            model="company"',
-                '            type="view"></source>',
+                '            type="view"></company>',
+                '        <tag-view ng-if="vm.exp_stat === STAT_FOLLOWING_TAGS"',
+                '            ng-repeat="tag in vm.stats_data"',
+                '            ng-click="nav.tag(tag.id)"',
+                '            class="margin-top-large"',
+                '            id="margin-top-large"',
+                '            model="tag"',
+                '            type="view"></tag-view>',
                 '    </section>',
                 '</div>'
             ].join('')
