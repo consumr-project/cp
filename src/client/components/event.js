@@ -18,11 +18,7 @@ angular.module('tcp').directive('event', [
             '        <span class="font-size-small margin-left-xsmall imgview imgview--with-content imgview--bookmarks">{{::ev.bookmarks["@meta"].instead.count | number}}</span>',
             '    </div>',
             '    <h2>{{::ev.title}}</h2>',
-            '    <div ng-repeat="source in ev.$sources" class="line-separated">',
-            '        <a target="_blank" rel="noreferrer" href="{{::source.url}}">{{::source.url}}</a>',
-            '        <h4 i18n date="{{::source.published_date}}" format="D MMM, YYYY" class="margin-top-xsmall"></h4>',
-            '        <p>{{::source.summary}}</p>',
-            '    </div>',
+            '    <source ng-repeat="source in ev.$sources" model="source"></source>',
             '</div>',
         ].join('');
 

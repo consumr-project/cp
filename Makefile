@@ -187,6 +187,7 @@ build-client-src:
 	$(js_min) src/client/components/tag-view.js >> $(build_client_js)
 	$(js_min) src/client/components/feedback.js >> $(build_client_js)
 	$(js_min) src/client/components/event.js >> $(build_client_js)
+	$(js_min) src/client/components/source.js >> $(build_client_js)
 	$(js_min) src/client/components/events.js >> $(build_client_js)
 	$(js_min) src/client/components/review.js >> $(build_client_js)
 	$(js_min) src/client/components/reviews.js >> $(build_client_js)

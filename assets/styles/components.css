@@ -12,7 +12,7 @@ tag-view {
 }
 
 .events__event__view .event-elem--view .imgview--bookmarks ,
-.user-component .event-elem--view .line-separated + .line-separated {
+.user-component .event-elem--view .source--view + .source--view {
     display: none;
 }
 
