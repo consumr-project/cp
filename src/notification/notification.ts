@@ -3,7 +3,10 @@ import { MongoCallback, Collection } from 'mongodb';
 import { clone } from 'lodash';
 
 export enum TYPE {
-    MISSING_INFORMATION = <any>'MISSING_INFORMATION'
+    MISSING_INFORMATION = <any>'MISSING_INFORMATION',
+    FOLLOWED = <any>'FOLLOWED',
+    CONTRIBUTED_TO_OWN_CONTENT = <any>'CONTRIBUTED_TO_OWN_CONTENT',
+    CONTRIBUTED_TO_CONTRIBUTED_CONTENT = <any>'CONTRIBUTED_TO_CONTRIBUTED_CONTENT',
 };
 
 export function push(coll: Collection, subject: string, to: string, payload: any, cb: Function) {
