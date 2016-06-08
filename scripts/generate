@@ -30,6 +30,11 @@ function msg_error(label) {
     };
 }
 
+function msg_ed(label, work) {
+    work.then(msg_success(label))
+        .catch(msg_error(label));
+}
+
 program
     .command('app:user')
     .description('generate base user')
@@ -37,12 +42,10 @@ program
         var user = config('seed.user.root');
 
         console.log('ensuring user#%s exists', user.id);
-        User.findOrCreate({
+        msg_ed('app user', User.findOrCreate({
             defaults: user,
             where: { id: user.id },
-        })
-            .then(msg_success('app user'))
-            .catch(msg_error('app user'));
+        }));
     });
 
 program
@@ -52,12 +55,10 @@ program
         var products = config('seed.products');
 
         Promise.all(products.map(product =>
-            Product.findOrCreate({
+            msg_ed('app products', Product.findOrCreate({
                 where: { id: product.id },
                 defaults: product,
-            })))
-                .then(msg_success('app products'))
-                .catch(msg_error('app products'));
+            }))));
     });
 
 program
@@ -67,12 +68,10 @@ program
         var tags = config('seed.tags');
 
         Promise.all(tags.map(tag =>
-            Tag.findOrCreate({
+            msg_ed('app tags', Tag.findOrCreate({
                 where: { id: tag.id },
                 defaults: tag,
-            })))
-                .then(msg_success('app tags'))
-                .catch(msg_error('app tags'));
+            }))));
     });
 
 program
@@ -82,12 +81,10 @@ program
         var user = config('fixtures.user.admin');
 
         console.log('ensuring user#%s exists', user.id);
-        User.findOrCreate({
+        msg_ed('test user', User.findOrCreate({
             defaults: user,
             where: { id: user.id },
-        })
-            .then(msg_success('test user'))
-            .catch(msg_error('test user'));
+        }));
     });
 
 program
@@ -98,7 +95,7 @@ program
     .action((cmd) => {
         var user = config('fixtures.user.admin');
 
-        Question.create({
+        msg_ed('question', Question.create({
             id: uuid.v4(),
             user_id: cmd.userId,
             company_id: cmd.companyId,
@@ -110,9 +107,7 @@ program
             updated_by: cmd.userId,
             created_date: Date.now(),
             updated_date: Date.now(),
-        })
-            .then(msg_success('question'))
-            .catch(msg_error('question'));
+        }));
     });
 
 program
@@ -123,7 +118,7 @@ program
     .action((cmd) => {
         var user = config('fixtures.user.admin');
 
-        Review.create({
+        msg_ed('review', Review.create({
             id: uuid.v4(),
             user_id: cmd.userId,
             company_id: cmd.companyId,
@@ -134,9 +129,7 @@ program
             updated_by: user.id,
             created_date: Date.now(),
             updated_date: Date.now(),
-        })
-            .then(msg_success('review'))
-            .catch(msg_error('review'));
+        }));
     });
 
 program.parse(process.argv);
