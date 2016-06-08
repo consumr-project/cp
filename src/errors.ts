@@ -10,6 +10,9 @@ export const ERR_MSG_EXTERNAL_ERROR = (msg: string) =>
 export const ERR_MSG_RBAC_FAILURE = (role: string, action: string, resource: string) =>
     `user(${role}) cannot ${action} ${resource}`;
 
+export const ERR_MISSING_FIELDS = (fields: string[]) =>
+    `Missing fields. Required: ${fields.join(', ')}`;
+
 // @link https://tools.ietf.org/html/rfc7231
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 export class HttpError extends Error {
