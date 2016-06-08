@@ -298,13 +298,13 @@ angular.module('tcp').directive('event', [
          */
         function get_normalized_missing_information_company_notification(company, ev) {
             return {
-                obj_id: company.id,
-                obj_name: company.name,
-                obj_type: DOMAIN.model.company,
-                obj_for_type: DOMAIN.model.event,
-                obj_for_id: ev.id,
-                obj_for_name: ev.title,
-                obj_fields: [
+                id: company.id,
+                name: company.name,
+                type: DOMAIN.model.company,
+                for_type: DOMAIN.model.event,
+                for_id: ev.id,
+                for_name: ev.title,
+                fields: [
                     DOMAIN.model.company_props.summary,
                     DOMAIN.model.company_props.wikipedia_url,
                     DOMAIN.model.company_props.website_url,
