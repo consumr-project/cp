@@ -16,6 +16,12 @@ tag-view {
     display: none;
 }
 
+.topmost .notifications {
+    max-height: 450px;
+    max-width: 400px;
+    overflow: scroll;
+}
+
 @media (--media-regular-screens) {
     .reviews-component__sort {
         float: right

@@ -35,7 +35,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 home: Navigation.home,
                 search: Navigation.search,
                 company: Navigation.company,
-                notifications: Navigation.notifications,
                 profile: Navigation.user_me,
             };
 
@@ -139,7 +138,7 @@ angular.module('tcp').directive('tcpTopmost', [
             replace: true,
             controller: ['$rootScope', '$scope', controller],
             template: [
-                '<div>',
+                '<div class="topmost">',
                 '    <popover class="popover--fullscreen" api="login" ng-init="more = false">',
                 '        <div class="site-content site-content--no-header">',
                 '            <h2 i18n="common/welcome"></h2>',
