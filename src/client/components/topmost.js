@@ -169,14 +169,10 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            ng-click="actions.show = true"',
                 '            email="{{session.email}}"',
                 '            data-main-user-avatar',
-                '        >',
-                '            <indicator',
-                '                class="animated zoomIn"',
-                '                ng-if="session.message_count"',
-                '                type="counter"',
-                '                value="session.message_count"',
-                '            ></indicator>',
-                '        </avatar>',
+                '        ></avatar>',
+
+                '        <button class="message-counter right margin-right-small animated fadeIn button--circlular"',
+                '            ng-click="nav.notifications()" ng-if="session.logged_in">{{session.message_count}}</button>',
 
                 '        <button class="search-button right margin-right-small animated fadeIn screen-small-only"',
                 '            ng-click="nav.search()"></button>',

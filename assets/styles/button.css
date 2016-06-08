@@ -47,6 +47,13 @@ button.icon-menu::before {
     top: -1px;
 }
 
+button.button--circlular {
+    padding: 10px 0;
+    text-align: center;
+    white-space: nowrap;
+    width: 38px;
+}
+
 button.button--link {
     background-color: initial;
     border-color: transparent;
