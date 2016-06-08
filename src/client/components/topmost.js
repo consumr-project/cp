@@ -12,7 +12,12 @@ angular.module('tcp').directive('tcpTopmost', [
         var SYNC_INTERVAL = 300000;
 
         function controller($rootScope, $scope) {
+            $scope.user = null;
             $scope.session = get_session();
+
+            $scope.notifications = {
+                show: null
+            };
 
             $scope.actions = {
                 show: null
@@ -40,10 +45,10 @@ angular.module('tcp').directive('tcpTopmost', [
 
             $scope.$watchCollection('session', cache_session);
             Session.on(Session.EVENT.LOGIN, update_current_user);
-            Session.on(Session.EVENT.LOGIN, get_messages);
+            Session.on(Session.EVENT.LOGIN, get_notifications);
             Session.on(Session.EVENT.ERROR, clear_session);
             Session.on(Session.EVENT.LOGOUT, clear_session);
-            Session.on(Session.EVENT.NOTIFY, get_messages);
+            Session.on(Session.EVENT.NOTIFY, get_notifications);
 
             sync();
             $interval(sync, SYNC_INTERVAL);
@@ -76,10 +81,10 @@ angular.module('tcp').directive('tcpTopmost', [
             /**
              * @return {Promise}
              */
-            function get_messages() {
+            function get_notifications() {
                 Services.notification.get.cancel();
                 return Services.notification.get().then(function (items) {
-                    $scope.session.message_count = items.length;
+                    $scope.session.notification_count = items.length;
                 });
             }
 
@@ -88,8 +93,10 @@ angular.module('tcp').directive('tcpTopmost', [
              */
             function sync() {
                 Session.refresh().then(function (user) {
+                    $scope.user = user;
+
                     if (user && user.id) {
-                        get_messages();
+                        get_notifications();
                     }
                 });
             }
@@ -171,8 +178,8 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            data-main-user-avatar',
                 '        ></avatar>',
 
-                '        <button class="message-counter right margin-right-small animated fadeIn button--circlular"',
-                '            ng-click="nav.notifications()" ng-if="session.logged_in">{{session.message_count}}</button>',
+                '        <button class="right margin-right-small animated fadeIn button--circlular"',
+                '            data-main-user-notifications-counter ng-click="notifications.show = true" ng-if="session.logged_in">{{session.notification_count}}</button>',
 
                 '        <button class="search-button right margin-right-small animated fadeIn screen-small-only"',
                 '            ng-click="nav.search()"></button>',
@@ -180,6 +187,18 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        <search class="desktop-only right margin-right-small"',
                 '            form="true" ng-if="!nav.search.included"></search>',
                 '    </header>',
+
+                '    <popover',
+                '        anchored',
+                '        anchored-element="\'[data-main-user-notifications-counter]\'"',
+                '        anchored-show="notifications.show"',
+                '        anchored-placement="bottom-right"',
+                '        anchored-top-offset="10"',
+                '        anchored-arrow="true"',
+                '        anchored-auto-hide="true"',
+                '    >',
+                '        <notifications ng-if="user.id"></notifications>',
+                '    </popover>',
 
                 '    <popover',
                 '        anchored',
