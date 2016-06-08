@@ -189,6 +189,7 @@ build-client-src:
 	$(js_min) src/client/components/event.js >> $(build_client_js)
 	$(js_min) src/client/components/source.js >> $(build_client_js)
 	$(js_min) src/client/components/timeline.js >> $(build_client_js)
+	$(js_min) src/client/components/question.js >> $(build_client_js)
 	$(js_min) src/client/components/review.js >> $(build_client_js)
 	$(js_min) src/client/components/reviews.js >> $(build_client_js)
 	$(js_min) src/client/services/Navigation.js >> $(build_client_js)

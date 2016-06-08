@@ -11,6 +11,7 @@ const gen_models = require('../build/query/models').default;
 const Models = gen_models(gen_conn());
 const User = Models.User;
 const Review = Models.Review;
+const Question = Models.Question;
 const Tag = Models.Tag;
 const Product = Models.Product;
 
@@ -87,6 +88,31 @@ program
         })
             .then(msg_success('test user'))
             .catch(msg_error('test user'));
+    });
+
+program
+    .command('question')
+    .option('--company-id [id]', 'ID of the company to add review to')
+    .option('--user-id [id]', 'ID of the user to add create review as')
+    .description('generate a random question for a company')
+    .action((cmd) => {
+        var user = config('fixtures.user.admin');
+
+        Question.create({
+            id: uuid.v4(),
+            user_id: cmd.userId,
+            company_id: cmd.companyId,
+            title: 'Is ' + faker.company.companyName() + ' really ' + faker.company.bs(),
+            answer: faker.lorem.paragraphs(2),
+            answered_by: cmd.userId,
+            answered_date: Date.now(),
+            created_by: cmd.userId,
+            updated_by: cmd.userId,
+            created_date: Date.now(),
+            updated_date: Date.now(),
+        })
+            .then(msg_success('question'))
+            .catch(msg_error('question'));
     });
 
 program

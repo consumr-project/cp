@@ -181,6 +181,10 @@ angular.module('tcp').service('Services', [
             return get(url('users', id, 'stats/contributions/events'), { cache: true });
         };
 
+        queryService.users.stats.contributions.questions = function (id) {
+            return get(url('users', id, 'stats/contributions/questions'), { cache: true });
+        };
+
         queryService.users.stats.contributions.companies = function (id) {
             return get(url('users', id, 'stats/contributions/companies'), { cache: true });
         };

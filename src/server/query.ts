@@ -49,6 +49,9 @@ del('/users/:id',
 get('/users/:id/stats',
     can('retrieve', 'user'),
     query(conn, sql('get-user-stats'), true));
+get('/users/:id/stats/contributions/questions',
+    can('retrieve', 'company'),
+    query(conn, sql('get-user-contributions-questions'), false, { offset: 0 }));
 get('/users/:id/stats/contributions/companies',
     can('retrieve', 'company'),
     query(conn, sql('get-user-contributions-companies'), false, { offset: 0 }));

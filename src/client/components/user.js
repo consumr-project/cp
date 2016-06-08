@@ -34,6 +34,7 @@ angular.module('tcp').directive('user', [
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_REVIEWS] = Services.query.users.stats.contributions.reviews;
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_SOURCES] = Services.query.users.stats.contributions.sources;
         STAT_GETTER_MAP[STAT_CONTRIBUTIONS_COMPANIES] = Services.query.users.stats.contributions.companies;
+        STAT_GETTER_MAP[STAT_CONTRIBUTIONS_QUESTIONS] = Services.query.users.stats.contributions.questions;
         STAT_GETTER_MAP[STAT_FOLLOWING_USERS] = Services.query.users.stats.following.users;
         STAT_GETTER_MAP[STAT_FOLLOWING_COMPANIES] = Services.query.users.stats.following.companies;
         STAT_GETTER_MAP[STAT_FOLLOWING_TAGS] = Services.query.users.stats.following.tags;
@@ -253,8 +254,12 @@ angular.module('tcp').directive('user', [
                 '            ng-repeat="tag in vm.stats_data"',
                 '            ng-click="nav.tag(tag.id)"',
                 '            class="margin-top-large"',
-                '            id="margin-top-large"',
                 '            model="tag"',
+                '            type="view"></tag-view>',
+                '        <question ng-if="vm.exp_stat === STAT_CONTRIBUTIONS_QUESTIONS"',
+                '            ng-repeat="question in vm.stats_data"',
+                '            class="margin-top-large"',
+                '            model="question"',
                 '            type="view"></tag-view>',
                 '    </section>',
                 '</div>'
