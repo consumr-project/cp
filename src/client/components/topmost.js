@@ -81,7 +81,6 @@ angular.module('tcp').directive('tcpTopmost', [
              * @return {Promise}
              */
             function get_notifications() {
-                Services.notification.get.cancel();
                 return Services.notification.get().then(function (items) {
                     $scope.session.notification_count = items.length;
                 });
