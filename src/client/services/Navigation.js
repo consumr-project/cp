@@ -10,7 +10,6 @@ angular.module('tcp').service('Navigation', [
             SEARCH: '/search',
             USER: '/user',
             EVENT: '/event',
-            NOTIFICATIONS: '/notifications',
             BY_ID: '/id',
             BY_ME: '/me',
         };
@@ -49,7 +48,6 @@ angular.module('tcp').service('Navigation', [
             user: withoid(BASES.USER),
             user_me: withoid(BASES.USER + BASES.BY_ME),
             event: withoid(BASES.EVENT),
-            notifications: withoid(BASES.USER + BASES.NOTIFICATIONS),
 
             /**
              * go to search

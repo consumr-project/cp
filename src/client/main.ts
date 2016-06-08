@@ -149,11 +149,6 @@ namespace tcp {
                 }]
             });
 
-            $routeProvider.when('/user/notifications', {
-                template: '<notifications class="site-content"></notifications>',
-                resolve: { UserCheck, PageView }
-            });
-
             $routeProvider.when('/user/:id', {
                 resolve: { PageView },
                 template: '<user class="site-content" id="{{id}}"></user>',

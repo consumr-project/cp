@@ -212,7 +212,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/add_company"></popover-item>',
                 '        <popover-separator></popover-separator>',
                 '        <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>',
-                '        <popover-item ng-click="nav.notifications(); actions.show = false;" i18n="admin/see_notifications"></popover-item>',
                 '        <popover-item ng-click="logout()" i18n="admin/logout"></popover-item>',
                 '    </popover>',
                 '</div>'
