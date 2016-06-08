@@ -49,3 +49,13 @@ export function service_redirect(from_req: (req: Request) => Promise<string>): S
             .catch(next);
     };
 }
+
+export function has_all_fields(fields: string[], data: any): boolean {
+    for (var i = 0, len = fields.length; i < len; i++) {
+        if (!data[fields[i]]) {
+            return false;
+        }
+    }
+
+    return true;
+}
