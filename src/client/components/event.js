@@ -408,7 +408,8 @@ angular.module('tcp').directive('event', [
                         lodash.map($scope.ev.$companies, function (company) {
                             return Services.query.companies.events.upsert(company.id,
                                 get_normalized_company_event(company, ev.id));
-                        }),
+                        })
+                        //,
                         // XXX from notification rewrite
                         // lodash.map(has_missing_information, function (company) {
                         //     return Services.notification.missing_information(
