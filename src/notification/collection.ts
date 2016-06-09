@@ -12,7 +12,7 @@ export function find(coll: Collection, category: CATEGORY,
 
     query = clone(query);
     query.category = category;
-    query.subcategory = subcategories;
+    query.subcategory = { $in: subcategories };
 
     return coll.find(query).toArray();
 }
