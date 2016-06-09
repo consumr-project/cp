@@ -59,3 +59,29 @@ export function has_all_fields(fields: string[], data: any): boolean {
 
     return true;
 }
+
+export function group_by_day<T extends { date: Date }>(items: T[]): T[][] {
+    var groups = [],
+        holder = {};
+
+    var slug = (date: Date) => [
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    ].join('-');
+
+    items.forEach(item => {
+        let key = slug(item.date);
+        if (!holder[key]) {
+            holder[key] = [];
+        }
+
+        holder[key].push(item);
+    });
+
+    Object.keys(items).sort().reverse().forEach(group => {
+        groups.push(items[group]);
+    });
+
+    return groups;
+}
