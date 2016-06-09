@@ -32,17 +32,14 @@ export default class Message {
     public subcategory: SUBCATEGORY;
     public to: UUID;
     public date: Date;
-    public subject: string;
     public payload: PAYLOAD;
 
-    constructor(category, subcategory, to, subject, payload) {
-
+    constructor(category, subcategory, to, payload) {
         this.id = uuid.v4();
         this.date = new Date;
         this.category = category;
         this.subcategory = subcategory;
         this.to = to;
-        this.subject = subject;
         this.payload = payload;
     }
 }
