@@ -36,7 +36,7 @@ angular.module('tcp').directive('notifications', [
             template: [
                 '<div class="notifications">',
                 '    <div ng-repeat="notification in notifications">',
-                '        hi{{ notifications | json }}',
+                '        {{ notifications | json }}',
                 '    </div>',
                 '</div>'
             ].join('')

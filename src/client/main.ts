@@ -3,6 +3,7 @@ import * as moment from 'moment/moment';
 import * as Cookie from 'js-cookie';
 import { EventEmitter2 } from 'eventemitter2';
 import * as utils from './services/Utilities';
+import * as messages from './services/messages';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
@@ -81,6 +82,7 @@ namespace tcp {
         .value('i18n', i18n) // global
         .value('jQuery', jQuery)
         .value('lodash', _)
+        .value('messages', messages)
         .value('moment', moment)
         .value('utils', utils)
         .value('Visitor', Visitor);
