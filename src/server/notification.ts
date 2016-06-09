@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
 import { ServiceRequestHandler } from 'cp';
-import { BadRequestError, ERR_MISSING_FIELDS } from '../errors';
 import { has_all_fields } from '../utilities';
+import { UnauthorizedError, BadRequestError,
+    ERR_MISSING_FIELDS, ERR_MSG_MUST_BE_LOGGED_IN } from '../errors';
 
 import * as express from 'express';
 import * as debug from 'debug';
@@ -33,7 +34,7 @@ export var app = express();
 
 app.use((req: Request, res: Response, next: Function) =>
     next(req.user && req.user.id ? null :
-        new Error('Authentication required')));
+        new UnauthorizedError(ERR_MSG_MUST_BE_LOGGED_IN)));
 
 app.get('/notifications', (req, res, next) =>
     find_for(null, req, res, next));
