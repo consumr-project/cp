@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { MongoClient } from 'mongodb';
+import { ServiceRequestHandler } from 'cp';
 import { BadRequestError, ERR_MISSING_FIELDS } from '../errors';
 import { has_all_fields } from '../utilities';
 
@@ -37,12 +38,8 @@ app.use((req: Request, res: Response, next: Function) =>
 app.get('/notifications', (req, res, next) =>
     find_for(null, req, res, next));
 
-app.post('/notifications/missing_information', (req, res, next) =>
-    !has_all_fields(FIELDS_MISSING_INFORMATION, req.body) ?
-        next(new BadRequestError(ERR_MISSING_FIELDS(FIELDS_MISSING_INFORMATION))) :
-        push(TYPE.MISSING_INFORMATION,
-            req.user.id, pick(req.body, FIELDS_MISSING_INFORMATION),
-            (err, items) => find_for(TYPE.MISSING_INFORMATION, req, res, next)));
+app.post('/notifications/missing_information',
+    gen_post(TYPE.MISSING_INFORMATION, FIELDS_MISSING_INFORMATION));
 
 app.delete('/notifications/:id', (req, res, next) =>
     remove(req.params.id, req.user.id, err =>
@@ -62,6 +59,15 @@ export function connect(cb: Function = () => {}) {
 
         cb(err, db);
     });
+}
+
+function gen_post(type: TYPE, fields: string[]): ServiceRequestHandler {
+    return (req, res, next) => {
+        !has_all_fields(fields, req.body) ?
+            next(new BadRequestError(ERR_MISSING_FIELDS(fields))) :
+            push(type, req.user.id, pick(req.body, fields), (err, items) =>
+                find_for(type, req, res, next));
+    };
 }
 
 function find_for(type: TYPE, req: Request, res: Response, next: Function) {
