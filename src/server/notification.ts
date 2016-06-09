@@ -14,6 +14,11 @@ import { TYPE } from '../notification/notification';
 import * as NotificationsApi from '../notification/notification';
 
 const COLLECTION = config('mongo.collections.notifications');
+const FIELDS_FOLLOW = [
+    'id',
+    'type',
+    'name',
+];
 const FIELDS_MISSING_INFORMATION = [
     'id',
     'type',
@@ -38,6 +43,9 @@ app.use((req: Request, res: Response, next: Function) =>
 
 app.get('/notifications', (req, res, next) =>
     find_for(null, req, res, next));
+
+app.post('/notifications/follow',
+    gen_post(TYPE.FOLLOWED, FIELDS_FOLLOW));
 
 app.post('/notifications/missing_information',
     gen_post(TYPE.MISSING_INFORMATION, FIELDS_MISSING_INFORMATION));
