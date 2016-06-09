@@ -1,13 +1,11 @@
 import { app as auth_endpoints } from './auth';
 import { app as extract_endpoints } from './extract';
-import { app as notification_endpoints } from './notification';
 import { app as query_endpoints } from './query';
 import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
 import * as auth_service from './auth';
-import * as notification_service from './notification';
 import * as express from 'express';
 
 const index = require('serve-index');
@@ -50,7 +48,6 @@ app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
 app.use('/service/auth', auth_endpoints);
 app.use('/service/user', timeout('5s'), user_endpoints);
-app.use('/service/notification', timeout('5s'), notification_endpoints);
 app.use('/service/search', timeout('5s'), search_endpoints);
 app.use('/service/extract', timeout('5s'), extract_endpoints);
 app.use('/service/query', timeout('60s'), query_endpoints);
@@ -75,9 +72,6 @@ app.use((err: any, req, res, next) => {
 app.get('*', (req, res) =>
     res.render('index', { debugging,
         lang: req.cookies.lang }));
-
-notification_service.connect(() =>
-    log('ready for notification requests'));
 
 app.listen(config('port') || 3000);
 log('listening for requests');
