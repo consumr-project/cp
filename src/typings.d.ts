@@ -22,6 +22,10 @@ declare module 'cp' {
     }
 }
 
+declare module 'cp/lang' {
+    type UUID = string;
+}
+
 declare module 'cp/query' {
     import { Sequelize } from 'sequelize';
 

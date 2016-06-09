@@ -1,8 +1,7 @@
 import { get } from 'lodash';
 import { I18n } from 'cp/client';
 
-import { TYPE } from '../../notification/notification';
-import Message from '../../notification/message';
+import Message, { NOTIFICATION } from '../../notification/message';
 
 function stringify_followed(i18n: I18n, messages: Message[]): string {
     var fields = {
@@ -19,8 +18,8 @@ function stringify_followed(i18n: I18n, messages: Message[]): string {
 }
 
 export function stringify(i18n: I18n, messages: Message[]): string {
-    switch (messages[0].payload.type) {
-    case TYPE.FOLLOWED: return stringify_followed(i18n, messages);
+    switch (messages[0].subcategory) {
+    case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
     default: return '';
     }
 }
