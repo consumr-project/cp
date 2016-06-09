@@ -101,6 +101,12 @@ declare module 'cp/search' {
     }
 }
 
+declare module 'cp/client' {
+    interface I18n {
+        get(key: string, data: Object): string;
+    }
+}
+
 declare module 'acm' {
     function fn<T>(str: string): T | Object | string | any;
     export = fn;
