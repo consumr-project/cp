@@ -1,5 +1,6 @@
 'use strict';
 
+module.exports =
 class I18n {
     constructor(strs) {
         strs = strs || {};
@@ -12,6 +13,4 @@ class I18n {
             return str.replace('{' + field + '}', fields[field]);
         }, this.registers[key]);
     }
-}
-
-module.exports = I18n;
+};

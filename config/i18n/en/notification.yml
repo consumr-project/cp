@@ -6,6 +6,6 @@ no_notifications: "You have no notifications. Yay!!"
 
 new_company_message: "<a href=\"/{obj_type}/id/{obj_id}\">{obj_name}</a>, which was created for <a href=\"/{obj_for_type}/id/{obj_for_id}\">\"{obj_for_name}\"</a>, is missing the following field(s):"
 
-followed_by_one: '{name} started following you.'
-followed_by_two: '{name} and {other} starter following you.'
-followed_by_many: '{name} and {count} others starter following you.'
+followed_by_one: '<b>{name}</b> started following you.'
+followed_by_two: '<b>{name}</b> and {other} starter following you.'
+followed_by_many: '<b>{name}</b> and {count} others starter following you.'
