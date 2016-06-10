@@ -10,6 +10,10 @@ export var app = express();
 
 connect((err, coll) => {
     if (err) {
+        app.use((req, res, next) => {
+            next(new ServiceUnavailableError());
+        });
+
         return;
     }
 
