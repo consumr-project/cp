@@ -6,6 +6,7 @@ import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
+import { HttpError } from '../errors';
 import * as auth_service from './auth';
 import * as express from 'express';
 
@@ -65,7 +66,11 @@ app.use((req, res, next) => {
 app.use((err: any, req, res, next) => {
     console.error(err);
     if (!res.headersSent) {
-        res.status(500);
+        if (err instanceof HttpError) {
+            res.status(err.code);
+        } else {
+            res.status(500);
+        }
         res.render('index', { debugging, err,
             lang: req.cookies.lang });
     }
