@@ -77,7 +77,7 @@ export function group_by_day<T extends { date: string }>(items: T[]): T[][] {
         holder[key].push(item);
     });
 
-    Object.keys(holder).sort().reverse().forEach(group => {
+    Object.keys(holder).sort().forEach(group => {
         groups[groups.length] = holder[group];
     });
 
