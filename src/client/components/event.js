@@ -409,12 +409,6 @@ angular.module('tcp').directive('event', [
                             return Services.query.companies.events.upsert(company.id,
                                 get_normalized_company_event(company, ev.id));
                         })
-                        //,
-                        // XXX from notification rewrite
-                        // lodash.map(has_missing_information, function (company) {
-                        //     return Services.notification.missing_information(
-                        //         get_normalized_missing_information_company_notification(company, ev));
-                        // })
                     )).then(function (res) {
                         Session.emit(Session.EVENT.NOTIFY);
                         $scope.onSave({ ev: ev, children: res });

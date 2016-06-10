@@ -72,6 +72,15 @@ angular.module('tcp').service('Services', [
         }
 
         /**
+         * @param {String} url
+         * @param {Object} [args]
+         * @return {Promise}
+         */
+        function post(url, args) {
+            return http('post', url, args);
+        }
+
+        /**
          * @param {String} model
          * @param {Array} [associataions]
          * @return {Object}
@@ -440,42 +449,19 @@ angular.module('tcp').service('Services', [
             ].join(','));
         };
 
-        notificationService.TYPE = {
-            MISSING_INFORMATION: 'MISSING_INFORMATION'
-        };
-
         /**
-         * @param {notificationService.TYPE} [type]
          * @return {Promise}
          */
-        notificationService.get = function (type) {
-            type = type ? '/' + type.toLowerCase() : '';
-            return $http.get('/service/notification/notifications' + type, {
-                timeout: abortable(notificationService.get)
-            }).then(pluck_data);
+        notificationService.get = function () {
+            return get('/service/notification');
         };
-
-        abortable(notificationService.get);
 
         /**
          * @param {String} id
          * @return {Promise}
          */
-        notificationService.delete = function (id) {
-            return $http.delete('/service/notification/notifications/' + id, {
-                timeout: abortable(notificationService.delete)
-            }).then(pluck_data);
-        };
-
-        abortable(notificationService.delete);
-
-        /**
-         * @param {String} id
-         * @return {Promise}
-         */
-        notificationService.missing_information = function (payload) {
-            return $http.post('/service/notification/notifications/missing_information', payload)
-              .then(pluck_data);
+        notificationService.follow = function (id) {
+            return post('/service/notification/follow', {id: id});
         };
 
         return {

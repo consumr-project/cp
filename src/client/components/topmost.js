@@ -177,7 +177,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        ></avatar>',
 
                 '        <button class="right margin-right-small animated fadeIn button--circlular"',
-                '            data-main-user-notifications-counter ng-click="notifications.show = true" ng-if="session.logged_in">{{session.notification_count}}</button>',
+                '            data-main-user-notifications-counter ng-click-x="notifications.show = true" ng-if="session.logged_in">{{session.notification_count}}</button>',
 
                 '        <button class="search-button right margin-right-small animated fadeIn screen-small-only"',
                 '            ng-click="nav.search()"></button>',
