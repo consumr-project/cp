@@ -21,12 +21,14 @@ angular.module('tcp').directive('notifications', [
             notifications = utils2.group_by_day(notifications);
 
             notifications.forEach(function (notifications) {
-                $scope.notifications.push({
-                    type: notifications[0].subcategory,
-                    date: notifications[0].date,
-                    user: notifications[0].payload.id,
-                    text: messages.stringify(i18n, notifications),
-                });
+                lodash(notifications).groupBy('subcategory').each(function (notifications) {
+                    $scope.notifications.push({
+                        type: notifications[0].subcategory,
+                        date: notifications[0].date,
+                        user: notifications[0].payload.id,
+                        text: messages.stringify(i18n, notifications),
+                    });
+                }).value();
             });
         }
 
