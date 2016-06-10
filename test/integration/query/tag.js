@@ -33,6 +33,7 @@ tapes('tag', t => {
             }));
     });
 
+    // XXX broken on travis for some reason
     t.test('like search', st => {
         st.plan(2);
         // st.plan(5);
