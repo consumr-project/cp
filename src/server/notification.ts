@@ -1,9 +1,10 @@
 import * as express from 'express';
 
+import { service_handler } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError } from '../errors';
 
-import { CATEGORY, NOTIFICATION } from '../notification/message';
-import { find } from '../notification/collection';
+import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
+import { save, find } from '../notification/collection';
 import connect from '../service/mongo';
 
 export var app = express();
@@ -25,8 +26,13 @@ connect((err, coll) => {
         }
     });
 
-    app.get('/', (req, res, next) => {
-        find(coll, req.user.id, CATEGORY.NOTIFICATION, [NOTIFICATION.FOLLOWED])
-            .then(rows => res.json(rows));
-    });
+    app.get('/', service_handler(req =>
+        find(coll, req.user.id, CATEGORY.NOTIFICATION, [NOTIFICATION.FOLLOWED])));
+
+    app.post('/follow', service_handler(req =>
+        save(coll, new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+            name: req.user.name,
+        }))));
 });
