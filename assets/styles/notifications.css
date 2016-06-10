@@ -18,5 +18,5 @@
     color: var(--color-light-text-color);
     display: block;
     font-size: var(--font-size-xsmall);
-    margin-top: var(--spacing-xsmall);
+    margin-top: calc(var(--spacing-xsmall) / 2);
 }

@@ -1,31 +1,31 @@
 angular.module('tcp').directive('notifications', [
+    'DOMAIN',
     'Services',
     'Session',
     'utils2',
     'messages',
     'i18n',
     'lodash',
-    function (Services, Session, utils2, messages, i18n, lodash) {
+    function (DOMAIN, Services, Session, utils2, messages, i18n, lodash) {
         'use strict';
 
         var FILTER_FOLLOWED = {
-            category: 'NOTIFICATION',
-            subcategory: 'FOLLOWED',
+            category: DOMAIN.model.message.category.notification,
+            subcategory: DOMAIN.model.message.subcategory.followed,
         };
 
         function group($scope, notifications) {
             var followed;
 
             notifications = notifications;
-            followed = lodash.filter(notifications, FILTER_FOLLOWED);
-            followed = utils2.group_by_day(followed);
+            notifications = utils2.group_by_day(notifications);
 
-            followed.forEach(function (followed) {
+            notifications.forEach(function (notifications) {
                 $scope.notifications.push({
-                    type: 'FOLLOWED',
-                    date: followed[0].date,
-                    user: followed[0].payload.id,
-                    text: messages.stringify(i18n, followed),
+                    type: notifications[0].subcategory,
+                    date: notifications[0].date,
+                    user: notifications[0].payload.id,
+                    text: messages.stringify(i18n, notifications),
                 });
             });
         }

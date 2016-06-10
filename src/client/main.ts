@@ -3,7 +3,7 @@ import * as moment from 'moment/moment';
 import * as Cookie from 'js-cookie';
 import { EventEmitter2 } from 'eventemitter2';
 import * as utils from './services/Utilities';
-import * as utils2 from '..//utilities';
+import * as utils2 from '../utilities';
 import * as messages from './services/messages';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
@@ -63,6 +63,15 @@ namespace tcp {
                     type: {
                         company_created: 'company_created'
                     }
+                },
+
+                message: {
+                    category: {
+                        notification: 'NOTIFICATION',
+                    },
+                    subcategory: {
+                        followed: 'FOLLOWED',
+                    },
                 },
 
                 feedback_props: {
