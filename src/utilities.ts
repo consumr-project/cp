@@ -65,7 +65,7 @@ export function group_by_day<T extends { date: string }>(items: T[]): T[][] {
         holder = {};
 
     var slug = (date: Date): string =>
-        date.toISOString().split('T')[0];
+        date.toLocaleDateString();
 
     items.forEach(item => {
         let key = slug(new Date(item.date));
