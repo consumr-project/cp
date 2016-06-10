@@ -1,17 +1,22 @@
 .notification {
+    padding: var(--spacing-small) var(--spacing-medium);
+}
+
+.notification avatar {
+    float: left;
+    margin-right: var(--spacing-medium);
+}
+
+.notification p {
+    font-size: var(--font-size-small);
+    line-height: var(--font-height-xsmall);
+    margin: 0;
+    padding: 0;
+}
+
+.notification i18n {
     color: var(--color-light-text-color);
-    padding: var(--spacing-large) 0;
-    position: relative;
-}
-
-.notification:not(:first-child) {
-    border-top: 1px solid var(--color-std-thin-border-color);
-}
-
-.notification b {
-    color: black;
-}
-
-.notification__content {
-    max-width: var(--content-aside-width);
+    display: block;
+    font-size: var(--font-size-xsmall);
+    margin-top: var(--spacing-xsmall);
 }

@@ -1,18 +1,43 @@
 angular.module('tcp').directive('notifications', [
     'Services',
     'Session',
-    'utils',
-    function (Services, Session, utils) {
+    'utils2',
+    'messages',
+    'i18n',
+    'lodash',
+    function (Services, Session, utils2, messages, i18n, lodash) {
         'use strict';
+
+        var FILTER_FOLLOWED = {
+            category: 'NOTIFICATION',
+            subcategory: 'FOLLOWED',
+        };
+
+        function group($scope, notifications) {
+            var followed;
+
+            notifications = notifications;
+            followed = lodash.filter(notifications, FILTER_FOLLOWED);
+            followed = utils2.group_by_day(followed);
+
+            followed.forEach(function (followed) {
+                $scope.notifications.push({
+                    type: 'FOLLOWED',
+                    date: followed[0].date,
+                    user: followed[0].payload.id,
+                    text: messages.stringify(i18n, followed),
+                });
+            });
+        }
 
         /**
          * @param {Angular.Scope} $scope
          * @param {String} user_id
-         * @return {Promise<Notification[]>}
+         * @return {Promise<Message[]>}
          */
         function load($scope, user_id) {
             return Services.notification.get()
-                .then(utils.scope.set($scope, 'notifications'));
+                .then(group.bind(null, $scope));
         }
 
         /**
@@ -35,9 +60,8 @@ angular.module('tcp').directive('notifications', [
             },
             template: [
                 '<div class="notifications">',
-                '    <div ng-repeat="notification in notifications">',
-                '        {{ notifications | json }}',
-                '    </div>',
+                '    <notification ng-repeat="notification in notifications"',
+                '        model="notification"></notification>',
                 '</div>'
             ].join('')
         };

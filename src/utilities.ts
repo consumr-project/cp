@@ -60,18 +60,16 @@ export function has_all_fields(fields: string[], data: any): boolean {
     return true;
 }
 
-export function group_by_day<T extends { date: Date }>(items: T[]): T[][] {
+export function group_by_day<T extends { date: string }>(items: T[]): T[][] {
     var groups = [],
         holder = {};
 
-    var slug = (date: Date) => [
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-    ].join('-');
+    var slug = (date: Date): string =>
+        date.toISOString().split('T')[0];
 
     items.forEach(item => {
-        let key = slug(item.date);
+        let key = slug(new Date(item.date));
+
         if (!holder[key]) {
             holder[key] = [];
         }
@@ -79,8 +77,8 @@ export function group_by_day<T extends { date: Date }>(items: T[]): T[][] {
         holder[key].push(item);
     });
 
-    Object.keys(items).sort().reverse().forEach(group => {
-        groups.push(items[group]);
+    Object.keys(holder).sort().reverse().forEach(group => {
+        groups[groups.length] = holder[group];
     });
 
     return groups;
