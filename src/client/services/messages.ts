@@ -11,15 +11,15 @@ function stringify_followed(i18n: I18n, messages: Message[]): string {
     };
 
     switch (messages.length) {
-    case 1: return i18n.get('notification/followed_by_one', fields);
-    case 2: return i18n.get('notification/followed_by_two', fields);
-    default: return i18n.get('notification/followed_by_many', fields);
+        case 1: return i18n.get('notification/followed_by_one', fields);
+        case 2: return i18n.get('notification/followed_by_two', fields);
+        default: return i18n.get('notification/followed_by_many', fields);
     }
 }
 
 export function stringify(i18n: I18n, messages: Message[]): string {
     switch (messages[0].subcategory) {
-    case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
-    default: return '';
+        case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
+        default: return '';
     }
 }
