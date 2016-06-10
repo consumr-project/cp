@@ -1,11 +1,16 @@
 import { UUID } from 'cp/lang';
-import { Collection, InsertOneWriteOpResult } from 'mongodb';
 import { clone } from 'lodash';
+import { Collection, InsertOneWriteOpResult,
+    DeleteWriteOpResultObject } from 'mongodb';
 
 import Message, { CATEGORY, SUBCATEGORY } from './message';
 
 export function save(coll: Collection, message: Message): Promise<InsertOneWriteOpResult> {
     return coll.insertOne(message);
+}
+
+export function purge(coll: Collection, id: UUID): Promise<DeleteWriteOpResultObject> {
+    return coll.deleteOne({id});
 }
 
 export function find(
