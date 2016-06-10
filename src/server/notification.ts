@@ -32,10 +32,13 @@ connect((err, coll) => {
     app.delete('/:id', service_handler(req =>
         purge(coll, req.params.id)));
 
-    app.post('/follow', service_handler(req =>
-        save(coll, new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {
+    app.post('/follow', service_handler(req => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {
             id: req.user.id,
             otype: OTYPE.USER,
             name: req.user.name,
-        }))));
+        });
+
+        return save(coll, msg).then(ack => msg);
+    }));
 });
