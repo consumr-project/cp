@@ -22,7 +22,7 @@ export class HttpError extends Error {
 
     constructor(message?: string) {
         super(message);
-        this.message = message;
+        this.message = message || this.message || this.name;
     }
 }
 
@@ -66,4 +66,13 @@ export class NotFoundError extends HttpError {
 export class BadGatewayError extends HttpError {
     code = 502;
     name = 'Bad Gateway';
+}
+
+// The server is currently unavailable (because it is overloaded or down for
+// maintenance). Generally, this is a temporary state.
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#503
+export class ServiceUnavailableError extends HttpError {
+    code = 503;
+    name = 'Service Unavailable';
+    message = 'Service is currently unavailable';
 }
