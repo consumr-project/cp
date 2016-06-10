@@ -1,7 +1,9 @@
 import * as express from 'express';
 
-import Message, { CATEGORY, NOTIFICATION } from '../notification/message';
-import { save, find } from '../notification/collection';
+import { UnauthorizedError, ERR_MSG_MUST_BE_LOGGED_IN } from '../errors';
+
+import { CATEGORY, NOTIFICATION } from '../notification/message';
+import { find } from '../notification/collection';
 import connect from '../service/mongo';
 
 export var app = express();
@@ -11,8 +13,16 @@ connect((err, coll) => {
         return;
     }
 
-    app.get('/find', (req, res, next) => {
-        find(coll, CATEGORY.NOTIFICATION, [NOTIFICATION.FOLLOWED])
+    app.use((req, res, next) => {
+        if (!req.user || !req.user.id) {
+            next(new UnauthorizedError(ERR_MSG_MUST_BE_LOGGED_IN));
+        } else {
+            next();
+        }
+    });
+
+    app.get('/', (req, res, next) => {
+        find(coll, req.user.id, CATEGORY.NOTIFICATION, [NOTIFICATION.FOLLOWED])
             .then(rows => res.json(rows));
     });
 });
