@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { UnauthorizedError, ERR_MSG_MUST_BE_LOGGED_IN } from '../errors';
+import { ServiceUnavailableError, UnauthorizedError } from '../errors';
 
 import { CATEGORY, NOTIFICATION } from '../notification/message';
 import { find } from '../notification/collection';
@@ -15,7 +15,7 @@ connect((err, coll) => {
 
     app.use((req, res, next) => {
         if (!req.user || !req.user.id) {
-            next(new UnauthorizedError(ERR_MSG_MUST_BE_LOGGED_IN));
+            next(new UnauthorizedError());
         } else {
             next();
         }

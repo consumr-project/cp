@@ -1,5 +1,4 @@
 export const ERR_MSG_ONLY_BY_OWNER = 'Only the resource owner can take this action.';
-export const ERR_MSG_MUST_BE_LOGGED_IN = 'Must be logged in to take this action.';
 
 export const ERR_MSG_PARSING_ERROR = (service: string) =>
     `Could parse response from ${service}`;
@@ -41,6 +40,7 @@ export class BadRequestError extends HttpError {
 export class UnauthorizedError extends HttpError {
     code = 401;
     name = 'Unauthorized';
+    message = 'Must be logged in to take this action.';
 }
 
 // the request was a valid request, but the server is refusing to respond to
@@ -74,5 +74,5 @@ export class BadGatewayError extends HttpError {
 export class ServiceUnavailableError extends HttpError {
     code = 503;
     name = 'Service Unavailable';
-    message = 'Service is currently unavailable';
+    message = 'Service is currently unavailable.';
 }
