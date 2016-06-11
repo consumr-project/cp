@@ -18,7 +18,7 @@ tag-view {
 
 .company-component .company-component__qa p {
     font-family: Times;
-    font-size: 22px;
+    font-size: var(--font-size-xlarge);
     font-style: italic;
     font-weight: 900;
 }
