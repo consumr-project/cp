@@ -15,8 +15,20 @@ tape('avatar', t => {
         t.error(err);
     });
 
-    t.test('url', st => {
-        st.plan(6);
+    t.test('redirect', st => {
+        st.plan(12);
+
+        http.get('/service/user/avatar?id=' + fixture.user.admin.id)
+            .redirects(1)
+            .end(redirects(st, 'goes gravatar test url', gravatar_url(512, 'g')));
+
+        http.get('/service/user/avatar?size=1024&id=' + fixture.user.admin.id)
+            .redirects(1)
+            .end(redirects(st, 'specify size', gravatar_url(1024, 'g')));
+
+        http.get('/service/user/avatar?rating=pg&id=' + fixture.user.admin.id)
+            .redirects(1)
+            .end(redirects(st, 'specify rating', gravatar_url(512, 'pg')));
 
         http.get('/service/user/avatar?email=' + fixture.user.admin.email)
             .redirects(1)
