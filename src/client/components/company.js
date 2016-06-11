@@ -21,6 +21,8 @@ angular.module('tcp').directive('company', [
             '            <tr>',
             '                <td>',
             '                    <h1 class="take-space animated fadeIn inline-block" ng-click="show_events()">{{company.name}}</h1>',
+            '                    <div class="inline-block margin-left-small margin-right-small"',
+            '                        i18n="qa/qa" ng-click="show_qa()"></div>',
             '                    <a ng-if="company.website_url" href="{{company.website_url}}"',
             '                        target="_blank" rel="noreferrer" class="linkimg animated fadeIn"></a>',
             '                </td>',
@@ -54,6 +56,13 @@ angular.module('tcp').directive('company', [
             '                ng-click="show_review_form()" i18n="review/add"></button>',
             '            <reviews company-id="{{company.id}}"',
             '                class="margin-top-medium margin-bottom-xlarge"></reviews>',
+            '        </section>',
+
+            '        <section ng-if="vm.show_qa" class="company-component__qa animated fadeIn">',
+            '            <center>',
+            '                <img src="/assets/images/pizza.svg" alt="Pizza!" />',
+            '            </center>',
+            '            <p i18n="qa/coming_soon" data="{name: company.name}"></p>',
             '        </section>',
 
             '        <section ng-if="vm.show_events">',
@@ -216,6 +225,7 @@ angular.module('tcp').directive('company', [
                 event_form: {},
                 add_event: {},
 
+                show_qa: false,
                 show_review_form: false,
                 show_reviews: false,
                 show_events: true,
@@ -230,22 +240,34 @@ angular.module('tcp').directive('company', [
                     $scope.vm.show_reviews = false;
                     $scope.vm.show_events = true;
                 }
+
+                $scope.vm.show_qa = false;
             };
 
             $scope.show_events = function () {
                 $scope.vm.show_review_form = false;
                 $scope.vm.show_reviews = false;
                 $scope.vm.show_events = true;
+                $scope.vm.show_qa = false;
             };
 
             $scope.show_review_form = function () {
                 $scope.vm.show_review_form = true;
                 $scope.vm.show_reviews = false;
+                $scope.vm.show_qa = false;
             };
 
             $scope.hide_review_form = function () {
                 $scope.vm.show_review_form = false;
                 $scope.vm.show_reviews = true;
+                $scope.vm.show_qa = false;
+            };
+
+            $scope.show_qa = function () {
+                $scope.vm.show_review_form = false;
+                $scope.vm.show_reviews = false;
+                $scope.vm.show_events = false;
+                $scope.vm.show_qa = true;
             };
 
             /**

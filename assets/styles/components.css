@@ -11,6 +11,22 @@ tag-view {
     margin-bottom: 120px;
 }
 
+.company-component .company-component__qa {
+    margin-top: 80px;
+    margin-bottom: 200px;
+}
+
+.company-component .company-component__qa p {
+    font-family: Times;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 900;
+}
+
+.company-component .company-component__qa img {
+    width: 150px;
+}
+
 .events__event__view .event-elem--view .imgview--bookmarks ,
 .user-component .event-elem--view .source--view + .source--view {
     display: none;

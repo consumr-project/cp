@@ -21,7 +21,6 @@ see_notifications: Notifications
 add_company: Create company
 
 search_placeholder: search
-qa_coming_soon: "Sit tight! The opportunity to directly ask {name} a question is coming soon!"
 
 # statuses
 thanks: "thanks!"
