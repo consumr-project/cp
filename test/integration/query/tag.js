@@ -40,13 +40,13 @@ tapes('tag', t => {
 
         http.get('/service/query/tags/like?s[]=log').end((err, res) => {
             st.error(err);
-            console.log(res);
+            // console.log(res);
             // st.ok(find(res.body.body, { label: 'Logging' }));
         });
 
         http.get('/service/query/tags/like?s[]=log&s[]=fish').end((err, res) => {
             st.error(err);
-            console.log(res);
+            // console.log(res);
             // st.ok(find(res.body.body, { label: 'Logging' }));
             // st.ok(find(res.body.body, { label: 'Fishing' }));
         });

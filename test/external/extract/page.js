@@ -1,7 +1,7 @@
 'use strict';
 
 const tape = require('tape');
-const http = require('../utils/http');
+const http = require('../../integration/utils/http');
 
 tape('page', t => {
     t.plan(6);

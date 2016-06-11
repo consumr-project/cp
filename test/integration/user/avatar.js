@@ -2,22 +2,34 @@
 
 const tape = require('tape');
 const http = require('../utils/http');
+const auth = require('../utils/auth');
+
+const clone = require('lodash').clone;
 const config = require('acm');
+const fixture = clone(config('fixtures'));
 
 tape('avatar', t => {
-    t.plan(6);
+    t.plan(2);
 
-    http.get('/service/user/avatar?email=test@test.com')
-        .redirects(1)
-        .end(redirects(t, 'goes gravatar test url', gravatar_url(512, 'g')));
+    auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
+        t.error(err);
+    });
 
-    http.get('/service/user/avatar?email=test@test.com&size=1024')
-        .redirects(1)
-        .end(redirects(t, 'specify size', gravatar_url(1024, 'g')));
+    t.test('url', st => {
+        st.plan(6);
 
-    http.get('/service/user/avatar?email=test@test.com&rating=pg')
-        .redirects(1)
-        .end(redirects(t, 'specify rating', gravatar_url(512, 'pg')));
+        http.get('/service/user/avatar?email=' + fixture.user.admin.email)
+            .redirects(1)
+            .end(redirects(st, 'goes gravatar test url', gravatar_url(512, 'g')));
+
+        http.get('/service/user/avatar?size=1024&email=' + fixture.user.admin.email)
+            .redirects(1)
+            .end(redirects(st, 'specify size', gravatar_url(1024, 'g')));
+
+        http.get('/service/user/avatar?rating=pg&email=' + fixture.user.admin.email)
+            .redirects(1)
+            .end(redirects(st, 'specify rating', gravatar_url(512, 'pg')));
+    });
 });
 
 /**
@@ -40,7 +52,7 @@ function redirects(t, label, url) {
  * @return {String}
  */
 function gravatar_url(size, rating) {
-    return 'http://www.gravatar.com/avatar/b642b4217b34b1e8d3bd915fc65c4452?d=' +
+    return 'http://www.gravatar.com/avatar/d36f6a3a4134faeac306ea1bd0828352?d=' +
         encodeURIComponent(config('experience.fallback_avatar')) +
         `&s=${size}&r=${rating}`;
 }

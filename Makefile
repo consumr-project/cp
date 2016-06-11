@@ -91,6 +91,7 @@ test-e2e:
 	./scripts/test e2e
 
 test-integration:
+	./scripts/test external
 	./scripts/test integration
 
 test-unit:

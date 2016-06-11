@@ -42,7 +42,7 @@ export function service_handler<T>(from_req: (req: Request) => Promise<T>): Serv
     };
 }
 
-export function service_redirect(from_req: (req: Request) => Promise<string>): ServiceRequestHandler {
+export function service_redirect(from_req: (req: Request, res?, next?) => Promise<string>): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req)
             .then(url => res.redirect(url))

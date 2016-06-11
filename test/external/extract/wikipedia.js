@@ -1,8 +1,8 @@
 'use strict';
 
 const tape = require('tape');
-const http = require('../utils/http');
-const check = require('../utils/check');
+const http = require('../../integration/utils/http');
+const check = require('../../integration/utils/check');
 
 tape('wiki', t => {
     t.plan(20);

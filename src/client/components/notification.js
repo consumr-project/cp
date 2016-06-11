@@ -12,7 +12,7 @@ angular.module('tcp').directive('notification', [
                 '    <table>',
                 '        <tr>',
                 '            <td>',
-                '                <avatar></avatar>',
+                '                <avatar user-id="{{::model.user}}"></avatar>',
                 '            </td>',
                 '            <td>',
                 '                <p>{{::model.text}}</p>',

@@ -15,11 +15,12 @@ angular.module('tcp').directive('avatar', function () {
     }
 
     /**
-     * @param {String} email address
+     * @param {String} type
+     * @param {String} value
      * @return {String}
      */
-    function avatar(email) {
-        return '/service/user/avatar?email=' + email;
+    function avatar(type, value) {
+        return '/service/user/avatar?' + type + '=' + value;
     }
 
     /**
@@ -31,11 +32,11 @@ angular.module('tcp').directive('avatar', function () {
         var title = [];
 
         if (attrs.image) {
-            // elem.find('.avatar__image').css('background-image', url(attrs.image));
             scope.src = attrs.image;
         } else if (attrs.email) {
-            // elem.find('.avatar__image').css('background-image', url(avatar(attrs.email)));
-            scope.src = avatar(attrs.email);
+            scope.src = avatar('email', attrs.email);
+        } else if (attrs.userId) {
+            scope.src = avatar('id', attrs.userId);
         }
 
         if (attrs.name) {

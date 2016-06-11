@@ -1,6 +1,21 @@
 import * as express from 'express';
-import { get_user_gravatar_url_handler } from '../user/avatar';
+import { get_user_gravatar_url } from '../user/avatar';
+import { service_redirect } from '../utilities';
+import { BadRequestError, ERR_MISSING_FIELDS } from '../errors';
 
 export var app = express();
 
-app.get('/avatar', get_user_gravatar_url_handler);
+app.get('/avatar', service_redirect((req, res, next) => {
+    var query: any = {};
+
+    if (req.query.email) {
+        query.email = req.query.email;
+    } else if (req.query.id) {
+        query.id = req.query.id;
+    } else {
+        next(new BadRequestError(ERR_MISSING_FIELDS(['email or id'])));
+        return;
+    }
+
+    return get_user_gravatar_url(query, req.query.size, req.query.rating);
+}));

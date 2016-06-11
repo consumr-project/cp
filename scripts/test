@@ -12,11 +12,18 @@ case "$1" in
         $tape $(find test/src -name "*.js")
         ;;
 
+    external)
+        $tape $(find test/external -name "*.js")
+        ;;
+
     integration)
         $tape $(find test/integration -name "*.js")
         ;;
 
     *)
-        $tape $(find test/integration -name "*.js") $(find test/src -name "*.js")
+        $tape \
+            $(find test/external -name "*.js") \
+            $(find test/integration -name "*.js") \
+            $(find test/src -name "*.js")
         ;;
 esac

@@ -1,6 +1,5 @@
-import { ServiceRequestHandler } from 'cp';
+import { WhereOptions } from 'sequelize';
 import { User } from 'cp/query';
-import { service_redirect } from '../utilities';
 import * as QueryService from '../server/query';
 import * as querystring from 'querystring';
 
@@ -25,10 +24,10 @@ export enum SIZE {
     FULL = 2048,
 }
 
-export function generate_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: User): string {
+export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: User): string {
     let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
 
-    email = (user && user.email ? user.email : email)
+    let email = (user && user.email ? user.email : '')
         .toLowerCase()
         .trim();
 
@@ -40,10 +39,7 @@ export function generate_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, r
         });
 }
 
-export function get_user_gravatar_url(email: string, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G): Promise<string> {
-    return UserModel.findOne({ where: { email } })
-        .then(user => generate_gravatar_url(email, size, rating, user));
+export function get_user_gravatar_url(query: WhereOptions, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G): Promise<string> {
+    return UserModel.findOne({ where: query })
+        .then(user => generate_gravatar_url(size, rating, user));
 }
-
-export const get_user_gravatar_url_handler: ServiceRequestHandler = service_redirect(req =>
-    get_user_gravatar_url(req.query.email, req.query.size, req.query.rating));
