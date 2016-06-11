@@ -26,7 +26,7 @@ angular.module('tcp').directive('notifications', [
                         type: notifications[0].subcategory,
                         date: notifications[0].date,
                         user: notifications[0].payload.id,
-                        text: messages.stringify(i18n, notifications),
+                        html: messages.stringify(i18n, notifications),
                     });
                 }).value();
             });

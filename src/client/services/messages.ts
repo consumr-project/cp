@@ -3,10 +3,12 @@ import { I18n } from 'cp/client';
 
 import Message, { NOTIFICATION } from '../../notification/message';
 
+import striptags = require('striptags');
+
 function stringify_followed(i18n: I18n, messages: Message[]): string {
     var fields = {
-        name: get(messages, '0.payload.name'),
-        other: get(messages, '1.payload.name'),
+        name: striptags(get<string>(messages, '0.payload.name')),
+        other: striptags(get<string>(messages, '1.payload.name')),
         count: messages.length - 1,
     };
 
