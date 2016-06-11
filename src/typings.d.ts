@@ -4,6 +4,7 @@ declare module 'cp' {
     import { Request, Response } from 'express';
 
     type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
+    type ServiceRequestPromise<T> = (req: Request, res: Response, next: (err?: Error) => {}) => Promise<T>;
 
     interface ServiceResponseV1<T> {
         body: T | Array<T> | { [index: string]: T };

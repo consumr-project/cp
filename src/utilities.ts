@@ -1,5 +1,4 @@
-import { Request } from 'express';
-import { ServiceRequestHandler, ServiceResultMetadata,
+import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
 
 export type None = Object;
@@ -34,15 +33,15 @@ export function service_response<T>(body: T, ok: Boolean = true, meta: ServiceRe
     return { body, meta };
 }
 
-export function service_handler<T>(from_req: (req: Request) => Promise<T>): ServiceRequestHandler {
+export function service_handler<T>(from_req: ServiceRequestPromise<T>): ServiceRequestHandler {
     return (req, res, next) => {
-        from_req(req)
+        from_req(req, res, next)
             .then(body => res.json(service_response(body)))
             .catch(next);
     };
 }
 
-export function service_redirect(from_req: (req: Request, res?, next?) => Promise<string>): ServiceRequestHandler {
+export function service_redirect(from_req: ServiceRequestPromise<string>): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req, res, next)
             .then(url => res.redirect(url))
