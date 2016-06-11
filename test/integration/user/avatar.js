@@ -1,6 +1,6 @@
 'use strict';
 
-const tape = require('tape');
+const tapes = require('tapes');
 const http = require('../utils/http');
 const auth = require('../utils/auth');
 
@@ -8,8 +8,8 @@ const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));
 
-tape('avatar', t => {
-    t.plan(2);
+tapes('avatar', t => {
+    t.plan(1);
 
     auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
         t.error(err);
@@ -41,6 +41,14 @@ tape('avatar', t => {
         http.get('/service/user/avatar?rating=pg&email=' + fixture.user.admin.email)
             .redirects(1)
             .end(redirects(st, 'specify rating', gravatar_url(512, 'pg')));
+    });
+
+    t.test('error', st => {
+        st.plan(1);
+
+        http.get('/service/user/avatar').end((err, res) => {
+            st.equal(400, res.status);
+        });
     });
 });
 

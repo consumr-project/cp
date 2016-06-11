@@ -44,7 +44,7 @@ export function service_handler<T>(from_req: (req: Request) => Promise<T>): Serv
 
 export function service_redirect(from_req: (req: Request, res?, next?) => Promise<string>): ServiceRequestHandler {
     return (req, res, next) => {
-        from_req(req)
+        from_req(req, res, next)
             .then(url => res.redirect(url))
             .catch(next);
     };

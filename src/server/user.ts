@@ -13,8 +13,8 @@ app.get('/avatar', service_redirect((req, res, next) => {
     } else if (req.query.id) {
         query.id = req.query.id;
     } else {
-        next(new BadRequestError(ERR_MISSING_FIELDS(['email or id'])));
-        return;
+        return new Promise<string>((resolve, reject) =>
+            reject(new BadRequestError(ERR_MISSING_FIELDS(['email or id']))));
     }
 
     return get_user_gravatar_url(query, req.query.size, req.query.rating);
