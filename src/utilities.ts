@@ -63,8 +63,11 @@ export function group_by_day<T extends { date: string }>(items: T[]): T[][] {
     var groups = [],
         holder = {};
 
-    var slug = (date: Date): string =>
-        date.toLocaleDateString();
+    var slug = (date: Date): string => [
+        date.getMonth() + 1,
+        date.getDate() > 9 ? date.getDate() : '0' + date.getDate(),
+        date.getFullYear(),
+    ].join('');
 
     items.forEach(item => {
         let key = slug(new Date(item.date));
@@ -76,7 +79,7 @@ export function group_by_day<T extends { date: string }>(items: T[]): T[][] {
         holder[key].push(item);
     });
 
-    Object.keys(holder).sort().forEach(group => {
+    Object.keys(holder).sort().reverse().forEach(group => {
         groups[groups.length] = holder[group];
     });
 
