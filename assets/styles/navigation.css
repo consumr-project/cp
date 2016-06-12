@@ -7,15 +7,20 @@
     white-space: nowrap;
 }
 
+a.snav__item,
 .snav__item {
     color: var(--color-light-text-color);
     display: inline-block;
     font-size: var(--font-size-small);
     font-weight: 700;
     outline: none;
-    padding: var(--spacing-small);
+    padding: var(--spacing-xsmall);
     text-transform: uppercase;
     transition: color var(--speed-fast);
+}
+
+.snav .snav__item {
+    padding: var(--spacing-small);
 }
 
 .snav__item:hover,
