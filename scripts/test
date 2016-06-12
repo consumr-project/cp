@@ -20,6 +20,11 @@ case "$1" in
         $tape $(find test/integration -name "*.js")
         ;;
 
+    release)
+        make lint build test
+        ./scripts/release
+        ;;
+
     *)
         $tape \
             $(find test/external -name "*.js") \
