@@ -142,6 +142,7 @@ heroku addons:create rabbitmq-bigwig:pipkin
 * Creative Stall for the [pencil](https://thenounproject.com/search/?q=pencil&i=382196) icon
 * Alain LOUBET for the [alert](https://thenounproject.com/search/?q=warning&i=14055) icon
 * Danil Polshin for the [pizza](https://thenounproject.com/term/pizza/108104/) icon
+* Nikita Kozin for the [bell](https://thenounproject.com/search/?q=bell&i=304492) icon
 
 ### thanks for services
 
