@@ -195,6 +195,11 @@ declare module 'elasticsearch' {
     }
 }
 
+declare module 'shasum' {
+    function fn(str: any, algo?: string, format?: string): string;
+    export = fn;
+}
+
 declare module 'node-uuid' {
     interface UUIDOptions {
         node?: any[];
@@ -203,7 +208,7 @@ declare module 'node-uuid' {
         nsecs?: number;
     }
 
-    module UUID {
+    namespace UUID {
         export function v1(options?: UUIDOptions): string;
         export function v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 

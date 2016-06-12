@@ -71,6 +71,7 @@
     "sequelize": "3.14.2",
     "serve-favicon": "2.2.1",
     "serve-index": "1.6.4",
+    "shasum": "1.0.2",
     "striptags": "2.0.4",
     "swig": "1.4.2",
     "trello": "0.5.1",

@@ -1,5 +1,6 @@
 import { UUID } from 'cp/lang';
-const uuid = require('node-uuid');
+import uuid = require('node-uuid');
+import shasum = require('shasum');
 
 export enum OTYPE {
     USER = <any>'user',
@@ -26,8 +27,21 @@ export interface FollowedNotificationPayload {
 export type SUBCATEGORY = NOTIFICATION;
 export type PAYLOAD = FollowedNotificationPayload;
 
+function signature(msg: Message): string {
+    switch (msg.subcategory) {
+        case NOTIFICATION.FOLLOWED: return shasum([
+            msg.category,
+            msg.subcategory,
+            msg.to,
+            msg.payload.id,
+            msg.payload.otype,
+        ]);
+    }
+}
+
 export default class Message {
     public id: UUID;
+    public signature: string;
     public category: CATEGORY;
     public subcategory: SUBCATEGORY;
     public to: UUID;
@@ -41,5 +55,6 @@ export default class Message {
         this.subcategory = subcategory;
         this.to = to;
         this.payload = payload;
+        this.signature = signature(this);
     }
 }

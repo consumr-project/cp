@@ -1,12 +1,14 @@
 import { UUID } from 'cp/lang';
 import { clone } from 'lodash';
-import { Collection, InsertOneWriteOpResult,
+import { Collection, FindAndModifyWriteOpResultObject,
     DeleteWriteOpResultObject } from 'mongodb';
 
 import Message, { CATEGORY, SUBCATEGORY } from './message';
 
-export function save(coll: Collection, message: Message): Promise<InsertOneWriteOpResult> {
-    return coll.insertOne(message);
+export function save(coll: Collection, message: Message): Promise<FindAndModifyWriteOpResultObject> {
+    let upsert = true;
+    let signature = message.signature;
+    return coll.findOneAndUpdate({ signature }, message, { upsert });
 }
 
 export function purge(coll: Collection, id: UUID): Promise<DeleteWriteOpResultObject> {
