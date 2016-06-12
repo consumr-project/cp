@@ -6,8 +6,8 @@ import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     Dictionary } from 'lodash';
 
 import * as q from 'q';
+import uuid = require('node-uuid');
 
-const uuid = require('node-uuid');
 const ID_MAP: SDict = { id: 'id' };
 const ID_FIELDS = [ 'id', 'updated_by', 'created_by' ];
 

@@ -203,22 +203,22 @@ declare module 'node-uuid' {
         nsecs?: number;
     }
 
-    interface UUID {
-        v1(options?: UUIDOptions): string;
-        v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+    module UUID {
+        export function v1(options?: UUIDOptions): string;
+        export function v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
-        v2(options?: UUIDOptions): string;
-        v2(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+        export function v2(options?: UUIDOptions): string;
+        export function v2(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
-        v3(options?: UUIDOptions): string;
-        v3(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+        export function v3(options?: UUIDOptions): string;
+        export function v3(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
-        v4(options?: UUIDOptions): string;
-        v4(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
+        export function v4(options?: UUIDOptions): string;
+        export function v4(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
-        parse(id: string, buffer?: number[], offset?: number): number[];
+        export function parse(id: string, buffer?: number[], offset?: number): number[];
 
-        unparse(buffer: number[], offset?: number): string;
+        export function unparse(buffer: number[], offset?: number): string;
     }
 
     export = UUID;

@@ -11,9 +11,9 @@ import * as passport from 'passport';
 import * as QueryService from '../server/query';
 
 import config = require('acm');
+import uuid = require('node-uuid');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
-const uuid = require('node-uuid');
 const UserModel = QueryService.models.User;
 const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
