@@ -6,10 +6,11 @@ import { ServiceUnavailableError, UnauthorizedError } from '../errors';
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge } from '../notification/collection';
 import connect from '../service/mongo';
+import config = require('acm');
 
 export var app = express();
 
-connect((err, coll) => {
+connect(config('mongo.collections.notifications'), (err, coll) => {
     app.use((req, res, next) => {
         if (!req.user || !req.user.id) {
             next(new UnauthorizedError());

@@ -1,26 +1,38 @@
-import { MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 import * as debug from 'debug';
+import config = require('acm');
 
-const config = require('acm');
-const log = debug('service:notification');
+var connection: Db;
+var connection_err: Error;
 
-const MONGO_COLL = config('mongo.collections.notifications');
-const MONGO_URL = config('mongo.url');
+var log = debug('service:notification');
 
-var __coll__;
-
-export default function (cb: Function = () => {}) {
-    log('connecting to mongodb');
-    MongoClient.connect(MONGO_URL, (err, db) => {
+export default function (collection: string, cb: Function = () => {}) {
+    function send_back(err, conn, collection, cb) {
         if (err) {
-            log('error connecting to mongo');
-            log(err);
+            cb(err);
         } else {
-            log('connected to mongodb');
-            log('pushing notifications to %s collection', MONGO_COLL);
-            __coll__ = db.collection(MONGO_COLL);
+            cb(null, conn.collection(collection));
         }
+    }
 
-        cb(err, __coll__);
-    });
+    if (connection) {
+        send_back(connection_err, connection, collection, cb);
+    } else {
+        log('connecting to mongodb');
+
+        MongoClient.connect(config('mongo.url'), (err, db) => {
+            connection = db;
+            connection_err = err;
+
+            if (err) {
+                log('error connecting to mongo');
+                log(err);
+            } else {
+                log('connected to mongodb');
+            }
+
+            send_back(connection_err, connection, collection, cb);
+        });
+    }
 }
