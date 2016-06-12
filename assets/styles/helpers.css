@@ -45,6 +45,14 @@
     -webkit-user-select: none;
 }
 
+.logged-in-only--display {
+    display: none;
+}
+
+.--is-logged-in .logged-in-only--display {
+    display: initial;
+}
+
 .logged-in-only {
     visibility: hidden;
 }
