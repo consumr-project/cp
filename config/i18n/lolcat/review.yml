@@ -5,3 +5,4 @@ summary_placeholder: 'rite ur review her'
 did_review_help: 'did dis halp u figure out if u wants 2 shop her? {count, plural, =0{} other{it helped {count} {count, plural, one{person} other{people}}.}}'
 time: tiem
 usefulness: usefulnes
+count: '{count} reviews'

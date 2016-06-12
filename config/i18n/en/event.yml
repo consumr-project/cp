@@ -21,3 +21,5 @@ tags: Tags
 title: Title
 pub_date: Publication date
 quote: Quote (limit {limit} characters)
+
+timeline: timeline

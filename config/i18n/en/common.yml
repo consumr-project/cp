@@ -27,7 +27,9 @@ create_this: Create "{name}"?
 loading_events: "Loading events..."
 
 # external sources
-see_wiki: + See more from wikipedia
+official_site: official site
+wikipedia: wikipedia
+see_wikipedia: + See more from wikipedia
 redirecting: Redirecting
 
 heart_count: "{count} {count, plural, one {heart} other {hearts}}"
