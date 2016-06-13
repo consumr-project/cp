@@ -1,7 +1,7 @@
 .notification {
     background-color: var(--color-passive-highlight-background-color);
     padding: var(--spacing-small) var(--spacing-medium);
-    transition: background-color var(--speed-fast);
+    transition: background-color var(--speed-friendly);
 }
 
 .notification--viewed {
