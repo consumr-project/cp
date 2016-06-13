@@ -80,12 +80,20 @@ angular.module('tcp').directive('notifications', [
                 }
             });
 
-            Services.notification.viewed(lodash.uniq(ids))
-                .then(function () {
+            ids = lodash.uniq(ids);
+            ids = lodash.difference(ids, check_if_viewed.ids);
+            check_if_viewed.ids = check_if_viewed.ids.concat(ids);
+
+            if (ids.length) {
+                Services.notification.viewed(ids).then(function () {
                     // maybe should just pass new count
                     Session.emit(Session.EVENT.NOTIFY);
                 });
+            }
         }
+
+        // used to track notifications that have already been marked as viewed
+        check_if_viewed.ids = [];
 
         /**
          * @param {Angular.Scope} $scope
