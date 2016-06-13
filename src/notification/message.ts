@@ -41,13 +41,25 @@ function signature(msg: Message): string {
 
 export default class Message {
     public id: UUID;
-    public signature: string;
     public category: CATEGORY;
     public subcategory: SUBCATEGORY;
+
+    // uniq string used to track duplicate messages. see signature function
+    public signature: string;
+
+    // id of user this notification is going to
     public to: UUID;
+
+    // has this message been seen by the user?
     public viewed: Boolean;
+
+    // has an action been take upon this notification by the user?
     public completed: Boolean;
+
+    // when was this created?
     public date: Date;
+
+    // any information specific to this type of message
     public payload: PAYLOAD;
 
     constructor(category, subcategory, to, payload) {
@@ -56,9 +68,9 @@ export default class Message {
         this.category = category;
         this.subcategory = subcategory;
         this.to = to;
-        this.payload = payload;
         this.viewed = false;
         this.completed = false;
+        this.payload = payload;
         this.signature = signature(this);
     }
 }
