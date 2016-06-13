@@ -76,6 +76,15 @@ angular.module('tcp').service('Services', [
          * @param {Object} [args]
          * @return {Promise}
          */
+        function put(url, args) {
+            return http('put', url, args);
+        }
+
+        /**
+         * @param {String} url
+         * @param {Object} [args]
+         * @return {Promise}
+         */
         function post(url, args) {
             return http('post', url, args);
         }
@@ -463,6 +472,14 @@ angular.module('tcp').service('Services', [
          */
         notificationService.get = function () {
             return get('/service/notification');
+        };
+
+        /**
+         * @param {String[]} ids
+         * @return {Promise}
+         */
+        notificationService.viewed = function (ids) {
+            return put('/service/notification/viewed', { ids: ids });
         };
 
         notificationService.notify = {};

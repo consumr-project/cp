@@ -450,3 +450,8 @@ declare module 'trello' {
 
     export = Trello;
 }
+
+declare module 'true-visibility' {
+    function fn(elem: Element): Boolean;
+    export = fn;
+}

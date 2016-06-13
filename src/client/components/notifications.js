@@ -2,12 +2,15 @@ angular.module('tcp').directive('notifications', [
     'DOMAIN',
     'Services',
     'Session',
+    'utils',
     'utils2',
     'messages',
     'i18n',
     'lodash',
-    function (DOMAIN, Services, Session, utils2, messages, i18n, lodash) {
+    function (DOMAIN, Services, Session, utils, utils2, messages, i18n, lodash) {
         'use strict';
+
+        var VIEW_CHECK_DELAY = 50;
 
         var FILTER_FOLLOWED = {
             category: DOMAIN.model.message.category.notification,
@@ -27,6 +30,7 @@ angular.module('tcp').directive('notifications', [
                         date: notifications[0].date,
                         user: notifications[0].payload.id,
                         html: messages.stringify(i18n, notifications),
+                        objs: notifications,
                     });
                 }).value();
             });
@@ -54,9 +58,47 @@ angular.module('tcp').directive('notifications', [
             }
         }
 
+        /**
+         * @param {jQuery} $elem
+         * @return {String[]}
+         */
+        function get_elem_notification_ids($elem) {
+            return lodash.map(angular.element($elem).scope().notification.objs, 'id');
+        }
+
+        /**
+         * @param {jQuery} $elem
+         */
+        function check_if_viewed($elem) {
+            var ids = [];
+
+            $elem.find('.notification').each(function () {
+                if (utils.elem_is_visible(this)) {
+                    ids = ids.concat(get_elem_notification_ids(this));
+                }
+            });
+
+            Services.notification.viewed(lodash.uniq(ids));
+        }
+
+        /**
+         * @param {Angular.Scope} $scope
+         * @param {jQuery} $elem
+         * @param {Angular.Attributes} $attrs
+         */
+        function link($scope, $elem, $attrs) {
+            var checker;
+
+            checker = check_if_viewed.bind(null, $elem);
+            checker = lodash.debounce(checker, VIEW_CHECK_DELAY);
+
+            $elem.on('scroll', checker);
+        }
+
         return {
             replace: true,
             controller: ['$scope', controller],
+            link: link,
             scope: {
                 notifications: '=?',
             },

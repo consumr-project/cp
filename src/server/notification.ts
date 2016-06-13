@@ -4,7 +4,7 @@ import { service_handler } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
-import { save, find, purge, purge_signature } from '../notification/collection';
+import { save, find, purge, update, purge_signature } from '../notification/collection';
 import connect from '../service/mongo';
 import config = require('acm');
 
@@ -32,6 +32,9 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
 
     app.delete('/:id', service_handler(req =>
         purge(coll, req.params.id)));
+
+    app.put('/viewed', service_handler(req =>
+        update(coll, req.body.ids, { $set: { viewed: true } })));
 
     app.post('/follow', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {

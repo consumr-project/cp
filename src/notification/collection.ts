@@ -1,9 +1,13 @@
 import { UUID } from 'cp/lang';
 import { clone } from 'lodash';
-import { Collection, FindAndModifyWriteOpResultObject,
+import { Collection, FindAndModifyWriteOpResultObject, UpdateWriteOpResult,
     DeleteWriteOpResultObject } from 'mongodb';
 
 import Message, { CATEGORY, SUBCATEGORY } from './message';
+
+export function update(coll: Collection, ids: UUID[], update: Object): Promise<UpdateWriteOpResult> {
+    return coll.updateMany({ id: { $in: ids } }, update);
+}
 
 export function save(coll: Collection, message: Message): Promise<FindAndModifyWriteOpResultObject> {
     let upsert = true;

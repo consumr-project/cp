@@ -5,6 +5,8 @@ const M_SPACES: RegExp = / /g;
 const M_DASHES: RegExp = /-+/g;
 const M_NON_LETTERS: RegExp = /[^a-zA-Z\d-]/g;
 
+export import elem_is_visible = require('true-visibility');
+
 export function pluck<T>(prop: string): (obj: any) => T {
     return function (obj: any) {
         return obj[prop];
