@@ -45,6 +45,8 @@ export default class Message {
     public category: CATEGORY;
     public subcategory: SUBCATEGORY;
     public to: UUID;
+    public viewed: Boolean;
+    public completed: Boolean;
     public date: Date;
     public payload: PAYLOAD;
 
@@ -55,6 +57,8 @@ export default class Message {
         this.subcategory = subcategory;
         this.to = to;
         this.payload = payload;
+        this.viewed = false;
+        this.completed = false;
         this.signature = signature(this);
     }
 }
