@@ -135,7 +135,9 @@ angular.module('tcp').directive('user', [
 
                 return Services.query.users.followers.upsert(user_id, {
                     user_id: Session.USER.id
-                }).then(utils.scope.set($scope, 'vm.followed_by_me', true));
+                })
+                    .then(utils.scope.set($scope, 'vm.followed_by_me', true))
+                    .then(Services.notification.notify.follow.bind(null, user_id));
             };
 
             /**

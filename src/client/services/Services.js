@@ -456,11 +456,13 @@ angular.module('tcp').service('Services', [
             return get('/service/notification');
         };
 
+        notificationService.notify = {};
+
         /**
          * @param {String} id
          * @return {Promise}
          */
-        notificationService.follow = function (id) {
+        notificationService.notify.follow = function (id) {
             return post('/service/notification/follow', {id: id});
         };
 
