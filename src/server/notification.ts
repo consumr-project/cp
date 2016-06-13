@@ -4,7 +4,7 @@ import { service_handler } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
-import { save, find, purge } from '../notification/collection';
+import { save, find, purge, purge_signature } from '../notification/collection';
 import connect from '../service/mongo';
 import config = require('acm');
 
@@ -41,5 +41,15 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
 
         return save(coll, msg).then(ack => msg);
+    }));
+
+    app.delete('/follow/:id', service_handler(req => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.params.id, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+            name: req.user.name,
+        });
+
+        return purge_signature(coll, msg.signature);
     }));
 });

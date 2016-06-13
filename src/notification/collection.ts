@@ -15,6 +15,10 @@ export function purge(coll: Collection, id: UUID): Promise<DeleteWriteOpResultOb
     return coll.deleteOne({id});
 }
 
+export function purge_signature(coll: Collection, signature: string): Promise<DeleteWriteOpResultObject> {
+    return coll.deleteOne({signature});
+}
+
 export function find(
     coll: Collection,
     to: UUID,

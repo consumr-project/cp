@@ -81,6 +81,15 @@ angular.module('tcp').service('Services', [
         }
 
         /**
+         * @param {String} url
+         * @param {Object} [args]
+         * @return {Promise}
+         */
+        function del(url, args) {
+            return http('delete', url, args);
+        }
+
+        /**
          * @param {String} model
          * @param {Array} [associataions]
          * @return {Object}
@@ -464,6 +473,14 @@ angular.module('tcp').service('Services', [
          */
         notificationService.notify.follow = function (id) {
             return post('/service/notification/follow', {id: id});
+        };
+
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.notify.unfollow = function (id) {
+            return del('/service/notification/follow/' + id);
         };
 
         return {

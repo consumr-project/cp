@@ -133,9 +133,7 @@ angular.module('tcp').directive('user', [
                 utils.assert(Session.USER, 'must be logged in');
                 utils.assert(Session.USER.id, 'must be logged in');
 
-                return Services.query.users.followers.upsert(user_id, {
-                    user_id: Session.USER.id
-                })
+                return Services.query.users.followers.upsert(user_id, { user_id: Session.USER.id })
                     .then(utils.scope.set($scope, 'vm.followed_by_me', true))
                     .then(Services.notification.notify.follow.bind(null, user_id));
             };
@@ -150,7 +148,8 @@ angular.module('tcp').directive('user', [
                 utils.assert(Session.USER.id, 'must be logged in');
 
                 return Services.query.users.followers.delete(user_id, Session.USER.id)
-                    .then(utils.scope.set($scope, 'vm.followed_by_me', false));
+                    .then(utils.scope.set($scope, 'vm.followed_by_me', false))
+                    .then(Services.notification.notify.unfollow.bind(null, user_id));
             };
 
             $scope.load_stat = function (stat) {
