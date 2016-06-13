@@ -1,5 +1,7 @@
 /* global $ */
 $(function () {
+    'use strict';
+
     $(document).on('keydown', function (ev) {
         if (document.activeElement !== document.body) {
             return;
