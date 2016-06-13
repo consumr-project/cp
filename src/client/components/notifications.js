@@ -31,6 +31,7 @@ angular.module('tcp').directive('notifications', [
                         user: notifications[0].payload.id,
                         html: messages.stringify(i18n, notifications),
                         objs: notifications,
+                        seen: !lodash.filter(notifications, { viewed: false }).length,
                     });
                 }).value();
             });
@@ -79,7 +80,11 @@ angular.module('tcp').directive('notifications', [
                 }
             });
 
-            Services.notification.viewed(lodash.uniq(ids));
+            Services.notification.viewed(lodash.uniq(ids))
+                .then(function () {
+                    // maybe should just pass new count
+                    Session.emit(Session.EVENT.NOTIFY);
+                });
         }
 
         /**
@@ -94,6 +99,11 @@ angular.module('tcp').directive('notifications', [
             checker = lodash.debounce(checker, VIEW_CHECK_DELAY);
 
             $elem.on('scroll', checker);
+            $scope.api = $scope.api || {};
+
+            $scope.api.repaint = function () {
+                check_if_viewed($elem);
+            };
         }
 
         return {
@@ -101,6 +111,7 @@ angular.module('tcp').directive('notifications', [
             controller: ['$scope', controller],
             link: link,
             scope: {
+                api: '=?',
                 notifications: '=?',
             },
             template: [
