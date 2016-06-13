@@ -1,6 +1,11 @@
 .notification {
-    background: var(--color-passive-highlight-background-color);
+    background-color: var(--color-passive-highlight-background-color);
     padding: var(--spacing-small) var(--spacing-medium);
+    transition: background-color var(--speed-fast);
+}
+
+.notification--viewed {
+    background-color: white;
 }
 
 .notification avatar {

@@ -75,6 +75,7 @@ angular.module('tcp').directive('notifications', [
             $elem.find('.notification').each(function () {
                 if (utils.elem_is_visible(this)) {
                     ids = ids.concat(get_elem_notification_ids(this));
+                    angular.element(this).addClass('notification--viewed');
                 }
             });
 
