@@ -68,7 +68,7 @@ angular.module('tcp').service('Navigation', [
              * @param {String[]} pages
              * @return {Boolean}
              */
-            oneOf: function (pages) {
+            one_of: function (pages) {
                 var path = $location.path();
                 return pages.indexOf(path) !== -1;
             }

@@ -132,11 +132,11 @@ angular.module('tcp').directive('tcpTopmost', [
             }
 
             function update_page_view_status() {
-                $scope.nav.search.active = Navigation.oneOf([
+                $scope.nav.search.active = Navigation.one_of([
                     Navigation.BASES.SEARCH
                 ]);
 
-                $scope.nav.search.included = Navigation.oneOf([
+                $scope.nav.search.included = Navigation.one_of([
                     Navigation.BASES.HOME,
                     Navigation.BASES.SEARCH
                 ]);
