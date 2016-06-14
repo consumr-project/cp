@@ -16,6 +16,10 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.user = null;
             $scope.session = get_session();
 
+            $scope.vm = {
+                page_class: null,
+            };
+
             $scope.notifications = {
                 show: null,
 
@@ -132,13 +136,15 @@ angular.module('tcp').directive('tcpTopmost', [
             }
 
             function update_page_view_status() {
+                $scope.vm.page_class = 'page--' + Navigation.curr_page();
+
                 $scope.nav.search.active = Navigation.one_of([
-                    Navigation.BASES.SEARCH
+                    Navigation.BASES.SEARCH,
                 ]);
 
                 $scope.nav.search.included = Navigation.one_of([
                     Navigation.BASES.HOME,
-                    Navigation.BASES.SEARCH
+                    Navigation.BASES.SEARCH,
                 ]);
             }
         }
@@ -147,7 +153,7 @@ angular.module('tcp').directive('tcpTopmost', [
             replace: true,
             controller: ['$rootScope', '$scope', controller],
             template: [
-                '<div class="topmost">',
+                '<div class="topmost" ng-class="vm.page_class">',
                 '    <popover class="popover--fullscreen" api="login" ng-init="more = false">',
                 '        <div class="site-content site-content--no-header">',
                 '            <h2 i18n="common/welcome"></h2>',
@@ -155,7 +161,7 @@ angular.module('tcp').directive('tcpTopmost', [
 
                 '            <div class="margin-bottom-medium">',
                 '                <button class="margin-top-small button--social-linkedin" ng-click="with_linkedin()">',
-                '                    <img alt="" src="assets/images/linkedin.png" />',
+                '                    <img alt="" src="/assets/images/linkedin.png" />',
                 '                    <span i18n="admin/sing_in_with_service" data="{service: \'LinkedIn\'}"></span>',
                 '                </button>',
 
@@ -172,8 +178,10 @@ angular.module('tcp').directive('tcpTopmost', [
                 '    </popover>',
 
                 '    <header class="site-content--span">',
-                '        <img class="tcp-logo" alt="" ng-click="nav.home()"',
-                '            src="assets/images/brand/consumrproject-black-stamp.png" />',
+                '        <img class="tcp-logo" alt="cp-logo" ng-click="nav.home()"',
+                '            src="/assets/images/brand/consumrproject-black-stamp.png" />',
+                '        <img class="tcp-long-logo" alt="consumrproject-logo"',
+                '            src="/assets/images/brand/consumrproject-text.png" />',
 
                 '        <button ng-if="!session.logged_in" ng-click="login()"',
                 '            i18n="admin/sing_in_or_up" class="right animated fadeIn"></button>',

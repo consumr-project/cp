@@ -14,6 +14,9 @@ angular.module('tcp').service('Navigation', [
             BY_ME: '/me',
         };
 
+        var PAGE_MAP = {};
+        PAGE_MAP[BASES.HOME] = 'home';
+
         /**
          * optional append
          * @param {String} [next] part
@@ -71,7 +74,14 @@ angular.module('tcp').service('Navigation', [
             one_of: function (pages) {
                 var path = $location.path();
                 return pages.indexOf(path) !== -1;
-            }
+            },
+
+            /**
+             * @return {String}
+             */
+            curr_page: function () {
+                return PAGE_MAP[$location.path()];
+            },
         };
     }
 ]);

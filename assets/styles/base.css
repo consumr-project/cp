@@ -35,7 +35,7 @@ header {
 
 @media (--media-regular-screens) {
     header {
-        padding: calc(var(--spacing-xsmall) * 2) var(--spacing-medium) calc(var(--spacing-xsmall) * 6) var(--spacing-medium);
+        padding: 20px 20px 60px 20px;
         margin-bottom: 23px;
     }
 }
@@ -56,13 +56,21 @@ header .tcp-logo {
     height: 40px;
     margin-top: 0;
     position: absolute;
-    transition: height var(--speed-friendly), margin var(--speed-friendly);
+    transition: margin var(--speed-friendly);
+}
+
+header .tcp-long-logo {
+    height: 30px;
+    margin-left: 60px;
+    margin-top: 5px;
+    opacity: 0;
+    position: absolute;
+    transition: opacity var(--speed-friendly), margin-left var(--speed-friendly);
 }
 
 @media (--media-regular-screens) {
-    header .tcp-logo {
-        height: 60px;
-        margin-top: -var(--spacing-xsmall);
+    .page--home header .tcp-long-logo {
+        opacity: 1;
     }
 }
 
