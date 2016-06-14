@@ -35,7 +35,7 @@ header {
 
 @media (--media-regular-screens) {
     header {
-        padding: var(--spacing-medium) var(--spacing-medium) calc(var(--spacing-xsmall) * 6) var(--spacing-medium);
+        padding: calc(var(--spacing-xsmall) * 2) var(--spacing-medium) calc(var(--spacing-xsmall) * 6) var(--spacing-medium);
         margin-bottom: 23px;
     }
 }
@@ -62,7 +62,7 @@ header .tcp-logo {
 @media (--media-regular-screens) {
     header .tcp-logo {
         height: 60px;
-        margin-top: -13px;
+        margin-top: -var(--spacing-xsmall);
     }
 }
 
