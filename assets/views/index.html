@@ -9,37 +9,28 @@
         <title>consumr project</title>
         <base href="/">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-
         <link rel="stylesheet" href="build/site.css">
-        <script src="build/vendor.js"></script>
-        <script src="build/i18n.en.js"></script>
-        {% if lang and lang != 'en' %}
-        <script src="build/i18n.{{lang}}.js"></script>
-        {% endif %}
     </head>
     <body ng-app="tcp" ng-strict-di ng-cloak tcp-state>
         <div tcp-topmost></div>
         <div ng-view></div>
         <feedback class="logged-in-only"></feedback>
         <footer class="site-content"></footer>
-
         {% if err %}
-        <script>
-        window.ERRORED = true;
-        </script>
+        <script>window.ERRORED = true;</script>
         {% endif %}
-
-        {% if debugging %}
-        <script>window.DEBUGGING = true;</script>
-        <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
-        <script src="src/client/initializers/perf-stats.js"></script>
-        {% endif %}
-
+        <script src="build/vendor.js"></script>
+        <script src="build/i18n.en.js"></script>
         <script src="build/bundle.js"></script>
-
+        {% if lang and lang != 'en' %}
+        <script src="build/i18n.{{lang}}.js"></script>
+        {% endif %}
         {% if not debugging %}
         <script src="build/client.js"></script>
         {% else %}
+        <script>window.DEBUGGING = true;</script>
+        <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
+        <script src="src/client/initializers/perf-stats.js"></script>
         <script src="src/client/initializers/keyboard-shortcuts.js"></script>
         <script src="src/client/initializers/rollbar-config.js"></script>
         <script src="src/client/initializers/scroll-offset-class.js"></script>
@@ -82,16 +73,12 @@
         <script src="src/client/vendor/angular/ngFocus.js"></script>
         <script src="src/client/vendor/angular/ngInvisible.js"></script>
         <script src="src/client/vendor/angular/ngDatePicker.js"></script>
-        {% endif %}
-
-        {% if debugging %}
         <script src="src/client/components/guide.js"></script>
         <script src="node_modules/rector/rector.js"></script>
         <link rel="stylesheet" href="node_modules/rector/rector.css">
         {% endif %}
     </body>
-
-{% if err && debugging %}
+{% if err and debugging %}
 <!--
 [{{err.message}}] -> {{err.stack}}
 -->
