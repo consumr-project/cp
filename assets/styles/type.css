@@ -57,6 +57,7 @@ p,
 }
 
 p {
+    letter-spacing: 0 !important;
     margin-top: var(--spacing-medium);
 }
 

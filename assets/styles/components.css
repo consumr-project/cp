@@ -20,7 +20,6 @@ tag-view {
     font-family: Times;
     font-size: var(--font-size-xlarge);
     font-style: italic;
-    font-weight: 900;
 }
 
 .company-component .company-component__qa img {
