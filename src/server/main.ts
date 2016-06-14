@@ -16,6 +16,7 @@ const body_parser = require('body-parser');
 const cookie = require('cookie-parser');
 const timeout = require('connect-timeout');
 const session = require('express-session');
+const compression = require('compression');
 const swig = require('swig');
 const debug = require('debug');
 
@@ -40,6 +41,11 @@ if (debugging) {
     app.use('/assets', index('assets'));
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
+}
+
+if (config('SERVER_JIT_COMPRESSION')) {
+    log('server jit compression');
+    app.use(compression());
 }
 
 app.use(body_parser.json());
