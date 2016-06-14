@@ -152,13 +152,13 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        <div class="site-content site-content--no-header">',
                 '            <h2 i18n="common/welcome"></h2>',
                 '            <p i18n="common/intro"></p>',
-  
+
                 '            <div class="margin-bottom-medium">',
                 '                <button class="margin-top-small button--social-linkedin" ng-click="with_linkedin()">',
                 '                    <img alt="" src="assets/images/linkedin.png" />',
                 '                    <span i18n="admin/sing_in_with_service" data="{service: \'LinkedIn\'}"></span>',
                 '                </button>',
- 
+
                 '                <button ng-click="more = true" i18n="admin/more_options"></button>',
                 '            </div>',
 
