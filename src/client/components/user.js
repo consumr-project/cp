@@ -4,8 +4,9 @@ angular.module('tcp').directive('user', [
     'Navigation',
     'utils',
     '$q',
+    '$location',
     '$routeParams',
-    function (Services, Session, Navigation, utils, $q, $routeParams) {
+    function (Services, Session, Navigation, utils, $q, $location, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -72,6 +73,62 @@ angular.module('tcp').directive('user', [
         STAT_CHILD_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS_USERS;
         STAT_CHILD_MAP[STAT_FOLLOWERS_USERS] = STAT_FOLLOWERS_USERS;
 
+        /**
+         * @param {STAT} exp_stat
+         * @return {String}
+         */
+        function get_stat_path(exp_stat) {
+            var curr = $location.path().split('/'),
+                parts = [curr[1], curr[2]];
+
+            switch (exp_stat) {
+                case STAT_FOLLOWERS_USERS:
+                    parts.push('followers/users');
+                    break;
+
+                case STAT_FAVORITES_EVENTS:
+                    parts.push('favorites/events');
+                    break;
+
+                case STAT_FOLLOWING_TAGS:
+                    parts.push('following/tags');
+                    break;
+
+                case STAT_FOLLOWING_COMPANIES:
+                    parts.push('following/companies');
+                    break;
+
+                case STAT_FOLLOWING_USERS:
+                    parts.push('following/users');
+                    break;
+
+                case STAT_CONTRIBUTIONS_EVENTS:
+                    parts.push('contributions/events');
+                    break;
+
+                case STAT_CONTRIBUTIONS_QUESTIONS:
+                    parts.push('contributions/questions');
+                    break;
+
+                case STAT_CONTRIBUTIONS_COMPANIES:
+                    parts.push('contributions/companies');
+                    break;
+
+                case STAT_CONTRIBUTIONS_SOURCES:
+                    parts.push('contributions/sources');
+                    break;
+
+                case STAT_CONTRIBUTIONS_REVIEWS:
+                    parts.push('contributions/reviews');
+                    break;
+            }
+
+            return '/' + parts.join('/');
+        }
+
+        /**
+         * @param {Object}
+         */
         function get_stat_to_load() {
             var cur_stat = STAT_CONTRIBUTIONS,
                 exp_stat = STAT_CONTRIBUTIONS_EVENTS;
@@ -234,9 +291,12 @@ angular.module('tcp').directive('user', [
                 var req = STAT_CHILD_MAP[stat] in STAT_GETTER_MAP ?
                     STAT_GETTER_MAP[STAT_CHILD_MAP[stat]]($scope.id) : $q.when([]);
 
+                var path = get_stat_path(STAT_CHILD_MAP[stat]);
+
                 $scope.vm.cur_stat = STAT_MAP[stat];
                 $scope.vm.exp_stat = STAT_CHILD_MAP[stat];
                 req.then(utils.scope.set($scope, 'vm.stats_data'));
+                $location.path(path, false);
             };
 
             if ($scope.id) {

@@ -154,7 +154,7 @@ namespace tcp {
                 redirectTo: '/user/me'
             });
 
-            $routeProvider.when('/user/me', {
+            $routeProvider.when('/user/me/:category?/:subcategory?', {
                 template: '<user class="site-content" id="{{id}}"></user>',
                 resolve: { UserCheck, PageView },
                 controller: ['$scope', 'Session', function ($scope, Session) {
@@ -199,6 +199,25 @@ namespace tcp {
                         '<message ng-if="ERRORED" type="error" i18n="common/error_loading"></message>' +
                     '</div>'
             });
+        }
+    ]);
+
+    angular.module('tcp').run([
+        '$route',
+        '$rootScope',
+        '$location',
+        function ($route, $rootScope, $location) {
+            var original = $location.path;
+            $location.path = function (path, reload) {
+                if (reload === false) {
+                    var lastRoute = $route.current;
+                    var un = $rootScope.$on('$locationChangeSuccess', function () {
+                        $route.current = lastRoute;
+                        un();
+                    });
+                }
+                return original.apply($location, [path]);
+            };
         }
     ]);
 }
