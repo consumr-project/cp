@@ -162,7 +162,7 @@ namespace tcp {
                 }]
             });
 
-            $routeProvider.when('/user/:id', {
+            $routeProvider.when('/user/:id/:category?/:subcategory?', {
                 resolve: { PageView },
                 template: '<user class="site-content" id="{{id}}"></user>',
                 controller: IdSetterController

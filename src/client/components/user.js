@@ -4,7 +4,8 @@ angular.module('tcp').directive('user', [
     'Navigation',
     'utils',
     '$q',
-    function (Services, Session, Navigation, utils, $q) {
+    '$routeParams',
+    function (Services, Session, Navigation, utils, $q, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -71,6 +72,80 @@ angular.module('tcp').directive('user', [
         STAT_CHILD_MAP[STAT_FOLLOWERS] = STAT_FOLLOWERS_USERS;
         STAT_CHILD_MAP[STAT_FOLLOWERS_USERS] = STAT_FOLLOWERS_USERS;
 
+        function get_stat_to_load() {
+            var cur_stat = STAT_CONTRIBUTIONS,
+                exp_stat = STAT_CONTRIBUTIONS_EVENTS;
+
+            switch ($routeParams.category) {
+                case 'contributions':
+                    cur_stat = STAT_CONTRIBUTIONS;
+                    exp_stat = STAT_CHILD_MAP[cur_stat];
+                    break;
+
+                case 'following':
+                    cur_stat = STAT_FOLLOWING;
+                    exp_stat = STAT_CHILD_MAP[cur_stat];
+                    break;
+
+                case 'followers':
+                    cur_stat = STAT_FOLLOWERS;
+                    exp_stat = STAT_CHILD_MAP[cur_stat];
+                    break;
+
+                case 'favorites':
+                    cur_stat = STAT_FAVORITES;
+                    exp_stat = STAT_CHILD_MAP[cur_stat];
+                    break;
+            }
+
+            switch (cur_stat + $routeParams.subcategory) {
+                case STAT_CONTRIBUTIONS + 'events':
+                    exp_stat = STAT_CONTRIBUTIONS_EVENTS;
+                    break;
+
+                case STAT_CONTRIBUTIONS + 'questions':
+                    exp_stat = STAT_CONTRIBUTIONS_QUESTIONS;
+                    break;
+
+                case STAT_CONTRIBUTIONS + 'companies':
+                    exp_stat = STAT_CONTRIBUTIONS_COMPANIES;
+                    break;
+
+                case STAT_CONTRIBUTIONS + 'sources':
+                    exp_stat = STAT_CONTRIBUTIONS_SOURCES;
+                    break;
+
+                case STAT_CONTRIBUTIONS + 'reviews':
+                    exp_stat = STAT_CONTRIBUTIONS_REVIEWS;
+                    break;
+
+                case STAT_FOLLOWING + 'companies':
+                    exp_stat = STAT_FOLLOWING_COMPANIES;
+                    break;
+
+                case STAT_FOLLOWING + 'users':
+                    exp_stat = STAT_FOLLOWING_USERS;
+                    break;
+
+                case STAT_FOLLOWING + 'tags':
+                    exp_stat = STAT_FOLLOWING_TAGS;
+                    break;
+
+                case STAT_FAVORITES + 'events':
+                    exp_stat = STAT_FAVORITES_EVENTS;
+                    break;
+
+                case STAT_FOLLOWERS + 'users':
+                    exp_stat = STAT_FOLLOWERS_USERS;
+                    break;
+            }
+
+            return {
+                cur_stat: cur_stat,
+                exp_stat: exp_stat,
+            };
+        }
+
         function controller($scope) {
             $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
             $scope.STAT_FOLLOWING = STAT_FOLLOWING;
@@ -105,14 +180,17 @@ angular.module('tcp').directive('user', [
              * @return {Promise}
              */
             function load(id) {
+                var loc = get_stat_to_load();
+
                 return Services.query.users.retrieve(id, ['followers']).then(function (user) {
                     $scope.vm.user = user;
                     $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
 
                     Services.query.users.stats(id)
                         .then(utils.scope.set($scope, 'vm.stats'))
-                        .then(utils.scope.set($scope, 'vm.cur_stat', STAT_CONTRIBUTIONS))
-                        .then($scope.load_stat.bind(null, STAT_CONTRIBUTIONS_EVENTS));
+                        .then(utils.scope.set($scope, 'vm.cur_stat', loc.cur_stat))
+                        .then(utils.scope.set($scope, 'vm.exp_stat', loc.exp_stat))
+                        .then($scope.load_stat.bind(null, loc.exp_stat));
                 });
             }
 
