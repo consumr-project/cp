@@ -46,7 +46,7 @@ angular.module('tcp').directive('company', [
             '                    <div class="snav__item inline-block" ng-click="show_qa()" i18n="qa/qa"></div>',
             '                </td>',
             '                <td class="half-width">',
-            '                    <div ng-click="toggle_show_reviews()" class="no-wrap">',
+            '                    <div ng-click="show_reviews()" class="no-wrap">',
             '                        <table class="right">',
             '                            <tr>',
             '                                <td>',
@@ -248,17 +248,17 @@ angular.module('tcp').directive('company', [
                 show_events: true,
             };
 
-            $scope.toggle_show_reviews = function () {
-                if ($scope.vm.show_events) {
-                    $scope.vm.show_reviews = true;
-                    $scope.vm.show_events = false;
-                } else {
-                    $scope.vm.show_review_form = false;
+            $scope.show_reviews = function () {
+                if ($scope.vm.show_review_form) {
                     $scope.vm.show_reviews = false;
-                    $scope.vm.show_events = true;
+                    $scope.vm.show_review_form = true;
+                } else {
+                    $scope.vm.show_reviews = true;
+                    $scope.vm.show_review_form = false;
                 }
 
                 $scope.vm.show_qa = false;
+                $scope.vm.show_events = false;
             };
 
             $scope.show_events = function () {
