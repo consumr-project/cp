@@ -9,7 +9,7 @@ angular.module('tcp').directive('notification', [
             },
             template: [
                 '<div class="notification" ng-class="{',
-                '    \'notification--viewed\': model.seen,',
+                '    \'notification--done\': model.done,',
                 '    }">',
                 '    <table>',
                 '        <tr>',

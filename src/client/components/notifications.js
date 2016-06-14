@@ -31,7 +31,7 @@ angular.module('tcp').directive('notifications', [
                         user: notifications[0].payload.id,
                         html: messages.stringify(i18n, notifications),
                         objs: notifications,
-                        seen: !lodash.filter(notifications, { viewed: false }).length,
+                        done: !lodash.filter(notifications, { completed: false }).length,
                     });
                 }).value();
             });
@@ -76,7 +76,6 @@ angular.module('tcp').directive('notifications', [
             $elem.find('.notification').each(function () {
                 if (utils.elem_is_visible(this)) {
                     ids = ids.concat(get_elem_notification_ids(this));
-                    angular.element(this).addClass('notification--viewed');
                 }
             });
 

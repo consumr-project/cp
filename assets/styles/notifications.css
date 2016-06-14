@@ -4,7 +4,7 @@
     transition: background-color var(--speed-friendly);
 }
 
-.notification--viewed {
+.notification--done {
     background-color: white;
 }
 
