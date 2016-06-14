@@ -79,7 +79,7 @@ angular.module('tcp').directive('company', [
             '            <center>',
             '                <img src="/assets/images/pizza.svg" alt="Pizza!" />',
             '            </center>',
-            '            <p i18n="qa/coming_soon" data="{name: company.name}"></p>',
+            '            <p class="p--standout" i18n="qa/coming_soon" data="{name: company.name}"></p>',
             '        </section>',
 
             '        <section ng-if="vm.show_events">',

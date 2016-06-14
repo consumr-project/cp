@@ -16,12 +16,6 @@ tag-view {
     margin-bottom: 200px;
 }
 
-.company-component .company-component__qa p {
-    font-family: Times;
-    font-size: var(--font-size-xlarge);
-    font-style: italic;
-}
-
 .company-component .company-component__qa img {
     width: 150px;
 }
