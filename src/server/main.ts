@@ -30,6 +30,11 @@ app.set('view engine', 'html');
 app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
+if (config('SERVER_JIT_COMPRESSION')) {
+    log('server jit compression');
+    app.use(compression());
+}
+
 app.use('/build', express.static('build'));
 app.use('/src/client', express.static('src/client'));
 app.use('/assets', express.static('assets'));
@@ -41,11 +46,6 @@ if (debugging) {
     app.use('/assets', index('assets'));
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
-}
-
-if (config('SERVER_JIT_COMPRESSION')) {
-    log('server jit compression');
-    app.use(compression());
 }
 
 app.use(body_parser.json());
