@@ -4,6 +4,7 @@ import shasum = require('shasum');
 
 export enum OTYPE {
     USER = <any>'user',
+    EVENT = <any>'event',
 }
 
 export enum CATEGORY {
@@ -12,10 +13,8 @@ export enum CATEGORY {
 }
 
 export enum NOTIFICATION {
-    CONTRIBUTED_TO_CONTRIBUTED_CONTENT = <any>'CONTRIBUTED_TO_CONTRIBUTED_CONTENT',
-    CONTRIBUTED_TO_OWN_CONTENT = <any>'CONTRIBUTED_TO_OWN_CONTENT',
     FOLLOWED = <any>'FOLLOWED',
-    MISSING_INFORMATION = <any>'MISSING_INFORMATION',
+    FAVORITED = <any>'FAVORITED',
 }
 
 export interface FollowedNotificationPayload {
@@ -24,8 +23,18 @@ export interface FollowedNotificationPayload {
     name: string;
 }
 
+export interface FavoritedNotificationPayload {
+    id: UUID;
+    otype: OTYPE;
+    name: string;
+    obj_id: UUID;
+    obj_otype: OTYPE;
+    obj_name: string;
+}
+
 export type SUBCATEGORY = NOTIFICATION;
-export type PAYLOAD = FollowedNotificationPayload;
+export type PAYLOAD = FollowedNotificationPayload
+    | FavoritedNotificationPayload;
 
 function signature(msg: Message): string {
     switch (msg.subcategory) {

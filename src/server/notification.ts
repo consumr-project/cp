@@ -28,7 +28,10 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     });
 
     app.get('/', service_handler(req =>
-        find(coll, req.user.id, CATEGORY.NOTIFICATION, [NOTIFICATION.FOLLOWED])));
+        find(coll, req.user.id, CATEGORY.NOTIFICATION, [
+            NOTIFICATION.FOLLOWED,
+            NOTIFICATION.FAVORITED,
+        ])));
 
     app.delete('/:id', service_handler(req =>
         purge(coll, req.params.id)));
@@ -44,6 +47,20 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             id: req.user.id,
             otype: OTYPE.USER,
             name: req.user.name,
+        });
+
+        return save(coll, msg).then(ack => msg);
+    }));
+
+    app.post('/favorite', service_handler(req => {
+        let user_id = '4a9cb039-2a8c-458e-839f-78b4d951c226';
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, user_id, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+            name: req.user.name,
+            obj_id: req.body.id,
+            obj_otype: OTYPE.EVENT,
+            obj_name: req.body.name,
         });
 
         return save(coll, msg).then(ack => msg);
