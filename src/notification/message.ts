@@ -37,7 +37,7 @@ export interface FavoritedNotificationPayload
 
 export type SUBCATEGORY = NOTIFICATION;
 export type PAYLOAD = FollowedNotificationPayload
-    | FavoritedNotificationPayload;
+    & FavoritedNotificationPayload;
 
 export interface MessagePresentation {
     subcategory: SUBCATEGORY;
