@@ -1,7 +1,7 @@
-import { get, reduce, groupBy as group_by } from 'lodash';
+import { filter, get, reduce, groupBy as group_by } from 'lodash';
 import { I18n } from 'cp/client';
 
-import Message, { MultipleTargetPayload, NOTIFICATION } from '../../notification/message';
+import Message, { MessagePresentation, MultipleTargetPayload, NOTIFICATION } from '../../notification/message';
 
 import striptags = require('striptags');
 
@@ -56,4 +56,20 @@ export function group(messages: Message[]): Message[][] {
         store[store.length] = groups[label];
         return store;
     }, []);
+}
+
+export function condence(i18n: I18n, messages: Message[]): MessagePresentation {
+    return {
+        subcategory: messages[0].subcategory,
+        date: messages[0].date,
+        user_id: messages[0].payload.id,
+        html: stringify(i18n, messages),
+        messages: messages,
+        is_completed: !filter(messages, { completed: false }).length,
+        href: link(messages[0]),
+    };
+}
+
+export function prep(i18n: I18n, messages: Message[]): MessagePresentation[] {
+    return group(messages).map(group => condence(i18n, group));
 }

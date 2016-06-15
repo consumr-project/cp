@@ -22,19 +22,19 @@ angular.module('tcp').directive('notification', [
                 $scope.click = function ($ev) {
                     if ($scope.model.href) {
                         Navigation.go_to($scope.model.href);
-                        mark_as_completed($scope.model.objs);
-                        $scope.model.done = true;
+                        mark_as_completed($scope.model.messages);
+                        $scope.model.is_completed = true;
                     }
                 };
             }],
             template: [
                 '<div class="notification" ng-click="click()" ng-class="{',
-                '    \'notification--done\': model.done,',
+                '    \'notification--completed\': model.is_completed,',
                 '}">',
                 '    <table>',
                 '        <tr>',
                 '            <td>',
-                '                <avatar user-id="{{::model.user}}"></avatar>',
+                '                <avatar user-id="{{::model.user_id}}"></avatar>',
                 '            </td>',
                 '            <td>',
                 '                <p ng-bind-html="::model.html"></p>',

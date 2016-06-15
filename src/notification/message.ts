@@ -39,6 +39,16 @@ export type SUBCATEGORY = NOTIFICATION;
 export type PAYLOAD = FollowedNotificationPayload
     | FavoritedNotificationPayload;
 
+export interface MessagePresentation {
+    subcategory: SUBCATEGORY;
+    date: Date;
+    user_id: UUID;
+    html: string;
+    messages: Message[];
+    is_completed: Boolean;
+    href: string;
+}
+
 function signature(msg: Message): string {
     switch (msg.subcategory) {
         case NOTIFICATION.FOLLOWED: return shasum([

@@ -17,17 +17,7 @@ angular.module('tcp').directive('notifications', [
         };
 
         function group($scope, notifications) {
-            messages.group(notifications || []).forEach(function (notifications) {
-                $scope.notifications.push({
-                    type: notifications[0].subcategory,
-                    date: notifications[0].date,
-                    user: notifications[0].payload.id,
-                    html: messages.stringify(i18n, notifications),
-                    objs: notifications,
-                    done: !lodash.filter(notifications, { completed: false }).length,
-                    href: messages.link(notifications[0]),
-                });
-            });
+            $scope.notifications = messages.prep(i18n, notifications);
         }
 
         /**
@@ -57,7 +47,7 @@ angular.module('tcp').directive('notifications', [
          * @return {String[]}
          */
         function get_elem_notification_ids($elem) {
-            return lodash.map(angular.element($elem).scope().notification.objs, 'id');
+            return lodash.map(angular.element($elem).scope().notification.messages, 'id');
         }
 
         /**
