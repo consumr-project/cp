@@ -58,6 +58,16 @@ function signature(msg: Message): string {
             msg.payload.id,
             msg.payload.otype,
         ]);
+
+        case NOTIFICATION.FAVORITED: return shasum([
+            msg.category,
+            msg.subcategory,
+            msg.to,
+            msg.payload.id,
+            msg.payload.otype,
+            msg.payload.obj_id,
+            msg.payload.obj_otype,
+        ]);
     }
 }
 
