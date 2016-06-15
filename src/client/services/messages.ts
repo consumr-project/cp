@@ -44,6 +44,8 @@ export function stringify(i18n: I18n, messages: Message[]): string {
 
 export function link(message: Message): string {
     switch (message.subcategory) {
+        // XXX this should really point to an event specific page
+        case NOTIFICATION.FAVORITED: return `/company/id/${(<MultipleTargetPayload>message.payload).obj_id}`;
         case NOTIFICATION.FOLLOWED: return '/user/me/followers/users';
         default: return;
     }
