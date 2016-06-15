@@ -30,7 +30,7 @@ angular.module('tcp').directive('notification', [
             template: [
                 '<div class="notification" ng-click="click()" ng-class="{',
                 '    \'notification--done\': model.done,',
-                '    }">',
+                '}">',
                 '    <table>',
                 '        <tr>',
                 '            <td>',

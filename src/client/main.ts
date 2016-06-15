@@ -211,8 +211,15 @@ namespace tcp {
             $location.path = function (path, reload) {
                 if (reload === false) {
                     var lastRoute = $route.current;
+                    var same = path === $location.path();
+
                     var un = $rootScope.$on('$locationChangeSuccess', function () {
-                        $route.current = lastRoute;
+                        // issue when doing reload = false on same page
+                        // preventing next routes from working
+                        if (!same) {
+                            $route.current = lastRoute;
+                        }
+
                         un();
                     });
                 }
