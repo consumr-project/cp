@@ -1,7 +1,7 @@
-import { get } from 'lodash';
+import { get, reduce, groupBy as group_by } from 'lodash';
 import { I18n } from 'cp/client';
 
-import Message, { NOTIFICATION } from '../../notification/message';
+import Message, { MultipleTargetPayload, NOTIFICATION } from '../../notification/message';
 
 import striptags = require('striptags');
 
@@ -31,4 +31,29 @@ export function link(message: Message): string {
         case NOTIFICATION.FOLLOWED: return '/user/me/followers/users';
         default: return;
     }
+}
+
+export function group(messages: Message[]): Message[][] {
+    var groups = group_by(messages, message => {
+        var date = new Date(message.date.toString());
+
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        return [
+            month > 9 ? month : '0' + month,
+            day > 9 ? day : '0' + day,
+            date.getFullYear(),
+            message.category,
+            message.subcategory,
+            (<MultipleTargetPayload>message.payload).obj_id || '0',
+        ].join('-');
+    });
+
+    var labels = Object.keys(groups).sort().reverse();
+
+    return reduce(labels, (store, label) => {
+        store[store.length] = groups[label];
+        return store;
+    }, []);
 }

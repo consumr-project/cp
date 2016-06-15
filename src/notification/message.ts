@@ -17,20 +17,23 @@ export enum NOTIFICATION {
     FAVORITED = <any>'FAVORITED',
 }
 
-export interface FollowedNotificationPayload {
+export interface SingularTargetPayload {
     id: UUID;
     otype: OTYPE;
     name: string;
 }
 
-export interface FavoritedNotificationPayload {
-    id: UUID;
-    otype: OTYPE;
-    name: string;
+export interface MultipleTargetPayload extends SingularTargetPayload {
     obj_id: UUID;
     obj_otype: OTYPE;
     obj_name: string;
 }
+
+export interface FollowedNotificationPayload
+    extends SingularTargetPayload {}
+
+export interface FavoritedNotificationPayload
+    extends MultipleTargetPayload {}
 
 export type SUBCATEGORY = NOTIFICATION;
 export type PAYLOAD = FollowedNotificationPayload

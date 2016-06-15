@@ -3,11 +3,10 @@ angular.module('tcp').directive('notifications', [
     'Services',
     'Session',
     'utils',
-    'utils2',
     'messages',
     'i18n',
     'lodash',
-    function (DOMAIN, Services, Session, utils, utils2, messages, i18n, lodash) {
+    function (DOMAIN, Services, Session, utils, messages, i18n, lodash) {
         'use strict';
 
         var VIEW_CHECK_DELAY = 50;
@@ -18,23 +17,16 @@ angular.module('tcp').directive('notifications', [
         };
 
         function group($scope, notifications) {
-            var followed;
-
-            notifications = notifications;
-            notifications = utils2.group_by_day(notifications);
-
-            notifications.forEach(function (notifications) {
-                lodash(notifications).groupBy('subcategory').each(function (notifications) {
-                    $scope.notifications.push({
-                        type: notifications[0].subcategory,
-                        date: notifications[0].date,
-                        user: notifications[0].payload.id,
-                        html: messages.stringify(i18n, notifications),
-                        objs: notifications,
-                        done: !lodash.filter(notifications, { completed: false }).length,
-                        href: messages.link(notifications[0]),
-                    });
-                }).value();
+            messages.group(notifications || []).forEach(function (notifications) {
+                $scope.notifications.push({
+                    type: notifications[0].subcategory,
+                    date: notifications[0].date,
+                    user: notifications[0].payload.id,
+                    html: messages.stringify(i18n, notifications),
+                    objs: notifications,
+                    done: !lodash.filter(notifications, { completed: false }).length,
+                    href: messages.link(notifications[0]),
+                });
             });
         }
 
