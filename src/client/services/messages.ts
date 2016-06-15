@@ -25,3 +25,10 @@ export function stringify(i18n: I18n, messages: Message[]): string {
         default: return '';
     }
 }
+
+export function link(message: Message): string {
+    switch (message.subcategory) {
+        case NOTIFICATION.FOLLOWED: return '/user/me/followers/users';
+        default: return;
+    }
+}

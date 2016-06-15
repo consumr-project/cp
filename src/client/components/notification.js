@@ -1,5 +1,6 @@
 angular.module('tcp').directive('notification', [
-    function () {
+    'Navigation',
+    function (Navigation) {
         'use strict';
 
         return {
@@ -7,8 +8,15 @@ angular.module('tcp').directive('notification', [
             scope: {
                 model: '=',
             },
+            controller: ['$scope', function ($scope) {
+                $scope.click = function () {
+                    if ($scope.model.href) {
+                        Navigation.go_to($scope.model.href);
+                    }
+                };
+            }],
             template: [
-                '<div class="notification" ng-class="{',
+                '<div class="notification" ng-click="click()" ng-class="{',
                 '    \'notification--done\': model.done,',
                 '    }">',
                 '    <table>',

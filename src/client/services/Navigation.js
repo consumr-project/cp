@@ -82,6 +82,14 @@ angular.module('tcp').service('Navigation', [
             curr_page: function () {
                 return PAGE_MAP[$location.path()];
             },
+
+            /**
+             * @param {String} url
+             * @return {Angular.Location}
+             */
+            go_to: function (url) {
+                return $location.url(url);
+            },
         };
     }
 ]);

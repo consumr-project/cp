@@ -32,6 +32,7 @@ angular.module('tcp').directive('notifications', [
                         html: messages.stringify(i18n, notifications),
                         objs: notifications,
                         done: !lodash.filter(notifications, { completed: false }).length,
+                        href: messages.link(notifications[0]),
                     });
                 }).value();
             });
