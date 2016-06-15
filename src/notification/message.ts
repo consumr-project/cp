@@ -50,25 +50,22 @@ export interface MessagePresentation {
 }
 
 function signature(msg: Message): string {
-    switch (msg.subcategory) {
-        case NOTIFICATION.FOLLOWED: return shasum([
-            msg.category,
-            msg.subcategory,
-            msg.to,
-            msg.payload.id,
-            msg.payload.otype,
-        ]);
+    var parts = [
+        msg.category,
+        msg.subcategory,
+        msg.to,
+        msg.payload.id,
+        msg.payload.otype,
+    ];
 
-        case NOTIFICATION.FAVORITED: return shasum([
-            msg.category,
-            msg.subcategory,
-            msg.to,
-            msg.payload.id,
-            msg.payload.otype,
-            msg.payload.obj_id,
-            msg.payload.obj_otype,
-        ]);
+    switch (msg.subcategory) {
+        case NOTIFICATION.FAVORITED:
+            parts.push(msg.payload.obj_id);
+            parts.push(msg.payload.obj_otype);
+            break;
     }
+
+    return shasum(parts);
 }
 
 export default class Message {
