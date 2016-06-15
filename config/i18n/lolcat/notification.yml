@@ -4,3 +4,6 @@ new_company_message: '{obj_type}, which wuz creatd 4 "{obj_id}", iz misin teh fo
 followed_by_one: '{name} startd followin u.'
 followed_by_two: '{name} an {other} startd followin u.'
 followed_by_many: '{name} an {count} others startd followin u.'
+favorited_by_one: '{name} likd teh event u addd, "{event}".'
+favorited_by_two: '{name} an {other} likd teh event u addd, "{event}".'
+favorited_by_many: '{name} an {count} others likd teh event u addd, "{event}".'

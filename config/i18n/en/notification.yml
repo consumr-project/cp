@@ -9,3 +9,7 @@ new_company_message: "<a href=\"/{obj_type}/id/{obj_id}\">{obj_name}</a>, which 
 followed_by_one: '<b>{name}</b> started following you.'
 followed_by_two: '<b>{name}</b> and <b>{other}</b> started following you.'
 followed_by_many: '<b>{name}</b> and {count} others started following you.'
+
+favorited_by_one: '<b>{name}</b> liked the event you added, "{event}".'
+favorited_by_two: '<b>{name}</b> and <b>{other}</b> liked the event you added, "{event}".'
+favorited_by_many: '<b>{name}</b> and {count} others liked the event you added, "{event}".'

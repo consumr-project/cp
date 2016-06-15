@@ -19,9 +19,25 @@ function stringify_followed(i18n: I18n, messages: Message[]): string {
     }
 }
 
+function stringify_favorited(i18n: I18n, messages: Message[]): string {
+    var fields = {
+        name: striptags(get<string>(messages, '0.payload.name')),
+        other: striptags(get<string>(messages, '1.payload.name')),
+        event: striptags(get<string>(messages, '0.payload.obj_name')),
+        count: messages.length - 1,
+    };
+
+    switch (messages.length) {
+        case 1: return i18n.get('notification/favorited_by_one', fields);
+        case 2: return i18n.get('notification/favorited_by_two', fields);
+        default: return i18n.get('notification/favorited_by_many', fields);
+    }
+}
+
 export function stringify(i18n: I18n, messages: Message[]): string {
     switch (messages[0].subcategory) {
         case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
+        case NOTIFICATION.FAVORITED: return stringify_favorited(i18n, messages);
         default: return '';
     }
 }
