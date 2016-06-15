@@ -478,6 +478,14 @@ angular.module('tcp').service('Services', [
          * @param {String[]} ids
          * @return {Promise}
          */
+        notificationService.completed = function (ids) {
+            return put('/service/notification/completed', { ids: ids });
+        };
+
+        /**
+         * @param {String[]} ids
+         * @return {Promise}
+         */
         notificationService.viewed = function (ids) {
             return put('/service/notification/viewed', { ids: ids });
         };

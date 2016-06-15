@@ -33,6 +33,9 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     app.delete('/:id', service_handler(req =>
         purge(coll, req.params.id)));
 
+    app.put('/completed', service_handler(req =>
+        update(coll, req.body.ids, { $set: { completed: true } })));
+
     app.put('/viewed', service_handler(req =>
         update(coll, req.body.ids, { $set: { viewed: true } })));
 

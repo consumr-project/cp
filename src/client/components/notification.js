@@ -1,7 +1,17 @@
 angular.module('tcp').directive('notification', [
     'Navigation',
-    function (Navigation) {
+    'Services',
+    'lodash',
+    function (Navigation, Services, lodash) {
         'use strict';
+
+        /**
+         * @param {Message[]} messages
+         * @return {Promise}
+         */
+        function mark_as_completed(messages) {
+            return Services.notification.completed(lodash.map(messages, 'id'));
+        }
 
         return {
             replace: true,
@@ -9,9 +19,11 @@ angular.module('tcp').directive('notification', [
                 model: '=',
             },
             controller: ['$scope', function ($scope) {
-                $scope.click = function () {
+                $scope.click = function ($ev) {
                     if ($scope.model.href) {
                         Navigation.go_to($scope.model.href);
+                        mark_as_completed($scope.model.objs);
+                        $scope.model.done = true;
                     }
                 };
             }],
