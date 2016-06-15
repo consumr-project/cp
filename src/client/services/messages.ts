@@ -1,7 +1,7 @@
 import { filter, get, reduce, groupBy as group_by } from 'lodash';
 import { I18n } from 'cp/client';
 
-import Message, { MessagePresentation, MultipleTargetPayload, NOTIFICATION } from '../../notification/message';
+import Message, { MessagePresentation, NOTIFICATION } from '../../notification/message';
 
 import striptags = require('striptags');
 
