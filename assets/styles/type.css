@@ -127,13 +127,6 @@ a * {
     cursor: pointer;
 }
 
-/* anchors not in paragraphs are actions */
-:not(p) a {
-    /* font-size: var(--font-size-small); */
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
 a.a--action,
 .a--action {
     color: black;
