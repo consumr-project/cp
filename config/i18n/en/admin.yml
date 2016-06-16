@@ -20,7 +20,7 @@ sing_in_or_up: Sign in / Sign up
 see_notifications: Notifications
 add_company: Create company
 
-search_placeholder: search
+search_placeholder: "Search for a company or an issue you care about"
 
 # statuses
 thanks: "thanks!"
