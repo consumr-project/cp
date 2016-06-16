@@ -174,5 +174,8 @@ hr {
 
 .banner.banner--3 {
     background-color: var(--color-banner-3);
+}
+
+.banner.banner--3 p {
     color: white;
 }
