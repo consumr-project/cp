@@ -24,7 +24,7 @@
 
 .tag-elem.keyword {
     border-radius: 2px;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     font-size: 12px;
     font-weight: 700;
     margin-bottom: var(--inline-element-large-gutter);
