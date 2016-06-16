@@ -29,6 +29,12 @@ var all = crud.all,
     update = crud.update,
     upsert = crud.upsert;
 
+get('/home/trending',
+    can('retrieve', 'tag'),
+    can('retrieve', 'company'),
+    can('retrieve', 'event'),
+    query(conn, sql('get-trending-events')));
+
 // users
 post('/users',
     can('create', 'user'),
