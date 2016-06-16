@@ -7,8 +7,9 @@ input.search__input {
 }
 
 input.search__input {
-    background-image: url(/assets/images/magnifying-class-blue.svg);
-    border-color: var(--color-cp-brand-border-color);
+    background-image: url(/assets/images/magnifying-class-black.svg);
+    background-position: 15px;
+    border-color: transparent;
     border-radius: 100px;
     padding-left: var(--computed-button-height);
     width: 100%;
@@ -21,4 +22,8 @@ input.search__input {
 .search__result {
     margin-bottom: var(--spacing-xlarge);
     color: initial;
+}
+
+.page--home .search__input {
+    max-width: 650px;
 }
