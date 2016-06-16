@@ -9,8 +9,6 @@
 }
 
 .trending--item > div {
-    left: -25px;
     margin-bottom: var(--spacing-xsmall);
     margin-top: calc(var(--spacing-xsmall) / 2);
-    position: relative;
 }

@@ -23,7 +23,6 @@
 }
 
 .tag-elem.keyword {
-    transition: color var(--speed-fast), background-color var(--speed-fast);
     border-radius: 2px;
     border: 1px solid black;
     font-size: 12px;
@@ -32,6 +31,8 @@
     margin-right: var(--inline-element-large-gutter);
     padding: var(--spacing-xsmall) calc(var(--spacing-xsmall) + 2);
     text-transform: uppercase;
+    transition: color var(--speed-fast), background-color var(--speed-fast);
+    white-space: nowrap;
 }
 
 .tag-elem.keyword[active="true"] {

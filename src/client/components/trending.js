@@ -1,7 +1,8 @@
 angular.module('tcp').directive('trending', [
     'Services',
     'utils',
-    function (Services, utils) {
+    'lodash',
+    function (Services, utils, lodash) {
         'use strict';
 
         /**
@@ -11,7 +12,12 @@ angular.module('tcp').directive('trending', [
             $scope.vm = {};
 
             Services.query.stats.trending()
-                .then(utils.scope.set($scope, 'vm.trending'));
+                .then(utils.scope.set($scope, 'vm.trending'))
+                .then(function (trending) {
+                    lodash.each(trending, function (item) {
+                        item.tag_labels = lodash.filter(item.tag_labels);
+                    });
+                });
         }
 
         return {
