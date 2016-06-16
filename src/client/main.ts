@@ -131,7 +131,7 @@ namespace tcp {
             $routeProvider.when('/', {
                 resolve: { PageView },
                 template: () =>
-                    '<div>' +
+                    '<div style="margin-top: -23px">' +
                     `    <div class="banner banner--${Math.floor(Math.random() * (3 - 1 + 1)) + 1}">` +
                     '        <div class="site-content center-align">' +
                     '            <search form="true"></search>' +
