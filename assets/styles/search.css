@@ -22,14 +22,3 @@ input.search__input {
     margin-bottom: var(--spacing-xlarge);
     color: initial;
 }
-
-.page--home .search__input {
-    transition: margin-top var(--speed-friendly);
-    margin-top: 50px;
-}
-
-@media (--media-regular-screens) {
-    .page--home .search__input {
-        margin-top: 150px;
-    }
-}
