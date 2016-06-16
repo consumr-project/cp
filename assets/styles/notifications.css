@@ -1,5 +1,6 @@
 .notification {
     background-color: var(--color-passive-highlight-background-color);
+    outline: none;
     padding: var(--spacing-small) var(--spacing-medium);
     transition: background-color var(--speed-friendly);
 }
