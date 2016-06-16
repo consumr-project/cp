@@ -25,4 +25,6 @@ group by eb.event_id,
 order by score desc,
     updated_date desc
 
+limit 5
+
 ;
