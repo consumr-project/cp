@@ -51,11 +51,6 @@ p,
     line-height: var(--font-height-normal);
 }
 
-.copy--large {
-    font-size: 30px;
-    line-height: 40px;
-}
-
 p {
     letter-spacing: 0 !important;
     margin-top: var(--spacing-medium);
