@@ -30,7 +30,7 @@ angular.module('tcp').directive('trending', [
 
                 '    <ol>',
                 '        <li class="trending--item" ng-repeat="item in vm.trending">',
-                '            <span>{{item.title}}</span>',
+                '            <p>{{item.title}}</p>',
                 '            <div>',
                 '                <tag class="keyword" label="{{tag}}"',
                 '                    ng-repeat="tag in item.tag_labels"></tag>',

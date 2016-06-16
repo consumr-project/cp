@@ -1,14 +1,14 @@
 .trending--item,
-.trending--item > span {
+.trending--item > p {
     font-family: Times;
     font-size: var(--font-size-xlarge);
 }
 
-.trending--item > span {
+.trending--item > p {
     font-style: italic;
+    margin-bottom: var(--spacing-xsmall);
 }
 
 .trending--item > div {
     margin-bottom: var(--spacing-xsmall);
-    margin-top: calc(var(--spacing-xsmall) / 2);
 }
