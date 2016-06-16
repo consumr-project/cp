@@ -16,6 +16,8 @@ angular.module('tcp').directive('trending', [
                 .then(function (trending) {
                     lodash.each(trending, function (item) {
                         item.tag_labels = lodash.filter(item.tag_labels);
+                        item.company_labels = lodash.filter(item.company_labels);
+                        item.tags = item.company_labels.concat(item.tag_labels);
                     });
                 });
         }
@@ -32,8 +34,8 @@ angular.module('tcp').directive('trending', [
                 '        <li class="trending--item" ng-repeat="item in vm.trending">',
                 '            <p>{{item.title}}</p>',
                 '            <div>',
-                '                <tag class="keyword" label="{{tag}}"',
-                '                    ng-repeat="tag in item.tag_labels"></tag>',
+                '                <tag class="keyword" label="{{label}}"',
+                '                    ng-repeat="label in item.tags"></tag>',
                 '            <div>',
                 '        </li>',
                 '    </ol>',
