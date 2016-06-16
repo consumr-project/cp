@@ -133,9 +133,9 @@ namespace tcp {
                 template: () =>
                     '<div>' +
                     `    <div class="banner banner--${Math.floor(Math.random() * (3 - 1 + 1)) + 1}">` +
-                    '        <div class="site-content">' +
+                    '        <div class="site-content center-align">' +
                     '            <search form="true"></search>' +
-                    '            <p class="copy--large header-spacing--top" i18n="common/intro"></p>' +
+                    '            <p class="copy--large margin-top-xlarge" i18n="common/intro"></p>' +
                     '        </div>' +
                     '    </div>' +
                     '</div>'
