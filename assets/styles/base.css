@@ -172,14 +172,6 @@ hr {
     background-color: var(--color-banner-2);
 }
 
-.banner.banner--3 {
-    background-color: var(--color-banner-3);
-}
-
-.banner.banner--3 p {
-    color: white;
-}
-
 .banner {
     padding: 40px 0;
     transition: padding var(--speed-friendly);
