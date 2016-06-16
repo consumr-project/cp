@@ -1,0 +1,16 @@
+.trending--item,
+.trending--item > span {
+    font-family: Times;
+    font-size: var(--font-size-xlarge);
+}
+
+.trending--item > span {
+    font-style: italic;
+}
+
+.trending--item > div {
+    left: -25px;
+    margin-bottom: var(--spacing-xsmall);
+    margin-top: calc(var(--spacing-xsmall) / 2);
+    position: relative;
+}
