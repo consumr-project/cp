@@ -167,3 +167,12 @@ hr {
 .banner.banner--1 {
     background-color: var(--color-banner-1);
 }
+
+.banner.banner--2 {
+    background-color: var(--color-banner-2);
+}
+
+.banner.banner--3 {
+    background-color: var(--color-banner-3);
+    color: white;
+}
