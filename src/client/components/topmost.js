@@ -16,10 +16,6 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.user = null;
             $scope.session = get_session();
 
-            $scope.vm = {
-                page_class: null,
-            };
-
             $scope.notifications = {
                 show: null,
 
@@ -136,8 +132,6 @@ angular.module('tcp').directive('tcpTopmost', [
             }
 
             function update_page_view_status() {
-                $scope.vm.page_class = 'page--' + Navigation.curr_page();
-
                 $scope.nav.search.active = Navigation.one_of([
                     Navigation.BASES.SEARCH,
                 ]);
@@ -153,7 +147,7 @@ angular.module('tcp').directive('tcpTopmost', [
             replace: true,
             controller: ['$rootScope', '$scope', controller],
             template: [
-                '<div class="topmost" ng-class="vm.page_class">',
+                '<div class="topmost">',
                 '    <popover class="popover--fullscreen" api="login" ng-init="more = false">',
                 '        <div class="site-content site-content--no-header">',
                 '            <h2 i18n="common/welcome"></h2>',

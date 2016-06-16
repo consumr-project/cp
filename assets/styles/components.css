@@ -31,14 +31,14 @@ tag-view {
     overflow: scroll;
 }
 
-.home .banner {
+.page--home .banner {
     margin-top: -23px;
     padding: 40px 0;
     transition: padding var(--speed-friendly);
 }
 
 @media (--media-regular-screens) {
-    .home .banner {
+    .page--home .banner {
         padding: 80px 0;
     }
 }

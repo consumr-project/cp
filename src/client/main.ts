@@ -131,7 +131,7 @@ namespace tcp {
             $routeProvider.when('/', {
                 resolve: { PageView },
                 template:
-                    '<div class="home">' +
+                    '<div>' +
                     '    <div class="banner banner--1">' +
                     '        <div class="site-content">' +
                     '            <search form="true"></search>' +
