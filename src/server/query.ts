@@ -29,7 +29,7 @@ var all = crud.all,
     update = crud.update,
     upsert = crud.upsert;
 
-get('/home/trending',
+get('/stats/trending',
     can('retrieve', 'tag'),
     can('retrieve', 'company'),
     can('retrieve', 'event'),

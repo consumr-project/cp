@@ -191,6 +191,12 @@ angular.module('tcp').service('Services', [
             reviews: crud('reviews', ['useful']),
         };
 
+        queryService.stats = {};
+
+        queryService.stats.trending = function (id) {
+            return get(url('stats/trending'));
+        };
+
         queryService.users.stats = function (id) {
             return get(url('users', id, 'stats'), { cache: true });
         };

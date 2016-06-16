@@ -138,6 +138,7 @@ namespace tcp {
                     '            <p i18n="common/intro"></p>' +
                     '        </div>' +
                     '    </div>' +
+                    '    <trending class="margin-top-large site-content"></trending>' +
                     '</div>'
             });
 
