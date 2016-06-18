@@ -59,7 +59,7 @@ app.use('/service/user', timeout('5s'), user_endpoints);
 app.use('/service/search', timeout('5s'), search_endpoints);
 app.use('/service/extract', timeout('5s'), extract_endpoints);
 app.use('/service/notification', timeout('5s'), notification_endpoints);
-app.use('/service/query', timeout('60s'), record_endpoints);
+app.use('/service/record', timeout('60s'), record_endpoints);
 app.use('/version', version_endpoints);
 
 app.use((req, res, next) => {

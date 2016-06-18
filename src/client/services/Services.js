@@ -47,7 +47,7 @@ angular.module('tcp').service('Services', [
          * @return {String}
          */
         function url(model, id) {
-            return '/service/query/' + lodash.filter(arguments).join('/');
+            return '/service/record/' + lodash.filter(arguments).join('/');
         }
 
         /**
