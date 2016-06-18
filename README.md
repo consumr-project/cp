@@ -74,55 +74,6 @@ export TRELLO_LIST_ID='...'
 export TRELLO_TOKEN='...'
 ```
 
-### services
-
-#### new relic
-
-For heroku, follow
-[new relic's installation instructions](https://elements.heroku.com/addons/newrelic#wayne)
-and [configuration instructions](https://docs.newrelic.com/docs/agents/nodejs-agent/installation-configuration/nodejs-agent-configuration#environment-variable-overrides)
-as well:
-
-```bash
-export NEW_RELIC_LICENSE_KEY='...'
-export NEW_RELIC_APP_NAME='cp-local-'$(whoami)
-export NEW_RELIC_LOG_LEVEL='info'
-```
-
-#### rollbar
-
-rollbar is used for client-side loggin. only a token and environment identifier
-are required as configuration. the `NODE_ENV` variable is checked for the
-environment, with 'development' as the default.
-
-```bash
-export ROLLBAR_TOKEN='...'
-export NODE_ENV='development'
-```
-#### mongodb
-
-mongolab provides a free [MongoDB instance](https://mongolab.com/) that works
-just fine for a development enviroment. a local instance of mongo can be
-downloaded and started by running `make mongodb`
-
-#### postgres
-
-heroku provides a free
-[Postgres plugin](https://elements.heroku.com/addons/heroku-postgresql). a
-local instance of Postgres can be downloaded and started by running
-`make postgres`
-
-#### rabbitmq
-
-heroku provides a free [RabbitMQ
-plugin](https://elements.heroku.com/addons/rabbitmq-bigwig) which can be
-installed with the command below. a local instance of RabbitMQ can be
-downloaded and started by running `make rabbitmq`
-
-```bash
-heroku addons:create rabbitmq-bigwig:pipkin
-```
-
 ### thanks for content
 
 * Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
@@ -146,6 +97,4 @@ heroku addons:create rabbitmq-bigwig:pipkin
 
 ### thanks for services
 
-* development/free elasticsearch hosting provided by [facet flow](https://facetflow.com/)
-* development/free emails sent by [mailgun](http://www.mailgun.com/)
 * development/free mongodb hosted by [mongolab](https://mongolab.com/)
