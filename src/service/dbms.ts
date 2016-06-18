@@ -4,6 +4,6 @@ import debug = require('debug');
 
 export default (c = config) =>
     new Sequelize(c('database.url'), {
-        logging: debug('service:query:exec'),
+        logging: debug('service:dbms'),
         pool: c('database.pool')
     });

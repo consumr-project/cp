@@ -7,11 +7,11 @@ import { sql, query } from '../query/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
 
-import gen_conn from '../query/conn';
+import connect from '../service/dbms';
 import gen_models from '../query/models';
 
 export var app = express();
-export var conn = gen_conn();
+export var conn = connect();
 export var models = gen_models(conn);
 
 var post = app.post.bind(app),
