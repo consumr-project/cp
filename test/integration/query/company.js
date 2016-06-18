@@ -21,14 +21,14 @@ tapes('company', t => {
     t.test('setup', st => {
         st.plan(1);
 
-        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
+        http.purge(`/service/record/companies/${fixture.company.id}`).end((err, res) =>
             st.ok(res.body.meta.ok, 'deleted test company'));
     });
 
     t.test('create company', st => {
         st.plan(1);
 
-        http.post('/service/query/companies', fixture.company).end((err, res) => {
+        http.post('/service/record/companies', fixture.company).end((err, res) => {
             st.ok(res.body.meta.ok, 'can create a company');
         });
     });
@@ -36,7 +36,7 @@ tapes('company', t => {
     t.test('get company', st => {
         st.plan(2);
 
-        http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+        http.get(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve a company');
             st.equal(fixture.company.name, res.body.body.name);
         });
@@ -45,10 +45,10 @@ tapes('company', t => {
     t.test('delete company', st => {
         st.plan(2);
 
-        http.del(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+        http.del(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can delete a company');
 
-            http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+            http.get(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
                 st.ok(res.body.body.deleted_date);
             });
         });
@@ -57,10 +57,10 @@ tapes('company', t => {
     t.test('purge company', st => {
         st.plan(2);
 
-        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+        http.purge(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
-            http.get(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+            http.get(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
                 st.notOk(res.body.body);
             });
         });

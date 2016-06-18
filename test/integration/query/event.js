@@ -24,14 +24,14 @@ tapes('event', t => {
         st.plan(fixture.events.length);
 
         fixture.events.forEach(ev =>
-            http.purge(`/service/query/events/${ev.id}`).end((err, res) =>
+            http.purge(`/service/record/events/${ev.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, 'deleted test event')));
     });
 
     t.test('create event', st => {
         st.plan(2);
 
-        http.post('/service/query/events', fixture.events[0]).end((err, res) => {
+        http.post('/service/record/events', fixture.events[0]).end((err, res) => {
             st.error(err);
             st.ok(res.body.meta.ok, 'can create an event');
         });
@@ -40,7 +40,7 @@ tapes('event', t => {
     t.test('get event', st => {
         st.plan(2);
 
-        http.get(`/service/query/events/${fixture.events[0].id}`).end((err, res) => {
+        http.get(`/service/record/events/${fixture.events[0].id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can retrieve an event');
             st.equal(fixture.events[0].title, res.body.body.title);
         });
@@ -49,10 +49,10 @@ tapes('event', t => {
     t.test('delete event', st => {
         st.plan(3);
 
-        http.del(`/service/query/events/${fixture.events[0].id}`).end((err, res) => {
+        http.del(`/service/record/events/${fixture.events[0].id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'can delete an event');
 
-            http.get(`/service/query/events/${fixture.events[0].id}`).end((err, res) => {
+            http.get(`/service/record/events/${fixture.events[0].id}`).end((err, res) => {
                 st.ok(res.body.meta.ok);
                 st.ok(res.body.body.id);
             });
@@ -62,10 +62,10 @@ tapes('event', t => {
     t.test('purge event', st => {
         st.plan(2);
 
-        http.purge(`/service/query/events/${fixture.events[0].id}`).end((err, res) => {
+        http.purge(`/service/record/events/${fixture.events[0].id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test event');
 
-            http.get(`/service/query/events/${fixture.events[0].id}`).end((err, res) => {
+            http.get(`/service/record/events/${fixture.events[0].id}`).end((err, res) => {
                 st.notOk(res.body.body);
             });
         });

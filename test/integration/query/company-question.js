@@ -24,20 +24,20 @@ tapes('company question', t => {
     t.test('setup', st => {
         st.plan(2);
 
-        http.post('/service/query/companies', fixture.company).end((err, res) =>
+        http.post('/service/record/companies', fixture.company).end((err, res) =>
             st.ok(res.body.meta.ok, 'created test company'));
 
-        http.post('/service/query/users', fixture.user.user).end((err, res) =>
+        http.post('/service/record/users', fixture.user.user).end((err, res) =>
             st.ok(res.body.meta.ok, 'created test user'));
     });
 
     t.test('questions default to not approved by default', st => {
         st.plan(3);
 
-        http.post(`/service/query/companies/${fixture.company.id}/questions`, fixture.questions[0]).end((err, res) => {
+        http.post(`/service/record/companies/${fixture.company.id}/questions`, fixture.questions[0]).end((err, res) => {
             st.ok(res.body.meta.ok, 'created test question');
 
-            http.get(`/service/query/questions/${fixture.questions[0].id}`).end((err, res) => {
+            http.get(`/service/record/questions/${fixture.questions[0].id}`).end((err, res) => {
                 st.error(err);
                 st.equal(res.body.body.id, fixture.questions[0].id);
             });
@@ -47,10 +47,10 @@ tapes('company question', t => {
     // t.test('setup', st => {
     //     st.plan(2);
     //
-    //     http.post('/service/query/companies', fixture.company).end((err, res) =>
+    //     http.post('/service/record/companies', fixture.company).end((err, res) =>
     //         st.ok(res.body.meta.ok, 'created test company'));
     //
-    //     http.post('/service/query/users', fixture.user.user).end((err, res) =>
+    //     http.post('/service/record/users', fixture.user.user).end((err, res) =>
     //         st.ok(res.body.meta.ok, 'created test user'));
     // });
     //
@@ -60,11 +60,11 @@ tapes('company question', t => {
     //     st.plan(2);
     //
     //     review.score = -1;
-    //     http.post(`/service/query/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+    //     http.post(`/service/record/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
     //         st.notOk(res.body.meta.ok));
     //
     //     review.score = 6;
-    //     http.post(`/service/query/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+    //     http.post(`/service/record/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
     //         st.notOk(res.body.meta.ok));
     // });
     //
@@ -74,12 +74,12 @@ tapes('company question', t => {
     //     st.plan(2);
     //
     //     review_usefulness.score = -2;
-    //     http.patch(`/service/query/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
+    //     http.patch(`/service/record/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
     //         st.notOk(res.body.meta.ok);
     //     });
     //
     //     review_usefulness.score = 2;
-    //     http.patch(`/service/query/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
+    //     http.patch(`/service/record/reviews/${review_usefulness.review_id}/useful`, review_usefulness).end((err, res) => {
     //         st.notOk(res.body.meta.ok);
     //     });
     // });
@@ -88,7 +88,7 @@ tapes('company question', t => {
     //     st.plan(fixture.reviews.length);
     //
     //     fixture.reviews.forEach((review, i) => setTimeout(() =>
-    //         http.post(`/service/query/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
+    //         http.post(`/service/record/companies/${fixture.company.id}/reviews`, review).end((err, res) =>
     //             st.ok(res.body.meta.ok, 'created test review')), 200 * ++i));
     // });
     //
@@ -96,14 +96,14 @@ tapes('company question', t => {
     //     st.plan(fixture.review_usefulness.length);
     //
     //     fixture.review_usefulness.forEach(review_usefulness =>
-    //         http.patch(`/service/query/reviews/${review_usefulness.review_id}/useful`, review_usefulness)
+    //         http.patch(`/service/record/reviews/${review_usefulness.review_id}/useful`, review_usefulness)
     //             .end((err, res) => st.ok(res.body.meta.ok, 'created test review useful flag')));
     // });
     //
     // t.test('get reviews', st => {
     //     st.plan(6);
     //
-    //     http.get(`/service/query/companies/${fixture.company.id}/reviews`).end((err, res) => {
+    //     http.get(`/service/record/companies/${fixture.company.id}/reviews`).end((err, res) => {
     //         st.ok(res.body.meta.ok, 'can retrieve a company\'s reviews');
     //         st.equal(fixture.reviews[0].id, res.body.body[4].id);
     //         st.equal(fixture.reviews[1].id, res.body.body[3].id);
@@ -116,7 +116,7 @@ tapes('company question', t => {
     // t.test('get reviews for user', st => {
     //     st.plan(21);
     //
-    //     http.get(`/service/query/companies/${fixture.company.id}/reviews?user_id=${fixture.user.user.id}`).end((err, res) => {
+    //     http.get(`/service/record/companies/${fixture.company.id}/reviews?user_id=${fixture.user.user.id}`).end((err, res) => {
     //         st.ok(res.body.meta.ok, 'can retrieve a company\'s reviews for a user');
     //
     //         st.equal(fixture.reviews[0].id, res.body.body[4].id);
@@ -148,7 +148,7 @@ tapes('company question', t => {
     // t.test('get reviews summary', st => {
     //     st.plan(5);
     //
-    //     http.get(`/service/query/companies/${fixture.company.id}/reviews/summary`).end((err, res) => {
+    //     http.get(`/service/record/companies/${fixture.company.id}/reviews/summary`).end((err, res) => {
     //         st.ok(res.body.meta.ok, 'can retrieve a company\'s reviews summary');
     //         st.deepLooseEqual(res.body.body[0], { score: 1, score_count: 1, score_percentage: 20 });
     //         st.deepLooseEqual(res.body.body[1], { score: 2, score_count: 1, score_percentage: 20 });
@@ -160,7 +160,7 @@ tapes('company question', t => {
     // t.test('get reviews score summary', st => {
     //     st.plan(2);
     //
-    //     http.get(`/service/query/companies/${fixture.company.id}/reviews/score`).end((err, res) => {
+    //     http.get(`/service/record/companies/${fixture.company.id}/reviews/score`).end((err, res) => {
     //         st.ok(res.body.meta.ok, 'can retrieve a company\'s score summary');
     //         st.deepLooseEqual(res.body.body, { count: 5, average: 3.2 });
     //     });
@@ -173,21 +173,21 @@ tapes('company question', t => {
             st.plan(fixture.questions.length);
 
             fixture.questions.forEach((question, i) => setTimeout(() =>
-                http.purge(`/service/query/questions/${question.id}`).end((err, res) =>
+                http.purge(`/service/record/questions/${question.id}`).end((err, res) =>
                     st.ok(res.body.meta.ok, 'deleted test question')), 100 * i));
         });
 
         t.test('clean up company', st => {
             st.plan(1);
 
-            http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
+            http.purge(`/service/record/companies/${fixture.company.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, 'deleted test company'));
         });
 
         t.test('clean up user', st => {
             st.plan(1);
 
-            http.purge(`/service/query/users/${fixture.user.user.id}`).end((err, res) =>
+            http.purge(`/service/record/users/${fixture.user.user.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, 'deleted test user'));
         });
     }

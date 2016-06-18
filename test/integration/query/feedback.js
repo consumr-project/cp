@@ -21,7 +21,7 @@ tapes('feedback', t => {
         st.plan(fixture.feedback.length);
 
         fixture.feedback.forEach(feedback =>
-            http.post('/service/query/feedback', feedback).end((err, res) => {
+            http.post('/service/record/feedback', feedback).end((err, res) => {
                 st.ok(res.body.meta.ok, `created test feedback (${feedback.id})`);
             }));
     });
@@ -30,7 +30,7 @@ tapes('feedback', t => {
         st.plan(fixture.feedback.length * 6);
 
         fixture.feedback.forEach(feedback =>
-            http.get(`/service/query/feedback/${feedback.id}`).end((err, res) => {
+            http.get(`/service/record/feedback/${feedback.id}`).end((err, res) => {
                 st.error(err);
                 st.equal(res.body.body.id, feedback.id);
                 st.equal(res.body.body.referrer, feedback.referrer);
@@ -47,7 +47,7 @@ tapes('feedback', t => {
             st.plan(fixture.feedback.length);
 
             fixture.feedback.forEach(feedback =>
-                http.purge(`/service/query/feedback/${feedback.id}`).end((err, res) => {
+                http.purge(`/service/record/feedback/${feedback.id}`).end((err, res) => {
                     st.ok(res.body.meta.ok, `deleted test feedback (${feedback.id})`);
                 }));
         });

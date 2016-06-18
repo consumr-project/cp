@@ -27,7 +27,7 @@ tapes('tag', t => {
         st.plan(fixture.tags.length * 2);
 
         fixture.tags.forEach(tag =>
-            http.post('/service/query/tags', tag).end((err, res) => {
+            http.post('/service/record/tags', tag).end((err, res) => {
                 st.error(err, 'no error');
                 st.ok(res.body.meta.ok, `created test tag (${tag.id})`);
             }));
@@ -38,13 +38,13 @@ tapes('tag', t => {
         st.plan(2);
         // st.plan(5);
 
-        http.get('/service/query/tags/like?s[]=log').end((err, res) => {
+        http.get('/service/record/tags/like?s[]=log').end((err, res) => {
             st.error(err);
             // console.log(res);
             // st.ok(find(res.body.body, { label: 'Logging' }));
         });
 
-        http.get('/service/query/tags/like?s[]=log&s[]=fish').end((err, res) => {
+        http.get('/service/record/tags/like?s[]=log&s[]=fish').end((err, res) => {
             st.error(err);
             // console.log(res);
             // st.ok(find(res.body.body, { label: 'Logging' }));
@@ -59,7 +59,7 @@ tapes('tag', t => {
             st.plan(fixture.tags.length);
 
             fixture.tags.forEach(tag =>
-                http.purge(`/service/query/tags/${tag.id}`).end((err, res) =>
+                http.purge(`/service/record/tags/${tag.id}`).end((err, res) =>
                     st.ok(res.body.meta.ok, `deleted test tag (${tag.id})`)));
         });
     }

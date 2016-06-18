@@ -36,15 +36,15 @@ tapes('common tag', t => {
             fixture.tags.length
         );
 
-        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) =>
+        http.purge(`/service/record/companies/${fixture.company.id}`).end((err, res) =>
             st.ok(res.body.meta.ok, 'deleted test company'));
 
         fixture.events.forEach(ev =>
-            http.purge(`/service/query/events/${ev.id}`).end((err, res) =>
+            http.purge(`/service/record/events/${ev.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, `deleted test event (${ev.id})`)));
 
         fixture.tags.forEach(tag =>
-            http.purge(`/service/query/tags/${tag.id}`).end((err, res) =>
+            http.purge(`/service/record/tags/${tag.id}`).end((err, res) =>
                 st.ok(res.body.meta.ok, `deleted test tag (${tag.id})`)));
     });
 
@@ -60,26 +60,26 @@ tapes('common tag', t => {
             fixture.events.length * 2
         );
 
-        http.post('/service/query/companies', fixture.company).end((err, res) => {
+        http.post('/service/record/companies', fixture.company).end((err, res) => {
             st.error(err);
             st.ok(res.body.meta.ok, `created test company (${fixture.company.id})`);
         });
 
         fixture.events.forEach(ev =>
-            http.post('/service/query/events', ev).end((err, res) => {
+            http.post('/service/record/events', ev).end((err, res) => {
                 st.error(err, 'no error');
                 st.ok(res.body.meta.ok, `created test event (${ev.id})`);
             }));
 
         fixture.tags.forEach(tag =>
-            http.post('/service/query/tags', tag).end((err, res) => {
+            http.post('/service/record/tags', tag).end((err, res) => {
                 st.error(err, 'no error');
                 st.ok(res.body.meta.ok, `created test tag (${tag.id})`);
             }));
 
         fixture.events.forEach((ev, i) => {
             setTimeout(() => {
-                http.patch(`/service/query/companies/${fixture.company.id}/events`, {
+                http.patch(`/service/record/companies/${fixture.company.id}/events`, {
                     event_id: ev.id
                 }).end((err, res) => {
                     st.error(err, 'no error');
@@ -99,7 +99,7 @@ tapes('common tag', t => {
 
             tags.forEach((tag, i) => {
                 setTimeout(() => {
-                    http.patch(`/service/query/events/${ev.id}/tags`, {
+                    http.patch(`/service/record/events/${ev.id}/tags`, {
                         tag_id: tag.id
                     }).end((err, res) => {
                         st.error(err, 'no error');
@@ -113,7 +113,7 @@ tapes('common tag', t => {
     t.test('create event', st => {
         st.plan(8);
 
-        http.get(`/service/query/companies/${fixture.company.id}/common/tags`).end((err, res) => {
+        http.get(`/service/record/companies/${fixture.company.id}/common/tags`).end((err, res) => {
             var tags = fixture.tags;
             var common = res.body.body;
 
@@ -137,12 +137,12 @@ tapes('common tag', t => {
             fixture.tags.length
         );
 
-        http.purge(`/service/query/companies/${fixture.company.id}`).end((err, res) => {
+        http.purge(`/service/record/companies/${fixture.company.id}`).end((err, res) => {
             st.ok(res.body.meta.ok, 'deleted test company');
 
             fixture.events.forEach((ev, i) => {
                 setTimeout(() => {
-                    http.purge(`/service/query/events/${ev.id}`).end((err, res) =>
+                    http.purge(`/service/record/events/${ev.id}`).end((err, res) =>
                         st.ok(res.body.meta.ok, `deleted test event (${ev.id})`));
                 }, 100 * i);
             });
@@ -150,7 +150,7 @@ tapes('common tag', t => {
             setTimeout(() => {
                 fixture.tags.forEach((tag, i) => {
                     setTimeout(() => {
-                        http.purge(`/service/query/tags/${tag.id}`).end((err, res) =>
+                        http.purge(`/service/record/tags/${tag.id}`).end((err, res) =>
                             st.ok(res.body.meta.ok, `deleted test tag (${tag.id})`));
                     }, 100 * i);
                 });
