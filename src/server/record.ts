@@ -2,13 +2,13 @@ import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 
 import * as express from 'express';
-import * as crud from '../query/crud';
-import { sql, query } from '../query/query';
+import * as crud from '../record/crud';
+import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
 
 import connect from '../service/dbms';
-import gen_models from '../query/models';
+import gen_models from '../record/models';
 
 export var app = express();
 export var conn = connect();

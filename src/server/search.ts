@@ -1,7 +1,7 @@
 import * as express from 'express';
 
-import { conn } from './query';
-import { sql, query } from '../query/query';
+import { conn } from './record';
+import { sql, query } from '../record/query';
 import { fuzzy, search } from '../search/searcher';
 
 import Elasticsearch = require('elasticsearch');

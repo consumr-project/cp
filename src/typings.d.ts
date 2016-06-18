@@ -27,7 +27,7 @@ declare module 'cp/lang' {
     type UUID = string;
 }
 
-declare module 'cp/query' {
+declare module 'cp/record' {
     import { Sequelize } from 'sequelize';
 
     type FindOrCreate = { where?: Object, defaults?: Model };

@@ -1,6 +1,5 @@
 .PHONY: build install run test clean
 
-services = auth extract notification query search user
 pwd = $(shell pwd)
 
 build_dir = build
@@ -116,7 +115,7 @@ else
 endif
 
 build-server:
-	$(tsc) src/typings.d.ts src/server/main.ts src/query/models/* \
+	$(tsc) src/typings.d.ts src/server/main.ts src/record/models/* \
 		--outDir $(build_dir) --module commonjs --pretty --removeComments \
 		--moduleResolution classic
 

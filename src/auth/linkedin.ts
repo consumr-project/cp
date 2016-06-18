@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
 import { Profile } from 'passport-linkedin-oauth2';
 import { WhereOptions } from 'sequelize';
-import { User } from 'cp/query';
+import { User } from 'cp/record';
 
 import { roles } from './permissions';
 import { get } from 'lodash';
 import { parse } from 'url';
 
 import * as passport from 'passport';
-import * as QueryService from '../server/query';
+import * as record from '../server/record';
 
 import config = require('acm');
 import uuid = require('node-uuid');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
-const UserModel = QueryService.models.User;
+const UserModel = record.models.User;
 const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
 const SCOPE = [

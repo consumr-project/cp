@@ -6,7 +6,7 @@ const faker = require('faker');
 const uuid = require('uuid');
 
 const connect = require('../build/service/dbms').default;
-const gen_models = require('../build/query/models').default;
+const gen_models = require('../build/record/models').default;
 
 const Models = gen_models(connect());
 const User = Models.User;

@@ -1,7 +1,7 @@
 import { app as auth_endpoints } from './auth';
 import { app as extract_endpoints } from './extract';
 import { app as notification_endpoints } from './notification';
-import { app as query_endpoints } from './query';
+import { app as record_endpoints } from './record';
 import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
@@ -59,7 +59,7 @@ app.use('/service/user', timeout('5s'), user_endpoints);
 app.use('/service/search', timeout('5s'), search_endpoints);
 app.use('/service/extract', timeout('5s'), extract_endpoints);
 app.use('/service/notification', timeout('5s'), notification_endpoints);
-app.use('/service/query', timeout('60s'), query_endpoints);
+app.use('/service/query', timeout('60s'), record_endpoints);
 app.use('/version', version_endpoints);
 
 app.use((req, res, next) => {
