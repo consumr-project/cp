@@ -60,6 +60,14 @@ export class NotFoundError extends HttpError {
     name = 'Not Found';
 }
 
+// A generic error message, given when an unexpected condition was encountered
+// and no more specific message is suitable.
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#500
+export class InternalServerError extends HttpError {
+    code = 500;
+    name = 'Internal Server';
+}
+
 // the server was acting as a gateway or proxy and received an invalid response
 // from the upstream server.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#502
