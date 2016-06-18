@@ -47,7 +47,7 @@ run: clean build server
 build: clean build-css build-strings build-client build-server
 
 test:
-	./scripts/test
+	./script/test
 
 install:
 	$(npm) install
@@ -63,8 +63,8 @@ clean:
 	mkdir $(build_dir)
 
 lint:
-	./scripts/lint-html-links
-	./scripts/lint-yaml-file .travis.yml \
+	./script/lint-html-links
+	./script/lint-yaml-file .travis.yml \
 		$(shell find config -name "*.yml")
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
@@ -72,7 +72,7 @@ lint:
 		$(shell find test -name "*.js") \
 		$(shell find config -name "*.js") \
 		$(shell find assets -name "*.js") \
-		$(shell find scripts -name "*.js")
+		$(shell find script -name "*.js")
 	$(json_lint) --validate \
 		$(shell find config -name "*.json")
 
@@ -87,23 +87,23 @@ test-start-webdriver:
 	bin/node_modules/.bin/webdriver-manager start
 
 test-e2e:
-	./scripts/test e2e
+	./script/test e2e
 
 test-integration:
-	./scripts/test external
-	./scripts/test integration
+	./script/test external
+	./script/test integration
 
 test-unit:
-	./scripts/test unit
+	./script/test unit
 
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
 
 build-strings:
-	./scripts/compile-string-files generate  --var $(i18n_varname) \
+	./script/compile-string-files generate  --var $(i18n_varname) \
 		$(call i18n_locale_arguments,en) | $(js_min) > $(build_dir)/i18n.en.js
-	./scripts/compile-string-files generate  --var $(i18n_varname) \
+	./script/compile-string-files generate  --var $(i18n_varname) \
 		$(call i18n_locale_arguments,lolcat) | $(js_min) > $(build_dir)/i18n.lolcat.js
 
 build-css:
@@ -136,7 +136,7 @@ endif
 
 build-client-deps:
 	echo "" > $(build_vendor_js)
-	./scripts/compile-client-config $(global_config_varname) >> $(build_vendor_js)
+	./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/jquery/dist/jquery.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)

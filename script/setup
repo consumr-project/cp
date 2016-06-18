@@ -4,13 +4,13 @@ source $(dirname "$0")/cli.sh
 
 case "$1" in
     base)
-        ./scripts/generate app:user
-        ./scripts/generate app:tags
-        ./scripts/generate app:products
+        ./script/generate app:user
+        ./script/generate app:tags
+        ./script/generate app:products
         ;;
 
     test)
-        ./scripts/generate test:user
+        ./script/generate test:user
         ;;
 
     heroku)

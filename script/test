@@ -21,7 +21,7 @@ case "$1" in
         ;;
 
     release)
-        make lint build test && ./scripts/release
+        make lint build test && ./script/release
         ;;
 
     *)

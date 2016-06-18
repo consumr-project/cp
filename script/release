@@ -3,11 +3,11 @@
 migrations_command=$(cat << COMMAND
 touch ~/.pgpass;
 chmod 0600 ~/.pgpass;
-./scripts/setup postgres > ~/.pgpass;
-./scripts/migration run;
+./script/setup postgres > ~/.pgpass;
+./script/migration run;
 COMMAND)
 
-./scripts/compile-project-stamp > stamp.json
+./script/compile-project-stamp > stamp.json
 git commit -m "[skip ci] stamp" stamp.json
 git push origin master
 git push heroku master

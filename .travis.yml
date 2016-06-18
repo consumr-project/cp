@@ -41,9 +41,9 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - DEBUG=* make server &> server.log &
   - sleep 5
-  - ./scripts/migration run
-  - ./scripts/setup base
-  - ./scripts/setup test
+  - ./script/migration run
+  - ./script/setup base
+  - ./script/setup test
 
 after_failure:
   - cat server.log
