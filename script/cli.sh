@@ -43,6 +43,13 @@ logstat() {
     fi
 }
 
+assert() {
+    local result="$?"
+    local label="$1"
+    log "asserting $label"
+    logstat "$result"
+}
+
 heroku:buildpack() {
     local name=$1
 

@@ -47,8 +47,14 @@ case "$1" in
         ;;
 
     *)
-        echo "invalid option $1"
-        echo "available options: base, test, heroku, postgres"
-        exit 1
+        assert EMBEDLY_API_KEY $(test ! -z $EMBEDLY_API_KEY)
+        assert GOOGLE_ANALYTICS_ACCOUNT_ID $(test ! -z $GOOGLE_ANALYTICS_ACCOUNT_ID)
+        assert LINKEDIN_CLIENT_ID $(test ! -z $LINKEDIN_CLIENT_ID)
+        assert LINKEDIN_CLIENT_SECRET $(test ! -z $LINKEDIN_CLIENT_SECRET)
+        assert ROLLBAR_TOKEN $(test ! -z $ROLLBAR_TOKEN)
+        assert TRELLO_BOARD_ID $(test ! -z $TRELLO_BOARD_ID)
+        assert TRELLO_KEY $(test ! -z $TRELLO_KEY)
+        assert TRELLO_LIST_ID $(test ! -z $TRELLO_LIST_ID)
+        assert TRELLO_TOKEN $(test ! -z $TRELLO_TOKEN)
         ;;
 esac
