@@ -5,7 +5,7 @@ const CP_PURGE_KEY = process.env.CP_PURGE_KEY || '';
 
 const tape = require('tape');
 const superagent = require('superagent');
-const cli = require('../../../scripts/cli');
+const cli = require('../../../script/cli');
 
 ['post'].forEach(name => {
     superagent.agent.prototype[name] = function (url, data) {
