@@ -9,6 +9,10 @@ export function none(): None {
     return {};
 }
 
+export function pass<T>(val: T): T {
+    return val;
+}
+
 export function option<T>(val: Maybe<T>): Optional<T> {
     return {
         get_or_else: def => val === undefined || val == null ? def : val

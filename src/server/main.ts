@@ -70,7 +70,10 @@ app.use((req, res, next) => {
 });
 
 app.use((err: any, req, res, next) => {
+    console.error('ERROR ==========================');
     console.error(err);
+    console.error(err.stack);
+
     if (!res.headersSent) {
         if (err instanceof HttpError) {
             res.status(err.code);
