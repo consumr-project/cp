@@ -27,6 +27,23 @@ declare module 'cp/lang' {
     type UUID = string;
 }
 
+declare module 'cp/cache' {
+    interface Options {
+        ttl?: number;
+    }
+
+    interface Item<T> {
+        name: string;
+        value: T;
+        expire_at?: string | Date;
+    }
+
+    interface Cache<T> {
+        get: (name: string) => Promise<T>;
+        set: (name: string, value: Object, opt?: Options) => Promise<boolean>;
+    }
+}
+
 declare module 'cp/record' {
     import { Sequelize } from 'sequelize';
 
