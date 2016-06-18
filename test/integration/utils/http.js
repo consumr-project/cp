@@ -1,6 +1,6 @@
 'use strict';
 
-const SERVICE_URL = process.env.TEST_SERVICE_URL;
+const INSTANCE_URL = process.env.CP_TEST_INSTANCE_URL;
 const CP_PURGE_KEY = process.env.CP_PURGE_KEY || '';
 
 const tape = require('tape');
@@ -25,13 +25,13 @@ tape('setup', t => {
 
     cli.cp_ascii(console.log);
 
-    t.comment(`service url: "${SERVICE_URL}"`);
+    t.comment(`service url: "${INSTANCE_URL}"`);
     t.comment(`purge key: "${CP_PURGE_KEY}"`);
     t.comment('');
 
-    t.ok(SERVICE_URL, 'service url is set (process.env.TEST_SERVICE_URL)');
+    t.ok(INSTANCE_URL, 'service url is set (process.env.CP_TEST_INSTANCE_URL)');
 
-    if (!SERVICE_URL) {
+    if (!INSTANCE_URL) {
         process.exit(1);
     }
 });
@@ -40,28 +40,28 @@ function create() {
     var agent = superagent.agent();
 
     function get(path) {
-        return agent.get(SERVICE_URL + path);
+        return agent.get(INSTANCE_URL + path);
     }
 
     function post(path, data) {
-        return agent.post(SERVICE_URL + path, data);
+        return agent.post(INSTANCE_URL + path, data);
     }
 
     function put(path, data) {
-        return agent.put(SERVICE_URL + path, data);
+        return agent.put(INSTANCE_URL + path, data);
     }
 
     function del(path) {
-        return agent.delete(SERVICE_URL + path);
+        return agent.delete(INSTANCE_URL + path);
     }
 
     function purge(path) {
         var query = '?purge=true&purge_key=' + CP_PURGE_KEY;
-        return agent.delete(SERVICE_URL + path + query);
+        return agent.delete(INSTANCE_URL + path + query);
     }
 
     function patch(path, data) {
-        return agent.patch(SERVICE_URL + path).send(data);
+        return agent.patch(INSTANCE_URL + path).send(data);
     }
 
     return { get: get, post, put, del, purge, patch };
