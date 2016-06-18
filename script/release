@@ -3,7 +3,7 @@
 migrations_command=$(cat << COMMAND
 touch ~/.pgpass;
 chmod 0600 ~/.pgpass;
-./script/setup postgres > ~/.pgpass;
+./script/bootstrap postgres > ~/.pgpass;
 ./script/migration run;
 COMMAND)
 
