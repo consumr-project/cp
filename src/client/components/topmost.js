@@ -159,7 +159,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                    <span i18n="admin/sing_in_with_service" data="{service: \'LinkedIn\'}"></span>',
                 '                </button>',
 
-                '                <button ng-click="more = true" i18n="admin/more_options"></button>',
+                // '                <button ng-click="more = true" i18n="admin/more_options"></button>',
                 '            </div>',
 
                 '            <button class="no-wrap button--link" ng-click="login.hide()" i18n="admin/remind_later"></button>',
