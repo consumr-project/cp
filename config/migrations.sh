@@ -1,4 +1,4 @@
-source scripts/cli.sh
+source script/cli.sh
 
 hostname=$(url:parse $DATABASE_URL hostname)
 username=$(url:parse $DATABASE_URL auth | cut -d':' -f 1)
