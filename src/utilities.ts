@@ -1,6 +1,8 @@
 import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
 
+import { Cache } from 'cp/cache';
+
 export type None = Object;
 export type Maybe<T> = None | T;
 export type Optional<T> = { get_or_else: (T) => T }
@@ -49,6 +51,14 @@ export function service_redirect(from_req: ServiceRequestPromise<string>): Servi
     return (req, res, next) => {
         from_req(req, res, next)
             .then(url => res.redirect(url))
+            .catch(next);
+    };
+}
+
+export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
+    return (req, res, next) => {
+        cache.get(name)
+            .then(rec => rec ? res.json(service_response(rec)) : next())
             .catch(next);
     };
 }

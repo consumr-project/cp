@@ -1,14 +1,19 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 
+import { ServiceUnavailableError } from '../errors';
 import * as express from 'express';
 import * as crud from '../record/crud';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
+import { service_cache_intercept } from '../utilities';
 
+import { shared, quick_save } from '../service/cache';
+import connect_mongo from '../service/mongo';
 import connect from '../service/dbms';
 import gen_models from '../record/models';
+import config = require('acm');
 
 export var app = express();
 export var conn = connect();
@@ -29,11 +34,22 @@ var all = crud.all,
     update = crud.update,
     upsert = crud.upsert;
 
-get('/stats/trending',
-    can('retrieve', 'tag'),
-    can('retrieve', 'company'),
-    can('retrieve', 'event'),
-    query(conn, sql('get-trending-events')));
+connect_mongo(config('mongo.collections.cache'), (err, coll) => {
+    app.use((req, res, next) => {
+        if (err) {
+            next(new ServiceUnavailableError());
+        } else {
+            next();
+        }
+    });
+
+    get('/stats/trending',
+        can('retrieve', 'tag'),
+        can('retrieve', 'company'),
+        can('retrieve', 'event'),
+        service_cache_intercept(shared(coll), 'trending_events'),
+        query(conn, sql('get-trending-events'), false, {}, quick_save(shared(coll), 'trending_events')));
+});
 
 // users
 post('/users',

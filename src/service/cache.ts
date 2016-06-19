@@ -34,3 +34,10 @@ export function shared(coll: Collection): Cache<Object> {
         },
     };
 }
+
+export function quick_save<T>(cache: Cache<T>, name: string): (val: T) => T {
+    return val => {
+        cache.set(name, val, {});
+        return val;
+    };
+}

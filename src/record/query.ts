@@ -33,7 +33,7 @@ export function sql(name): TemplateFunction {
     return str(buff.toString());
 }
 
-export function exec(conn: Sequelize, sql: TemplateFunction, params: MergeFields = {}, defaults: MergeFields = {}, one_row: boolean = false) {
+export function exec(conn: Sequelize, sql: TemplateFunction, params: MergeFields = {}, defaults: MergeFields = {}, one_row: boolean = false, processor: (value: Object) => Object = pass) {
     return new Promise<Object | Object[]>((resolve, reject) => {
         var replacements, merged_sql, required_params;
 
@@ -46,6 +46,7 @@ export function exec(conn: Sequelize, sql: TemplateFunction, params: MergeFields
             conn.query(merged_sql, { replacements })
                 .then(one_row ? head : pass)
                 .then(head)
+                .then(processor)
                 .then(resolve)
                 .catch(reject);
         } catch (err) {
@@ -54,9 +55,9 @@ export function exec(conn: Sequelize, sql: TemplateFunction, params: MergeFields
     });
 }
 
-export function query(conn: Sequelize, sql: TemplateFunction, one_row: boolean = false, defaults: MergeFields = {}): ServiceRequestHandler {
+export function query(conn: Sequelize, sql: TemplateFunction, one_row: boolean = false, defaults: MergeFields = {}, processor?): ServiceRequestHandler {
     return (req, res, next) => {
-        exec(conn, sql, merge(req.query, req.params), defaults, one_row)
+        exec(conn, sql, merge(req.query, req.params), defaults, one_row, processor)
             .then(service_response)
             .then(response => res.json(response))
             .catch(next);

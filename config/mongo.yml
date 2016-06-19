@@ -1,3 +1,4 @@
 url: "mongodb://localhost:27017/test"
 collections:
   notifications: "notifications"
+  cache: "cache"
