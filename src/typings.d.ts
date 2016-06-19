@@ -14,6 +14,7 @@ declare module 'cp' {
     interface ServiceResultMetadata {
         ok: boolean;
         took?: number;
+        from_cache?: boolean;
     }
 
     interface SearchServiceResultMetadata {

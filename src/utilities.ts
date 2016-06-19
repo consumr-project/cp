@@ -58,7 +58,7 @@ export function service_redirect(from_req: ServiceRequestPromise<string>): Servi
 export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
     return (req, res, next) => {
         cache.get(name)
-            .then(rec => rec ? res.json(service_response(rec)) : next())
+            .then(rec => rec ? res.json(service_response(rec, true, { from_cache: true })) : next())
             .catch(next);
     };
 }
