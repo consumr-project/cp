@@ -26,7 +26,7 @@ angular.module('tcp').directive('trending', [
             replace: true,
             controller: ['$scope', controller],
             template: [
-                '<div>',
+                '<div class="trending-component">',
                 '    <ol>',
                 '        <li class="trending--item" ng-repeat="item in vm.trending">',
                 '            <p>{{item.title}}</p>',
