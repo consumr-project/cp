@@ -15,9 +15,12 @@ angular.module('tcp').directive('homeView', [
                     '        </div>',
                     '    </div>',
 
-                    '    <div class="snav__item snav__item--active" i18n="home/trending"></div>',
-                    '    <hr>',
-                    '    <trending class="margin-top-large site-content"></trending>',
+                    '    <section class="margin-top-large">',
+                    '        <div class="snav__item snav__item--active margin-left-xlarge" i18n="home/trending"></div>',
+                    '        <hr>',
+
+                    '        <trending class="left margin-left-xlarge"></trending>',
+                    '    </section>',
                     '</div>',
                 ].join('');
             },
