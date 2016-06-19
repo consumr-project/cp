@@ -27,9 +27,6 @@ angular.module('tcp').directive('trending', [
             controller: ['$scope', controller],
             template: [
                 '<div>',
-                '    <div class="snav__item snav__item--active" i18n="home/trending"></div>',
-                '    <hr>',
-
                 '    <ol>',
                 '        <li class="trending--item" ng-repeat="item in vm.trending">',
                 '            <p>{{item.title}}</p>',
