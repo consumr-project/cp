@@ -189,6 +189,7 @@ build-client-src:
 	$(js_min) src/client/components/state.js >> $(build_client_js)
 	$(js_min) src/client/components/trending.js >> $(build_client_js)
 	$(js_min) src/client/components/company.js >> $(build_client_js)
+	$(js_min) src/client/components/home-view.js >> $(build_client_js)
 	$(js_min) src/client/components/tag-view.js >> $(build_client_js)
 	$(js_min) src/client/components/feedback.js >> $(build_client_js)
 	$(js_min) src/client/components/event.js >> $(build_client_js)
