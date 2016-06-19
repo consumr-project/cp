@@ -35,10 +35,10 @@ additional services and service providers:
 
 ```bash
 export DATABASE_URL='postgres://...'
-export ELASTICSEARCH_HOST='http://...'
-export EMAIL_SERVICE_NAME='...'
-export EMAIL_SERVICE_PASS='...'
-export EMAIL_SERVICE_USER='...'
+# export ELASTICSEARCH_HOST='http://...'
+# export EMAIL_SERVICE_NAME='...'
+# export EMAIL_SERVICE_PASS='...'
+# export EMAIL_SERVICE_USER='...'
 export EMBEDLY_API_KEY='...'
 export GOOGLE_ANALYTICS_ACCOUNT_ID='...'
 export LINKEDIN_CLIENT_ID='...'
