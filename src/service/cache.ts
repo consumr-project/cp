@@ -16,7 +16,7 @@ export function shared(coll: Collection): Cache<Object> {
             return new Promise((resolve, reject) => {
                 coll.find({ name })
                     .next()
-                    .then(item => resolve(item.value))
+                    .then(item => resolve(item ? item.value : undefined))
                     .catch(reject);
             });
         },
@@ -25,7 +25,7 @@ export function shared(coll: Collection): Cache<Object> {
             return new Promise<boolean>((resolve, reject) => {
                 var filter = { name },
                     update = gen_item(name, value, ttl),
-                    option = { update: true };
+                    option = { upsert: true };
 
                 coll.findOneAndUpdate(filter, update, option)
                     .then(() => resolve(true))
