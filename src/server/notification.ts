@@ -83,11 +83,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             name: req.user.name,
             obj_id: req.body.id,
             obj_otype: OTYPE.EVENT,
-            obj_name: req.body.name,
+            obj_name: req.body.id,
         });
 
-        if (!req.body.id || !req.body.name) {
-            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id', 'name'])));
+        if (!req.body.id) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id'])));
             return;
         }
 
@@ -96,6 +96,8 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             Event.findById(req.body.id)
                 .then((ev: Schema.Event) => {
                     msg.to = ev.created_by;
+                    msg.payload.obj_name = ev.title;
+
                     save(coll, msg)
                         .then(ack => resolve(msg))
                         .catch(err => reject(new InternalServerError(err.message)));
@@ -121,11 +123,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             name: req.user.name,
             obj_id: req.body.id,
             obj_otype: OTYPE.EVENT,
-            obj_name: req.body.name,
+            obj_name: req.body.id,
         });
 
-        if (!req.body.id || !req.body.name) {
-            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id', 'name'])));
+        if (!req.body.id) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id'])));
             return;
         }
 
@@ -134,6 +136,8 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             Event.findById(req.body.id)
                 .then((ev: Schema.Event) => {
                     msg.to = ev.created_by;
+                    msg.payload.obj_name = ev.title;
+
                     save(coll, msg)
                         .then(ack => resolve(msg))
                         .catch(err => reject(new InternalServerError(err.message)));
