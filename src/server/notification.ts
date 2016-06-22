@@ -52,7 +52,17 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         return save(coll, msg).then(ack => msg);
     }));
 
+    app.delete('/follow/:id', service_handler(req => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.params.id, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+        });
+
+        return purge_signature(coll, msg.signature);
+    }));
+
     app.post('/favorite', service_handler(req => {
+        // XXX get object owner here
         let user_id = '4a9cb039-2a8c-458e-839f-78b4d951c226';
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, user_id, {
             id: req.user.id,
@@ -66,11 +76,12 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         return save(coll, msg).then(ack => msg);
     }));
 
-    app.delete('/follow/:id', service_handler(req => {
-        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.params.id, {
+    app.delete('/favorite/:id', service_handler(req => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, req.params.id, {
             id: req.user.id,
             otype: OTYPE.USER,
-            name: req.user.name,
+            obj_id: req.body.id,
+            obj_otype: OTYPE.EVENT,
         });
 
         return purge_signature(coll, msg.signature);

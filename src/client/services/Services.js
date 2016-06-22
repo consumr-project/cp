@@ -514,6 +514,22 @@ angular.module('tcp').service('Services', [
             return del('/service/notification/follow/' + id);
         };
 
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.notify.favorite = function (id) {
+            return post('/service/notification/favorite', {id: id});
+        };
+
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.notify.unfavorite = function (id) {
+            return del('/service/notification/favorite/' + id);
+        };
+
         return {
             auth: authService,
             extract: extractService,
