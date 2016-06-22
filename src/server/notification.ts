@@ -1,7 +1,8 @@
 import * as express from 'express';
 
 import { service_handler } from '../utilities';
-import { ServiceUnavailableError, UnauthorizedError } from '../errors';
+import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
+    ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge, update, purge_signature } from '../notification/collection';
@@ -42,12 +43,17 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     app.put('/viewed', service_handler(req =>
         update(coll, req.body.ids, { $set: { viewed: true } })));
 
-    app.post('/follow', service_handler(req => {
+    app.post('/follow', service_handler((req, res, next) => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {
             id: req.user.id,
             otype: OTYPE.USER,
             name: req.user.name,
         });
+
+        if (!req.body.id) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id'])));
+            return;
+        }
 
         return save(coll, msg).then(ack => msg);
     }));
@@ -61,7 +67,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         return purge_signature(coll, msg.signature);
     }));
 
-    app.post('/favorite', service_handler(req => {
+    app.post('/favorite', service_handler((req, res, next) => {
         // XXX get object owner here
         let user_id = '4a9cb039-2a8c-458e-839f-78b4d951c226';
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, user_id, {
@@ -72,6 +78,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             obj_otype: OTYPE.EVENT,
             obj_name: req.body.name,
         });
+
+        if (!req.body.id || !req.body.name) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id', 'name'])));
+            return;
+        }
 
         return save(coll, msg).then(ack => msg);
     }));

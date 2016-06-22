@@ -41,9 +41,12 @@ export function service_response<T>(body: T, ok: Boolean = true, meta: ServiceRe
 
 export function service_handler<T>(from_req: ServiceRequestPromise<T>): ServiceRequestHandler {
     return (req, res, next) => {
-        from_req(req, res, next)
-            .then(body => res.json(service_response(body)))
-            .catch(next);
+        var pro = from_req(req, res, next);
+
+        if (pro) {
+            pro.then(body => res.json(service_response(body)))
+                .catch(next);
+        }
     };
 }
 
