@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Profile } from 'passport-linkedin-oauth2';
 import { WhereOptions } from 'sequelize';
-import { User } from 'cp/record';
+import * as Schema from 'cp/record';
 
 import { roles } from './permissions';
 import { get } from 'lodash';
@@ -14,7 +14,7 @@ import config = require('acm');
 import uuid = require('node-uuid');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
-const UserModel = record.models.User;
+const User = record.models.User;
 const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
 const SCOPE = [
@@ -40,7 +40,7 @@ function generate_where(profile: Profile): WhereOptions {
     };
 }
 
-function generate_user(profile: Profile): User {
+function generate_user(profile: Profile): Schema.User {
     var id = uuid.v4();
 
     return {
@@ -63,8 +63,8 @@ function generate_user(profile: Profile): User {
     };
 }
 
-function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise<User> {
-    return UserModel.findOrCreate({
+function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise<Schema.User> {
+    return User.findOrCreate({
         where: generate_where(profile),
         defaults: generate_user(profile)
     })
