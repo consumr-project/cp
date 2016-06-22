@@ -530,6 +530,22 @@ angular.module('tcp').service('Services', [
             return del('/service/notification/favorite/' + id);
         };
 
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.notify.contribute = function (id) {
+            return post('/service/notification/contribute', {id: id});
+        };
+
+        /**
+         * @param {String} id
+         * @return {Promise}
+         */
+        notificationService.notify.uncontribute = function (id) {
+            return del('/service/notification/contribute/' + id);
+        };
+
         return {
             auth: authService,
             extract: extractService,
