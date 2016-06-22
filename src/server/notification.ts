@@ -1,14 +1,17 @@
 import * as express from 'express';
+import * as record from './record';
+import * as Schema from 'cp/record';
 
 import { service_handler } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
-    ERR_MSG_MISSING_FIELDS } from '../errors';
+    InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge, update, purge_signature } from '../notification/collection';
 import connect from '../service/mongo';
 import config = require('acm');
 
+const Event = record.models.Event;
 export var app = express();
 
 connect(config('mongo.collections.notifications'), (err, coll) => {
@@ -68,9 +71,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     }));
 
     app.post('/favorite', service_handler((req, res, next) => {
-        // XXX get object owner here
-        let user_id = '4a9cb039-2a8c-458e-839f-78b4d951c226';
-        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, user_id, {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
             name: req.user.name,
@@ -84,7 +85,15 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
-        return save(coll, msg).then(ack => msg);
+        return new Promise<Message>((resolve, reject) =>
+            Event.findById(req.body.id)
+                .then((ev: Schema.Event) => {
+                    msg.to = ev.created_by;
+                    save(coll, msg).then(ack => resolve(msg));
+                })
+                .catch((err: Error) => {
+                    reject(new InternalServerError(err.message));
+                }));
     }));
 
     app.delete('/favorite/:id', service_handler(req => {

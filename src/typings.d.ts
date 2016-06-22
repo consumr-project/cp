@@ -57,14 +57,26 @@ declare module 'cp/record' {
         findOrCreate?(FindOrCreate): Promise<Model>;
     }
 
+    export interface Event extends Model {
+        id: string;
+        title: string;
+        date: Date | number;
+        logo: string;
+        sentiment: string;
+        created_by: string;
+        created_date: Date | number;
+        updated_by: string;
+        updated_date: Date | number;
+        deleted_by?: string;
+        deleted_date?: Date | number;
+    }
+
     export interface User extends Model {
         id: string;
         role: string;
         auth_linkedin_id: string;
         avatar_url: string;
         company_name: string;
-        created_by: string;
-        created_date: Date | number;
         email?: string;
         lang: string;
         last_login_date: Date | number;
@@ -73,8 +85,12 @@ declare module 'cp/record' {
         name: string;
         summary: string;
         title: string;
+        created_by: string;
+        created_date: Date | number;
         updated_by: string;
         updated_date: Date | number;
+        deleted_by?: string;
+        deleted_date?: Date | number;
     }
 
     export interface Company extends Model {
