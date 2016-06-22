@@ -106,6 +106,10 @@ export default class Message {
         this.viewed = false;
         this.completed = false;
         this.payload = payload;
+        this.sign();
+    }
+
+    sign() {
         this.signature = signature(this);
     }
 }

@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as record from './record';
 import * as Schema from 'cp/record';
 
+import { DeleteWriteOpResultObject } from 'mongodb';
 import { service_handler, runtime_purge_allowed } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
@@ -97,6 +98,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
                 .then((ev: Schema.Event) => {
                     msg.to = ev.created_by;
                     msg.payload.obj_name = ev.title;
+                    msg.sign();
 
                     save(coll, msg)
                         .then(ack => resolve(msg))
@@ -106,14 +108,24 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     }));
 
     app.delete('/favorite/:id', service_handler(req => {
-        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, req.params.id, {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
-            obj_id: req.body.id,
+            obj_id: req.params.id,
             obj_otype: OTYPE.EVENT,
         });
 
-        return purge_signature(coll, msg.signature);
+        return new Promise<DeleteWriteOpResultObject>((resolve, reject) =>
+            Event.findById(req.params.id)
+                .then((ev: Schema.Event) => {
+                    msg.to = ev.created_by;
+                    msg.sign();
+
+                    purge_signature(coll, msg.signature)
+                        .then(resolve)
+                        .catch(err => reject(new InternalServerError(err.message)));
+                })
+                .catch(err => reject(new InternalServerError(err.message))));
     }));
 
     app.post('/contribute', service_handler((req, res, next) => {
@@ -137,6 +149,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
                 .then((ev: Schema.Event) => {
                     msg.to = ev.created_by;
                     msg.payload.obj_name = ev.title;
+                    msg.sign();
 
                     save(coll, msg)
                         .then(ack => resolve(msg))
@@ -146,13 +159,23 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     }));
 
     app.delete('/contribute/:id', service_handler(req => {
-        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, req.params.id, {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
-            obj_id: req.body.id,
+            obj_id: req.params.id,
             obj_otype: OTYPE.EVENT,
         });
 
-        return purge_signature(coll, msg.signature);
+        return new Promise<DeleteWriteOpResultObject>((resolve, reject) =>
+            Event.findById(req.params.id)
+                .then((ev: Schema.Event) => {
+                    msg.to = ev.created_by;
+                    msg.sign();
+
+                    purge_signature(coll, msg.signature)
+                        .then(resolve)
+                        .catch(err => reject(new InternalServerError(err.message)));
+                })
+                .catch(err => reject(new InternalServerError(err.message))));
     }));
 });
