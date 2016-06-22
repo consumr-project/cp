@@ -13,3 +13,7 @@ followed_by_many: '<b>{name}</b> and {count} others started following you.'
 favorited_by_one: '<b>{name}</b> liked the event you added, "{event}".'
 favorited_by_two: '<b>{name}</b> and <b>{other}</b> liked the event you added, "{event}".'
 favorited_by_many: '<b>{name}</b> and {count} others liked the event you added, "{event}".'
+
+contributed_by_one: '<b>{name}</b> contributed to an event you added, "{event}".'
+contributed_by_two: '<b>{name}</b> and <b>{other}</b> contributed to an event you added, "{event}".'
+contributed_by_many: '<b>{name}</b> and {count} others contributed to an event you added, "{event}".'
