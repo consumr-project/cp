@@ -34,18 +34,35 @@ function stringify_favorited(i18n: I18n, messages: Message[]): string {
     }
 }
 
+function stringify_contributed(i18n: I18n, messages: Message[]): string {
+    var fields = {
+        name: striptags(get<string>(messages, '0.payload.name')),
+        other: striptags(get<string>(messages, '1.payload.name')),
+        event: striptags(get<string>(messages, '0.payload.obj_name')),
+        count: messages.length - 1,
+    };
+
+    switch (messages.length) {
+        case 1: return i18n.get('notification/contributed_by_one', fields);
+        case 2: return i18n.get('notification/contributed_by_two', fields);
+        default: return i18n.get('notification/contributed_by_many', fields);
+    }
+}
+
 export function stringify(i18n: I18n, messages: Message[]): string {
     switch (messages[0].subcategory) {
-        case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
+        case NOTIFICATION.CONTRIBUTED: return stringify_contributed(i18n, messages);
         case NOTIFICATION.FAVORITED: return stringify_favorited(i18n, messages);
+        case NOTIFICATION.FOLLOWED: return stringify_followed(i18n, messages);
         default: return '';
     }
 }
 
 export function link(message: Message): string {
     switch (message.subcategory) {
-        // XXX this should really point to an event specific page
-        case NOTIFICATION.FAVORITED: return `/company/id/${message.payload.obj_id}`;
+        // XXX this should point to the company or tag (parent of event) page
+        case NOTIFICATION.CONTRIBUTED: return `/company/id/54a822b5-819e-416a-af94-65e041dc8381/event/${message.payload.obj_id}`;
+        case NOTIFICATION.FAVORITED: return `/company/id/54a822b5-819e-416a-af94-65e041dc8381/event/${message.payload.obj_id}`;
         case NOTIFICATION.FOLLOWED: return '/user/me/followers/users';
         default: return;
     }
