@@ -89,11 +89,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             Event.findById(req.body.id)
                 .then((ev: Schema.Event) => {
                     msg.to = ev.created_by;
-                    save(coll, msg).then(ack => resolve(msg));
+                    save(coll, msg)
+                        .then(ack => resolve(msg))
+                        .catch(err => reject(new InternalServerError(err.message)));
                 })
-                .catch((err: Error) => {
-                    reject(new InternalServerError(err.message));
-                }));
+                .catch(err => reject(new InternalServerError(err.message))));
     }));
 
     app.delete('/favorite/:id', service_handler(req => {
