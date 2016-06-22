@@ -33,8 +33,9 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
 
     app.get('/', service_handler(req =>
         find(coll, req.user.id, CATEGORY.NOTIFICATION, [
-            NOTIFICATION.FOLLOWED,
+            NOTIFICATION.CONTRIBUTED,
             NOTIFICATION.FAVORITED,
+            NOTIFICATION.FOLLOWED,
         ])));
 
     app.delete('/:id', service_handler(req =>
@@ -98,6 +99,43 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
 
     app.delete('/favorite/:id', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, req.params.id, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+            obj_id: req.body.id,
+            obj_otype: OTYPE.EVENT,
+        });
+
+        return purge_signature(coll, msg.signature);
+    }));
+
+    app.post('/contribute', service_handler((req, res, next) => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, null, {
+            id: req.user.id,
+            otype: OTYPE.USER,
+            name: req.user.name,
+            obj_id: req.body.id,
+            obj_otype: OTYPE.EVENT,
+            obj_name: req.body.name,
+        });
+
+        if (!req.body.id || !req.body.name) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id', 'name'])));
+            return;
+        }
+
+        return new Promise<Message>((resolve, reject) =>
+            Event.findById(req.body.id)
+                .then((ev: Schema.Event) => {
+                    msg.to = ev.created_by;
+                    save(coll, msg)
+                        .then(ack => resolve(msg))
+                        .catch(err => reject(new InternalServerError(err.message)));
+                })
+                .catch(err => reject(new InternalServerError(err.message))));
+    }));
+
+    app.delete('/contribute/:id', service_handler(req => {
+        let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, req.params.id, {
             id: req.user.id,
             otype: OTYPE.USER,
             obj_id: req.body.id,
