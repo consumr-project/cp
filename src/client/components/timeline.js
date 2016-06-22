@@ -222,14 +222,14 @@ angular.module('tcp').directive('timeline', [
                     ev.bookmarked_by_me = false;
                     ev.bookmark_count--;
 
-                    Services.query.events.bookmarks.delete(ev.id, Session.USER.id);
+                    Services.query.events.bookmarks.delete(ev.id, Session.USER.id)
+                        .then(Services.notification.notify.unfavorite.bind(null, ev.id));
                 } else {
                     ev.bookmarked_by_me = true;
                     ev.bookmark_count++;
 
-                    Services.query.events.bookmarks.upsert(ev.id, {
-                        user_id: Session.USER.id
-                    });
+                    Services.query.events.bookmarks.upsert(ev.id, { user_id: Session.USER.id })
+                        .then(Services.notification.notify.favorite.bind(null, ev.id));
                 }
             };
 
