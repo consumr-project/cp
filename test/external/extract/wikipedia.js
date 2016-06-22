@@ -5,7 +5,8 @@ const http = require('../../integration/utils/http');
 const check = require('../../integration/utils/check');
 
 tape('wiki', t => {
-    t.plan(20);
+    t.plan(15);
+    // t.plan(20);
 
     http.get('/service/extract/wiki/search?q=Walmart').end((err, res) => {
         t.comment('search');
