@@ -91,6 +91,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
+        // XXX check this isn't our own event
         return new Promise<Message>((resolve, reject) =>
             Event.findById(req.body.id)
                 .then((ev: Schema.Event) => {
@@ -128,6 +129,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
+        // XXX check this isn't our own event
         return new Promise<Message>((resolve, reject) =>
             Event.findById(req.body.id)
                 .then((ev: Schema.Event) => {
