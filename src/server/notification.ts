@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as record from './record';
 import * as Schema from 'cp/record';
 
-import { service_handler } from '../utilities';
+import { service_handler, runtime_purge_allowed } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
@@ -38,8 +38,13 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             NOTIFICATION.FOLLOWED,
         ])));
 
-    app.delete('/:id', service_handler(req =>
-        purge(coll, req.params.id)));
+    app.delete('/:id', service_handler((req, res, next) => {
+        if (runtime_purge_allowed(req)) {
+            return purge(coll, req.params.id);
+        } else {
+            next(new UnauthorizedError());
+        }
+    }));
 
     app.put('/completed', service_handler(req =>
         update(coll, req.body.ids, { $set: { completed: true } })));

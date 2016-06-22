@@ -1,7 +1,7 @@
+import { Request } from 'express';
+import { Cache } from 'cp/cache';
 import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
-
-import { Cache } from 'cp/cache';
 
 export type None = Object;
 export type Maybe<T> = None | T;
@@ -74,4 +74,9 @@ export function has_all_fields(fields: string[], data: any): boolean {
     }
 
     return true;
+}
+
+export function runtime_purge_allowed(req: Request): boolean {
+    return process.env.CP_PURGE_KEY &&
+        req.query.purge_key === process.env.CP_PURGE_KEY;
 }
