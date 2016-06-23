@@ -8,6 +8,8 @@ import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
 
+import shasum = require('shasum');
+
 declare var i18n: any;
 
 declare var TCP_BUILD_CONFIG: {
@@ -93,6 +95,7 @@ namespace tcp {
         .value('lodash', _)
         .value('messages', messages)
         .value('moment', moment)
+        .value('shasum', shasum)
         .value('utils', utils)
         .value('Visitor', Visitor);
 

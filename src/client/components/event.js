@@ -6,7 +6,8 @@ angular.module('tcp').directive('event', [
     'utils',
     'Services',
     'Session',
-    function (RUNTIME, DOMAIN, $q, lodash, utils, Services, Session) {
+    'shasum',
+    function (RUNTIME, DOMAIN, $q, lodash, utils, Services, Session, shasum) {
         'use strict';
 
         var HTML_VIEW = [
@@ -277,6 +278,26 @@ angular.module('tcp').directive('event', [
 
         /**
          * @param {Event} ev
+         * @return {String}
+         */
+        function sha_event(ev) {
+            return shasum([
+                _.pick(ev, ['id', 'date', 'logo', 'sentiment', 'titie']),
+                _.map(ev.tags, 'id'),
+                _.map(ev.companies, 'id'),
+            ]);
+        }
+
+        /**
+         * @param {EventSource[]} sources
+         * @return {String}
+         */
+        function sha_sources(sources) {
+            return shasum(_.map(sources, 'id'));
+        }
+
+        /**
+         * @param {Event} ev
          * @return {Event}
          */
         function get_normalized_event(ev) {
@@ -390,6 +411,17 @@ angular.module('tcp').directive('event', [
             $scope.vm.save = function () {
                 var method = $scope.ev.id ? 'upsert' : 'create';
 
+                if ($scope.ev.id) {
+                    // new source added notification (do it in the server?)
+                    // sha_event;
+                    // sha_sources;
+                    // shasum;
+                    // $scope;
+                    // debugger;
+
+                    // modification made notification (do it in the server?)
+                }
+
                 // XXX should be one request
                 Services.query.events[method](get_normalized_event($scope.ev)).then(function (ev) {
                     if (!ev.id) {
@@ -468,6 +500,12 @@ angular.module('tcp').directive('event', [
             function load(id) {
                 Services.query.events.retrieve(id, ['bookmarks', 'sources', 'tags', 'companies'], ['tags', 'companies']).then(function (ev) {
                     $scope.ev = ev;
+
+                    $scope.ev.$shasums = {
+                        event: sha_event(ev),
+                        sources: sha_sources(ev.sources),
+                    };
+
                     $scope.ev.$date = new Date(ev.date);
                     $scope.ev.$tags = lodash.map(ev.tags, normalize_tag);
                     $scope.ev.$companies = lodash.map(ev.companies, normalize_company);
