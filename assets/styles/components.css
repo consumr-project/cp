@@ -60,3 +60,22 @@ tag-view {
     font-weight: bold;
     margin-bottom: -var(--spacing-xsmall);
 }
+
+.--theme-1 .home-view-component .banner {
+    background-color: var(--color-banner-1);
+}
+
+.--theme-1 button[i18n="admin/sing_in_or_up"] {
+    background-color: var(--color-banner-2);
+}
+
+.--theme-2 .home-view-component .banner {
+    background-color: var(--color-banner-2);
+    border-color: var(--color-banner-2);
+}
+
+.--theme-2 button[i18n="admin/sing_in_or_up"] {
+    background-color: var(--color-banner-1);
+    border-color: var(--color-banner-1);
+    color: black;
+}

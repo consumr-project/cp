@@ -164,14 +164,6 @@ hr {
     max-width: calc(var(--content-max-width) - var(--content-horizontal-padding) * 2);
 }
 
-.banner.banner--1 {
-    background-color: var(--color-banner-1);
-}
-
-.banner.banner--2 {
-    background-color: var(--color-banner-2);
-}
-
 .banner {
     padding: 40px 0;
     transition: padding var(--speed-friendly);

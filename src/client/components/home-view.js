@@ -5,10 +5,9 @@ angular.module('tcp').directive('homeView', [
         return {
             replace: true,
             template: function () {
-                var style = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
                 return [
                     '<div class="home-view-component">',
-                    '    <div class="banner banner--' + style + '">',
+                    '    <div class="banner">',
                     '        <div class="site-content center-align">',
                     '            <search form="true"></search>',
                     '            <p i18n="common/intro"></p>',

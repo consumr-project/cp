@@ -8,9 +8,10 @@
     z-index: var(--z-index-popover);
 }
 
-.popover:not(.popover--with-backdrop) {
-    box-shadow: 0 0 5px 3px var(--color-std-shadow-color);
-}
+/* looks weird with colored backgrounds */
+/* .popover:not(.popover--with-backdrop) { */
+/*     box-shadow: 0 0 5px 3px var(--color-std-shadow-color); */
+/* } */
 
 .popover__item {
     padding: 10px 20px;
