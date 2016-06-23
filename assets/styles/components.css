@@ -65,8 +65,8 @@ tag-view {
     background-color: var(--color-banner-1);
 }
 
-.--theme-1 .home-view-component button,
-.--theme-1 button[i18n="admin/sing_in_or_up"] {
+.--theme-1 :not(.popover) .home-view-component button,
+.--theme-1 :not(.popover) button[i18n="admin/sing_in_or_up"] {
     background-color: var(--color-banner-2);
 }
 
@@ -75,8 +75,8 @@ tag-view {
     border-color: var(--color-banner-2);
 }
 
-.--theme-2 .home-view-component button,
-.--theme-2 button[i18n="admin/sing_in_or_up"] {
+.--theme-2 :not(.popover) .home-view-component button,
+.--theme-2 :not(.popover) button[i18n="admin/sing_in_or_up"] {
     background-color: var(--color-banner-1);
     border-color: var(--color-banner-1);
     color: black;
