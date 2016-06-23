@@ -16,6 +16,7 @@ export enum NOTIFICATION {
     CONTRIBUTED = <any>'CONTRIBUTED',
     FAVORITED = <any>'FAVORITED',
     FOLLOWED = <any>'FOLLOWED',
+    MODIFIED = <any>'MODIFIED',
 }
 
 export interface SingularTargetPayload {
@@ -39,9 +40,13 @@ export interface FavoritedNotificationPayload
 export interface ContributedNotificationPayload
     extends MultipleTargetPayload {}
 
+export interface ModifiedNotificationPayload
+    extends MultipleTargetPayload {}
+
 export type SUBCATEGORY = NOTIFICATION;
 export type PAYLOAD = FollowedNotificationPayload
     & FavoritedNotificationPayload
+    & ModifiedNotificationPayload
     & ContributedNotificationPayload;
 
 export interface MessagePresentation {
@@ -66,6 +71,7 @@ function signature(msg: Message): string {
     switch (msg.subcategory) {
         case NOTIFICATION.CONTRIBUTED:
         case NOTIFICATION.FAVORITED:
+        case NOTIFICATION.MODIFIED:
             parts.push(msg.payload.obj_id);
             parts.push(msg.payload.obj_otype);
             break;
