@@ -12,7 +12,7 @@ $(function () {
      * @return {String}
      */
     function generate_offset_class(num) {
-        return '--scroll-offset-' + num;
+        return 'scroll--scroll-offset-' + num;
     }
 
     /**

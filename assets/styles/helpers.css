@@ -49,7 +49,7 @@
     display: none;
 }
 
-.--is-logged-in .logged-in-only--display {
+.state--is-logged-in .logged-in-only--display {
     display: initial;
 }
 
@@ -57,7 +57,7 @@
     visibility: hidden;
 }
 
-.--is-logged-in .logged-in-only {
+.state--is-logged-in .logged-in-only {
     visibility: visible;
 }
 

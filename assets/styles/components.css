@@ -77,22 +77,22 @@ tag-view {
     }
 }
 
-.--theme-1 .home-view-component .banner {
+.state--theme-1 .home-view-component .banner {
     background-color: var(--color-banner-1);
 }
 
-.--theme-1 :not(.popover) .home-view-component button,
-.--theme-1 :not(.popover) button[i18n="admin/sing_in_or_up"] {
+.state--theme-1 :not(.popover) .home-view-component button,
+.state--theme-1 :not(.popover) button[i18n="admin/sing_in_or_up"] {
     background-color: var(--color-banner-2);
 }
 
-.--theme-2 .home-view-component .banner {
+.state--theme-2 .home-view-component .banner {
     background-color: var(--color-banner-2);
     border-color: var(--color-banner-2);
 }
 
-.--theme-2 :not(.popover) .home-view-component button,
-.--theme-2 :not(.popover) button[i18n="admin/sing_in_or_up"] {
+.state--theme-2 :not(.popover) .home-view-component button,
+.state--theme-2 :not(.popover) button[i18n="admin/sing_in_or_up"] {
     background-color: var(--color-banner-1);
     border-color: var(--color-banner-1);
     color: black;

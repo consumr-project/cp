@@ -141,7 +141,7 @@ hr {
         width: var(--content-aside-width);
     }
 
-    .--scroll-offset-100 .site-content--aside {
+    .scroll--scroll-offset-100 .site-content--aside {
         padding-top: 0;
     }
 

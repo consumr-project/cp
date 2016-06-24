@@ -10,7 +10,7 @@ angular.module('tcp').directive('tcpState', [
 
         function manage_login_class($elem, existance) {
             return function () {
-                $elem.toggleClass('--is-logged-in', existance);
+                $elem.toggleClass('state--is-logged-in', existance);
             };
         }
 
@@ -41,7 +41,7 @@ angular.module('tcp').directive('tcpState', [
                 Session.on(Session.EVENT.LOGOUT, manage_login_class($elem, false));
                 Session.on(Session.EVENT.ERROR, manage_login_class($elem, false));
                 $rootScope.$on('$locationChangeStart', update_current_location($elem));
-                $elem.addClass('--theme-' + get_curr_theme());
+                $elem.addClass('state--theme-' + get_curr_theme());
             }
         };
     }
