@@ -409,17 +409,17 @@ angular.module('tcp').directive('event', [
             $scope.$watch('tiedTo', fecth_tags_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
-                var method = $scope.ev.id ? 'upsert' : 'create';
+                var method = $scope.ev.id ? 'upsert' : 'create',
+                    notify_contributed = false,
+                    notify_modified = false;
 
+                // XXX ownership check
                 if ($scope.ev.id) {
                     // new source added notification (do it in the server?)
-                    // sha_event;
-                    // sha_sources;
-                    // shasum;
-                    // $scope;
-                    // debugger;
+                    notify_modified = sha_event($scope.ev) !== $scope.ev.$shasums.event;
 
                     // modification made notification (do it in the server?)
+                    notify_contributed = sha_sources($scope.ev.$sources) !== $scope.ev.$shasums.sources;
                 }
 
                 // XXX should be one request
@@ -442,6 +442,14 @@ angular.module('tcp').directive('event', [
                                 get_normalized_company_event(company, ev.id));
                         })
                     )).then(function (res) {
+                        if (notify_modified) {
+                            Services.notification.notify.modify(ev.id);
+                        }
+
+                        if (notify_contributed) {
+                            Services.notification.notify.contribute(ev.id);
+                        }
+
                         Session.emit(Session.EVENT.NOTIFY);
                         $scope.onSave({ ev: ev, children: res });
                     });
