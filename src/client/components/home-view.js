@@ -2,16 +2,17 @@ angular.module('tcp').directive('homeView', [
     function () {
         'use strict';
 
-        function controller($scope) {
+        function controller($scope, $window) {
             $scope.im_cool = function () {
-                alert('ok, thanks for being cool but I\'m going to need you to ' +
-                    'be cool in like three more weeks when this feature is done.');
-            }
+                $window.alert('ok, thanks for being cool but I\'m going to ' +
+                    'need you to be cool in like three more weeks when ' +
+                    'this feature is done.');
+            };
         }
 
         return {
             replace: true,
-            controller: ['$scope', controller],
+            controller: ['$scope', '$window', controller],
             template: function () {
                 return [
                     '<div class="home-view-component">',
