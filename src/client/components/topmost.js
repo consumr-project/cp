@@ -25,6 +25,7 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.notifications = {
                 show: null,
 
+
                 // from notifications component
                 repaint: _.noop,
             };

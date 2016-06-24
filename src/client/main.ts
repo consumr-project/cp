@@ -132,7 +132,7 @@ namespace tcp {
             }
 
             $routeProvider.when('/', {
-                resolve: { PageView },
+                resolve: { UserCheck, PageView },
                 template: '<home-view></home-view>',
             });
 
