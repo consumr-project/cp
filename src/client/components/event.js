@@ -413,8 +413,7 @@ angular.module('tcp').directive('event', [
                     notify_contributed = false,
                     notify_modified = false;
 
-                // XXX ownership check
-                if ($scope.ev.id) {
+                if ($scope.ev.id && Session.USER.id !== $scope.ev.created_by) {
                     // new source added notification (do it in the server?)
                     notify_modified = sha_event($scope.ev) !== $scope.ev.$shasums.event;
 
