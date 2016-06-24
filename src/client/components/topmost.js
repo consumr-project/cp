@@ -12,6 +12,12 @@ angular.module('tcp').directive('tcpTopmost', [
 
         var SYNC_INTERVAL = 300000;
 
+        function link() {
+            angular.element(document.body).on('mousemove', function () {
+                link.active = true;
+            });
+        }
+
         function controller($rootScope, $scope) {
             $scope.user = null;
             $scope.session = get_session();
@@ -59,7 +65,7 @@ angular.module('tcp').directive('tcpTopmost', [
             Session.on(Session.EVENT.NOTIFY, get_notifications);
 
             sync();
-            $interval(sync, SYNC_INTERVAL);
+            $interval(sync_if_active, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
 
             function login_with_linkedin() {
@@ -94,6 +100,18 @@ angular.module('tcp').directive('tcpTopmost', [
                     $scope.session.notification_count = _.filter(items, { viewed: false }).length;
                     $scope.session.has_notifications = items.length;
                 });
+            }
+
+            /**
+             * @return {void}
+             */
+            function sync_if_active() {
+                console.log('sync_if_active check');
+                if (link.active) {
+                console.log('sync_if_active running');
+                    sync();
+                    link.active = false;
+                }
             }
 
             /**
@@ -145,6 +163,7 @@ angular.module('tcp').directive('tcpTopmost', [
 
         return {
             replace: true,
+            link: link,
             controller: ['$rootScope', '$scope', controller],
             template: [
                 '<div class="topmost">',
