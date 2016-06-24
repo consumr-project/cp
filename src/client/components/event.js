@@ -282,9 +282,9 @@ angular.module('tcp').directive('event', [
          */
         function sha_event(ev) {
             return shasum([
-                _.pick(ev, ['id', 'date', 'logo', 'sentiment', 'titie']),
-                _.map(ev.tags, 'id'),
-                _.map(ev.companies, 'id'),
+                lodash.pick(ev, ['id', 'date', 'logo', 'sentiment', 'titie']),
+                lodash.map(ev.tags, 'id'),
+                lodash.map(ev.companies, 'id'),
             ]);
         }
 
@@ -293,7 +293,7 @@ angular.module('tcp').directive('event', [
          * @return {String}
          */
         function sha_sources(sources) {
-            return shasum(_.map(sources, 'id'));
+            return shasum(lodash.map(sources, 'id'));
         }
 
         /**
