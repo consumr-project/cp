@@ -16,6 +16,21 @@ const Event = record.models.Event;
 export var app = express();
 
 connect(config('mongo.collections.notifications'), (err, coll) => {
+    function get_event_and_act_upon_message(id: string, action: Function, processor: (ev: Schema.Event) => Message) {
+        // XXX check this isn't our own event
+        return new Promise<Message | DeleteWriteOpResultObject>((resolve, reject) =>
+            Event.findById(id)
+                .then((ev: Schema.Event) => {
+                    var msg = processor(ev);
+                    msg.sign();
+
+                    action(coll, action === purge_signature ? msg.signature : msg)
+                        .then(ack => resolve(msg))
+                        .catch(err => reject(new InternalServerError(err.message)));
+                })
+                .catch(err => reject(new InternalServerError(err.message))));
+    }
+
     app.use((req, res, next) => {
         if (!req.user || !req.user.id) {
             next(new UnauthorizedError());
@@ -93,19 +108,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
-        // XXX check this isn't our own event
-        return new Promise<Message>((resolve, reject) =>
-            Event.findById(req.body.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.payload.obj_name = ev.title;
-                    msg.sign();
-
-                    save(coll, msg)
-                        .then(ack => resolve(msg))
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.body.id, save, ev => {
+            msg.to = ev.created_by;
+            msg.payload.obj_name = ev.title;
+            return msg;
+        });
     }));
 
     app.delete('/favorite/:id', service_handler(req => {
@@ -116,17 +123,10 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             obj_otype: OTYPE.EVENT,
         });
 
-        return new Promise<DeleteWriteOpResultObject>((resolve, reject) =>
-            Event.findById(req.params.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.sign();
-
-                    purge_signature(coll, msg.signature)
-                        .then(resolve)
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.params.id, purge_signature, ev => {
+            msg.to = ev.created_by;
+            return msg;
+        });
     }));
 
     app.post('/contribute', service_handler((req, res, next) => {
@@ -144,19 +144,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
-        // XXX check this isn't our own event
-        return new Promise<Message>((resolve, reject) =>
-            Event.findById(req.body.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.payload.obj_name = ev.title;
-                    msg.sign();
-
-                    save(coll, msg)
-                        .then(ack => resolve(msg))
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.body.id, save, ev => {
+            msg.to = ev.created_by;
+            msg.payload.obj_name = ev.title;
+            return msg;
+        });
     }));
 
     app.delete('/contribute/:id', service_handler(req => {
@@ -167,17 +159,10 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             obj_otype: OTYPE.EVENT,
         });
 
-        return new Promise<DeleteWriteOpResultObject>((resolve, reject) =>
-            Event.findById(req.params.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.sign();
-
-                    purge_signature(coll, msg.signature)
-                        .then(resolve)
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.params.id, purge_signature, ev => {
+            msg.to = ev.created_by;
+            return msg;
+        });
     }));
 
     app.post('/modify', service_handler((req, res, next) => {
@@ -195,19 +180,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             return;
         }
 
-        // XXX check this isn't our own event
-        return new Promise<Message>((resolve, reject) =>
-            Event.findById(req.body.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.payload.obj_name = ev.title;
-                    msg.sign();
-
-                    save(coll, msg)
-                        .then(ack => resolve(msg))
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.body.id, save, ev => {
+            msg.to = ev.created_by;
+            msg.payload.obj_name = ev.title;
+            return msg;
+        });
     }));
 
     app.delete('/modify/:id', service_handler(req => {
@@ -218,16 +195,9 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             obj_otype: OTYPE.EVENT,
         });
 
-        return new Promise<DeleteWriteOpResultObject>((resolve, reject) =>
-            Event.findById(req.params.id)
-                .then((ev: Schema.Event) => {
-                    msg.to = ev.created_by;
-                    msg.sign();
-
-                    purge_signature(coll, msg.signature)
-                        .then(resolve)
-                        .catch(err => reject(new InternalServerError(err.message)));
-                })
-                .catch(err => reject(new InternalServerError(err.message))));
+        return get_event_and_act_upon_message(req.params.id, purge_signature, ev => {
+            msg.to = ev.created_by;
+            return msg;
+        });
     }));
 });
