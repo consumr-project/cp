@@ -11,7 +11,8 @@ const config = require('acm');
 const fixture = clone(config('fixtures'));
 
 tapes('notifications', t => {
-    var id, cleanupids;
+    var ids_to_look_for = [],
+        ids_to_delete = [];
 
     t.plan(1);
 
@@ -26,24 +27,26 @@ tapes('notifications', t => {
             id: fixture.user.admin.id,
         }).end((err, res) => {
             st.error(err);
-            id = res.body.body.id;
+            ids_to_look_for.push(res.body.body.id);
         });
     });
 
     t.test('retrieve', st => {
-        st.plan(2);
+        st.plan(ids_to_look_for.length + 1);
 
         http.get('/service/notification').end((err, res) => {
+            ids_to_delete = map(res.body.body, 'id');
             st.error(err);
-            st.ok(find(res.body.body, {id}));
-            cleanupids = map(res.body.body, 'id');
+
+            ids_to_look_for.forEach(id =>
+                st.ok(find(res.body.body, {id})));
         });
     });
 
     t.test('purge', st => {
-        st.plan(cleanupids.length);
+        st.plan(ids_to_delete.length);
 
-        cleanupids.forEach(id => {
+        ids_to_delete.forEach(id => {
             http.purge(`/service/notification/${id}`).end((err, res) => {
                 st.error(err);
             });
