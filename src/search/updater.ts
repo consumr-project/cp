@@ -1,6 +1,9 @@
 import { head } from 'lodash';
 import { Client } from 'elasticsearch';
 import { DatabaseConnection } from 'cp/service';
+import { sql } from '../record/query';
+
+const SQL = sql('sync');
 
 export class LinkDefinition {
     constructor(public name: string, public fields: string[] = [],
@@ -19,10 +22,10 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
         def.field_label ? `${def.field_label} as __label` : '',
     ].concat(def.fields).filter(x => !!x);
 
-    return `
-        select ${fields.join(', ')}
-        from ${def.name}
-        where updated_date > :since`;
+    return SQL({
+        name: def.name,
+        fields: fields,
+    });
 }
 
 export function update(es: Client, db: DatabaseConnection, def: LinkDefinition,
