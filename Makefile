@@ -119,6 +119,11 @@ build-server:
 		--outDir $(build_dir) --module commonjs --pretty --removeComments \
 		--moduleResolution classic
 
+build-worker:
+	$(tsc) src/typings.d.ts src/worker/main.ts \
+		--outDir $(build_dir) --module commonjs --pretty --removeComments \
+		--moduleResolution classic
+
 build-client: build-css build-client-deps build-client-app \
 	build-client-bundle build-client-src
 

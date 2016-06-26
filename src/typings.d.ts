@@ -24,6 +24,11 @@ declare module 'cp' {
     }
 }
 
+declare module 'cp/service' {
+    import { Sequelize } from 'sequelize';
+    export type DatabaseConnection = Sequelize;
+}
+
 declare module 'cp/lang' {
     type UUID = string;
 }
