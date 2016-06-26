@@ -13,7 +13,9 @@
   ],
   "scripts": {
     "postinstall": "typings install; make build",
-    "start": "make server"
+    "start": "make server",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -42,9 +44,9 @@
     "datedropper": "github:minond/datedropper",
     "debug": "2.2.0",
     "deep-get-set": "1.0.0",
-    "elasticsearch": "9.0.0",
+    "elasticsearch": "9.0.2",
     "eventemitter2": "0.4.14",
-    "express": "4.12.4",
+    "express": "4.14.0",
     "express-session": "1.11.3",
     "glob": "6.0.1",
     "jquery": "2.1.4",
@@ -52,7 +54,7 @@
     "jtils": "minond/jtils#e78280ffa09477da6a398b3801d9a6abae37982a",
     "lodash": "4.0.0",
     "md5": "2.0.0",
-    "moment": "2.10.6",
+    "moment": "2.11.2",
     "mongodb": "2.1.3",
     "newrelic": "1.23.1",
     "node-uuid": "1.4.7",
@@ -67,11 +69,11 @@
     "pg": "4.4.3",
     "q": "1.4.1",
     "rbac": "3.1.2",
-    "request": "2.65.0",
+    "request": "2.68.0",
     "rollbar-browser": "1.7.5",
-    "sequelize": "3.14.2",
+    "sequelize": "3.20.0",
     "serve-favicon": "2.2.1",
-    "serve-index": "1.6.4",
+    "serve-index": "1.8.0",
     "shasum": "1.0.2",
     "striptags": "2.0.4",
     "swig": "1.4.2",
@@ -79,7 +81,8 @@
     "true-visibility": "minond/true-visibility#832ef7d9a976839d08198c4561f60270b61fc65d",
     "tslint": "3.10.2",
     "universal-analytics": "0.3.10",
-    "urijs": "1.17.0"
+    "urijs": "1.17.0",
+    "snyk": "1.16.0"
   },
   "devDependencies": {
     "async": "1.5.2",
@@ -103,5 +106,6 @@
     "typings": "0.6.5",
     "uglify-js": "2.6.2",
     "yamljs": "0.2.3"
-  }
+  },
+  "snyk": true
 }
