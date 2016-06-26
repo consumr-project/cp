@@ -29,7 +29,7 @@ export function str(sql): TemplateFunction {
 }
 
 export function sql(name): TemplateFunction {
-    var buff = read(`${__dirname}/../../src/record/queries/${name}.sql`);
+    var buff = read(`${__dirname}/../../src/queries/${name}.sql`);
     return str(buff.toString());
 }
 
