@@ -1,0 +1,12 @@
+version: v1.5.0
+ignore: {}
+patch:
+  'npm:request:20160119':
+    - elasticsearch > grunt-esvm > libesvm > request:
+        patched: '2016-06-26T20:06:03.666Z'
+  'npm:tar:20151103':
+    - elasticsearch > grunt-esvm > libesvm > tar:
+        patched: '2016-06-26T20:06:03.666Z'
+  'npm:uglify-js:20151024':
+    - swig > uglify-js:
+        patched: '2016-06-26T20:06:03.666Z'
