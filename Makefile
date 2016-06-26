@@ -62,7 +62,6 @@ clean:
 	-rm -r $(build_dir)
 	mkdir $(build_dir)
 
-# XXX run snyk protect?
 lint:
 	./script/lint-html-links
 	./script/lint-yaml-file .travis.yml \
