@@ -3,7 +3,8 @@ import { Client } from 'elasticsearch';
 import { DatabaseConnection } from 'cp/service';
 import { sql } from '../record/query';
 
-const SQL = sql('sync');
+const debug = require('debug')('cp:search:updater');
+const query = sql('sync');
 
 export class LinkDefinition {
     constructor(public name: string, public fields: string[] = [],
@@ -22,7 +23,7 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
         def.field_label ? `${def.field_label} as __label` : '',
     ].concat(def.fields).filter(x => !!x);
 
-    return SQL({
+    return query({
         name: def.name,
         fields: fields,
     });
@@ -40,7 +41,7 @@ export function update(es: Client, db: DatabaseConnection, def: LinkDefinition,
         db.query(query, { replacements: { since } })
             .then(head)
             .then((rows: {}[]) => {
-                console.log(rows);
+                debug('got back %s rows for %s definition', rows.length, def.name);
                 resolve(rows.length);
             })
             .catch(err => {
