@@ -38,6 +38,8 @@ env:
     - secure: "TjAuUoW8peyuIum/SB6pLn7EXQ+dUhJ4oNXKpXFe7IFMV0KaOF0re6Fp0VazOGILn2znxnOmi/X8C5Mafo1d5lz4b1kRKc9QLCldN0bCbhFHikCcr6UYDkGKnLhH+q4QIgGNoZYPFCkpu1oPjGyAjBLJ8z7uhoKRMmvbYmIXZwHdm52Pq3iMmWEqsHiarz5s162cLMbb7HvwJNHQeFjwMagV1nElsoK27jK4A7OJsp0DUih73PeXoqNRF0GX05f68OJXgKeCG/O1CrFLyvvV4uiSOevzX5LjLyLwaHkkpQWvj9o2Z2qHLPUtxSc6MujkRc/uXR8XgUG4B3UOfJwgjb6xM2uByssLeqHjcy+E0Vmg1j4Qn2fp1GHR1aon8+XKLQZDMkYRab3ZfrQmbHjwAIdV9qIvLQaa9YRYPwbrLv95ybNcPM+mSyvftWn4TlnLW7vmnH/E+xYguUFlYEWJXUM92/n1D/1HHK+2Wv/Mhc1Is5hwun+FpknYOJnU55wiulDiiBzB+BZhYsZo58gh/v9bqGvSuYYuciXIHlwhJtBxLxtvyUTN+NAP3YJ3gOZJ5e1N72jJB6ITRNGoYe9evdgPpAEDelEy94Yx3b99LiKpPuWaBCHQCRUIelplvDlBp3GfrnFmOddrHAvUHnjWko7EV9w/7/m/EqLkysSiLI4="
 
 before_script:
+  # XXX what?
+  - npm install debug
   - psql -c 'create database travis_ci_test;' -U postgres
   - DEBUG=* make server &> server.log &
   - sleep 5
