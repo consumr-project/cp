@@ -136,9 +136,9 @@ build-client-app:
 
 build-client-bundle:
 ifdef DEBUG
-	$(browserify) $(build_dir)/src/client/main.js --debug > $(build_bundle_js)
+	$(browserify) $(build_dir)/src/client/main.js --external aws4 --debug > $(build_bundle_js)
 else
-	$(browserify) $(build_dir)/src/client/main.js | \
+	$(browserify) $(build_dir)/src/client/main.js --external aws4 | \
 		./node_modules/.bin/uglifyjs > $(build_bundle_js)
 endif
 
