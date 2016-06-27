@@ -51,4 +51,4 @@ after_failure:
   - cat server.log
 
 script:
-  - make lint test
+  - make lint check test
