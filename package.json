@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "a crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day",
   "main": "server.js",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/minond/cp",
   "engines": {
     "node": "5.3.0"
   },
@@ -19,12 +22,9 @@
     "type": "git",
     "url": "https://github.com/minond/cp.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/minond/cp/issues"
   },
-  "homepage": "https://github.com/minond/cp",
   "dependencies": {
     "acm": "2.0.1",
     "amqp": "0.2.4",
