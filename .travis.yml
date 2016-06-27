@@ -39,7 +39,7 @@ env:
 
 before_script:
   # XXX what?
-  - npm install debug
+  - npm install debug node-uuid
   - psql -c 'create database travis_ci_test;' -U postgres
   - DEBUG=* make server &> server.log &
   - sleep 5
