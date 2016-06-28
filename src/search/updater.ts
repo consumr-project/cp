@@ -1,4 +1,4 @@
-import { head, filter } from 'lodash';
+import { merge, head, filter, pick } from 'lodash';
 import { Client, Ack, Index } from 'elasticsearch';
 import { DatabaseConnection } from 'cp/service';
 import { UUID } from 'cp/lang';
@@ -52,7 +52,9 @@ export function get(db: DatabaseConnection, def: LinkDefinition, opt: UpdateOpti
                 resolve(rows);
             })
             .catch(err => {
-                console.error('error running query for %s. %s', def.name, err.stack);
+                console.error('error running query for %s. %s',
+                    def.name, err.stack);
+
                 reject(err);
             });
     });
@@ -78,13 +80,10 @@ export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefini
         es.bulk({
             body: rows.reduce((edit, row) => {
                 if (row.__deleted) {
-                    edit.push({
-                        delete: gen_index(def, row)
-                    });
+                    edit.push({ delete: gen_index(def, row) });
                 } else {
-                    edit.push({
-                        index: gen_index(def, row)
-                    });
+                    edit.push({ index: gen_index(def, row) });
+                    edit.push(merge({__label: row.__label}, pick(row, def.fields)));
                 }
 
                 return edit;
@@ -96,7 +95,9 @@ export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefini
                 resolve(ack);
             })
             .catch(err => {
-                console.error('error running elasticsearch update for %s. %s', def.name, err.stack);
+                console.error('error running elasticsearch update for %s. %s',
+                    def.name, err.stack);
+
                 reject(err);
             });
     });
