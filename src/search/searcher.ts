@@ -6,6 +6,8 @@ import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
 import { map } from 'lodash';
 import config = require('acm');
 
+export const IDX_RECORD = 'record';
+
 function get_meta(res: Results): SearchServiceResultMetadata {
     return {
         timed_out: res.timed_out,
