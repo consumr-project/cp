@@ -244,7 +244,7 @@ declare module 'elasticsearch' {
         body: {
             delete?: Index;
             index?: Index;
-        }[]
+        }[];
     }
 
     export class Client {
