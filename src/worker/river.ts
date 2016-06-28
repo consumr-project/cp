@@ -1,6 +1,6 @@
 import db_connect from '../service/dbms';
 import es_connect from '../service/elasticsearch';
-import { LinkDefinition, update } from '../search/updater';
+import { LinkDefinition, get } from '../search/updater';
 import { Minute } from '../lang';
 
 const log = require('debug')('worker:river');
@@ -15,7 +15,7 @@ const models = config('river.models').map(def =>
 models.map(model => log(model));
 export default function () {
     models.map(model => {
-        update(es, db, model, {
+        get(es, db, model, {
             since: Minute * 60 * 10000
         });
     });

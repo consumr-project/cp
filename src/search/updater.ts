@@ -1,6 +1,8 @@
 import { head } from 'lodash';
 import { Client } from 'elasticsearch';
+import { Dictionary } from 'lodash';
 import { DatabaseConnection } from 'cp/service';
+import { UUID } from 'cp/lang';
 import { sql } from '../record/query';
 
 const debug = require('debug')('cp:search:updater');
@@ -10,6 +12,12 @@ export class LinkDefinition {
     constructor(public name: string, public fields: string[] = [],
         public soft_delete = true, public field_primary_key = 'id',
         public field_label = 'name') {}
+}
+
+interface EntryDefinition extends Dictionary<any> {
+    __id: UUID;
+    __deleted: boolean;
+    __label: string;
 }
 
 interface UpdateOptions {
@@ -29,7 +37,7 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
     });
 }
 
-export function update(es: Client, db: DatabaseConnection, def: LinkDefinition,
+export function get(es: Client, db: DatabaseConnection, def: LinkDefinition,
     opt: UpdateOptions) {
 
     var since = opt.since instanceof Date ? opt.since :
@@ -37,15 +45,15 @@ export function update(es: Client, db: DatabaseConnection, def: LinkDefinition,
 
     var query = gen_query(db, def);
 
-    return new Promise<number>((resolve, reject) => {
+    return new Promise<EntryDefinition[]>((resolve, reject) => {
         db.query(query, { replacements: { since } })
             .then(head)
-            .then((rows: {}[]) => {
-                debug('got back %s rows for %s definition', rows.length, def.name);
-                resolve(rows.length);
+            .then((rows: EntryDefinition[]) => {
+                debug('found %s %s', rows.length, def.name);
+                resolve(rows);
             })
             .catch(err => {
-                console.error(err);
+                console.error('error running query for %s. %s', def.name, err.stack);
                 reject(err);
             });
     });
