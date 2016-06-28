@@ -17,6 +17,7 @@ export class LinkDefinition {
 interface EntryDefinition {
     __id: UUID;
     __deleted: boolean;
+    __created: boolean;
     __label: string;
     [field: string]: scalar;
 }
@@ -29,6 +30,7 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
     var fields = [
         def.field_primary_key ? `${def.field_primary_key} as __id` : '',
         def.soft_delete ? 'deleted_date is not null as __deleted' : '',
+        def.soft_delete ? 'created_date >= :since as __created' : '',
         def.field_label ? `${def.field_label} as __label` : '',
     ].concat(def.fields).filter(x => !!x);
 
@@ -71,9 +73,11 @@ function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
 export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefinition[]) {
     return new Promise<Ack>((resolve, reject) => {
         var to_delete = filter(rows, { __deleted: true }),
-            to_update = filter(rows, { __deleted: false });
+            to_create = filter(rows, { __deleted: false, __created: true }),
+            to_update = filter(rows, { __deleted: false, __created: false });
 
         debug('bulk elasticsearch edit');
+        debug('creating %s %s', to_create.length, def.name);
         debug('updating %s %s', to_update.length, def.name);
         debug('deleting %s %s', to_delete.length, def.name);
 
@@ -81,9 +85,12 @@ export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefini
             body: rows.reduce((edit, row) => {
                 if (row.__deleted) {
                     edit.push({ delete: gen_index(def, row) });
-                } else {
+                } else if (row.__created) {
                     edit.push({ index: gen_index(def, row) });
                     edit.push(merge({__label: row.__label}, pick(row, def.fields)));
+                } else {
+                    edit.push({ update: gen_index(def, row) });
+                    edit.push({ doc: merge({__label: row.__label}, pick(row, def.fields)) });
                 }
 
                 return edit;
