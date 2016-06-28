@@ -228,9 +228,29 @@ declare module 'elasticsearch' {
         };
     }
 
+    export interface Ack {
+        took: number;
+        errors: boolean;
+        items: any[];
+    }
+
+    export interface Index {
+        _index: string;
+        _type: string;
+        _id: string | number;
+    }
+
+    export interface BulkUpdate {
+        body: {
+            delete?: Index;
+            index?: Index;
+        }[]
+    }
+
     export class Client {
         constructor(Connection);
         search(query: Query): Promise<Results>;
+        bulk(update: BulkUpdate): Promise<Ack>;
     }
 }
 
