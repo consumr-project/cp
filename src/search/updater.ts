@@ -1,8 +1,8 @@
 import { head } from 'lodash';
 import { Client } from 'elasticsearch';
-import { Dictionary } from 'lodash';
 import { DatabaseConnection } from 'cp/service';
 import { UUID } from 'cp/lang';
+import { scalar } from '../lang';
 import { sql } from '../record/query';
 
 const debug = require('debug')('cp:search:updater');
@@ -14,10 +14,11 @@ export class LinkDefinition {
         public field_label = 'name') {}
 }
 
-interface EntryDefinition extends Dictionary<any> {
+interface EntryDefinition {
     __id: UUID;
     __deleted: boolean;
     __label: string;
+    [field: string]: scalar;
 }
 
 interface UpdateOptions {
@@ -37,9 +38,7 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
     });
 }
 
-export function get(es: Client, db: DatabaseConnection, def: LinkDefinition,
-    opt: UpdateOptions) {
-
+export function get(db: DatabaseConnection, def: LinkDefinition, opt: UpdateOptions) {
     var since = opt.since instanceof Date ? opt.since :
         new Date(Date.now() - opt.since.valueOf());
 
@@ -56,5 +55,11 @@ export function get(es: Client, db: DatabaseConnection, def: LinkDefinition,
                 console.error('error running query for %s. %s', def.name, err.stack);
                 reject(err);
             });
+    });
+}
+
+export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefinition[]) {
+    return new Promise<number>((resolve, reject) => {
+        resolve(1);
     });
 }

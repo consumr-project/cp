@@ -2,6 +2,8 @@
  * XXX replace cp/lang module?
  */
 
+export type scalar = number | string | boolean;
+
 export type Duration = number;
 
 export const Millisecond: Duration = 1;

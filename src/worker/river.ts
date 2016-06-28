@@ -1,22 +1,21 @@
 import db_connect from '../service/dbms';
 import es_connect from '../service/elasticsearch';
-import { LinkDefinition, get } from '../search/updater';
-import { Minute } from '../lang';
+import { LinkDefinition, get, elasticsearch } from '../search/updater';
+import { Duration } from '../lang';
 
 const log = require('debug')('worker:river');
-const db = db_connect();
-const es = es_connect();
-
 const config = require('acm');
 const models = config('river.models').map(def =>
     new LinkDefinition(def.name, def.fields, def.soft_delete,
         def.primary_key, def.label));
 
-models.map(model => log(model));
-export default function () {
-    models.map(model => {
-        get(es, db, model, {
-            since: Minute * 60 * 10000
-        });
-    });
+export default function (since: Duration) {
+    var db = db_connect(),
+        es = es_connect();
+
+    models.map(model => log(model));
+    Promise.all(models.map(model => get(db, model, { since })
+        .then(rows => elasticsearch(es, model, rows))
+        .then(ack => log('done updating %s', model.name))))
+            .then(db.close.bind(db));
 };
