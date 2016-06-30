@@ -9,15 +9,16 @@
 
 a.snav__item,
 .snav__item {
-    color: var(--color-light-text-color);
     display: inline-block;
-    font-size: var(--font-size-small);
-    font-weight: 700;
-    letter-spacing: 1px;
     outline: none;
     padding: var(--spacing-xsmall);
     text-transform: uppercase;
     transition: color var(--speed-fast);
+
+    color: var(--color-light-text-color);
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .snav .snav__item {

@@ -25,14 +25,17 @@
 .tag-elem.keyword {
     border-radius: 2px;
     border: 1px solid var(--color-std-border-color);
-    font-size: 12px;
-    font-weight: 700;
     margin-bottom: var(--inline-element-large-gutter);
     margin-right: var(--inline-element-large-gutter);
     padding: var(--spacing-xsmall) calc(var(--spacing-xsmall) + 2);
     text-transform: uppercase;
     transition: color var(--speed-fast), background-color var(--speed-fast);
     white-space: nowrap;
+
+    color: var(--color-light-text-color);
+    font-size: calc(var(--font-size-small) - 1);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .tag-elem.keyword[active="true"] {

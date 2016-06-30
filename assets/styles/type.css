@@ -80,7 +80,7 @@ h2 {
 
 h1 {
     font-size: var(--font-size-xxlarge);
-    line-height: var(--font-height-h1);
+    line-height: var(--font-height-large);
 }
 
 h2 {
@@ -101,6 +101,7 @@ h3 {
 h4 {
     font-size: 14px;
     font-weight: 100;
+    letter-spacing: 1px;
     margin: 5px 0;
     text-transform: uppercase;
 }

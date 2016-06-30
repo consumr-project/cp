@@ -71,7 +71,7 @@ avatar.avatar--block .avatar__name,
 avatar.avatar--block .avatar__title {
     font-size: var(--font-size-xxlarge);
     font-weight: normal;
-    line-height: var(--font-height-h1);
+    line-height: var(--font-height-large);
 }
 
 avatar.avatar--block .avatar__title {
