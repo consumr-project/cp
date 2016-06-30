@@ -4,6 +4,7 @@ button {
     color: white;
     font-size: var(--font-size-small);
     font-weight: 700;
+    letter-spacing: 1px;
     min-height: var(--computed-button-height);
     min-width: var(--computed-button-height);
     text-transform: uppercase;

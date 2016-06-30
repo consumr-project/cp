@@ -1,3 +1,7 @@
+.chart {
+    letter-spacing: 1px;
+}
+
 .chart__label {
     text-transform: uppercase;
     font-weight: 700;
