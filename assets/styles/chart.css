@@ -46,9 +46,10 @@
     background-image: url(/assets/images/heart-white.svg);
     background-size: contain;
     display: inline-block;
-    height: 25px;
-    margin-left: -1px;
-    width: 25px;
+    height: 22px;
+    margin-left: 1px;
+    opacity: .5;
+    width: 22px;
 }
 
 .chart[value="1"] .chart--heartcount__1,
