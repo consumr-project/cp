@@ -3,7 +3,7 @@ import * as record from './record';
 import * as Schema from 'cp/record';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
-import { service_handler, runtime_purge_allowed } from '../utilities';
+import { has_all_fields, service_handler, runtime_purge_allowed } from '../utilities';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
@@ -94,17 +94,23 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
     }));
 
     app.post('/favorite', service_handler((req, res, next) => {
+        let fields = ['id', 'p_id', 'p_otype'];
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
             name: req.user.name,
+
             obj_id: req.body.id,
             obj_otype: OTYPE.EVENT,
             obj_name: req.body.id,
+
+            p_obj_id: req.body.p_id,
+            p_obj_otype: req.body.p_otype,
+            p_obj_name: '',
         });
 
-        if (!req.body.id) {
-            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(['id'])));
+        if (!has_all_fields(fields, req.body)) {
+            next(new BadRequestError(ERR_MSG_MISSING_FIELDS(fields)));
             return;
         }
 

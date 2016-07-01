@@ -2,9 +2,12 @@ import { UUID } from 'cp/lang';
 import uuid = require('node-uuid');
 import shasum = require('shasum');
 
+// XXX why does this live here?
 export enum OTYPE {
-    USER = <any>'user',
+    COMPANY = <any>'company',
     EVENT = <any>'event',
+    TAG = <any>'tag',
+    USER = <any>'user',
 }
 
 export enum CATEGORY {
@@ -31,11 +34,17 @@ export interface MultipleTargetPayload extends SingularTargetPayload {
     obj_name: string;
 }
 
+export interface ParentedTargetPayload extends MultipleTargetPayload {
+    p_obj_id: UUID;
+    p_obj_otype: OTYPE;
+    p_obj_name: string;
+}
+
 export interface FollowedNotificationPayload
     extends SingularTargetPayload {}
 
 export interface FavoritedNotificationPayload
-    extends MultipleTargetPayload {}
+    extends ParentedTargetPayload {}
 
 export interface ContributedNotificationPayload
     extends MultipleTargetPayload {}
