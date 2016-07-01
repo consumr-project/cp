@@ -4,7 +4,7 @@ import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
-    Dictionary } from 'lodash';
+    values, Dictionary } from 'lodash';
 
 import * as q from 'q';
 import uuid = require('node-uuid');
@@ -189,8 +189,8 @@ export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): Request
         // mismatching prop_remap to req.* is resulting in `delete from X`
         // queries
         for (var prop in prop_remap) {
-            if (prop_remap.hasOwnProperty(prop) && !req.params[prop]) {
-                next(new BadRequestError(ERR_MSG_MISSING_FIELDS(Object.keys(prop_remap))));
+            if (prop_remap.hasOwnProperty(prop) && !req.params[prop_remap[prop]]) {
+                next(new BadRequestError(ERR_MSG_MISSING_FIELDS(values<string>(prop_remap))));
                 return;
             }
         }
