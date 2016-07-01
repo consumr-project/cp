@@ -177,6 +177,12 @@ namespace tcp {
                 resolve: { UserCheck, PageView }
             });
 
+            $routeProvider.when('/company/id/:id/event/:event_id', {
+                template: '<company class="site-content" id="{{id}}"></company>',
+                controller: PropSetterController(['id']),
+                resolve: { UserCheck, PageView }
+            });
+
             $routeProvider.when('/company/:guid?', {
                 template: '<company class="site-content" guid="{{guid}}" create="{{create}}"></company>',
                 controller: PropSetterController(['guid'], ['create']),
