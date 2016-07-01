@@ -276,7 +276,7 @@ patch('/reviews/:review_id/useful',
 del('/reviews/:review_id/useful/:user_id',
     can('update', 'review'),
     remove(models.ReviewUsefulness, {review_id: 'review_id', user_id: 'user_id'}));
-del('/reviews/:review_id',
+del('/reviews/:id',
     can('delete', 'review'),
     remove(models.Review));
 

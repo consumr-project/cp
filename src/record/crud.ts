@@ -1,6 +1,7 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
+import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     Dictionary } from 'lodash';
@@ -178,12 +179,21 @@ export function update(model: Model<any, any>): RequestHandler {
  * retrieved from the CP_PURGE_KEY env var.
  */
 export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
-    return (req, res) => {
+    return (req, res, next) => {
         var deleted_by = req.user.id,
             where = { deleted_date: null },
             force = req.query.purge === 'true' &&
                 req.query.purge_key === process.env.CP_PURGE_KEY &&
                 process.env.CP_PURGE_KEY;
+
+        // mismatching prop_remap to req.* is resulting in `delete from X`
+        // queries
+        for (var prop in prop_remap) {
+            if (prop_remap.hasOwnProperty(prop) && !req.params[prop]) {
+                next(new BadRequestError(ERR_MSG_MISSING_FIELDS(Object.keys(prop_remap))));
+                return;
+            }
+        }
 
         error_handler(res, (<any>model).sequelize.transaction(transaction =>
             model.update({ deleted_by }, build_query(prop_remap, req.params,
