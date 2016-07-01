@@ -99,6 +99,7 @@ angular.module('tcp').directive('company', [
             '                filters="vm.events_filter" ',
             '                api="vm.events_timeline" ',
             '                parent="companies" ',
+            '                event-id="{{eventId}}"',
             '                id="{{company.id}}"></timeline>',
             '        </section>',
 
@@ -570,6 +571,7 @@ angular.module('tcp').directive('company', [
             scope: {
                 model: '=',
                 id: '@',
+                eventId: '@',
                 guid: '@',
                 create: '@'
             },

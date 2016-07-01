@@ -151,6 +151,12 @@ angular.module('tcp').directive('timeline', [
                     .then(highlight_most_bookmarked_events)
                     .then(function () {
                         set_filtered_events($scope.filters);
+
+                        if ($attrs.eventId) {
+                            $scope.view(lodash.find($scope.events, {
+                                id: $attrs.eventId,
+                            }) || {});
+                        }
                     });
             };
 

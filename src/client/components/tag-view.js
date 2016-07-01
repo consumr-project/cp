@@ -3,6 +3,7 @@ angular.module('tcp').component('tagView', {
         common_companies: '=?',
         common_companies_limit: '=?',
         event_form: '=?',
+        eventId: '@',
         event_popover: '=?',
         events_timeline: '=?',
         followed_by_me: '=?',
@@ -41,6 +42,7 @@ angular.module('tcp').component('tagView', {
             '    <timeline class="component__timeline"',
             '        api="$ctrl.events_timeline"',
             '        parent="tags"',
+            '        event-id="{{$ctrl.eventId}}"',
             '        id="{{$ctrl.id}}"></timeline>',
 
             '        <popover with-close-x with-backdrop api="$ctrl.event_popover" class="popover--with-content">',
