@@ -516,10 +516,16 @@ angular.module('tcp').service('Services', [
 
         /**
          * @param {String} id
+         * @param {String} p_id
+         * @param {String} p_otype
          * @return {Promise}
          */
-        notificationService.notify.favorite = function (id) {
-            return post('/service/notification/favorite', {id: id});
+        notificationService.notify.favorite = function (id, p_id, p_otype) {
+            return post('/service/notification/favorite', {
+                id: id,
+                p_id: p_id,
+                p_otype: p_otype
+            });
         };
 
         /**

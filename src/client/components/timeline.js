@@ -211,6 +211,18 @@ angular.module('tcp').directive('timeline', [
              * @return {Boolean}
              */
             $scope.toggle_favorite = function ($ev, ev) {
+                var otype;
+
+                switch ($attrs.parent) {
+                    case 'companies':
+                        otype = DOMAIN.model.company;
+                        break;
+
+                    case 'tags':
+                        otype = DOMAIN.model.tag;
+                        break;
+                }
+
                 $ev.preventDefault();
                 $ev.stopPropagation();
 
@@ -229,7 +241,8 @@ angular.module('tcp').directive('timeline', [
                     ev.bookmark_count++;
 
                     Services.query.events.bookmarks.upsert(ev.id, { user_id: Session.USER.id })
-                        .then(Services.notification.notify.favorite.bind(null, ev.id));
+                        .then(Services.notification.notify.favorite
+                            .bind(null, ev.id, $scope.id, otype));
                 }
             };
 
