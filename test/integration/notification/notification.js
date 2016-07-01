@@ -50,6 +50,8 @@ tapes('notifications', t => {
 
         http.post('/service/notification/favorite', {
             id: event.id,
+            p_id: event.id,
+            p_otype: 'tag',
         }).end((err, res) => {
             st.error(err);
             ids_to_look_for.push(res.body.body.id);
