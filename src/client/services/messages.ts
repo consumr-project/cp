@@ -1,7 +1,7 @@
 import { filter, get, reduce, groupBy as group_by } from 'lodash';
 import { I18n } from 'cp/client';
 
-import Message, { MessagePresentation, NOTIFICATION } from '../../notification/message';
+import Message, { MessagePresentation, NOTIFICATION, OTYPE } from '../../notification/message';
 
 import striptags = require('striptags');
 
@@ -75,12 +75,24 @@ export function stringify(i18n: I18n, messages: Message[]): string {
 }
 
 export function link(message: Message): string {
+    var payload = message.payload;
+    var otype;
+
+    switch (payload.p_obj_otype) {
+        case OTYPE.COMPANY:
+            otype = 'company';
+            break;
+
+        case OTYPE.TAG:
+            otype = 'tag';
+            break;
+    }
+
     switch (message.subcategory) {
-        // XXX this should point to the company or tag (parent of event) page
-        case NOTIFICATION.CONTRIBUTED: return `/company/id/54a822b5-819e-416a-af94-65e041dc8381/event/${message.payload.obj_id}`;
-        case NOTIFICATION.FAVORITED: return `/company/id/54a822b5-819e-416a-af94-65e041dc8381/event/${message.payload.obj_id}`;
+        case NOTIFICATION.CONTRIBUTED: return `/${otype}/id/${payload.p_obj_id}/event/${payload.obj_id}`;
+        case NOTIFICATION.FAVORITED: return `/${otype}/id/${payload.p_obj_id}/event/${payload.obj_id}`;
         case NOTIFICATION.FOLLOWED: return '/user/me/followers/users';
-        case NOTIFICATION.MODIFIED: return `/company/id/54a822b5-819e-416a-af94-65e041dc8381/event/${message.payload.obj_id}`;
+        case NOTIFICATION.MODIFIED: return `/${otype}/id/${payload.p_obj_id}/event/${payload.obj_id}`;
         default: return;
     }
 }
