@@ -171,6 +171,18 @@ namespace tcp {
                 resolve: { UserCheck, PageView }
             });
 
+            $routeProvider.when('/tag/id/:id', {
+                template: '<tag-view class="site-content" id="{{id}}"></tag-view>',
+                controller: PropSetterController(['id']),
+                resolve: { UserCheck, PageView }
+            });
+
+            $routeProvider.when('/tag/id/:id/event/:event_id', {
+                template: '<tag-view class="site-content" id="{{id}}" event-id="{{event_id}}"></tag-view>',
+                controller: PropSetterController(['id', 'event_id']),
+                resolve: { UserCheck, PageView }
+            });
+
             $routeProvider.when('/company/id/:id', {
                 template: '<company class="site-content" id="{{id}}"></company>',
                 controller: PropSetterController(['id']),
@@ -178,8 +190,8 @@ namespace tcp {
             });
 
             $routeProvider.when('/company/id/:id/event/:event_id', {
-                template: '<company class="site-content" id="{{id}}"></company>',
-                controller: PropSetterController(['id']),
+                template: '<company class="site-content" id="{{id}}" event-id="{{event_id}}"></company>',
+                controller: PropSetterController(['id', 'event_id']),
                 resolve: { UserCheck, PageView }
             });
 
