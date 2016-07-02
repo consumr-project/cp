@@ -1,14 +1,15 @@
 import * as express from 'express';
+import es from '../service/elasticsearch';
 
 import { conn } from './record';
 import { sql, query } from '../record/query';
-import { fuzzy, search } from '../search/searcher';
-
-import Elasticsearch = require('elasticsearch');
-import config = require('acm');
+import { fuzzy, normalize, IDX_RECORD } from '../search/searcher';
+import { service_handler } from '../utilities';
 
 export var app = express();
-export var es = new Elasticsearch.Client({ host: config('elasticsearch.host') });
 
-app.get('/fuzzy', search(es, fuzzy));
 app.get('/query', query(conn, sql('search')));
+app.get('/fuzzy', service_handler(req => fuzzy(es(), {
+    index: IDX_RECORD,
+    query: req.query.q,
+}), normalize));

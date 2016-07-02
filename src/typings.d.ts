@@ -124,16 +124,12 @@ declare module 'cp/record' {
 }
 
 declare module 'cp/search' {
-    import { Client as Elasticsearch, Results } from 'elasticsearch';
-
-    type Searcher = (es: Elasticsearch, q: Query) => Promise<Results>;
-
     interface Query {
         from?: number;
         index: string;
         query: string;
         size?: number;
-        type: string;
+        type?: string;
     }
 
     interface Result {

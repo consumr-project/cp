@@ -1,22 +1,12 @@
-import { ServiceRequestHandler, SearchServiceResultMetadata,
-    ServiceResponseV1 } from 'cp';
-
-import { Searcher, Query, Result } from 'cp/search';
-import { Client as Elasticsearch, Hit, Results } from 'elasticsearch';
+import { ServiceResponseV1 } from 'cp';
+import { Query, Result } from 'cp/search';
+import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
 import { map } from 'lodash';
 import config = require('acm');
 
 export const IDX_RECORD = 'record';
 
-function get_meta(res: Results): SearchServiceResultMetadata {
-    return {
-        timed_out: res.timed_out,
-        took: res.took,
-        total: res.hits.total,
-    };
-}
-
-function make_result(hit: Hit): Result {
+function hit_to_result(hit: Hit): Result {
     return {
         id: hit._id,
         index: hit._index,
@@ -26,10 +16,13 @@ function make_result(hit: Hit): Result {
     };
 }
 
-function make_response(res: Results): ServiceResponseV1<Result> {
+export function normalize(res: Results): ServiceResponseV1<Result[]> {
     return {
-        meta: get_meta(res),
-        body: map(res.hits.hits, make_result),
+        meta: {
+            ok: true,
+            took: res.took,
+        },
+        body: map<Hit, Result>(res.hits.hits, hit_to_result)
     };
 }
 
@@ -48,10 +41,4 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
             }
         }
     });
-}
-
-export function search(es: Elasticsearch, searcher: Searcher): ServiceRequestHandler {
-    return (req, res, next) =>
-        searcher(es, req.query).then(body =>
-            res.json(make_response(body)));
 }
