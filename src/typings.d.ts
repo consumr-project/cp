@@ -8,19 +8,13 @@ declare module 'cp' {
 
     interface ServiceResponseV1<T> {
         body: T | Array<T> | { [index: string]: T };
-        meta: ServiceResultMetadata | SearchServiceResultMetadata | any;
+        meta: ServiceResultMetadata | any;
     }
 
     interface ServiceResultMetadata {
         ok: boolean;
         took?: number;
         from_cache?: boolean;
-    }
-
-    interface SearchServiceResultMetadata {
-        timed_out: boolean;
-        took: number;
-        total: number;
     }
 }
 
