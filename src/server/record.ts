@@ -1,6 +1,3 @@
-import { ServiceResponseV1 } from 'cp';
-import { Request, Response } from 'express';
-
 import { ServiceUnavailableError } from '../errors';
 import * as express from 'express';
 import * as crud from '../record/crud';
