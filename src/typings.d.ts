@@ -8,13 +8,14 @@ declare module 'cp' {
 
     interface ServiceResponseV1<T> {
         body: T | Array<T> | { [index: string]: T };
-        meta: ServiceResultMetadata | any;
+        meta: ServiceResultMetadata;
     }
 
     interface ServiceResultMetadata {
         ok: boolean;
         took?: number;
         from_cache?: boolean;
+        message?: string;
     }
 }
 

@@ -29,8 +29,7 @@ function error(res: Response, err: Error) {
     res.json(<ServiceResponseV1<SDict>>{
         meta: {
             ok: false,
-            error: true,
-            error_msg: err.message
+            message: err.message,
         },
         body: {}
     });

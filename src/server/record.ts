@@ -398,7 +398,7 @@ app.use((err: any, req: Request, res: Response, next: Function) => {
     res.json(<ServiceResponseV1<void>>{
         meta: {
             ok: false,
-            error_msg: err.message
+            message: err.message
         },
         body: {}
     });
