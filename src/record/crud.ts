@@ -1,7 +1,7 @@
 import { ServiceResponseV1 } from 'cp';
 import { Request, Response } from 'express';
 import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
-import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
+import { BadRequestError, ERR_MSG_MISSING_FIELDS, ERR_MSG_INVALID_PARTS } from '../errors';
 
 import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     values, Dictionary } from 'lodash';
@@ -24,6 +24,7 @@ interface QueryResultsModelMeta  {
     includes_me?: boolean;
 }
 
+// XXX remove this and just use `next`
 function error(res: Response, err: Error) {
     res.status(500);
     res.json(<ServiceResponseV1<SDict>>{
@@ -105,6 +106,7 @@ function populate_extra_parameters(req: Request, extra_params: Object) {
     }
 }
 
+// XXX remove this and just use `next`
 function error_handler(res: Response, action): any {
     return action.catch(err =>
         error(res, err));
@@ -218,7 +220,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         prop_remap = {id: 'id'};
     }
 
-    return (req, res) => {
+    return (req, res, next) => {
         var parts_wanted = arr_filter((req.query.parts || '').split(',')),
             expand_wanted = arr_filter((req.query.expand || '').split(',')),
             bad_parts = [],
@@ -232,7 +234,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         });
 
         if (bad_parts.length) {
-            error(res, new Error(`Invalid part(s): ${bad_parts.join(', ')}`));
+            next(new BadRequestError(`Invalid part(s): ${bad_parts.join(', ')}`));
             return;
         }
 

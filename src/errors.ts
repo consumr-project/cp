@@ -12,6 +12,9 @@ export const ERR_MSG_RBAC_FAILURE = (role: string, action: string, resource: str
 export const ERR_MSG_MISSING_FIELDS = (fields: string[]) =>
     `Missing fields. Required: ${fields.join(', ')}`;
 
+export const ERR_MSG_INVALID_PARTS = (parts: string[]) =>
+    `Invalid part(s): ${parts.join(', ')}`;
+
 // @link https://tools.ietf.org/html/rfc7231
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 export class HttpError extends Error {
