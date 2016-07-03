@@ -12,4 +12,5 @@ app.get('/query', query(conn, sql('search')));
 app.get('/fuzzy', service_handler(req => fuzzy(es(), {
     index: IDX_RECORD,
     query: req.query.q,
+    type: ['companies', 'users', 'tags'],
 }), normalize));

@@ -124,7 +124,7 @@ declare module 'cp/search' {
         index: string;
         query: string;
         size?: number;
-        type?: string;
+        type?: string[];
     }
 
     interface Result {

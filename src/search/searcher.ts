@@ -31,7 +31,7 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
         from: query.from,
         index: query.index,
         size: query.size,
-        type: query.type,
+        type: query.type.join(','),
         body: {
             query: {
                 fuzzy_like_this: {
