@@ -234,7 +234,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
         });
 
         if (bad_parts.length) {
-            next(new BadRequestError(`Invalid part(s): ${bad_parts.join(', ')}`));
+            next(new BadRequestError(ERR_MSG_INVALID_PARTS(bad_parts)));
             return;
         }
 
