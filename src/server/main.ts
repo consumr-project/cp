@@ -6,6 +6,7 @@ import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
+import { ServiceResponseV1 } from 'cp';
 import { HttpError } from '../errors';
 import * as auth_service from './auth';
 import * as express from 'express';
@@ -80,8 +81,19 @@ app.use((err: any, req, res, next) => {
         } else {
             res.status(500);
         }
-        res.render('index', { debugging, err,
-            lang: req.cookies.lang });
+
+        if (/^\/service\//.test(req.url)) {
+            res.json(<ServiceResponseV1<void>>{
+                meta: {
+                    ok: false,
+                    message: err.message,
+                },
+                body: {}
+            });
+        } else {
+            res.render('index', { debugging, err,
+                lang: req.cookies.lang });
+        }
     }
 });
 
