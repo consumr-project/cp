@@ -2,7 +2,7 @@ import { merge, head, filter, pick } from 'lodash';
 import { Client, Ack, Index } from 'elasticsearch';
 import { DatabaseConnection } from 'cp/service';
 import { UUID } from 'cp/lang';
-import { IDX_RECORD } from './searcher';
+import { INDEX } from './searcher';
 import { scalar } from '../lang';
 import { sql } from '../record/query';
 
@@ -65,7 +65,7 @@ export function get(db: DatabaseConnection, def: LinkDefinition, opt: UpdateOpti
 
 function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
     return {
-        _index: IDX_RECORD,
+        _index: INDEX.RECORD.toString(),
         _type: def.name,
         _id: row.__id,
     };

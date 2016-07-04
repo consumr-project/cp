@@ -119,14 +119,6 @@ declare module 'cp/record' {
 }
 
 declare module 'cp/search' {
-    interface Query {
-        from?: number;
-        index: string;
-        query: string;
-        size?: number;
-        type?: string[];
-    }
-
     interface Result {
         id: string;
         index: string;

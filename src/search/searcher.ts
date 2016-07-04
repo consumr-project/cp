@@ -1,10 +1,28 @@
 import { ServiceResponseV1 } from 'cp';
-import { Query, Result } from 'cp/search';
+import { Result } from 'cp/search';
 import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
 import { map } from 'lodash';
 import config = require('acm');
 
 export const IDX_RECORD = 'record';
+
+export enum INDEX {
+    RECORD = <any>'record',
+}
+
+export enum TYPE {
+    COMPANIES = <any>'companies',
+    TAGS = <any>'tags',
+    USERS = <any>'users',
+}
+
+interface Query {
+    from?: number;
+    index: INDEX;
+    query: string;
+    size?: number;
+    type?: TYPE[];
+}
 
 function hit_to_result(hit: Hit): Result {
     return {
@@ -29,7 +47,7 @@ export function normalize(res: Results): ServiceResponseV1<Result[]> {
 export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
     return es.search({
         from: query.from,
-        index: query.index,
+        index: query.index.toString(),
         size: query.size,
         type: query.type.join(','),
         body: {
