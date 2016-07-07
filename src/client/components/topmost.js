@@ -235,7 +235,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        anchored-arrow="true"',
                 '        anchored-auto-hide="true"',
                 '    >',
-                '        <notifications ng-if="user.id" api="notifications"></notifications>',
+                '        <notifications ng-if="user.id && session.logged_in" api="notifications"></notifications>',
                 '    </popover>',
 
                 '    <popover',
