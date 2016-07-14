@@ -15,6 +15,7 @@ const fs = require('fs');
 const yaml = require('yamljs');
 const glob = require('glob');
 const each = require('lodash/each');
+const get = require('lodash/get');
 
 const cheerio = require('cheerio');
 const read = require('fs').readFileSync;
@@ -104,7 +105,8 @@ function gen_mf() {
  * @return {void}
  */
 function command_generate(options) {
-    var mf = gen_mf();
+    var mf = gen_mf(),
+        name = options.is_default ? 'def_strings' : 'strings';
 
     glob(options.strings_file, function (err, files) {
         var messages = {};
@@ -117,9 +119,9 @@ function command_generate(options) {
             messages[name] = parsed;
         });
 
-        console.log('window.%s = {};', program['var']);
+        console.log('window.%s = window.%s || {};', program['var'], program['var']);
         console.log('window.%s.get = %s;', program['var'], i18n_get_function.toString());
-        console.log('window.%s.strings = (%s)();', program['var'], mf.compile(messages).toString());
+        console.log('window.%s.%s = (%s)();', program['var'], name, mf.compile(messages).toString());
     });
 }
 
@@ -130,15 +132,30 @@ function command_generate(options) {
  * @return {String}
  */
 function i18n_get_function(path, data) {
-    var parts = path.split('/'),
-        fn = parts.pop(),
-        name = parts.join('/');
+    var parts = path.split('/');
 
-    if (!(fn in this.strings[name])) {
+    var get = function (holder, path) {
+        var val = holder;
+
+        for (var i = 0, len = path.length; i < len; i++) {
+            if (!val) {
+                return;
+            }
+
+            val = val[path[i]];
+        }
+
+        return val;
+    };
+
+    var generator = get(this.strings, parts) ||
+        get(this.def_strings, parts);
+
+    if (!generator) {
         throw new Error('i18n key does not exists: ' + path);
     }
 
-    return this.strings[name][fn](data);
+    return generator(data);
 }
 
 /**
@@ -194,6 +211,7 @@ program
     .description('generate locale strings object')
     .option('--strings_file <file>', 'strings file match')
     .option('--strings_extra <str>', 'strings file non-file name match')
+    .option('--is_default', 'compile as default strings?')
     .action(command_generate);
 
 program

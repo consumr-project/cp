@@ -105,7 +105,7 @@ optimize:
 
 build-strings:
 	./script/compile-string-files generate  --var $(i18n_varname) \
-		$(call i18n_locale_arguments,en) | $(js_min) > $(build_dir)/i18n.en.js
+		$(call i18n_locale_arguments,en) --is_default | $(js_min) > $(build_dir)/i18n.en.js
 	./script/compile-string-files generate  --var $(i18n_varname) \
 		$(call i18n_locale_arguments,lolcat) | $(js_min) > $(build_dir)/i18n.lolcat.js
 
