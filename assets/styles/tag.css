@@ -1,7 +1,11 @@
 /* TODO use BEM */
 
 .tag-elem {
+    clear: both;
     display: inline-block;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tag-elem * {
