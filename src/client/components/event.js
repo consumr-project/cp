@@ -453,22 +453,6 @@ angular.module('tcp').directive('event', [
                         Session.emit(Session.EVENT.NOTIFY);
                         $scope.onSave({ ev: ev, children: res });
 
-                        // XXX
-                        !new_companies_created.length && new_companies_created.push({
-                            "id":"5d374e70-9694-4dcf-ac25-9ce679478aac",
-                            "name":"ten",
-                            "guid":"ten",
-                            "created_by":"4a9cb039-2a8c-458e-839f-78b4d951c226",
-                            "updated_by":"4a9cb039-2a8c-458e-839f-78b4d951c226",
-                            "deleted_date":null,
-                            "updated_date":"2016-07-14t01:02:16.681z",
-                            "created_date":"2016-07-14t01:02:16.681z",
-                            "summary":null,
-                            "website_url":null,
-                            "wikipedia_url":null,
-                            "deleted_by":null
-                        });
-
                         if (new_companies_created.length) {
                             $scope.onEvent({
                                 type: EVENTS.INCOMPLETE_COMPANY_CREATED,
