@@ -64,9 +64,9 @@ angular.module('tcp').directive('company', [
             '            </tr>',
             '        </table>',
 
-            '    <message ng-if="vm.show_event_added_msg" type="success"',
-            '        class="margin-top-medium message-elem--banner"',
-            '        i18n="event/good_job_thanks"></message>',
+            '        <message ng-if="vm.show_event_added_msg" type="success"',
+            '            class="margin-top-medium message-elem--banner"',
+            '            i18n="event/good_job_thanks"></message>',
 
             '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
             '            class="margin-bottom-xlarge"',
