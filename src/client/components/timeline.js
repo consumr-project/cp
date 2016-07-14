@@ -285,9 +285,10 @@ angular.module('tcp').directive('timeline', [
             replace: true,
             controller: ['$scope', '$attrs', controller],
             scope: {
-                filters: '=',
                 api: '=',
+                filters: '=',
                 id: '@',
+                onEvent: '&',
             },
             template: [
                 '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
@@ -367,6 +368,7 @@ angular.module('tcp').directive('timeline', [
                 '            id="{{vm.selected_event_to_edit.id}}"',
                 '            api="vm.event_edit_form"',
                 '            on-save="load(); vm.add_event.hide(); vm.event_edit_form.reset()"',
+            '                on-event="onEvent({ type: type, data: data })"',
                 '            on-cancel="vm.event_edit_form.reset(); vm.add_event.hide()"',
                 '        ></event>',
                 '    </popover>',

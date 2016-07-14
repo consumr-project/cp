@@ -4,6 +4,8 @@ import * as Cookie from 'js-cookie';
 import { EventEmitter2 } from 'eventemitter2';
 import * as utils from './services/Utilities';
 import * as messages from './services/messages';
+import * as utils2 from '../utilities';
+import EVENTS from '../events';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
@@ -41,6 +43,7 @@ namespace tcp {
         .constant('ERRORED', ERRORED);
 
     angular.module('tcp')
+        .constant('EVENTS', EVENTS)
         .constant('RUNTIME', {
             locale: 'en-US',
         })
@@ -97,6 +100,7 @@ namespace tcp {
         .value('moment', moment)
         .value('shasum', shasum)
         .value('utils', utils)
+        .value('utils2', utils2)
         .value('Visitor', Visitor);
 
     angular.module('tcp').config([

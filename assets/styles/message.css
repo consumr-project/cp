@@ -26,13 +26,3 @@
 .message-elem--banner {
     margin-bottom: var(--spacing-medium);
 }
-
-@media (--media-content-aside-allowed) {
-    .message-elem--banner {
-        left: 0px;
-        position: absolute;
-        text-align: center;
-        top: var(--computed-header-height);
-        width: calc(100% - var(--content-aside-width));
-    }
-}

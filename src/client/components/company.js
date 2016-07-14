@@ -1,20 +1,21 @@
 angular.module('tcp').directive('company', [
     'RUNTIME',
+    'EVENTS',
     'DOMAIN',
     'Feature',
     'Navigation',
     'Services',
     'Session',
     'utils',
+    'utils2',
     'lodash',
     '$q',
-    function (RUNTIME, DOMAIN, Feature, Navigation, Services, Session, utils, lodash, $q) {
+    function (RUNTIME, EVENTS, DOMAIN, Feature, Navigation, Services, Session, utils, utils2, lodash, $q) {
         'use strict';
 
         var HTML_PAGE = [
             '<div class="company-component">',
             '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
-            // '    <message class="message-elem--banner" type="success">you added 5 new companies, good job! we just need a few more details.</message>',
 
             '    <section ng-if="vm.existing && company.$loaded" class="site-content--main">',
             '        <table class="full-span">',
@@ -63,6 +64,10 @@ angular.module('tcp').directive('company', [
             '            </tr>',
             '        </table>',
 
+            '    <message ng-if="vm.show_event_added_msg" type="success"',
+            '        class="margin-top-medium message-elem--banner"',
+            '        i18n="event/good_job_thanks"></message>',
+
             '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
             '            class="margin-bottom-xlarge"',
             '            on-save="hide_review_form()"',
@@ -99,6 +104,7 @@ angular.module('tcp').directive('company', [
             '                filters="vm.events_filter" ',
             '                api="vm.events_timeline" ',
             '                parent="companies" ',
+            '                on-event="event_handler(type, data)" ',
             '                event-id="{{eventId}}"',
             '                id="{{company.id}}"></timeline>',
             '        </section>',
@@ -106,7 +112,8 @@ angular.module('tcp').directive('company', [
             '        <popover with-close-x with-backdrop api="vm.add_event" class="popover--with-content">',
             '            <event',
             '                api="vm.event_form"',
-            '                on-save="vm.events_timeline.refresh(); vm.add_event.hide(); vm.event_form.reset()"',
+            '                on-save="event_added()"',
+            '                on-event="event_handler(type, data)"',
             '                on-cancel="vm.event_form.reset(); vm.add_event.hide()"',
             '                tied-to="{companies: [company]}"',
             '            ></event>',
@@ -248,6 +255,25 @@ angular.module('tcp').directive('company', [
                 show_review_form: false,
                 show_reviews: false,
                 show_events: true,
+                show_event_added_msg: false,
+            };
+
+            $scope.event_added = function () {
+                $scope.vm.events_timeline.refresh();
+                $scope.vm.add_event.hide();
+                $scope.vm.event_form.reset();
+                $scope.vm.show_event_added_msg = true;
+            };
+
+            $scope.event_handler = function (type, data) {
+                utils.assert(type > -1);
+                utils.assert(data);
+                data = utils2.as_array(data);
+
+                switch (type) {
+                    case EVENTS.INCOMPLETE_COMPANY_CREATED:
+                        break;
+                }
             };
 
             $scope.show_reviews = function () {

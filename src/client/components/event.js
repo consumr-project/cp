@@ -1,5 +1,6 @@
 angular.module('tcp').directive('event', [
     'RUNTIME',
+    'EVENTS',
     'DOMAIN',
     '$q',
     'lodash',
@@ -7,7 +8,7 @@ angular.module('tcp').directive('event', [
     'Services',
     'Session',
     'shasum',
-    function (RUNTIME, DOMAIN, $q, lodash, utils, Services, Session, shasum) {
+    function (RUNTIME, EVENTS, DOMAIN, $q, lodash, utils, Services, Session, shasum) {
         'use strict';
 
         var HTML_VIEW = [
@@ -374,7 +375,7 @@ angular.module('tcp').directive('event', [
         }
 
         function controller($scope) {
-            var has_missing_information = [];
+            var new_companies_created = [];
 
             $scope.vm = $scope.vm || {};
             $scope.ev = {
@@ -451,6 +452,29 @@ angular.module('tcp').directive('event', [
 
                         Session.emit(Session.EVENT.NOTIFY);
                         $scope.onSave({ ev: ev, children: res });
+
+                        // XXX
+                        !new_companies_created.length && new_companies_created.push({
+                            "id":"5d374e70-9694-4dcf-ac25-9ce679478aac",
+                            "name":"ten",
+                            "guid":"ten",
+                            "created_by":"4a9cb039-2a8c-458e-839f-78b4d951c226",
+                            "updated_by":"4a9cb039-2a8c-458e-839f-78b4d951c226",
+                            "deleted_date":null,
+                            "updated_date":"2016-07-14t01:02:16.681z",
+                            "created_date":"2016-07-14t01:02:16.681z",
+                            "summary":null,
+                            "website_url":null,
+                            "wikipedia_url":null,
+                            "deleted_by":null
+                        });
+
+                        if (new_companies_created.length) {
+                            $scope.onEvent({
+                                type: EVENTS.INCOMPLETE_COMPANY_CREATED,
+                                data: new_companies_created,
+                            });
+                        }
                     });
                 });
             };
@@ -472,7 +496,7 @@ angular.module('tcp').directive('event', [
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id
                 }).then(function (company) {
-                    has_missing_information.push(company);
+                    new_companies_created.push(company);
                     done(null, normalize_company(company));
                 }).catch(done);
             };
@@ -565,7 +589,8 @@ angular.module('tcp').directive('event', [
                 api: '=',
                 tiedTo: '=',
                 onCancel: '&',
-                onSave: '&'
+                onEvent: '&',
+                onSave: '&',
             },
         };
     }

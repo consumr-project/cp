@@ -80,3 +80,7 @@ export function runtime_purge_allowed(req: Request): boolean {
     return process.env.CP_PURGE_KEY &&
         req.query.purge_key === process.env.CP_PURGE_KEY;
 }
+
+export function as_array(val: Object): Object[] {
+    return val instanceof Array ? val : [val];
+}
