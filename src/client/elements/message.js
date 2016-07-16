@@ -9,31 +9,31 @@ angular.module('tcp').directive('message', [
 
             template: function ($elem, $attrs) {
                 var closex = !('closable' in $attrs) ? '' :
-                    '<div ng-click="close()" class="close-x"></div>';
-
-                var opentag = !('closable' in $attrs) ?
-                    '<div class="message-elem animated fadeIn">' :
-                    '<div ng-show="open" class="message-elem animated fadeIn">';
+                    '<div class="close-x is-clickable"></div>';
 
                 return [
-                    opentag,
-                    '<ng-transclude></ng-transclude>',
-                    closex,
+                    '<div class="message-elem animated fadeIn">',
+                        '<ng-transclude></ng-transclude>',
+                        closex,
                     '</div>',
                 ].join('');
             },
 
+            $scope: {},
+
             link: function (scope, elem, attr) {
                 elem.addClass('message-elem--' + attr.type);
-
-                scope.close = function () {
-                    _.set(scope, elem.attr('ng-if'), false);
-                };
+                elem.find('.close-x').on('click', function () {
+                    elem
+                        .removeClass('fadeIn')
+                        .animate({ opacity: 0 }, 150)
+                        .slideUp(400, function () {
+                            elem.hide();
+                            _.set(scope, elem.attr('ng-show'), false);
+                            _.set(scope, elem.attr('ng-if'), false);
+                        });
+                });
             },
-
-            controller: ['$scope', function ($scope) {
-                $scope.open = true;
-            }],
         };
     }
 ]);
