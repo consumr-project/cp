@@ -18,9 +18,10 @@ angular.module('tcp').directive('company', [
             '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
 
             '    <section ng-if="vm.existing && company.$loaded" class="site-content--main">',
-            '        <message ng-if="vm.show_event_added_msg" type="success"',
-            '            class="margin-top-large message-elem--banner"',
-            '            i18n="event/good_job_thanks"></message>',
+            '        <message closable ng-if="vm.show_event_added_msg" type="success"',
+            '            class="margin-top-large message-elem--banner">',
+            '            <span i18n="event/good_job_thanks"></span>',
+            '        </message>',
 
             '        <section ng-show="vm.new_companies_created.length" class="margin-bottom-xlarge">',
             '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
@@ -270,7 +271,7 @@ angular.module('tcp').directive('company', [
             $scope.will_not_update_company = function (company) {
                 $scope.vm.new_companies_created =
                     lodash.without($scope.vm.new_companies_created, company);
-            }
+            };
 
             $scope.event_added = function () {
                 $scope.vm.events_timeline.refresh();

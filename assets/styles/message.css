@@ -2,6 +2,7 @@
     color: white;
     font-weight: bold;
     padding: 15px;
+    position: relative;
     text-transform: uppercase;
 }
 
