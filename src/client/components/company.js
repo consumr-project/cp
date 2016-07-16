@@ -18,6 +18,18 @@ angular.module('tcp').directive('company', [
             '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
 
             '    <section ng-if="vm.existing && company.$loaded" class="site-content--main">',
+            '        <message ng-if="vm.show_event_added_msg" type="success"',
+            '            class="margin-top-large message-elem--banner"',
+            '            i18n="event/good_job_thanks"></message>',
+
+            '        <section ng-show="vm.new_companies_created.length" class="margin-bottom-xlarge">',
+            '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
+            '                <p class="snav__item snav__item--active" i18n="company/new_company_more_info" data="{ name: company.name }"></p>',
+            '                <button i18n="common/sure"></button>',
+            '                <button i18n="common/no_thanks" class="button--unselected"></button>',
+            '            </div>',
+            '        </section>',
+
             '        <table class="full-span">',
             '            <tr>',
             '                <td class="half-width">',
@@ -63,10 +75,6 @@ angular.module('tcp').directive('company', [
             '                </td>',
             '            </tr>',
             '        </table>',
-
-            '        <message ng-if="vm.show_event_added_msg" type="success"',
-            '            class="margin-top-medium message-elem--banner"',
-            '            i18n="event/good_job_thanks"></message>',
 
             '        <review company-id="{{company.id}}" company-name="{{company.name}}"',
             '            class="margin-bottom-xlarge"',
@@ -256,6 +264,7 @@ angular.module('tcp').directive('company', [
                 show_reviews: false,
                 show_events: true,
                 show_event_added_msg: false,
+                new_companies_created: [],
             };
 
             $scope.event_added = function () {
@@ -272,6 +281,7 @@ angular.module('tcp').directive('company', [
 
                 switch (type) {
                     case EVENTS.INCOMPLETE_COMPANY_CREATED:
+                        $scope.vm.new_companies_created = data;
                         break;
                 }
             };

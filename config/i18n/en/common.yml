@@ -44,5 +44,7 @@ percentage: "{num}%"
 
 yes: yes
 no: no
+sure: sure
+no_thanks: no thanks
 
 sort_by_col: "sort by:"
