@@ -82,6 +82,7 @@ footer.site-content {
     height: 50px;
 }
 
+.is-clickable,
 [ng-click],
 [ng-click] * {
     cursor: pointer;
