@@ -6,6 +6,10 @@
     text-transform: uppercase;
 }
 
+.message-elem * {
+    vertical-align: middle;
+}
+
 .message-elem + .message-elem {
     margin-top: var(--spacing-xsmall);
 }
