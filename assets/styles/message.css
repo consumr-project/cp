@@ -30,4 +30,5 @@
 
 .message-elem--banner {
     margin-bottom: var(--spacing-medium);
+    padding-right: 20%;
 }
