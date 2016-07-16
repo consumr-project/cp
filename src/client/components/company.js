@@ -26,7 +26,7 @@ angular.module('tcp').directive('company', [
             '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
             '                <p class="snav__item snav__item--active" i18n="company/new_company_more_info" data="{ name: company.name }"></p>',
             '                <button i18n="common/sure"></button>',
-            '                <button i18n="common/no_thanks" class="button--unselected"></button>',
+            '                <button ng-click="will_not_update_company(company)" i18n="common/no_thanks" class="button--unselected"></button>',
             '            </div>',
             '        </section>',
 
@@ -266,6 +266,11 @@ angular.module('tcp').directive('company', [
                 show_event_added_msg: false,
                 new_companies_created: [],
             };
+
+            $scope.will_not_update_company = function (company) {
+                $scope.vm.new_companies_created =
+                    lodash.without($scope.vm.new_companies_created, company);
+            }
 
             $scope.event_added = function () {
                 $scope.vm.events_timeline.refresh();
