@@ -19,6 +19,9 @@
         {% if err %}
         <script>window.ERRORED = true;</script>
         {% endif %}
+        {% if debugging %}
+        <script>window.DEBUGGING = true;</script>
+        {% endif %}
         <script src="build/vendor.js"></script>
         <script src="build/i18n.en.js"></script>
         <script src="build/bundle.js"></script>
@@ -28,7 +31,6 @@
         {% if not debugging %}
         <script src="build/client.js"></script>
         {% else %}
-        <script>window.DEBUGGING = true;</script>
         <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
         <script src="src/client/initializers/perf-stats.js"></script>
         <script src="src/client/initializers/keyboard-shortcuts.js"></script>
