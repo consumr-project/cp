@@ -1,31 +1,14 @@
 import { merge, head, filter, pick } from 'lodash';
-import { Client, Ack, Index } from 'elasticsearch';
+import { Client, Index } from 'elasticsearch';
 import { DatabaseConnection } from 'cp/service';
-import { UUID } from 'cp/lang';
 import { INDEX } from './searcher';
-import { scalar } from '../lang';
 import { sql } from '../record/query';
+
+import { GetterFunction, UpdaterFunction, EntryDefinition, GetterOptions,
+    LinkDefinition, UpdaterAck } from '../river/sync';
 
 const debug = require('debug')('cp:search:updater');
 const query = sql('sync');
-
-export class LinkDefinition {
-    constructor(public name: string, public fields: string[] = [],
-        public soft_delete = true, public field_primary_key = 'id',
-        public field_label = 'name') {}
-}
-
-interface EntryDefinition {
-    __id: UUID;
-    __deleted: boolean;
-    __created: boolean;
-    __label: string;
-    [field: string]: scalar;
-}
-
-interface UpdateOptions {
-    since: Date | number;
-}
 
 function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
     var fields = [
@@ -41,7 +24,19 @@ function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
     });
 }
 
-export function get(db: DatabaseConnection, def: LinkDefinition, opt: UpdateOptions) {
+function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
+    return {
+        _index: INDEX.RECORD.toString(),
+        _type: def.name,
+        _id: row.__id,
+    };
+}
+
+export const get: GetterFunction = function get(
+    db: DatabaseConnection,
+    def: LinkDefinition,
+    opt: GetterOptions
+) {
     var since = opt.since instanceof Date ? opt.since :
         new Date(Date.now() - opt.since.valueOf());
 
@@ -61,18 +56,14 @@ export function get(db: DatabaseConnection, def: LinkDefinition, opt: UpdateOpti
                 reject(err);
             });
     });
-}
+};
 
-function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
-    return {
-        _index: INDEX.RECORD.toString(),
-        _type: def.name,
-        _id: row.__id,
-    };
-}
-
-export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefinition[]) {
-    return new Promise<Ack>((resolve, reject) => {
+export const elasticsearch: UpdaterFunction = function elasticsearch(
+    es: Client,
+    def: LinkDefinition,
+    rows: EntryDefinition[]
+) {
+    return new Promise<UpdaterAck>((resolve, reject) => {
         var to_delete = filter(rows, { __deleted: true }),
             to_create = filter(rows, { __deleted: false, __created: true }),
             to_update = filter(rows, { __deleted: false, __created: false });
@@ -100,7 +91,7 @@ export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefini
             .then(ack => {
                 debug('done pushing updates to %s', def.name);
                 debug('took: %s, errors: %s', ack.took, ack.errors);
-                resolve(ack);
+                resolve({ ok: !ack.errors, def });
             })
             .catch(err => {
                 console.error('error running elasticsearch update for %s. %s',
@@ -109,4 +100,4 @@ export function elasticsearch(es: Client, def: LinkDefinition, rows: EntryDefini
                 reject(err);
             });
     });
-}
+};

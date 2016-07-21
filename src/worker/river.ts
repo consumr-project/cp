@@ -1,6 +1,7 @@
 import db_connect from '../service/dbms';
 import es_connect from '../service/elasticsearch';
-import { LinkDefinition, get, elasticsearch } from '../search/updater';
+import { get, elasticsearch } from '../search/updater';
+import { LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';
 
 const log = require('debug')('worker:river');
