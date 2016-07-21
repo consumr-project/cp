@@ -1,4 +1,4 @@
-import { UUID } from 'cp/lang';
+import { UUID } from '../lang';
 import { clone } from 'lodash';
 import { Collection, FindAndModifyWriteOpResultObject, UpdateWriteOpResult,
     DeleteWriteOpResultObject } from 'mongodb';

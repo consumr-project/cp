@@ -1,4 +1,4 @@
-import { UUID } from 'cp/lang';
+import { UUID } from '../lang';
 import uuid = require('node-uuid');
 import shasum = require('shasum');
 

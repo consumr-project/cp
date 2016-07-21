@@ -24,10 +24,6 @@ declare module 'cp/service' {
     export type DatabaseConnection = Sequelize;
 }
 
-declare module 'cp/lang' {
-    type UUID = string;
-}
-
 declare module 'cp/cache' {
     interface Options {
         ttl?: number;

@@ -1,5 +1,4 @@
-import { scalar } from '../lang';
-import { UUID } from 'cp/lang';
+import { UUID, scalar } from '../lang';
 
 export interface GetterOptions {
     since: Date | number;

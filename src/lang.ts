@@ -1,7 +1,4 @@
-/**
- * XXX replace cp/lang module?
- */
-
+export type UUID = string;
 export type scalar = number | string | boolean;
 
 export type Duration = number;
