@@ -6,12 +6,12 @@ import * as Schema from 'cp/record';
 import { roles } from './permissions';
 import { get } from 'lodash';
 import { parse } from 'url';
+import { v4 } from 'node-uuid';
 
 import * as passport from 'passport';
 import * as record from '../server/record';
 
 import config = require('acm');
-import uuid = require('node-uuid');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
 const User = record.models.User;
@@ -41,7 +41,7 @@ function generate_where(profile: Profile): WhereOptions {
 }
 
 function generate_user(profile: Profile): Schema.User {
-    var id = uuid.v4();
+    var id = v4();
 
     return {
         id: id,

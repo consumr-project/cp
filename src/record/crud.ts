@@ -7,7 +7,7 @@ import { merge, includes, each, clone, map, filter as arr_filter, reduce, find,
     values, Dictionary } from 'lodash';
 
 import * as q from 'q';
-import uuid = require('node-uuid');
+import { v4 } from 'node-uuid';
 
 const ID_MAP: SDict = { id: 'id' };
 const ID_FIELDS = [ 'id', 'updated_by', 'created_by' ];
@@ -89,7 +89,7 @@ function populate_uuids(body: Query): Query {
 
     return reduce(body, (prop_remap: SDict, val: string, field: string) => {
         if (replace_with_uuid(val, field)) {
-            id = id || uuid.v4();
+            id = id || v4();
             val = id;
         }
 

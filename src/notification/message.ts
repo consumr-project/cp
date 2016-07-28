@@ -1,5 +1,5 @@
 import { UUID } from '../lang';
-import uuid = require('node-uuid');
+import { v4 } from 'node-uuid';
 import shasum = require('shasum');
 
 // XXX why does this live here?
@@ -113,7 +113,7 @@ export default class Message {
     public payload: PAYLOAD;
 
     constructor(category, subcategory, to, payload) {
-        this.id = uuid.v4();
+        this.id = v4();
         this.date = new Date;
         this.category = category;
         this.subcategory = subcategory;
