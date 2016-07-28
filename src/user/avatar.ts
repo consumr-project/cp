@@ -2,9 +2,9 @@ import { WhereOptions } from 'sequelize';
 import { User } from 'cp/record';
 import * as record from '../server/record';
 import * as querystring from 'querystring';
+import * as config from 'acm';
 
 import md5 = require('md5');
-import config = require('acm');
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';

@@ -5,8 +5,8 @@ import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
 import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
 import { service_handler } from '../utilities';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
+import * as config from 'acm';
 
-import config = require('acm');
 import request = require('request');
 
 const EMBEDLY_URL = config('embedly.api.url');

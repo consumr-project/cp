@@ -3,9 +3,9 @@ import es_connect from '../service/elasticsearch';
 import { get, elasticsearch } from '../search/updater';
 import { LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';
+import * as config from 'acm';
 
 const log = require('debug')('worker:river');
-const config = require('acm');
 const models = config('river.models').map(def =>
     new LinkDefinition(def.name, def.fields, def.soft_delete,
         def.primary_key, def.label));

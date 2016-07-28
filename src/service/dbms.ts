@@ -1,5 +1,5 @@
+import * as config from 'acm';
 import Sequelize = require('sequelize');
-import config = require('acm');
 import debug = require('debug');
 
 export default (c = config) =>

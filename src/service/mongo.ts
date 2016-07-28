@@ -1,6 +1,6 @@
 import { Db, MongoClient } from 'mongodb';
 import * as debug from 'debug';
-import config = require('acm');
+import * as config from 'acm';
 
 var connection: Db;
 var connection_err: Error;

@@ -5,11 +5,11 @@ import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
 import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
 import { option, get_url_parts, service_handler } from '../utilities';
 import { get, filter, map, includes, head } from 'lodash';
+import * as config from 'acm';
 
 import { Tag, wikitext as parse_wikitext, infobox as parse_infobox,
     urls as parse_urls } from './parser';
 
-import config = require('acm');
 import striptags = require('striptags');
 import request = require('request');
 

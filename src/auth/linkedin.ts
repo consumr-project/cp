@@ -10,8 +10,8 @@ import { v4 } from 'node-uuid';
 
 import * as passport from 'passport';
 import * as record from '../server/record';
+import * as config from 'acm';
 
-import config = require('acm');
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
 const User = record.models.User;

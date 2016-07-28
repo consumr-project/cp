@@ -10,6 +10,7 @@ import { ServiceResponseV1 } from 'cp';
 import { HttpError } from '../errors';
 import * as auth_service from './auth';
 import * as express from 'express';
+import * as config from 'acm';
 
 const index = require('serve-index');
 const favicon = require('serve-favicon');
@@ -21,7 +22,6 @@ const compression = require('compression');
 const swig = require('swig');
 const debug = require('debug');
 
-const config = require('acm');
 const log = debug('cp:server');
 const app = express();
 const debugging = !!config('debug');

@@ -1,5 +1,6 @@
 import { ServiceUnavailableError } from '../errors';
 import * as express from 'express';
+import * as config from 'acm';
 import * as crud from '../record/crud';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
@@ -10,7 +11,6 @@ import { shared, quick_save } from '../service/cache';
 import connect_mongo from '../service/mongo';
 import connect from '../service/dbms';
 import gen_models from '../record/models';
-import config = require('acm');
 
 export var app = express();
 export var conn = connect();

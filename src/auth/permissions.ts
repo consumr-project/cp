@@ -4,9 +4,9 @@ import { Configuration } from 'rbac-interface';
 import { clone } from 'lodash';
 import { make_enum } from '../utilities';
 import { UnauthorizedError, ERR_MSG_RBAC_FAILURE } from '../errors';
+import * as config from 'acm';
 
 import Rbac = require('rbac');
-import config = require('acm');
 
 const RULES = clone(config<Configuration>('rbac'));
 const ROLES = make_enum(RULES.roles);

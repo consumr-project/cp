@@ -1,7 +1,7 @@
 import { BadGatewayError, ERR_MSG_EXTERNAL_ERROR } from '../errors';
+import * as config from 'acm';
 
 import Trello = require('trello');
-import config = require('acm');
 
 const TRELLO_KEY = config('trello.key');
 const TRELLO_TOKEN = config('trello.token');

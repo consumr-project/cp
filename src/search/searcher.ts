@@ -2,7 +2,7 @@ import { ServiceResponseV1 } from 'cp';
 import { Result } from 'cp/search';
 import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
 import { map } from 'lodash';
-import config = require('acm');
+import * as config from 'acm';
 
 export const IDX_RECORD = 'record';
 

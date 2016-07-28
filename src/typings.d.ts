@@ -131,8 +131,9 @@ declare module 'cp/client' {
 }
 
 declare module 'acm' {
-    function fn<T>(str: string): T | Object | string | any;
-    export = fn;
+    function config<T>(str: string): T | Object | string | any;
+    namespace config {}
+    export = config;
 }
 
 declare module 'deep-get-set' {

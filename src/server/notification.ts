@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as config from 'acm';
 import * as record from './record';
 import * as Schema from 'cp/record';
 
@@ -10,7 +11,6 @@ import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge, update, purge_signature } from '../notification/collection';
 import connect from '../service/mongo';
-import config = require('acm');
 
 const Event = record.models.Event;
 export var app = express();

@@ -1,5 +1,5 @@
 import { Client } from 'elasticsearch';
-import config = require('acm');
+import * as config from 'acm';
 
 export default (c = config) =>
     new Client({
