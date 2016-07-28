@@ -34,8 +34,6 @@ angular.module('tcp').directive('tcpTopmost', [
             };
 
             $scope.login = {
-                more: false,
-
                 // from popover
                 hide: null,
                 show: null
@@ -167,26 +165,18 @@ angular.module('tcp').directive('tcpTopmost', [
             controller: ['$rootScope', '$scope', controller],
             template: [
                 '<div class="topmost">',
-                '    <popover class="popover--fullscreen" api="login" ng-init="more = false">',
-                '        <div class="site-content site-content--no-header">',
-                '            <h2 i18n="common/welcome"></h2>',
-                '            <p i18n="common/intro"></p>',
+                '    <popover class="popover--fullscreen" api="login">',
+                '        <div class="site-content site-content--no-header center-align">',
+                '            <h2 i18n="common/welcome_beta"></h2>',
+                '            <p class="margin-bottom-large" i18n="common/by_signing_in"></p>',
 
-                '            <div class="margin-bottom-medium">',
-                '                <button class="margin-top-small button--social-linkedin" ng-click="with_linkedin()">',
-                '                    <img alt="" src="/assets/images/linkedin.png" />',
-                '                    <span i18n="admin/sing_in_with_service" data="{service: \'LinkedIn\'}"></span>',
-                '                </button>',
-
-                // '                <button ng-click="more = true" i18n="admin/more_options"></button>',
-                '            </div>',
-
-                '            <button class="no-wrap button--link" ng-click="login.hide()" i18n="admin/remind_later"></button>',
-
-                '            <div ng-show="more" class="animated fadeInUp">',
-                '                <p i18n="admin/sign_in_with_email"></p>',
-                '                <input class="large" type="text" placeholder="you@email.com" />',
-                '            </div>',
+                '            <button class="button--social-linkedin" ng-click="with_linkedin()">',
+                '                <img alt="" src="/assets/images/linkedin.png" />',
+                '                <span i18n="admin/sing_in_with_service"',
+                '                    data="{service: \'LinkedIn\'}"></span>',
+                '            </button>',
+                '            <button class="no-wrap button--link margin-left-small"',
+                '                ng-click="login.hide()" i18n="admin/cancel"></button>',
                 '        </div>',
                 '    </popover>',
 

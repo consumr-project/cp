@@ -9,6 +9,8 @@ ignore: Ignore
 
 # brand
 welcome: Welcome to The Consumer Project
+welcome_beta: Welcome to the consumr project beta!
+by_signing_in: "By signing in, you'll unlock the powers of contributing content, rating companies, leaving feedback, and creating a custom dashboard about the issues that matter most to you."
 intro: A crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.
 
 # search
