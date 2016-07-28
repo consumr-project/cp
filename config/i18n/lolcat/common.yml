@@ -6,6 +6,8 @@ only_showing: 'only showin'
 go: go
 ignore: ignore
 welcome: 'welcom 2 teh consumr project'
+welcome_beta: 'welcom 2 teh consumr project beta!'
+by_signing_in: 'by signin in, ull unlock teh powers ov contributin content, ratin companiez, leavin feedback, an creatin custom dashbord bout teh issuez dat mattr most 2 u.'
 intro: 'a crowd sourcd platform 2 halp us all lern lil bit moar bout teh things we buy, sell, an consume evry dai.'
 results: 'results:'
 no_results: 'no results 4 "{query}"'
