@@ -21,6 +21,8 @@ case "$1" in
         heroku:buildpack heroku/nodejs
         heroku:addon heroku-postgresql hobby-dev
 
+        heroku:envar CP_COOKIE_KEY
+        heroku:envar CP_SESSION_KEY
         heroku:envar DATABASE_URL
         heroku:envar ELASTICSEARCH_HOST
         heroku:envar EMBEDLY_API_KEY

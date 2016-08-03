@@ -50,8 +50,8 @@ if (debugging) {
 }
 
 app.use(body_parser.json());
-app.use(cookie(config('session.secret')));
-app.use(session({ secret: config('session.secret') }));
+app.use(cookie(process.env.CP_COOKIE_KEY));
+app.use(session({ secret: process.env.CP_SESSION_KEY }));
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
