@@ -23,7 +23,7 @@ angular.module('tcp').directive('homeView', [
                     '        </div>',
                     '    </div>',
 
-                    '    <section class="margin-top-large">',
+                    '    <section class="margin-top-large home-view-component__wrapper">',
                     '        <div class="snav__item snav__item--active margin-left-xlarge" i18n="home/trending"></div>',
                     '        <hr>',
 
