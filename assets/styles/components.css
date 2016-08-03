@@ -41,6 +41,12 @@ tag-view {
     margin-top: -23px;
 }
 
+.home-view-component__wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(var(--content-max-width) * 2);
+}
+
 .home-view-component .trending-component {
     float: left;
     margin-bottom: var(--spacing-medium);
