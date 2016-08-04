@@ -121,6 +121,36 @@ tapes('notifications', t => {
         });
     });
 
+    t.test('viewed', st => {
+        var id;
+
+        st.plan(6);
+
+        http.post('/service/notification/follow', {
+            id: fixture.user.admin.id,
+        }).end((err, res) => {
+            id = res.body.body.id;
+            st.error(err);
+
+            // starts out not viewed
+            http.get(`/service/notification/${id}`).end((err, res) => {
+                st.error(err);
+                st.ok(!res.body.body.viewed);
+
+                // marked as viewed
+                http.put('/service/notification/viewed', { ids: [id] }).end(err => {
+                    st.error(err);
+
+                    // now it is viewed
+                    http.get(`/service/notification/${id}`).end((err, res) => {
+                        st.error(err);
+                        st.ok(res.body.body.viewed);
+                    });
+                });
+            });
+        });
+    });
+
     t.test('purge', st => {
         st.plan(ids_to_delete.length + 1);
 

@@ -7,7 +7,7 @@ const tape = require('tape');
 const superagent = require('superagent');
 const cli = require('../../../script/cli');
 
-['post'].forEach(name => {
+['put', 'post'].forEach(name => {
     superagent.agent.prototype[name] = function (url, data) {
         var req = superagent[name](url, data);
         req.ca(this._ca);
