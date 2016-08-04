@@ -1,7 +1,8 @@
 #!/bin/bash
 
+JS_CMD="$JS_CMD"
 DB_CMD="$DB_CMD"
-DB_ERR=0
+RUN_ERR=0
 MIGRATIONS_DIR=./config/migrations
 
 if [ -z "$NO_COLORS" ]; then
@@ -41,15 +42,19 @@ log_stat_err() {
 
 cmd_help() {
     echo "usage: $(basename $0) <command>"
-    echo "    create <name>     generate a new migration file in $MIGRATIONS_DIR"
-    echo "    run [file]        run all migrations or a specific one"
-    echo "    help              show this help text"
+    echo "    create <name> [ext]   generate a new migration file (sql|js) in $MIGRATIONS_DIR"
+    echo "    run [file]            run all migrations or a specific one"
+    echo "    help                  show this help text"
 }
 
 cmd_create() {
     local name="$1"
+    local ext="$2"
     local now=$(date +%s)
-    local fname="$MIGRATIONS_DIR/$now-$name.sql"
+
+    [ -z "$ext" ] && ext="sql"
+
+    local fname="$MIGRATIONS_DIR/$now-$name.$ext"
 
     if [ -z "$name" ]; then
         log_msg_err "name option is required"
@@ -62,7 +67,6 @@ cmd_create() {
 }
 
 cmd_run() {
-    local specific="$1"
     local files=
 
     if [ -z "$DB_CMD" ]; then
@@ -71,32 +75,49 @@ cmd_run() {
         exit 1
     fi
 
-    if [ ! -z "$specific" ]; then
-        files=("$specific")
+    if [ ! -z "$1" ]; then
+        files=$@
     else
-        files=$(find "$MIGRATIONS_DIR" | grep ".sql$" | sort)
+        files=$(find "$MIGRATIONS_DIR" | sort)
     fi
 
     log_msg "$(echo "$files" | wc -l | tr -d '[[:space:]]') migration(s) (command: \`$DB_CMD\`)"; echo
-    for file in $files; do db_run "$file"; done
+    for file in $files;
+    do
+        if [ -f "$file" ]; then
+            case "${file##*.}" in
+                sql) db_run "$file" ;;
+                js) js_run "$file" ;;
+                swp) ;;
+                *)
+                    log_msg "invalid migration file $file"
+                    log_stat_skipped
+                    ;;
+            esac
+        fi
+    done
 
     log_msg "done running"
     echo
-    test $DB_ERR -eq 0
+    test $RUN_ERR -eq 0
 }
 
-db_run() {
+do_run() {
     local out=
     local file="$1"
-    local fname=$(basename "$file")
-    log_msg "running $fname"
+    local label="$2"
+    local cmd="$3"
 
-    if [ $DB_ERR -ne 0 ]; then
+    local fname=$(basename "$file")
+    log_msg "running $fname $label script"
+
+    if [ $RUN_ERR -ne 0 ]; then
         log_stat_skipped
         return
     fi
 
-    out=$(db_exec "$file" 2>&1)
+    out=$($cmd "$file" 2>&1)
+
     if [ $? -eq 0 ]; then
         log_stat_ok
     else
@@ -105,8 +126,17 @@ db_run() {
         log_msg_err "command and output from $fname"
         log_msg_err "$out"
         log_msg_sep
-        DB_ERR=1
+        RUN_ERR=1
     fi
+}
+
+js_run() {
+    do_run "$1" "js" "node"
+
+}
+
+db_run() {
+    do_run "$1" "sql" "db_exec"
 }
 
 db_exec() {

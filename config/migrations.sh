@@ -10,3 +10,4 @@ if [ ! -z "$username" ]; then
 fi
 
 [ -z "$DB_CMD" ] && DB_CMD="psql -h $hostname $userflag $database -f"
+[ -z "$JS_CMD" ] && JS_CMD="node"
