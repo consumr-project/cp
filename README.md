@@ -36,6 +36,7 @@ additional services and service providers:
 ```bash
 export CP_COOKIE_KEY='...'
 export CP_SESSION_KEY='...'
+export CP_CRYPTO_USER_EMAIL_KEY='...'
 export DATABASE_URL='postgres://...'
 export EMBEDLY_API_KEY='...'
 export GOOGLE_ANALYTICS_ACCOUNT_ID='...'

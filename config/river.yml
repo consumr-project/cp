@@ -10,7 +10,7 @@ models:
     fields: [ summary ]
 
   - name: users
-    fields: [ email, title, company_name ]
+    fields: [ title, company_name ]
     soft_delete: true
 
   - name: tags

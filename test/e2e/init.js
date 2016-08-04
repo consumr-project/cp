@@ -20,7 +20,7 @@ var admin = global.admin = {
         wait();
 
         browser.driver.findElement(by.id('session_key-oauth2SAuthorizeForm'))
-            .sendKeys(admin.login.user.email);
+            .sendKeys(admin.login.user.raw_email);
 
         browser.driver.findElement(by.id('session_password-oauth2SAuthorizeForm'))
             .sendKeys(admin.login.user.pass());

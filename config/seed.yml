@@ -6,7 +6,7 @@ user:
     id: *root_user_id
     last_login_date: *now
     name: 'Zaphod Beeblebrox'
-    email: 'root@consumrproject.org'
+    raw_email: 'root@consumrproject.org'
     title: 'Big Z'
     company_name: 'Consurm Project'
     lang: 'en'

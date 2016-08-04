@@ -1,5 +1,6 @@
 import { WhereOptions } from 'sequelize';
 import { User } from 'cp/record';
+import { decrypt, KEY_USER_EMAIL } from '../crypto';
 import * as record from '../server/record';
 import * as querystring from 'querystring';
 import * as config from 'acm';
@@ -27,7 +28,7 @@ export enum SIZE {
 export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: User): string {
     let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
 
-    let email = (user && user.email ? user.email : '')
+    let email = (user && user.email ? decrypt(user.email, KEY_USER_EMAIL) : '')
         .toLowerCase()
         .trim();
 

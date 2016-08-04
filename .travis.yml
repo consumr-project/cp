@@ -21,6 +21,7 @@ env:
     - PORT=3000
     - CP_ALLOW_APIKEY_AUTH=1
     - CP_COOKIE_KEY=whatevz
+    - CP_CRYPTO_USER_EMAIL_KEY=emailz
     - CP_PURGE_KEY=allowall
     - CP_SESSION_KEY=whatevz
     - CP_TEST_INSTANCE_URL=http://localhost:3000

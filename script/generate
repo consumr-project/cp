@@ -5,6 +5,7 @@ const config = require('acm');
 const faker = require('faker');
 const uuid = require('uuid');
 
+const crypto = require('../build/crypto');
 const connect = require('../build/service/dbms').default;
 const gen_models = require('../build/record/models').default;
 
@@ -40,6 +41,7 @@ program
     .description('generate base user')
     .action(() => {
         var user = config('seed.user.root');
+        user.email = crypto.encrypt(user.raw_email, crypto.KEY_USER_EMAIL);
 
         console.log('ensuring user#%s exists', user.id);
         msg_ed('app user', User.findOrCreate({
@@ -79,6 +81,7 @@ program
     .description('generate a test user')
     .action(() => {
         var user = config('fixtures.user.admin');
+        user.email = crypto.encrypt(user.raw_email, crypto.KEY_USER_EMAIL);
 
         console.log('ensuring user#%s exists', user.id);
         msg_ed('test user', User.findOrCreate({

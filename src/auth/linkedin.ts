@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Profile } from 'passport-linkedin-oauth2';
 import { WhereOptions } from 'sequelize';
 import * as Schema from 'cp/record';
+import { encrypt, KEY_USER_EMAIL } from '../crypto';
 
 import { roles } from './permissions';
 import { get } from 'lodash';
@@ -51,7 +52,7 @@ function generate_user(profile: Profile): Schema.User {
         company_name: <string>get(profile._json, 'positions.values.0.company.name'),
         created_by: id,
         created_date: Date.now(),
-        email: profile._json.emailAddress,
+        email: encrypt(profile._json.emailAddress, KEY_USER_EMAIL),
         lang: 'en',
         last_login_date: Date.now(),
         linkedin_url: profile._json.publicProfileUrl,

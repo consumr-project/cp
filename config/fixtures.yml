@@ -2,7 +2,7 @@ user:
   admin:
     id: &user_admin_id 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
     name: 'Admin Test User'
-    email: 'testing@consumr-project.org'
+    raw_email: 'testing@consumr-project.org'
     role: 'admin'
     auth_apikey: 'b2df88fa-dd25-42ba-b456-3c8d164d3343'
     created_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
@@ -12,7 +12,7 @@ user:
   user:
     id: &user_user_id '845c2609-f51c-4158-91e2-83765b40a272'
     name: 'Test User'
-    email: 'testing2@consumr-project.org'
+    raw_email: 'testing2@consumr-project.org'
     role: 'user'
     created_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'
     updated_by: 'a2a2c5ec-7eb3-4c7e-8615-9ab49343ed93'

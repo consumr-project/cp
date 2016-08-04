@@ -5,7 +5,7 @@ describe('admin', () => {
     it('can log in through linkedin', () => {
         admin.login();
         expect($('avatar').getAttribute('email'))
-            .toEqual(admin.login.user.email);
+            .toEqual(admin.login.user.raw_email);
     });
 
     it('can go to the current users profile page', () => {

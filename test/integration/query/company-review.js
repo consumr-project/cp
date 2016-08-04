@@ -3,6 +3,7 @@
 const tapes = require('tapes');
 const http = require('../utils/http');
 const auth = require('../utils/auth');
+const email = require('../utils/crypto').email;
 
 const clone = require('lodash').clone;
 const config = require('acm');
@@ -17,6 +18,7 @@ tapes('company review', t => {
 
         fixture.company.created_by = res.body.id;
         fixture.company.updated_by = res.body.id;
+        fixture.user.user.email = email(fixture.user.user.raw_email);
     });
 
     clean_up();

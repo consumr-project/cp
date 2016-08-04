@@ -3,6 +3,7 @@
 const tapes = require('tapes');
 const http = require('../utils/http');
 const auth = require('../utils/auth');
+const email = require('../utils/crypto').email;
 
 const clone = require('lodash').clone;
 const config = require('acm');
@@ -30,15 +31,15 @@ tapes('avatar', t => {
             .redirects(1)
             .end(redirects(st, 'specify rating', gravatar_url(512, 'pg')));
 
-        http.get('/service/user/avatar?email=' + fixture.user.admin.email)
+        http.get('/service/user/avatar?email=' + email(fixture.user.admin.raw_email))
             .redirects(1)
             .end(redirects(st, 'goes gravatar test url', gravatar_url(512, 'g')));
 
-        http.get('/service/user/avatar?size=1024&email=' + fixture.user.admin.email)
+        http.get('/service/user/avatar?size=1024&email=' + email(fixture.user.admin.raw_email))
             .redirects(1)
             .end(redirects(st, 'specify size', gravatar_url(1024, 'g')));
 
-        http.get('/service/user/avatar?rating=pg&email=' + fixture.user.admin.email)
+        http.get('/service/user/avatar?rating=pg&email=' + email(fixture.user.admin.raw_email))
             .redirects(1)
             .end(redirects(st, 'specify rating', gravatar_url(512, 'pg')));
     });
