@@ -74,6 +74,7 @@ lint:
 		$(shell find src -name "*.js") \
 		$(shell find test -name "*.js") \
 		$(shell find config -name "*.js") \
+		$(shell find config/migrations -name "*.js") \
 		$(shell find assets -name "*.js") \
 		$(shell find script -name "*.js")
 	$(json_lint) --validate \
