@@ -151,6 +151,36 @@ tapes('notifications', t => {
         });
     });
 
+    t.test('completed', st => {
+        var id;
+
+        st.plan(6);
+
+        http.post('/service/notification/follow', {
+            id: fixture.user.admin.id,
+        }).end((err, res) => {
+            id = res.body.body.id;
+            st.error(err);
+
+            // starts out not completed
+            http.get(`/service/notification/${id}`).end((err, res) => {
+                st.error(err);
+                st.ok(!res.body.body.completed);
+
+                // marked as completed
+                http.put('/service/notification/completed', { ids: [id] }).end(err => {
+                    st.error(err);
+
+                    // now it is completed
+                    http.get(`/service/notification/${id}`).end((err, res) => {
+                        st.error(err);
+                        st.ok(res.body.body.completed);
+                    });
+                });
+            });
+        });
+    });
+
     t.test('purge', st => {
         st.plan(ids_to_delete.length + 1);
 
