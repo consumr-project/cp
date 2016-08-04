@@ -62,6 +62,7 @@ app.use('/service/extract', timeout('5s'), extract_endpoints);
 app.use('/service/notification', timeout('5s'), notification_endpoints);
 app.use('/service/record', timeout('60s'), record_endpoints);
 app.use('/version', version_endpoints);
+app.use('/ping', (req, res) => res.json({ ok: true }));
 
 app.use((req, res, next) => {
     res.cookie('lang', req.query.lang || req.query.lang || 'en', {
