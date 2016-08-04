@@ -181,6 +181,56 @@ tapes('notifications', t => {
         });
     });
 
+    t.test('viewed and completed resets', st => {
+        var id, signature;
+
+        st.plan(13);
+
+        http.post('/service/notification/follow', {
+            id: fixture.user.admin.id,
+        }).end((err, res) => {
+            id = res.body.body.id;
+            signature = res.body.body.signature;
+            st.error(err);
+
+            http.get(`/service/notification/${id}`).end((err, res) => {
+                st.error(err);
+                st.ok(!res.body.body.completed);
+
+                // marked as completed and viewed
+                http.put('/service/notification/completed', { ids: [id] }).end(err => {
+                    st.error(err);
+
+                    http.put('/service/notification/viewed', { ids: [id] }).end(err => {
+                        st.error(err);
+
+                        // now it is completed and viewed
+                        http.get(`/service/notification/${id}`).end((err, res) => {
+                            st.error(err);
+                            st.ok(res.body.body.completed);
+                            st.ok(res.body.body.viewed);
+
+                            // create a duplicate of this notification
+                            http.post('/service/notification/follow', {
+                                id: fixture.user.admin.id,
+                            }).end((err, res) => {
+                                st.error(err);
+
+                                // should not be viewed but has same signature
+                                http.get(`/service/notification/${res.body.body.id}`).end((err, res) => {
+                                    st.error(err);
+                                    st.ok(!res.body.body.completed);
+                                    st.ok(!res.body.body.viewed);
+                                    st.equal(res.body.body.signature, signature);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
     t.test('purge', st => {
         st.plan(ids_to_delete.length + 1);
 
