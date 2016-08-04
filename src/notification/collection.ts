@@ -31,9 +31,12 @@ export function find(
     query: any = {}
 ): Promise<Message[]> {
     query = clone(query);
-    query.to = to;
-    query.category = category;
-    query.subcategory = { $in: subcategories };
+
+    if (!Object.keys(query).length) {
+        query.to = to;
+        query.category = category;
+        query.subcategory = { $in: subcategories };
+    }
 
     return coll.find(query).toArray();
 }

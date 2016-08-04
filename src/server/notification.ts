@@ -10,6 +10,7 @@ import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge, update, purge_signature } from '../notification/collection';
+import { head } from 'lodash';
 import connect from '../service/mongo';
 
 const Event = record.models.Event;
@@ -54,6 +55,11 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             NOTIFICATION.FOLLOWED,
             NOTIFICATION.MODIFIED,
         ])));
+
+    app.get('/:id', service_handler((req, res, next) => {
+        return find(coll, req.user.id, CATEGORY.NOTIFICATION, [], { id: req.params.id })
+            .then(head);
+    }));
 
     app.delete('/:id', service_handler((req, res, next) => {
         if (runtime_purge_allowed(req)) {

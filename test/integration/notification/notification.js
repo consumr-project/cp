@@ -84,6 +84,43 @@ tapes('notifications', t => {
         });
     });
 
+    t.test('duplicates', st => {
+        var first, second;
+
+        st.plan(7);
+
+        // create two follow notifications and make sure they have the same
+        // signature and only the latest one shows up
+        http.post('/service/notification/follow', {
+            id: fixture.user.admin.id,
+        }).end((err, res) => {
+            first = res.body.body;
+
+            st.error(err);
+            ids_to_delete.push(first.id);
+
+            http.post('/service/notification/follow', {
+                id: fixture.user.admin.id,
+            }).end((err, res) => {
+                second = res.body.body;
+
+                st.error(err);
+                st.equal(first.signature, second.signature);
+                ids_to_delete.push(second.id);
+
+                http.get(`/service/notification/${first.id}`).end((err, res) => {
+                    st.error(err);
+                    st.ok(!res.body.body);
+                });
+
+                http.get(`/service/notification/${second.id}`).end((err, res) => {
+                    st.error(err);
+                    st.ok(res.body.body.id);
+                });
+            });
+        });
+    });
+
     t.test('purge', st => {
         st.plan(ids_to_delete.length + 1);
 
