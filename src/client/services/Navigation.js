@@ -37,6 +37,17 @@ angular.module('tcp').service('Navigation', [
             };
         }
 
+        /**
+         * generate a $location.url funciton
+         * @param {String} base
+         * @return {Function(String id?)}
+         */
+        function child_of(par, child) {
+            return function (par_id, child_id) {
+                $location.url(par + oappend(par_id) + child + oappend(child_id));
+            };
+        }
+
         return {
             BASES: BASES,
 
@@ -51,6 +62,13 @@ angular.module('tcp').service('Navigation', [
             user: withoid(BASES.USER),
             user_me: withoid(BASES.USER + BASES.BY_ME),
             event: withoid(BASES.EVENT),
+
+            /**
+             * @param {String} parent_id
+             * @param {String} child_id
+             */
+            tag_by_id_event: child_of(BASES.TAG + BASES.BY_ID, BASES.EVENT),
+            company_by_id_event: child_of(BASES.COMPANY + BASES.BY_ID, BASES.EVENT),
 
             /**
              * go to search
