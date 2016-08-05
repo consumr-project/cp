@@ -2,12 +2,8 @@ select eb.event_id as id,
     count(eb.event_id) as score,
     max(eb.updated_date) as updated_date,
     e.title,
-
-    -- XXX id and labels are being re-ordered by `distinct` and don't match up
-    array_agg(distinct t.id) as tag_ids,
-    array_agg(distinct t."en-US") as tag_labels,
-    array_agg(distinct c.id) as company_ids,
-    array_agg(distinct c.name) as company_labels
+    json_agg(json_build_object('id', t.id, 'label', t."en-US")) as tags,
+    json_agg(json_build_object('id', c.id, 'label', c.name)) as companies
 
 from event_bookmarks eb
 

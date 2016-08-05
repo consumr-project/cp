@@ -194,7 +194,12 @@ angular.module('tcp').service('Services', [
         queryService.stats = {};
 
         queryService.stats.trending = function (id) {
-            return get(url('stats/trending'));
+            return get(url('stats/trending'))
+                .then(function (data) {
+                    data.tags = lodash.filter(data.tags);
+                    data.companies = lodash.filter(data.companies);
+                    return data;
+                });
         };
 
         queryService.users.stats = function (id) {

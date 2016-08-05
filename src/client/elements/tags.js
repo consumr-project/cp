@@ -14,13 +14,23 @@ angular.module('tcp').directive('tags', function () {
 
     return {
         transclude: true,
-        template: [
-            '<button class="button--link button--slim" ng-click="toggleTags()" i18n="common/show_hide">',
-            '</button>',
-            '<div class="tags__tags">',
-                '<ng-transclude></ng-transclude>',
-            '</div>'
-        ].join(''),
+        template: function (elem, attrs) {
+            var show_hide = '';
+
+            if (attrs.showHide !== 'false') {
+                show_hide = '<button' +
+                    'class="button--link button--slim" '+
+                    'ng-click="toggleTags()" ' +
+                    'i18n="common/show_hide"></button>';
+            }
+
+            return [
+                show_hide,
+                '<div class="tags__tags">',
+                    '<ng-transclude></ng-transclude>',
+                '</div>'
+            ].join('');
+        },
         link: function (scope, elem) {
             var $tags = elem.find('.tags__tags'),
                 state = STATE_SHOWING,

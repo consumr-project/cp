@@ -44,8 +44,11 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
         can('retrieve', 'tag'),
         can('retrieve', 'company'),
         can('retrieve', 'event'),
-        service_cache_intercept(shared(coll), 'trending_events'),
-        query(conn, sql('get-trending-events'), false, {}, quick_save(shared(coll), 'trending_events')));
+        service_cache_intercept(shared(coll),
+            config('cache.collections.trending_events')),
+        query(conn, sql('get-trending-events'), false, {},
+            quick_save(shared(coll), config('cache.collections.trending_events')))
+    );
 });
 
 // users

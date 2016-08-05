@@ -12,14 +12,7 @@ angular.module('tcp').directive('trending', [
             $scope.vm = {};
 
             Services.query.stats.trending()
-                .then(utils.scope.set($scope, 'vm.trending'))
-                .then(function (trending) {
-                    lodash.each(trending, function (item) {
-                        item.tag_labels = lodash.filter(item.tag_labels);
-                        item.company_labels = lodash.filter(item.company_labels);
-                        item.tags = item.company_labels.concat(item.tag_labels);
-                    });
-                });
+                .then(utils.scope.set($scope, 'vm.trending'));
         }
 
         return {
@@ -30,10 +23,12 @@ angular.module('tcp').directive('trending', [
                 '    <ol>',
                 '        <li class="trending--item" ng-repeat="item in vm.trending">',
                 '            <p>{{item.title}}</p>',
-                '            <div>',
-                '                <tag class="keyword" label="{{label}}"',
-                '                    ng-repeat="label in item.tags"></tag>',
-                '            <div>',
+                '            <tags show-hide="false">',
+                '                <tag class="keyword" label="{{company.label}}"',
+                '                    ng-repeat="company in item.companies"></tag>',
+                '                <tag class="keyword" label="{{tag.label}}"',
+                '                    ng-repeat="tag in item.tags"></tag>',
+                '            <tags>',
                 '        </li>',
                 '    </ol>',
                 '</div>',
