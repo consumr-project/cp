@@ -8,6 +8,14 @@ angular.module('tcp').directive('trending', [
 
         /**
          * @param {Object} obj
+         * @return {Boolean}
+         */
+        function has_id(obj) {
+            return !!obj.id;
+        }
+
+        /**
+         * @param {Object} obj
          * @return {String}
          */
         function by_id(obj) {
@@ -33,8 +41,8 @@ angular.module('tcp').directive('trending', [
                 .then(utils.scope.set($scope, 'vm.trending'))
                 .then(function (data) {
                     lodash.each(data, function (row) {
-                        row.tags = lodash.uniqBy(row.tags, by_id);
-                        row.companies = lodash.uniqBy(row.companies, by_id);
+                        row.tags = lodash.filter(lodash.uniqBy(row.tags, by_id), has_id);
+                        row.companies = lodash.filter(lodash.uniqBy(row.companies, by_id), has_id);
                     });
 
                     return data;
