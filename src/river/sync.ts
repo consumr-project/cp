@@ -5,7 +5,7 @@ export interface GetterOptions {
 }
 
 export interface GetterFunction {
-    (client, def: LinkDefinition, opt: GetterOptions): Promise<EntryDefinition[]>;
+    (client: any, def: LinkDefinition, opt: GetterOptions): Promise<EntryDefinition[]>;
 }
 
 export interface UpdaterAck {
@@ -14,7 +14,7 @@ export interface UpdaterAck {
 }
 
 export interface UpdaterFunction {
-    (client, def: LinkDefinition, data: EntryDefinition[]): Promise<UpdaterAck>;
+    (client: any, def: LinkDefinition, data: EntryDefinition[]): Promise<UpdaterAck>;
 }
 
 export interface EntryDefinition {
@@ -23,6 +23,14 @@ export interface EntryDefinition {
     __created: boolean;
     __label: string;
     [field: string]: scalar;
+}
+
+export interface LinkConfiguration {
+    name: string;
+    fields?: string[];
+    soft_delete?: boolean;
+    primary_key?: string;
+    label?: string;
 }
 
 export class LinkDefinition {

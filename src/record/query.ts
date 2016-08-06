@@ -24,11 +24,11 @@ function check_params(params: string[], replacements: {}): void {
     }
 }
 
-export function str(sql): TemplateFunction {
+export function str(sql: string): TemplateFunction {
     return template(sql);
 }
 
-export function sql(name): TemplateFunction {
+export function sql(name: string): TemplateFunction {
     var buff = read(`${__dirname}/../../src/queries/${name}.sql`);
     return str(buff.toString());
 }
@@ -43,11 +43,9 @@ export function exec(
     processor: (value: Object) => Object = pass
 ) {
     return new Promise<Object | Object[]>((resolve, reject) => {
-        var replacements, merged_sql, required_params;
-
-        replacements = merge(params, defaults);
-        merged_sql = sql({ auth, query: replacements });
-        required_params = get_params(merged_sql);
+        var replacements = merge(params, defaults),
+            merged_sql = sql({ auth, query: replacements }),
+            required_params = get_params(merged_sql);
 
         try {
             check_params(required_params, replacements);
@@ -68,7 +66,7 @@ export function query(
     sql: TemplateFunction,
     one_row: boolean = false,
     defaults: MergeFields = {},
-    processor?
+    processor?: (value: Object) => Object
 ): ServiceRequestHandler {
     return (req, res, next) => {
         exec(conn, sql, { user: req.user }, merge(req.query, req.params), defaults, one_row, processor)

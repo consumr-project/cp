@@ -1,11 +1,12 @@
 import { Request } from 'express';
+import { Dictionary} from 'lodash';
 import { Cache } from 'cp/cache';
 import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
     ServiceResponseV1 } from 'cp';
 
 export type None = Object;
-export type Maybe<T> = None | T;
-export type Optional<T> = { get_or_else: (T) => T }
+export type Maybe<T> = T;
+export type Optional<T> = { get_or_else: (def: T) => T }
 
 export function none(): None {
     return {};
@@ -21,7 +22,7 @@ export function option<T>(val: Maybe<T>): Optional<T> {
     };
 }
 
-export function make_enum_entry(store: Object, val: string): Object {
+export function make_enum_entry(store: Dictionary<string>, val: string): Object {
     store[val.toUpperCase()] = val;
     return store;
 }

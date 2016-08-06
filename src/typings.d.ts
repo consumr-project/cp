@@ -50,7 +50,7 @@ declare module 'cp/record' {
     export interface Model {
         findOne?(query: Object): Promise<Model>;
         findById?(id: string): Promise<Model>;
-        findOrCreate?(FindOrCreate): Promise<Model>;
+        findOrCreate?(options: FindOrCreate): Promise<Model>;
     }
 
     export interface Event extends Model {
@@ -152,7 +152,7 @@ declare module 'request' {
         qs?: string | {};
     }
 
-    function fn(req: Request, callback: Function);
+    function fn(req: Request, callback: Function): void;
     export = fn;
 }
 
@@ -228,7 +228,7 @@ declare module 'elasticsearch' {
     }
 
     export class Client {
-        constructor(Connection);
+        constructor(conn: Connection);
         search(query: Query): Promise<Results>;
         bulk(update: BulkUpdate): Promise<Ack>;
     }

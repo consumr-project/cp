@@ -1,12 +1,12 @@
 import db_connect from '../service/dbms';
 import es_connect from '../service/elasticsearch';
 import { get, elasticsearch } from '../search/updater';
-import { LinkDefinition } from '../river/sync';
+import { LinkConfiguration, LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';
 import * as config from 'acm';
 
 const log = require('debug')('worker:river');
-const models = config('river.models').map(def =>
+const models: LinkDefinition[] = config('river.models').map((def: LinkConfiguration) =>
     new LinkDefinition(def.name, def.fields, def.soft_delete,
         def.primary_key, def.label));
 
