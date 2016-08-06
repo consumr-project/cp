@@ -2,6 +2,10 @@ select eb.event_id as id,
     count(eb.event_id) as score,
     max(eb.updated_date) as updated_date,
     e.title,
+
+    -- XXX this is returning duplicates
+    -- http://stackoverflow.com/questions/30077639/distinct-on-in-an-aggregate-function-in-postgres
+    -- http://stackoverflow.com/questions/12464037/two-sql-left-joins-produce-incorrect-result/12464135#12464135
     json_agg(json_build_object('id', t.id, 'label', t."en-US")) as tags,
     json_agg(json_build_object('id', c.id, 'label', c.name)) as companies
 

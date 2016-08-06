@@ -7,6 +7,14 @@ angular.module('tcp').directive('trending', [
         'use strict';
 
         /**
+         * @param {Object} obj
+         * @return {String}
+         */
+        function by_id(obj) {
+            return obj.id;
+        }
+
+        /**
          * @param {Angular.Scope} $scope*
          */
         function controller($scope) {
@@ -22,7 +30,15 @@ angular.module('tcp').directive('trending', [
             };
 
             Services.query.stats.trending()
-                .then(utils.scope.set($scope, 'vm.trending'));
+                .then(utils.scope.set($scope, 'vm.trending'))
+                .then(function (data) {
+                    lodash.each(data, function (row) {
+                        row.tags = lodash.uniqBy(row.tags, by_id);
+                        row.companies = lodash.uniqBy(row.companies, by_id);
+                    });
+
+                    return data;
+                });
         }
 
         return {
