@@ -91,6 +91,11 @@ angular.module('tcp').directive('search', [
             $scope.nav = Navigation;
             $scope.vm = new_state();
 
+            $scope.search_placeholder = Navigation.one_of([
+                Navigation.BASES.HOME,
+                Navigation.BASES.SEARCH,
+            ]) ? 'admin/search_long_placeholder' : 'admin/search_placeholder';
+
             $scope.search = function (query, $event) {
                 Navigation.search(query, $event);
                 search(query, $scope);
@@ -111,7 +116,7 @@ angular.module('tcp').directive('search', [
             template: [
                 '<div class="search">',
                 '    <form ng-submit="search(query, $event)">',
-                '        <input prop="placeholder" i18n="admin/search_placeholder" ',
+                '        <input prop="placeholder" i18n="{{::search_placeholder}}" ',
                 '            name="q" tabindex="1" class="search__input" ',
                 '            ng-focus="!form" ng-model="query" />',
                 '    </form>',
