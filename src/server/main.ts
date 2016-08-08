@@ -26,6 +26,7 @@ const log = debug('cp:server');
 const app = express();
 const debugging = !!config('debug');
 
+app.set('x-powered-by', false);
 app.set('view cache', true);
 app.set('view engine', 'html');
 app.set('views', `${__dirname}/../../assets/views`);
@@ -64,6 +65,7 @@ app.use('/service/record', timeout('60s'), record_endpoints);
 app.use('/version', version_endpoints);
 app.use('/ping', (req, res) => res.json({ ok: true }));
 
+// language cookie handler
 app.use((req, res, next) => {
     res.cookie('lang', req.query.lang || req.query.lang || 'en', {
         expires: new Date('2099-01-01') });
@@ -71,6 +73,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// default headers
+app.use((req, res, next) => {
+    res.header('X-Frame-Options', 'DENY');
+    next();
+});
+
+// error handler
 app.use((err: any, req, res, next) => {
     console.error('ERROR ==========================');
     console.error(err);
@@ -98,6 +107,7 @@ app.use((err: any, req, res, next) => {
     }
 });
 
+// view handler
 app.get('*', (req, res) =>
     res.render('index', { debugging,
         lang: req.cookies.lang }));
