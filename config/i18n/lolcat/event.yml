@@ -10,10 +10,6 @@ logo_environmental: environmental
 logo_animal_rights: 'animal rights'
 logo_consumer_protection: 'consumer protection'
 logo_general: 'genenral'
-sentiment: 'choose which sentiment best describez teh event'
-sentiment_positive: positiv
-sentiment_negative: negativ
-sentiment_neutral: neutral
 date: 'event date'
 tied_to: 'companiez & countriez involvd in da event'
 tags: tags

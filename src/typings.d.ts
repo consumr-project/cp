@@ -58,7 +58,6 @@ declare module 'cp/record' {
         title: string;
         date: Date | number;
         logo: string;
-        sentiment: string;
         created_by: string;
         created_date: Date | number;
         updated_by: string;

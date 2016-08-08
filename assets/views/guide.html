@@ -219,17 +219,17 @@
     </p>
     <rector-markup>
         <tags show-hide="false">
-            <tag class="negative" label="illegal fishing">
+            <tag class="keyword" label="illegal fishing">
                 <indicator type="counter" value="54"></indicator>
             </tag>
-            <tag class="positive" label="enviroenvironmental awareness">
+            <tag class="keyword" label="enviroenvironmental awareness">
                 <indicator type="counter" value="12"></indicator>
             </tag>
 
-            <tag ng-repeat="tag in tags" ng-class="[tag.type]" label="{{::tag.label}}">
+            <tag ng-repeat="tag in tags" class="keyword" label="{{::tag.label}}">
             </tag>
 
-            <tag ng-repeat="tag in tags" ng-class="[tag.type]" label="{{::tag.label}}">
+            <tag ng-repeat="tag in tags" class="keyword" label="{{::tag.label}}">
                 <indicator type="counter" value="::tag.counter"></indicator>
             </tag>
         </tags>

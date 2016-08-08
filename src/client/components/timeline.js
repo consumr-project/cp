@@ -29,7 +29,6 @@ angular.module('tcp').directive('timeline', [
                 $is_special: true,
                 title: i18n.get('company/company_founded'),
                 logo: DOMAIN.model.event_props.type.company_created,
-                sentiment: DOMAIN.model.event_props.sentiments.neutral,
             });
 
             return evs;
@@ -84,7 +83,6 @@ angular.module('tcp').directive('timeline', [
                 id: ev.id,
                 title: utils.ellipsis(ev.title, 100),
                 date: new Date(ev.date).valueOf(),
-                sentiment: ev.sentiment,
                 logo: ev.logo,
                 tag_ids: lodash.filter(ev.tag_ids),
                 source_count: ev.source_count,
@@ -312,7 +310,7 @@ angular.module('tcp').directive('timeline', [
 
                 generate_template_event_content('left'),
                 '        <div',
-                '            class="timeline__event__icon timeline__event__icon--{{::event.sentiment}} timeline__event__icon--{{::event.logo}}"',
+                '            class="timeline__event__icon timeline__event__icon--{{::event.logo}}"',
                 '            ng-click="view(event)"></div>',
                 generate_template_event_content('right'),
 

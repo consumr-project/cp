@@ -1,6 +1,5 @@
 select e.id,
     e.title,
-    e.sentiment,
     e.logo,
     e.date,
     count(distinct es.id)::"numeric" as source_count,

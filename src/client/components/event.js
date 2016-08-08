@@ -36,22 +36,6 @@ angular.module('tcp').directive('event', [
             '               ng-class="{ loading: ev.$sources[0].$loading }" />',
             '        </section>',
 
-            '        <section>',
-            '            <label i18n="event/sentiment"></label>',
-            '            <label class="label--inline margin-right-small">',
-            '                <input type="radio" name="sentiment" value="positive" ng-model="ev.sentiment" />',
-            '                <span i18n="event/sentiment_positive"></span>',
-            '            </label>',
-            '            <label class="label--inline margin-right-small">',
-            '                <input type="radio" name="sentiment" value="negative" ng-model="ev.sentiment" />',
-            '                <span i18n="event/sentiment_negative"></span>',
-            '            </label>',
-            '            <label class="label--inline">',
-            '                <input type="radio" name="sentiment" value="neutral" ng-model="ev.sentiment" />',
-            '                <span i18n="event/sentiment_neutral"></span>',
-            '            </label>',
-            '        </section>',
-
             '        <section class="event-elem__logo">',
             '            <label i18n="event/logo"></label>',
             '            <table>',
@@ -297,7 +281,7 @@ angular.module('tcp').directive('event', [
          */
         function sha_event(ev) {
             return shasum([
-                lodash.pick(ev, ['id', 'date', 'logo', 'sentiment', 'titie']),
+                lodash.pick(ev, ['id', 'date', 'logo', 'titie']),
                 lodash.map(ev.tags, 'id'),
                 lodash.map(ev.companies, 'id'),
             ]);
@@ -320,7 +304,6 @@ angular.module('tcp').directive('event', [
                 id: ev.id || Services.query.UUID,
                 title: ev.title,
                 date: new Date(ev.$date).valueOf(),
-                sentiment: ev.sentiment,
                 logo: ev.logo,
                 created_by: ev.created_by || Session.USER.id,
                 updated_by: Session.USER.id,
@@ -394,7 +377,6 @@ angular.module('tcp').directive('event', [
             $scope.vm = $scope.vm || {};
             $scope.ev = {
                 id: null,
-                sentiment: null,
                 logo: null,
                 title: null,
                 created_by: null,

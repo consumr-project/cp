@@ -16,16 +16,6 @@
     position: absolute;
 }
 
-.tag-elem.positive {
-    border-color: var(--color-positive);
-    color: var(--color-positive);
-}
-
-.tag-elem.negative {
-    border-color: var(--color-negative);
-    color: var(--color-negative);
-}
-
 .tag-elem.keyword {
     border-radius: 2px;
     border: 1px solid var(--color-std-border-color);

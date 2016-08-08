@@ -61,9 +61,6 @@ namespace tcp {
 
                 event: 'event',
                 event_props: {
-                    sentiments: {
-                        neutral: 'neutral',
-                    },
                     type: {
                         company_created: 'company_created'
                     }

@@ -133,18 +133,6 @@
     width: var(--avatar-size);
 }
 
-.timeline__event__icon--neutral {
-    background-color: var(--color-neutral);
-}
-
-.timeline__event__icon--positive {
-    background-color: var(--color-positive);
-}
-
-.timeline__event__icon--negative {
-    background-color: var(--color-negative);
-}
-
 .timeline__event__content {
     display: inline-block;
     margin-top: var(--spacing-xsmall);
@@ -262,6 +250,7 @@
 }
 
 .timeline__event__icon--company_created {
+    background-color: #C7C7C7;
     background-image: url(/assets/images/megaphone.svg);
 }
 
