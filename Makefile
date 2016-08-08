@@ -165,8 +165,6 @@ build-client-deps:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/rollbar-browser/dist/rollbar.umd.nojson.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/datedropper/datedropper.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
 
 build-client-src:
 	echo "" > $(build_client_js)
@@ -212,7 +210,6 @@ build-client-src:
 	$(js_min) src/client/services/Session.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
-	$(js_min) src/client/vendor/angular/ngDatePicker.js >> $(build_client_js)
 
 postgres: postgresql
 postgresql:
