@@ -14,9 +14,9 @@ logo_consumer_protection: Consumer Protection
 logo_general: Genenral
 
 date: Event date
-tied_to: "Companies & Countries involved in the event"
-tags: Tags
-title: Title
+tied_to: "Please list other companies involved in this event"
+tags: "Please list keywords that help describe the event"
+title: Event title
 pub_date: Publication date
 quote: Quote (limit {limit} characters)
 

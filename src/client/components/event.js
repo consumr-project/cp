@@ -80,8 +80,7 @@ angular.module('tcp').directive('event', [
             '        </section>',
 
             '        <section>',
-            '            <label for="event_title" i18n="event/title"></label>',
-            '            <input id="event_title" type="text" ng-model="ev.title" />',
+            '            <input prop="placeholder" i18n="event/title" type="text" ng-model="ev.title" />',
 
             '            <label for="event_date" i18n="event/date"></label>',
             '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
