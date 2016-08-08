@@ -186,7 +186,6 @@ build-client-src:
 	$(js_min) src/client/elements/snav-item.js >> $(build_client_js)
 	$(js_min) src/client/elements/message.js >> $(build_client_js)
 	$(js_min) src/client/elements/indicator.js >> $(build_client_js)
-	$(js_min) src/client/elements/key.js >> $(build_client_js)
 	$(js_min) src/client/elements/tag.js >> $(build_client_js)
 	$(js_min) src/client/elements/tags.js >> $(build_client_js)
 	$(js_min) src/client/elements/i18n.js >> $(build_client_js)
