@@ -1,8 +1,8 @@
-add: Add an event
+add: Add an Event
 add_source: Add another source
 
 source_number: Source {number}
-source_url_primary: Primary Source Url
+source_url_primary: Enter the url of the primary news source
 source_url: Source url
 source_title: Source title
 
