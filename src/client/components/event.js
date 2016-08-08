@@ -106,16 +106,19 @@ angular.module('tcp').directive('event', [
             '                    <h3 collapsable-trigger i18n="event/source_number" data="{number: {{$index + 1}}}"></h3>',
 
             '                    <div collapsable-area>',
-            '                        <label for="event_source_{{$index}}_source" i18n="event/source_url"></label>',
-            '                        <input id="event_source_{{$index}}_source" type="text" ng-model="source.url" ',
+            '                        <input type="text" ng-model="source.url" ',
+            '                            prop="placeholder" i18n="event/source_url"',
             '                            ng-model-options="{ debounce: { default: 100 } }"',
             '                            ng-class="{ loading: source.$loading }" />',
-            '                        <label for="event_source_{{$index}}_title" i18n="event/source_title"></label>',
-            '                        <input id="event_source_{{$index}}_title" type="text" ng-model="source.title" />',
-            '                        <label for="event_source_{{$index}}_date" i18n="event/pub_date"></label>',
-            '                        <input id="event_source_{{$index}}_date" type="date" ng-date-picker ng-model="source.$published_date" />',
-            '                        <label for="event_source_{{$index}}_quote" i18n="event/quote" data="{limit: 500}"></label>',
-            '                        <textarea id="event_source_{{$index}}_quote" ng-model="source.summary"></textarea>',
+
+            '                        <input prop="placeholder" i18n="event/source_title"',
+            '                            type="text" ng-model="source.title" />',
+
+            '                        <label i18n="event/pub_date"></label>',
+            '                        <input type="date" ng-date-picker ng-model="source.$published_date" />',
+
+            '                        <textarea prop="placeholder" i18n="event/quote" data="{limit: 500}"',
+            '                            ng-model="source.summary"></textarea>',
             '                    </div>',
             '                </div>',
             '            </div>',
