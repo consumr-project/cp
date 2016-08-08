@@ -60,7 +60,7 @@ export TRELLO_TOKEN='...'
 * Creative Stall for the [pencil](https://thenounproject.com/search/?q=pencil&i=382196) icon
 * Danil Polshin for the [pizza](https://thenounproject.com/term/pizza/108104/) icon
 * Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
-* Herbert Spencer for the [hammer](https://thenounproject.com/search/?q=hammer&i=333481) icon
+* Maciej Świerczek for the [hammer](https://thenounproject.com/search/?q=hammer&i=188614) icon
 * Leif Michelsen for the [question mark](https://thenounproject.com/search/?q=question+mark&i=447554) icon
 * Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon
 * Nikita Kozin for the [bell](https://thenounproject.com/search/?q=bell&i=304492) icon
@@ -69,6 +69,9 @@ export TRELLO_TOKEN='...'
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * To Uyen for the [book](https://thenounproject.com/search/?q=book&i=249760) icon
 * artworkbean for the [star](https://thenounproject.com/search/?q=star&i=101463) icon
+* Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
+* Edward Boatman for the [shopping cart](https://thenounproject.com/search/?q=shopping+cart&i=355) icon
+* Lloyd Humphreys for the [information](https://thenounproject.com/search/?q=information&i=96638) icon
 
 ### thanks for services
 

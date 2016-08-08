@@ -88,7 +88,7 @@
     }
 
     .timeline__event--selected .timeline__event__icon--hammer {
-        transform: scale(1.6) rotate(-40deg);
+        transform: scale(1.6);
     }
 
     .timeline__event--highlight .timeline__event__title {
@@ -234,9 +234,15 @@
 }
 
 .event-elem__logo td {
-    padding-right: var(--spacing-xlarge);
+    padding-right: 25px;
 }
 
+.event-elem__logo td span {
+    white-space: nowrap;
+}
+
+.event-elem__logo--consumer_protection,
+.event-elem__logo--general,
 .event-elem__logo--animal,
 .event-elem__logo--world,
 .event-elem__logo--hammer {
@@ -262,27 +268,49 @@
 .timeline__event__icon--animal,
 .event-elem__logo--animal {
     background-image: url(/assets/images/animal.svg);
+    background-color: #ff921e;
+}
+
+.timeline__event__icon--consumer_protection,
+.event-elem__logo--consumer_protection {
+    background-color: #ffeb00;
+    background-image: url(/assets/images/shopping-cart.svg);
+}
+
+.event-elem__logo--consumer_protection {
+    background-position: 13px 16px;
+    background-size: 30px;
+}
+
+.timeline__event__icon--consumer_protection {
+    background-position: 8px 11px;
+    background-size: 23px;
+}
+
+.timeline__event__icon--general,
+.event-elem__logo--general {
+    background-image: url(/assets/images/information.svg);
+    background-color: #000000;
+}
+
+.timeline__event__icon--general {
+    background-size: 21px;
+}
+
+.event-elem__logo--general {
+    background-size: 25px;
 }
 
 .timeline__event__icon--world,
 .event-elem__logo--world {
     background-image: url(/assets/images/world.svg);
+    background-color: #1fc979;
 }
 
 .timeline__event__icon--hammer,
 .event-elem__logo--hammer {
     background-image: url(/assets/images/hammer.svg);
-    transform: rotate(-40deg);
-}
-
-.timeline__event__icon--hammer {
-    background-position: -9px 7px;
-    background-size: 60px;
-}
-
-.event-elem__logo--hammer {
-    background-position: -4px 12px;
-    background-size: 70px;
+    background-color: #ff00a2;
 }
 
 .timeline__event__edit-menu {

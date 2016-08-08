@@ -8,6 +8,8 @@ logo: 'choose which topic best describez dis event'
 logo_human_rights: 'hooman rights'
 logo_environmental: environmental
 logo_animal_rights: 'animal rights'
+logo_consumer_protection: 'consumer protection'
+logo_general: 'genenral'
 sentiment: 'choose which sentiment best describez teh event'
 sentiment_positive: positiv
 sentiment_negative: negativ

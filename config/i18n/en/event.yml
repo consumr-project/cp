@@ -10,6 +10,8 @@ logo: Choose which topic best describes this event
 logo_human_rights: Human Rights
 logo_environmental: Environmental
 logo_animal_rights: Animal Rights
+logo_consumer_protection: Consumer Protection
+logo_general: Genenral
 
 sentiment: Choose which sentiment best describes the event
 sentiment_positive: Positive
