@@ -50,3 +50,7 @@ sure: sure
 no_thanks: no thanks
 
 sort_by_col: "sort by:"
+
+day: Day
+month: Month
+year: Year

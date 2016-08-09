@@ -32,3 +32,6 @@ no: no
 sure: sure
 no_thanks: 'no thx'
 sort_by_col: 'sort by:'
+day: day
+month: month
+year: year
