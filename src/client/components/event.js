@@ -82,8 +82,8 @@ angular.module('tcp').directive('event', [
             '        <section>',
             '            <input prop="placeholder" i18n="event/title" type="text" ng-model="ev.title" />',
 
-            '            <label for="event_date" i18n="event/date"></label>',
-            '            <input id="event_date" type="date" ng-date-picker ng-model="ev.$date" />',
+            '            <label i18n="event/date"></label>',
+            '            <datepicker ng-model="ev.$date"></datepicker>',
 
             '            <label i18n="event/tied_to"></label>',
             '            <pills',
@@ -115,7 +115,7 @@ angular.module('tcp').directive('event', [
             '                            type="text" ng-model="source.title" />',
 
             '                        <label i18n="event/pub_date"></label>',
-            '                        <input type="date" ng-date-picker ng-model="source.$published_date" />',
+            '                        <datepicker ng-model="source.$published_date"></datepicker>',
 
             '                        <textarea prop="placeholder" i18n="event/quote" data="{limit: 500}"',
             '                            ng-model="source.summary"></textarea>',
@@ -179,7 +179,7 @@ angular.module('tcp').directive('event', [
 
             ev.title = get('title');
             ev.date = get('date', 'published');
-            ev.$date = new Date(get('date', 'published'));
+            ev.$date = new Date(get('date', 'published') || Date.now());
         }
 
         /**
@@ -191,10 +191,7 @@ angular.module('tcp').directive('event', [
             source.title = content.title;
             source.published_date = content.published;
             source.$loaded_url = source.url;
-
-            if (content.published) {
-                source.$published_date = new Date(content.published);
-            }
+            source.$published_date = new Date(content.published || Date.now());
         }
 
         /**

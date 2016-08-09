@@ -96,7 +96,7 @@ angular.module('tcp').directive('datepicker', [
                 });
             }],
             template: [
-                '<div class="is-non-selectable">',
+                '<div class="is-non-selectable form__fields">',
                 '    <select ng-options="item as item.label for item in vm.months track by item.id"',
                 '        ng-model="vm.month">',
                 '        <option disabled="true" i18n="common/month"></option>',

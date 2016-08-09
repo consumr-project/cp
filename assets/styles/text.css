@@ -38,6 +38,7 @@ input.loading {
     background-size: 16px;
 }
 
+form .form__fields + textarea,
 form input + textarea,
 form input + input {
     margin-top: var(--spacing-medium);
