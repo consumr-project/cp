@@ -3,12 +3,14 @@ angular.module('tcp').directive('event', [
     'EVENTS',
     'DOMAIN',
     '$q',
+    '$window',
     'lodash',
     'utils',
     'Services',
     'Session',
     'shasum',
-    function (RUNTIME, EVENTS, DOMAIN, $q, lodash, utils, Services, Session, shasum) {
+    'i18n',
+    function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n) {
         'use strict';
 
         var HTML_VIEW = [
@@ -142,6 +144,21 @@ angular.module('tcp').directive('event', [
                 $elem.scrollTop(Number.MAX_VALUE);
                 $elem.find('[popover-body]').scrollTop(Number.MAX_VALUE);
             }, 10);
+        }
+
+        /**
+         * @param {Error} [err]
+         */
+        function error_creating_event(err) {
+            var message = lodash.get(err, 'data.meta.message');
+
+            if (message) {
+                $window.alert(i18n.get('admin/error_creating_event_msg', {
+                    message: message
+                }));
+            } else {
+                $window.alert(i18n.get('admin/error_creating_event'));
+            }
         }
 
         /**
@@ -454,8 +471,8 @@ angular.module('tcp').directive('event', [
                                 data: new_companies_created,
                             });
                         }
-                    });
-                });
+                    }).catch(error_creating_event);
+                }).catch(error_creating_event);
             };
 
             $scope.vm.query_companies = function (str, done) {
