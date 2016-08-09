@@ -10,7 +10,9 @@ angular.module('tcp').directive('company', [
     'utils2',
     'lodash',
     '$q',
-    function (RUNTIME, EVENTS, DOMAIN, Feature, Navigation, Services, Session, utils, utils2, lodash, $q) {
+    '$window',
+    'i18n',
+    function (RUNTIME, EVENTS, DOMAIN, Feature, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n) {
         'use strict';
 
         var HTML_PAGE = [
@@ -238,6 +240,21 @@ angular.module('tcp').directive('company', [
             }
         }
 
+        /**
+         * @param {Error} [err]
+         */
+        function error_creating_company(err) {
+            var message = lodash.get(err, 'data.meta.message');
+
+            if (message) {
+                $window.alert(i18n.get('admin/error_creating_company_msg', {
+                    message: message
+                }));
+            } else {
+                $window.alert(i18n.get('admin/error_creating_company'));
+            }
+        }
+
         function controller($scope) {
             $scope.nav = Navigation;
 
@@ -357,7 +374,7 @@ angular.module('tcp').directive('company', [
                             return company;
                         });
                     });
-                });
+                }).catch(error_creating_company);
             };
 
             /**
