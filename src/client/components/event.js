@@ -125,11 +125,11 @@ angular.module('tcp').directive('event', [
             '        </section>',
             '    </section>',
 
-            '    <button class="right margin-top-small" ng-click="vm.save()"',
+            '    <button class="margin-top-small" ng-click="vm.save()"',
             '        i18n="admin/save"></button>',
-            '    <button class="right margin-top-small button--link" ng-click="cancelTriggered()"',
+            '    <button class="margin-top-small button--link" ng-click="cancelTriggered()"',
             '        i18n="admin/cancel"></button>',
-            '    <button class="right margin-top-small button--link" ng-click="vm.add_source()"',
+            '    <button class="margin-top-small button--link" ng-click="vm.add_source()"',
             '        i18n="event/add_source"></button>',
             '</form>',
         ].join('');
