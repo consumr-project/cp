@@ -19,6 +19,7 @@ search_long_placeholder: 'search 4 company or an issue u care bout'
 thanks: thx!
 oops: oops!
 try_later: 'uh oh, somethin happend, def not us (but srsly try again latr.)'
+error_login_to_create_company: "Please log in to create a company."
 error_creating_event: "Looks like we had an error trying to save this event. Please try again."
 error_creating_event_msg: "Looks like we had an error trying to save this event. Here's the error we got back, sorry if it's not pretty: \"{message}\""
 error_creating_company: "Looks like we had an error trying to save this company. Please try again."
