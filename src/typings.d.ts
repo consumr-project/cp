@@ -88,6 +88,23 @@ declare module 'cp/record' {
         deleted_date?: Date | number;
     }
 
+    interface Token extends Model {
+        id: string;
+        token: string;
+        pub?: string;
+        used?: boolean;
+        used_date?: Date;
+        expiration_date: Date;
+
+        // TODO move to Model?
+        created_by: string;
+        created_date: Date | number;
+        updated_by: string;
+        updated_date: Date | number;
+        deleted_by?: string;
+        deleted_date?: Date | number;
+    }
+
     export interface Company extends Model {
     }
 
