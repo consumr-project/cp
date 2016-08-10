@@ -13,6 +13,8 @@ import connect from '../service/dbms';
 import gen_models from '../record/models';
 
 export var app = express();
+
+// TODO move to ./service/models import
 export var conn = connect();
 export var models = gen_models(conn);
 
