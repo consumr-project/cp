@@ -23,6 +23,7 @@ case "$1" in
 
         heroku:envar CP_COOKIE_KEY
         heroku:envar CP_SESSION_KEY
+        heroku:envar CP_CRYPTO_AUTH_TOKEN_KEY
         heroku:envar CP_CRYPTO_USER_EMAIL_KEY
         heroku:envar DATABASE_URL
         heroku:envar ELASTICSEARCH_HOST
