@@ -51,6 +51,10 @@ case "$1" in
         ;;
 
     *)
+        assert CP_COOKIE_KEY $(test ! -z $CP_COOKIE_KEY)
+        assert CP_SESSION_KEY $(test ! -z $CP_SESSION_KEY)
+        assert CP_CRYPTO_USER_EMAIL_KEY $(test ! -z $CP_CRYPTO_USER_EMAIL_KEY)
+        assert CP_CRYPTO_AUTH_TOKEN_KEY $(test ! -z $CP_CRYPTO_AUTH_TOKEN_KEY)
         assert EMBEDLY_API_KEY $(test ! -z $EMBEDLY_API_KEY)
         assert GOOGLE_ANALYTICS_ACCOUNT_ID $(test ! -z $GOOGLE_ANALYTICS_ACCOUNT_ID)
         assert LINKEDIN_CLIENT_ID $(test ! -z $LINKEDIN_CLIENT_ID)
