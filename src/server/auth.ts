@@ -4,11 +4,14 @@ import { User } from 'cp/record';
 import * as express from 'express';
 import * as passport from 'passport';
 import * as record from './record';
-import * as permissions from '../auth/permissions';
+import { service_handler } from '../utilities';
+import { Manager } from '../auth/token';
+import { can, roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import apikey_auth from '../auth/apikey';
 
 const UserModel = record.models.User;
+const Token = record.models.Token;
 
 export var app = express();
 export { passport };
@@ -25,6 +28,13 @@ app.get('/user', (req, res) => res.json(req.user || {}));
 app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
 app.get('/linkedin', linkedin.pre_base, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
+app.get('/token', can('create', 'token'),
+    service_handler(req => {
+        var manager = new Manager(Token);
+        var oneyear = new Date();
+        oneyear.setFullYear(oneyear.getFullYear() + 1);
+        return manager.generate(oneyear, req.user);
+    }));
 
 if (process.env.CP_ALLOW_APIKEY_AUTH) {
     app.post('/key', apikey.login, (req, res) => res.json(req.user || {}));
@@ -54,6 +64,6 @@ function js_update_client_auth(req: Request, res: Response): void {
 };
 
 export function as_guest(req: Request, res: Response, next: Function): void {
-    req.user = req.user || { role: permissions.roles.GUEST };
+    req.user = req.user || { role: roles.GUEST };
     next();
 }

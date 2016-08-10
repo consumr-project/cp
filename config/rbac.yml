@@ -14,6 +14,7 @@ permissions:
   review: *CRUD
   tag: [create, retrieve, update, delete, follow]
   user: [create, retrieve, update, delete, follow]
+  token: [create]
 
 grants:
   guest:
@@ -46,6 +47,7 @@ grants:
 
   admin:
     - user
+    - create_token
     - create_user
     - delete_company
     - delete_event
