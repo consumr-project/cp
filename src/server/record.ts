@@ -5,7 +5,7 @@ import * as crud from '../record/crud';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
-import { service_cache_intercept } from '../utilities';
+import { service_response, service_cache_intercept } from '../utilities';
 
 import { shared, quick_save } from '../service/cache';
 import connect_mongo from '../service/mongo';
@@ -70,9 +70,14 @@ del('/users/:id',
     can('delete', 'user'),
     remove(models.User));
 
+// XXX this endpoint is breaking the freaking app
+// FIXME https://trello.com/c/b2jDGuzu/136-user-stats-query-perf
+// get('/users/:id/stats',
+//     can('retrieve', 'user'),
+//     query(conn, sql('get-user-stats'), true));
 get('/users/:id/stats',
     can('retrieve', 'user'),
-    query(conn, sql('get-user-stats'), true));
+    (req, res) => res.json(service_response({})));
 get('/users/:id/stats/contributions/questions',
     can('retrieve', 'company'),
     query(conn, sql('get-user-contributions-questions'), false, { offset: 0 }));
