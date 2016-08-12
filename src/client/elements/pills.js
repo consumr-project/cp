@@ -222,14 +222,6 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             $scope.selections = [];
         }
 
-        $scope.$on('$destroy', function () {
-            angular.element('body').toggleClass('pills--is-showing-options', false);
-        });
-
-        $scope.$watchCollection('options', function (options) {
-            angular.element('body').toggleClass('pills--is-showing-options', options && !!options.length);
-        });
-
         $scope.$watchCollection('selections', function (selections) {
             $scope.pills = normalize(selections, $attrs);
             $scope.empty = !$scope.pills.length;
@@ -274,8 +266,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             '<div class="pills-container is-non-selectable" ng-class="{\'pills--empty\': empty}">',
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
-                        '<div class="pills-element__selections__placeholder" ',
-                            'ng-show="empty">{{placeholder}}</div>',
+                        '<div class="pills-element__selections__placeholder">{{placeholder}}</div>',
+                            // 'ng-show="empty">{{placeholder}}</div>',
                         '<div ',
                             'class="pills-element__pill" ',
                             'ng-repeat="pill in pills" ',

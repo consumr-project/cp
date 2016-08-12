@@ -207,6 +207,7 @@ angular.module('tcp').directive('company', [
             '        <h1 i18n="company/what_do_they_do" data="{name: company.name}"></h1>',
             '        <pills',
             '            class="pills--bigone"',
+            '            style="margin-bottom: 240px;"',
             '            ng-focus="true"',
             '            selections="company.$products"',
             '            create="create_product(value, done)"',
