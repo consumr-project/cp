@@ -25,9 +25,10 @@ angular.module('tcp').directive('company', [
             '            <span i18n="event/good_job_thanks"></span>',
             '        </message>',
 
-            '        <section ng-show="vm.new_companies_created.length" class="margin-bottom-xlarge">',
+            '        <section ng-show="vm.mind_giving_company_details && vm.new_companies_created.length" class="margin-bottom-xlarge">',
             '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
             '                <p class="snav__item snav__item--active" i18n="company/new_company_more_info" data="{ name: company.name }"></p>',
+            '                <br>',
             '                <button i18n="common/sure"></button>',
             '                <button ng-click="will_not_update_company(company)" i18n="common/no_thanks" class="button--unselected"></button>',
             '            </div>',
@@ -295,6 +296,8 @@ angular.module('tcp').directive('company', [
                 show_events: true,
                 show_event_added_msg: false,
                 new_companies_created: [],
+
+                mind_giving_company_details: Feature.on('mind_giving_company_details'),
             };
 
             $scope.will_not_update_company = function (company) {

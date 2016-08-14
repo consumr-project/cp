@@ -8,3 +8,6 @@
 #   name_of_feature:
 #     enabled: true | false
 #   ```
+
+mind_giving_company_details:
+  enabled: false
