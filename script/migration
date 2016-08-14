@@ -140,9 +140,15 @@ db_run() {
 }
 
 db_exec() {
+    local check=
     local file="$1"
+    local out=$($DB_CMD "$file" 2>&1)
+
     echo $DB_CMD "$file"
-    $DB_CMD "$file" | grep -v ERROR
+    echo "$out"
+
+    check=$(echo "$out" | sed -e 's/ERROR/X/')
+    test "$check" == "$out"
 }
 
 [ -f ./config/migrations.sh ] && source ./config/migrations.sh
