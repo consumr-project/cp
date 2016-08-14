@@ -10,12 +10,14 @@
 }
 
 .options__item {
+    cursor: pointer;
     transition: color var(--speed-fast);
 }
 
 .options__item + .options__item::before {
     color: black;
     content: '/';
+    cursor: default;
     padding: 0 5px;
 }
 
