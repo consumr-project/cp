@@ -1,4 +1,4 @@
-import { AnyModel, Event, User } from 'cp/record';
+import { AnyModel, Event, EventSource, User } from 'cp/record';
 import { Sequelize, Transaction, WhereOptions } from 'sequelize';
 
 interface EventMessage extends Event {
@@ -8,7 +8,10 @@ interface EventMessage extends Event {
 }
 
 interface EventRequirements {
+    CompanyEvent: AnyModel;
     Event: AnyModel;
+    EventSource: AnyModel;
+    EventTag: AnyModel;
 }
 
 export async function save_event(
@@ -17,20 +20,24 @@ export async function save_event(
     data: EventMessage,
     you: User
 ): Promise<Event> {
-    var now: number,
-        ev: Event,
-        ev_data: Event,
-        transaction: Transaction,
-        where: WhereOptions;
+    const CompanyEvent = models.CompanyEvent;
+    const Event = models.Event;
+    const EventSource = models.EventSource;
+    const EventTag = models.EventTag;
 
-    transaction = await conn.transaction();
-    now = Date.now();
+    var ev: Event;
+    var sources: EventSource[];
 
-    where = {
-        id: data.id,
+    var transaction: Transaction = await conn.transaction();
+    var now: number = Date.now();
+
+    var where = (val: string, label: string = 'id'): WhereOptions => {
+        return {
+            [label]: val,
+        };
     };
 
-    ev_data = {
+    var ev_data: Event = {
         id: data.id,
         title: data.title,
         date: data.date,
@@ -43,11 +50,11 @@ export async function save_event(
     if (!data.id) {
         ev_data.created_by = you.id;
         ev_data.created_date = now;
-        ev = await models.Event.create(ev_data, { transaction });
+        ev = await Event.create(ev_data, { transaction });
     } else {
-        ev = await models.Event.update(ev_data, {
+        ev = await Event.update(ev_data, {
             transaction,
-            where,
+            where: where(data.id),
         })[1][0];
     }
 
@@ -55,14 +62,20 @@ export async function save_event(
         throw new Error('error creating event');
     }
 
+    // get all active sources and figure out which ones need to be deleted and
+    // upsert the reset
+    sources = await EventSource.findAll({
+        transaction,
+        where: where(ev.id, 'event_id'),
+    });
+
+    /* console.log(sources); */
+
+    // get all active tags and figure out which ones need to be deleted and
+    // upsert the reset
+
+    // get all active company_events and figure out which ones need to be
+    // deleted and upsert the reset
+
     return ev;
-
-    // get all active sources and figure out which sources need to be
-    // deleted and upsert the reset
-
-    // get all active tags and figure out which sources need to be
-    // deleted and upsert the reset
-
-    // get all active company_events and figure out which sources need
-    // to be deleted and upsert the reset
 }
