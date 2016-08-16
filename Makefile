@@ -119,9 +119,12 @@ else
 endif
 
 build-server:
-	$(tsc) src/typings.d.ts src/server/main.ts src/record/models/* \
-		src/auth/token.ts \
-		--outDir $(build_dir) --module commonjs --pretty --removeComments \
+	$(tsc) src/typings.d.ts src/server/main.ts src/record/models/* src/auth/token.ts \
+		--outDir $(build_dir) \
+		--module commonjs \
+		--pretty \
+		--removeComments \
+		--target ES6 \
 		--moduleResolution classic
 
 build-worker:
