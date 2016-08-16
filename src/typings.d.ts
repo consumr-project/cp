@@ -42,10 +42,11 @@ declare module 'cp/cache' {
 }
 
 declare module 'cp/record' {
-    import { Sequelize } from 'sequelize';
+    import { Model as RealModel, Sequelize } from 'sequelize';
 
     type FindOrCreate = { where?: Object, defaults?: Model };
     export type QueryResult = any;
+    export type AnyModel = RealModel<any, any>;
 
     export interface Model {
         findOne?(query: Object): Promise<Model>;
@@ -53,21 +54,34 @@ declare module 'cp/record' {
         findOrCreate?(options: FindOrCreate): Promise<Model>;
     }
 
-    export interface Event extends Model {
-        id: string;
-        title: string;
-        date: Date | number;
-        logo: string;
-        created_by: string;
-        created_date: Date | number;
-        updated_by: string;
-        updated_date: Date | number;
+    export interface StampedModel {
+        created_by?: string;
+        created_date?: Date | number;
+        updated_by?: string;
+        updated_date?: Date | number;
         deleted_by?: string;
         deleted_date?: Date | number;
     }
 
-    export interface User extends Model {
+    export interface IdentifiableModel extends StampedModel {
         id: string;
+    }
+
+    export interface Event extends IdentifiableModel {
+        title: string;
+        date: Date | number;
+        logo: string;
+    }
+
+    export interface EventSource extends IdentifiableModel {
+        event_id: string;
+        title: string;
+        url: string;
+        published_date: Date | string;
+        summary: string;
+    }
+
+    export interface User extends IdentifiableModel {
         role: string;
         auth_linkedin_id: string;
         avatar_url: string;
@@ -80,32 +94,22 @@ declare module 'cp/record' {
         name: string;
         summary: string;
         title: string;
-        created_by: string;
-        created_date: Date | number;
-        updated_by: string;
-        updated_date: Date | number;
-        deleted_by?: string;
-        deleted_date?: Date | number;
     }
 
-    interface Token extends Model {
-        id: string;
+    interface Token extends IdentifiableModel {
         token: string;
         pub?: string;
         used?: boolean;
         used_date?: Date;
         expiration_date: Date;
-
-        // TODO move to Model?
-        created_by: string;
-        created_date: Date | number;
-        updated_by: string;
-        updated_date: Date | number;
-        deleted_by?: string;
-        deleted_date?: Date | number;
     }
 
-    export interface Company extends Model {
+    export interface Company extends IdentifiableModel {
+        name: string;
+        summary: string;
+        guid: string;
+        website_url: string;
+        wikipedia_url: string;
     }
 
     export enum FeedbackType {
@@ -114,8 +118,7 @@ declare module 'cp/record' {
         problem
     }
 
-    export interface Feedback extends Model {
-        id: string;
+    export interface Feedback extends IdentifiableModel {
         user_id: string;
         message: string;
         referrer: string;
