@@ -20,10 +20,10 @@ export async function save_event(
     data: EventMessage,
     you: User
 ): Promise<Event> {
-    const CompanyEvent = models.CompanyEvent;
+    /* const CompanyEvent = models.CompanyEvent; */
     const Event = models.Event;
     const EventSource = models.EventSource;
-    const EventTag = models.EventTag;
+    /* const EventTag = models.EventTag; */
 
     var ev: Event;
     var sources: EventSource[];
