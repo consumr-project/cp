@@ -124,7 +124,6 @@ build-server:
 		--module commonjs \
 		--pretty \
 		--removeComments \
-		--target ES6 \
 		--moduleResolution classic
 
 build-worker:
