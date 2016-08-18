@@ -1,7 +1,7 @@
 import * as express from 'express';
 import es from '../service/elasticsearch';
 
-import { conn } from './record';
+import { conn } from '../service/models';
 import { sql, query } from '../record/query';
 import { fuzzy, normalize, INDEX, TYPE } from '../search/searcher';
 import { service_handler } from '../utilities';

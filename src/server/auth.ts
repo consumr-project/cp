@@ -3,12 +3,12 @@ import { User } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
-import * as record from './record';
+import models from '../service/models';
 import { roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import apikey_auth from '../auth/apikey';
 
-const UserModel = record.models.User;
+const UserModel = models.User;
 
 export var app = express();
 export { passport };

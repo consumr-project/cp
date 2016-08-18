@@ -1,7 +1,7 @@
 import { WhereOptions } from 'sequelize';
 import { User } from 'cp/record';
 import { decrypt, KEY_USER_EMAIL } from '../crypto';
-import * as record from '../server/record';
+import models from '../service/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';
 
@@ -9,7 +9,7 @@ import md5 = require('md5');
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
-const UserModel = record.models.User;
+const UserModel = models.User;
 
 export enum RATING {
     G = <any>'g',

@@ -1,10 +1,10 @@
 import * as passport from 'passport';
-import * as record from '../server/record';
+import models from '../service/models';
 
 import LocalApiKey = require('passport-localapikey');
 
 const ApiKey = LocalApiKey.Strategy;
-const UserModel = record.models.User;
+const UserModel = models.User;
 
 function find_user(apikey: string, done) {
     UserModel.findOne({

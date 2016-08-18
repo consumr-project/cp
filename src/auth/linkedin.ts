@@ -9,13 +9,13 @@ import { get } from 'lodash';
 import { parse } from 'url';
 import { v4 } from 'node-uuid';
 
+import models from '../service/models';
 import * as passport from 'passport';
-import * as record from '../server/record';
 import * as config from 'acm';
 
 import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
 
-const User = record.models.User;
+const User = models.User;
 const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
 const SCOPE = [
