@@ -251,7 +251,11 @@ angular.module('tcp').directive('timeline', [
             };
 
             $scope.api = $scope.api || {};
-            $scope.api.refresh = $scope.load;
+            $scope.api.refresh = function () {
+                Services.query.tags.events.timeline.cache.removeAll();
+                Services.query.companies.events.timeline.cache.removeAll();
+                $scope.load();
+            }
 
             $scope.$watch('filters', set_filtered_events, true);
 

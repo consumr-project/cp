@@ -1,8 +1,9 @@
 angular.module('tcp').service('Services', [
     '$http',
     '$q',
+    '$cacheFactory',
     'lodash',
-    function ($http, $q, lodash) {
+    function ($http, $q, $cacheFactory, lodash) {
         'use strict';
 
         var authService = {},
@@ -305,21 +306,23 @@ angular.module('tcp').service('Services', [
         queryService.tags.events = queryService.tags.events || {};
         queryService.tags.events.timeline = function (id, user_id) {
             return $http.get(url('tags', id, 'events/timeline'), {
-                cache: true,
+                cache: queryService.tags.events.timeline.cache,
                 params: {
                     user_id: user_id
                 }
             }).then(pluck_data).then(pluck_body);
         };
+        queryService.tags.events.timeline.cache = $cacheFactory('queryService.tags.events.timeline');
 
         queryService.companies.events.timeline = function (id, user_id) {
             return $http.get(url('companies', id, 'events/timeline'), {
-                cache: true,
+                cache: queryService.companies.events.timeline.cache,
                 params: {
                     user_id: user_id
                 }
             }).then(pluck_data).then(pluck_body);
         };
+        queryService.companies.events.timeline.cache = $cacheFactory('queryService.companies.events.timeline.cache');
 
         queryService.companies.reviews.view = function (id, user_id, offset) {
             return $http.get(url('companies', id, 'reviews'), {
