@@ -45,9 +45,9 @@ angular.module('tcp').directive('company', [
             '                    <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
             '                </td>',
             '                <td class="half-width no-wrap right-align">',
-            '                    <a ng-show="::company.website_url" ng-href="{{company.website_url}}"',
+            '                    <a ng-show="::company.website_url" ng-href="{{utils.make_link(company.website_url)}}"',
             '                        class="snav__item" rel="noreferrer" target="_blank" i18n="common/official_site"></a>',
-            '                    <a ng-show="::company.wikipedia_url" ng-href="{{::company.wikipedia_url}}"',
+            '                    <a ng-show="::company.wikipedia_url" ng-href="{{utils.make_link(company.wikipedia_url)}}"',
             '                        class="snav__item" rel="noreferrer" target="_blank" i18n="common/wikipedia"></a>',
             '                    <button class="margin-left-xsmall logged-in-only--display button--unselected"',
             '                        ng-click="on_start_following(company.id)"',
@@ -265,6 +265,7 @@ angular.module('tcp').directive('company', [
 
         function controller($scope) {
             $scope.nav = Navigation;
+            $scope.utils = utils;
 
             $scope.company = {
                 $followed_by: [],
