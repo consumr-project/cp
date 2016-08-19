@@ -1,5 +1,6 @@
 import { Cache, Item } from 'cp/cache';
 import { Collection } from 'mongodb';
+import { ServiceRequestHandler, service_response } from './http';
 
 const IDX_COLL = { expire_at: 1 };
 const IDX_CONF = { expireAfterSeconds: 0 };
@@ -39,5 +40,13 @@ export function quick_save<T>(cache: Cache<T>, name: string): (val: T) => T {
     return val => {
         cache.set(name, val, {});
         return val;
+    };
+}
+
+export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
+    return (req, res, next) => {
+        cache.get(name)
+            .then(rec => rec ? res.json(service_response(rec, true, { from_cache: true })) : next())
+            .catch(next);
     };
 }

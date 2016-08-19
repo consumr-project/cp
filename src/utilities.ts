@@ -1,7 +1,6 @@
 import { Request } from 'express';
 import { Dictionary } from 'lodash';
 import { Cache } from 'cp/cache';
-import { ServiceRequestHandler, service_response } from './service/http';
 
 export type None = Object;
 export type Maybe<T> = T;
@@ -32,14 +31,6 @@ export function make_enum(items: string[]): any {
 
 export function get_url_parts(raw: string): string[] {
     return (raw || '').split(',');
-}
-
-export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
-    return (req, res, next) => {
-        cache.get(name)
-            .then(rec => rec ? res.json(service_response(rec, true, { from_cache: true })) : next())
-            .catch(next);
-    };
 }
 
 export function has_all_fields(fields: string[], data: any): boolean {
