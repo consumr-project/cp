@@ -1,6 +1,6 @@
 import { merge, head, filter, pick } from 'lodash';
 import { Client, Index } from 'elasticsearch';
-import { DatabaseConnection } from 'cp/service';
+import { DatabaseConnection } from '../service/dbms';
 import { INDEX } from './searcher';
 import { sql } from '../record/query';
 

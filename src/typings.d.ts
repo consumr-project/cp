@@ -19,11 +19,6 @@ declare module 'cp' {
     }
 }
 
-declare module 'cp/service' {
-    import { Sequelize } from 'sequelize';
-    export type DatabaseConnection = Sequelize;
-}
-
 declare module 'cp/cache' {
     interface Options {
         ttl?: number;
