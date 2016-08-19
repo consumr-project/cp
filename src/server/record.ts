@@ -2,21 +2,17 @@ import { ServiceUnavailableError } from '../errors';
 import * as express from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
+import { save_event } from '../repository/event';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
-import { service_response, service_cache_intercept } from '../utilities';
+import { service_handler, service_response, service_cache_intercept } from '../utilities';
 
 import { shared, quick_save } from '../service/cache';
+import models, { conn } from '../service/models';
 import connect_mongo from '../service/mongo';
-import connect from '../service/dbms';
-import gen_models from '../record/models';
 
-export var app = express();
-
-// TODO move to ./service/models import
-export var conn = connect();
-export var models = gen_models(conn);
+export const app = express();
 
 var post = app.post.bind(app),
     get = app.get.bind(app),
@@ -305,14 +301,6 @@ del('/questions/:id',
     can('delete', 'question'),
     remove(models.Question));
 
-// events
-post('/events',
-    can('create', 'event'),
-    create(models.Event));
-patch('/events',
-    can('create', 'event'),
-    can('update', 'event'),
-    upsert(models.Event));
 del('/events/:id',
     can('delete', 'event'),
     remove(models.Event));
@@ -340,27 +328,9 @@ get('/events/:id',
     }
 ));
 
-patch('/events/:event_id/sources',
+post('/events',
     can('create', 'event'),
-    can('update', 'event'),
-    upsert(models.EventSource, ['event_id']));
-get('/events/:event_id/sources/:id?',
-    can('retrieve', 'event'),
-    retrieve(models.EventSource, {event_id: 'event_id'}));
-
-patch('/events/:event_id/tags',
-    can('create', 'event'),
-    can('update', 'event'),
-    upsert(models.EventTag, ['event_id']));
-get('/events/:event_id/tags/:id?',
-    can('retrieve', 'event'),
-    retrieve(models.EventTag, {event_id: 'event_id'}));
-
-// managed through companies
-get('/events/:event_id/companies',
-    can('retrieve', 'event'),
-    can('retrieve', 'company'),
-    retrieve(models.CompanyEvent, {event_id: 'event_id'}));
+    service_handler(req => save_event(conn, req.body, req.user)));
 
 patch('/events/:event_id/bookmarks',
     can('create', 'event'),

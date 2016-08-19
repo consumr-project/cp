@@ -317,12 +317,10 @@ angular.module('tcp').directive('event', [
          */
         function get_normalized_event(ev) {
             return {
-                id: ev.id || Services.query.UUID,
+                id: ev.id,
                 title: ev.title,
                 date: new Date(ev.$date).valueOf(),
                 logo: ev.logo,
-                created_by: ev.created_by || Session.USER.id,
-                updated_by: Session.USER.id,
             };
         }
 
@@ -349,18 +347,15 @@ angular.module('tcp').directive('event', [
 
         /**
          * @param {EventSource} source
-         * @param {String} event_id
          * @return {EventSource}
          */
-        function get_normalized_event_source(source, event_id) {
+        function get_normalized_event_source(source) {
             return {
-                id: source.id || Services.query.UUID,
+                id: source.id,
                 title: source.title,
                 url: source.url,
                 published_date: new Date(source.$published_date).valueOf(),
                 summary: source.summary,
-                created_by: source.created_by || Session.USER.id,
-                updated_by: Session.USER.id
             };
         }
 
@@ -368,22 +363,19 @@ angular.module('tcp').directive('event', [
          * @param {EventTag} tag
          * @return {EventTag}
          */
-        function get_normalized_event_tag(tag, event_id) {
+        function get_normalized_event_tag(tag) {
             return {
-                event_id: event_id,
-                tag_id: tag.tag_id || tag.id
+                id: tag.tag_id || tag.id,
             };
         }
 
         /**
          * @param {CompanyEvent} company
-         * @param {String} event_id
          * @return {CompanyEvent}
          */
-        function get_normalized_company_event(company, event_id) {
+        function get_normalized_company_event(company) {
             return {
-                event_id: event_id,
-                company_id: company.company_id || company.id
+                id: company.company_id || company.id,
             };
         }
 
@@ -422,9 +414,14 @@ angular.module('tcp').directive('event', [
             $scope.$watch('tiedTo', fecth_tags_tied_to.bind(null, $scope.ev));
 
             $scope.vm.save = function () {
-                var method = $scope.ev.id ? 'upsert' : 'create',
-                    notify_contributed = false,
+                var notify_contributed = false,
                     notify_modified = false;
+
+                var ev = get_normalized_event($scope.ev);
+
+                ev.sources = lodash.map($scope.ev.$sources, get_normalized_event_source);
+                ev.tags = lodash.map($scope.ev.$tags, get_normalized_event_tag);
+                ev.companies = lodash.map($scope.ev.$companies, get_normalized_company_event);
 
                 if ($scope.ev.id && Session.USER.id !== $scope.ev.created_by) {
                     // new source added notification (do it in the server?)
@@ -434,44 +431,24 @@ angular.module('tcp').directive('event', [
                     notify_contributed = sha_sources($scope.ev.$sources) !== $scope.ev.$shasums.sources;
                 }
 
-                // XXX should be one request
-                Services.query.events[method](get_normalized_event($scope.ev)).then(function (ev) {
-                    if (!ev.id) {
-                        ev = $scope.ev;
+                Services.query.events.create(ev).then(function (ev) {
+                    if (notify_modified) {
+                        Services.notification.notify.modify(ev.id);
                     }
 
-                    $q.all([].concat(
-                        lodash.map($scope.ev.$sources, function (source) {
-                            return Services.query.events.sources.upsert(ev.id,
-                                get_normalized_event_source(source, ev.id));
-                        }),
-                        lodash.map($scope.ev.$tags, function (tag) {
-                            return Services.query.events.tags.upsert(ev.id,
-                                get_normalized_event_tag(tag, ev.id));
-                        }),
-                        lodash.map($scope.ev.$companies, function (company) {
-                            return Services.query.companies.events.upsert(company.id,
-                                get_normalized_company_event(company, ev.id));
-                        })
-                    )).then(function (res) {
-                        if (notify_modified) {
-                            Services.notification.notify.modify(ev.id);
-                        }
+                    if (notify_contributed) {
+                        Services.notification.notify.contribute(ev.id);
+                    }
 
-                        if (notify_contributed) {
-                            Services.notification.notify.contribute(ev.id);
-                        }
+                    Session.emit(Session.EVENT.NOTIFY);
+                    $scope.onSave({ ev: ev });
 
-                        Session.emit(Session.EVENT.NOTIFY);
-                        $scope.onSave({ ev: ev, children: res });
-
-                        if (new_companies_created.length) {
-                            $scope.onEvent({
-                                type: EVENTS.INCOMPLETE_COMPANY_CREATED,
-                                data: new_companies_created,
-                            });
-                        }
-                    }).catch(error_creating_event);
+                    if (new_companies_created.length) {
+                        $scope.onEvent({
+                            type: EVENTS.INCOMPLETE_COMPANY_CREATED,
+                            data: new_companies_created,
+                        });
+                    }
                 }).catch(error_creating_event);
             };
 
