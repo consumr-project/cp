@@ -1,13 +1,15 @@
-import { Event as IEvent, EventTag as IEventTag, EventSource as IEventSource, User as IUser } from 'cp/record';
 import { Sequelize, Transaction, WhereOptions } from 'sequelize';
 import { UUID, Date2 } from '../lang';
 import { is_set } from '../utilities';
 import { v4 } from 'node-uuid';
 import { difference } from 'lodash';
 
+import { Event as IEvent, EventTag as IEventTag, EventSource as IEventSource,
+    CompanyEvent as ICompanyEvent, User as IUser } from 'cp/record';
+
 import models from '../service/models';
 
-/* const CompanyEvent = models.CompanyEvent; */
+const CompanyEvent = models.CompanyEvent;
 const Event = models.Event;
 const EventSource = models.EventSource;
 const EventTag = models.EventTag;
@@ -61,12 +63,14 @@ function upsert_event(
         }).then(() => ev_data);
 }
 
-function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[]): EventMessage {
+function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[], company_ids: UUID[]): EventMessage {
     return {
         id: ev.id,
         title: ev.title,
         logo: ev.logo,
         date: ev.date,
+        tags: tag_ids,
+        companies: company_ids,
         sources: sources.map(source => {
             return {
                 id: source.id,
@@ -76,8 +80,6 @@ function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[
                 summary: source.summary,
             };
         }),
-        tags: tag_ids,
-        companies: [],
     };
 }
 
@@ -121,6 +123,18 @@ function build_event_source(ev: IEvent, source: IEventSource, user: IUser): IEve
     return source;
 }
 
+function build_event_company(ev: IEvent, company_id: string, user: IUser): ICompanyEvent {
+    return {
+        id: v4(),
+        event_id: ev.id,
+        company_id: company_id,
+        created_by: user.id,
+        created_date: Date.now(),
+        updated_by: user.id,
+        updated_date: Date.now(),
+    };
+}
+
 function build_event_tag(ev: IEvent, tag_id: string, user: IUser): IEventTag {
     return {
         id: v4(),
@@ -131,6 +145,17 @@ function build_event_tag(ev: IEvent, tag_id: string, user: IUser): IEventTag {
         updated_by: user.id,
         updated_date: Date.now(),
     };
+}
+
+function get_companies_for_event(
+    ev: IEvent,
+    transaction: Transaction
+): Promise<ICompanyEvent[]> {
+    return CompanyEvent.findAll({
+        transaction,
+        paranoid: true,
+        where: where(ev.id, 'event_id'),
+    });
 }
 
 function get_tags_for_event(
@@ -161,7 +186,10 @@ function set_event_tags(
             Promise.all(delete_ids.map(id => {
                 return EventTag.destroy({
                     transaction,
-                    where: where(id),
+                    where: {
+                        event_id: ev.id,
+                        tag_id: id,
+                    },
                 });
             })).then(() => {
                 // upsert the rest
@@ -171,6 +199,42 @@ function set_event_tags(
                     }).then(() => id);
                 }))
                     .then(tags => resolve(tags))
+                    .catch(reject);
+            }).catch(reject);
+        });
+    });
+}
+
+function set_event_companies(
+    ev: IEvent,
+    data: EventMessage,
+    user: IUser,
+    transaction: Transaction
+): Promise<UUID[]> {
+    return new Promise<UUID[]>((resolve, reject) => {
+        get_companies_for_event(ev, transaction).then((companies: ICompanyEvent[]) => {
+            var cur_company_ids = companies.filter(is_set).map(company => company.company_id),
+                msg_company_ids = data.companies.filter(is_set).map(company => company.id),
+                delete_ids = difference<string>(cur_company_ids, msg_company_ids),
+                create_ids = difference<string>(msg_company_ids, cur_company_ids);
+
+            // delete remove companies
+            Promise.all(delete_ids.map(id => {
+                return CompanyEvent.destroy({
+                    transaction,
+                    where: {
+                        event_id: ev.id,
+                        company_id: id,
+                    },
+                });
+            })).then(() => {
+                // upsert the rest
+                Promise.all(create_ids.map(id => {
+                    return CompanyEvent.create(build_event_company(ev, id, user), {
+                        transaction
+                    }).then(() => id);
+                }))
+                    .then(companies => resolve(companies))
                     .catch(reject);
             }).catch(reject);
         });
@@ -232,16 +296,16 @@ export function save_event(
                 // get all active sources and figure out which ones need to be deleted and
                 // upsert the reset
                 return set_event_sources(ev, data, you, transaction).then(sources => {
+                    // get all active tags and figure out which ones need to be deleted and
+                    // upsert the reset
                     return set_event_tags(ev, data, you, transaction).then(tag_ids => {
-                        return build_event_message(ev, sources, tag_ids);
+                        // get all active company_events and figure out which ones need to be
+                        // deleted and upsert the reset
+                        return set_event_companies(ev, data, you, transaction).then(company_ids => {
+                            return build_event_message(ev, sources, tag_ids, company_ids);
+                        });
                     });
                 });
-
-                // get all active tags and figure out which ones need to be deleted and
-                // upsert the reset
-
-                // get all active company_events and figure out which ones need to be
-                // deleted and upsert the reset
             });
         })
             .then(resolve)
