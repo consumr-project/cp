@@ -331,6 +331,7 @@ angular.module('tcp').directive('timeline', [
                 '                id="{{vm.selected_event_to_view.id}}"',
                 '                api="vm.event_view_form"',
                 '            ></event>',
+                '            <div class="timeline__event__mask"></div>',
                 '        </div>',
 
                 '    </div>',

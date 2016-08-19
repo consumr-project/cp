@@ -281,6 +281,15 @@
     background-color: #ff00a2;
 }
 
+.timeline__event__mask {
+    background: white;
+    height: 20px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 10px;
+}
+
 .timeline__event__edit-menu {
     float: right;
     margin-top: -40px;
