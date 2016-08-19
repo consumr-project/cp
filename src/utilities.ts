@@ -85,3 +85,7 @@ export function runtime_purge_allowed(req: Request): boolean {
 export function as_array(val: Object): Object[] {
     return val instanceof Array ? val : [val];
 }
+
+export function is_set(val: any): boolean {
+    return !!val;
+}

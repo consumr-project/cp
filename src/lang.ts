@@ -1,5 +1,6 @@
 export type UUID = string;
 export type scalar = number | string | boolean;
+export type Date2 = Date | number;
 
 export type Duration = number;
 

@@ -81,6 +81,16 @@ declare module 'cp/record' {
         summary: string;
     }
 
+    export interface CompanyEvent extends IdentifiableModel {
+        event_id: string;
+        company_id: string;
+    }
+
+    export interface EventTag extends IdentifiableModel {
+        event_id: string;
+        tag_id: string;
+    }
+
     export interface User extends IdentifiableModel {
         role: string;
         auth_linkedin_id: string;
