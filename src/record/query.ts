@@ -1,4 +1,4 @@
-import { ServiceRequestHandler } from 'cp';
+import { ServiceRequestHandler } from '../service/http';
 import { Sequelize } from 'sequelize';
 
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';

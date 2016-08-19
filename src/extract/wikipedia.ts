@@ -1,4 +1,3 @@
-import { ServiceRequestHandler } from 'cp';
 import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
     WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
 
@@ -115,11 +114,11 @@ export function infobox(query: string, rparts: string): Promise<Object> {
     });
 }
 
-export const extract_handler: ServiceRequestHandler = service_handler(req =>
+export const extract_handler = service_handler(req =>
     extract(req.query.q));
 
-export const search_handler: ServiceRequestHandler = service_handler(req =>
+export const search_handler = service_handler(req =>
     search(req.query.q));
 
-export const infobox_handler: ServiceRequestHandler = service_handler(req =>
+export const infobox_handler = service_handler(req =>
     infobox(req.query.q, req.query.parts));

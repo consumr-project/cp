@@ -30,7 +30,7 @@ angular.module('tcp').directive('search', [
 
         /**
          * @param {String} query
-         * @param {CPServiceResponseV1} results
+         * @param {ServiceResponseV1} results
          * @return {String[]}
          */
         function track_search(query, results) {

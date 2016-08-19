@@ -6,7 +6,7 @@ import { app as search_endpoints } from './search';
 import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
-import { ServiceResponseV1 } from 'cp';
+import { ServiceResponseV1 } from '../service/http';
 import { HttpError } from '../errors';
 import * as auth_service from './auth';
 import * as express from 'express';

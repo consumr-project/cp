@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Dictionary} from 'lodash';
 import { Cache } from 'cp/cache';
 import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
-    ServiceResponseV1 } from 'cp';
+    ServiceResponseV1 } from './service/http';
 
 export type None = Object;
 export type Maybe<T> = T;

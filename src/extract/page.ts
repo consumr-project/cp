@@ -1,4 +1,3 @@
-import { ServiceRequestHandler } from 'cp';
 import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';
 
@@ -60,5 +59,5 @@ export function extract(url: string) {
     });
 }
 
-export const extract_handler: ServiceRequestHandler = service_handler(req =>
+export const extract_handler = service_handler(req =>
     extract(req.query.url));
