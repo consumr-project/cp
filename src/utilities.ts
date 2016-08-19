@@ -1,8 +1,7 @@
 import { Request } from 'express';
-import { Dictionary} from 'lodash';
+import { Dictionary } from 'lodash';
 import { Cache } from 'cp/cache';
-import { ServiceRequestHandler, ServiceRequestPromise, ServiceResultMetadata,
-    ServiceResponseV1 } from './service/http';
+import { ServiceRequestHandler, service_response } from './service/http';
 
 export type None = Object;
 export type Maybe<T> = T;
@@ -33,30 +32,6 @@ export function make_enum(items: string[]): any {
 
 export function get_url_parts(raw: string): string[] {
     return (raw || '').split(',');
-}
-
-export function service_response<T>(body: T, ok: Boolean = true, meta: ServiceResultMetadata | any = {}): ServiceResponseV1<T> {
-    meta.ok = ok;
-    return { body, meta };
-}
-
-export function service_handler<T>(from_req: ServiceRequestPromise<T>, builder = service_response): ServiceRequestHandler {
-    return (req, res, next) => {
-        var pro = from_req(req, res, next);
-
-        if (pro) {
-            pro.then(body => res.json(builder(body)))
-                .catch(next);
-        }
-    };
-}
-
-export function service_redirect(from_req: ServiceRequestPromise<string>): ServiceRequestHandler {
-    return (req, res, next) => {
-        from_req(req, res, next)
-            .then(url => res.redirect(url))
-            .catch(next);
-    };
 }
 
 export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {

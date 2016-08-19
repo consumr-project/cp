@@ -2,7 +2,6 @@ import { EmbedlyRequest, EmbedlyResponse, EmbedlyScoredWord,
     EmbedlyPageResponse } from 'embedly';
 
 import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
-import { service_handler } from '../utilities';
 import { filter, flatten, map, uniq, sortBy as sort } from 'lodash';
 import * as config from 'acm';
 
@@ -58,6 +57,3 @@ export function extract(url: string) {
         });
     });
 }
-
-export const extract_handler = service_handler(req =>
-    extract(req.query.url));

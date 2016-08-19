@@ -6,7 +6,8 @@ import { save_event } from '../repository/event';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
-import { service_handler, service_response, service_cache_intercept } from '../utilities';
+import { service_cache_intercept } from '../utilities';
+import { service_handler, service_response } from '../service/http';
 
 import { shared, quick_save } from '../service/cache';
 import models, { conn } from '../service/models';

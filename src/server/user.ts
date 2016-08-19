@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { get_user_gravatar_url } from '../user/avatar';
-import { service_redirect } from '../utilities';
+import { service_redirect } from '../service/http';
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 export var app = express();

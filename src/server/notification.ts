@@ -4,7 +4,8 @@ import * as Schema from 'cp/record';
 import models from '../service/models';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
-import { has_all_fields, service_handler, runtime_purge_allowed } from '../utilities';
+import { has_all_fields, runtime_purge_allowed } from '../utilities';
+import { service_handler } from '../service/http';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 

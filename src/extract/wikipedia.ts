@@ -2,7 +2,7 @@ import { WikipediaResult, WikipediaRequest, WikipediaResponsePage,
     WikipediaExtract, WikipediaSearchResult } from 'wikipedia';
 
 import { BadGatewayError, ERR_MSG_PARSING_ERROR } from '../errors';
-import { option, get_url_parts, service_handler } from '../utilities';
+import { option, get_url_parts } from '../utilities';
 import { get, filter, map, includes, head } from 'lodash';
 import * as config from 'acm';
 
@@ -113,12 +113,3 @@ export function infobox(query: string, rparts: string): Promise<Object> {
         return { parts, infobox };
     });
 }
-
-export const extract_handler = service_handler(req =>
-    extract(req.query.q));
-
-export const search_handler = service_handler(req =>
-    search(req.query.q));
-
-export const infobox_handler = service_handler(req =>
-    infobox(req.query.q, req.query.parts));

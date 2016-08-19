@@ -4,7 +4,7 @@ import es from '../service/elasticsearch';
 import { conn } from '../service/models';
 import { sql, query } from '../record/query';
 import { fuzzy, normalize, INDEX, TYPE } from '../search/searcher';
-import { service_handler } from '../utilities';
+import { service_handler } from '../service/http';
 
 export var app = express();
 

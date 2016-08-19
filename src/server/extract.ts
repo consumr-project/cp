@@ -1,12 +1,12 @@
 import * as express from 'express';
 
-import { extract_handler as p_extract_handler } from '../extract/page';
-import { search_handler, infobox_handler,
-    extract_handler as w_extract_handler } from '../extract/wikipedia';
+import { service_handler } from '../service/http';
+import { extract as p_extract } from '../extract/page';
+import { search, infobox, extract as w_extract } from '../extract/wikipedia';
 
 export var app = express();
 
-app.get('/page', p_extract_handler);
-app.get('/wiki/search', search_handler);
-app.get('/wiki/extract', w_extract_handler);
-app.get('/wiki/infobox', infobox_handler);
+app.get('/page', service_handler(req => p_extract(req.query.url)));
+app.get('/wiki/search', service_handler(req => search(req.query.q)));
+app.get('/wiki/extract', service_handler(req => w_extract(req.query.q)));
+app.get('/wiki/infobox', service_handler(req => infobox(req.query.q, req.query.parts)));

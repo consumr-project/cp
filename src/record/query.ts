@@ -1,8 +1,8 @@
-import { ServiceRequestHandler } from '../service/http';
+import { ServiceRequestHandler, service_response } from '../service/http';
 import { Sequelize } from 'sequelize';
 
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
-import { service_response, pass } from '../utilities';
+import { pass } from '../utilities';
 import { readFileSync as read } from 'fs';
 import { template } from 'lodash';
 import { head, merge, uniq, difference, map } from 'lodash';
