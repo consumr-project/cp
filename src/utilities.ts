@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import { Dictionary } from 'lodash';
-import { Cache } from 'cp/cache';
 
 export type None = Object;
 export type Maybe<T> = T;
