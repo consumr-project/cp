@@ -15,6 +15,7 @@ const EventSource = models.EventSource;
 const EventTag = models.EventTag;
 
 interface EventMessage extends IEvent {
+    _force_create?: boolean;
     sources: any[];
     tags: any[];
     companies: any[];
@@ -53,7 +54,7 @@ function upsert_event(
     ev_data: IEvent,
     transaction: Transaction
 ): Promise<IEvent> {
-    return !raw_data.id ?
+    return !raw_data.id || raw_data._force_create ?
         Event.create(ev_data, {
             transaction
         }) :
@@ -93,8 +94,8 @@ function build_event(data: EventMessage, user: IUser): IEvent {
         updated_date: Date.now(),
     };
 
-    if (!data.id) {
-        ev.id = v4();
+    if (!data.id || data._force_create) {
+        ev.id = data.id || v4();
         ev.created_by = user.id;
         ev.created_date = Date.now();
     }

@@ -9,7 +9,7 @@ const config = require('acm');
 const fixture = clone(config('fixtures'));
 
 // for (var i = 0; i < 10; i++)
-tapes('common tag', t => {
+tapes.skip('common tag', t => {
     t.plan(1);
 
     auth.login(fixture.user.admin.auth_apikey).end((err, res) => {

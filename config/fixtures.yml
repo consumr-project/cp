@@ -29,36 +29,42 @@ events:
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'positive'
     logo: 'none'
+    _force_create: true
 
   - id: '1ee4f628-c99d-42ba-9613-e41f7b8c176a'
     title: 'test event 2'
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'neutral'
     logo: 'none'
+    _force_create: true
 
   - id: '3b54b2bc-766d-4360-a881-73877ea9100b'
     title: 'test event 3'
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'negative'
     logo: 'none'
+    _force_create: true
 
   - id: '3a177113-5fba-490a-a348-2673699c2c9a'
     title: 'test event 4'
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'neutral'
     logo: 'none'
+    _force_create: true
 
   - id: '585594f7-ad58-4800-bda4-75ee11e00a34'
     title: 'test event 5'
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'positive'
     logo: 'none'
+    _force_create: true
 
   - id: '7538e544-76fe-497c-bda6-b52f8f8db057'
     title: 'test event 6'
     date: '2016-03-10 18:18:34.841703-07'
     sentiment: 'positive'
     logo: 'none'
+    _force_create: true
 
 tags:
   - id: '85963fe7-530f-411b-938a-fd5efcfa4cc0'
