@@ -208,12 +208,7 @@ namespace tcp {
 
             $routeProvider.otherwise({
                 resolve: { PageView },
-                controller: ['$scope', 'ERRORED', function ($scope, ERRORED) { $scope.ERRORED = ERRORED; }],
-                template:
-                    '<div class="site-content">' +
-                        '<message ng-if="!ERRORED" type="error" i18n="common/not_found"></message>' +
-                        '<message ng-if="ERRORED" type="error" i18n="common/error_loading"></message>' +
-                    '</div>'
+                template: '<error-view></error-view>',
             });
         }
     ]);

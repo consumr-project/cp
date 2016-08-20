@@ -37,6 +37,29 @@ tag-view {
     }
 }
 
+.error-view-component.banner > div {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.error-view-component.banner img {
+    width: 25vw;
+}
+
+.error-view-component.banner p {
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+.error-view-component--hidden {
+    visibility: hidden;
+}
+
+.error-view-component--dead-fish {
+    transform: rotate(210deg);
+}
+
+.error-view-component.banner,
 .home-view-component {
     margin-top: -23px;
 }
@@ -83,7 +106,7 @@ tag-view {
     }
 }
 
-.state--theme-1 .home-view-component .banner {
+.state--theme-1 .banner {
     background-color: var(--color-banner-1);
 }
 
@@ -92,7 +115,7 @@ tag-view {
     background-color: var(--color-banner-2);
 }
 
-.state--theme-2 .home-view-component .banner {
+.state--theme-2 .banner {
     background-color: var(--color-banner-2);
     border-color: var(--color-banner-2);
 }

@@ -32,6 +32,10 @@ see [./CONTRIBUTING.md](CONTRIBUTING.md) for details.
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * Edward Boatman for the [shopping cart](https://thenounproject.com/search/?q=shopping+cart&i=355) icon
 * Lloyd Humphreys for the [information](https://thenounproject.com/search/?q=information&i=96638) icon
+* Aldric Rodríguez Iborra for the [ice cream](https://thenounproject.com/search/?q=ice+cream&i=422594) icon
+* Ryzhkov Anton for the [soda spill](https://thenounproject.com/search/?q=spill&i=23127) icon
+* Juan León for the [dead fish](https://thenounproject.com/search/?q=dead+fish&i=95085) icon
+* Lee Mette for the [cactus](https://thenounproject.com/search/?q=broken+cactus&i=103375) icon
 
 ### thanks for services
 
