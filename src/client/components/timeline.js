@@ -128,6 +128,13 @@ angular.module('tcp').directive('timeline', [
                 loading: false
             };
 
+            $scope.refresh = function () {
+                Services.query.events.cache.removeAll();
+                Services.query.tags.events.timeline.cache.removeAll();
+                Services.query.companies.events.timeline.cache.removeAll();
+                $scope.load();
+            };
+
             /**
              * @return {Promise}
              */
@@ -251,11 +258,7 @@ angular.module('tcp').directive('timeline', [
             };
 
             $scope.api = $scope.api || {};
-            $scope.api.refresh = function () {
-                Services.query.tags.events.timeline.cache.removeAll();
-                Services.query.companies.events.timeline.cache.removeAll();
-                $scope.load();
-            };
+            $scope.api.refresh = $scope.refresh;
 
             $scope.$watch('filters', set_filtered_events, true);
 
@@ -370,7 +373,7 @@ angular.module('tcp').directive('timeline', [
                 '            ng-if="vm.selected_event_to_edit"',
                 '            id="{{vm.selected_event_to_edit.id}}"',
                 '            api="vm.event_edit_form"',
-                '            on-save="load(); vm.add_event.hide(); vm.event_edit_form.reset()"',
+                '            on-save="refresh(); vm.add_event.hide(); vm.event_edit_form.reset()"',
             '                on-event="onEvent({ type: type, data: data })"',
                 '            on-cancel="vm.event_edit_form.reset(); vm.add_event.hide()"',
                 '        ></event>',

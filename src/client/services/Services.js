@@ -105,6 +105,7 @@ angular.module('tcp').service('Services', [
          * @return {Object}
          */
         function crud(model, associations) {
+            var cache = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
             return lodash.reduce(associations, function (methods, assoc) {
                 methods[assoc] = {
                     create: function (parent_id, data) {
@@ -117,7 +118,7 @@ angular.module('tcp').service('Services', [
                     },
                     retrieve: function (parent_id, id, parts, expand) {
                         var opt = {
-                            cache: true
+                            cache: cache
                         };
 
                         if (parts) {
@@ -144,6 +145,7 @@ angular.module('tcp').service('Services', [
                 };
                 return methods;
             }, {
+                cache: cache,
                 create: function (data) {
                     return $http.post(url(model), data)
                         .then(pluck_data).then(pluck_body);
@@ -154,7 +156,7 @@ angular.module('tcp').service('Services', [
                 },
                 retrieve: function (id, parts, expand) {
                     var opt = {
-                        cache: true
+                        cache: cache
                     };
 
                     if (parts) {
