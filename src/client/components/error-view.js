@@ -1,5 +1,6 @@
 angular.module('tcp').directive('errorView', [
-    function () {
+    'i18n',
+    function (i18n) {
         'use strict';
 
         var IMAGES = [
