@@ -134,6 +134,9 @@ get('/tags',
 post('/tags',
     can('create', 'tag'),
     create(models.Tag));
+get('/tags/mine',
+    can('retrieve', 'tag'),
+    query(conn, sql('get-your-tags')));
 get('/tags/like',
     can('retrieve', 'tag'),
     (req, res, next) => {

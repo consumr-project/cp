@@ -63,6 +63,14 @@
     margin-top: -var(--spacing-large);
 }
 
+.timeline__event__tags {
+    margin-top: var(--spacing-xsmall);
+}
+
+.timeline__event--selected .timeline__event__tags {
+    display: none;
+}
+
 @media (--media-regular-screens) {
     .timeline__event--last {
         position: relative;

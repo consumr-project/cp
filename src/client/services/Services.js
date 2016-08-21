@@ -305,6 +305,10 @@ angular.module('tcp').service('Services', [
             },
         };
 
+        queryService.tags.mine = function () {
+            return get(url('tags/mine'));
+        };
+
         queryService.tags.events = queryService.tags.events || {};
         queryService.tags.events.timeline = function (id, user_id) {
             return $http.get(url('tags', id, 'events/timeline'), {

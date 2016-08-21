@@ -76,9 +76,10 @@ angular.module('tcp').directive('timeline', [
 
         /**
          * @param {Event} ev
+         * @param {Tag[]} user_tags
          * @return {Object}
          */
-        function visible_event(ev) {
+        function visible_event(ev, user_tags) {
             return {
                 id: ev.id,
                 title: utils.ellipsis(ev.title, 100),
@@ -89,6 +90,9 @@ angular.module('tcp').directive('timeline', [
                 needs_sources: ev.source_count <= 1,
                 bookmark_count: ev.bookmark_count,
                 bookmarked_by_me: ev.bookmarked_by_user,
+                user_tags: lodash.uniqBy(lodash.filter(lodash.map(lodash.filter(ev.tag_ids), function (id) {
+                    return lodash.find(user_tags, { id: id });
+                })), 'id'),
             };
         }
 
@@ -112,11 +116,19 @@ angular.module('tcp').directive('timeline', [
                 '        <span ng-show="::event.needs_sources" class="right margin-right-small imgview imgview--warning"></span>',
                 '    </div>',
                 '    <div class="timeline__event__title copy">{{::event.title}}</div>',
+                '    <div ng-if="::event.user_tags.length" class="timeline__event__tags">',
+                '        <tags show-hide="false">',
+                '            <tag class="keyword" label="{{::tag.label}}"',
+                '                ng-repeat="tag in event.user_tags"></tag>',
+                '        </tags>',
+                '    </div>',
                 '</span>',
             ].join('');
         }
 
         function controller($scope, $attrs) {
+            $scope.user_tags = [];
+
             $scope.vm = {
                 first_load: 2,
                 selected_event_to_edit: null,
@@ -135,6 +147,15 @@ angular.module('tcp').directive('timeline', [
                 $scope.load();
             };
 
+            $scope.init = function () {
+                Services.query.tags.mine().then(function (tags) {
+                    $scope.user_tags = tags;
+                    $scope.load();
+                }).catch(function () {
+                    $scope.load();
+                });
+            };
+
             /**
              * @return {Promise}
              */
@@ -146,7 +167,11 @@ angular.module('tcp').directive('timeline', [
                 }
 
                 return Services.query[ $attrs.parent ].events.timeline($scope.id, Session.USER.id)
-                    .then(lodash.curryRight(lodash.map, 2)(visible_event))
+                    .then(function (evs) {
+                        return lodash.map(evs, function (ev) {
+                            return visible_event(ev, $scope.user_tags);
+                        });
+                    })
                     .then(lodash.curryRight(lodash.sortBy, 2)('date'))
                     .then(utils.scope.set($scope, 'events'))
                     .then(utils.scope.set($scope, 'filtered_events'))
@@ -296,7 +321,7 @@ angular.module('tcp').directive('timeline', [
                 onEvent: '&',
             },
             template: [
-                '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="load()">',
+                '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="init()">',
                 '    <div class="center-aligned loading__only padding-top-large"',
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
 
