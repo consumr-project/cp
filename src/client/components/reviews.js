@@ -131,7 +131,7 @@ angular.module('tcp').directive('reviews', [
                 '        class="margin-bottom-xlarge"',
                 '        y-labels=":: vm.chart_labels"></chart>',
 
-                '    <div class="margin-bottom-medium reviews-component__sort">',
+                '    <div ng-if="reviews.list.length" class="margin-bottom-medium reviews-component__sort">',
                 '        <span class="options--label" i18n="common/sort_by_col"></span>',
                 '        <options on-change="order(value)">',
                 '            <options-item value="time" selected i18n="review/time"></options-item>',
