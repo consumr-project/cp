@@ -92,7 +92,7 @@ angular.module('tcp').directive('timeline', [
                 bookmarked_by_me: ev.bookmarked_by_user,
                 user_tags: lodash.uniqBy(lodash.filter(lodash.map(lodash.filter(ev.tag_ids), function (id) {
                     return lodash.find(user_tags, { id: id });
-                })), 'id'),
+                })), 'id').splice(0, 3),
             };
         }
 
