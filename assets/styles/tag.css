@@ -23,13 +23,18 @@
     margin-right: var(--inline-element-large-gutter);
     padding: var(--spacing-xsmall) calc(var(--spacing-xsmall) + 2);
     text-transform: uppercase;
-    transition: color var(--speed-fast), background-color var(--speed-fast);
+    transition: color var(--speed-fast), background-color var(--speed-fast), border-color var(--speed-fast);
     white-space: nowrap;
 
     color: var(--color-light-text-color);
     font-size: calc(var(--font-size-small) - 1);
     font-weight: 700;
     letter-spacing: 1px;
+}
+
+.tag-elem.keyword[ng-click]:hover,
+.tag-elem.keyword.clickable:hover {
+    border-color: black;
 }
 
 .tag-elem.keyword[active="true"] {
