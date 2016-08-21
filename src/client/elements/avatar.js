@@ -1,4 +1,4 @@
-angular.module('tcp').directive('avatar', function () {
+angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
     'use strict';
 
     var template =
@@ -59,6 +59,12 @@ angular.module('tcp').directive('avatar', function () {
                 .appendTo(elem);
         }
 
+        if (attrs.userId) {
+            elem.find('.avatar__image')
+                .addClass('clickable')
+                .click(Navigation.user.bind(null, attrs.userId));
+        }
+
         elem.attr('title', title.join(' - '));
     }
 
@@ -70,4 +76,4 @@ angular.module('tcp').directive('avatar', function () {
             src: '@'
         }
     };
-});
+}]);

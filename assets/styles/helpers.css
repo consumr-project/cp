@@ -16,6 +16,10 @@
     border-top: 0;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 .close-x {
     font-size: 25px;
     position: absolute;
