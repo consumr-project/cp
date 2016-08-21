@@ -2,8 +2,8 @@ angular.module('tcp').component('tagView', {
     bindings: {
         common_companies: '=?',
         common_companies_limit: '=?',
-        event_form: '=?',
         eventId: '@',
+        event_form: '=?',
         event_popover: '=?',
         events_timeline: '=?',
         followed_by_me: '=?',
@@ -17,7 +17,8 @@ angular.module('tcp').component('tagView', {
         'use strict';
 
         var HTML_PAGE = [
-            '<section class="site-content--main">',
+            '<error-view class="forced-full-span" ng-if="$ctrl.tag === false"></error-view>',
+            '<section class="site-content--main" ng-if="$ctrl.tag">',
             '    <table class="full-span">',
             '        <tr>',
             '            <td>',
@@ -55,7 +56,7 @@ angular.module('tcp').component('tagView', {
             '        </popover>',
             '</section>',
 
-            '<section class="site-content--aside">',
+            '<section class="site-content--aside" ng-if="$ctrl.tag">',
             '    <div class="site-content--aside__section">',
             '        <h3 class="margin-bottom-medium" i18n="tag/common_companies"></h3>',
             '        <tag ng-click="$ctrl.nav.company_by_id(comp.id)" class="keyword" label="{{::comp.label}}"',
@@ -114,10 +115,17 @@ angular.module('tcp').component('tagView', {
             }.bind(this));
 
             Services.query.tags.retrieve(id, ['followers']).then(function (tag) {
-                this.tag = tag;
-                this.tag.name = tag[RUNTIME.locale];
-                this.followed_by_me = tag.followers['@meta'].instead.includes_me;
-            }.bind(this));
+                if (tag) {
+                    this.tag = tag;
+                    this.tag.name = tag[RUNTIME.locale];
+                    this.followed_by_me = tag.followers['@meta'].instead.includes_me;
+                } else {
+                    this.tag = false;
+                }
+            }.bind(this))
+                .catch(function () {
+                    this.tag = false;
+                }.bind(this));
         };
 
         this.show_more_related_tags = function () {

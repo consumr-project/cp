@@ -17,7 +17,7 @@ angular.module('tcp').directive('company', [
 
         var HTML_PAGE = [
             '<div class="company-component">',
-            '    <message ng-if="vm.not_found" type="error" i18n="common/not_found"></message>',
+            '    <error-view class="forced-full-span" ng-if="vm.not_found"></error-view>',
 
             '    <section ng-if="vm.existing && company.$loaded" class="site-content--main">',
             '        <message closable ng-if="vm.show_event_added_msg" type="success"',
@@ -583,6 +583,9 @@ angular.module('tcp').directive('company', [
                             .then(utils.scope.set($scope, 'reviews_score'));
 
                         return company;
+                    })
+                    .catch(function () {
+                        utils.scope.not_found($scope)(false);
                     });
             }
 
