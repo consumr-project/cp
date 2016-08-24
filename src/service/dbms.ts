@@ -7,6 +7,6 @@ export type DatabaseConnection = Sequelize;
 
 export default (c = config): DatabaseConnection =>
     new Connection(c('database.url'), {
-        logging: debug('service:dbms'),
+        logging: debug('cp:service:dbms'),
         pool: c('database.pool')
     });

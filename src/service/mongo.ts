@@ -5,7 +5,7 @@ import * as config from 'acm';
 var connection: Db;
 var connection_err: Error;
 
-var log = debug('service:mongo');
+var log = debug('cp:service:mongo');
 
 export default function (collection: string, cb: Function = () => {}) {
     function send_back(err, conn, collection, cb) {
