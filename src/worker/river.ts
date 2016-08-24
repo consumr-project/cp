@@ -5,7 +5,7 @@ import { LinkConfiguration, LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';
 import * as config from 'acm';
 
-const log = require('debug')('worker:river');
+const log = require('debug')('cp:worker:river');
 const models: LinkDefinition[] = config('river.models').map((def: LinkConfiguration) =>
     new LinkDefinition(def.name, def.fields, def.soft_delete,
         def.primary_key, def.label));
