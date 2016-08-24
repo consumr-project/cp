@@ -1,10 +1,10 @@
 # contributing to the consumr project
 
 first install [https://www.postgresql.org/download/](postgres) version 9.4.5
-then run `foreman start` to download and start addtional services required by
-the app. while that's running run `make install` to install all code
-dependencies. `make` will build the project, and `make server` will start the
-application web server:
+and [https://nodejs.org/en/download/](node) version 5.3.0 then run `foreman
+start` to download and start addtional services required by the app. while
+that's running run `make install` to install all code dependencies. `make` will
+build the project, and `make server` will start the application web server:
 
 ```
 foreman start
