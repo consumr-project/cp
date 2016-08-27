@@ -1,6 +1,7 @@
 import { WhereOptions } from 'sequelize';
 import { User } from 'cp/record';
-import { decrypt, KEY_USER_EMAIL } from '../crypto';
+import { decrypt } from '../crypto';
+import { KEY_USER_EMAIL } from '../keys';
 import models from '../service/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';

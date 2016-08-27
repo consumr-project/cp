@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { Profile } from 'passport-linkedin-oauth2';
 import { WhereOptions } from 'sequelize';
 import * as Schema from 'cp/record';
-import { encrypt, KEY_USER_EMAIL } from '../crypto';
+import { encrypt } from '../crypto';
+import { KEY_USER_EMAIL } from '../keys';
 
 import { roles } from './permissions';
 import { get } from 'lodash';

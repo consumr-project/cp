@@ -1,7 +1,8 @@
 import { Model } from 'sequelize';
 import { v4 } from 'node-uuid';
 import { User, Token } from 'cp/record';
-import { nonce, encrypt, KEY_AUTH_TOKEN } from '../crypto';
+import { nonce, encrypt } from '../crypto';
+import { KEY_AUTH_TOKEN } from '../keys';
 
 interface PublicToken {
     plain_token: string;
