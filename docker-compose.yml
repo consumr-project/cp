@@ -1,0 +1,24 @@
+# cp:
+#   container_name: cp
+#   build: .
+#   ports:
+#     - "80:3000"
+#
+# postgres:
+#   container_name: postgres
+#   image: 
+
+client_web:
+  build: .
+  command: echo 'ready'
+  volumes:
+    - .:/home/app/web
+  # links:
+  #   - db_postgres
+  # environment:
+  #   - PGHOST=db_postgres
+  #   - PGDATABASE=cp_db
+  #   - PGUSER=cp_user
+
+# db_postgres:
+#   image: postgres
