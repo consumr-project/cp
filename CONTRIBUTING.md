@@ -53,13 +53,12 @@ if `MONGO_URL` or `DATABASE_URL` are not found the following variables will be
 used:
 
 ```bash
-POSTGRES_DB
-POSTGRES_HOST
-POSTGRES_PASSWORD
-POSTGRES_USER
-
-MONGO_COLLECTION
-MONGO_HOST
+export POSTGRES_DB='...'
+export POSTGRES_HOST='...'
+export POSTGRES_PASSWORD='...'
+export POSTGRES_USER='...'
+export MONGO_COLLECTION='...'
+export MONGO_HOST='...'
 ```
 
 ### tests and linters
