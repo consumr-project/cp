@@ -11,3 +11,6 @@ cp_server_1:
     - "3000:3000"
   volumes:
     - .:/home/app/client
+  environment:
+    - PORT=3000
+    - DEBUG="*cp*"
