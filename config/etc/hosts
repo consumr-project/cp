@@ -1,0 +1,5 @@
+# change for the ip address your docker container (or docker-machine) gets
+192.168.99.101	local.cp
+
+# for an issues in docker-compose for osx
+127.0.0.1	localunixsocket
