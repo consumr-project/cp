@@ -1,5 +1,12 @@
-client:
-  build: .
+nginx:
+  build: config/nginx
+  links:
+    - "cp_server_1:cp_server_1"
+  ports:
+    - "80:80"
+
+cp_server_1:
+  build: src/server
   ports:
     - "3000:3000"
   volumes:
