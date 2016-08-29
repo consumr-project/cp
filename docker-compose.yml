@@ -6,13 +6,18 @@
 #
 # postgres:
 #   container_name: postgres
-#   image: 
+#   image:
 
-client_web:
+client:
   build: .
-  command: echo 'ready'
+  # ports:
+  #   - "3000:3000"
+  expose:
+    - 3000
   volumes:
-    - .:/home/app/web
+    - .:/home/app/client
+    # - .:/home/app/web
+    # - /home/app/web/node_modules
   # links:
   #   - db_postgres
   # environment:
