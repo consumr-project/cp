@@ -8,9 +8,10 @@ nginx:
 postgres:
   image: postgres
   environment: &postgres_environment
+    POSTGRES_DB: cp_db
     POSTGRES_PASSWORD: mysecret
     POSTGRES_USER: cp_user
-    POSTGRES_DB: cp_db
+    POSTGRES_HOST: postgres
 
 cp_server_1:
   build: src/server

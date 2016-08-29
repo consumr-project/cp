@@ -5,14 +5,30 @@ import debug = require('debug');
 
 export type DatabaseConnection = Sequelize;
 
-const docker_url = 'postgres://' + process.env.POSTGRES_USER +
-    ':' + process.env.POSTGRES_PASSWORD +
-    '@' + process.env.POSTGRES_PORT_5432_TCP_ADDR +
-    ':' + process.env.POSTGRES_PORT_5432_TCP_PORT +
-    '/' + process.env.POSTGRES_DB;
+export default (c = config): DatabaseConnection => {
+    var env = process.env;
 
-export default (c = config): DatabaseConnection =>
-    new Connection(c('database.url') || docker_url, {
-        logging: debug('cp:service:dbms'),
-        pool: c('database.pool')
-    });
+    if (
+        env.POSTGRES_HOST &&
+        env.POSTGRES_PASSWORD &&
+        env.POSTGRES_USER &&
+        env.POSTGRES_DB
+    ) {
+        return new Connection(
+            env.POSTGRES_DB,
+            env.POSTGRES_USER,
+            env.POSTGRES_PASSWORD,
+            {
+                logging: debug('cp:service:dbms'),
+                pool: c('database.pool'),
+                host: env.POSTGRES_HOST,
+                dialect: 'postgres'
+            }
+        );
+    } else {
+        return new Connection(c('database.url'), {
+            logging: debug('cp:service:dbms'),
+            pool: c('database.pool')
+        });
+    }
+};
