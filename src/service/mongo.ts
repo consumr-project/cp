@@ -8,6 +8,8 @@ var connection_err: Error;
 var log = debug('cp:service:mongo');
 
 export default function (collection: string, cb: Function = () => {}) {
+    var url, env = process.env;
+
     function send_back(err, conn, collection, cb) {
         if (err) {
             cb(err);
@@ -20,8 +22,10 @@ export default function (collection: string, cb: Function = () => {}) {
         send_back(connection_err, connection, collection, cb);
     } else {
         log('connecting to mongodb');
+        url = !process.env.MONGO_HOST ? config('mongo.url') :
+            'mongodb://' + env.MONGO_HOST + ':27017/' + env.MONGO_COLLECTION;
 
-        MongoClient.connect(config('mongo.url'), (err, db) => {
+        MongoClient.connect(url, (err, db) => {
             connection = db;
             connection_err = err;
 

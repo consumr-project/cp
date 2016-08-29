@@ -13,10 +13,17 @@ postgres:
     POSTGRES_USER: cp_user
     POSTGRES_HOST: postgres
 
+mongo:
+  build: config/mongo
+  environment: &mongo_environment
+    MONGO_HOST: mongo
+    MONGO_COLLECTION: cp_coll
+
 cp_server_1:
   build: src/server
   links:
     - postgres
+    - mongo
   ports:
     - "3000:3000"
   expose:
@@ -25,5 +32,6 @@ cp_server_1:
     - .:/home/app/client
   environment:
     <<: *postgres_environment
+    <<: *mongo_environment
     PORT: 3000
     DEBUG: "*cp*"
