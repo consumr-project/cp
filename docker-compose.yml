@@ -1,29 +1,6 @@
-# cp:
-#   container_name: cp
-#   build: .
-#   ports:
-#     - "80:3000"
-#
-# postgres:
-#   container_name: postgres
-#   image:
-
 client:
   build: .
-  # ports:
-  #   - "3000:3000"
   expose:
     - 3000
   volumes:
     - .:/home/app/client
-    # - .:/home/app/web
-    # - /home/app/web/node_modules
-  # links:
-  #   - db_postgres
-  # environment:
-  #   - PGHOST=db_postgres
-  #   - PGDATABASE=cp_db
-  #   - PGUSER=cp_user
-
-# db_postgres:
-#   image: postgres
