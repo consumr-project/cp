@@ -11,4 +11,4 @@ WORKDIR $HOME/client
 RUN npm install
 
 EXPOSE 3000
-CMD ["node", "test.js"]
+CMD ["make", "server"]
