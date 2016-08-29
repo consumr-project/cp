@@ -7,8 +7,8 @@ nginx:
 
 cp_server_1:
   build: src/server
-  ports:
-    - "3000:3000"
+  expose:
+    - 3000
   volumes:
     - .:/home/app/client
   environment:
