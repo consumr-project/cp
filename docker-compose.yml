@@ -30,6 +30,8 @@ cp_server_1:
     - 3000
   volumes:
     - .:/home/app/client
+  env_file:
+    - .env
   environment:
     <<: *postgres_environment
     <<: *mongo_environment
