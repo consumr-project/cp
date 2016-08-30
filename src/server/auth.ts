@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
-import { User } from 'cp/record';
+import { User as UserMessage } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
-import models from '../service/models';
+import { User } from '../service/models';
 import { roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import apikey_auth from '../auth/apikey';
-
-const UserModel = models.User;
 
 export var app = express();
 export { passport };
@@ -30,12 +28,12 @@ if (process.env.CP_ALLOW_APIKEY_AUTH) {
     app.post('/key', apikey.login, (req, res) => res.json(req.user || {}));
 }
 
-function serialize(user: User, done: Function): void {
+function serialize(user: UserMessage, done: Function): void {
     done(null, user.id);
 }
 
-function deserialize(user_id: string, done: (err: any) => any): Promise<User> {
-    return UserModel.findById(user_id)
+function deserialize(user_id: string, done: (err: any) => any): Promise<UserMessage> {
+    return User.findById(user_id)
         .then(done.bind(null, null))
         .catch(done);
 }

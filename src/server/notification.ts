@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as config from 'acm';
 import * as Schema from 'cp/record';
-import models from '../service/models';
+import { Event } from '../service/models';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
 import { has_all_fields, runtime_purge_allowed } from '../utilities';
@@ -14,7 +14,6 @@ import { save, find, purge, update, purge_signature } from '../notification/coll
 import { head } from 'lodash';
 import connect from '../service/mongo';
 
-const Event = models.Event;
 export var app = express();
 
 connect(config('mongo.collections.notifications'), (err, coll) => {

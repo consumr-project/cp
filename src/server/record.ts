@@ -10,7 +10,8 @@ import { service_cache_intercept } from '../service/cache';
 import { service_handler, service_response } from '../service/http';
 
 import { shared, quick_save } from '../service/cache';
-import models, { conn } from '../service/models';
+import { conn } from '../service/models';
+import * as models from '../service/models';
 import connect_mongo from '../service/mongo';
 
 export const app = express();

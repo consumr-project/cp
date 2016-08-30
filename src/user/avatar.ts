@@ -1,8 +1,8 @@
 import { WhereOptions } from 'sequelize';
-import { User } from 'cp/record';
+import { User as UserMessage } from 'cp/record';
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
-import models from '../service/models';
+import { User } from '../service/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';
 
@@ -10,7 +10,6 @@ import md5 = require('md5');
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
-const UserModel = models.User;
 
 export enum RATING {
     G = <any>'g',
@@ -26,7 +25,7 @@ export enum SIZE {
     FULL = 2048,
 }
 
-export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: User): string {
+export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: UserMessage): string {
     let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
 
     let email = (user && user.email ? decrypt(user.email, KEY_USER_EMAIL) : '')
@@ -42,6 +41,6 @@ export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING =
 }
 
 export function get_user_gravatar_url(query: WhereOptions, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G): Promise<string> {
-    return UserModel.findOne({ where: query })
+    return User.findOne({ where: query })
         .then(user => generate_gravatar_url(size, rating, user));
 }
