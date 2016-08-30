@@ -1,0 +1,25 @@
+#!/bin/bash
+
+actually_run_migration() {
+    local passfile="~/.pgpass"
+
+    if [ "$EUID" -eq 0 ]; then
+        passfile="/root/.pgpass"
+    fi
+
+    touch $passfile
+    chmod 0600 $passfile
+    ./script/bootstrap postgres-2 > $passfile
+
+    ./script/migration run
+
+    ./script/generate app:user
+    ./script/generate app:tags
+    ./script/generate app:products
+}
+
+if which docker-compose &> /dev/null; then
+    docker-compose run --rm cp_server_1 ./script/docker-database-setup
+else
+    time actually_run_migration
+fi
