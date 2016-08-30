@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { Profile } from 'passport-linkedin-oauth2';
 import { WhereOptions } from 'sequelize';
 import * as Schema from 'cp/record';
 import { encrypt } from '../crypto';
@@ -11,12 +10,9 @@ import { parse } from 'url';
 import { v4 } from 'node-uuid';
 
 import { User } from '../service/models';
+import { Strategy, Profile } from 'passport-linkedin-oauth2';
 import * as passport from 'passport';
 import * as config from 'acm';
-
-import PassportLinkedInOauth2 = require('passport-linkedin-oauth2');
-
-const LinkedInStrategy = PassportLinkedInOauth2.Strategy;
 
 const SCOPE = [
     'r_basicprofile',
@@ -73,7 +69,7 @@ function find_user(token: string, tokenSecret: string, profile: Profile, done: (
         .catch(done);
 }
 
-function set_callback_url(strategy: PassportLinkedInOauth2.Strategy, req: Request, res: Response, next: Function) {
+function set_callback_url(strategy: Strategy, req: Request, res: Response, next: Function) {
     strategy._callbackURL = get_callback_url(req);
     next(null);
 }
@@ -94,7 +90,7 @@ export default function () {
 
     var login = passport.authenticate('linkedin', { state: '____' }),
         callback = passport.authenticate('linkedin', { failureRedirect: '/error?with=linkedin-login' }),
-        strategy = new LinkedInStrategy(configuration, find_user),
+        strategy = new Strategy(configuration, find_user),
         pre_base = set_callback_url.bind(null, strategy);
 
     return { login, strategy, callback, pre_base };

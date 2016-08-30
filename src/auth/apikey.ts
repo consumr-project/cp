@@ -1,9 +1,6 @@
 import * as passport from 'passport';
+import { Strategy } from 'passport-localapikey';
 import { User } from '../service/models';
-
-import LocalApiKey = require('passport-localapikey');
-
-const ApiKey = LocalApiKey.Strategy;
 
 function find_user(apikey: string, done) {
     User.findOne({
@@ -17,7 +14,7 @@ function find_user(apikey: string, done) {
 
 export default function () {
     var login = passport.authenticate('localapikey'),
-        strategy = new ApiKey(find_user);
+        strategy = new Strategy(find_user);
 
     return { login, strategy };
 }
