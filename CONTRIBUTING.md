@@ -77,10 +77,11 @@ error messages, and that's about it.
 ### docker
 
 start by installing [docker and docker compose](https://docs.docker.com/compose/install/).
-the following commands will build and start the containers and setup and
-migration the database:
+the following commands will generate an environment variable file, build and
+start the containers, and setup and migration the database:
 
 ```bash
+./script/dotenv
 docker-compose build
 docker-compose up
 ./script/docker-database-setup
