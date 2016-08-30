@@ -73,3 +73,15 @@ sections in the app (see the make file for this). also, setting a `DEBUG=*`
 environment variable (`make DEBUG=*`) will build parts of the code base in
 development mode and give you things like source maps, unminified code, nicer
 error messages, and that's about it.
+
+### docker
+
+start by installing [docker and docker compose](https://docs.docker.com/compose/install/).
+the following commands will build and start the containers and setup and
+migration the database:
+
+```bash
+docker-compose build
+docker-compose up
+./script/docker-database-setup
+```
