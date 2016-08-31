@@ -20,7 +20,7 @@ mongo:
     MONGO_COLLECTION: cp_coll
 
 server:
-  build: config/www
+  build: .
   links:
     - postgres
     - mongo
