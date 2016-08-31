@@ -1,7 +1,7 @@
 nginx:
   build: config/nginx
   links:
-    - "cp_server_1:cp_server_1"
+    - "server:server"
   ports:
     - "80:80"
 
@@ -19,7 +19,7 @@ mongo:
     MONGO_HOST: mongo
     MONGO_COLLECTION: cp_coll
 
-cp_server_1:
+server:
   build: config/www
   links:
     - postgres
