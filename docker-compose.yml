@@ -36,4 +36,3 @@ server:
     <<: *postgres_environment
     <<: *mongo_environment
     PORT: 3000
-    DEBUG: "*cp*"
