@@ -58,8 +58,8 @@ program
     .action(() => {
         var products = config('seed.products');
 
-        Promise.all(products.map(product =>
-            msg_ed('app products', Product.findOrCreate({
+        msg_ed('app products', Promise.all(products.map(product =>
+            Product.findOrCreate({
                 where: { id: product.id },
                 defaults: product,
             }))));
@@ -71,8 +71,8 @@ program
     .action(() => {
         var tags = config('seed.tags');
 
-        Promise.all(tags.map(tag =>
-            msg_ed('app tags', Tag.findOrCreate({
+        msg_ed('app tags', Promise.all(tags.map(tag =>
+            Tag.findOrCreate({
                 where: { id: tag.id },
                 defaults: tag,
             }))));
