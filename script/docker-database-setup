@@ -9,17 +9,19 @@ actually_run_migration() {
 
     touch $passfile
     chmod 0600 $passfile
+
+    echo saving info to $passfile
     ./script/bootstrap postgres-2 > $passfile
 
+    echo running migrations
     ./script/migration run
 
-    ./script/generate app:user
-    ./script/generate app:tags
-    ./script/generate app:products
+    echo bootstrapping app
+    ./script/bootstrap base
 }
 
 if which docker-compose &> /dev/null; then
-    docker-compose run --rm cp_server_1 ./script/docker-database-setup
+    docker-compose run --rm server ./script/docker-database-setup
 else
     time actually_run_migration
 fi
