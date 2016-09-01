@@ -1,22 +1,17 @@
 # contributing to the consumr project
 
-first install [https://www.postgresql.org/download/](postgres) version 9.4.5
-and [https://nodejs.org/en/download/](node) version 5.3.0 then run `foreman
-start` to download and start addtional services required by the app. while
-that's running run `make install` to install all code dependencies. `make` will
-build the project, and `make server` will start the application web server:
+### running the app
 
-```
-foreman start
-make install
-make
-make server
-```
+start by installing [docker and docker compose](https://docs.docker.com/compose/install/).
+the following commands will generate an environment variable file, build and
+start the containers, and setup and migration the database:
 
-before running `make server` run the `./config/bootstrap` script. this will
-check your environment for all required environment variables. without these
-the app will not work or may not event start up at all. see the configuration
-section below for additional details.
+```bash
+./script/bootstrap env
+docker-compose build
+docker-compose up
+./script/docker-database-setup
+```
 
 ### configuration
 
@@ -74,16 +69,3 @@ sections in the app (see the make file for this). also, setting a `DEBUG=*`
 environment variable (`make DEBUG=*`) will build parts of the code base in
 development mode and give you things like source maps, unminified code, nicer
 error messages, and that's about it.
-
-### docker
-
-start by installing [docker and docker compose](https://docs.docker.com/compose/install/).
-the following commands will generate an environment variable file, build and
-start the containers, and setup and migration the database:
-
-```bash
-./script/dotenv
-docker-compose build
-docker-compose up
-./script/docker-database-setup
-```
