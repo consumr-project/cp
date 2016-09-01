@@ -20,10 +20,6 @@ case "$1" in
         $tape $(find test/integration -name "*.js")
         ;;
 
-    heroku-release)
-        make lint build test && ./script/heroku-release
-        ;;
-
     *)
         $tape \
             $(find test/external -name "*.js") \
