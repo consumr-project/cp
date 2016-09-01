@@ -8,7 +8,6 @@ COPY . $HOME/client/
 RUN chown -R app:app $HOME/*
 
 WORKDIR $HOME/client
-RUN npm config set -g production false
 RUN npm install
 
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 \

@@ -22,7 +22,7 @@ export default function (collection: string, cb: Function = () => {}) {
         send_back(connection_err, connection, collection, cb);
     } else {
         log('connecting to mongodb');
-        url = !process.env.MONGO_HOST ? config('mongo.url') :
+        url = !env.MONGO_HOST ? config('mongo.url') :
             'mongodb://' + env.MONGO_HOST + ':27017/' + env.MONGO_COLLECTION;
 
         MongoClient.connect(url, (err, db) => {
