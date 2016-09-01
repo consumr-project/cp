@@ -8,6 +8,7 @@ start the containers, and setup and migration the database:
 
 ```bash
 ./script/bootstrap env
+npm install
 docker-compose build
 docker-compose up
 ./script/docker-database-setup
