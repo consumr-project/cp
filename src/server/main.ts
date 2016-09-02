@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import { app as auth_endpoints } from './auth';
 import { app as extract_endpoints } from './extract';
 import { app as notification_endpoints } from './notification';
