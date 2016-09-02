@@ -1,0 +1,19 @@
+#!/bin/bash
+
+passfile="~/.pgpass"
+
+if [ "$EUID" -eq 0 ]; then
+    passfile="/root/.pgpass"
+fi
+
+touch $passfile
+chmod 0600 $passfile
+
+echo saving info to $passfile
+./script/bootstrap postgres-2 > $passfile
+
+echo running migrations
+./script/migration run
+
+echo bootstrapping app
+./script/bootstrap base
