@@ -16,7 +16,7 @@
     "typings"
   ],
   "scripts": {
-    "postinstall": "typings install --no-insight; make build",
+    "postinstall": "typings install; make build",
     "start": "make server"
   },
   "repository": {
