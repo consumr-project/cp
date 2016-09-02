@@ -42,7 +42,7 @@ endif
 
 setup:
 	$(npm) install --unsafe-perm
-	$(tsc) install
+	$(tsc) install --no-insight
 	make build
 
 run: clean build server
