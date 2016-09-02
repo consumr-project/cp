@@ -7,9 +7,6 @@ nginx:
 
 server:
   build: .
-  links:
-    - postgres
-    - mongo
   ports:
     - "3000:3000"
   expose:
