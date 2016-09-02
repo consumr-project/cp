@@ -21,10 +21,11 @@ case "$1" in
         heroku:buildpack heroku/nodejs
         heroku:addon heroku-postgresql hobby-dev
 
+        heroku:envar CLIENT_DEBUG_INFO false
         heroku:envar CP_COOKIE_KEY
-        heroku:envar CP_SESSION_KEY
         heroku:envar CP_CRYPTO_AUTH_TOKEN_KEY
         heroku:envar CP_CRYPTO_USER_EMAIL_KEY
+        heroku:envar CP_SESSION_KEY
         heroku:envar DATABASE_URL
         heroku:envar ELASTICSEARCH_HOST
         heroku:envar EMBEDLY_API_KEY
@@ -37,6 +38,7 @@ case "$1" in
         heroku:envar NPM_CONFIG_PRODUCTION false
         heroku:envar ROLLBAR_TOKEN
         heroku:envar SERVER_JIT_COMPRESSION true
+        heroku:envar SERVER_VIEW_CACHING true
         heroku:envar TRELLO_BOARD_ID
         heroku:envar TRELLO_KEY
         heroku:envar TRELLO_LIST_ID
@@ -57,11 +59,13 @@ case "$1" in
     env)
         [ -f .env ] && source .env
         cat <<EOF > .env
+CLIENT_DEBUG_INFO=$CLIENT_DEBUG_INFO
 CP_COOKIE_KEY=$CP_COOKIE_KEY
 CP_CRYPTO_AUTH_TOKEN_KEY=$CP_CRYPTO_AUTH_TOKEN_KEY
 CP_CRYPTO_USER_EMAIL_KEY=$CP_CRYPTO_USER_EMAIL_KEY
 CP_SESSION_KEY=$CP_SESSION_KEY
 DATABASE_URL=$DATABASE_URL
+DEBUG=$DEBUG
 EMBEDLY_API_KEY=$EMBEDLY_API_KEY
 GOOGLE_ANALYTICS_ACCOUNT_ID=$GOOGLE_ANALYTICS_ACCOUNT_ID
 LINKEDIN_CLIENT_ID=$LINKEDIN_CLIENT_ID
@@ -71,6 +75,7 @@ NODE_ENV=$NODE_ENV
 NPM_CONFIG_PRODUCTION=false
 ROLLBAR_TOKEN=$ROLLBAR_TOKEN
 SERVER_JIT_COMPRESSION=$SERVER_JIT_COMPRESSION
+SERVER_VIEW_CACHING=$SERVER_VIEW_CACHING
 TRELLO_BOARD_ID=$TRELLO_BOARD_ID
 TRELLO_KEY=$TRELLO_KEY
 TRELLO_LIST_ID=$TRELLO_LIST_ID
@@ -81,7 +86,15 @@ EOF
         ;;
 
     *)
-        echo wat?
+        echo invalid option
+        echo usage: $0 [command]
+        echo commands:
+        echo "    - base              generate data for the app to be useful"
+        echo "    - test              generate data for the app to be testable"
+        echo "    - heroku            configure your heroku instance to be able to run the app"
+        echo "    - postgres          generate content for a .pgpass file using the DATABASE_URL variable"
+        echo "    - postgres-2        generate content for a .pgpass file using the POSTGRES_ variables"
+        echo "    - env               generate a .env file"
         exit 1
         ;;
 esac

@@ -11,6 +11,9 @@ start the containers, and setup and migration the database:
 docker-compose up
 ```
 
+the container's directory where the code live is linked to the root of the code
+base on the host, so local changes will reflected in the container.
+
 ### configuration
 
 configuration is retrieved using [acm](https://www.npmjs.com/package/acm). see
@@ -26,33 +29,44 @@ export PORT=3000
 additional services and service providers:
 
 ```bash
-export CP_COOKIE_KEY='...'
-export CP_SESSION_KEY='...'
-export CP_CRYPTO_AUTH_TOKEN_KEY='...'
-export CP_CRYPTO_USER_EMAIL_KEY='...'
-export DATABASE_URL='postgres://...'
-export EMBEDLY_API_KEY='...'
-export ROLLBAR_TOKEN='...'
-export GOOGLE_ANALYTICS_ACCOUNT_ID='...'
-export LINKEDIN_CLIENT_ID='...'
-export LINKEDIN_CLIENT_SECRET='...'
-export MONGO_URL='mongodb://...'
-export TRELLO_BOARD_ID='...'
-export TRELLO_KEY='...'
-export TRELLO_LIST_ID='...'
-export TRELLO_TOKEN='...'
+export CP_COOKIE_KEY=               # random string used to encript cookies
+export CP_CRYPTO_AUTH_TOKEN_KEY=    # random string used to encript tokens
+export CP_CRYPTO_USER_EMAIL_KEY=    # random string used to encript emails
+export CP_SESSION_KEY=              # random string used to encript sessions
+export EMBEDLY_API_KEY=
+export GOOGLE_ANALYTICS_ACCOUNT_ID=
+export LINKEDIN_CLIENT_ID=
+export LINKEDIN_CLIENT_SECRET=
+export ROLLBAR_TOKEN=
+export TRELLO_BOARD_ID=
+export TRELLO_KEY=
+export TRELLO_LIST_ID=
+export TRELLO_TOKEN=
 ```
 
-if `MONGO_URL` or `DATABASE_URL` are not found the following variables will be
-used:
+for database connections, we either check for `*_URL` or more specific
+variables:
 
 ```bash
-export POSTGRES_DB='...'
-export POSTGRES_HOST='...'
-export POSTGRES_PASSWORD='...'
-export POSTGRES_USER='...'
-export MONGO_COLLECTION='...'
-export MONGO_HOST='...'
+export DATABASE_URL=
+export MONGO_URL=
+````
+
+```bash
+export MONGO_COLLECTION=
+export MONGO_HOST=
+export POSTGRES_DB=
+export POSTGRES_HOST=
+export POSTGRES_PASSWORD=
+export POSTGRES_USER=
+```
+
+other configuration variables you might care about:
+
+```bash
+export SERVER_JIT_COMPRESSION=      # enable express to compress responses
+export SERVER_VIEW_CACHING=         # enable express and swig to cache views
+export CLIENT_DEBUG_INFO=           # load the main view with debug enabled
 ```
 
 ### tests and linters

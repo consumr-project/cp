@@ -21,9 +21,9 @@ methods (eg. api key logins, hard-deleteds, etc. a lot of tests will not work
 without these features enabled) and point to an instance:
 
 ```bash
-export CP_ALLOW_APIKEY_AUTH=1
-export CP_PURGE_KEY='...'
-export CP_TEST_INSTANCE_URL=http://localhost:3000
+export CP_ALLOW_APIKEY_AUTH=        # enable apikey authentication
+export CP_PURGE_KEY=                # random string used to allow DELETE
+export CP_TEST_INSTANCE_URL=        # absolute url to instance you're testing
 ```
 
 # structure
