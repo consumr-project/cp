@@ -30,4 +30,9 @@ export = sequelize =>
             type: Type.DATE,
             allowNull: false,
         },
+
+        reason: {
+            type: Type.STRING,
+            allowNull: false,
+        },
     }), CONFIG);

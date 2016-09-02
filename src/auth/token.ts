@@ -6,13 +6,14 @@ import { KEY_AUTH_TOKEN } from '../keys';
 
 interface PublicToken {
     plain_token: string;
+    reason: string;
     expiration_date: Date;
 }
 
 export class Manager {
     constructor(private conn: Model<Token, Token>) {}
 
-    generate(expiration_date: Date, user: User): Promise<PublicToken> {
+    generate(expiration_date: Date, reason: string, user: User): Promise<PublicToken> {
         let plain_token = nonce(16);
 
         let token = {
@@ -20,6 +21,7 @@ export class Manager {
             token: encrypt(plain_token, KEY_AUTH_TOKEN),
             pub: plain_token,
             expiration_date,
+            reason,
             created_by: user.id,
             updated_by: user.id,
             created_date: new Date(),
@@ -29,6 +31,7 @@ export class Manager {
         let pub_token = {
             plain_token,
             expiration_date,
+            reason,
         };
 
         return this.conn.create(token)
