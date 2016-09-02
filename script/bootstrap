@@ -55,6 +55,7 @@ case "$1" in
         ;;
 
     env)
+        [ -f .env ] && source .env
         cat <<EOF > .env
 CP_COOKIE_KEY=$CP_COOKIE_KEY
 CP_CRYPTO_AUTH_TOKEN_KEY=$CP_CRYPTO_AUTH_TOKEN_KEY
