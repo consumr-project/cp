@@ -1,0 +1,22 @@
+nginx:
+  build: config/nginx
+  links:
+    - "server:server"
+  ports:
+    - "80:80"
+
+server:
+  build: .
+  links:
+    - postgres
+    - mongo
+  ports:
+    - "3000:3000"
+  expose:
+    - 3000
+  volumes:
+    - .:/home/app/client
+  env_file:
+    - .env
+  environment:
+    PORT: 3000
