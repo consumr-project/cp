@@ -40,7 +40,9 @@ ifdef DEBUG
 	js_min = cat
 endif
 
-all: build
+setup: install
+	$(tsc) install
+	make build
 
 run: clean build server
 
