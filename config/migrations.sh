@@ -8,7 +8,7 @@ if [ ! -z "$DATABASE_URL" ]; then
     username=$(url:parse $DATABASE_URL auth | cut -d':' -f 1)
     database=$(node -e "console.log(require('acm')('database.url').split('/').pop())")
 
-    db_cmd="psql $DATABASE_URL"
+    db_cmd="psql $DATABASE_URL -f"
 else
     hostname="$POSTGRES_HOST"
     username="$POSTGRES_USER"
