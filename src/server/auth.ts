@@ -26,8 +26,7 @@ passport.use(apikey.strategy);
 app.get('/user', (req, res) => res.json(req.user || {}));
 app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
 
-app.get('/linkedin', (req, res, next) => {
-}, linkedin.pre_base, linkedin.login);
+app.get('/linkedin', linkedin.pre_base, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
 
 app.post('/token',
