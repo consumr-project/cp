@@ -36,7 +36,3 @@ see [./CONTRIBUTING.md](CONTRIBUTING.md) for details.
 * Sascha Elmers for the [sheep](https://thenounproject.com/search/?q=sheep&i=99202) icon
 * To Uyen for the [book](https://thenounproject.com/search/?q=book&i=249760) icon
 * artworkbean for the [star](https://thenounproject.com/search/?q=star&i=101463) icon
-
-### thanks for services
-
-* development/free mongodb hosted by [mongolab](https://mongolab.com/)
