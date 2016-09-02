@@ -3,4 +3,4 @@
 ./script/bootstrap env && \
 docker-compose build && \
 docker-compose run server make && \
-docker-compose run --rm server ./script/docker-database && \
+docker-compose run --rm server ./script/docker-database
