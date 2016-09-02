@@ -25,7 +25,10 @@ const debug = require('debug');
 
 const log = debug('cp:server');
 const app = express();
-const debugging = !!config('debug');
+
+const SERVER_JIT_COMPRESSION = !!config('SERVER_JIT_COMPRESSION');
+const SERVER_VIEW_CACHING = !!config('SERVER_VIEW_CACHING');
+const CLIENT_DEBUG_INFO = !!config('CLIENT_DEBUG_INFO');
 
 app.set('x-powered-by', false);
 app.set('view cache', true);
@@ -33,7 +36,7 @@ app.set('view engine', 'html');
 app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
-if (config('SERVER_JIT_COMPRESSION')) {
+if (SERVER_JIT_COMPRESSION) {
     log('server jit compression');
     app.use(compression());
 }
@@ -44,9 +47,12 @@ app.use('/assets', express.static('assets'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(favicon(`${__dirname}/../../assets/images/favicon.png`));
 
-if (debugging) {
+if (CLIENT_DEBUG_INFO) {
     app.use('/app', index('app'));
     app.use('/assets', index('assets'));
+}
+
+if (SERVER_VIEW_CACHING) {
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
 }
@@ -102,16 +108,21 @@ app.use((err: any, req, res, next) => {
                 body: {}
             });
         } else {
-            res.render('index', { debugging, err,
-                lang: req.cookies.lang });
+            res.render('index', {
+                err,
+                debugging: CLIENT_DEBUG_INFO,
+                lang: req.cookies.lang,
+            });
         }
     }
 });
 
 // view handler
 app.get('*', (req, res) =>
-    res.render('index', { debugging,
-        lang: req.cookies.lang }));
+    res.render('index', {
+        debugging: CLIENT_DEBUG_INFO,
+        lang: req.cookies.lang,
+    }));
 
 app.listen(config('port') || 3000);
 log('listening for requests');
