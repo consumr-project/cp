@@ -40,7 +40,8 @@ ifdef DEBUG
 	js_min = cat
 endif
 
-setup: install
+setup:
+	$(npm) install --unsafe-perm
 	$(tsc) install
 	make build
 
