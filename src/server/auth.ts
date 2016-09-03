@@ -3,10 +3,12 @@ import { User as UserMessage } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
+import * as config from 'acm';
 import { User, Token } from '../service/models';
 import { can, roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import apikey_auth from '../auth/apikey';
+import { h, dispatch_event } from '../html';
 import { Day } from '../lang';
 import { Manager } from '../auth/token';
 import { service_handler } from '../service/http';
@@ -26,7 +28,7 @@ passport.use(apikey.strategy);
 app.get('/user', (req, res) => res.json(req.user || {}));
 app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
 
-app.get('/linkedin', linkedin.pre_base, linkedin.login);
+app.get('/linkedin', linkedin.setup, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
 
 app.post('/token',
@@ -51,20 +53,15 @@ function deserialize(user_id: string, done: (err: any) => any): Promise<UserMess
         .catch(done);
 }
 
-function js_update_client_auth(req: Request, res: Response): void {
-    res.send([
-        '<script>',
-        '   (function () {',
-        '       var ev = opener.document.createEvent("Events");',
-        '       ev.initEvent("cp:auth", true, false);',
-        '       opener.document.dispatchEvent(ev);',
-        '       window.close();',
-        '   })();',
-        '</script>'
-    ].join(''));
-};
-
 export function as_guest(req: Request, res: Response, next: Function): void {
     req.user = req.user || { role: roles.GUEST };
     next();
 }
+
+function js_update_client_auth(req: Request, res: Response): void {
+    res.send(h('script', dispatch_event('cp:auth')));
+};
+
+function js_update_client_auth_locked_down(req: Request, res: Response): void {
+    res.send(h('script', dispatch_event('cp:auth_locked_down')));
+};

@@ -60,11 +60,18 @@ function generate_user(profile: Profile): Schema.User {
     };
 }
 
-function find_user(token: string, tokenSecret: string, profile: Profile, done: (err: any) => any): Promise<Schema.User> {
-    return User.findOrCreate({
+function find_user(
+    token: string,
+    tokenSecret: string,
+    profile: Profile,
+    done: (err?: any, user?: Schema.User) => any
+): void {
+    var query = {
         where: generate_where(profile),
         defaults: generate_user(profile)
-    })
+    };
+
+    User.findOrCreate(query)
         .spread(done.bind(null, null))
         .catch(done);
 }
@@ -91,7 +98,7 @@ export default function () {
     var login = passport.authenticate('linkedin', { state: '____' }),
         callback = passport.authenticate('linkedin', { failureRedirect: '/error?with=linkedin-login' }),
         strategy = new Strategy(configuration, find_user),
-        pre_base = set_callback_url.bind(null, strategy);
+        setup = set_callback_url.bind(null, strategy);
 
-    return { login, strategy, callback, pre_base };
+    return { login, strategy, callback, setup };
 }
