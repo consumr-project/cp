@@ -64,6 +64,8 @@ export POSTGRES_USER=
 other configuration variables you might care about:
 
 ```bash
+export CP_AUTH_LOCKDOWN=            # require that new users be authorized
+export CP_ADMIN_EMAILS=             # system admin emails, comma separated
 export SERVER_JIT_COMPRESSION=      # enable express to compress responses
 export SERVER_VIEW_CACHING=         # enable express and swig to cache views
 export CLIENT_DEBUG_INFO=           # load the main view with debug enabled

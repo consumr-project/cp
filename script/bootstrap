@@ -22,6 +22,8 @@ case "$1" in
         heroku:addon heroku-postgresql hobby-dev
 
         heroku:envar CLIENT_DEBUG_INFO false
+        heroku:envar CP_ADMIN_EMAILS
+        heroku:envar CP_AUTH_LOCKDOWN false
         heroku:envar CP_COOKIE_KEY
         heroku:envar CP_CRYPTO_AUTH_TOKEN_KEY
         heroku:envar CP_CRYPTO_USER_EMAIL_KEY
@@ -60,6 +62,8 @@ case "$1" in
         [ -f .env ] && source .env
         cat <<EOF > .env
 CLIENT_DEBUG_INFO=$CLIENT_DEBUG_INFO
+CP_ADMIN_EMAILS=$CP_ADMIN_EMAILS
+CP_AUTH_LOCKDOWN=$CP_AUTH_LOCKDOWN
 CP_COOKIE_KEY=$CP_COOKIE_KEY
 CP_CRYPTO_AUTH_TOKEN_KEY=$CP_CRYPTO_AUTH_TOKEN_KEY
 CP_CRYPTO_USER_EMAIL_KEY=$CP_CRYPTO_USER_EMAIL_KEY
