@@ -3,6 +3,7 @@ about: About
 show_hide: Show / Hide
 show_more: + show more
 only_showing: only showing
+add: add
 
 go: Go
 ignore: Ignore
@@ -19,6 +20,7 @@ no_results: No results for "{query}"
 searching_for: Searching for "{query}"
 recent_searches: "Recent searches:"
 search_stats: "{count} results ({time} ms)"
+search_or_create: search or create
 
 # object loading
 error_loading: Error making request
