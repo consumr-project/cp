@@ -15,10 +15,11 @@ permissions:
   tag: [create, retrieve, update, delete, follow]
   user: [create, retrieve, update, delete, follow]
   token: [create]
-  emailinvite: [create, retrieve, update]
+  emailinvite: [create, retrieve, approve]
 
 grants:
   guest:
+    - create_emailinvite
     - retrieve_company
     - retrieve_event
     - retrieve_product
@@ -48,7 +49,7 @@ grants:
 
   admin:
     - user
-    - create_emailinvite
+    - approve_emailinvite
     - create_token
     - create_user
     - delete_company
@@ -61,4 +62,3 @@ grants:
     - delete_user
     - retrieve_emailinvite
     - retrieve_feedback
-    - update_emailinvite
