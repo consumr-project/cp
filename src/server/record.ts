@@ -360,6 +360,11 @@ del('/feedback/:id',
     can('delete', 'feedback'),
     remove(models.Feedback));
 
+// beta admin invites
+get('/beta_email_invites',
+    can('retrieve', 'emailinvite'),
+    query(conn, sql('get-beta-email-invites')));
+
 // search
 get('/search/products/en-US',
     can('retrieve', 'product'),
