@@ -68,8 +68,8 @@ angular.module('tcp').directive('tcpTopmost', [
 
             function login_with_linkedin() {
                 console.info('loggin in with linkedin');
-                $scope.login.hide();
                 Session.login(Session.PROVIDER.LINKEDIN);
+                Session.once(Session.EVENT.LOGIN, $scope.login.hide);
             }
 
             function login() {
