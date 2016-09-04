@@ -16,6 +16,7 @@ angular.module('tcp').component('adminView', {
         '<section class="margin-top-xlarge">',
         '    <input class="full-span"',
         '        ng-model="$ctrl.email_filter"',
+        '        ng-class="{\'loading--spinner\': $ctrl.loading_add}"',
         '        i18n="common/search_or_create"',
         '        prop="placeholder"',
         '    />',
@@ -88,9 +89,17 @@ angular.module('tcp').component('adminView', {
              */
             this.add = function (email) {
                 var model = { email: email };
-                stamp_approval(model);
-                this.beta_email_invites.unshift(model);
-                this.email_filter = '';
+
+                utils.assert(email);
+                this.loading_add = true;
+
+                Services.query.admin.beta_email_invites.create_approved(email)
+                    .then(function () {
+                        stamp_approval(model);
+                        this.beta_email_invites.unshift(model);
+                        this.loading_add = false;
+                        this.email_filter = '';
+                    }.bind(this));
             };
 
             this.init = function () {
