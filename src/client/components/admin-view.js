@@ -1,9 +1,5 @@
 angular.module('tcp').component('adminView', {
-    bindings: {
-        beta_email_invites: '=?',
-        email_filter: '=?',
-        selection: '=?',
-    },
+    bindings: {},
     template: [
         '<snav value="$ctrl.selection" class="snav--borderless">',
         '    <snav-item',
@@ -27,7 +23,8 @@ angular.module('tcp').component('adminView', {
 
         '<section class="margin-top-medium">',
         '    <div ng-repeat="email in $ctrl.beta_email_invites | filter:$ctrl.email_filter"',
-        '        class="beta-email-invite">',
+        '        ng-class="{loading: email.$loading}"',
+        '        class="beta-email-invite can-load">',
         '        <span>{{::email.email}}</span>',
         '        <span class="beta-email-invite__approved"',
         '            ng-if="email.approved"',
@@ -81,7 +78,16 @@ angular.module('tcp').component('adminView', {
              * @param {BetaEmailInviteView} email
              */
             this.approve = function (email) {
-                stamp_approval(email);
+                utils.assert(email);
+                utils.assert(email.email);
+
+                email.$loading = true;
+
+                Services.query.admin.beta_email_invites.approve(email.email)
+                    .then(function () {
+                        stamp_approval(email);
+                        email.$loading = false;
+                    });
             };
 
             /**
