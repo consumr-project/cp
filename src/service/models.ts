@@ -4,7 +4,7 @@ import connect from './dbms';
 export const conn = connect();
 export const models = gen_models(conn);
 
-export const AllowedEmail = models.AllowedEmail;
+export const BetaEmailInvite = models.BetaEmailInvite;
 export const Company = models.Company;
 export const CompanyEvent = models.CompanyEvent;
 export const CompanyFollower = models.CompanyFollower;

@@ -9,7 +9,7 @@ import { parse } from 'url';
 import { v4 } from 'node-uuid';
 
 import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
-import { AllowedEmail, User } from '../service/models';
+import { BetaEmailInvite, User } from '../service/models';
 import { Strategy, Profile } from 'passport-linkedin-oauth2';
 import * as passport from 'passport';
 import * as config from 'acm';
@@ -34,8 +34,11 @@ const PROFILE_FIELDS = [
     'public-profile-url',
 ];
 
+interface UserMessage extends Schema.User {
+    raw_email?: string;
+}
 
-function generate_user(profile: Profile): Schema.User {
+function generate_user(profile: Profile): UserMessage {
     var id = v4();
 
     return {
@@ -47,6 +50,7 @@ function generate_user(profile: Profile): Schema.User {
         created_by: id,
         created_date: Date.now(),
         email: encrypt(profile._json.emailAddress, KEY_USER_EMAIL),
+        raw_email: profile._json.emailAddress,
         lang: 'en',
         last_login_date: Date.now(),
         linkedin_url: profile._json.publicProfileUrl,
@@ -82,10 +86,11 @@ function find_user(
                 // if found, valid
                 done(null, user_found);
             } else if (LOCKEDDOWN) {
-                // otherwise check if in allowed email list
-                AllowedEmail.findOne({ where: { email: user.email } })
+                // otherwise check if in email whitelist list
+                BetaEmailInvite.findOne({ where: { email: user.raw_email } })
                     .then(allowed => {
-                        if (allowed) {
+                        console.log(allowed);
+                        if (allowed && allowed.approved) {
                             create();
                         } else {
                             done(new InvalidBetaUserError());
