@@ -10,7 +10,12 @@ angular.module('tcp').component('adminView', {
         '</snav>',
 
         '<section class="margin-top-xlarge">',
-        '    <input class="full-span"',
+        '    <message closable ng-if="$ctrl.error_view" type="error">',
+        '        <span ng-if="$ctrl.error_view === $ctrl.ERROR_STD" i18n="common/error_loading"></span>',
+        '        <span ng-if="$ctrl.error_view === $ctrl.ERROR_UNIQUE" i18n="admin/error_unique_email"></span>',
+        '        <span ng-if="$ctrl.error_view === $ctrl.ERROR_REQ_EMAIL" i18n="admin/error_email_required"></span>',
+        '    </message>',
+        '    <input class="full-span margin-top-small"',
         '        ng-model="$ctrl.email_filter"',
         '        ng-class="{\'loading--spinner\': $ctrl.loading_add}"',
         '        i18n="common/search_or_create"',
@@ -57,7 +62,12 @@ angular.module('tcp').component('adminView', {
         function (CONFIG, Services, Session, $window, utils) {
             'use strict';
 
+            this.ERROR_STD = 'errstd';
+            this.ERROR_UNIQUE = 'errunique';
+            this.ERROR_REQ_EMAIL = 'errreqemail';
+
             this.selection = 'beta_email_invites';
+            this.error_view = null;
 
             /**
              * @param {BetaEmailInviteView} email
@@ -84,12 +94,16 @@ angular.module('tcp').component('adminView', {
                 utils.assert(email.email);
 
                 email.$loading = true;
+                this.error_view = null;
 
                 Services.query.admin.beta_email_invites.approve(email.email)
                     .then(function () {
                         stamp_approval(email);
                         email.$loading = false;
-                    });
+                    })
+                    .catch(function () {
+                        this.error_view = this.ERROR_STD;
+                    }.bind(this));
             };
 
             /**
@@ -98,7 +112,10 @@ angular.module('tcp').component('adminView', {
             this.add = function (email) {
                 var model = { email: email };
 
+                this.error_view = this.ERROR_REQ_EMAIL;
                 utils.assert(email);
+                this.error_view = null;
+
                 this.loading_add = true;
 
                 Services.query.admin.beta_email_invites.create_approved(email)
@@ -107,12 +124,26 @@ angular.module('tcp').component('adminView', {
                         this.beta_email_invites.unshift(model);
                         this.loading_add = false;
                         this.email_filter = '';
+                    }.bind(this))
+                    .catch(function (resp) {
+                        this.loading_add = false;
+
+                        switch (resp.status) {
+                            case 409:
+                                this.error_view = this.ERROR_UNIQUE;
+                                break;
+
+                            default:
+                                this.error_view = this.ERROR_STD;
+                                break;
+                        }
                     }.bind(this));
             };
 
             this.init = function () {
                 Services.query.admin.beta_email_invites.retrieve()
-                    .then(utils.scope.set(this, 'beta_email_invites'));
+                    .then(utils.scope.set(this, 'beta_email_invites'))
+                    .catch(utils.scope.set(this, 'error_view', this.ERROR_STD));
             };
 
             this.init();

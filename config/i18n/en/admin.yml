@@ -38,3 +38,5 @@ error_creating_company_msg: "Looks like we had an error trying to save this comp
 beta_email_invites: beta email invitations
 approved_by_on: "approved by <a href='/user/{id}'>{name}</a> on <b>{date,date,long}</b>"
 approve: approve
+error_unique_email: "Looks like this email already exists"
+error_email_required: "I'm going to need an email first"
