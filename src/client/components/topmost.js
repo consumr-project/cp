@@ -19,6 +19,10 @@ angular.module('tcp').directive('tcpTopmost', [
         }
 
         function controller($rootScope, $scope) {
+            $scope.vm = {
+                show_login: true,
+            };
+
             $scope.user = null;
             $scope.session = get_session();
 
@@ -61,10 +65,16 @@ angular.module('tcp').directive('tcpTopmost', [
             Session.on(Session.EVENT.ERROR, clear_session);
             Session.on(Session.EVENT.LOGOUT, clear_session);
             Session.on(Session.EVENT.NOTIFY, get_notifications);
+            Session.on(Session.EVENT.LOCKED_DOWN, show_lockdown_message);
 
             sync();
             $interval(sync_if_active, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
+
+            function show_lockdown_message() {
+                $scope.vm.show_login = false;
+                $scope.$apply();
+            }
 
             function login_with_linkedin() {
                 console.info('loggin in with linkedin');
@@ -161,6 +171,7 @@ angular.module('tcp').directive('tcpTopmost', [
 
         return {
             replace: true,
+            scope: true,
             link: link,
             controller: ['$rootScope', '$scope', controller],
             template: [
@@ -170,7 +181,9 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            <h2 i18n="common/welcome_beta"></h2>',
                 '            <p class="margin-bottom-large" i18n="common/by_signing_in"></p>',
 
-                '            <button class="button--social-linkedin" ng-click="with_linkedin()">',
+                '            <button class="button--social-linkedin margin-right-small"',
+                '                ng-click="with_linkedin()"',
+                '                ng-show="vm.show_login">',
                 '                <img alt="" src="/assets/images/linkedin.png" />',
                 '                <span i18n="admin/sing_in_with_service"',
                 '                    data="{service: \'LinkedIn\'}"></span>',
