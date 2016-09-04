@@ -18,7 +18,7 @@ angular.module('tcp').directive('tags', function () {
             var show_hide = '';
 
             if (attrs.showHide !== 'false') {
-                show_hide = '<button' +
+                show_hide = '<button ' +
                     'class="button--link button--slim" '+
                     'ng-click="toggleTags()" ' +
                     'i18n="common/show_hide"></button>';

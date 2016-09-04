@@ -1,0 +1,20 @@
+.beta-email-invite {
+    padding: var(--spacing-small);
+}
+
+.beta-email-invite:nth-child(odd) {
+    background-color: var(--color-passive-highlight-background-color);
+}
+
+.beta-email-invite__approve {
+    float: right;
+    position: relative;
+    top: -10px;
+}
+
+.beta-email-invite__approved {
+    color: var(--color-light-text-color);
+    float: right;
+    font-size: var(--font-size-small);
+    line-height: 17px;
+}

@@ -3,11 +3,13 @@ select bei.email,
     bei.created_date::date,
     u_c.name created_by_name,
     u_c.email created_by_email,
+    u_c.id created_by_id,
 
     bei.approved,
     bei.approved_date::date,
     u_a.name approved_by_name,
-    u_a.email approved_by_email
+    u_a.email approved_by_email,
+    u_a.id approved_by_id
 
 from beta_email_invites bei
 

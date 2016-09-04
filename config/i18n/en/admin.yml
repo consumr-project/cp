@@ -36,3 +36,5 @@ error_creating_company_msg: "Looks like we had an error trying to save this comp
 
 # admin sections
 beta_email_invites: beta email invitations
+approved_by_on: "approved by <a href='/user/{id}'>{name}</a> on <b>{date,date,long}</b>"
+approve: approve

@@ -25,3 +25,5 @@ error_creating_event_msg: "Looks like we had an error trying to save this event.
 error_creating_company: "Looks like we had an error trying to save this company. Please try again."
 error_creating_company_msg: "Looks like we had an error trying to save this company. Here's the error we got back, sorry if it's not pretty: \"{message}\""
 beta_email_invites: beta email invitashuns
+approved_by_on: "approved by <a href='/user/{id}'>{name}</a> on <b>{date,date,long}</b>"
+approve: approve

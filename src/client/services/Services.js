@@ -350,6 +350,14 @@ angular.module('tcp').service('Services', [
                 .then(pluck_data).then(pluck_body);
         };
 
+        queryService.admin = {
+            beta_email_invites: {
+                retrieve: function () {
+                    return get(url('beta_email_invites'));
+                }
+            }
+        };
+
         /**
          * @param {String} url
          * @return {Promise}
