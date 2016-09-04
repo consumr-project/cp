@@ -7,8 +7,8 @@ create table if not exists allowed_emails (
     updated_by uuid not null,
     updated_date timestamp with time zone not null default now(),
 
-    deleted_by uuid not null,
-    deleted_date timestamp with time zone not null,
+    deleted_by uuid,
+    deleted_date timestamp with time zone,
 
     constraint allowed_emails_pkey
         primary key (email),
