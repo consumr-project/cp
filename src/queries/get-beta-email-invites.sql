@@ -1,11 +1,11 @@
 select bei.email,
 
-    bei.created_date,
+    bei.created_date::date,
     u_c.name created_by_name,
     u_c.email created_by_email,
 
     bei.approved,
-    bei.approved_date,
+    bei.approved_date::date,
     u_a.name approved_by_name,
     u_a.email approved_by_email
 
