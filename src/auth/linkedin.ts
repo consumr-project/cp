@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { WhereOptions } from 'sequelize';
 import * as Schema from 'cp/record';
 import { encrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
@@ -9,10 +8,14 @@ import { get } from 'lodash';
 import { parse } from 'url';
 import { v4 } from 'node-uuid';
 
-import { User } from '../service/models';
+import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
+import { AllowedEmail, User } from '../service/models';
 import { Strategy, Profile } from 'passport-linkedin-oauth2';
 import * as passport from 'passport';
 import * as config from 'acm';
+
+const CLIENT_ID = config('linkedin.client_id');
+const CLIENT_SECRET = config('linkedin.client_secret');
 
 const SCOPE = [
     'r_basicprofile',
@@ -31,11 +34,6 @@ const PROFILE_FIELDS = [
     'public-profile-url',
 ];
 
-function generate_where(profile: Profile): WhereOptions {
-    return {
-        auth_linkedin_id: profile.id
-    };
-}
 
 function generate_user(profile: Profile): Schema.User {
     var id = v4();
@@ -66,13 +64,38 @@ function find_user(
     profile: Profile,
     done: (err?: any, user?: Schema.User) => any
 ): void {
-    var query = {
-        where: generate_where(profile),
-        defaults: generate_user(profile)
-    };
+    var user = generate_user(profile);
 
-    User.findOrCreate(query)
-        .spread(done.bind(null, null))
+    var create = () => User.create(user)
+        .then(done.bind(null, null))
+        .catch(done);
+
+    if (!user.auth_linkedin_id) {
+        done(new Error('Missing auth_linkedin_id'));
+        return;
+    }
+
+    // existing user?
+    User.findOne({ where: { auth_linkedin_id: user.auth_linkedin_id } })
+        .then(user_found => {
+            if (user_found) {
+                // if found, valid
+                done(null, user_found);
+            } else if (LOCKEDDOWN) {
+                // otherwise check if in allowed email list
+                AllowedEmail.findOne({ where: { email: user.email } })
+                    .then(allowed => {
+                        if (allowed) {
+                            create();
+                        } else {
+                            done(new InvalidBetaUserError());
+                        }
+                    })
+                    .catch(done);
+            } else {
+                create();
+            }
+        })
         .catch(done);
 }
 
@@ -88,8 +111,8 @@ function get_callback_url(req: Request): string {
 
 export default function () {
     var configuration = {
-        clientID: config('linkedin.client_id'),
-        clientSecret: config('linkedin.client_secret'),
+        clientID: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
         profileFields: PROFILE_FIELDS,
         scope: SCOPE,
         callbackURL: '',

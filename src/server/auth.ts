@@ -3,10 +3,10 @@ import { User as UserMessage } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
-import * as config from 'acm';
 import { User, Token } from '../service/models';
 import { can, roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
+import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
 import apikey_auth from '../auth/apikey';
 import { h, dispatch_event } from '../html';
 import { Day } from '../lang';
@@ -30,6 +30,14 @@ app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_clie
 
 app.get('/linkedin', linkedin.setup, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
+app.use((err: any, req, res, next) => {
+    if (err instanceof InvalidBetaUserError && LOCKEDDOWN) {
+        req.logout();
+        js_update_client_auth_locked_down(req, res);
+    } else {
+        next(err);
+    }
+});
 
 app.post('/token',
     can('create', 'token'),
