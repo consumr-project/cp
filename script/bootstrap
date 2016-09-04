@@ -21,9 +21,9 @@ case "$1" in
         heroku:buildpack heroku/nodejs
         heroku:addon heroku-postgresql hobby-dev
 
-        heroku:envar CLIENT_DEBUG_INFO false
+        heroku:envar CLIENT_DEBUG_INFO 1
         heroku:envar CP_ADMIN_EMAILS
-        heroku:envar CP_AUTH_LOCKDOWN false
+        heroku:envar CP_AUTH_LOCKDOWN 1
         heroku:envar CP_COOKIE_KEY
         heroku:envar CP_CRYPTO_AUTH_TOKEN_KEY
         heroku:envar CP_CRYPTO_USER_EMAIL_KEY
