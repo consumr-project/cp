@@ -1,4 +1,5 @@
-import { ServiceUnavailableError } from '../errors';
+import { UniqueConstraintError } from 'sequelize';
+import { ServiceUnavailableError, ConflictError } from '../errors';
 import * as express from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
@@ -369,12 +370,14 @@ get('/beta_email_invites',
 post('/beta_email_invites',
     can('create', 'emailinvite'),
     service_handler(req =>
-        save_unapproved_email_invite({ email: req.body.email }, req.user)));
+        save_unapproved_email_invite({ email: req.body.email }, req.user)
+            .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
 post('/beta_email_invites/create_approved',
     can('create', 'emailinvite'),
     can('approve', 'emailinvite'),
     service_handler(req =>
-        save_approved_email_invite({ email: req.body.email }, req.user)));
+        save_approved_email_invite({ email: req.body.email }, req.user)
+            .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
 put('/beta_email_invites/approve',
     can('create', 'emailinvite'),
     can('approve', 'emailinvite'),

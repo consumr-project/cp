@@ -63,6 +63,14 @@ export class NotFoundError extends HttpError {
     name = 'Not Found';
 }
 
+// indicates that the request could not be processed because of conflict in the
+// request, such as an edit conflict between multiple simultaneous updates.
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#409
+export class ConflictError extends HttpError {
+    code = 409;
+    name = 'Conflict Error';
+}
+
 // A generic error message, given when an unexpected condition was encountered
 // and no more specific message is suitable.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#500
