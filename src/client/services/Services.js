@@ -354,6 +354,15 @@ angular.module('tcp').service('Services', [
             beta_email_invites: {
                 retrieve: function () {
                     return get(url('beta_email_invites'));
+                },
+                approve: function (email) {
+                    return put(url('beta_email_invites/approve'), { email: email });
+                },
+                create: function (email) {
+                    return post(url('beta_email_invites'), { email: email });
+                },
+                create_approved: function (email) {
+                    return post(url('beta_email_invites/create_approved'), { email: email });
                 }
             }
         };
