@@ -1,8 +1,9 @@
 # getting started
 
-the following targes are available: `test-e2e`, `test-integration`,
-`test-unit`, and `test` which triggers the last two. the e2e tests require that
-webdriver be runnig which can be done with `make test-start-webdriver`.
+run `./script/bootstrap test` to setup your app for testing. the following
+targes are available: `test-e2e`, `test-integration`, `test-unit`, and `test`
+which triggers the last two. the e2e tests require that webdriver be runnig
+which can be done with `make test-start-webdriver`.
 
 ```bash
 # runs unit and integration tests
