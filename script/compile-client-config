@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('dotenv').config();
+
 var config = require('acm'),
     varname = process.argv[2];
 
@@ -9,6 +11,7 @@ varname && console.log('var %s =', varname);
 
 console.log({
     features: config('features'),
+    beta: { lockdown: !!config('cp.auth.lockdown') },
     analytics: { gaid: config('google.analytics.account_id') },
     environment: { name: config('node.env') || 'development' },
     rollbar: { token: config('rollbar.token') },
