@@ -58,6 +58,11 @@ namespace tcp {
 
                 user: 'user',
                 tag: 'tag',
+                user_props: {
+                    roles: {
+                        admin: 'admin'
+                    }
+                },
 
                 event: 'event',
                 event_props: {
@@ -200,6 +205,15 @@ namespace tcp {
                 template: '<company class="site-content" guid="{{guid}}" create="{{create}}"></company>',
                 controller: PropSetterController(['guid'], ['create']),
                 resolve: { UserCheck, PageView }
+            });
+
+            $routeProvider.when('/admin', {
+                template: '<error-view ng-if="!allowed"></error-view>' +
+                    '<admin-view ng-if="allowed" class="block site-content"></admin-view>',
+                resolve: { UserCheck },
+                controller: ['DOMAIN', 'Session', '$scope', (DOMAIN, Session, $scope) => {
+                    $scope.allowed = Session.USER.role === DOMAIN.model.user_props.roles.admin;
+                }],
             });
 
             $routeProvider.when('/noop', {

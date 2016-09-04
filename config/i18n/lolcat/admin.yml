@@ -24,3 +24,4 @@ error_creating_event: "Looks like we had an error trying to save this event. Ple
 error_creating_event_msg: "Looks like we had an error trying to save this event. Here's the error we got back, sorry if it's not pretty: \"{message}\""
 error_creating_company: "Looks like we had an error trying to save this company. Please try again."
 error_creating_company_msg: "Looks like we had an error trying to save this company. Here's the error we got back, sorry if it's not pretty: \"{message}\""
+beta_email_invites: beta email invitashuns

@@ -204,6 +204,7 @@ build-client-src:
 	$(js_min) src/client/components/home-view.js >> $(build_client_js)
 	$(js_min) src/client/components/error-view.js >> $(build_client_js)
 	$(js_min) src/client/components/tag-view.js >> $(build_client_js)
+	$(js_min) src/client/components/admin-view.js >> $(build_client_js)
 	$(js_min) src/client/components/feedback.js >> $(build_client_js)
 	$(js_min) src/client/components/event.js >> $(build_client_js)
 	$(js_min) src/client/components/source.js >> $(build_client_js)

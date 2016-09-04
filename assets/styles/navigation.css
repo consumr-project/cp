@@ -7,6 +7,10 @@
     white-space: nowrap;
 }
 
+.snav--borderless {
+    border-top: none;
+}
+
 a.snav__item,
 .snav__item {
     display: inline-block;
