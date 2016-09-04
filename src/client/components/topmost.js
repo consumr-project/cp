@@ -1,4 +1,5 @@
 angular.module('tcp').directive('tcpTopmost', [
+    'DOMAIN',
     '$interval',
     '$timeout',
     'Navigation',
@@ -7,7 +8,7 @@ angular.module('tcp').directive('tcpTopmost', [
     'utils',
     'Cookie',
     'lodash',
-    function ($interval, $timeout, Navigation, Services, Session, utils, Cookie, _) {
+    function (DOMAIN, $interval, $timeout, Navigation, Services, Session, utils, Cookie, _) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -21,6 +22,7 @@ angular.module('tcp').directive('tcpTopmost', [
         function controller($rootScope, $scope) {
             $scope.vm = {
                 show_login: true,
+                show_admin: false,
             };
 
             $scope.user = null;
@@ -44,6 +46,7 @@ angular.module('tcp').directive('tcpTopmost', [
             };
 
             $scope.nav = {
+                admin: Navigation.admin,
                 home: Navigation.home,
                 search: Navigation.search,
                 company: Navigation.company,
@@ -98,6 +101,7 @@ angular.module('tcp').directive('tcpTopmost', [
             function update_current_user() {
                 $scope.session.email = Session.USER.email;
                 $scope.session.logged_in = true;
+                $scope.vm.show_admin = Session.USER.role === DOMAIN.model.user_props.roles.admin;
             }
 
             /**
@@ -252,6 +256,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '    >',
                 '        <popover-item ng-click="nav.company(); actions.show = false;" i18n="admin/add_company"></popover-item>',
                 '        <popover-separator></popover-separator>',
+                '        <popover-item ng-if="vm.show_admin" ng-click="nav.admin(); actions.show = false;" i18n="pages/admin"></popover-item>',
                 '        <popover-item ng-click="nav.profile(); actions.show = false;" i18n="pages/profile"></popover-item>',
                 '        <popover-item ng-click="logout()" i18n="admin/logout"></popover-item>',
                 '    </popover>',

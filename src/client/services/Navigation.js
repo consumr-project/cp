@@ -4,6 +4,7 @@ angular.module('tcp').service('Navigation', [
         'use strict';
 
         var BASES = {
+            ADMIN: '/admin',
             COMPANY: '/company',
             TAG: '/tag',
             HOME: '/',
@@ -58,6 +59,7 @@ angular.module('tcp').service('Navigation', [
             tag: withoid(BASES.TAG),
             company: withoid(BASES.COMPANY),
             company_by_id: withoid(BASES.COMPANY + BASES.BY_ID),
+            admin: withoid(BASES.ADMIN),
             home: withoid(BASES.HOME),
             user: withoid(BASES.USER),
             user_me: withoid(BASES.USER + BASES.BY_ME),
