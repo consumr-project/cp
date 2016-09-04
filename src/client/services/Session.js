@@ -7,6 +7,7 @@ angular.module('tcp').service('Session', [
 
         var events = {
             NOTIFY: 'notify',
+            LOCKED_DOWN: 'locked_down',
             LOGIN: 'login',
             LOGOUT: 'logout',
             ERROR: 'error'
@@ -74,6 +75,7 @@ angular.module('tcp').service('Session', [
         service.set_user = set_user;
 
         $document.on('cp:auth', refresh);
+        $document.on('cp:auth_locked_down', emit(events.LOCKED_DOWN));
 
         return service;
     }
