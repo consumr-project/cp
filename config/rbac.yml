@@ -15,7 +15,7 @@ permissions:
   tag: [create, retrieve, update, delete, follow]
   user: [create, retrieve, update, delete, follow]
   token: [create]
-  beta_email: [create, retrieve, update]
+  emailinvite: [create, retrieve, update]
 
 grants:
   guest:
@@ -48,7 +48,7 @@ grants:
 
   admin:
     - user
-    - create_beta_email
+    - create_emailinvite
     - create_token
     - create_user
     - delete_company
@@ -59,6 +59,6 @@ grants:
     - delete_review
     - delete_tag
     - delete_user
-    - retrieve_beta_email
+    - retrieve_emailinvite
     - retrieve_feedback
-    - update_beta_email
+    - update_emailinvite
