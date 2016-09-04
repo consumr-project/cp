@@ -14,7 +14,7 @@
         captureUncaught: true,
         accessToken: config.rollbar.token,
         payload: {
-            environment: config.enviroment.name
+            environment: config.environment.name
         }
     });
 })(TCP_BUILD_CONFIG);

@@ -10,8 +10,6 @@ varname && console.log('var %s =', varname);
 console.log({
     features: config('features'),
     analytics: { gaid: config('google.analytics.account_id') },
-    // XXX fixing typo
-    enviroment: { name: config('node.env') || 'development' },
     environment: { name: config('node.env') || 'development' },
     rollbar: { token: config('rollbar.token') },
     locate: { dateFormat: config('locale.dateFormat') }
