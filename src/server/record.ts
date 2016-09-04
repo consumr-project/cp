@@ -3,6 +3,8 @@ import * as express from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
 import { save_event } from '../repository/event';
+import { save_unapproved_email_invite, save_approved_email_invite,
+    approve_email_invite } from '../repository/email_invite';
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
@@ -364,6 +366,20 @@ del('/feedback/:id',
 get('/beta_email_invites',
     can('retrieve', 'emailinvite'),
     query(conn, sql('get-beta-email-invites')));
+post('/beta_email_invites',
+    can('create', 'emailinvite'),
+    service_handler(req =>
+        save_unapproved_email_invite({ email: req.body.email }, req.user)));
+post('/beta_email_invites/create_approved',
+    can('create', 'emailinvite'),
+    can('approve', 'emailinvite'),
+    service_handler(req =>
+        save_approved_email_invite({ email: req.body.email }, req.user)));
+put('/beta_email_invites/approve',
+    can('create', 'emailinvite'),
+    can('approve', 'emailinvite'),
+    service_handler(req =>
+        approve_email_invite({ email: req.body.email }, req.user)));
 
 // search
 get('/search/products/en-US',
