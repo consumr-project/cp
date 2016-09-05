@@ -11,6 +11,7 @@ import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
 import { service_cache_intercept } from '../service/cache';
 import { service_handler, service_response, ratelimit } from '../service/http';
+import { recaptcha } from '../auth/recaptcha';
 
 import { User } from 'cp/record';
 import { shared, quick_save } from '../service/cache';
@@ -371,6 +372,8 @@ get('/beta_email_invites',
 post('/beta_email_invites',
     ratelimit('add_beta_email_invite'),
     can('create', 'emailinvite'),
+    service_handler(req =>
+        recaptcha(req.body.recaptcha, req.headers['x-forwarded-for'] || req.connection.remoteAddress)),
     service_handler(req =>
         save_unapproved_email_invite({ email: req.body.email }, <User>config('seed.user.root'))
             .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
