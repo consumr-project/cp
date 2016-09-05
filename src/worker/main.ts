@@ -3,9 +3,10 @@ import { Minute } from '../lang';
 
 switch (process.argv[2]) {
     case 'river':
-        /* setInterval(() => { */
         river(Minute * 60 * 10000);
-        /* } , 5000); */
+        break;
+
+    case 'queue':
         break;
 
     default:
