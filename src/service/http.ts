@@ -39,6 +39,17 @@ export function service_handler<T>(from_req: ServiceRequestPromise<T>, builder =
     };
 }
 
+export function service_middleware<T>(from_req: ServiceRequestPromise<T>): ServiceRequestHandler {
+    return (req, res, next) => {
+        var pro = from_req(req, res, next);
+
+        if (pro) {
+            pro.then(() => next())
+                .catch(next);
+        }
+    };
+}
+
 export function service_redirect(from_req: ServiceRequestPromise<string>): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req, res, next)
