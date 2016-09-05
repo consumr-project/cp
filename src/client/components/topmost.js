@@ -89,7 +89,11 @@ angular.module('tcp').directive('tcpTopmost', [
                         .then(success)
                         .catch(function (resp) {
                             switch (resp.status) {
+                                // duplicate, so we got it already
                                 case 409: success(); break;
+                                // hit rate limit
+                                case 429: break;
+                                // don't know
                                 default: break;
                             }
                         });

@@ -506,3 +506,23 @@ declare module 'true-visibility' {
     function fn(elem: Element): Boolean;
     export = fn;
 }
+
+declare module 'express-rate-limit' {
+    namespace RateLimit {
+        export interface RateLimitConfiguration {
+            windowMs: number;
+            delayAfter?: number;
+            delayMs?: number;
+            max: number;
+            message?: string;
+            statusCode?: number;
+            headers?: boolean;
+        }
+    }
+
+    class RateLimit {
+        constructor(config: RateLimit.RateLimitConfiguration);
+    }
+
+    export = RateLimit;
+}

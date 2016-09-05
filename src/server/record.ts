@@ -1,5 +1,7 @@
 import { UniqueConstraintError } from 'sequelize';
 import { ServiceUnavailableError, ConflictError } from '../errors';
+import * as RateLimit from 'express-rate-limit';
+import { RateLimitConfiguration } from 'express-rate-limit';
 import * as express from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
@@ -369,6 +371,7 @@ get('/beta_email_invites',
     can('retrieve', 'emailinvite'),
     query(conn, sql('get-beta-email-invites')));
 post('/beta_email_invites',
+    new RateLimit(config<RateLimitConfiguration>('ratelimit.add_beta_email_invite')),
     can('create', 'emailinvite'),
     service_handler(req =>
         save_unapproved_email_invite({ email: req.body.email }, <User>config('seed.user.root'))
