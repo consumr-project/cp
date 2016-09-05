@@ -19,11 +19,19 @@ mongo:
     MONGO_HOST: mongo
     MONGO_COLLECTION: cp_coll
 
+rabbitmq:
+  build: config/rabbitmq
+  ports:
+    - "15672:15672"
+  environment: &rabbitmq_environment
+    RABBITMQ_HOST: rabbitmq
+
 server:
   build: .
   links:
     - postgres
     - mongo
+    - rabbitmq
   ports:
     - "3000:3000"
   expose:
@@ -35,4 +43,5 @@ server:
   environment:
     <<: *postgres_environment
     <<: *mongo_environment
+    <<: *rabbitmq_environment
     PORT: 3000
