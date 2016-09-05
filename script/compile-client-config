@@ -11,11 +11,31 @@ varname && console.log('var %s =', varname);
 
 console.log({
     features: config('features'),
-    beta: { lockdown: !!config('cp.auth.lockdown') },
-    analytics: { gaid: config('google.analytics.account_id') },
-    environment: { name: config('node.env') || 'development' },
-    rollbar: { token: config('rollbar.token') },
-    locate: { dateFormat: config('locale.dateFormat') }
+
+    beta: {
+        lockdown: !!config('cp.auth.lockdown'),
+    },
+
+    google: {
+        analytics: {
+            gaid: config('google.analytics.account_id')
+        },
+        recaptcha: {
+            key: config('google.recaptcha.key')
+        },
+    },
+
+    environment: {
+        name: config('node.env') || 'development',
+    },
+
+    rollbar: {
+        token: config('rollbar.token'),
+    },
+
+    locate: {
+        dateFormat: config('locale.dateFormat'),
+    },
 });
 
 varname && console.log(';');

@@ -12,14 +12,42 @@ import * as analytics from 'universal-analytics/index';
 
 import shasum = require('shasum');
 
-declare var i18n: any;
+declare var i18n: {
+    get(key: string, data?: Object): string;
+};
 
 declare var TCP_BUILD_CONFIG: {
-    features: any;
-    analytics: { gaid: string; };
-    environment: { name: string; };
-    rollbar: { token: string; };
-    locate: { dateFormat: string; };
+    features: {
+        [key: string]: {
+            enabled: boolean;
+        };
+    }
+
+    beta: {
+        lockdown: boolean;
+    };
+
+    google: {
+        analytics: {
+            gaid: string;
+        };
+
+        recaptcha: {
+            key: string;
+        };
+    };
+
+    environment: {
+        name: string;
+    };
+
+    rollbar: {
+        token: string;
+    };
+
+    locate: {
+        dateFormat: string;
+    };
 };
 
 namespace tcp {
@@ -27,10 +55,10 @@ namespace tcp {
     const ERRORED: Boolean = (<any>window).ERRORED;
 
     var deps: Array<string> = ['ngSanitize', 'ngRoute', 'ngAria', 'ngAnimate', 'afkl.lazyImage'];
-    var Visitor = !DEBUGGING ? analytics(TCP_BUILD_CONFIG.analytics.gaid) :
-        analytics(TCP_BUILD_CONFIG.analytics.gaid).debug();
+    var Visitor = analytics(TCP_BUILD_CONFIG.google.analytics.gaid);
 
     if (DEBUGGING) {
+        Visitor = Visitor.debug();
         deps.push('rector');
     }
 
