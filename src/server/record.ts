@@ -12,6 +12,7 @@ import { card } from '../notification/trello';
 import { service_cache_intercept } from '../service/cache';
 import { service_handler, service_response } from '../service/http';
 
+import { User } from 'cp/record';
 import { shared, quick_save } from '../service/cache';
 import { conn } from '../service/models';
 import * as models from '../service/models';
@@ -370,7 +371,7 @@ get('/beta_email_invites',
 post('/beta_email_invites',
     can('create', 'emailinvite'),
     service_handler(req =>
-        save_unapproved_email_invite({ email: req.body.email }, req.user)
+        save_unapproved_email_invite({ email: req.body.email }, <User>config('seed.user.root'))
             .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
 post('/beta_email_invites/create_approved',
     can('create', 'emailinvite'),
