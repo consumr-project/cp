@@ -113,6 +113,10 @@ hr {
     padding: 0 var(--content-horizontal-padding) 0 var(--content-horizontal-padding);
 }
 
+.site-content--slim-100 {
+    max-width: calc(var(--content-max-width) - 100);
+}
+
 .site-content.site-content--span {
     max-width: none;
 }

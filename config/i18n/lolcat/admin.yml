@@ -1,6 +1,10 @@
 more_options: 'moar opshuns'
 remind_later: 'remind me latr'
 sing_in_with_service: 'sign in wif {service}'
+continue_with_service: continue wif {service}
+first_time: "first time?"
+already_signed_up: "already signed up?"
+enter_email_for_beta: "Enter your email to recieve a beta invitation"
 submit: submit
 cancel: cancel
 save: save

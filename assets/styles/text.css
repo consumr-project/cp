@@ -31,6 +31,11 @@ input[type="radio"] {
   margin-left: 2px;
 }
 
+input.input--buttonlike {
+    border-radius: 200px;
+    padding-left: var(--spacing-small);
+}
+
 input.loading {
     background-image: url(/assets/images/loading-spin.svg);
     background-position: right 10px center;

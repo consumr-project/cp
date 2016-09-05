@@ -2,6 +2,10 @@
     font-style: italic;
 }
 
+.bold {
+    font-weight: 900;
+}
+
 .arrow {
     background: white;
     border: 3px solid var(--color-std-thin-border-color);
@@ -27,6 +31,11 @@
     top: 50%;
     transform: translateY(-50%);
     vertical-align: middle;
+}
+
+.close-x--topright {
+    right: 20px;
+    top: 25px;
 }
 
 .close-x::after {
