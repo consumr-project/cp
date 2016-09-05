@@ -54,3 +54,15 @@ export function as_array(val: Object): Object[] {
 export function is_set(val: any): boolean {
     return !!val;
 }
+
+export function try_func<T>(action: () => T): Array<T | Error> {
+    var err, res;
+
+    try {
+        res = action();
+    } catch (_err) {
+        err = _err;
+    }
+
+    return [ err, res ];
+}

@@ -162,9 +162,12 @@ declare module 'request' {
     interface Request {
         uri: string;
         qs?: string | {};
+        method?: string;
+        formData?: Object;
     }
 
     function fn(req: Request, callback: Function): void;
+    namespace fn {}
     export = fn;
 }
 
