@@ -23,6 +23,7 @@ search_stats: "{count} results ({time} ms)"
 search_or_create: search or create
 
 # object loading
+error_hit_limit: Try again later
 error_loading: Error making request
 error_loading_content: "Error loading content, please try again later."
 

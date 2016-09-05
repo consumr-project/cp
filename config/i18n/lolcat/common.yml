@@ -16,6 +16,7 @@ searching_for: 'searchin 4 "{query}"'
 recent_searches: 'resent searchez:'
 search_stats: '{count} results ({time} ms)'
 search_or_create: search or create
+error_hit_limit: Try again later
 error_loading: 'error makin request'
 error_loading_content: 'error loadin content, plz try again latr.'
 not_found: 'not findz'

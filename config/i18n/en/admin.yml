@@ -8,6 +8,11 @@ first_time: "first time?"
 already_signed_up: "already signed up?"
 enter_email_for_beta: "Enter your email to recieve a beta invitation"
 
+missing_email: "we need your email!"
+missing_captcha: "serisouly tho are you human or not?"
+captcha_fail: "serisouly tho are you human or not?!?!???"
+got_it: "got it. expect a confirmation email sent to {email}"
+
 # actions
 submit: Submit
 cancel: Cancel

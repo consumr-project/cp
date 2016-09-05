@@ -23,8 +23,17 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.vm = {
                 show_login: true,
                 show_admin: false,
+                show_got_beta_email: false,
                 attn_beta_email: false,
+                error_view: null,
                 beta_email: '',
+                beta_email_sent_to: '',
+
+                ERROR_MISSING_EMAIL: 'errmissemail',
+                ERROR_MISSING_CAPTCHA: 'errmisscaptcha',
+                ERROR_CAPTCHA_FAIL: 'errcaptchafail',
+                ERROR_HIT_LIMIT: 'errhitlimit',
+                ERROR_STD: 'errstd',
             };
 
             $scope.user = null;
@@ -84,24 +93,48 @@ angular.module('tcp').directive('tcpTopmost', [
                 var recaptcha = angular.element('.topmost #g-recaptcha-response').val();
 
                 var success = function () {
-                    $scope.login.hide();
+                    $scope.vm.show_got_beta_email = true;
                     $scope.vm.beta_email = '';
+                    $scope.vm.beta_email_sent_to = email;
                 };
 
-                if (email && recaptcha) {
-                    Services.query.admin.beta_email_invites.create(email, recaptcha)
-                        .then(success)
-                        .catch(function (resp) {
-                            switch (resp.status) {
-                                // duplicate, so we got it already
-                                case 409: success(); break;
-                                // hit rate limit
-                                case 429: break;
-                                // don't know
-                                default: break;
-                            }
-                        });
+                $scope.vm.error_view = null;
+                $scope.vm.show_got_beta_email = false;
+                $scope.vm.beta_email_sent_to = null;
+
+                if (!email) {
+                    $scope.vm.error_view = $scope.vm.ERROR_MISSING_EMAIL;
+                    return;
+                } else if (!recaptcha) {
+                    $scope.vm.error_view = $scope.vm.ERROR_MISSING_CAPTCHA;
+                    return;
                 }
+
+                Services.query.admin.beta_email_invites.create(email, recaptcha)
+                    .then(success)
+                    .catch(function (resp) {
+                        switch (resp.status) {
+                            // recaptcha check fail
+                            case 400:
+                                $scope.vm.error_view = $scope.vm.ERROR_CAPTCHA_FAIL;
+                                break;
+
+                            // duplicate, so we got it already
+                            case 409:
+                                success();
+                                break;
+
+                            // hit rate limit
+                            case 429:
+                                $scope.vm.error_view = $scope.vm.ERROR_HIT_LIMIT;
+                                break;
+
+                            // don't know
+                            default:
+                                $scope.vm.error_view = $scope.vm.ERROR_STD;
+                                break;
+                        }
+                    });
             }
 
             function show_lockdown_message() {
@@ -223,6 +256,22 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            <section class="animated" ng-class="{bounce: vm.attn_beta_email}">',
                 '                <h4 class="bold margin-top-xlarge margin-bottom-small"',
                 '                    i18n="admin/first_time"></h4>',
+                '                <message closable',
+                '                    class="margin-bottom-xsmall"',
+                '                    ng-if="!vm.show_got_beta_email && vm.error_view"',
+                '                    type="error">',
+                '                    <span ng-if="vm.error_view === vm.ERROR_MISSING_EMAIL" i18n="admin/missing_email"></span>',
+                '                    <span ng-if="vm.error_view === vm.ERROR_MISSING_CAPTCHA" i18n="admin/missing_captcha"></span>',
+                '                    <span ng-if="vm.error_view === vm.ERROR_CAPTCHA_FAIL" i18n="admin/captcha_fail"></span>',
+                '                    <span ng-if="vm.error_view === vm.ERROR_HIT_LIMIT" i18n="common/error_hit_limit"></span>',
+                '                    <span ng-if="vm.error_view === vm.ERROR_STD" i18n="common/error_loading"></span>',
+                '                </message>',
+                '                <message closable',
+                '                    class="margin-bottom-xsmall"',
+                '                    ng-if="vm.show_got_beta_email && !vm.error_view"',
+                '                    type="success">',
+                '                    <span i18n="admin/got_it" data="{email: vm.beta_email_sent_to}"></span>',
+                '                </message>',
                 '                <input class="input--buttonlike full-span block margin-bottom-xsmall"',
                 '                    ng-model="vm.beta_email"',
                 '                    i18n="admin/enter_email_for_beta"',
