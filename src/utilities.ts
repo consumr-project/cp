@@ -56,7 +56,7 @@ export function is_set(val: any): boolean {
 }
 
 export function try_func<T>(action: () => T): Array<T | Error> {
-    var err, res;
+    var err: Error, res: T;
 
     try {
         res = action();
