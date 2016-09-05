@@ -358,8 +358,11 @@ angular.module('tcp').service('Services', [
                 approve: function (email) {
                     return put(url('beta_email_invites/approve'), { email: email });
                 },
-                create: function (email) {
-                    return post(url('beta_email_invites'), { email: email });
+                create: function (email, recaptcha) {
+                    return post(url('beta_email_invites'), {
+                        email: email,
+                        recaptcha: recaptcha,
+                    });
                 },
                 create_approved: function (email) {
                     return post(url('beta_email_invites/create_approved'), { email: email });

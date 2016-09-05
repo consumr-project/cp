@@ -79,13 +79,17 @@ angular.module('tcp').directive('tcpTopmost', [
 
             function submit_beta_email() {
                 var email = $scope.vm.beta_email;
+
+                // that's right
+                var recaptcha = angular.element('.topmost #g-recaptcha-response').val();
+
                 var success = function () {
                     $scope.login.hide();
                     $scope.vm.beta_email = '';
                 };
 
-                if (email) {
-                    Services.query.admin.beta_email_invites.create(email)
+                if (email && recaptcha) {
+                    Services.query.admin.beta_email_invites.create(email, recaptcha)
                         .then(success)
                         .catch(function (resp) {
                             switch (resp.status) {
@@ -223,6 +227,8 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                    ng-model="vm.beta_email"',
                 '                    i18n="admin/enter_email_for_beta"',
                 '                    prop="placeholder" />',
+                '                <recaptcha ng-show="vm.beta_email" class="margin-top-xsmall margin-bottom-xsmall">',
+                '                </recaptcha>',
                 '                <button class="full-soan block"',
                 '                    ng-click="submit_beta_email()"',
                 '                    i18n="admin/submit"></button>',
