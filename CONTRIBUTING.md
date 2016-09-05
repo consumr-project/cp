@@ -85,3 +85,13 @@ sections in the app (see the make file for this). also, setting a `DEBUG=*`
 environment variable (`make DEBUG=*`) will build parts of the code base in
 development mode and give you things like source maps, unminified code, nicer
 error messages, and that's about it.
+
+### external services
+
+- hosting: [AWS](https://aws.amazon.com/)
+- postgres: [Compose](https://www.compose.com/)
+- mongodb: [mLab](https://mlab.com/)
+- error logs: [Rollbar](https://rollbar.com/)
+- content extraction: [embed.ly](http://embed.ly/)
+<!-- &#45; emails: [mailgun](http://www.mailgun.com/) -->
+<!-- &#45; rabbitmq: [CloudAMQP](https://www.cloudamqp.com/) -->
