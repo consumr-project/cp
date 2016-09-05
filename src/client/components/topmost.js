@@ -23,6 +23,8 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.vm = {
                 show_login: true,
                 show_admin: false,
+                attn_beta_email: false,
+                beta_email: '',
             };
 
             $scope.user = null;
@@ -58,6 +60,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 $timeout($scope.notifications.repaint, 100);
             };
 
+            $scope.submit_beta_email = submit_beta_email;
             $scope.with_linkedin = login_with_linkedin;
             $scope.login = login;
             $scope.logout = logout;
@@ -74,9 +77,33 @@ angular.module('tcp').directive('tcpTopmost', [
             $interval(sync_if_active, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
 
+            function submit_beta_email() {
+                var email = $scope.vm.beta_email;
+                var success = function () {
+                    $scope.login.hide();
+                    $scope.vm.beta_email = '';
+                };
+
+                if (email) {
+                    Services.query.admin.beta_email_invites.create(email)
+                        .then(success)
+                        .catch(function (resp) {
+                            switch (resp.status) {
+                                case 409: success(); break;
+                                default: break;
+                            }
+                        });
+                }
+            }
+
             function show_lockdown_message() {
                 $scope.vm.show_login = false;
+                $scope.vm.attn_beta_email = true;
                 $scope.$apply();
+
+                $timeout(function () {
+                    $scope.vm.attn_beta_email = false;
+                }, 2000);
             }
 
             function login_with_linkedin() {
@@ -185,14 +212,15 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            <div class="close-x close-x--topright" ng-click="login.hide()"></div>',
                 '            <h2 i18n="common/welcome_beta" class="italic font-size-xlarge"></h2>',
 
-                '            <section class="animated" ng-class="{bounce: !vm.show_login}">',
+                '            <section class="animated" ng-class="{bounce: vm.attn_beta_email}">',
                 '                <h4 class="bold margin-top-xlarge margin-bottom-small"',
                 '                    i18n="admin/first_time"></h4>',
                 '                <input class="input--buttonlike full-span block margin-bottom-xsmall"',
+                '                    ng-model="vm.beta_email"',
                 '                    i18n="admin/enter_email_for_beta"',
                 '                    prop="placeholder" />',
                 '                <button class="full-soan block"',
-                '                    ng-click=""',
+                '                    ng-click="submit_beta_email()"',
                 '                    i18n="admin/submit"></button>',
                 '            </section>',
 
