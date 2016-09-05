@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+import * as config from 'acm';
+import * as RateLimit from 'express-rate-limit';
+import { RateLimitConfiguration } from 'express-rate-limit';
 import { clone } from 'lodash';
 
 export type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
@@ -42,4 +45,8 @@ export function service_redirect(from_req: ServiceRequestPromise<string>): Servi
             .then(url => res.redirect(url))
             .catch(next);
     };
+}
+
+export function ratelimit(config_name: string) {
+    return new RateLimit(config<RateLimitConfiguration>(`ratelimit.${config_name}`));
 }
