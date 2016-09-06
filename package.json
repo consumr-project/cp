@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "acm": "2.0.1",
-    "amqp": "0.2.4",
+    "amqplib": "0.4.2",
     "angular": "1.5.0",
     "angular-animate": "1.5.0",
     "angular-aria": "1.4.0",

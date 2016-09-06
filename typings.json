@@ -5,6 +5,7 @@
   },
   "devDependencies": {},
   "ambientDependencies": {
+    "amqplib": "github:DefinitelyTyped/DefinitelyTyped/amqplib/amqplib.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
     "angular": "github:DefinitelyTyped/DefinitelyTyped/angularjs/angular.d.ts#0aa772c53fa6bf700f5ddce007871260297001f3",
     "bluebird": "github:DefinitelyTyped/DefinitelyTyped/bluebird/bluebird.d.ts#8d852210cf8378ac5fe11380b5d1d17f2e5b0968",
     "debug": "github:DefinitelyTyped/DefinitelyTyped/debug/debug.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
@@ -24,6 +25,7 @@
     "sequelize": "github:DefinitelyTyped/DefinitelyTyped/sequelize/sequelize.d.ts#25ef75ce61530b82d5b4e7664c109e1ee3bc0c34",
     "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f",
     "universal-analytics": "github:DefinitelyTyped/DefinitelyTyped/universal-analytics/universal-analytics.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
-    "validator": "github:DefinitelyTyped/DefinitelyTyped/validator/validator.d.ts#25ef75ce61530b82d5b4e7664c109e1ee3bc0c34"
+    "validator": "github:DefinitelyTyped/DefinitelyTyped/validator/validator.d.ts#25ef75ce61530b82d5b4e7664c109e1ee3bc0c34",
+    "when": "github:DefinitelyTyped/DefinitelyTyped/when/when.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd"
   }
 }
