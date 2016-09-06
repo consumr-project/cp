@@ -10,7 +10,7 @@ import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
-import { save, find, purge, update, purge_signature } from '../notification/collection';
+import { save, find, purge, update, purge_signature } from '../repository/notification';
 import { head } from 'lodash';
 import connect from '../service/mongo';
 
