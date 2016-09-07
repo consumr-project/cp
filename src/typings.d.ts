@@ -529,3 +529,18 @@ declare module 'express-rate-limit' {
 
     export = RateLimit;
 }
+
+declare module 'nodemailer-plugin-inline-base64' {
+    import { Plugin } from 'nodemailer';
+    const base64: Plugin;
+    namespace base64 {}
+    export = base64;
+}
+
+declare module 'nodemailer-html-to-text' {
+    import { Plugin } from 'nodemailer';
+    namespace html_to_text {
+        export const htmlToText: Plugin;
+    }
+    export = html_to_text;
+}
