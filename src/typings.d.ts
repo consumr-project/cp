@@ -540,7 +540,7 @@ declare module 'nodemailer-plugin-inline-base64' {
 declare module 'nodemailer-html-to-text' {
     import { Plugin } from 'nodemailer';
     namespace html_to_text {
-        export const htmlToText: Plugin;
+        export const htmlToText: () => Plugin;
     }
     export = html_to_text;
 }
