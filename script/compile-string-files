@@ -119,9 +119,12 @@ function command_generate(options) {
             messages[name] = parsed;
         });
 
-        console.log('window.%s = window.%s || {};', program['var'], program['var']);
-        console.log('window.%s.get = %s;', program['var'], i18n_get_function.toString());
-        console.log('window.%s.%s = (%s)();', program['var'], name, mf.compile(messages).toString());
+        console.log('(function (global) {');
+        console.log('var store = global.%s || {};', program['var']);
+        console.log('global.%s = (global.module || {}).exports = store;', program['var']);
+        console.log('store.get = %s;', i18n_get_function.toString());
+        console.log('store.%s = (%s)();', name, mf.compile(messages).toString());
+        console.log('})(this)');
     });
 }
 
