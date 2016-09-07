@@ -56,7 +56,9 @@ export interface ContributedNotificationPayload
 export interface ModifiedNotificationPayload
     extends MultipleTargetPayload {}
 
-export type SUBCATEGORY = NOTIFICATION | EMAIL;
+export type SUBCATEGORY = NOTIFICATION
+    & EMAIL;
+
 export type PAYLOAD = FollowedNotificationPayload
     & FavoritedNotificationPayload
     & ModifiedNotificationPayload
