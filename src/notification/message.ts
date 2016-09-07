@@ -22,6 +22,10 @@ export enum NOTIFICATION {
     MODIFIED = <any>'MODIFIED',
 }
 
+export enum EMAIL {
+    WELCOME = <any>'WELCOME',
+}
+
 export interface SingularTargetPayload {
     id: UUID;
     otype: OTYPE;
@@ -52,7 +56,7 @@ export interface ContributedNotificationPayload
 export interface ModifiedNotificationPayload
     extends MultipleTargetPayload {}
 
-export type SUBCATEGORY = NOTIFICATION;
+export type SUBCATEGORY = NOTIFICATION | EMAIL;
 export type PAYLOAD = FollowedNotificationPayload
     & FavoritedNotificationPayload
     & ModifiedNotificationPayload
