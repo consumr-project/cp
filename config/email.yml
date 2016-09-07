@@ -7,6 +7,3 @@ smtp_pool:
 
   # do not send more than 10 messages per connection
   max_messages: 10
-
-  # no not send more than 5 messages in a second
-  rate_limit: 5
