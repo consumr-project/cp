@@ -67,19 +67,7 @@ export function mailer(): Transporter {
     return mail;
 }
 
-export function send(msg: Message, transport: Transporter) {
+export function send(transport: Transporter, msg: Message) {
     var html = generate_body(msg.subcategory, msg.payload, 'en');
     return html;
 }
-
-/* send(EMAIL.WELCOME, mail, msg); */
-/* var mail = mailer(); */
-/* mail.sendMail({ */
-/*     from: 'minond.marcos@gmail.com', */
-/*     to: 'minond.marcos@gmail.com', */
-/*     subject: 'test ' + Math.random(), */
-/*     html: '<h1>hi</h1>', */
-/* }) */
-/* .then(ack => console.log(ack)) */
-/* .catch(err => console.error(err)); */
-/* console.log(CONFIG); */
