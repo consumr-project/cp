@@ -82,7 +82,8 @@
     "true-visibility": "minond/true-visibility#832ef7d9a976839d08198c4561f60270b61fc65d",
     "tslint": "3.10.2",
     "universal-analytics": "0.3.10",
-    "urijs": "1.17.0"
+    "urijs": "1.17.0",
+    "yamljs": "0.2.3"
   },
   "devDependencies": {
     "async": "1.5.2",
@@ -104,7 +105,6 @@
     "tapes": "3.1.0",
     "typescript": "1.9.0-dev.20160201",
     "typings": "0.6.5",
-    "uglify-js": "2.6.2",
-    "yamljs": "0.2.3"
+    "uglify-js": "2.6.2"
   }
 }
