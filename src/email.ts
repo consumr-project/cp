@@ -1,4 +1,6 @@
-import { Transporter, createTransport as transport } from 'nodemailer';
+import { Transporter, SentMessageInfo,
+    createTransport as transport } from 'nodemailer';
+
 import { SmtpPoolOptions } from 'nodemailer-smtp-pool';
 import * as smtp_pool from 'nodemailer-smtp-pool';
 import * as inline_base64 from 'nodemailer-plugin-inline-base64';
@@ -11,6 +13,8 @@ import { readFileSync as read } from 'fs';
 import { EMAIL, PAYLOAD } from './notification/message';
 import Message from './notification/message';
 import * as config from 'acm';
+
+const ADDRESS_DO_NOT_REPLAY = config('email.addresses.do_not_reply');
 
 const TEMPLATES = {
     base: template(asset('base.tmpl')),
@@ -45,6 +49,11 @@ function asset(name: string) {
     return read(`${__dirname}/../assets/emails/${name}`).toString();
 }
 
+function generate_subject(template: EMAIL, payload: PAYLOAD, lang: string) {
+    var i18n = STRINGS[lang] || STRINGS.en;
+    return i18n.get(`emails/${template.toString().toLowerCase()}_email_subject`, payload);
+}
+
 function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
     var data = {
         body: '',
@@ -67,7 +76,14 @@ export function mailer(): Transporter {
     return mail;
 }
 
-export function send(transport: Transporter, msg: Message) {
+export function send(transport: Transporter, msg: Message): Promise<SentMessageInfo> {
     var html = generate_body(msg.subcategory, msg.payload, 'en');
-    return html;
+    var subject = generate_subject(msg.subcategory, msg.payload, 'en');
+
+    return transport.sendMail({
+        from: ADDRESS_DO_NOT_REPLAY,
+        to: msg.to,
+        subject,
+        html,
+    });
 }
