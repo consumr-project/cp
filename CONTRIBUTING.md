@@ -96,5 +96,6 @@ error messages, and that's about it.
 - mongodb: [mLab](https://mlab.com/)
 - error logs: [Rollbar](https://rollbar.com/)
 - content extraction: [embed.ly](http://embed.ly/)
-<!-- &#45; emails: [mailgun](http://www.mailgun.com/) -->
+- emails: [mailgun](http://www.mailgun.com/)
+
 <!-- &#45; rabbitmq: [CloudAMQP](https://www.cloudamqp.com/) -->
