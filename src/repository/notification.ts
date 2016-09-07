@@ -3,7 +3,7 @@ import { clone } from 'lodash';
 import { Collection, FindAndModifyWriteOpResultObject, UpdateWriteOpResult,
     DeleteWriteOpResultObject } from 'mongodb';
 
-import Message, { CATEGORY, SUBCATEGORY } from '../notification/message';
+import Message, { CATEGORY, NOTIFICATION } from '../notification/message';
 
 export function update(coll: Collection, ids: UUID[], update: Object): Promise<UpdateWriteOpResult> {
     return coll.updateMany({ id: { $in: ids } }, update);
@@ -27,7 +27,7 @@ export function find(
     coll: Collection,
     to: UUID,
     category: CATEGORY,
-    subcategories: SUBCATEGORY[] = [],
+    subcategories: NOTIFICATION[] = [],
     query: any = {}
 ): Promise<Message[]> {
     query = clone(query);
