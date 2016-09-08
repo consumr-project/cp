@@ -127,9 +127,14 @@
     height: var(--avatar-size);
     position: relative;
     top: 20px;
-    transition: opacity var(--speed-fast), transform var(--speed-fast);
     vertical-align: top;
     width: var(--avatar-size);
+}
+
+.event-elem__logo__icon,
+.timeline__event__icon,
+.event-elem__logo div + span {
+    transition: opacity var(--speed-fast), transform var(--speed-fast);
 }
 
 .event-elem__logo__icon {
@@ -239,11 +244,13 @@
     white-space: nowrap;
 }
 
-.event-elem__logo--selected input + div {
+.event-elem__logo--selected input + div,
+.event-elem__logo--selected input + div + span {
     opacity: .35;
 }
 
-.event-elem__logo--selected input[aria-checked="true"] + div {
+.event-elem__logo--selected input[aria-checked="true"] + div,
+.event-elem__logo--selected input[aria-checked="true"] + div + span {
     opacity: 1;
 }
 
