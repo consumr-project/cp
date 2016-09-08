@@ -10,9 +10,9 @@ var argv = clone(process.argv);
 
 argv.shift();
 argv.shift();
+console.log('checking %s files', argv.length);
 argv.forEach(file => {
     try {
-        console.log('checking %s', file);
         yaml.parse(fs.readFileSync(file).toString());
     } catch (err) {
         console.log('error parsing %s', file);
