@@ -1,10 +1,18 @@
+<html><body>
 <div style="<%- styles.container %>">
-  <img style="<%- styles.header_logo %>" alt="<%- images.cp_main.alt %>" src="<%- images.cp_main.base64 %>" />
+    <div style="<%- styles.content_padded %>;<%- styles.bottom_separator %>">
+        <table style="<%- styles.table_reset %>">
+            <tr style="<%- styles.table_reset %>">
+                <td style="<%- styles.table_reset %>">
+                    <img style="<%- styles.header_logo_circle %>" alt="<%- images.cp_black_square.alt %>" src="<%- images.cp_black_square.src %>" />
+                </td>
+                <td style="<%- styles.table_reset %>">
+                    <img style="<%- styles.header_logo_text %>" alt="<%- images.cp_text.alt %>" src="<%- images.cp_text.src %>" />
+                </td>
+            </tr>
+        </table>
+    </div>
 
-  <%= body %>
-  <div style="<%- styles.separator %>"></div>
-
-  <center>
-    <a href="" style="<%- styles.footer_text %>">consumrproject.org</a>
-  </center>
+    <%= body %>
 </div>
+</html></body>
