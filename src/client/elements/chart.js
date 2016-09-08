@@ -4,6 +4,7 @@
  * @attribute {Number[]} values list of values for (hbar) chart
  * @attribute {Number} value score/value for (heartcount) chart
  * @attribute {Boolean} editable accepts user inputs
+ * @attribute {Boolean} labelled show nice labels for chart
  * @attribute {Function} on-change handler
  */
 angular.module('tcp').directive('chart', [
@@ -31,6 +32,14 @@ angular.module('tcp').directive('chart', [
             '        <div class="chart--heartcount__n chart--heartcount__3"></div>',
             '        <div class="chart--heartcount__n chart--heartcount__4"></div>',
             '        <div class="chart--heartcount__n chart--heartcount__5"></div>',
+            '        <div class="chart--heartcount__label">',
+            '            <span i18n="common/score_1" class="chart--heartcount__label__n chart--heartcount__label__1">1</span>',
+            '            <span i18n="common/score_2" class="chart--heartcount__label__n chart--heartcount__label__2">2</span>',
+            '            <span i18n="common/score_3" class="chart--heartcount__label__n chart--heartcount__label__3">3</span>',
+            '            <span i18n="common/score_4" class="chart--heartcount__label__n chart--heartcount__label__4">4</span>',
+            '            <span i18n="common/score_5" class="chart--heartcount__label__n chart--heartcount__label__5">5</span>',
+            '            &nbsp;',
+            '        </div>',
             '    </div>',
             '    <div ng-switch-when="hbar" class="chart--hbar">',
             '        <table>',

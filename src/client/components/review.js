@@ -32,7 +32,7 @@ angular.module('tcp').directive('review', [
         var HTML_EDIT = [
             '<div class="not-half-width-but-not-full-either">',
             '    <h1 i18n="review/comfort" data="{name: companyName}"></h1>',
-            '    <chart class="margin-top-large margin-bottom-xlarge"',
+            '    <chart class="margin-top-large margin-bottom-xlarge" labelled="true"',
             '        type="heartcount" editable="true" on-change="vm.score = value"></chart>',
             '    <input class="block title" prop="placeholder" i18n="review/title_placeholder"',
             '        ng-model="vm.title" />',

@@ -42,6 +42,27 @@
     white-space: nowrap;
 }
 
+.chart[labelled="true"] .chart--heartcount__label {
+    display: inline-block;
+    font-size: var(--font-size-small);
+    margin-left: var(--spacing-small);
+    position: relative;
+    top: -5px;
+    white-space: nowrap;
+}
+
+.chart--heartcount__label__n {
+    display: none;
+}
+
+.chart[value="1"] .chart--heartcount__label__1,
+.chart[value="2"] .chart--heartcount__label__2,
+.chart[value="3"] .chart--heartcount__label__3,
+.chart[value="4"] .chart--heartcount__label__4,
+.chart[value="5"] .chart--heartcount__label__5 {
+    display: inline-block;
+}
+
 .chart--heartcount__n {
     background-image: url(/assets/images/heart-white.svg);
     background-size: contain;
