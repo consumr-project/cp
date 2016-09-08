@@ -113,6 +113,9 @@ angular.module('tcp').directive('reviews', [
                 });
             };
 
+            Services.query.companies.reviews.view.cache.removeAll();
+            Services.query.companies.reviews.summary.cache.removeAll();
+
             $scope.next_page();
             Services.query.companies.reviews.summary($scope.companyId)
                 .then(list_scores)

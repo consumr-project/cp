@@ -105,9 +105,11 @@ angular.module('tcp').service('Services', [
          * @return {Object}
          */
         function crud(model, associations) {
-            var cache = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
+            var cache1 = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
+            var cache2 = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
             return lodash.reduce(associations, function (methods, assoc) {
                 methods[assoc] = {
+                    cache: cache2,
                     create: function (parent_id, data) {
                         return $http.post(url(model, parent_id, assoc), data)
                             .then(pluck_data).then(pluck_body);
@@ -118,7 +120,7 @@ angular.module('tcp').service('Services', [
                     },
                     retrieve: function (parent_id, id, parts, expand) {
                         var opt = {
-                            cache: cache
+                            cache: cache2
                         };
 
                         if (parts) {
@@ -145,7 +147,7 @@ angular.module('tcp').service('Services', [
                 };
                 return methods;
             }, {
-                cache: cache,
+                cache: cache1,
                 create: function (data) {
                     return $http.post(url(model), data)
                         .then(pluck_data).then(pluck_body);
@@ -156,7 +158,7 @@ angular.module('tcp').service('Services', [
                 },
                 retrieve: function (id, parts, expand) {
                     var opt = {
-                        cache: cache
+                        cache: cache1
                     };
 
                     if (parts) {
@@ -332,18 +334,21 @@ angular.module('tcp').service('Services', [
 
         queryService.companies.reviews.view = function (id, user_id, offset) {
             return $http.get(url('companies', id, 'reviews'), {
-                cache: true,
+                cache: queryService.companies.reviews.view.cache,
                 params: {
                     offset: offset || 0,
                     user_id: user_id
                 }
             }).then(pluck_data).then(pluck_body);
         };
+        queryService.companies.reviews.view.cache = $cacheFactory('queryService.companies.reviews.view.cache');
 
         queryService.companies.reviews.summary = function (id) {
-            return $http.get(url('companies', id, 'reviews/summary'), { cache: true })
-                .then(pluck_data).then(pluck_body);
+            return $http.get(url('companies', id, 'reviews/summary'), {
+                cache: queryService.companies.reviews.summary.cache
+            }).then(pluck_data).then(pluck_body);
         };
+        queryService.companies.reviews.summary.cache = $cacheFactory('queryService.companies.reviews.summary.cache');
 
         queryService.companies.reviews.score = function (id) {
             return $http.get(url('companies', id, 'reviews/score'), { cache: true })
