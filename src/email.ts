@@ -10,7 +10,7 @@ import { template } from 'lodash';
 import { parse } from 'yamljs';
 import { readFileSync as read } from 'fs';
 
-import { EMAIL, PAYLOAD } from './notification/message';
+import { EMAIL, PAYLOAD, CATEGORY } from './notification/message';
 import Message from './notification/message';
 import * as config from 'acm';
 
@@ -40,6 +40,8 @@ const CONFIG: SmtpPoolOptions = {
         pass: config('email.service.pass'),
     },
 };
+
+const TRANSPORT = mailer();
 
 function i18n(lang: string) {
     return require(`../build/i18n.${lang}`).i18n;
@@ -86,4 +88,8 @@ export function send(transport: Transporter, msg: Message): Promise<SentMessageI
         subject,
         html,
     });
+}
+
+export function email_welcome(to: string, name: string) {
+    return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }));
 }
