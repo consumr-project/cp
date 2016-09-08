@@ -1,7 +1,11 @@
 #!/bin/bash
 
-file=docker-compose.yml
-[ ! -z "$1" ] && file="$1"
+file="$1"
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <docker-compose-file>"
+    exit 1
+fi
 
 echo "setting up docker compose with $file!!"
 
