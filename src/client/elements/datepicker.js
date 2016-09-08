@@ -4,7 +4,8 @@
 angular.module('tcp').directive('datepicker', [
     '$parse',
     'lodash',
-    function ($parse, lodash) {
+    'i18n',
+    function ($parse, lodash, i18n) {
         'use strict';
 
         var MONTH = 'Month',
@@ -56,10 +57,14 @@ angular.module('tcp').directive('datepicker', [
 
                 $scope.vm = {
                     months: lodash.map(lodash.range(0, 12), function (val) {
-                        return option(val, 1);
+                        var opt = option(val, 1);
+                        opt.label = i18n.get('common/month_' + opt.label);
+                        return opt;
                     }),
                     days: lodash.map(lodash.range(1, 32), function (val) {
-                        return option(val);
+                        var opt = option(val);
+                        opt.label = i18n.get('common/ordinal', { count: opt.label });
+                        return opt;
                     }),
                     years: lodash.map(lodash.range(1900, now.getFullYear() + 1), function (val) {
                         return option(val);
