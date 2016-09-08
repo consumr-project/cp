@@ -38,3 +38,21 @@ sort_by_col: 'sort by:'
 day: day
 month: month
 year: year
+ordinal: "{count, selectordinal, one{#st} two{#nd} few{#rd} other{#th}}"
+score_1: "not.at.all"
+score_2: "a little"
+score_3: "mixed bag, more love than not"
+score_4: "not perfect but pretty close"
+score_5: "LOVE"
+month_1: January
+month_2: February
+month_3: March
+month_4: April
+month_5: May
+month_6: June
+month_7: July
+month_8: August
+month_9: September
+month_10: October
+month_11: November
+month_12: December

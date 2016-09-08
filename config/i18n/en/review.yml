@@ -8,4 +8,4 @@ did_review_help: "did this help you figure out if you want to shop here? {count,
 time: time
 usefulness: usefulness
 
-count: "{count} reviews"
+count: "{count} {count, plural, one {review} other {reviews}}"
