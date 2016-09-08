@@ -15,6 +15,8 @@ angular.module('tcp').service('Navigation', [
             BY_ME: '/me',
         };
 
+        BASES.MY_PROFILE = BASES.USER + BASES.BY_ME;
+
         var PAGE_MAP = {};
         PAGE_MAP[BASES.HOME] = 'home';
 
@@ -62,7 +64,7 @@ angular.module('tcp').service('Navigation', [
             admin: withoid(BASES.ADMIN),
             home: withoid(BASES.HOME),
             user: withoid(BASES.USER),
-            user_me: withoid(BASES.USER + BASES.BY_ME),
+            user_me: withoid(BASES.MY_PROFILE),
             event: withoid(BASES.EVENT),
 
             /**
