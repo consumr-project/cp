@@ -1,0 +1,3 @@
+apps:
+  - script: build/server/main.js
+    name: server1

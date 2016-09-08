@@ -19,4 +19,4 @@ RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 \
     software-properties-common postgresql-client-9.3
 
 EXPOSE 3000
-CMD ["make", "server"]
+CMD ["make", "pm"]
