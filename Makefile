@@ -68,9 +68,6 @@ check:
 	-./node_modules/.bin/snyk test
 
 lint:
-	./script/lint-html-links
-	./script/lint-yaml-file .travis.yml \
-		$(shell find config -name "*.yml")
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		$(shell find src -name "*.js") \
@@ -81,6 +78,9 @@ lint:
 		$(shell find script -name "*.js")
 	$(json_lint) --validate \
 		$(shell find config -name "*.json")
+	./script/lint-html-links
+	./script/lint-yaml-file .travis.yml \
+		$(shell find config -name "*.yml")
 
 test-start-webdriver:
 	if [ ! -d bin ]; then mkdir bin; fi
