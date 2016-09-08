@@ -38,7 +38,7 @@ angular.module('tcp').directive('event', [
             '               ng-class="{ loading: ev.$sources[0].$loading }" />',
             '        </section>',
 
-            '        <section class="event-elem__logo">',
+            '        <section class="event-elem__logo" ng-class="{\'event-elem__logo--selected\': ev.logo}">',
             '            <label i18n="event/logo"></label>',
             '            <table>',
             '                <tr>',

@@ -127,7 +127,7 @@
     height: var(--avatar-size);
     position: relative;
     top: 20px;
-    transition: background-color var(--speed-fast), transform var(--speed-fast);
+    transition: opacity var(--speed-fast), transform var(--speed-fast);
     vertical-align: top;
     width: var(--avatar-size);
 }
@@ -239,8 +239,12 @@
     white-space: nowrap;
 }
 
-.event-elem__logo input[aria-checked="true"] + div {
-    background-color: var(--color-cp-brand);
+.event-elem__logo--selected input + div {
+    opacity: .35;
+}
+
+.event-elem__logo--selected input[aria-checked="true"] + div {
+    opacity: 1;
 }
 
 .timeline__event__icon--company_created {
