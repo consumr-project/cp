@@ -11,5 +11,5 @@ echo "setting up docker compose with $file!!"
 
 ./script/bootstrap env && \
     docker-compose -f "$file" build && \
-    docker-compose -f "$file" run server make && \
+    docker-compose -f "$file" run --rm server make && \
     docker-compose -f "$file" run --rm server ./script/docker-database

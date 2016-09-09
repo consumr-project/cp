@@ -58,7 +58,7 @@ server:
 	node build/server/main
 
 pm:
-	./node_modules/.bin/pm2 start processes.yml
+	./node_modules/.bin/pm2 start processes.yml --no-daemon
 
 reset: clean
 	-rm -fr node_modules typings
