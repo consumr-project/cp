@@ -10,7 +10,7 @@ import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
 import { service_handler, service_response, service_middleware,
-    service_cache_intercept, ratelimit } from '../device/http';
+    service_cache_intercept, ratelimit } from '../http';
 import { recaptcha } from '../auth/recaptcha';
 
 import { User } from 'cp/record';

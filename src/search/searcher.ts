@@ -1,4 +1,4 @@
-import { ServiceResponseV1 } from '../device/http';
+import { ServiceResponseV1 } from '../http';
 import { Result } from 'cp/search';
 import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
 import { map } from 'lodash';

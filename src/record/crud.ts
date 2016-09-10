@@ -1,4 +1,4 @@
-import { ServiceResponseV1 } from '../device/http';
+import { ServiceResponseV1 } from '../http';
 import { Request, Response } from 'express';
 import { Model, DestroyOptions, UpdateOptions, FindOptions } from 'sequelize';
 import { BadRequestError, ERR_MSG_MISSING_FIELDS, ERR_MSG_INVALID_PARTS } from '../errors';

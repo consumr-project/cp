@@ -1,4 +1,4 @@
-import { ServiceRequestHandler } from '../device/http';
+import { ServiceRequestHandler } from '../http';
 import { Configuration } from 'rbac-interface';
 
 import { clone } from 'lodash';

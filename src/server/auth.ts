@@ -11,7 +11,7 @@ import apikey_auth from '../auth/apikey';
 import { h, dispatch_event } from '../html';
 import { Day } from '../lang';
 import { Manager } from '../auth/token';
-import { service_handler } from '../device/http';
+import { service_handler } from '../http';
 
 export var app = express();
 export { passport };

@@ -5,7 +5,7 @@ import { Event } from '../device/models';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
 import { has_all_fields, runtime_purge_allowed } from '../utilities';
-import { service_handler } from '../device/http';
+import { service_handler } from '../http';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
