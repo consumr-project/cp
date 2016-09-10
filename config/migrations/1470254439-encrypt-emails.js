@@ -2,7 +2,7 @@
 
 const config = require('acm');
 const crypto = require('../../build/crypto');
-const connect = require('../../build/service/dbms').default;
+const connect = require('../../build/device/dbms').default;
 const gen_models = require('../../build/record/models').default;
 
 const Models = gen_models(connect());
