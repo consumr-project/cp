@@ -2,7 +2,7 @@ import { WhereOptions } from 'sequelize';
 import { User as UserMessage } from 'cp/record';
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
-import { User } from '../service/models';
+import { User } from '../device/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';
 

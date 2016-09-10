@@ -3,7 +3,7 @@ import { User as UserMessage } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
-import { User, Token } from '../service/models';
+import { User, Token } from '../device/models';
 import { can, roles } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
@@ -11,7 +11,7 @@ import apikey_auth from '../auth/apikey';
 import { h, dispatch_event } from '../html';
 import { Day } from '../lang';
 import { Manager } from '../auth/token';
-import { service_handler } from '../service/http';
+import { service_handler } from '../device/http';
 
 export var app = express();
 export { passport };

@@ -1,5 +1,5 @@
-import db_connect from '../service/dbms';
-import es_connect from '../service/elasticsearch';
+import db_connect from '../device/dbms';
+import es_connect from '../device/elasticsearch';
 import { get, elasticsearch } from '../search/updater';
 import { LinkConfiguration, LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';

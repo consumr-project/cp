@@ -9,7 +9,7 @@ import { parse } from 'url';
 import { v4 } from 'node-uuid';
 
 import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
-import { BetaEmailInvite, User } from '../service/models';
+import { BetaEmailInvite, User } from '../device/models';
 import { Strategy, Profile } from 'passport-linkedin-oauth2';
 import * as passport from 'passport';
 import * as config from 'acm';

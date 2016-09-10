@@ -1,4 +1,4 @@
-import { ServiceRequestHandler, service_response } from '../service/http';
+import { ServiceRequestHandler, service_response } from '../device/http';
 import { Sequelize } from 'sequelize';
 
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';

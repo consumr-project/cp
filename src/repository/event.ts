@@ -7,7 +7,7 @@ import { difference } from 'lodash';
 import { Event as IEvent, EventTag as IEventTag, EventSource as IEventSource,
     CompanyEvent as ICompanyEvent, User as IUser } from 'cp/record';
 
-import { CompanyEvent, EventSource, EventTag, Event } from '../service/models';
+import { CompanyEvent, EventSource, EventTag, Event } from '../device/models';
 
 interface EventMessage extends IEvent {
     _force_create?: boolean;

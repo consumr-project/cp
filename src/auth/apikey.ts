@@ -1,6 +1,6 @@
 import * as passport from 'passport';
 import { Strategy } from 'passport-localapikey';
-import { User } from '../service/models';
+import { User } from '../device/models';
 
 export default function () {
     var strategy = new Strategy((auth_apikey: string, done) => {

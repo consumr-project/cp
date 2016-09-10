@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import { service_handler } from '../service/http';
+import { service_handler } from '../device/http';
 import { extract as p_extract } from '../extract/page';
 import { search, infobox, extract as w_extract } from '../extract/wikipedia';
 

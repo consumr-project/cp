@@ -1,5 +1,5 @@
 import { v4 } from 'node-uuid';
-import { BetaEmailInvite } from '../service/models';
+import { BetaEmailInvite } from '../device/models';
 import { User as IUser, BetaEmailInvite as IBetaEmailInvite } from 'cp/record';
 
 interface BetaEmailInviteMessage {

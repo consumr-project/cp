@@ -1,18 +1,18 @@
 import * as express from 'express';
 import * as config from 'acm';
 import * as Schema from 'cp/record';
-import { Event } from '../service/models';
+import { Event } from '../device/models';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
 import { has_all_fields, runtime_purge_allowed } from '../utilities';
-import { service_handler } from '../service/http';
+import { service_handler } from '../device/http';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
 import Message, { CATEGORY, NOTIFICATION, OTYPE } from '../notification/message';
 import { save, find, purge, update, purge_signature } from '../repository/notification';
 import { head } from 'lodash';
-import connect from '../service/mongo';
+import connect from '../device/mongo';
 
 export var app = express();
 
