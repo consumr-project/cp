@@ -5,7 +5,7 @@ import { EventEmitter2 } from 'eventemitter2';
 import * as utils from './services/Utilities';
 import * as messages from './services/messages';
 import * as utils2 from '../utilities';
-import EVENTS from '../events';
+import * as EVENTS from '../events';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';

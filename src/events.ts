@@ -1,5 +1,1 @@
-enum EVENTS {
-    INCOMPLETE_COMPANY_CREATED,
-}
-
-export default EVENTS;
+export const INCOMPLETE_COMPANY_CREATED = 'evinccompanycreated';
