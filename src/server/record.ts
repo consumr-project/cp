@@ -9,9 +9,8 @@ import { save_unapproved_email_invite, save_approved_email_invite,
 import { sql, query } from '../record/query';
 import { can } from '../auth/permissions';
 import { card } from '../notification/trello';
-import { service_cache_intercept } from '../device/cache';
 import { service_handler, service_response, service_middleware,
-    ratelimit } from '../device/http';
+    service_cache_intercept, ratelimit } from '../device/http';
 import { recaptcha } from '../auth/recaptcha';
 
 import { User } from 'cp/record';

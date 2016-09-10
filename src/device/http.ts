@@ -3,6 +3,7 @@ import * as config from 'acm';
 import * as RateLimit from 'express-rate-limit';
 import { RateLimitConfiguration } from 'express-rate-limit';
 import { clone } from 'lodash';
+import { Cache } from 'cp/cache';
 
 export type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
 export type ServiceRequestPromise<T> = (req: Request, res: Response, next: (err?: Error) => {}) => Promise<T>;
@@ -54,6 +55,14 @@ export function service_redirect(from_req: ServiceRequestPromise<string>): Servi
     return (req, res, next) => {
         from_req(req, res, next)
             .then(url => res.redirect(url))
+            .catch(next);
+    };
+}
+
+export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
+    return (req, res, next) => {
+        cache.get(name)
+            .then(rec => rec ? res.json(service_response(rec, true, { from_cache: true })) : next())
             .catch(next);
     };
 }
