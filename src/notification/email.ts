@@ -10,8 +10,8 @@ import { template } from 'lodash';
 import { parse } from 'yamljs';
 import { readFileSync as read } from 'fs';
 
-import { EMAIL, PAYLOAD, CATEGORY } from './notification/message';
-import Message from './notification/message';
+import { EMAIL, PAYLOAD, CATEGORY } from './message';
+import Message from './message';
 import * as config from 'acm';
 
 const ADDRESS_DO_NOT_REPLAY = config('email.addresses.do_not_reply');
@@ -90,6 +90,8 @@ export function send(transport: Transporter, msg: Message): Promise<SentMessageI
     });
 }
 
-export function email_welcome(to: string, name: string) {
-    return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }));
+export namespace send {
+    export function welcome(to: string, name: string) {
+        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }));
+    }
 }
