@@ -330,15 +330,15 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            data-main-user-avatar',
                 '        ></avatar>',
 
-                '        <button class="right margin-right-small animated fadeIn button--circlular"',
+                '        <button class="right margin-right-small animated fadeIn button--circlular no-outline"',
                 '            data-main-user-notifications-counter ng-click="show_notifications()"',
                 '            ng-if="session.logged_in && session.notification_count">{{session.notification_count}}</button>',
 
-                '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell"',
+                '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell no-outline"',
                 '            data-main-user-notifications-counter',
                 '            ng-if="session.logged_in && !session.has_notifications"></button>',
 
-                '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell"',
+                '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell no-outline"',
                 '            data-main-user-notifications-counter ng-click="show_notifications()"',
                 '            ng-if="session.logged_in && session.has_notifications && !session.notification_count"></button>',
 
