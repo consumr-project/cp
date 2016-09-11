@@ -10,7 +10,6 @@ fi
 echo "updating containers with $file!!"
 
 ./script/bootstrap env && \
-    docker-compose -f "$file" build && \
     docker-compose -f "$file" run --rm server make && \
     docker-compose -f "$file" run --rm server ./script/docker-database && \
     docker-compose -f "$file" restart server
