@@ -4,7 +4,7 @@ type DefinedProps = Dict<() => boolean>;
 
 type Validator = {
     checks: CheckedProps;
-    validate: () => CheckedProps;
+    validate: () => boolean;
     reset: () => CheckedProps;
 };
 
@@ -22,10 +22,15 @@ export default function validator(props: DefinedProps, run: boolean = false): Va
     }
 
     function validate() {
-        return reduce_set((store, prop) => {
+        var valid = true;
+
+        reduce_set((store, prop) => {
             store[prop] = props[prop]();
+            valid = valid && store[prop];
             return store;
         });
+
+        return valid;
     }
 
     function reset() {

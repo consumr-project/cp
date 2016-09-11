@@ -71,3 +71,29 @@ test('validate', t => {
     t.comment('only calling validate function does');
     t.equal(false, validation.checks.value);
 });
+
+test('validate', t => {
+    t.plan(5);
+
+    var value1 = true,
+        value2 = true;
+
+    var validation = validate({
+        value1: () => !!value1,
+        value2: () => !!value2,
+    });
+
+    t.equal(true, validation.validate());
+
+    value2 = false;
+    t.equal(false, validation.validate());
+
+    value1 =  false;
+    t.equal(false, validation.validate());
+
+    value2 = true;
+    t.equal(false, validation.validate());
+
+    value1 =  true;
+    t.equal(true, validation.validate());
+});
