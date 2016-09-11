@@ -6,6 +6,7 @@ import * as utils from './services/Utilities';
 import * as messages from './services/messages';
 import * as utils2 from '../utilities';
 import * as EVENTS from '../events';
+import validator from '../validate';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
@@ -131,6 +132,7 @@ namespace tcp {
         .value('shasum', shasum)
         .value('utils', utils)
         .value('utils2', utils2)
+        .value('validator', validator)
         .value('Visitor', Visitor);
 
     angular.module('tcp').config([
