@@ -293,7 +293,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                <recaptcha ng-show="vm.beta_email" class="margin-top-xsmall margin-bottom-xsmall">',
                 '                </recaptcha>',
                 '                <div i18n="admin/missing_captcha"',
-                '                    ng-class="{invalid: vm.validation.beta_email.checks.recaptcha === false}"',
+                '                    ng-class="{invalid: vm.validation.beta_email.checks.email && vm.validation.beta_email.checks.recaptcha === false}"',
                 '                    class="left-align invalid__msg margin-bottom-xsmall"></div>',
                 '                <button class="full-soan block"',
                 '                    ng-click="submit_beta_email()"',
