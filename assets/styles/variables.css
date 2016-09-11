@@ -25,6 +25,8 @@
     --color-failure: #FF3333;
     --color-link: var(--color-cp-brand);
     --color-chart-bar: rgb(31, 202, 121);
+    --color-validation-err-border: #ffa4a4;
+    --color-validation-err-color: #ff3333;
 
     --color-highlight: #FCF14D;
     --color-separator: rgb(236, 236, 236);

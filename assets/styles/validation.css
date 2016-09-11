@@ -1,0 +1,15 @@
+.invalid {
+    border-color: var(--color-validation-err-border);
+}
+
+.invalid__msg {
+    color: var(--color-validation-err-color);
+    display: none;
+    font-size: var(--font-size-small);
+    font-weight: 500;
+}
+
+.invalid.invalid__msg,
+.invalid .invalid__msg {
+    display: block;
+}
