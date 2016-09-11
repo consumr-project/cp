@@ -6,3 +6,5 @@ did_review_help: 'did dis halp u figure out if u wants 2 shop her? {count, plura
 time: tiem
 usefulness: usefulnes
 count: "{count} {count, plural, one {review} other {reviews}}"
+missing_title: "a title is required"
+missing_summary: "a summary is required"

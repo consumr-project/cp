@@ -1,8 +1,9 @@
 angular.module('tcp').directive('review', [
     'utils',
+    'validator',
     'Services',
     'Session',
-    function (utils, Services, Session) {
+    function (utils, validator, Services, Session) {
         'use strict';
 
         var HTML_VIEW = [
@@ -36,9 +37,15 @@ angular.module('tcp').directive('review', [
             '        type="heartcount" editable="true" on-change="vm.score = value"></chart>',
             '    <input class="block title" prop="placeholder" i18n="review/title_placeholder"',
             '        ng-model="vm.title" />',
+            '    <div i18n="review/missing_title"',
+            '        ng-class="{invalid: vm.valid.checks.title === false}"',
+            '        class="invalid__msg"></div>',
             '    <textarea class="full-span textarea--inlined textarea--summary margin-top-small"',
             '        prop="placeholder" i18n="review/summary_placeholder"',
             '        ng-model="vm.summary"></textarea>',
+            '    <div i18n="review/missing_summary"',
+            '        ng-class="{invalid: vm.valid.checks.summary === false}"',
+            '        class="invalid__msg margin-bottom-small"></div>',
             '    <button i18n="admin/save" ng-click="save()"></button>',
             '    <button i18n="admin/cancel" ng-click="onCancel()" class="button--link"></button>',
             '</div>',
@@ -58,6 +65,16 @@ angular.module('tcp').directive('review', [
                 summary: '',
             };
 
+            $scope.vm.valid = validator({
+                title: function () {
+                    return !!$scope.vm.title;
+                },
+
+                summary: function () {
+                    return !!$scope.vm.summary;
+                },
+            });
+
             /**
              * @return {Promise}
              */
@@ -65,9 +82,14 @@ angular.module('tcp').directive('review', [
                 var score = $scope.vm.score;
 
                 utils.assert(Session.USER.id, 'must be logged in');
-                utils.assert(score >= 0 && score <= 5, 'review score between 0-5');
-                utils.assert($scope.vm.title, 'review title required');
-                utils.assert($scope.vm.summary, 'review summary required');
+
+                if (!$scope.vm.valid.validate()) {
+                    return;
+                } else if (score > 5) {
+                    score = 5;
+                } else if (score < 0) {
+                    score = 0;
+                }
 
                 return Services.query.companies.reviews.create($scope.companyId, {
                     id: Services.query.UUID,

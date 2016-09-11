@@ -9,3 +9,6 @@ time: time
 usefulness: usefulness
 
 count: "{count} {count, plural, one {review} other {reviews}}"
+
+missing_title: "a title is required"
+missing_summary: "a summary is required"
