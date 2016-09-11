@@ -32,6 +32,25 @@ test('validate', t => {
 });
 
 test('validate', t => {
+    t.plan(4);
+
+    var validation = validate({
+        fail: () => false,
+        pass: () => true,
+    });
+
+    validation.validate();
+    t.comment('starts with initial values');
+    t.equal(true, validation.checks.pass);
+    t.equal(false, validation.checks.fail);
+
+    validation.reset();
+    t.comment('removed after reset');
+    t.equal(undefined, validation.checks.pass);
+    t.equal(undefined, validation.checks.fail);
+});
+
+test('validate', t => {
     t.plan(3);
 
     var value = true;
