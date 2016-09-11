@@ -10,7 +10,8 @@ angular.module('tcp').directive('event', [
     'Session',
     'shasum',
     'i18n',
-    function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n) {
+    'validator',
+    function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n, validator) {
         'use strict';
 
         var HTML_VIEW = [
@@ -32,14 +33,20 @@ angular.module('tcp').directive('event', [
 
             '    <section popover-body>',
             '        <section>',
-            '           <input type="text" ng-model="ev.$sources[0].url" ',
-            '               prop="placeholder" i18n="event/source_url_primary"',
-            '               ng-model-options="{ debounce: { default: 100 } }"',
-            '               ng-class="{ loading: ev.$sources[0].$loading }" />',
+            '            <input type="text" ng-model="ev.$sources[0].url" ',
+            '                prop="placeholder" i18n="event/source_url_primary"',
+            '                ng-model-options="{ debounce: { default: 100 } }"',
+            '                ng-class="{ loading: ev.$sources[0].$loading }" />',
+            '            <div i18n="event/missing_url"',
+            '                ng-class="{invalid: vm.valid.checks.url === false}"',
+            '                class="invalid__msg margin-top-xsmall"></div>',
             '        </section>',
 
             '        <section class="event-elem__logo" ng-class="{\'event-elem__logo--selected\': ev.logo}">',
             '            <label i18n="event/logo"></label>',
+            '            <div i18n="event/missing_topic"',
+            '                ng-class="{invalid: vm.valid.checks.topic === false}"',
+            '                class="invalid__msg"></div>',
             '            <table>',
             '                <tr>',
             '                    <td>',
@@ -86,6 +93,9 @@ angular.module('tcp').directive('event', [
 
             '            <label i18n="event/date"></label>',
             '            <datepicker ng-model="ev.$date"></datepicker>',
+            '            <div i18n="event/missing_date"',
+            '                ng-class="{invalid: vm.valid.checks.date === false}"',
+            '                class="invalid__msg margin-top-xsmall"></div>',
 
             '            <label i18n="event/tied_to"></label>',
             '            <pills',
@@ -395,6 +405,23 @@ angular.module('tcp').directive('event', [
                 $tags: []
             };
 
+            $scope.vm.valid = validator({
+                url: function () {
+                    return !!$scope.ev.$sources &&
+                        !!$scope.ev.$sources[0] &&
+                        !!$scope.ev.$sources[0].url;
+                },
+
+                topic: function () {
+                    return !!$scope.ev.logo;
+                },
+
+                date: function () {
+                    return !!$scope.ev.$date &&
+                        !!$scope.ev.$date.valueOf();
+                },
+            });
+
             $scope.api = $scope.api || {};
             $scope.api.reset = function () {
                 lodash.each($scope.ev, function (val, key) {
@@ -416,6 +443,10 @@ angular.module('tcp').directive('event', [
             $scope.vm.save = function () {
                 var notify_contributed = false,
                     notify_modified = false;
+
+                if (!$scope.vm.valid.validate()) {
+                    return;
+                }
 
                 var ev = get_normalized_event($scope.ev);
 

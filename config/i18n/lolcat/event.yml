@@ -18,3 +18,6 @@ pub_date: 'publicashun date'
 quote: 'quote (limit {limit} characters)'
 timeline: tiemline
 good_job_thanks: 'gud job! thx 4 addin an event!'
+missing_url: "a valid url is required"
+missing_topic: "a topic selection is required"
+missing_date: "a valid date is required"

@@ -22,3 +22,7 @@ quote: Quote (limit {limit} characters)
 
 timeline: timeline
 good_job_thanks: "good job! thanks for adding an event!"
+
+missing_url: "a valid url is required"
+missing_topic: "a topic selection is required"
+missing_date: "a valid date is required"
