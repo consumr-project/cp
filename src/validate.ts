@@ -1,7 +1,4 @@
-interface Dict<T> {
-    [index: string]: T;
-}
-
+type Dict<T> = { [index: string]: T; };
 type CheckedProps = Dict<boolean>;
 type DefinedProps = Dict<() => boolean>;
 
@@ -18,18 +15,24 @@ function checks(): CheckedProps {
 export default function validator(props: DefinedProps, run: boolean = false): Validator {
     var checker = { checks: checks(), validate, reset };
 
+    function reduce_set(reducer) {
+        return checker.checks = Object
+            .keys(props)
+            .reduce(reducer, checks());
+    }
+
     function validate() {
-        return checker.checks = Object.keys(props).reduce((store, prop) => {
+        return reduce_set((store, prop) => {
             store[prop] = props[prop]();
             return store;
-        }, checks());
+        });
     }
 
     function reset() {
-        return checker.checks = Object.keys(props).reduce((store, prop) => {
+        return reduce_set((store, prop) => {
             store[prop] = undefined;
             return store;
-        }, checks());
+        });
     }
 
     if (run) {
