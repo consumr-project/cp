@@ -7,8 +7,8 @@ chmod 0600 ~/.pgpass;
 ./script/migration run;
 COMMAND)
 
-./script/compile-project-stamp > stamp.json
-git commit -m "[skip ci] stamp" stamp.json
+./script/compile-project-stamp > dist/stamp.json
+git commit -m "[skip ci] stamp" dist/stamp.json
 git push origin master
 git push heroku master
 heroku run "$(echo $migrations_command)"

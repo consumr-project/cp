@@ -1,7 +1,7 @@
 import { CONFIG, TRACKING, merge } from '../utils';
 import { DataTypes } from 'sequelize';
 
-const STAMP = require('../../../stamp.json');
+const STAMP = require('../../../dist/stamp.json');
 const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
