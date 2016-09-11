@@ -30,7 +30,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 beta_email: '',
                 beta_email_sent_to: '',
 
-                ERROR_MISSING_CAPTCHA: 'errmisscaptcha',
                 ERROR_CAPTCHA_FAIL: 'errcaptchafail',
                 ERROR_HIT_LIMIT: 'errhitlimit',
                 ERROR_STD: 'errstd',
@@ -40,7 +39,11 @@ angular.module('tcp').directive('tcpTopmost', [
                 beta_email: validator({
                     email: function () {
                         return !!$scope.vm.beta_email;
-                    }
+                    },
+
+                    recaptcha: function () {
+                        return !!get_recaptcha();
+                    },
                 }),
             };
 
@@ -94,11 +97,17 @@ angular.module('tcp').directive('tcpTopmost', [
             $interval(sync_if_active, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
 
+            /**
+             * @return {string}
+             */
+            function get_recaptcha() {
+                // that's right
+                return angular.element('.topmost #g-recaptcha-response').val();
+            }
+
             function submit_beta_email() {
                 var email = $scope.vm.beta_email;
-
-                // that's right
-                var recaptcha = angular.element('.topmost #g-recaptcha-response').val();
+                var recaptcha = get_recaptcha();
 
                 var success = function () {
                     $scope.vm.show_got_beta_email = true;
@@ -113,11 +122,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 $scope.vm.error_view = null;
                 $scope.vm.show_got_beta_email = false;
                 $scope.vm.beta_email_sent_to = null;
-
-                if (!recaptcha) {
-                    $scope.vm.error_view = $scope.vm.ERROR_MISSING_CAPTCHA;
-                    return;
-                }
 
                 Services.query.admin.beta_email_invites.create(email, recaptcha)
                     .then(success)
@@ -269,7 +273,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                    class="margin-bottom-xsmall"',
                 '                    ng-if="!vm.show_got_beta_email && vm.error_view"',
                 '                    type="error">',
-                '                    <span ng-if="vm.error_view === vm.ERROR_MISSING_CAPTCHA" i18n="admin/missing_captcha"></span>',
                 '                    <span ng-if="vm.error_view === vm.ERROR_CAPTCHA_FAIL" i18n="admin/captcha_fail"></span>',
                 '                    <span ng-if="vm.error_view === vm.ERROR_HIT_LIMIT" i18n="common/error_hit_limit"></span>',
                 '                    <span ng-if="vm.error_view === vm.ERROR_STD" i18n="common/error_loading"></span>',
@@ -289,6 +292,9 @@ angular.module('tcp').directive('tcpTopmost', [
                 '                    class="left-align invalid__msg margin-bottom-xsmall"></div>',
                 '                <recaptcha ng-show="vm.beta_email" class="margin-top-xsmall margin-bottom-xsmall">',
                 '                </recaptcha>',
+                '                <div i18n="admin/missing_captcha"',
+                '                    ng-class="{invalid: vm.validation.beta_email.checks.recaptcha === false}"',
+                '                    class="left-align invalid__msg margin-bottom-xsmall"></div>',
                 '                <button class="full-soan block"',
                 '                    ng-click="submit_beta_email()"',
                 '                    i18n="admin/submit"></button>',
