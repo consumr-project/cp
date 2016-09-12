@@ -114,7 +114,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function keydown($scope, $attrs, $elem, $input, $ev) {
         var opts = $scope.options || [];
         var curr = opts.indexOf(_.find(opts, { selected: true }));
-        var next = curr + 1 % opts.length;
+        var next = (curr + 1) % opts.length;
         var prev = curr ? curr - 1 : opts.length - 1;
 
         var curr_opt = opts[curr] || {};
