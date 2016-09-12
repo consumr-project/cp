@@ -148,7 +148,8 @@ input.pills-element__input {
 }
 
 .pills-results__create:hover,
-.pills-results__option:hover {
+.pills-results__option:hover,
+.pills-results__option.pills-results__option--active {
     background: rgba(215, 234, 249, 0.5);
 }
 

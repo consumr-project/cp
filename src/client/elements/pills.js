@@ -22,6 +22,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         KEY_ARROW_RIGHT = 39,
         KEY_ARROW_DOWN = 40;
 
+    var TYPE_REGULAR = 'regular';
+
     /**
      * @return {Number}
      */
@@ -110,9 +112,43 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
      * @param {jQuery.Event} $ev
      */
     function keydown($scope, $attrs, $elem, $input, $ev) {
+        var opts = $scope.options || [];
+        var curr = opts.indexOf(_.find(opts, { selected: true }));
+        var next = curr + 1 % opts.length;
+        var prev = curr ? curr - 1 : opts.length - 1;
+
+        var curr_opt = opts[curr] || {};
+        var next_opt = opts[next] || {};
+        var prev_opt = opts[prev] || {};
+
         switch ($ev.keyCode) {
             case KEY_ENTER:
+                if (curr_opt && curr_opt.id) {
+                    command($scope, $attrs, $elem, $input, {
+                        target: {
+                            dataset: {
+                                pillsRole: ROLE_SELECT,
+                                pillsOptionId: curr_opt.id,
+                                pillsOptionLabel: curr_opt.label,
+                                pillsOptionType: curr_opt.type || TYPE_REGULAR,
+                            }
+                        }
+                    });
+                }
+
                 $ev.preventDefault();
+                break;
+
+            case KEY_ARROW_DOWN:
+                curr_opt.selected = false;
+                next_opt.selected = true;
+                $scope.$apply();
+                break;
+
+            case KEY_ARROW_UP:
+                curr_opt.selected = false;
+                prev_opt.selected = true;
+                $scope.$apply();
                 break;
         }
     }
@@ -317,6 +353,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                     '>{{create_it.human}}</div>',
                     '<div ',
                         'class="pills-results__option" ',
+                        'ng-class="{\'pills-results__option--active\': option.selected}" ',
                         'ng-repeat="option in options" ',
                         'data-pills-role="select" ',
                         'data-pills-option-id="{{::option.id}}" ',
