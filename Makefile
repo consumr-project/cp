@@ -42,7 +42,6 @@ endif
 
 setup:
 	$(npm) install --unsafe-perm
-	make build
 
 run: clean build server
 
