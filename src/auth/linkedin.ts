@@ -31,6 +31,7 @@ const PROFILE_FIELDS = [
     'summary',
     'positions',
     'picture-url',
+    'picture-urls::(original)',
     'public-profile-url',
 ];
 
@@ -45,7 +46,7 @@ function generate_user(profile: Profile): UserMessage {
         id: id,
         role: roles.USER,
         auth_linkedin_id: profile.id,
-        avatar_url: profile._json.pictureUrl,
+        avatar_url: get<string>(profile._json, 'pictureUrls.values.0') || profile._json.pictureUrl,
         company_name: <string>get(profile._json, 'positions.values.0.company.name'),
         created_by: id,
         created_date: Date.now(),
