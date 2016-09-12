@@ -16,6 +16,12 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         ROLE_SELECT = 'select',
         ROLE_CREATE = 'create';
 
+    var KEY_ENTER = 13,
+        KEY_ARROW_LEFT = 37,
+        KEY_ARROW_UP = 38,
+        KEY_ARROW_RIGHT = 39,
+        KEY_ARROW_DOWN = 40;
+
     /**
      * @return {Number}
      */
@@ -94,6 +100,21 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         return _.without(selections,
             _.find(selections,
                 _.zipObject([attr(config, 'id')],[id])));
+    }
+
+    /**
+     * @param {angular.Scope} $scope
+     * @param {angular.Attributes} $attrs
+     * @param {jQuery} $elem holder
+     * @param {jQuery} $input field
+     * @param {jQuery.Event} $ev
+     */
+    function keydown($scope, $attrs, $elem, $input, $ev) {
+        switch ($ev.keyCode) {
+            case KEY_ENTER:
+                $ev.preventDefault();
+                break;
+        }
     }
 
     /**
@@ -233,9 +254,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
         $elem.click(command.bind(null, $scope, $attrs, $elem, $input));
         $input.keyup(_.debounce(query.bind(null, $scope, $attrs, $elem, $input), 300));
-        $input.one('keydown', function () {
-            $elem.addClass('pills--changed');
-        });
+        $input.keydown(keydown.bind(null, $scope, $attrs, $elem, $input));
+        $input.one('keydown', function () { $elem.addClass('pills--changed'); });
 
         $document.on('focus', '*', check_if_should_hide_results);
         $document.click(check_if_should_hide_results);
