@@ -85,7 +85,18 @@ function find_user(
         .then(user_found => {
             if (user_found) {
                 // if found, valid
-                done(null, user_found);
+                User.update({
+                    avatar_url: user.avatar_url,
+                    company_name: user.company_name,
+                    last_login_date: Date.now(),
+                    name: user.name,
+                    summary: user.summary,
+                    title: user.title,
+                    updated_by: config('seed.user.root.id'),
+                    updated_date: Date.now(),
+                }, { where: { id: user_found.id } })
+                    .then(() => done(null, user_found))
+                    .catch(done);
             } else if (LOCKEDDOWN) {
                 // otherwise check if in email whitelist list
                 BetaEmailInvite.findOne({ where: { email: user.raw_email } })
