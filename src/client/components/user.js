@@ -297,7 +297,7 @@ angular.module('tcp').directive('user', [
                 $scope.vm.exp_stat = STAT_CHILD_MAP[stat];
                 req.then(utils.scope.set($scope, 'vm.stats_data'));
 
-                if (Navigation.one_of([Navigation.BASES.MY_PROFILE]) && stat === STAT_CONTRIBUTIONS_EVENTS) {
+                if (stat === STAT_CONTRIBUTIONS_EVENTS) {
                     return;
                 }
 
