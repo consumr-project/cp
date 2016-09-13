@@ -61,25 +61,6 @@ angular.module('tcp').directive('search', [
                 $scope.vm.empty = !results.body || !results.body.length;
                 $scope.vm.loading = false;
                 $scope.vm.recent = track_search(query, results);
-
-                if (results.body.length === 1) {
-                    switch (result.type) {
-                        case DOMAIN.model.company:
-                            Navigation.company_by_id(result.id);
-                            break;
-
-                        case DOMAIN.model.user:
-                            Navigation.user(result.id);
-                            break;
-
-                        case DOMAIN.model.tag:
-                            Navigation.tag(result.id);
-                            break;
-
-                        // NOTE events don't have their own page
-                        // case DOMAIN.model.events
-                    }
-                }
             });
         }
 
