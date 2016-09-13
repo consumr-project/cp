@@ -152,11 +152,11 @@ angular.module('tcp').directive('search', [
                 '            <p>{{::user.summary || user.name}}</p>',
                 '        </div>',
 
-                '        <div class="search__result animated fadeIn" ng-click="nav.tag(tag.id)" ',
-                '            ng-repeat="tag in vm.results.tags">',
-                '            <h2>{{::tag.name}}</h2>',
-                '            <p>{{::tag.name}}</p>',
-                '        </div>',
+                '        <tags>',
+                '            <tag class="keyword animated fadeIn" ng-click="nav.tag(tag.id)" ',
+                '                label="{{::tag.name}}"',
+                '                ng-repeat="tag in vm.results.tags"></tag>',
+                '        </tags>',
                 '    </div>',
                 '</div>'
             ].join('')
