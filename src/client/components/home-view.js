@@ -18,7 +18,7 @@ angular.module('tcp').directive('homeView', [
                     '<div class="home-view-component">',
                     '    <div class="banner">',
                     '        <div class="site-content center-align">',
-                    '            <search form="true"></search>',
+                    '            <search redirects="true"></search>',
                     '            <p i18n="common/intro"></p>',
                     '        </div>',
                     '    </div>',

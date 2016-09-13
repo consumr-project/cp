@@ -1,5 +1,5 @@
 /**
- * @attribute {Boolean} form include a search form
+ * @attribute {Boolean} redirects to the search page
  * @attribute {String} query search
  */
 angular.module('tcp').directive('search', [
@@ -110,7 +110,7 @@ angular.module('tcp').directive('search', [
             replace: true,
             controller: ['$scope', controller],
             scope: {
-                form: '@',
+                redirects: '@',
                 query: '@'
             },
             template: [
@@ -118,10 +118,10 @@ angular.module('tcp').directive('search', [
                 '    <form ng-submit="search(query, $event)">',
                 '        <input prop="placeholder" i18n="{{::search_placeholder}}" ',
                 '            name="q" tabindex="1" class="search__input" ',
-                '            ng-focus="!form" ng-model="query" />',
+                '            ng-focus="!redirects" ng-model="query" />',
                 '    </form>',
 
-                '    <div ng-if="query" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
+                '    <div ng-if="query && !redirects" class="can-load margin-top-xlarge" ng-class="{loading: vm.loading}">',
                 '        <div ng-if="!vm.loading && vm.empty" class="center-align animated fadeIn">',
                 '            <h2 i18n="common/no_results" data="{query: query}"></h2>',
 
