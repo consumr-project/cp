@@ -346,7 +346,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            ng-click="nav.search()"></button>',
 
                 '        <search class="desktop-only right margin-right-small"',
-                '            form="true" ng-if="!nav.search.included"></search>',
+                '            redirects="true" ng-if="!nav.search.included"></search>',
                 '    </header>',
 
                 '    <popover',
