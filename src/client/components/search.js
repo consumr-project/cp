@@ -77,10 +77,14 @@ angular.module('tcp').directive('search', [
                 Navigation.BASES.SEARCH,
             ]) ? 'admin/search_long_placeholder' : 'admin/search_placeholder';
 
-            $scope.search = function (query, $event) {
+            $scope.search = lodash.debounce(function (query, $event) {
+                if (!query) {
+                    return false;
+                }
+
                 Navigation.search(query, $event);
                 search(query, $scope);
-            };
+            }, 250);
 
             if ($scope.query) {
                 $scope.search($scope.query);
