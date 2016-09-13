@@ -118,6 +118,7 @@ angular.module('tcp').directive('search', [
                 '    <form ng-submit="search(query, $event)">',
                 '        <input prop="placeholder" i18n="{{::search_placeholder}}" ',
                 '            name="q" tabindex="1" class="search__input" ',
+                '            ng-change="search(query, $event)"',
                 '            ng-focus="!redirects" ng-model="query" />',
                 '    </form>',
 
