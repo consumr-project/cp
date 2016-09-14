@@ -44,11 +44,11 @@ const CONFIG: SmtpPoolOptions = {
 const TRANSPORT = mailer();
 
 function i18n(lang: string) {
-    return require(`../build/i18n.${lang}`).i18n;
+    return require(`../../build/i18n.${lang}`).i18n;
 }
 
 function asset(name: string) {
-    return read(`${__dirname}/../assets/emails/${name}`).toString();
+    return read(`${__dirname}/../../assets/emails/${name}`).toString();
 }
 
 function generate_subject(template: EMAIL, payload: PAYLOAD, lang: string) {

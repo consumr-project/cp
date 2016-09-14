@@ -1,4 +1,6 @@
-### reading
+### new emails
 
-* [HTML Email Basics](http://templates.mailchimp.com/getting-started/html-email-basics/) - Mail Chimp
-* [20 Email Design Best Practices and Resources for Beginners](http://code.tutsplus.com/tutorials/20-email-design-best-practices-and-resources-for-beginners--net-7309) - tutsplus
+1. add a new template file in `assets/emails/` and follow this naming schema
+for the file name: `[template_name].tmpl`.
+2. add the email's subject to the `email.yml` strings file and follow this
+naming schema for the key name: `[template_name]_subject`.
