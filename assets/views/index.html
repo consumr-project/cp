@@ -24,9 +24,9 @@
         <script>window.DEBUGGING = true;</script>
         {% endif %}
         <script src="build/vendor.js"></script>
-        <script src="build/i18n.en.js"></script>
+        <script src="build/i18n.en-US.js"></script>
         <script src="build/bundle.js"></script>
-        {% if lang and lang != 'en' %}
+        {% if lang and lang != 'en-US' %}
         <script src="build/i18n.{{lang}}.js"></script>
         {% endif %}
         {% if not debugging %}

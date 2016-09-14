@@ -76,7 +76,7 @@ app.use('/ping', (req, res) => res.json({ ok: true }));
 
 // language cookie handler
 app.use((req, res, next) => {
-    res.cookie('lang', req.query.lang || req.query.lang || 'en', {
+    res.cookie('lang', req.query.lang || req.query.lang || 'en-US', {
         expires: new Date('2099-01-01') });
 
     next();

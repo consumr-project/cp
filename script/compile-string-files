@@ -3,7 +3,7 @@
 'use strict';
 
 const LOL_IN_FILES = './config/i18n/en/*';
-const LOL_OUT_DIR = './config/i18n/lolcat/';
+const LOL_OUT_DIR = './config/i18n/lolcat-US/';
 const LOL_API_URL = 'http://speaklolcat.com/?';
 const REG_FIELDS = /(\{.+?\})/g;
 
@@ -31,7 +31,7 @@ const map = require('lodash/map');
  * @return {String}
  */
 function real_locale(locale) {
-    return locale === 'lolcat' ? 'en' : locale;
+    return locale === 'lolcat-US' ? 'en-US' : locale;
 }
 
 /**

@@ -27,8 +27,8 @@ const ASSETS = {
 };
 
 const STRINGS = {
-    en: i18n('en'),
-    lolcat: i18n('en'),
+    'en-US': i18n('en-US'),
+    'lolcat-US': i18n('lolcat-US'),
 };
 
 const CONFIG: SmtpPoolOptions = {
@@ -79,8 +79,8 @@ export function mailer(): Transporter {
 }
 
 export function send(transport: Transporter, msg: Message): Promise<SentMessageInfo> {
-    var html = generate_body(msg.subcategory, msg.payload, 'en');
-    var subject = generate_subject(msg.subcategory, msg.payload, 'en');
+    var html = generate_body(msg.subcategory, msg.payload, 'en-US');
+    var subject = generate_subject(msg.subcategory, msg.payload, 'en-US');
 
     return transport.sendMail({
         from: ADDRESS_DO_NOT_REPLAY,
