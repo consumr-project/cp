@@ -10,6 +10,7 @@ import { template } from 'lodash';
 import { parse } from 'yamljs';
 import { readFileSync as read } from 'fs';
 
+import { pick_i18n } from '../strings';
 import { EMAIL, PAYLOAD, CATEGORY } from './message';
 import Message from './message';
 import * as config from 'acm';
@@ -26,11 +27,6 @@ const ASSETS = {
     images: parse(asset('images.yml')),
 };
 
-const STRINGS = {
-    'en-US': i18n('en-US'),
-    'lolcat-US': i18n('lolcat-US'),
-};
-
 const CONFIG: SmtpPoolOptions = {
     host: config('email.service.host'),
     maxConnections: config('email.smtp_pool.max_connections'),
@@ -43,17 +39,13 @@ const CONFIG: SmtpPoolOptions = {
 
 const TRANSPORT = mailer();
 
-function i18n(lang: string) {
-    return require(`../../build/i18n.${lang}`).i18n;
-}
-
 function asset(name: string) {
     return read(`${__dirname}/../../assets/emails/${name}`).toString();
 }
 
 function generate_subject(template: EMAIL, payload: PAYLOAD, lang: string) {
-    var i18n = STRINGS[lang] || STRINGS['en-US'];
-    return i18n.get(`emails/${template.toString().toLowerCase()}_email_subject`, payload);
+    var name = template.toString().toLowerCase();
+    return pick_i18n(lang).get(`emails/${name}_email_subject`, payload);
 }
 
 function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
@@ -62,7 +54,7 @@ function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
         payload: payload,
         images: ASSETS.images,
         styles: ASSETS.styles,
-        i18n: STRINGS[lang] || STRINGS['en-US'],
+        i18n: pick_i18n(lang),
     };
 
     data.body = TEMPLATES[template](data);
@@ -78,9 +70,9 @@ export function mailer(): Transporter {
     return mail;
 }
 
-export function send(transport: Transporter, msg: Message): Promise<SentMessageInfo> {
-    var html = generate_body(msg.subcategory, msg.payload, 'en-US');
-    var subject = generate_subject(msg.subcategory, msg.payload, 'en-US');
+export function send(transport: Transporter, msg: Message, lang: string = ''): Promise<SentMessageInfo> {
+    var html = generate_body(msg.subcategory, msg.payload, lang);
+    var subject = generate_subject(msg.subcategory, msg.payload, lang);
 
     return transport.sendMail({
         from: ADDRESS_DO_NOT_REPLAY,
@@ -91,7 +83,7 @@ export function send(transport: Transporter, msg: Message): Promise<SentMessageI
 }
 
 export namespace send {
-    export function welcome(to: string, name: string) {
-        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }));
+    export function welcome(to: string, name: string, lang: string = '') {
+        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }), lang);
     }
 }
