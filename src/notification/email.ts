@@ -52,7 +52,7 @@ function asset(name: string) {
 }
 
 function generate_subject(template: EMAIL, payload: PAYLOAD, lang: string) {
-    var i18n = STRINGS[lang] || STRINGS.en;
+    var i18n = STRINGS[lang] || STRINGS['en-US'];
     return i18n.get(`emails/${template.toString().toLowerCase()}_email_subject`, payload);
 }
 
@@ -62,7 +62,7 @@ function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
         payload: payload,
         images: ASSETS.images,
         styles: ASSETS.styles,
-        i18n: STRINGS[lang] || STRINGS.en,
+        i18n: STRINGS[lang] || STRINGS['en-US'],
     };
 
     data.body = TEMPLATES[template](data);
