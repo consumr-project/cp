@@ -11,6 +11,7 @@ import { app as version_endpoints } from './version';
 import { KEY_SESSION } from '../keys';
 import { ServiceResponseV1 } from '../http';
 import { HttpError } from '../errors';
+import { normalize_i18n } from '../strings';
 import * as auth_service from './auth';
 import * as express from 'express';
 import * as config from 'acm';
@@ -76,7 +77,7 @@ app.use('/ping', (req, res) => res.json({ ok: true }));
 
 // language cookie handler
 app.use((req, res, next) => {
-    res.cookie('lang', req.query.lang || req.query.lang || 'en-US', {
+    res.cookie('lang', normalize_i18n(req.query.lang), {
         expires: new Date('2099-01-01') });
 
     next();
@@ -113,7 +114,7 @@ app.use((err: any, req, res, next) => {
             res.render('index', {
                 err,
                 debugging: CLIENT_DEBUG_INFO,
-                lang: req.cookies.lang,
+                lang: normalize_i18n(req.query.lang),
             });
         }
     }
@@ -123,7 +124,7 @@ app.use((err: any, req, res, next) => {
 app.get('*', (req, res) =>
     res.render('index', {
         debugging: CLIENT_DEBUG_INFO,
-        lang: req.cookies.lang,
+        lang: normalize_i18n(req.query.lang),
     }));
 
 app.listen(config('port') || 3000);
