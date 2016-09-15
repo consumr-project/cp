@@ -55,7 +55,7 @@ if (CLIENT_DEBUG_INFO) {
     app.use('/assets', index('assets'));
 }
 
-if (SERVER_VIEW_CACHING) {
+if (!SERVER_VIEW_CACHING) {
     app.set('view cache', false);
     swig.setDefaults({ cache: false });
 }
