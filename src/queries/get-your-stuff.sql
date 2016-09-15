@@ -19,7 +19,7 @@ left join tags t on (et.tag_id = t.id)
 left join companies c on (ce.company_id = c.id)
 
 where cf.deleted_date is null
-and cf.user_id = '89ebc4eb-99ec-4da9-94f1-63b54ad3e9d3'
+and cf.user_id = '<%= auth.user.id %>'
 and e.id is not null
 
 group by e.id,
