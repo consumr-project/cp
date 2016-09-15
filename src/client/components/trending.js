@@ -6,6 +6,9 @@ angular.module('tcp').directive('trending', [
     function (Services, Navigation, utils, lodash) {
         'use strict';
 
+        var TYPE_TRENDING = 'trending',
+            TYPE_MINE = 'mine';
+
         /**
          * @param {Object} obj
          * @return {Boolean}
@@ -25,7 +28,9 @@ angular.module('tcp').directive('trending', [
         /**
          * @param {Angular.Scope} $scope*
          */
-        function controller($scope) {
+        function controller($scope, $attrs) {
+            var req_call;
+
             $scope.vm = {};
             $scope.nav = Navigation;
 
@@ -37,8 +42,21 @@ angular.module('tcp').directive('trending', [
                 }
             };
 
-            Services.query.stats.trending()
-                .then(utils.scope.set($scope, 'vm.trending'))
+            switch ($attrs.type) {
+                case TYPE_TRENDING:
+                    req_call = Services.query.stats.trending();
+                    break;
+
+                case TYPE_MINE:
+                    req_call = Services.query.stats.mine();
+                    break;
+
+                default:
+                    break;
+            }
+
+            req_call
+                .then(utils.scope.set($scope, 'vm.items'))
                 .then(function (data) {
                     lodash.each(data, function (row) {
                         row.tags = lodash.filter(lodash.uniqBy(row.tags, by_id), has_id);
@@ -51,11 +69,12 @@ angular.module('tcp').directive('trending', [
 
         return {
             replace: true,
-            controller: ['$scope', controller],
+            scope: true,
+            controller: ['$scope', '$attrs', controller],
             template: [
                 '<div class="trending-component">',
                 '    <ol>',
-                '        <li class="trending--item" ng-repeat="item in vm.trending">',
+                '        <li class="trending--item" ng-repeat="item in vm.items">',
                 '            <p ng-click="nav_event(item)">{{item.title}}</p>',
                 '            <tags show-hide="false">',
                 '                <tag class="keyword" label="{{company.label}}"',

@@ -27,7 +27,7 @@ angular.module('tcp').directive('homeView', [
                     '        <div class="snav__item snav__item--active margin-left-xlarge" i18n="home/trending"></div>',
                     '        <hr>',
 
-                    '        <trending></trending>',
+                    '        <trending type="trending"></trending>',
 
                     '        <div class="home-view-component__coooool">',
                     '            <p i18n="home/have_a_sec"></p>',
