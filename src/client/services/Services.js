@@ -199,11 +199,11 @@ angular.module('tcp').service('Services', [
         queryService.stats = {};
 
         queryService.stats.trending = function () {
-            return get(url('stats/trending'));
+            return get(url('stats/trending'), { cache: true });
         };
 
         queryService.stats.mine = function () {
-            return get(url('stats/mine'));
+            return get(url('stats/mine'), { cache: true });
         };
 
         queryService.users.stats = function (id) {
