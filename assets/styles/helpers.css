@@ -65,11 +65,11 @@
 }
 
 .logged-in-only--display {
-    display: none;
+    display: none !important;
 }
 
 .state--is-logged-in .logged-in-only--display {
-    display: initial;
+    display: initial !important;
 }
 
 .logged-in-only {

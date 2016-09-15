@@ -1,10 +1,13 @@
 .snav {
-    border-top: 1px solid var(--color-std-border-color);
     display: inline-block;
     margin-top: var(--spacing-xsmall);
     max-width: 100%;
     overflow: scroll;
     white-space: nowrap;
+}
+
+.snav:not(.snav--borderless) {
+    border-top: 1px solid var(--color-std-border-color);
 }
 
 .snav--borderless {
