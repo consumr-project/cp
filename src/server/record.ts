@@ -1,5 +1,5 @@
 import { UniqueConstraintError } from 'sequelize';
-import { ServiceUnavailableError, ConflictError } from '../errors';
+import { UnauthorizedError, ServiceUnavailableError, ConflictError } from '../errors';
 import * as express from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
@@ -55,6 +55,19 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
             quick_save(shared(coll), config('cache.collections.trending_events')))
     );
 });
+
+get('/stats/mine',
+    (req, res, next) => {
+        if (!req.user || !req.user.id) {
+            next(new UnauthorizedError());
+        } else {
+            next();
+        }
+    },
+    can('retrieve', 'tag'),
+    can('retrieve', 'company'),
+    can('retrieve', 'event'),
+    query(conn, sql('get-your-stuff'), false, {}));
 
 // users
 post('/users',
