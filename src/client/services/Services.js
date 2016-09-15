@@ -199,21 +199,11 @@ angular.module('tcp').service('Services', [
         queryService.stats = {};
 
         queryService.stats.trending = function () {
-            return get(url('stats/trending'))
-                .then(function (data) {
-                    data.tags = lodash.filter(data.tags);
-                    data.companies = lodash.filter(data.companies);
-                    return data;
-                });
+            return get(url('stats/trending'));
         };
 
         queryService.stats.mine = function () {
-            return get(url('stats/mine'))
-                .then(function (data) {
-                    data.tags = lodash.filter(data.tags);
-                    data.companies = lodash.filter(data.companies);
-                    return data;
-                });
+            return get(url('stats/mine'));
         };
 
         queryService.users.stats = function (id) {
