@@ -1,15 +1,25 @@
-import { interval as river_interval } from './river';
+import { wrapped as river, interval as river_interval } from './river';
 import { Minute } from '../lang';
 
-const RIVER_REFRESH_RATE = Minute * 15;
+const ARGV = process.argv;
+const DEFAULT_RATE = Minute * 15;
 
-switch (process.argv[2]) {
+var command = ARGV[2];
+var rate = ARGV[3] ? parseInt(ARGV[3]) : DEFAULT_RATE;
+
+switch (command) {
+    case 'river-interval':
+        river_interval(rate);
+        break;
+
     case 'river':
-        river_interval(RIVER_REFRESH_RATE);
+        river(rate, 'oneoff', 0)
+            .then(() => process.exit(0))
+            .catch(() => process.exit(1));
         break;
 
     default:
-        console.log(`Invalid option ${process.argv[2]}`);
+        console.log(`Invalid option ${command}`);
         process.exit(1);
         break;
 }

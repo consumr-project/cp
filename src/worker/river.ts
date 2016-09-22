@@ -23,29 +23,26 @@ export function run(since: Duration): Promise<{}> {
             .then(db.close.bind(db));
 }
 
+export function wrapped(timer: number, identity: string, counter: number): Promise<{}> {
+    try {
+        log.info('starting river', { identity, counter });
+
+        return run(timer)
+            .then(() => log.info('completed river', { identity, counter }))
+            .catch(err => log.error('error running river', { identity, counter, err }));
+    } catch (err) {
+        log.error('error running river', { identity, counter, err });
+    }
+}
+
 export function interval(timer: number): NodeJS.Timer {
     let wait_time = timer * .9;
     let identity = nonce(5);
     let counter = 0;
-    let timer;
 
-    let wrapped_run = () => {
-        counter++;
-
-        try {
-            log.info('starting river', { identity, counter });
-
-            run(timer)
-                .then(() => log.info('completed river', { identity, counter }))
-                .catch(err => log.error('error running river', { identity, counter, err }));
-        } catch (err) {
-            log.error('error running river', { identity, counter, err });
-        }
-    };
+    let wrapped_run = () => wrapped(timer, identity, ++counter);
 
     log.info('registering river timer', { identity, wait_time });
-    timer = setInterval(wrapped_run, wait_time);
     wrapped_run();
-
-    return timer;
+    return setInterval(wrapped_run, wait_time);
 }
