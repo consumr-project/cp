@@ -62,7 +62,13 @@ if (!SERVER_VIEW_CACHING) {
 
 app.use(body_parser.json());
 app.use(cookie(process.env.CP_COOKIE_KEY));
-app.use(session({ secret: KEY_SESSION }));
+
+app.use(session({
+    secret: KEY_SESSION,
+    saveUninitialized: false,
+    resave: false,
+}));
+
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
