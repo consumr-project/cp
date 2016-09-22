@@ -84,6 +84,7 @@
     "tslint": "3.10.2",
     "universal-analytics": "0.3.10",
     "urijs": "1.17.0",
+    "winston": "2.2.0",
     "yamljs": "0.2.3"
   },
   "devDependencies": {
