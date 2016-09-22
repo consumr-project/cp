@@ -4,6 +4,7 @@ import { get, elasticsearch } from '../search/updater';
 import { LinkConfiguration, LinkDefinition } from '../river/sync';
 import { Duration } from '../lang';
 import { logger } from '../log';
+import { nonce } from '../crypto';
 import * as config from 'acm';
 
 const log = logger(__filename);
@@ -11,13 +12,40 @@ const models: LinkDefinition[] = config('river.models').map((def: LinkConfigurat
     new LinkDefinition(def.name, def.fields, def.soft_delete,
         def.primary_key, def.label));
 
-export default function (since: Duration) {
+export function run(since: Duration): Promise<{}> {
     var db = db_connect(),
         es = es_connect();
 
     models.map(model => log.info('river model entry', model));
-    Promise.all(models.map(model => get(db, model, { since })
+    return Promise.all(models.map(model => get(db, model, { since })
         .then(rows => elasticsearch(es, model, rows))
         .then(ack => log.info('done updating %s', model.name))))
             .then(db.close.bind(db));
-};
+}
+
+export function interval(timer: number): NodeJS.Timer {
+    let wait_time = timer * .9;
+    let identity = nonce(5);
+    let counter = 0;
+    let timer;
+
+    let wrapped_run = () => {
+        counter++;
+
+        try {
+            log.info('starting river', { identity, counter });
+
+            run(timer)
+                .then(() => log.info('completed river', { identity, counter }))
+                .catch(err => log.error('error running river', { identity, counter, err }));
+        } catch (err) {
+            log.error('error running river', { identity, counter, err });
+        }
+    };
+
+    log.info('registering river timer', { identity, wait_time });
+    timer = setInterval(wrapped_run, wait_time);
+    wrapped_run();
+
+    return timer;
+}

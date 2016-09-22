@@ -1,12 +1,11 @@
-import river from './river';
+import { interval as river_interval } from './river';
 import { Minute } from '../lang';
+
+const RIVER_REFRESH_RATE = Minute * 15;
 
 switch (process.argv[2]) {
     case 'river':
-        river(Minute * 60 * 10000);
-        break;
-
-    case 'queue':
+        river_interval(RIVER_REFRESH_RATE);
         break;
 
     default:
