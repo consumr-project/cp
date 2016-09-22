@@ -17,7 +17,7 @@
     "md5": "github:DefinitelyTyped/DefinitelyTyped/js-md5/md5.d.ts#6e996ab243e91e705ac6f9cec3a8bf37ccb5409f",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "mongodb": "github:DefinitelyTyped/DefinitelyTyped/mongodb/mongodb.d.ts#04a46a81d9ff12504800e02396189b1d2dc55171",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#1c56e368e17bb28ca57577250624ca5bd561aa81",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#66484e9f11a93a89d972ba009e81957338e26ed7",
     "node-uuid": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid.d.ts#ce340e14bc4cddb77f1dd0e58faafff1e5f0c3e5",
     "node-uuid-base": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-base.d.ts#ce340e14bc4cddb77f1dd0e58faafff1e5f0c3e5",
     "nodemailer": "github:DefinitelyTyped/DefinitelyTyped/nodemailer/nodemailer.d.ts#568ec4378d010bb901a61bd9686be49077e54d5f",
@@ -31,6 +31,7 @@
     "universal-analytics": "github:DefinitelyTyped/DefinitelyTyped/universal-analytics/universal-analytics.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
     "validator": "github:DefinitelyTyped/DefinitelyTyped/validator/validator.d.ts#25ef75ce61530b82d5b4e7664c109e1ee3bc0c34",
     "when": "github:DefinitelyTyped/DefinitelyTyped/when/when.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
+    "winston": "github:DefinitelyTyped/DefinitelyTyped/winston/winston.d.ts#fb53f430261b292c600b5ccf9056793efb39c2ef",
     "yamljs": "github:DefinitelyTyped/DefinitelyTyped/yamljs/yamljs.d.ts#e16990532af5f8dc11ae6c2d299e69e4ddc6894d"
   }
 }
