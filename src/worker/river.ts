@@ -18,6 +18,6 @@ export default function (since: Duration) {
     models.map(model => log.info('river model entry', model));
     Promise.all(models.map(model => get(db, model, { since })
         .then(rows => elasticsearch(es, model, rows))
-        .then(ack => log('done updating %s', model.name))))
+        .then(ack => log.info('done updating %s', model.name))))
             .then(db.close.bind(db));
 };
