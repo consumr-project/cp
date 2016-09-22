@@ -42,6 +42,7 @@ export GOOGLE_RECAPTCHA_KEY=
 export GOOGLE_RECAPTCHA_SECRET=
 export LINKEDIN_CLIENT_ID=
 export LINKEDIN_CLIENT_SECRET=
+export LOG_LEVEL                    # log level for winston
 export ROLLBAR_TOKEN=
 export TRELLO_BOARD_ID=
 export TRELLO_KEY=
