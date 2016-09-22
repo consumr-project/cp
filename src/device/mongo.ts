@@ -1,11 +1,11 @@
 import { Db, MongoClient } from 'mongodb';
-import * as debug from 'debug';
+import { logger } from '../log';
 import * as config from 'acm';
 
 var connection: Db;
 var connection_err: Error;
 
-var log = debug('cp:service:mongo');
+const log = logger(__filename);
 
 export default function (collection: string, cb: Function = () => {}) {
     var url, env = process.env;
@@ -21,7 +21,7 @@ export default function (collection: string, cb: Function = () => {}) {
     if (connection) {
         send_back(connection_err, connection, collection, cb);
     } else {
-        log('connecting to mongodb');
+        log.info('connecting to mongodb');
         url = !env.MONGO_HOST ? config('mongo.url') :
             'mongodb://' + env.MONGO_HOST + ':27017/' + env.MONGO_COLLECTION;
 
@@ -30,10 +30,9 @@ export default function (collection: string, cb: Function = () => {}) {
             connection_err = err;
 
             if (err) {
-                log('error connecting to mongo');
-                log(err);
+                log.error('error connecting to mongo', err);
             } else {
-                log('connected to mongodb');
+                log.info('connected to mongodb');
             }
 
             send_back(connection_err, connection, collection, cb);

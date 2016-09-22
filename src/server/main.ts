@@ -12,6 +12,7 @@ import { KEY_SESSION } from '../keys';
 import { ServiceResponseV1 } from '../http';
 import { HttpError } from '../errors';
 import { normalize_i18n } from '../strings';
+import { logger } from '../log';
 import * as auth_service from './auth';
 import * as express from 'express';
 import * as config from 'acm';
@@ -24,9 +25,8 @@ const timeout = require('connect-timeout');
 const session = require('express-session');
 const compression = require('compression');
 const swig = require('swig');
-const debug = require('debug');
 
-const log = debug('cp:server');
+const log = logger(__filename);
 const app = express();
 
 const SERVER_JIT_COMPRESSION = !!config('SERVER_JIT_COMPRESSION');
@@ -40,7 +40,7 @@ app.set('views', `${__dirname}/../../assets/views`);
 app.engine('html', swig.renderFile);
 
 if (SERVER_JIT_COMPRESSION) {
-    log('server jit compression');
+    log.info('server jit compression');
     app.use(compression());
 }
 
@@ -128,4 +128,4 @@ app.get('*', (req, res) =>
     }));
 
 app.listen(config('port') || 3000);
-log('listening for requests');
+log.info('listening for requests');
