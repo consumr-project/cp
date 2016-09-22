@@ -1,9 +1,14 @@
 import { Sequelize } from 'sequelize';
+import { logger } from '../log';
 import * as config from 'acm';
 import Connection = require('sequelize');
-import debug = require('debug');
 
 export type DatabaseConnection = Sequelize;
+
+const log = logger(__filename);
+function do_log() {
+    return log.debug.apply(log, arguments);
+}
 
 export default (c = config): DatabaseConnection => {
     var env = process.env;
@@ -19,7 +24,7 @@ export default (c = config): DatabaseConnection => {
             env.POSTGRES_USER,
             env.POSTGRES_PASSWORD,
             {
-                logging: debug('cp:service:dbms'),
+                logging: do_log,
                 pool: c('database.pool'),
                 host: env.POSTGRES_HOST,
                 dialect: 'postgres'
@@ -27,7 +32,7 @@ export default (c = config): DatabaseConnection => {
         );
     } else {
         return new Connection(c('database.url'), {
-            logging: debug('cp:service:dbms'),
+            logging: do_log,
             pool: c('database.pool')
         });
     }

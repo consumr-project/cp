@@ -3,11 +3,12 @@ import { Client, Index } from 'elasticsearch';
 import { DatabaseConnection } from '../device/dbms';
 import { INDEX } from './searcher';
 import { sql } from '../record/query';
+import { logger } from '../log';
 
 import { GetterFunction, UpdaterFunction, EntryDefinition, GetterOptions,
     LinkDefinition, UpdaterAck } from '../river/sync';
 
-const debug = require('debug')('cp:search:updater');
+const log = logger(__filename);
 const query = sql('sync');
 
 function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
@@ -46,7 +47,7 @@ export const get: GetterFunction = function get(
         db.query(query, { replacements: { since } })
             .then(head)
             .then((rows: EntryDefinition[]) => {
-                debug('found %s %s', rows.length, def.name);
+                log.debug('found %s %s', rows.length, def.name);
                 resolve(rows);
             })
             .catch(err => {
@@ -68,10 +69,10 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
             to_create = filter(rows, { __deleted: false, __created: true }),
             to_update = filter(rows, { __deleted: false, __created: false });
 
-        debug('bulk elasticsearch edit');
-        debug('creating %s %s', to_create.length, def.name);
-        debug('updating %s %s', to_update.length, def.name);
-        debug('deleting %s %s', to_delete.length, def.name);
+        log.debug('bulk elasticsearch edit');
+        log.debug('creating %s %s', to_create.length, def.name);
+        log.debug('updating %s %s', to_update.length, def.name);
+        log.debug('deleting %s %s', to_delete.length, def.name);
 
         es.bulk({
             body: rows.reduce((edit, row) => {
@@ -89,8 +90,8 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
             }, [])
         })
             .then(ack => {
-                debug('done pushing updates to %s', def.name);
-                debug('took: %s, errors: %s', ack.took, ack.errors);
+                log.debug('done pushing updates to %s', def.name);
+                log.debug('took: %s, errors: %s', ack.took, ack.errors);
                 resolve({ ok: !ack.errors, def });
             })
             .catch(err => {
