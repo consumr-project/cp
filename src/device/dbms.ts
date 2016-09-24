@@ -10,10 +10,7 @@ function do_log() {
 
 export class DbmsDevice extends Connection {}
 
-// XXX
-export type DatabaseConnection = Sequelize;
-
-export default (c = config): DatabaseConnection => {
+export default (c = config): DbmsDevice => {
     var env = process.env;
 
     if (

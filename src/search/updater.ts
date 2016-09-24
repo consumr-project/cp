@@ -1,6 +1,6 @@
 import { merge, head, filter, pick } from 'lodash';
 import { Client, Index } from 'elasticsearch';
-import { DatabaseConnection } from '../device/dbms';
+import { DbmsDevice } from '../device/dbms';
 import { INDEX } from './searcher';
 import { sql } from '../record/query';
 import { logger } from '../log';
@@ -11,7 +11,7 @@ import { GetterFunction, UpdaterFunction, EntryDefinition, GetterOptions,
 const log = logger(__filename);
 const query = sql('sync');
 
-function gen_query(db: DatabaseConnection, def: LinkDefinition): string {
+function gen_query(db: DbmsDevice, def: LinkDefinition): string {
     var fields = [
         def.field_primary_key ? `${def.field_primary_key} as __id` : '',
         def.soft_delete ? 'deleted_date is not null as __deleted' : '',
@@ -34,7 +34,7 @@ function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
 }
 
 export const get: GetterFunction = function get(
-    db: DatabaseConnection,
+    db: DbmsDevice,
     def: LinkDefinition,
     opt: GetterOptions
 ) {
