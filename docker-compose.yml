@@ -13,6 +13,17 @@ postgres:
     POSTGRES_USER: cp_user
     POSTGRES_HOST: postgres
 
+elasticsearch:
+  build: config/elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  expose:
+    - 9200
+    - 9300
+  environment: &elasticsearch_environment
+    ELASTICSEARCH_HOST: elasticsearch
+
 mongo:
   build: config/mongo
   environment: &mongo_environment
@@ -32,6 +43,7 @@ server:
     - postgres
     - mongo
     - rabbitmq
+    - elasticsearch
   ports:
     - "3000:3000"
   expose:
@@ -44,4 +56,5 @@ server:
     <<: *postgres_environment
     <<: *mongo_environment
     <<: *rabbitmq_environment
+    <<: *elasticsearch_environment
     PORT: 3000
