@@ -3,12 +3,15 @@ import { logger } from '../log';
 import * as config from 'acm';
 import Connection = require('sequelize');
 
-export type DatabaseConnection = Sequelize;
-
 const log = logger(__filename);
 function do_log() {
     return log.debug.apply(log, arguments);
 }
+
+export class DbmsDevice extends Connection {}
+
+// XXX
+export type DatabaseConnection = Sequelize;
 
 export default (c = config): DatabaseConnection => {
     var env = process.env;
@@ -19,7 +22,7 @@ export default (c = config): DatabaseConnection => {
         env.POSTGRES_USER &&
         env.POSTGRES_DB
     ) {
-        return new Connection(
+        return new DbmsDevice(
             env.POSTGRES_DB,
             env.POSTGRES_USER,
             env.POSTGRES_PASSWORD,
@@ -31,7 +34,7 @@ export default (c = config): DatabaseConnection => {
             }
         );
     } else {
-        return new Connection(c('database.url'), {
+        return new DbmsDevice(c('database.url'), {
             logging: do_log,
             pool: c('database.pool')
         });

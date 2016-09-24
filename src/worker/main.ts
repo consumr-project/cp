@@ -1,4 +1,4 @@
-import { wrapped as river, interval as river_interval } from './river';
+import { run as river_run, interval as river_interval } from './river';
 import { Minute } from '../lang';
 
 const ARGV = process.argv;
@@ -13,7 +13,7 @@ switch (command) {
         break;
 
     case 'river':
-        river(rate, 'oneoff', 0)
+        river_run(rate, 'oneoff', 0)
             .then(() => process.exit(0))
             .catch(() => process.exit(1));
         break;
