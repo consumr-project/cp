@@ -67,6 +67,10 @@ export function try_func<T>(action: () => T): [Error, T] {
     return [ err, res ];
 }
 
-export function empty<T>(obj: Object | Array<T>): boolean {
-    return obj instanceof Array ? !!obj.length : !!Object.keys(obj).length;
+export function empty<T>(obj: Object | Array<T> | undefined): boolean {
+    if (!obj) {
+        return true;
+    } else {
+        return obj instanceof Array ? !!obj.length : !!Object.keys(obj).length;
+    }
 }

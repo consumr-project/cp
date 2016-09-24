@@ -82,6 +82,7 @@
     "trello": "0.5.1",
     "true-visibility": "minond/true-visibility#832ef7d9a976839d08198c4561f60270b61fc65d",
     "tslint": "3.10.2",
+    "typescript": "2.0.0",
     "universal-analytics": "0.3.10",
     "urijs": "1.17.0",
     "winston": "2.2.0",

@@ -45,6 +45,8 @@ export function normalize(res: Results): ServiceResponseV1<Result[]> {
 }
 
 export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
+    query.type = query.type || [];
+
     return es.search({
         from: query.from,
         index: query.index.toString(),

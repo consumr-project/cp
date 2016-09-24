@@ -63,7 +63,7 @@ namespace tcp {
         deps.push('rector');
     }
 
-    moment.locale(navigator.userLanguage || navigator.language);
+    moment.locale((<any>navigator).userLanguage || navigator.language);
     angular.module('tcp', deps);
 
     angular.module('tcp')
