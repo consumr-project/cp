@@ -181,7 +181,10 @@ declare module 'md5' {
 }
 
 declare module 'elasticsearch' {
-    type Connection = { host: string };
+    type Connection = {
+      host: string;
+      apiVersion: number;
+    };
 
     interface Query {
         from?: number;
