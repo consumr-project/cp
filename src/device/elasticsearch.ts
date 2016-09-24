@@ -1,9 +1,10 @@
 import { Client } from 'elasticsearch';
 import * as config from 'acm';
 
-export class ElasticsearchDevice extends Client {}
+export type ElasticsearchDevice = Client;
 
 export default (c = config) =>
-    new ElasticsearchDevice({
+    new Client({
+        apiVersion: c('elasticsearch.api_version'),
         host: c('elasticsearch.host')
     });

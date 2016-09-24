@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize';
 import { logger } from '../log';
 import * as config from 'acm';
 import Connection = require('sequelize');
@@ -7,7 +8,7 @@ function do_log() {
     return log.debug.apply(log, arguments);
 }
 
-export class DbmsDevice extends Connection {}
+export type DbmsDevice = Sequelize;
 
 export default (c = config): DbmsDevice => {
     var env = process.env;
@@ -18,7 +19,7 @@ export default (c = config): DbmsDevice => {
         env.POSTGRES_USER &&
         env.POSTGRES_DB
     ) {
-        return new DbmsDevice(
+        return new Connection(
             env.POSTGRES_DB,
             env.POSTGRES_USER,
             env.POSTGRES_PASSWORD,
@@ -30,7 +31,7 @@ export default (c = config): DbmsDevice => {
             }
         );
     } else {
-        return new DbmsDevice(c('database.url'), {
+        return new Connection(c('database.url'), {
             logging: do_log,
             pool: c('database.pool')
         });
