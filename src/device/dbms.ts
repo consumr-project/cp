@@ -1,4 +1,3 @@
-import { Sequelize } from 'sequelize';
 import { logger } from '../log';
 import * as config from 'acm';
 import Connection = require('sequelize');
