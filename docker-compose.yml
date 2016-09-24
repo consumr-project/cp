@@ -22,7 +22,7 @@ elasticsearch:
     - 9200
     - 9300
   environment: &elasticsearch_environment
-    ELASTICSEARCH_HOST: elasticsearch
+    ELASTICSEARCH_HOST: elasticsearch:9200
 
 mongo:
   build: config/mongo
