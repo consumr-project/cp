@@ -33,6 +33,14 @@ function gen_index(def: LinkDefinition, row: EntryDefinition): Index {
     };
 }
 
+function append<T>(list: string[], row: T): void {
+    list.push(JSON.stringify(row));
+}
+
+function prep_body(body: string[]): string {
+    return body.join('\n') + '\n';
+}
+
 export const get: GetterFunction = function get(
     db: DbmsDevice,
     def: LinkDefinition,
@@ -51,7 +59,7 @@ export const get: GetterFunction = function get(
                 resolve(rows);
             })
             .catch(err => {
-                console.error('error running query for %s. %s',
+                log.error('error running query for %s. %s',
                     def.name, err.stack);
 
                 reject(err);
@@ -74,20 +82,38 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
         log.debug('updating %s %s', to_update.length, def.name);
         log.debug('deleting %s %s', to_delete.length, def.name);
 
+        if (!rows.length) {
+            return resolve({ ok: true, def });
+        }
+
         es.bulk({
-            body: rows.reduce((edit, row) => {
+            body: prep_body(rows.reduce((edit, row) => {
                 if (row.__deleted) {
-                    edit.push({ delete: gen_index(def, row) });
+                    append(edit, {
+                        delete: gen_index(def, row)
+                    });
                 } else if (row.__created) {
-                    edit.push({ index: gen_index(def, row) });
-                    edit.push(merge({__label: row.__label}, pick(row, def.fields)));
+                    append(edit, {
+                        index: gen_index(def, row)
+                    });
+
+                    append(edit, merge({
+                        __label: row.__label
+                    }, pick(row, def.fields)));
                 } else {
-                    edit.push({ update: gen_index(def, row) });
-                    edit.push({ doc: merge({__label: row.__label}, pick(row, def.fields)) });
+                    append(edit, {
+                        update: gen_index(def, row)
+                    });
+
+                    append(edit, {
+                        doc: merge({
+                            __label: row.__label
+                        }, pick(row, def.fields))
+                    });
                 }
 
                 return edit;
-            }, [])
+            }, []))
         })
             .then(ack => {
                 log.debug('done pushing updates to %s', def.name);
@@ -95,7 +121,7 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
                 resolve({ ok: !ack.errors, def });
             })
             .catch(err => {
-                console.error('error running elasticsearch update for %s. %s',
+                log.error('error running elasticsearch update for %s. %s',
                     def.name, err.stack);
 
                 reject(err);
