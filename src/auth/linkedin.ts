@@ -101,7 +101,6 @@ function find_user(
                 // otherwise check if in email whitelist list
                 BetaEmailInvite.findOne({ where: { email: user.raw_email } })
                     .then(allowed => {
-                        console.log(allowed);
                         if (allowed && allowed.approved) {
                             create();
                         } else {

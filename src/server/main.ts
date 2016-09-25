@@ -97,9 +97,7 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err: any, req, res, next) => {
-    console.error('ERROR ==========================');
-    console.error(err);
-    console.error(err.stack);
+    logger.error('catching request handler error', err);
 
     if (!res.headersSent) {
         if (err instanceof HttpError) {

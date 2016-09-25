@@ -132,15 +132,21 @@ build-server:
 
 build-worker:
 	$(tsc) src/typings.d.ts src/worker/main.ts \
-		--outDir $(build_dir) --module commonjs --pretty --removeComments \
-		--moduleResolution classic --noImplicitAny
+		--outDir $(build_dir) \
+		--module commonjs \
+		--pretty \
+		--removeComments \
+		--moduleResolution classic \
+		--noImplicitAny
 
 build-client: build-css build-client-deps build-client-app \
 	build-client-bundle build-client-src
 
 build-client-app:
 	$(tsc) src/typings.d.ts src/client/main.ts --outDir $(build_dir) \
-		--module commonjs $(ts_options) --rootDir ./
+		--module commonjs \
+		--rootDir ./ \
+		$(ts_options)
 
 build-client-bundle:
 ifdef DEBUG
