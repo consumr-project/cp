@@ -20,7 +20,7 @@ function cli_formatter(filename: string) {
         var level = opt.level.toUpperCase();
         var message = opt.message || '';
         var meta = empty(opt.meta) ? JSON.stringify(opt.meta) : '';
-        var str = [message, meta].join(' ');
+        var str = [message, meta].join(' ').trim();
         return `${time} ${level} [${name}] ${str}`;
     };
 }

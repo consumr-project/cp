@@ -1,6 +1,7 @@
 import { merge, head, filter, pick } from 'lodash';
 import { Client, Index } from 'elasticsearch';
 import { DbmsDevice } from '../device/dbms';
+import { ElasticsearchBulkUpdateError } from '../device/elasticsearch';
 import { INDEX } from './searcher';
 import { sql } from '../record/query';
 import { logger } from '../log';
@@ -116,11 +117,20 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
             }, []))
         })
             .then(ack => {
+                if (ack.errors) {
+                    throw new ElasticsearchBulkUpdateError(def.name, ack);
+                }
+
                 log.debug('done pushing updates to %s', def.name);
                 log.debug('took: %s, errors: %s', ack.took, ack.errors);
                 resolve({ ok: !ack.errors, def });
             })
+            .catch(ElasticsearchBulkUpdateError, err => {
+                log.error('error making bulk update', err.ack.items);
+                reject(err);
+            })
             .catch(err => {
+                log.error(err);
                 log.error('error running elasticsearch update for %s. %s',
                     def.name, err.stack);
 
