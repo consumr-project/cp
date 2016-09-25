@@ -93,7 +93,7 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
                     append(edit, {
                         delete: gen_index(def, row)
                     });
-                } else if (row.__created) {
+                } else {
                     append(edit, {
                         index: gen_index(def, row)
                     });
@@ -101,16 +101,6 @@ export const elasticsearch: UpdaterFunction = function elasticsearch(
                     append(edit, merge({
                         __label: row.__label
                     }, pick(row, def.fields)));
-                } else {
-                    append(edit, {
-                        update: gen_index(def, row)
-                    });
-
-                    append(edit, {
-                        doc: merge({
-                            __label: row.__label
-                        }, pick(row, def.fields))
-                    });
                 }
 
                 return edit;

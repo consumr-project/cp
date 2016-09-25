@@ -239,7 +239,7 @@ declare module 'elasticsearch' {
     }
 
     export interface BulkUpdate {
-        body: string
+        body: string;
     }
 
     export class Client {
