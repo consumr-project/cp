@@ -8,7 +8,7 @@ var command = ARGV[2];
 var rate = ARGV[3] ? parseInt(ARGV[3]) : DEFAULT_RATE;
 
 switch (command) {
-    case 'river-interval':
+    case 'river:interval':
         river_interval(rate);
         break;
 

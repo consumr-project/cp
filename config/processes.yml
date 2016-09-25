@@ -1,3 +1,7 @@
 apps:
   - script: build/server/main.js
     name: server
+
+  - script: build/worker/main.js
+    name: river
+    args: "river:interval 900000"
