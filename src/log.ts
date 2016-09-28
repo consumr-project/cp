@@ -1,9 +1,11 @@
 import { empty } from './utilities';
 import { Logger, LoggerInstance, transports } from 'winston';
 import { sep } from 'path';
+import { padEnd as pad } from 'lodash';
 
 const CWD = process.cwd() + sep;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+const PAD_LEN_LEVEL = 7;
 
 interface LogItem {
     level: string;
@@ -17,7 +19,7 @@ function cli_formatter(filename: string) {
 
     return function (opt: LogItem) {
         var time = new Date().toISOString();
-        var level = opt.level.toUpperCase();
+        var level = pad(opt.level.toUpperCase(), PAD_LEN_LEVEL);
         var message = opt.message || '';
         var meta = empty(opt.meta) ? JSON.stringify(opt.meta) : '';
         var str = [message, meta].join(' ').trim();
