@@ -17,7 +17,7 @@ app.get('/query', (req, res, next) => {
             index: INDEX.RECORD,
             query: req.query.q,
             type: [TYPE.COMPANIES, TYPE.USERS, TYPE.TAGS],
-        }))(req, res, <ErrorHandler>next);
+        }), normalize)(req, res, <ErrorHandler>next);
     } else {
         query(conn, sql('search'))(req, res, <ErrorHandler>next);
     }
