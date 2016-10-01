@@ -2,6 +2,8 @@ export type UUID = string;
 export type scalar = number | string | boolean;
 export type Date2 = Date | number;
 
+export type ErrorHandler = (err?: Error) => {};
+
 export type Duration = number;
 
 export const Millisecond: Duration = 1;

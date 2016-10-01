@@ -193,9 +193,10 @@ declare module 'elasticsearch' {
         type: string;
         body: {
             query: {
-                fuzzy_like_this?: {
-                    fuzziness: number | string;
-                    like_text: string;
+                multi_match?: {
+                    fields: string[];
+                    query: string;
+                    fuzziness?: number;
                 }
             }
         };

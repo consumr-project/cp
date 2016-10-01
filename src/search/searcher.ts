@@ -54,9 +54,10 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
         type: query.type.join(','),
         body: {
             query: {
-                fuzzy_like_this: {
+                multi_match: {
                     fuzziness: config('elasticsearch.fuzziness'),
-                    like_text: query.query,
+                    query: query.query,
+                    fields: ['_all'],
                 }
             }
         }
