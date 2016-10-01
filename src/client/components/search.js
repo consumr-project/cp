@@ -134,8 +134,9 @@ angular.module('tcp').directive('search', [
 
                 '        <div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
                 '            ng-repeat="user in vm.results.users">',
-                '            <h2>{{::user.name}}</h2>',
-                '            <p>{{::user.summary || user.name}}</p>',
+                '            <avatar name="{{::user.name}}"',
+                '                user-id="{{::user.id}}"',
+                '                title="{{::user.source.title}}"></avatar>',
                 '        </div>',
 
                 '        <tags>',
