@@ -613,6 +613,10 @@ angular.module('tcp').directive('company', [
                 company.$summary_parts = !company.summary ? [] :
                     lodash.filter(company.summary.split('\n'));
 
+                if (company.$summary_parts.length) {
+                    company.$summary_parts = [ company.$summary_parts[0] ];
+                }
+
                 return company;
             }
 
