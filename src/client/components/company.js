@@ -314,7 +314,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.event_handler = function (type, data) {
-                utils.assert(type > -1);
+                utils.assert(type);
                 utils.assert(data);
                 data = utils2.as_array(data);
 
