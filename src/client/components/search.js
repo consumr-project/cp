@@ -54,9 +54,9 @@ angular.module('tcp').directive('search', [
                 var groups = lodash.groupBy(results.body, 'type'),
                     result = lodash.head(results.body);
 
-                $scope.vm.results.companies = groups.company;
-                $scope.vm.results.users = groups.user;
-                $scope.vm.results.tags = groups.tag;
+                $scope.vm.results.companies = groups.company || groups.companies;
+                $scope.vm.results.users = groups.user || groups.users;
+                $scope.vm.results.tags = groups.tag || groups.tags;
 
                 $scope.vm.empty = !results.body || !results.body.length;
                 $scope.vm.loading = false;

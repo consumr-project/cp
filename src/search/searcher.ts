@@ -1,7 +1,6 @@
 import { ServiceResponseV1 } from '../http';
-import { Result } from 'cp/search';
 import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
-import { map } from 'lodash';
+import { map, omit } from 'lodash';
 import * as config from 'acm';
 
 export const IDX_RECORD = 'record';
@@ -24,13 +23,25 @@ interface Query {
     type?: TYPE[];
 }
 
+interface Result {
+    id: string;
+    index: string;
+    type: string;
+    score: number;
+    name: string;
+    summary?: string;
+    source: any;
+}
+
 function hit_to_result(hit: Hit): Result {
     return {
         id: hit._id,
         index: hit._index,
-        score: hit._score,
         type: hit._type,
-        source: hit._source,
+        score: hit._score,
+        name: hit._source.__label,
+        summary: hit._source.summary || '',
+        source: omit(hit._source, ['__label', 'summary']),
     };
 }
 

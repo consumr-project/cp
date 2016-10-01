@@ -126,16 +126,6 @@ declare module 'cp/record' {
     };
 }
 
-declare module 'cp/search' {
-    interface Result {
-        id: string;
-        index: string;
-        score: number;
-        source: any;
-        type: string;
-    }
-}
-
 declare module 'cp/client' {
     interface I18n {
         get(key: string, data: Object): string;
