@@ -26,7 +26,11 @@ left join event_bookmarks me on (e.id = me.event_id
 <% } %>
 
 where ce.company_id = :company_id
+and ce.deleted_date is null
 and e.deleted_date is null
+and es.deleted_date is null
+and eb.deleted_date is null
+and et.deleted_date is null
 
 group by e.id
 order by e.date desc
