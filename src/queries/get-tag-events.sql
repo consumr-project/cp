@@ -25,6 +25,7 @@ left join event_bookmarks me on (e.id = me.event_id
 <% } %>
 
 where et.tag_id = :tag_id
+and et.deleted_date is null
 and e.deleted_date is null
 
 group by e.id
