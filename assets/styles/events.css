@@ -216,12 +216,17 @@
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
     display: none;
-    height: calc(100% + 30px);
+    height: 100%;
     left: calc(50% - 2px);
     position: absolute;
-    top: -30px;
+    top: 20px;
     width: 2px;
     z-index: var(--z-index-none);
+}
+
+.state--is-logged-in .timeline__line {
+    height: calc(100% + 30px);
+    top: -30px;
 }
 
 @media (--media-regular-screens) {
