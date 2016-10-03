@@ -322,7 +322,7 @@ angular.module('tcp').directive('timeline', [
             },
             template: [
                 '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="init()">',
-                '    <div class="center-aligned loading__only padding-top-large"',
+                '    <div class="center-align loading__only padding-top-large"',
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
 
                 '    <span>',

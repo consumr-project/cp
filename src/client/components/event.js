@@ -15,7 +15,9 @@ angular.module('tcp').directive('event', [
         'use strict';
 
         var HTML_VIEW = [
-            '<div class="event-elem--view">',
+            '<div class="event-elem--view" ng-class="{loading: vm.loading}">',
+            '    <div class="loading__only center-align"',
+            '        i18n="common/loading_event"></div>',
             '    <div ng-if="ev.id" class="margin-bottom-small">',
             '        <i18n class="event-elem__date" date="{{::ev.date}}"',
             '            format="D MMM, YYYY"></i18n>',
@@ -393,6 +395,8 @@ angular.module('tcp').directive('event', [
             var new_companies_created = [];
 
             $scope.vm = $scope.vm || {};
+            $scope.vm.loading = false;
+
             $scope.ev = {
                 id: null,
                 logo: null,
@@ -533,8 +537,11 @@ angular.module('tcp').directive('event', [
              * @return {void}
              */
             function load(id) {
+                $scope.vm.loading = true;
+
                 Services.query.events.retrieve(id, ['bookmarks', 'sources', 'tags', 'companies'], ['tags', 'companies']).then(function (ev) {
                     $scope.ev = ev;
+                    $scope.vm.loading = false;
 
                     $scope.ev.$shasums = {
                         event: sha_event(ev),

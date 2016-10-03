@@ -22,6 +22,7 @@ error_loading_content: 'error loadin content, plz try again latr.'
 not_found: 'not findz'
 create_this: 'create "{name}"?'
 loading_events: 'loadin events...'
+loading_event: 'loading event...'
 official_site: 'offishul siet'
 wikipedia: wikipedia
 see_wikipedia: '+ c moar frum wikipedia'
