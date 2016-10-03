@@ -94,3 +94,9 @@ button.button--social-linkedin img {
     height: 19px;
     width: 20px;
 }
+
+.button--sidetext.button--sidetext--right::after {
+    content: attr(sidetext);
+    padding-left: 47px;
+    color: var(--color-cp-brand);
+}

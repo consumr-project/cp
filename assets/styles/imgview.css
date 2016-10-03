@@ -1,0 +1,60 @@
+.imgview {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.imgview--with-content {
+    width: auto;
+    padding-left: 24px;
+}
+
+.imgview--dot-dot-dot {
+    background-image: url(/assets/images/dot-dot-dot.svg);
+    background-position: 0;
+    background-size: 21px;
+}
+
+.imgview--warning {
+    background-image: url(/assets/images/warning.svg);
+    background-position: 0;
+    background-size: 19px;
+}
+
+.imgview--sources {
+    background-image: url(/assets/images/book.svg);
+    background-position: -1px -1px;
+    background-size: 20px;
+}
+
+.imgview--bookmarks,
+.imgview--bookmarked {
+    background-position: 1px 0;
+    background-size: 19px;
+}
+
+.imgview--bookmarks {
+    background-image: url(/assets/images/star-border.svg);
+}
+
+.imgview--bookmarked {
+    background-image: url(/assets/images/star-filled.svg);
+}
+
+.imgview--bell {
+    background-image: url(/assets/images/bell-blue.svg);
+    background-position: 1px 0;
+    background-size: 19px;
+}
+
+.imgview--plus {
+    background-image: url(/assets/images/plus.svg);
+    background-position: 8px 8px;
+    background-size: 22px;
+}
+
+button.imgview--bell {
+    background-position: 50% 50%;
+    background-size: 27px;
+}

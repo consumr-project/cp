@@ -32,7 +32,7 @@ angular.module('tcp').directive('i18n', [
                     break;
 
                 default:
-                    elem.prop(prop, value);
+                    elem.attr(prop, value);
                     break;
             }
         }
