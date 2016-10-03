@@ -216,10 +216,10 @@
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
     display: none;
-    height: 100%;
+    height: calc(100% + 30px);
     left: calc(50% - 2px);
     position: absolute;
-    top: 20px;
+    top: -30px;
     width: 2px;
     z-index: var(--z-index-none);
 }
