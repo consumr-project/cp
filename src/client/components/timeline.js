@@ -386,7 +386,7 @@ angular.module('tcp').directive('timeline', [
                 '            ng-click="report_viewing()"></popover-item>',
                 '    </popover>',
 
-                '    <div ng-if="events.length > 1"',
+                '    <div ng-if="events.length"',
                 '        class="timeline__line animated fadeIn"></div>',
 
                 '    <popover with-close-x with-backdrop ',
