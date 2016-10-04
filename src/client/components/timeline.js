@@ -318,12 +318,19 @@ angular.module('tcp').directive('timeline', [
                 api: '=',
                 filters: '=',
                 id: '@',
+                onAdd: '&',
                 onEvent: '&',
             },
             template: [
                 '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="init()">',
                 '    <div class="center-align loading__only padding-top-large"',
                 '        i18n="common/loading_events" ng-if="vm.first_load"></div>',
+
+                '    <div class="margin-top-xlarge margin-bottom-medium center-align animated fadeIn">',
+                '        <button class="logged-in-only button--circlular imgview ',
+                '            imgview--plus button--sidetext button--sidetext--right"',
+                '            i18n="event/add" prop="sidetext" ng-click="onAdd()"></button>',
+                '    </div>',
 
                 '    <span>',
                 '    <div ng-repeat="event in filtered_events" ',

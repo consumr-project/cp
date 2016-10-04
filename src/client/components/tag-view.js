@@ -36,12 +36,9 @@ angular.module('tcp').component('tagView', {
             '    </table>',
             '    <hr>',
 
-            '    <div class="margin-top-xlarge margin-bottom-medium center-align">',
-            '        <button class="logged-in-only button--circlular imgview imgview--plus button--sidetext button--sidetext--right"',
-            '            i18n="event/add" prop="sidetext" ng-click="$ctrl.event_popover.show()"></button>',
-            '    </div>',
             '    <timeline class="component__timeline"',
             '        api="$ctrl.events_timeline"',
+            '        on-add="$ctrl.event_popover.show()"',
             '        parent="tags"',
             '        event-id="{{$ctrl.eventId}}"',
             '        id="{{$ctrl.id}}"></timeline>',
