@@ -114,7 +114,6 @@ angular.module('tcp').directive('company', [
             '            </div>',
 
             '            <div class="margin-top-xlarge margin-bottom-medium center-align">',
-            // '                <button class="logged-in-only" ng-click="vm.add_event.show()" i18n="event/add"></button>',
             '                <button class="logged-in-only button--circlular imgview imgview--plus button--sidetext button--sidetext--right"',
             '                    i18n="event/add" prop="sidetext" ng-click="vm.add_event.show()"></button>',
             '            </div>',
