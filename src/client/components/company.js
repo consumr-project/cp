@@ -228,6 +228,7 @@ angular.module('tcp').directive('company', [
         function template(elem, attrs) {
             switch (attrs.type) {
                 case 'view': return HTML_VIEW;
+                case 'edit': return HTML_VIEW;
                 default: return HTML_PAGE;
             }
         }

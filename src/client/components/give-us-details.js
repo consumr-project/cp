@@ -10,13 +10,13 @@ angular.module('tcp').component('giveUsDetails', {
         '            data="{ name: company.name }"></p>',
         '        <br>',
 
-        '        <button i18n="common/sure"></button>',
+        '        <button ng-click="$ctrl.yes(company)" i18n="common/sure"></button>',
         '        <button ng-click="$ctrl.nah(company)" i18n="common/no_thanks"',
         '            class="button--unselected"></button>',
         '    </div>',
         '</div>',
     ].join(''),
-    controller: ['Feature', 'lodash', function (Feature, lodash) {
+    controller: ['Navigation', 'Feature', 'lodash', function (Navigation, Feature, lodash) {
         'use strict';
 
         this.enabled = Feature.on('mind_giving_company_details');
@@ -24,6 +24,10 @@ angular.module('tcp').component('giveUsDetails', {
 
         this.nah = function (company) {
             this.companies = lodash.without(this.companies, company);
+        };
+
+        this.yes = function (company) {
+            Navigation.company_edit(company.id);
         };
     }],
 });

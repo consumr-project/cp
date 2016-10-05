@@ -11,6 +11,7 @@ angular.module('tcp').service('Navigation', [
             SEARCH: '/search',
             USER: '/user',
             EVENT: '/event',
+            EDIT: '/edit',
             BY_ID: '/id',
             BY_ME: '/me',
         };
@@ -73,6 +74,7 @@ angular.module('tcp').service('Navigation', [
              */
             tag_by_id_event: child_of(BASES.TAG + BASES.BY_ID, BASES.EVENT),
             company_by_id_event: child_of(BASES.COMPANY + BASES.BY_ID, BASES.EVENT),
+            company_edit: child_of(BASES.COMPANY + BASES.BY_ID, BASES.EDIT),
 
             /**
              * go to search
