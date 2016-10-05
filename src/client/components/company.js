@@ -27,10 +27,14 @@ angular.module('tcp').directive('company', [
 
             '        <section ng-show="vm.mind_giving_company_details && vm.new_companies_created.length" class="margin-bottom-xlarge">',
             '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
-            '                <p class="snav__item snav__item--active" i18n="company/new_company_more_info" data="{ name: company.name }"></p>',
+            '                <p class="not-half-width-but-not-full-either bold"',
+            '                    i18n="company/new_company_more_info"',
+            '                    data="{ name: company.name }"></p>',
             '                <br>',
+
             '                <button i18n="common/sure"></button>',
-            '                <button ng-click="will_not_update_company(company)" i18n="common/no_thanks" class="button--unselected"></button>',
+            '                <button ng-click="will_not_update_company(company)"',
+            '                    i18n="common/no_thanks" class="button--unselected"></button>',
             '            </div>',
             '        </section>',
 
