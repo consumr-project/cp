@@ -2,7 +2,6 @@ angular.module('tcp').directive('company', [
     'RUNTIME',
     'EVENTS',
     'DOMAIN',
-    'Feature',
     'Navigation',
     'Services',
     'Session',
@@ -12,7 +11,7 @@ angular.module('tcp').directive('company', [
     '$q',
     '$window',
     'i18n',
-    function (RUNTIME, EVENTS, DOMAIN, Feature, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n) {
+    function (RUNTIME, EVENTS, DOMAIN, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n) {
         'use strict';
 
         var HTML_PAGE = [
@@ -25,18 +24,8 @@ angular.module('tcp').directive('company', [
             '            <span i18n="event/good_job_thanks"></span>',
             '        </message>',
 
-            '        <section ng-show="vm.mind_giving_company_details && vm.new_companies_created.length" class="margin-bottom-xlarge">',
-            '            <div ng-repeat="company in vm.new_companies_created" class="margin-bottom-small">',
-            '                <p class="not-half-width-but-not-full-either bold"',
-            '                    i18n="company/new_company_more_info"',
-            '                    data="{ name: company.name }"></p>',
-            '                <br>',
-
-            '                <button i18n="common/sure"></button>',
-            '                <button ng-click="will_not_update_company(company)"',
-            '                    i18n="common/no_thanks" class="button--unselected"></button>',
-            '            </div>',
-            '        </section>',
+            '        <give-us-details companies="vm.new_companies_created"',
+            '            class="margin-bottom-xlarge"></give-us-details>',
 
             '        <h1 class="take-space animated fadeIn screen-small-only padding-bottom-medium">{{company.name}}</h1>',
             '        <div class="screen-small-only">',
@@ -298,13 +287,6 @@ angular.module('tcp').directive('company', [
                 show_events: true,
                 show_event_added_msg: false,
                 new_companies_created: [],
-
-                mind_giving_company_details: Feature.on('mind_giving_company_details'),
-            };
-
-            $scope.will_not_update_company = function (company) {
-                $scope.vm.new_companies_created =
-                    lodash.without($scope.vm.new_companies_created, company);
             };
 
             $scope.event_added = function () {
