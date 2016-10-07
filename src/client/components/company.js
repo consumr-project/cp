@@ -236,6 +236,7 @@ angular.module('tcp').directive('company', [
         function auth_check() {
             if (!Session.USER || !Session.USER.id) {
                 $window.alert(i18n.get('admin/error_login_to_create_company'));
+                Navigation.home();
             }
         }
 
@@ -628,7 +629,7 @@ angular.module('tcp').directive('company', [
                 $scope.vm.search_name = $scope.create;
                 $scope.find_companies($scope.create);
                 auth_check();
-            } else {
+            } else if (!$scope.model) {
                 auth_check();
             }
         }
