@@ -1,12 +1,13 @@
 angular.module('tcp').directive('source', [
-    function () {
+    'utils',
+    function (utils) {
         'use strict';
 
         var HTML_VIEW = [
             '<div class="source source--view line-separated">',
             '    <span ng-if="model.id">',
             '        <a target="_blank" rel="noreferrer"',
-            '            href="{{::model.url}}">{{::model.url}}</a>',
+            '            href="{{::utils.make_link(model.url)}}">{{::model.url}}</a>',
             '        <h4 i18n date="{{::model.published_date}}"',
             '            format="D MMM, YYYY" class="margin-top-small"></h4>',
             '        <p>{{::model.summary}}</p>',
@@ -20,6 +21,12 @@ angular.module('tcp').directive('source', [
             scope: {
                 model: '=',
             },
+            controller: [
+                '$scope',
+                function ($scope) {
+                    $scope.utils = utils;
+                }
+            ]
         };
     }
 ]);
