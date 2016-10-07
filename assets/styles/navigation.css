@@ -2,7 +2,7 @@
     display: inline-block;
     margin-top: var(--spacing-xsmall);
     max-width: 100%;
-    overflow: scroll;
+    overflow-x: auto;
     white-space: nowrap;
 }
 
