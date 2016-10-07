@@ -72,10 +72,10 @@
 }
 
 @media (--media-regular-screens) {
-    .timeline__event--last {
-        position: relative;
-        top: 70px;
-    }
+    /* .timeline__event--last { */
+    /*     position: relative; */
+    /*     top: 70px; */
+    /* } */
 
     .timeline__event .event-elem--view {
         margin-top: 26px;
@@ -86,9 +86,9 @@
         outline: none;
     }
 
-    .timeline__event--last .timeline__event__icon {
-        top: 0;
-    }
+    /* .timeline__event--last .timeline__event__icon { */
+    /*     top: 0; */
+    /* } */
 
     .timeline__event--selected .timeline__event__icon {
         transform: scale(1.6);
@@ -216,7 +216,7 @@
     animation-delay: 1s;
     background: var(--color-std-thick-border-color);
     display: none;
-    height: calc(100% - 90px);
+    height: calc(100% - 110px);
     left: calc(50% - 2px);
     position: absolute;
     top: 90px;
@@ -225,7 +225,7 @@
 }
 
 .state--is-logged-in .timeline__line {
-    height: 100%;
+    height: calc(100% - 20px);
     top: 0px;
 }
 
