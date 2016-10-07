@@ -220,7 +220,7 @@ angular.module('tcp').directive('company', [
         var HTML_VIEW = [
             '<div>',
             '    <h2>{{::model.name}}</h2>',
-            '    <a ng-href="{{::model.website_url}}">{{::model.website_url}}</a>',
+            '    <a rel="noreferrer" target="_blank" ng-href="{{::utils.make_link(model.website_url)}}">{{::model.website_url}}</a>',
             '    <p>{{::model.summary}}</p>',
             '<div>',
         ].join('');
