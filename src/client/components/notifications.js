@@ -18,6 +18,7 @@ angular.module('tcp').directive('notifications', [
 
         function group($scope, notifications) {
             $scope.notifications = messages.prep(i18n, notifications);
+            $scope.notifications = [];
         }
 
         /**
@@ -108,6 +109,9 @@ angular.module('tcp').directive('notifications', [
                 '<div class="notifications">',
                 '    <notification ng-repeat="notification in notifications"',
                 '        model="notification"></notification>',
+                '    <div ng-if="notifications.length === 0"',
+                '        class="notifications__none"',
+                '        i18n="notification/none"></div>',
                 '</div>'
             ].join('')
         };

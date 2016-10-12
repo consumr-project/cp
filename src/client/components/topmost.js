@@ -191,7 +191,7 @@ angular.module('tcp').directive('tcpTopmost', [
             function get_notifications() {
                 return Services.notification.get().then(function (items) {
                     $scope.session.notification_count = _.filter(items, { viewed: false }).length;
-                    $scope.session.has_notifications = items.length;
+                    $scope.session.has_notifications = !!items.length;
                 });
             }
 
@@ -239,7 +239,12 @@ angular.module('tcp').directive('tcpTopmost', [
              * @return {Object}
              */
             function get_session() {
-                return Cookie.getJSON('client:session') || {};
+                return Cookie.getJSON('client:session') || {
+                    email: null,
+                    has_notifications: false,
+                    logged_in: false,
+                    notification_count: 0,
+                };
             }
 
             function update_page_view_status() {
@@ -335,12 +340,8 @@ angular.module('tcp').directive('tcpTopmost', [
                 '            ng-if="session.logged_in && session.notification_count">{{session.notification_count}}</button>',
 
                 '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell no-outline"',
-                '            data-main-user-notifications-counter',
-                '            ng-if="session.logged_in && !session.has_notifications"></button>',
-
-                '        <button class="right margin-right-small animated fadeIn button--circlular button--unselected imgview imgview--bell no-outline"',
                 '            data-main-user-notifications-counter ng-click="show_notifications()"',
-                '            ng-if="session.logged_in && session.has_notifications && !session.notification_count"></button>',
+                '            ng-if="session.logged_in && !session.notification_count"></button>',
 
                 '        <button class="search-button right margin-right-small animated fadeIn screen-small-only"',
                 '            ng-click="nav.search()"></button>',

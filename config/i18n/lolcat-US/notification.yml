@@ -1,5 +1,6 @@
 notifications: notificashuns
 no_notifications: 'u has no notificashuns. yay!!'
+none: 'no notifications!!'
 new_company_message: '{obj_type}, which wuz creatd 4 "{obj_id}", iz misin teh followin field(s):'
 followed_by_one: '{name} startd followin u.'
 followed_by_two: '{name} an {other} startd followin u.'

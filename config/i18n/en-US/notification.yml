@@ -1,6 +1,8 @@
 notifications: Notifications
 no_notifications: "You have no notifications. Yay!!"
 
+none: no notifications!!
+
 # new_company_details: New company details
 # new_tag_details: New tag details
 

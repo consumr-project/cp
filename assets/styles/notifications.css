@@ -5,6 +5,7 @@
     transition: background-color var(--speed-friendly);
 }
 
+.notifications,
 .notification--completed {
     background-color: white;
 }
@@ -30,4 +31,10 @@
 
 .notification + .notification {
     border-top: 1px solid var(--color-std-border-color);
+}
+
+.notifications__none {
+    font-size: var(--font-size-normal);
+    font-style: italic;
+    padding: var(--spacing-medium) var(--spacing-large);
 }
