@@ -119,6 +119,10 @@ export function truthy(val: string | Boolean): Boolean {
     return val && (val.toString() === 'true' || val.toString() === '1');
 }
 
-export function make_link(link: string): string {
-    return link.indexOf('http') === 0 ? link : 'http://' + link;
+export function make_link(link?: string): string {
+    if (!link) {
+        return '';
+    } else {
+        return link.indexOf('http') === 0 ? link : 'http://' + link;
+    }
 }
