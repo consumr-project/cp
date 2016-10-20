@@ -50,17 +50,18 @@ angular.module('tcp').directive('search', [
             $scope.query = query;
             $scope.vm.loading = true;
 
-            return Services.search.query(query).then(function (results) {
-                var groups = lodash.groupBy(results.body, 'type'),
-                    result = lodash.head(results.body);
+            return Services.search.query(query).then(function (res) {
+                var results = res.body.results,
+                    groups = lodash.groupBy(results, 'type'),
+                    result = lodash.head(results);
 
                 $scope.vm.results.companies = groups.company || groups.companies;
                 $scope.vm.results.users = groups.user || groups.users;
                 $scope.vm.results.tags = groups.tag || groups.tags;
 
-                $scope.vm.empty = !results.body || !results.body.length;
+                $scope.vm.empty = !results || !results.length;
                 $scope.vm.loading = false;
-                $scope.vm.recent = track_search(query, results);
+                $scope.vm.recent = track_search(query, res);
             });
         }
 

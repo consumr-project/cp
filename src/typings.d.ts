@@ -182,14 +182,31 @@ declare module 'elasticsearch' {
         size?: number;
         type: string;
         body: {
-            query: {
+            query?: {
                 multi_match?: {
                     fields: string[];
                     query: string;
                     fuzziness?: number;
                 }
-            }
+            };
+
+            suggest?: {
+                [query: string]: {
+                    text: string;
+                    term: {
+                        min_word_length: number;
+                        size: number;
+                        field: string;
+                    };
+                };
+            };
         };
+    }
+
+    export interface Suggestion {
+        text: string;
+        score: number;
+        freq: number;
     }
 
     export interface Hit {
@@ -210,10 +227,19 @@ declare module 'elasticsearch' {
             failed: number;
         };
 
-        hits: {
+        hits?: {
             total: number;
             max_score: number;
-            hits: Array<Hit>
+            hits: Hit[];
+        };
+
+        suggest?: {
+            [query: string]: {
+                text?: string;
+                offset?: number;
+                length?: number;
+                options: Suggestion[];
+            }[];
         };
     }
 

@@ -1,8 +1,10 @@
 import { ServiceResponseV1 } from '../http';
-import { Client as Elasticsearch, Results, Hit } from 'elasticsearch';
-import { map, omit } from 'lodash';
+import { Client as Elasticsearch, Results, Hit, Suggestion } from 'elasticsearch';
+import { head, map, omit } from 'lodash';
+import { option } from '../utilities';
 import * as config from 'acm';
 
+const SUGGESTION_LABEL = 'query';
 export const IDX_RECORD = 'record';
 
 export enum INDEX {
@@ -13,6 +15,11 @@ export enum TYPE {
     COMPANIES = <any>'companies',
     TAGS = <any>'tags',
     USERS = <any>'users',
+}
+
+export interface SearchResults {
+    results: Result[];
+    suggestions: Suggestion[];
 }
 
 interface Query {
@@ -45,13 +52,17 @@ function hit_to_result(hit: Hit): Result {
     };
 }
 
-export function normalize(res: Results): ServiceResponseV1<Result[]> {
+export function normalize(res: Results): ServiceResponseV1<SearchResults> {
     return {
         meta: {
             ok: true,
             took: res.took,
         },
-        body: map<Hit, Result>(res.hits.hits, hit_to_result)
+        body: {
+            results: map<Hit, Result>(res.hits.hits, hit_to_result),
+            suggestions: option(head(res.suggest[SUGGESTION_LABEL]))
+                .get_or_else({ options: [] }).options,
+        },
     };
 }
 
@@ -70,7 +81,18 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
                     query: query.query,
                     fields: ['_all'],
                 }
-            }
+            },
+
+            suggest: {
+                [SUGGESTION_LABEL]: {
+                    text: query.query,
+                    term: {
+                        min_word_length: config('elasticsearch.suggest_size'),
+                        size: config('elasticsearch.suggest_min_word_length'),
+                        field: '_all',
+                    }
+                }
+            },
         }
     });
 }
