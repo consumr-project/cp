@@ -176,39 +176,41 @@ declare module 'elasticsearch' {
       apiVersion: number;
     };
 
+    interface QueryBody {
+        bool?: {
+            minimum_should_match: number | string;
+            should?: {
+                prefix?: {
+                    [field: string]: {
+                        value: string;
+                        boost?: number;
+                    };
+                };
+
+                multi_match?: {
+                    fields: string[];
+                    query: string;
+                    fuzziness?: number;
+                };
+
+                fuzzy?: {
+                    [field: string]: {
+                        value: string;
+                        fuzziness?: number | string;
+                        prefix_length?: number | string;
+                    };
+                };
+            }[];
+        };
+    }
+
     interface Query {
         from?: number;
         index: string;
         size?: number;
         type: string;
         body: {
-            query?: {
-                bool?: {
-                    minimum_should_match: number | string;
-                    should?: {
-                        prefix?: {
-                            [field: string]: {
-                                value: string;
-                                boost?: number;
-                            };
-                        };
-
-                        multi_match?: {
-                            fields: string[];
-                            query: string;
-                            fuzziness?: number;
-                        };
-
-                        fuzzy?: {
-                            [field: string]: {
-                                value: string;
-                                fuzziness?: number | string;
-                                prefix_length?: number | string;
-                            };
-                        };
-                    }[];
-                };
-            };
+            query?: QueryBody;
 
             suggest?: {
                 [query: string]: {

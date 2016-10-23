@@ -1,8 +1,10 @@
 import { ServiceResponseV1 } from '../http';
-import { Client as Elasticsearch, Results, Hit, Suggestion } from 'elasticsearch';
 import { head, map, omit } from 'lodash';
 import { option } from '../utilities';
 import * as config from 'acm';
+
+import { Client as Elasticsearch, Results, Hit, Suggestion,
+    QueryBody } from 'elasticsearch';
 
 const SUGGESTION_LABEL = 'query';
 export const IDX_RECORD = 'record';
@@ -67,24 +69,7 @@ export function normalize(res: Results): ServiceResponseV1<SearchResults> {
 }
 
 export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
-    var from = query.from;
-    var size = query.size;
-
-    var index = query.index.toString();
-    var type = query.type ? query.type.join(',') : '';
-
-    var suggest = {
-        [SUGGESTION_LABEL]: {
-            text: query.query,
-            term: {
-                min_word_length: config('elasticsearch.suggest_size'),
-                size: config('elasticsearch.suggest_min_word_length'),
-                field: '_all',
-            }
-        }
-    };
-
-    var query = {
+    return search(es, query, {
         bool: {
             minimum_should_match: 1,
             should: [
@@ -116,6 +101,25 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
                 }
             ],
         },
+    });
+}
+
+export function search(es: Elasticsearch, query_req: Query, query: QueryBody): Promise<Results> {
+    var from = query_req.from;
+    var size = query_req.size;
+
+    var index = query_req.index.toString();
+    var type = query_req.type ? query_req.type.join(',') : '';
+
+    var suggest = {
+        [SUGGESTION_LABEL]: {
+            text: query_req.query,
+            term: {
+                min_word_length: config('elasticsearch.suggest_size'),
+                size: config('elasticsearch.suggest_min_word_length'),
+                field: '_all',
+            }
+        }
     };
 
     return es.search({
