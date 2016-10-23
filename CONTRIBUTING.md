@@ -32,6 +32,7 @@ additional services and service providers:
 export CP_COOKIE_KEY=               # random string used to encript cookies
 export CP_CRYPTO_AUTH_TOKEN_KEY=    # random string used to encript tokens
 export CP_CRYPTO_USER_EMAIL_KEY=    # random string used to encript emails
+export CP_ENV=                      # environment name/label
 export CP_SESSION_KEY=              # random string used to encript sessions
 export EMAIL_SERVICE_HOST=
 export EMAIL_SERVICE_PASS=

@@ -26,7 +26,7 @@ console.log({
     },
 
     environment: {
-        name: config('node.env') || 'development',
+        name: config('cp.env') || 'development',
     },
 
     rollbar: {
