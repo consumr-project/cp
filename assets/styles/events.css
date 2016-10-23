@@ -59,6 +59,11 @@
     cursor: default;
 }
 
+.timeline__event--special .timeline__event__title {
+    position: relative;
+    top: 20px;
+}
+
 .timeline__event .event-elem--view {
     margin-top: -var(--spacing-large);
 }
