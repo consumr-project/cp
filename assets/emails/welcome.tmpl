@@ -1,3 +1,7 @@
 <p style="<%- styles.paragraph %>; <%- styles.content_container %>">
-<%- i18n.get('emails/welcome_email_text', { name: payload.name }) %>
+<%= i18n.get('emails/welcome_email_text', { name: payload.name }) %>
+</p>
+
+<p style="<%- styles.paragraph %>; <%- styles.content_container %>">
+<%= i18n.get('emails/yours') %>
 </p>
