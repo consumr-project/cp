@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const email = require('../build/notification/email');
+
+/**
+ * @param {Error} err
+ */
+function err_exit(err) {
+    console.error('error sendig email')
+    console.error(err);
+    process.exit(1);
+}
+
+/**
+ * @param {Object(to: string)} cmd
+ * @return {Function}
+ */
+function ok_exit(cmd) {
+    return function () {
+        console.log('successfully sent email to %s', cmd.to);
+        process.exit(0);
+    }
+}
+
+/**
+ * @param {Object(to: string, name: string, lang?: string)} cmd
+ * @param {Function} email_fn
+ * @return {void}
+ */
+function send(cmd, email_fn) {
+    email_fn(cmd.to, cmd.name, cmd.lang)
+        .then(ok_exit(cmd))
+        .catch(err_exit);
+}
+
+program
+    .command('welcome')
+    .option('--to [email]', 'email address this email should be sent to')
+    .option('--name [name]', 'name of person email is going to')
+    .option('--lang [language]', 'use a specific language')
+    .description('send a welcome email')
+    .action(cmd => send(cmd, email.send.welcome));
+
+program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+    program.outputHelp();
+}
