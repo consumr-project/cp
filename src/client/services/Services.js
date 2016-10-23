@@ -465,7 +465,6 @@ angular.module('tcp').service('Services', [
          * @return {Promise}
          */
         searchService.query = function (query, limit, offset) {
-            query = "%" + query + "%";
             limit = limit || 100;
             offset = offset || 0;
 
