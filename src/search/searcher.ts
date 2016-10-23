@@ -76,11 +76,37 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
         type: query.type.join(','),
         body: {
             query: {
-                multi_match: {
-                    fuzziness: config('elasticsearch.fuzziness'),
-                    query: query.query,
-                    fields: ['_all'],
-                }
+                bool: {
+                    minimum_should_match: 1,
+                    should: [
+                        {
+                            multi_match: {
+                                fuzziness: config('elasticsearch.fuzziness'),
+                                query: query.query,
+                                fields: ['_all'],
+                            }
+                        },
+
+                        {
+                            prefix: {
+                                __label: {
+                                    value: query.query,
+                                    boost: config('elasticsearch.prefix_boost'),
+                                }
+                            }
+                        },
+
+                        {
+                            fuzzy: {
+                                __label: {
+                                    value: query.query,
+                                    fuzziness: config('elasticsearch.fuzziness'),
+                                    prefix_length: config('elasticsearch.prefix_length'),
+                                }
+                            }
+                        }
+                    ],
+                },
             },
 
             suggest: {

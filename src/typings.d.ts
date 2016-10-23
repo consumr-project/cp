@@ -183,11 +183,31 @@ declare module 'elasticsearch' {
         type: string;
         body: {
             query?: {
-                multi_match?: {
-                    fields: string[];
-                    query: string;
-                    fuzziness?: number;
-                }
+                bool?: {
+                    minimum_should_match: number | string;
+                    should?: {
+                        prefix?: {
+                            [field: string]: {
+                                value: string;
+                                boost?: number;
+                            };
+                        };
+
+                        multi_match?: {
+                            fields: string[];
+                            query: string;
+                            fuzziness?: number;
+                        };
+
+                        fuzzy?: {
+                            [field: string]: {
+                                value: string;
+                                fuzziness?: number | string;
+                                prefix_length?: number | string;
+                            };
+                        };
+                    }[];
+                };
             };
 
             suggest?: {

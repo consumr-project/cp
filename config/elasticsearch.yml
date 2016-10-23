@@ -3,3 +3,5 @@ api_version: "2.1"
 fuzziness: 2
 suggest_size: 3
 suggest_min_word_length: 1
+prefix_boost: 10
+prefix_length: 1
