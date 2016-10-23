@@ -67,58 +67,62 @@ export function normalize(res: Results): ServiceResponseV1<SearchResults> {
 }
 
 export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
-    query.type = query.type || [];
+    var from = query.from;
+    var size = query.size;
 
-    return es.search({
-        from: query.from,
-        index: query.index.toString(),
-        size: query.size,
-        type: query.type.join(','),
-        body: {
-            query: {
-                bool: {
-                    minimum_should_match: 1,
-                    should: [
-                        {
-                            multi_match: {
-                                fuzziness: config('elasticsearch.fuzziness'),
-                                query: query.query,
-                                fields: ['_all'],
-                            }
-                        },
+    var index = query.index.toString();
+    var type = query.type ? query.type.join(',') : '';
 
-                        {
-                            prefix: {
-                                __label: {
-                                    value: query.query,
-                                    boost: config('elasticsearch.prefix_boost'),
-                                }
-                            }
-                        },
+    var suggest = {
+        [SUGGESTION_LABEL]: {
+            text: query.query,
+            term: {
+                min_word_length: config('elasticsearch.suggest_size'),
+                size: config('elasticsearch.suggest_min_word_length'),
+                field: '_all',
+            }
+        }
+    };
 
-                        {
-                            fuzzy: {
-                                __label: {
-                                    value: query.query,
-                                    fuzziness: config('elasticsearch.fuzziness'),
-                                    prefix_length: config('elasticsearch.prefix_length'),
-                                }
-                            }
-                        }
-                    ],
+    var query = {
+        bool: {
+            minimum_should_match: 1,
+            should: [
+                {
+                    multi_match: {
+                        fuzziness: config('elasticsearch.fuzziness'),
+                        query: query.query,
+                        fields: ['_all'],
+                    }
                 },
-            },
 
-            suggest: {
-                [SUGGESTION_LABEL]: {
-                    text: query.query,
-                    term: {
-                        min_word_length: config('elasticsearch.suggest_size'),
-                        size: config('elasticsearch.suggest_min_word_length'),
-                        field: '_all',
+                {
+                    prefix: {
+                        __label: {
+                            value: query.query,
+                            boost: config('elasticsearch.prefix_boost'),
+                        }
+                    }
+                },
+
+                {
+                    fuzzy: {
+                        __label: {
+                            value: query.query,
+                            fuzziness: config('elasticsearch.fuzziness'),
+                            prefix_length: config('elasticsearch.prefix_length'),
+                        }
                     }
                 }
-            },
-        }
+            ],
+        },
+    };
+
+    return es.search({
+        index,
+        type,
+        from,
+        size,
+        body: { query, suggest }
     });
 }
