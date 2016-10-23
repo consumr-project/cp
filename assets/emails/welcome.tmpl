@@ -2,6 +2,12 @@
 <%= i18n.get('emails/welcome_email_text', { name: payload.name }) %>
 </p>
 
+<a href="http://consumrproject.org/login">
+    <button style="<%- styles.btn %>; <%- styles.cp_blue %>">
+    <%= i18n.get('emails/get_started') %>
+    </button>
+</a>
+
 <p style="<%- styles.paragraph %>; <%- styles.content_container %>">
 <%= i18n.get('emails/yours') %>
 </p>

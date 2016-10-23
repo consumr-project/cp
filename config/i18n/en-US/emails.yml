@@ -1,3 +1,4 @@
 welcome_email_subject: "Thank you for joining the consumr project!"
 welcome_email_text: "Hi {name},<br><br>We’re excited to welcome you to the Consumr Project Beta!<br><br>You’re joining a community dedicated to creating a better world. By empowering ourselves and other consumers with crowd-sourced information about the brands we shop, we believe we can influence producers. So go ahead, start learning more about what matters to you and share what you've learned."
 yours: "Yours,<br>Consumr Project Team"
+get_started: "get started"
