@@ -34,6 +34,6 @@ tape('wiki', t => {
         t.comment('infobox with parts');
         check.rescheck(t, err, res);
         t.deepEqual(res.body.body.parts.urls,
-            [ 'http://corporate.walmart.com/', 'http://www.walmart.com/' ]);
+            [ 'http://corporate.walmart.com/', 'https://www.walmart.com/' ]);
     });
 });
