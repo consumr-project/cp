@@ -6,7 +6,7 @@
   "snyk": true,
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/minond/cp",
+  "homepage": "https://github.com/consumr-project/cp",
   "engines": {
     "node": "5.3.0"
   },
@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minond/cp.git"
+    "url": "https://github.com/consumr-project/cp.git"
   },
   "bugs": {
-    "url": "https://github.com/minond/cp/issues"
+    "url": "https://github.com/consumr-project/cp/issues"
   },
   "dependencies": {
     "acm": "2.0.1",
