@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('dotenv').config();
+
 const program = require('commander');
 const email = require('../build/notification/email');
 const normalize_i18n = require('../build/strings').normalize_i18n;
