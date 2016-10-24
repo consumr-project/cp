@@ -2,13 +2,18 @@
 
 const program = require('commander');
 const email = require('../build/notification/email');
+const normalize_i18n = require('../build/strings').normalize_i18n;
 
 /**
- * @param {Error} err
+ * @param {Error} [err]
  */
 function err_exit(err) {
     console.error('error sendig email')
-    console.error(err);
+
+    if (err) {
+        console.error(err);
+    }
+
     process.exit(1);
 }
 
@@ -18,7 +23,9 @@ function err_exit(err) {
  */
 function ok_exit(cmd) {
     return function () {
-        console.log('successfully sent email to %s', cmd.to);
+        console.log('successfully sent email (%s) to %s',
+            normalize_i18n(cmd.lang), cmd.to);
+
         process.exit(0);
     }
 }
@@ -29,16 +36,24 @@ function ok_exit(cmd) {
  * @return {void}
  */
 function send(cmd, email_fn) {
-    email_fn(cmd.to, cmd.name, cmd.lang)
-        .then(ok_exit(cmd))
-        .catch(err_exit);
+    if (!cmd.to) {
+        console.error('"to" value is required');
+        err_exit();
+    } else if (!cmd.name) {
+        console.error('"name" value is required');
+        err_exit();
+    } else {
+        email_fn(cmd.to, cmd.name, cmd.lang)
+            .then(ok_exit(cmd))
+            .catch(err_exit);
+    }
 }
 
 program
     .command('welcome')
-    .option('--to [email]', 'email address this email should be sent to')
-    .option('--name [name]', 'name of person email is going to')
-    .option('--lang [language]', 'use a specific language')
+    .option('-t, --to <email>', 'email address this email should be sent to')
+    .option('-n, --name <name>', 'name of person email is going to')
+    .option('-l, --lang [language]', 'use a specific language')
     .description('send a welcome email')
     .action(cmd => send(cmd, email.send.welcome));
 
