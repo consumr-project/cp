@@ -66,7 +66,8 @@ angular.module('tcp').directive('tcpTopmost', [
                 // from popover
                 hide: null,
                 show: null,
-                showNow: $location.search().login === true,
+                showNow: $location.search().login === true &&
+                    Navigation.one_of([Navigation.BASES.HOME]),
             };
 
             $scope.nav = {
