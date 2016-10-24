@@ -1,5 +1,6 @@
 angular.module('tcp').directive('tcpTopmost', [
     'DOMAIN',
+    '$location',
     '$interval',
     '$timeout',
     'Navigation',
@@ -9,7 +10,7 @@ angular.module('tcp').directive('tcpTopmost', [
     'Cookie',
     'lodash',
     'validator',
-    function (DOMAIN, $interval, $timeout, Navigation, Services, Session, utils, Cookie, _, validator) {
+    function (DOMAIN, $location, $interval, $timeout, Navigation, Services, Session, utils, Cookie, _, validator) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -64,7 +65,8 @@ angular.module('tcp').directive('tcpTopmost', [
             $scope.login = {
                 // from popover
                 hide: null,
-                show: null
+                show: null,
+                showNow: $location.search().login === true,
             };
 
             $scope.nav = {
@@ -82,7 +84,6 @@ angular.module('tcp').directive('tcpTopmost', [
 
             $scope.submit_beta_email = submit_beta_email;
             $scope.with_linkedin = login_with_linkedin;
-            $scope.login = login;
             $scope.logout = logout;
 
             $scope.$watchCollection('session', cache_session);
@@ -164,10 +165,6 @@ angular.module('tcp').directive('tcpTopmost', [
                 console.info('loggin in with linkedin');
                 Session.login(Session.PROVIDER.LINKEDIN);
                 Session.once(Session.EVENT.LOGIN, $scope.login.hide);
-            }
-
-            function login() {
-                $scope.login.show();
             }
 
             function logout() {
@@ -324,7 +321,7 @@ angular.module('tcp').directive('tcpTopmost', [
                 '        <img class="tcp-long-logo" alt="consumrproject-logo"',
                 '            src="/assets/images/brand/consumrproject-text.png" />',
 
-                '        <button ng-if="!session.logged_in" ng-click="login()"',
+                '        <button ng-if="!session.logged_in" ng-click="login.show()"',
                 '            i18n="admin/sing_in_or_up" class="right animated fadeIn"></button>',
 
                 '        <avatar',

@@ -2,7 +2,7 @@
 <%= i18n.get('emails/welcome_email_text', { name: payload.name }) %>
 </p>
 
-<a href="<%- config.url %>/login">
+<a href="<%- config.url %>/?login">
     <button style="<%- styles.btn %>; <%- styles.cp_blue %>">
     <%= i18n.get('emails/get_started') %>
     </button>
