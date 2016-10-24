@@ -55,6 +55,9 @@ function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
         images: ASSETS.images,
         styles: ASSETS.styles,
         i18n: pick_i18n(lang),
+        config: {
+            url: config('cp.url'),
+        }
     };
 
     data.body = TEMPLATES[template](data);
