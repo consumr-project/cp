@@ -9,3 +9,6 @@ company_founded: Company founded
 common_tags: most common tags
 related_companies: related
 new_company_more_info: "you tagged \"{name}\" and it’s not in our system yet. mind giving us a few more details?"
+
+bad_results: "don't see the company you're looking for?"
+create_yourself: "create it yourself"

@@ -139,17 +139,27 @@ angular.module('tcp').directive('company', [
             '    </section>',
 
             '    <section ng-if="vm.company_options" class="margin-top-xlarge animated fadeIn">',
-            '        <section ng-if="!vm.company_options.length" class="center-align">',
+            '        <section ng-if="!vm.company_options.length">',
             '            <h2 i18n="common/no_results" data="{query: vm.search_name}"></h2>',
             '        </section>',
+
             '        <section ng-if="vm.company_options.length">',
             '            <h2 i18n="common/results"></h2>',
-            '            <div ng-repeat="option in vm.company_options" ng-click="set_company(option.title)">',
+            '            <div ng-repeat="option in vm.company_options | limitTo:10" ng-click="set_company(option.title)">',
             '                <p class="highlight-action padding-right-xsmall padding-left-xsmall margin-right-xsmall-negative margin-left-xsmall-negative">',
             '                    <b>{{::option.title}}</b><span ng-if="::option.snippet">: {{::option.snippet}}</span>',
             '                </p>',
             '            </div>',
+
+            '            <hr>',
+            '            <h2 class="margin-top-medium" i18n="company/bad_results"></h2>',
             '        </section>',
+
+            '        <div>',
+            '            <button class="margin-top-medium"',
+            '                ng-click="create_yourself(vm.search_name)"',
+            '                i18n="company/create_yourself"></button>',
+            '        </div>',
             '    </section>',
 
             '    <p ng-if="!vm.existing" class="animated fadeIn" ',
@@ -191,7 +201,11 @@ angular.module('tcp').directive('company', [
 
             '    <div ng-if="!vm.existing && vm.step.length > 1" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
             '        <h1 i18n="company/what_is_the_website" data="{name: company.name}"></h1>',
-            '        <input class="block title" ng-focus="true" ng-model="company.website_url" />',
+            '        <input class="block title"',
+            '            i18n="common/website"',
+            '            prop="placeholder"',
+            '            ng-focus="true"',
+            '            ng-model="company.website_url" />',
             '    </div>',
 
             '    <div ng-if="!vm.existing && vm.step.length > 2" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
@@ -371,6 +385,27 @@ angular.module('tcp').directive('company', [
                         });
                     });
                 }).catch(error_creating_company);
+            };
+
+            /**
+             * @param {String} name
+             */
+            $scope.create_yourself = function (name) {
+                utils.assert(name);
+
+                Services.extract.wikipedia.extract.cancel();
+
+                $scope.vm.company_options = null;
+                $scope.vm.pre_search_name = $scope.vm.search_name;
+                $scope.vm.step = [true, true];
+
+                $scope.company = {};
+                $scope.company.name = name;
+                $scope.company.summary = '';
+                $scope.company.wikipedia_url = '';
+                $scope.company.website_url = '';
+
+                normalize_company($scope.company);
             };
 
             /**

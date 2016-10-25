@@ -6,3 +6,5 @@ company_founded: 'company foundd'
 common_tags: 'most common tags'
 related_companies: relatd
 new_company_more_info: 'u taggd "{name}" an it’s not in r sistem yet. mind givin us few moar details?'
+bad_results: "don't see the company you're looking for?"
+create_yourself: "create it yourself"
