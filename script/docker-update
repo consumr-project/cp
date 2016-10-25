@@ -9,7 +9,8 @@ fi
 
 echo "updating containers with $file!!"
 
-./script/bootstrap env && \
+git pull origin master && \
+    ./script/bootstrap env && \
     docker-compose -f "$file" run --rm server make && \
     docker-compose -f "$file" run --rm server ./script/docker-database && \
     docker-compose -f "$file" restart server
