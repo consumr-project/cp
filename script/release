@@ -14,7 +14,6 @@ COMMAND
 case "$1" in
     heroku)
         echo "pushing to heroku!!"
-        exit
 
         if [ "$last_commit_message" != "$commit_message" ]; then
             echo "stamping project"
