@@ -108,7 +108,8 @@ EOF
 
     *)
         echo invalid option
-        echo usage: $0 [command]
+        echo "usage: $0 <command>"
+        echo
         echo commands:
         echo "    - base              generate data for the app to be useful"
         echo "    - test              generate data for the app to be testable"

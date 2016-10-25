@@ -1,0 +1,41 @@
+#!/bin/bash
+
+commit_message="[skip ci] stamp"
+last_commit_message=$(git log --format=%B -n 1)
+
+migrations_command=$(cat << COMMAND
+touch ~/.pgpass;
+chmod 0600 ~/.pgpass;
+./script/bootstrap postgres > ~/.pgpass;
+./script/migration run;
+COMMAND
+)
+
+case "$1" in
+    heroku)
+        echo "pushing to heroku!!"
+        exit
+
+        if [ "$last_commit_message" != "$commit_message" ]; then
+            echo "stamping project"
+            ./script/compile-project-stamp > dist/stamp.json && \
+                git commit -m "[skip ci] stamp" dist/stamp.json
+        else
+            echo "using previous stamp"
+        fi
+
+        git push origin master && \
+            git push heroku master && \
+            heroku run "$(echo $migrations_command)"
+
+        ;;
+
+    *)
+        echo invalid option
+        echo "usage: $0 <command>"
+        echo
+        echo commands:
+        echo "    - heroku            push to heroku"
+        exit 1
+        ;;
+esac
