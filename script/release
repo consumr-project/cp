@@ -18,7 +18,7 @@ case "$1" in
 
         if [ "$last_commit_message" != "$commit_message" ]; then
             echo "stamping project"
-            ./script/compile-project-stamp > dist/stamp.json && \
+            ./script/stamp > dist/stamp.json && \
                 git commit -m "[skip ci] stamp" dist/stamp.json
         else
             echo "using previous stamp"
