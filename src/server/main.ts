@@ -131,5 +131,8 @@ app.get('*', (req, res) =>
         lang: normalize_i18n(req.query.lang),
     }));
 
+log.debug('loading hooks');
+import '../hooks/user_created';
+
 app.listen(config('port') || 3000);
 log.info('listening for requests');

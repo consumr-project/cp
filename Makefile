@@ -126,7 +126,6 @@ build-server:
 	$(tsc) src/typings.d.ts src/server/main.ts \
 			src/record/models/* \
 			src/auth/token.ts \
-			src/notification/email.ts \
 		--outDir $(build_dir) \
 		--module commonjs \
 		--pretty \

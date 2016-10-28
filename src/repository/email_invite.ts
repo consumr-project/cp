@@ -1,6 +1,9 @@
 import { v4 } from 'node-uuid';
+import { emitter } from '../hooks/emitter';
 import { BetaEmailInvite } from '../device/models';
 import { User as IUser, BetaEmailInvite as IBetaEmailInvite } from 'cp/record';
+
+import { USER_INVITED } from '../events';
 
 interface BetaEmailInviteMessage {
     email: string;
@@ -34,23 +37,26 @@ export function save_unapproved_email_invite(invite: BetaEmailInviteMessage, you
 export function save_approved_email_invite(invite: BetaEmailInviteMessage, you: IUser) {
     return new Promise<IBetaEmailInvite>((resolve, reject) => {
         BetaEmailInvite.create(create_email_invite(invite, you, true))
-            .then(resolve)
+            .then(invite => {
+                emitter.emit(USER_INVITED, invite);
+                resolve(invite);
+            })
             .catch(reject);
     });
 }
 
 export function approve_email_invite(invite: BetaEmailInviteMessage, you: IUser) {
+    var { email } = invite;
     return new Promise<boolean>((resolve, reject) => {
         BetaEmailInvite.update({
             approved: true,
             approved_by: you.id,
             approved_date: Date.now(),
-        }, {
-            where: {
-                email: invite.email,
-            }
-        })
-            .then(() => resolve(true))
+        }, { where: { email } })
+            .then(invites => {
+                emitter.emit(USER_INVITED, { email });
+                resolve(true);
+            })
             .catch(reject);
     });
 }

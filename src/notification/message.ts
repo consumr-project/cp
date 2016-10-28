@@ -118,7 +118,7 @@ export default class Message {
     // any information specific to this type of message
     public payload: PAYLOAD;
 
-    constructor(category, subcategory, to, payload) {
+    constructor(category, subcategory, to, payload?) {
         this.id = v4();
         this.date = new Date;
         this.category = category;
@@ -126,7 +126,7 @@ export default class Message {
         this.to = to;
         this.viewed = false;
         this.completed = false;
-        this.payload = payload;
+        this.payload = payload || {};
         this.sign();
     }
 

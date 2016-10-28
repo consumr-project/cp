@@ -86,7 +86,7 @@ export function send(transport: Transporter, msg: Message, lang: string = ''): P
 }
 
 export namespace send {
-    export function welcome(to: string, name: string, lang: string = '') {
-        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to, { name }), lang);
+    export function welcome(to: string, lang: string = '') {
+        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to), lang);
     }
 }
