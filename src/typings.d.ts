@@ -1,22 +1,5 @@
 ///<reference path="../typings/main.d.ts" />
 
-declare module 'cp/cache' {
-    interface Options {
-        ttl?: number;
-    }
-
-    interface Item<T> {
-        name: string;
-        value: T;
-        expire_at?: string | Date;
-    }
-
-    interface Cache<T> {
-        get: (name: string) => Promise<T>;
-        set: (name: string, value: Object, opt?: Options) => Promise<boolean>;
-    }
-}
-
 declare module 'cp/record' {
     import { Model as RealModel, Sequelize } from 'sequelize';
 

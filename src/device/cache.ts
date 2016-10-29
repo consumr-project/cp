@@ -1,10 +1,24 @@
-import { Cache, Item } from 'cp/cache';
 import { Collection } from 'mongodb';
 
 const IDX_COLL = { expire_at: 1 };
 const IDX_CONF = { expireAfterSeconds: 0 };
 
-function gen_item<T>(name, value, ttl): Item<T> {
+export interface Options {
+    ttl?: number;
+}
+
+export interface Item<T> {
+    name: string;
+    value: T;
+    expire_at?: string | Date;
+}
+
+export interface Cache<T> {
+    get: (name: string) => Promise<T>;
+    set: (name: string, value: Object, opt?: Options) => Promise<boolean>;
+}
+
+function gen_item<T>(name: string, value: T, ttl: number): Item<T> {
     return { name, value, expire_at: new Date(Date.now() + ttl) };
 }
 

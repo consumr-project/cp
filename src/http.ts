@@ -3,7 +3,7 @@ import * as config from 'acm';
 import * as RateLimit from 'express-rate-limit';
 import { RateLimitConfiguration } from 'express-rate-limit';
 import { clone } from 'lodash';
-import { Cache } from 'cp/cache';
+import { Cache } from './device/cache';
 
 export type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
 export type ServiceRequestPromise<T> = (req: Request, res: Response, next: (err?: Error) => {}) => Promise<T>;

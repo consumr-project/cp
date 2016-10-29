@@ -122,6 +122,8 @@ else
 		./node_modules/.bin/cssmin > $(build_css)
 endif
 
+build-ts: build-server build-worker build-client-app
+
 build-server:
 	$(tsc) src/typings.d.ts src/server/main.ts \
 			src/record/models/* \
