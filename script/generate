@@ -5,13 +5,10 @@ const config = require('acm');
 const faker = require('faker');
 const uuid = require('uuid');
 
+const crypto = require('../build/crypto');
 const KEY_USER_EMAIL = require('../build/keys').KEY_USER_EMAIL;
 
-const crypto = require('../build/crypto');
-const connect = require('../build/device/dbms').default;
-const gen_models = require('../build/record/models').default;
-
-const Models = gen_models(connect());
+const Models = require('../build/device/models');
 const User = Models.User;
 const Review = Models.Review;
 const Question = Models.Question;
