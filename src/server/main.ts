@@ -23,6 +23,7 @@ const body_parser = require('body-parser');
 const cookie = require('cookie-parser');
 const timeout = require('connect-timeout');
 const session = require('express-session');
+const LokiStore = require('connect-loki')(session);
 const compression = require('compression');
 const swig = require('swig');
 
@@ -67,6 +68,9 @@ app.use(session({
     secret: KEY_SESSION,
     saveUninitialized: false,
     resave: false,
+    store: new LokiStore({
+        path: `${__dirname}/../../build/session.db`
+    }),
 }));
 
 app.use(auth_service.passport.initialize());
