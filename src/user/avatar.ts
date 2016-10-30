@@ -3,11 +3,16 @@ import { User as UserMessage } from 'cp/record';
 import { User } from '../device/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';
+import * as md5 from 'md5';
+import * as imgur from 'imgur';
 
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
 
-import md5 = require('md5');
+const IMGUR_ALBUM_ID = config('files.avatars.imgur.album_id');
+const IMGUR_CLIENT_ID = config('files.avatars.imgur.client_id');
+const IMGUR_PASSWORD = config('files.avatars.imgur.password');
+const IMGUR_USERNAME = config('files.avatars.imgur.username');
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
@@ -52,4 +57,13 @@ export function url(
     return User.findOne({ where: query })
         .then(user => user && user.avatar_url ||
             generate_gravatar_url(size, rating, user));
+}
+
+export function upload(user_id: string, base64: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        imgur.setCredentials(IMGUR_USERNAME, IMGUR_PASSWORD, IMGUR_CLIENT_ID);
+        imgur.uploadBase64(base64, IMGUR_ALBUM_ID)
+            .then(res => resolve(res.data.link))
+            .catch(reject);
+    });
 }
