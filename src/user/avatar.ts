@@ -50,5 +50,6 @@ export function url(
     rating: RATING = RATING.G
 ): Promise<string> {
     return User.findOne({ where: query })
-        .then(user => generate_gravatar_url(size, rating, user));
+        .then(user => user && user.avatar_url ||
+            generate_gravatar_url(size, rating, user));
 }
