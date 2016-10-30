@@ -148,9 +148,32 @@ declare module 'urijs' {
     export function withinString(source: string, callback: (uri: string) => any): any[];
 }
 
+declare module 'imgur' {
+    namespace imgur {
+        // https://api.imgur.com/models/basic
+        export interface BasicResponse<T> {
+            success: boolean;
+            status: number;
+            data: T;
+        }
+
+        // https://api.imgur.com/models/image
+        export interface ImageModel {
+            id: string;
+            link: string;
+        }
+
+        export function setCredentials(username: string, password: string, client_id: string): void;
+        export function uploadBase64(img: string, album?: string): Promise<BasicResponse<ImageModel>>;
+    }
+
+    export = imgur;
+}
+
 declare module 'md5' {
-    function fn(str: string): string;
-    export = fn;
+    function md5(str: string): string;
+    namespace md5 {}
+    export = md5;
 }
 
 declare module 'elasticsearch' {
