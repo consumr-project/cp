@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { get_user_gravatar_url } from '../user/avatar';
+import { url } from '../user/avatar';
 import { service_redirect } from '../http';
 import { BadRequestError, ERR_MSG_MISSING_FIELDS } from '../errors';
 
@@ -17,5 +17,5 @@ app.get('/avatar', service_redirect((req, res, next) => {
             reject(new BadRequestError(ERR_MSG_MISSING_FIELDS(['email or id']))));
     }
 
-    return get_user_gravatar_url(query, req.query.size, req.query.rating);
+    return url(query, req.query.size, req.query.rating);
 }));

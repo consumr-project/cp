@@ -31,9 +31,6 @@ export function generate_gravatar_url(
     rating: RATING = RATING.G,
     user?: UserMessage
 ): string {
-    let fallback = user && user.avatar_url ?
-        user.avatar_url : FALLBACK;
-
     let email = (user && user.email ?
         decrypt(user.email, KEY_USER_EMAIL) : '')
             .toLowerCase()
@@ -41,13 +38,13 @@ export function generate_gravatar_url(
 
     return GRAVATAR_URL + md5(email) + '?' +
         querystring.stringify({
-            d: fallback,
+            d: FALLBACK,
             s: size,
             r: rating,
         });
 }
 
-export function get_user_gravatar_url(
+export function url(
     query: WhereOptions,
     size: SIZE = SIZE.AVATAR,
     rating: RATING = RATING.G
