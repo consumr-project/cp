@@ -1,10 +1,11 @@
 import { WhereOptions } from 'sequelize';
 import { User as UserMessage } from 'cp/record';
-import { decrypt } from '../crypto';
-import { KEY_USER_EMAIL } from '../keys';
 import { User } from '../device/models';
 import * as querystring from 'querystring';
 import * as config from 'acm';
+
+import { decrypt } from '../crypto';
+import { KEY_USER_EMAIL } from '../keys';
 
 import md5 = require('md5');
 
@@ -25,12 +26,18 @@ export enum SIZE {
     FULL = 2048,
 }
 
-export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G, user?: UserMessage): string {
-    let fallback = user && user.avatar_url ? user.avatar_url : FALLBACK;
+export function generate_gravatar_url(
+    size: SIZE = SIZE.AVATAR,
+    rating: RATING = RATING.G,
+    user?: UserMessage
+): string {
+    let fallback = user && user.avatar_url ?
+        user.avatar_url : FALLBACK;
 
-    let email = (user && user.email ? decrypt(user.email, KEY_USER_EMAIL) : '')
-        .toLowerCase()
-        .trim();
+    let email = (user && user.email ?
+        decrypt(user.email, KEY_USER_EMAIL) : '')
+            .toLowerCase()
+            .trim();
 
     return GRAVATAR_URL + md5(email) + '?' +
         querystring.stringify({
@@ -40,7 +47,11 @@ export function generate_gravatar_url(size: SIZE = SIZE.AVATAR, rating: RATING =
         });
 }
 
-export function get_user_gravatar_url(query: WhereOptions, size: SIZE = SIZE.AVATAR, rating: RATING = RATING.G): Promise<string> {
+export function get_user_gravatar_url(
+    query: WhereOptions,
+    size: SIZE = SIZE.AVATAR,
+    rating: RATING = RATING.G
+): Promise<string> {
     return User.findOne({ where: query })
         .then(user => generate_gravatar_url(size, rating, user));
 }
