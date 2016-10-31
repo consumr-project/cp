@@ -266,6 +266,15 @@ namespace tcp {
     ]);
 
     angular.module('tcp').run([
+        'Webcam',
+        'lodash',
+        function (Webcam, lodash) {
+            Webcam.on('error', lodash.noop);
+            Webcam.setSWFLocation('/node_modules/webcamjs/webcam.swf');
+        }
+    ]);
+
+    angular.module('tcp').run([
         '$route',
         '$rootScope',
         '$location',
