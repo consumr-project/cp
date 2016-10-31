@@ -45,7 +45,7 @@ setup:
 
 run: clean build server
 
-build: clean build-css build-strings build-client build-server build-worker
+build: build-css build-strings build-client build-server build-worker
 
 test:
 	./script/test
