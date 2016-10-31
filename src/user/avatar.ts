@@ -59,7 +59,7 @@ export function url(
             generate_gravatar_url(size, rating, user));
 }
 
-export function upload(user_id: string, base64: string): Promise<string> {
+export function upload(base64: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
         imgur.setCredentials(IMGUR_USERNAME, IMGUR_PASSWORD, IMGUR_CLIENT_ID);
         imgur.uploadBase64(base64, IMGUR_ALBUM_ID)
