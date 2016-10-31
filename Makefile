@@ -182,6 +182,10 @@ build-client-deps:
 	$(js_sep) >> $(build_vendor_js)
 	$(js_min) node_modules/rollbar-browser/dist/rollbar.umd.nojson.js >> $(build_vendor_js)
 	$(js_sep) >> $(build_vendor_js)
+	$(js_min) node_modules/webcamjs/webcam.js >> $(build_vendor_js)
+	$(js_sep) >> $(build_vendor_js)
+	$(js_min) node_modules/dropzone/dist/dropzone.js >> $(build_vendor_js)
+	$(js_sep) >> $(build_vendor_js)
 
 build-client-src:
 	echo "" > $(build_client_js)
@@ -206,6 +210,7 @@ build-client-src:
 	$(js_min) src/client/elements/tags.js >> $(build_client_js)
 	$(js_min) src/client/elements/i18n.js >> $(build_client_js)
 	$(js_min) src/client/elements/datepicker.js >> $(build_client_js)
+	$(js_min) src/client/elements/img-upload.js >> $(build_client_js)
 	$(js_min) src/client/components/user.js >> $(build_client_js)
 	$(js_min) src/client/components/search.js >> $(build_client_js)
 	$(js_min) src/client/components/notification.js >> $(build_client_js)

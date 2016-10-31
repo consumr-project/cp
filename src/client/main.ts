@@ -122,8 +122,11 @@ namespace tcp {
     angular.module('tcp')
         .value('Cache', Cache)
         .value('Cookie', Cookie)
+        .value('Dropzone', require('dropzone'))
         .value('EventEmitter2', EventEmitter2)
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
+        .value('Visitor', Visitor)
+        .value('Webcam', require('webcamjs'))
         .value('i18n', i18n) // global
         .value('jQuery', jQuery)
         .value('lodash', _)
@@ -132,8 +135,7 @@ namespace tcp {
         .value('shasum', shasum)
         .value('utils', utils)
         .value('utils2', utils2)
-        .value('validator', validator)
-        .value('Visitor', Visitor);
+        .value('validator', validator);
 
     angular.module('tcp').config([
         '$routeProvider',
