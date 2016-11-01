@@ -12,3 +12,8 @@ following_users: 'peeps {count}'
 following_tags: 'tags {count}'
 followers: 'followers {count}'
 favorites: 'favoritez {count}'
+update_photo: Update Profile Picture
+upload_photo: Upload Photo
+take_photo: Take Photo
+upload_photo_desc: Drag and drop a photo into this are or click here to search for one.
+take_photo_desc: Click here to take and upload a photo using your computer's webcam.
