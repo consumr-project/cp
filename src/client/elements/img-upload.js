@@ -8,20 +8,39 @@ angular.module('tcp').directive('imgUpload', [
         'use strict';
 
         var UPLOAD_CONFIG = {
-            url: '/service/extract/page'
+            url: '/service/user/upload',
+            previewTemplate: '<span></span>',
+            autoProcessQueue: false,
         };
 
         var WEBCAM_CONFIG = {
-            width: 320,
-            height: 240,
             dest_width: 640,
             dest_height: 480,
         };
 
         var template = [
             '<div class="img-upload">',
-            '    <div class="img-upload__upload"></div>',
-            '    <div class="img-upload__webcam"></div>',
+            '    <table>',
+            '        <tr>',
+            '            <td colspan="2">',
+            '                <div class="img-upload__header" i18n="user/update_photo"></div>',
+            '            </td>',
+            '        </tr>',
+            '        <tr>',
+            '            <td class="img-upload__act img-upload__upload">',
+            '                <div class="img-upload__upload__info">',
+            '                    <div class="img-upload__info_text" i18n="user/upload_photo"></div>',
+            '                    <div class="img-upload__info_desc" i18n="user/upload_photo_desc"></div>',
+            '                </div>',
+            '            </td>',
+            '            <td class="img-upload__act img-upload__webcam" ng-click="start_cam()">',
+            '                <div class="img-upload__webcam__info">',
+            '                    <div class="img-upload__info_text" i18n="user/take_photo"></div>',
+            '                    <div class="img-upload__info_desc" i18n="user/take_photo_desc"></div>',
+            '                </div>',
+            '            </td>',
+            '        </tr>',
+            '    </table>',
             '</div>',
         ].join('');
 
@@ -40,10 +59,10 @@ angular.module('tcp').directive('imgUpload', [
 
             webcam.reset();
             webcam.set(WEBCAM_CONFIG);
-            webcam.attach(webcam_node);
 
             scope.upload = upload;
             scope.webcam = webcam;
+            scope.webcam_node = webcam_node;
         }
 
         /**
@@ -53,7 +72,11 @@ angular.module('tcp').directive('imgUpload', [
         function controller($scope) {
             $scope.$on('$destroy', Webcam.reset.bind(Webcam));
 
-            $scope.snap = function () {
+            $scope.start_cam = function () {
+                $scope.webcam.attach($scope.webcam_node);
+            };
+
+            $scope.take_photo = function () {
                 Webcam.snap(function (data) {
                 });
             };

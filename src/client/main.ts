@@ -266,11 +266,13 @@ namespace tcp {
     ]);
 
     angular.module('tcp').run([
+        'Dropzone',
         'Webcam',
         'lodash',
-        function (Webcam, lodash) {
+        function (Dropzone, Webcam, lodash) {
             Webcam.on('error', lodash.noop);
             Webcam.setSWFLocation('/node_modules/webcamjs/webcam.swf');
+            Dropzone.autoDiscover = false;
         }
     ]);
 
