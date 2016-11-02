@@ -2,12 +2,6 @@ import deep = require('deep-get-set');
 
 export import elem_is_visible = require('true-visibility');
 
-export function pluck<T>(prop: string): (obj: any) => T {
-    return function (obj: any) {
-        return obj[prop];
-    };
-}
-
 export function assert(val: any, message?: String | Function): Boolean {
     var err;
 
