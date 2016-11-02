@@ -3,7 +3,6 @@
     border-radius: 2px;
     border: 1px solid var(--color-std-border-color);
     display: inline-block;
-    font-size: var(--font-size-small);
     transition: opacity var(--speed-friendly);
     z-index: var(--z-index-popover);
 }
