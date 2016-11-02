@@ -63,6 +63,10 @@ button.imgview--plus-black {
     background-size: 22px;
 }
 
+.imgview--camera {
+    background-image: url(/assets/images/camera.svg);
+}
+
 button.imgview--bell {
     background-position: 50% 50%;
     background-size: 27px;
