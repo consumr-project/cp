@@ -11,7 +11,8 @@ angular.module('tcp').directive('company', [
     '$q',
     '$window',
     'i18n',
-    function (RUNTIME, EVENTS, DOMAIN, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n) {
+    'slug',
+    function (RUNTIME, EVENTS, DOMAIN, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n, slug) {
         'use strict';
 
         var HTML_PAGE = [
@@ -423,7 +424,7 @@ angular.module('tcp').directive('company', [
                     $scope.company.name = res.body.title;
                     $scope.company.summary = res.body.extract;
                     $scope.company.wikipedia_url = 'https://en.wikipedia.org/?curid=' + res.body.id;
-                    $scope.company.website_url = 'https://' + utils.simplify(res.body.title) + '.com';
+                    $scope.company.website_url = 'https://' + slug(res.body.title) + '.com';
 
                     normalize_company($scope.company);
 
@@ -647,7 +648,7 @@ angular.module('tcp').directive('company', [
                 return {
                     id: $scope.company.id || Services.query.UUID,
                     name: $scope.company.name,
-                    guid: utils.simplify($scope.company.name),
+                    guid: slug($scope.company.name),
                     summary: $scope.company.summary,
                     website_url: $scope.company.website_url,
                     wikipedia_url: $scope.company.wikipedia_url,

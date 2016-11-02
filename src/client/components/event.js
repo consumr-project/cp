@@ -11,7 +11,8 @@ angular.module('tcp').directive('event', [
     'shasum',
     'i18n',
     'validator',
-    function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n, validator) {
+    'slug',
+    function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n, validator, slug) {
         'use strict';
 
         var HTML_VIEW = [
@@ -502,7 +503,7 @@ angular.module('tcp').directive('event', [
                 Services.query.companies.create({
                     id: Services.query.UUID,
                     name: str,
-                    guid: utils.simplify(str),
+                    guid: slug(str),
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id
                 }).then(function (company) {

@@ -20,6 +20,7 @@ js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/uglifyjs
 js_sep = @echo ";\n"
 
+browserify_options = --external aws4 --ignore unicode/category/So
 ts_options =
 build_vars =
 
@@ -154,9 +155,9 @@ build-client-app:
 
 build-client-bundle:
 ifdef DEBUG
-	$(browserify) $(build_dir)/src/client/main.js --external aws4 --debug > $(build_bundle_js)
+	$(browserify) $(build_dir)/src/client/main.js $(browserify_options) --debug > $(build_bundle_js)
 else
-	$(browserify) $(build_dir)/src/client/main.js --external aws4 | \
+	$(browserify) $(build_dir)/src/client/main.js $(browserify_options) | \
 		./node_modules/.bin/uglifyjs > $(build_bundle_js)
 endif
 

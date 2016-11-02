@@ -1,9 +1,5 @@
 import deep = require('deep-get-set');
 
-const M_SPACES: RegExp = / /g;
-const M_DASHES: RegExp = /-+/g;
-const M_NON_LETTERS: RegExp = /[^a-zA-Z\d-]/g;
-
 export import elem_is_visible = require('true-visibility');
 
 export function pluck<T>(prop: string): (obj: any) => T {
@@ -51,11 +47,4 @@ export function preload(url: string, callback: any | Function):HTMLImageElement 
     img.onerror = callback;
     img.src = url;
     return img;
-}
-
-export function simplify(str: string): string {
-    return str.toLowerCase()
-        .replace(M_SPACES, '-')
-        .replace(M_DASHES, '-')
-        .replace(M_NON_LETTERS, '');
 }

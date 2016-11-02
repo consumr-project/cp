@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as slug from 'slug';
 import * as moment from 'moment/moment';
 import * as Cookie from 'js-cookie';
 import { EventEmitter2 } from 'eventemitter2';
@@ -133,6 +134,7 @@ namespace tcp {
         .value('messages', messages)
         .value('moment', moment)
         .value('shasum', shasum)
+        .value('slug', slug)
         .value('utils', utils)
         .value('utils2', utils2)
         .value('validator', validator);
@@ -269,10 +271,12 @@ namespace tcp {
         'Dropzone',
         'Webcam',
         'lodash',
-        function (Dropzone, Webcam, lodash) {
+        'slug',
+        function (Dropzone, Webcam, lodash, slug) {
             Webcam.on('error', lodash.noop);
             Webcam.setSWFLocation('/node_modules/webcamjs/webcam.swf');
             Dropzone.autoDiscover = false;
+            slug.defaults.mode = 'rfc3986';
         }
     ]);
 
