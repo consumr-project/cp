@@ -4,13 +4,16 @@ angular.module('tcp').directive('imgUpload', [
     'Dropzone',
     'Webcam',
     'i18n',
-    function (Dropzone, Webcam, i18n) {
+    'utils',
+    function (Dropzone, Webcam, i18n, utils) {
         'use strict';
 
         var UPLOAD_CONFIG = {
             url: '/service/user/upload',
-            previewTemplate: '<span></span>',
+            previewTemplate: '<span class="img-upload__act__preview"><img data-dz-thumbnail /></span>',
             autoProcessQueue: false,
+            uploadMultiple: false,
+            maxFilesize: 10,
         };
 
         var WEBCAM_CONFIG = {
@@ -22,8 +25,8 @@ angular.module('tcp').directive('imgUpload', [
             '<div class="img-upload">',
             '    <table>',
             '        <tr>',
-            '            <td colspan="2">',
-            '                <div class="img-upload__header" i18n="user/update_photo"></div>',
+            '            <td colspan="2" class="img-upload__header">',
+            '                <div i18n="user/update_photo"></div>',
             '            </td>',
             '        </tr>',
             '        <tr>',
@@ -40,6 +43,15 @@ angular.module('tcp').directive('imgUpload', [
             '                </div>',
             '            </td>',
             '        </tr>',
+            '        <tr>',
+            '            <td colspan="2" class="img-upload__footer">',
+            '                <button i18n="admin/submit"',
+            '                    ng-disabled="!vm.can_submit"></button>',
+            '                <button i18n="admin/cancel"',
+            '                    class="button--link"',
+            '                    ng-click="cancel()"></button>',
+            '            </td>',
+            '        </tr>',
             '    </table>',
             '</div>',
         ].join('');
@@ -51,6 +63,8 @@ angular.module('tcp').directive('imgUpload', [
          * @return {void}
          */
         function link(scope, elem, attrs) {
+            var img_file, img_data;
+
             var upload_node = elem.find('.img-upload__upload').get(0);
             var webcam_node = elem.find('.img-upload__webcam').get(0);
 
@@ -59,34 +73,61 @@ angular.module('tcp').directive('imgUpload', [
 
             webcam.reset();
             webcam.set(WEBCAM_CONFIG);
+            utils.preload(Webcam.params.swfURL);
 
-            scope.upload = upload;
-            scope.webcam = webcam;
-            scope.webcam_node = webcam_node;
-        }
+            upload.on('addedfile', set_img_file);
 
-        /**
-         * @param {Angular.Scope} $scope
-         * @return {void}
-         */
-        function controller($scope) {
-            $scope.$on('$destroy', Webcam.reset.bind(Webcam));
+            scope.$on('$destroy', cancel);
+            scope.start_cam = start_cam;
+            scope.take_photo = take_photo;
+            scope.cancel = cancel;
 
-            $scope.start_cam = function () {
-                $scope.webcam.attach($scope.webcam_node);
+            scope.vm = {
+                can_submit: false,
             };
 
-            $scope.take_photo = function () {
-                Webcam.snap(function (data) {
-                });
-            };
+            function start_cam() {
+                webcam.attach(webcam_node);
+            }
+
+            function take_photo() {
+                webcam.snap(set_img_data);
+            }
+
+            /**
+             * @param {string} data
+             */
+            function set_img_data(data) {
+                img_data = data;
+                img_file = null;
+                scope.vm.can_submit = true;
+            }
+
+            /**
+             * @param {File} file
+             */
+            function set_img_file(file) {
+                if (img_file) {
+                    upload.removeFile(img_file);
+                }
+
+                img_file = file;
+                img_data = null;
+                scope.vm.can_submit = true;
+                scope.$apply();
+            }
+
+            function cancel() {
+                webcam.reset();
+                upload.removeAllFiles(true);
+            }
         }
 
         return {
-            scope: {},
+            scope: true,
+            replace: true,
             link: link,
             template: template,
-            controller: ['$scope', controller]
         };
     }
 ]);
