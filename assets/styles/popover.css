@@ -70,10 +70,13 @@
     max-height: 80vh;
     width: var(--content-max-width);
     overflow-y: scroll;
-    padding: 10px 25px 25px 25px;
     position: fixed;
     top: 10vh;
     transform: translateX(-50%);
+}
+
+.popover--with-padded-content {
+    padding: 10px 25px 25px 25px;
 }
 
 popover-separator {

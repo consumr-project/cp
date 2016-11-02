@@ -399,7 +399,7 @@ angular.module('tcp').directive('timeline', [
                 '    <popover with-close-x with-backdrop ',
                 '        api="vm.add_event" ',
                 '        on-close="unedit()" ',
-                '        class="popover--with-content left-align" ',
+                '        class="popover--with-content popover--with-padded-content left-align" ',
                 '    >',
                 '        <event',
                 '            ng-if="vm.selected_event_to_edit"',

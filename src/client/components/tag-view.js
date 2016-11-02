@@ -43,7 +43,7 @@ angular.module('tcp').component('tagView', {
             '        event-id="{{$ctrl.eventId}}"',
             '        id="{{$ctrl.id}}"></timeline>',
 
-            '        <popover with-close-x with-backdrop api="$ctrl.event_popover" class="popover--with-content">',
+            '        <popover with-close-x with-backdrop api="$ctrl.event_popover" class="popover--with-content popover--with-padded-content">',
             '            <event',
             '                api="$ctrl.event_form"',
             '                on-save="$ctrl.events_timeline.refresh(); $ctrl.event_popover.hide(); $ctrl.event_form.reset()"',
