@@ -64,15 +64,20 @@
 }
 
 .img-upload__upload.dz-drag-hover .img-upload__info_text,
+.img-upload__upload.dz-drag-hover .img-upload__info_icon,
 .img-upload__act:hover .img-upload__info_text,
+.img-upload__act:hover .img-upload__info_icon,
 .img-upload__act .img-upload__info_desc {
     display: none;
 }
 
 .img-upload__upload.dz-drag-hover .img-upload__info_desc,
-.img-upload__act .img-upload__info_text,
 .img-upload__act:hover .img-upload__info_desc {
-    display: block;
+    display: inline-block;
+}
+
+.img-upload__info_icon {
+    margin-bottom: var(--spacing-small);
 }
 
 .img-upload__info_desc {

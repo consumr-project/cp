@@ -50,7 +50,16 @@
 
 .imgview--plus {
     background-image: url(/assets/images/plus.svg);
+    background-size: 22px;
+}
+
+button.imgview--plus,
+button.imgview--plus-black {
     background-position: 8px 8px;
+}
+
+.imgview--plus-black {
+    background-image: url(/assets/images/plus-black.svg);
     background-size: 22px;
 }
 
