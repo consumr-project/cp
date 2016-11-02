@@ -46,37 +46,12 @@ export namespace scope {
     }
 }
 
-export function noop() {
-}
-
-export function newNoop(): Function {
-    return function () {};
-}
-
-export function def<T>(check: T, def_val: T): T {
-  return check !== undefined ? check : def_val;
-}
-
-export function guid(): String {
-    function s4(): String {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-
-    return [s4(), s4(), '-', s4(), '-', s4(), '-', s4(), '-', s4(), s4(), s4()].join('');
-}
-
 export function preload(url: string, callback: any | Function):HTMLImageElement {
     var img: HTMLImageElement = new Image();
     img.onload = callback;
     img.onerror = callback;
     img.src = url;
     return img;
-}
-
-export function opCallback(callback?: Function): Function {
-    return callback || noop;
 }
 
 export function simplify(str: string): string {
@@ -92,27 +67,6 @@ export function ellipsis(str: string, max_len: number, suffix: string = '...'): 
     }
 
     return str;
-}
-
-export function stringify(params: any): string {
-    return map(params, function (val: string, key: string): string {
-        return [key, encodeURIComponent(val)].join('=');
-    }).join('&');
-}
-
-export function html(tag: string, props?: any): string {
-    return [
-        '<', tag, props ? ' ' : '',
-            map(props, function (val, key) {
-                return key + '="' + val + '"';
-            }).join(' '),
-        '></', tag, '>'
-    ].join('');
-}
-
-export function summaryze(text: string): string {
-    var paragraphs = text.split('\n');
-    return paragraphs[0];
 }
 
 export function truthy(val: string | Boolean): Boolean {
