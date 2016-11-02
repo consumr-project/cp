@@ -38,9 +38,9 @@ angular.module('tcp').directive('company', [
             '                    <h1 class="take-space animated fadeIn inline-block">{{company.name}}</h1>',
             '                </td>',
             '                <td class="half-width no-wrap right-align">',
-            '                    <a ng-show="::company.website_url" ng-href="{{utils.make_link(company.website_url)}}"',
+            '                    <a ng-show="::company.website_url" ng-href="{{utils2.make_link(company.website_url)}}"',
             '                        class="snav__item" rel="noreferrer" target="_blank" i18n="common/official_site"></a>',
-            '                    <a ng-show="::company.wikipedia_url" ng-href="{{utils.make_link(company.wikipedia_url)}}"',
+            '                    <a ng-show="::company.wikipedia_url" ng-href="{{utils2.make_link(company.wikipedia_url)}}"',
             '                        class="snav__item" rel="noreferrer" target="_blank" i18n="common/wikipedia"></a>',
             '                    <button class="margin-left-xsmall logged-in-only--display button--unselected animated fadeIn"',
             '                        ng-click="on_start_following(company.id)"',
@@ -234,7 +234,7 @@ angular.module('tcp').directive('company', [
         var HTML_VIEW = [
             '<div>',
             '    <h2>{{::model.name}}</h2>',
-            '    <a rel="noreferrer" target="_blank" ng-href="{{::utils.make_link(model.website_url)}}">{{::model.website_url}}</a>',
+            '    <a rel="noreferrer" target="_blank" ng-href="{{::utils2.make_link(model.website_url)}}">{{::model.website_url}}</a>',
             '    <p>{{::model.summary}}</p>',
             '<div>',
         ].join('');
@@ -271,7 +271,7 @@ angular.module('tcp').directive('company', [
 
         function controller($scope) {
             $scope.nav = Navigation;
-            $scope.utils = utils;
+            $scope.utils2 = utils2;
 
             $scope.company = {
                 $followed_by: [],

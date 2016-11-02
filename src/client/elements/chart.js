@@ -9,9 +9,9 @@
  */
 angular.module('tcp').directive('chart', [
     'i18n',
-    'utils',
+    'utils2',
     'lodash',
-    function (i18n, utils, lodash) {
+    function (i18n, utils2, lodash) {
         'use strict';
 
         var MAX_HBAR_WIDTH = 73;
@@ -112,7 +112,7 @@ angular.module('tcp').directive('chart', [
          * @return {void}
          */
         function link(scope, elem, attrs) {
-            if (utils.truthy(attrs.editable)) {
+            if (utils2.truthy(attrs.editable)) {
                 switch (attrs.type) {
                 case TYPE.heartcount:
                     elem.data(DATA_VALUE_BAK, elem.attr(ATTR_VALUE) || 0);

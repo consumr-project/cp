@@ -4,10 +4,11 @@ angular.module('tcp').directive('timeline', [
     '$timeout',
     'lodash',
     'utils',
+    'utils2',
     'i18n',
     'Services',
     'Session',
-    function (DOMAIN, $q, $timeout, lodash, utils, i18n, Services, Session) {
+    function (DOMAIN, $q, $timeout, lodash, utils, utils2, i18n, Services, Session) {
         'use strict';
 
         /**
@@ -82,7 +83,7 @@ angular.module('tcp').directive('timeline', [
         function visible_event(ev, user_tags) {
             return {
                 id: ev.id,
-                title: utils.ellipsis(ev.title, 100),
+                title: utils2.ellipsis(ev.title, 100),
                 date: new Date(ev.date).valueOf(),
                 logo: ev.logo,
                 tag_ids: lodash.filter(ev.tag_ids),

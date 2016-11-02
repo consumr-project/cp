@@ -74,3 +74,23 @@ export function empty<T>(obj: Object | Array<T> | undefined): boolean {
         return obj instanceof Array ? !!obj.length : !!Object.keys(obj).length;
     }
 }
+
+export function ellipsis(str: string, max_len: number, suffix: string = '...'): string {
+    if (str.length > max_len) {
+        str = str.substr(0, max_len).trim() + suffix;
+    }
+
+    return str;
+}
+
+export function truthy(val: string | Boolean): Boolean {
+    return val && (val.toString() === 'true' || val.toString() === '1');
+}
+
+export function make_link(link?: string): string {
+    if (!link) {
+        return '';
+    } else {
+        return link.indexOf('http') === 0 ? link : 'http://' + link;
+    }
+}
