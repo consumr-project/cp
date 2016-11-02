@@ -8,6 +8,12 @@ button {
     min-height: var(--computed-button-height);
     min-width: var(--computed-button-height);
     text-transform: uppercase;
+    transition: opacity var(--speed-friendly);
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    opacity: .3;
 }
 
 button * {
