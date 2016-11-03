@@ -5,7 +5,8 @@ angular.module('tcp').directive('imgUpload', [
     'Webcam',
     'i18n',
     'utils',
-    function (Dropzone, Webcam, i18n, utils) {
+    'assert',
+    function (Dropzone, Webcam, i18n, utils, assert) {
         'use strict';
 
         var UPLOAD_CONFIG = {
@@ -87,9 +88,12 @@ angular.module('tcp').directive('imgUpload', [
 
             scope.vm = {
                 can_submit: false,
+                running_cam: false,
             };
 
             function start_cam() {
+                assert(!scope.vm.running_cam);
+                scope.vm.running_cam = true;
                 webcam.attach(webcam_node);
             }
 
@@ -124,6 +128,7 @@ angular.module('tcp').directive('imgUpload', [
                 webcam.reset();
                 upload.removeAllFiles(true);
                 scope.vm.can_submit = false;
+                scope.vm.running_cam = false;
             }
         }
 

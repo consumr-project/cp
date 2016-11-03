@@ -11,6 +11,7 @@ import validator from '../validate';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
+import * as assert from 'assert';
 
 import shasum = require('shasum');
 
@@ -128,6 +129,7 @@ namespace tcp {
         .value('RecentSearches', new LocalStorageListCache('tcp:searches', 5))
         .value('Visitor', Visitor)
         .value('Webcam', require('webcamjs'))
+        .value('assert', assert)
         .value('i18n', i18n) // global
         .value('jQuery', jQuery)
         .value('lodash', _)
