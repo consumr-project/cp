@@ -39,6 +39,7 @@ ifdef DEBUG
 	ts_options = --sourceMap
 	build_vars = "DEBUG=*"
 	js_min = cat
+	browserify_options += --debug
 endif
 
 setup:
@@ -159,12 +160,8 @@ build-client-app:
 		$(ts_options)
 
 build-client-bundle:
-ifdef DEBUG
-	$(browserify) $(build_dir)/src/client/main.js $(browserify_options) --debug > $(build_bundle_js)
-else
 	$(browserify) $(build_dir)/src/client/main.js $(browserify_options) | \
-		./node_modules/.bin/uglifyjs > $(build_bundle_js)
-endif
+		$(js_min) > $(build_bundle_js)
 
 build-client-deps:
 	echo "" > $(build_vendor_js)
