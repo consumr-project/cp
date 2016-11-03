@@ -20,7 +20,7 @@ js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/uglifyjs
 js_sep = @echo ";\n"
 
-browserify_options = --external aws4 --ignore unicode/category/So
+browserify_options = --external aws4 --ignore unicode/category/So --full-paths
 ts_options =
 build_vars =
 
@@ -84,6 +84,11 @@ lint:
 	./script/lint-html-links
 	./script/lint-yaml-file .travis.yml \
 		$(shell find config -name "*.yml")
+
+analize:
+	-rm -r $(build_dir)/analize
+	mkdir $(build_dir)/analize
+	discify build/bundle.js > build/analize/disk.html
 
 test-start-webdriver:
 	if [ ! -d bin ]; then mkdir bin; fi
