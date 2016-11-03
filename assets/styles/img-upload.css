@@ -31,7 +31,8 @@
 
 .img-upload__act {
     cursor: pointer;
-    height: 240px;
+    height: 320px;
+    outline: 0;
     overflow: hidden;
     position: relative;
     width: 320px;
@@ -47,6 +48,14 @@
 
 .img-upload__webcam video {
     height: 100%;
+    width: 100%;
+}
+
+.img-upload__webcam .img-upload__webcam__holder {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
 }
 

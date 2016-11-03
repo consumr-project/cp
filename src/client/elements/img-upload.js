@@ -38,6 +38,7 @@ angular.module('tcp').directive('imgUpload', [
             '                </div>',
             '            </td>',
             '            <td class="img-upload__act img-upload__webcam" ng-click="start_cam()">',
+            '                <div class="img-upload__webcam__holder"></div>',
             '                <div class="img-upload__webcam__info">',
             '                    <div class="img-upload__info_icon imgview imgview--camera"></div>',
             '                    <div class="img-upload__info_text" i18n="user/take_photo"></div>',
@@ -45,7 +46,7 @@ angular.module('tcp').directive('imgUpload', [
             '                </div>',
             '            </td>',
             '        </tr>',
-            '        <tr>',
+            '        <tr ng-show="vm.can_submit">',
             '            <td colspan="2" class="img-upload__footer">',
             '                <button i18n="admin/submit"',
             '                    ng-disabled="!vm.can_submit"></button>',
@@ -68,7 +69,7 @@ angular.module('tcp').directive('imgUpload', [
             var img_file, img_data;
 
             var upload_node = elem.find('.img-upload__upload').get(0);
-            var webcam_node = elem.find('.img-upload__webcam').get(0);
+            var webcam_node = elem.find('.img-upload__webcam__holder').get(0);
 
             var upload = new Dropzone(upload_node, UPLOAD_CONFIG);
             var webcam = Object.create(Webcam);
@@ -122,6 +123,7 @@ angular.module('tcp').directive('imgUpload', [
             function cancel() {
                 webcam.reset();
                 upload.removeAllFiles(true);
+                scope.vm.can_submit = false;
             }
         }
 
