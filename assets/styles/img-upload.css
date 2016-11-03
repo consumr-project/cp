@@ -59,6 +59,28 @@
     width: 100%;
 }
 
+.img-upload__webcam .img-upload__webcam__trigger {
+    background-color: white;
+    background-image: url(/assets/images/camera.svg);
+    background-position: 9px 11px;
+    background-repeat: no-repeat;
+    background-size: 26px;
+    border-radius: 200px;
+    border: 3px solid black;
+    bottom: 10px;
+    display: none;
+    height: 50px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 50px;
+    z-index: 2;
+}
+
+.img-upload__webcam--running .img-upload__webcam__trigger {
+    display: block;
+}
+
 .img-upload__upload__info,
 .img-upload__webcam__info {
     box-sizing: content-box;

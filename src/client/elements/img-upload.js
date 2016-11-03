@@ -5,8 +5,9 @@ angular.module('tcp').directive('imgUpload', [
     'Webcam',
     'i18n',
     'utils',
+    'utils2',
     'assert',
-    function (Dropzone, Webcam, i18n, utils, assert) {
+    function (Dropzone, Webcam, i18n, utils, utils2, assert) {
         'use strict';
 
         var UPLOAD_CONFIG = {
@@ -38,8 +39,14 @@ angular.module('tcp').directive('imgUpload', [
             '                    <div class="img-upload__info_desc" i18n="user/upload_photo_desc"></div>',
             '                </div>',
             '            </td>',
-            '            <td class="img-upload__act img-upload__webcam" ng-click="start_cam()">',
+            '            <td class="img-upload__act img-upload__webcam"',
+            '                ng-class="{',
+            '                    \'img-upload__webcam--running\': vm.running_cam,',
+            '                }"',
+            '                ng-click="start_cam()">',
             '                <div class="img-upload__webcam__holder"></div>',
+            '                <div ng-click="take_photo()" class="img-upload__webcam__trigger"></div>',
+
             '                <div class="img-upload__webcam__info">',
             '                    <div class="img-upload__info_icon imgview imgview--camera"></div>',
             '                    <div class="img-upload__info_text" i18n="user/take_photo"></div>',
@@ -73,10 +80,9 @@ angular.module('tcp').directive('imgUpload', [
             var webcam_node = elem.find('.img-upload__webcam__holder').get(0);
 
             var upload = new Dropzone(upload_node, UPLOAD_CONFIG);
-            var webcam = Object.create(Webcam);
 
-            webcam.reset();
-            webcam.set(WEBCAM_CONFIG);
+            Webcam.reset();
+            Webcam.set(WEBCAM_CONFIG);
             utils.preload(Webcam.params.swfURL);
 
             upload.on('addedfile', set_img_file);
@@ -92,13 +98,16 @@ angular.module('tcp').directive('imgUpload', [
             };
 
             function start_cam() {
-                assert(!scope.vm.running_cam);
+                if (scope.vm.running_cam) {
+                    return;
+                }
+
                 scope.vm.running_cam = true;
-                webcam.attach(webcam_node);
+                Webcam.attach(webcam_node);
             }
 
             function take_photo() {
-                webcam.snap(set_img_data);
+                Webcam.snap(set_img_data);
             }
 
             /**
@@ -107,25 +116,28 @@ angular.module('tcp').directive('imgUpload', [
             function set_img_data(data) {
                 img_data = data;
                 img_file = null;
+
                 scope.vm.can_submit = true;
+                scope.$apply();
             }
 
             /**
              * @param {File} file
              */
             function set_img_file(file) {
-                if (img_file) {
+                utils2.try_func(function () {
                     upload.removeFile(img_file);
-                }
+                });
 
                 img_file = file;
                 img_data = null;
+
                 scope.vm.can_submit = true;
                 scope.$apply();
             }
 
             function cancel() {
-                webcam.reset();
+                Webcam.reset();
                 upload.removeAllFiles(true);
                 scope.vm.can_submit = false;
                 scope.vm.running_cam = false;
