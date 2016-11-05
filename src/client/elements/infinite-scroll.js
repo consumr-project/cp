@@ -27,7 +27,7 @@ angular.module('tcp').directive('infiniteScroll', [
          * @param {Angular.Attributes} attrs
          */
         function link(scope, elem, attrs) {
-            var dest_check = _.debounce(function () {
+            var dest_check = lodash.debounce(function () {
                 var cur = Math.abs(get_offset(elem));
                 var end = attrs.infiniteScrollOffset;
 
