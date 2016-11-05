@@ -103,6 +103,10 @@ angular.module('tcp').directive('reviews', [
             };
 
             $scope.next_page = function () {
+                if ($scope.vm.loading || $scope.vm.viewing_all) {
+                    return;
+                }
+
                 $scope.vm.loading = true;
 
                 Services.query.companies.reviews.view($scope.companyId, Session.USER.id, offset).then(function (reviews) {
@@ -142,7 +146,7 @@ angular.module('tcp').directive('reviews', [
                 '        </options>',
                 '    </div>',
 
-                '    <section>',
+                '    <section infinite-scroll="next_page()">',
                 '        <span ng-repeat="review in reviews.list">',
                 '            <review class="margin-top-xlarge" type="view" model="review"></review>',
                 '            <h4 class="copy block margin-top-small" i18n="review/did_review_help"',

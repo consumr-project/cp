@@ -214,6 +214,7 @@ build-client-src:
 	$(js_min) src/client/elements/i18n.js >> $(build_client_js)
 	$(js_min) src/client/elements/datepicker.js >> $(build_client_js)
 	$(js_min) src/client/elements/img-upload.js >> $(build_client_js)
+	$(js_min) src/client/elements/infinite-scroll.js >> $(build_client_js)
 	$(js_min) src/client/components/user.js >> $(build_client_js)
 	$(js_min) src/client/components/search.js >> $(build_client_js)
 	$(js_min) src/client/components/notification.js >> $(build_client_js)

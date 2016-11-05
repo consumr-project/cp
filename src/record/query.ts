@@ -43,7 +43,7 @@ export function exec(
     processor: (value: Object) => Object = pass
 ) {
     return new Promise<Object | Object[]>((resolve, reject) => {
-        var replacements = merge(params, defaults),
+        var replacements = merge(defaults, params),
             merged_sql = sql({ auth, query: replacements }),
             required_params = get_params(merged_sql);
 
