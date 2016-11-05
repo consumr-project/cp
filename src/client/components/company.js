@@ -210,6 +210,15 @@ angular.module('tcp').directive('company', [
             '    </div>',
 
             '    <div ng-if="!vm.existing && vm.step.length > 2" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
+            '        <h1 i18n="company/twitter_handle"></h1>',
+            '        <input class="block title"',
+            '            i18n="common/twitter"',
+            '            prop="placeholder"',
+            '            ng-focus="true"',
+            '            ng-model="company.twitter_handle" />',
+            '    </div>',
+
+            '    <div ng-if="!vm.existing && vm.step.length > 3" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
             '        <h1 i18n="company/what_do_they_do" data="{name: company.name}"></h1>',
             '        <pills',
             '            class="pills--bigone"',
@@ -405,6 +414,7 @@ angular.module('tcp').directive('company', [
                 $scope.company.summary = '';
                 $scope.company.wikipedia_url = '';
                 $scope.company.website_url = '';
+                $scope.company.twitter_handle = '';
 
                 normalize_company($scope.company);
             };
@@ -453,6 +463,10 @@ angular.module('tcp').directive('company', [
                     $scope.vm.loading = false;
                     $scope.vm.company_options = res.body;
                     $scope.company.$loaded = false;
+                }).catch(function () {
+                    $scope.vm.loading = false;
+                    $scope.vm.company_options = [];
+                    $scope.company.$loaded = false;
                 });
             };
 
@@ -461,7 +475,7 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.is_last_step = function () {
-                return $scope.vm.step.length === 3;
+                return $scope.vm.step.length === 4;
             };
 
             $scope.reset = function () {
@@ -469,6 +483,7 @@ angular.module('tcp').directive('company', [
                 $scope.company.summary = null;
                 $scope.company.wikipedia_url = null;
                 $scope.company.website_url = null;
+                $scope.company.twitter_handle = null;
                 $scope.company.$summary_parts = null;
                 $scope.company.$products = [];
                 $scope.vm.search_name = $scope.vm.pre_search_name;
@@ -651,6 +666,7 @@ angular.module('tcp').directive('company', [
                     guid: slug($scope.company.name),
                     summary: $scope.company.summary,
                     website_url: $scope.company.website_url,
+                    twitter_handle: $scope.company.twitter_handle,
                     wikipedia_url: $scope.company.wikipedia_url,
                     created_by: Session.USER.id,
                     updated_by: Session.USER.id,
