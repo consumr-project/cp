@@ -86,6 +86,7 @@ declare module 'cp/record' {
         guid: string;
         website_url: string;
         wikipedia_url: string;
+        twitter_handle: string;
     }
 
     export enum FeedbackType {

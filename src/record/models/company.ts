@@ -30,5 +30,9 @@ export = sequelize =>
 
         website_url: {
             type: Type.TEXT
-        }
+        },
+
+        twitter_handle: {
+            type: Type.TEXT
+        },
     }), CONFIG);
