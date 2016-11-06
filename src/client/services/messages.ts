@@ -1,5 +1,5 @@
 import { filter, get, reduce, groupBy as group_by } from 'lodash';
-import { I18n } from 'cp/client';
+import { I18n } from '../../strings';
 
 import Message, { MessagePresentation, NOTIFICATION, OTYPE } from '../../notification/message';
 

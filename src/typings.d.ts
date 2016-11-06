@@ -110,12 +110,6 @@ declare module 'cp/record' {
     };
 }
 
-declare module 'cp/client' {
-    interface I18n {
-        get(key: string, data: Object): string;
-    }
-}
-
 declare module 'acm' {
     function config<T>(str: string): T | Object | string | any;
     namespace config {}
