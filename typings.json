@@ -19,6 +19,7 @@
     "md5": "github:DefinitelyTyped/DefinitelyTyped/js-md5/md5.d.ts#6e996ab243e91e705ac6f9cec3a8bf37ccb5409f",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
     "mongodb": "github:DefinitelyTyped/DefinitelyTyped/mongodb/mongodb.d.ts#04a46a81d9ff12504800e02396189b1d2dc55171",
+    "multer": "github:DefinitelyTyped/DefinitelyTyped/multer/multer.d.ts#168f6b9d6a2d86ad5ff622374b394612555bb7af",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#66484e9f11a93a89d972ba009e81957338e26ed7",
     "node-uuid": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid.d.ts#ce340e14bc4cddb77f1dd0e58faafff1e5f0c3e5",
     "node-uuid-base": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-base.d.ts#ce340e14bc4cddb77f1dd0e58faafff1e5f0c3e5",

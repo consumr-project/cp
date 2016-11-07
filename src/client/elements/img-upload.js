@@ -161,7 +161,7 @@ angular.module('tcp').directive('imgUpload', [
                     upload.on('error', function () {
                         console.log('img_file error');
                     });
-                } else if (img_data) {
+                // } else if (img_data) {
                 }
 
                 cancel();
