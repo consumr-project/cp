@@ -57,6 +57,7 @@ angular.module('tcp').directive('imgUpload', [
             '        <tr ng-show="vm.can_submit">',
             '            <td colspan="2" class="img-upload__footer">',
             '                <button i18n="admin/submit"',
+            '                    ng-click="submit()"',
             '                    ng-disabled="!vm.can_submit"></button>',
             '                <button i18n="admin/cancel"',
             '                    class="button--link"',
@@ -91,6 +92,7 @@ angular.module('tcp').directive('imgUpload', [
             scope.start_cam = start_cam;
             scope.take_photo = take_photo;
             scope.cancel = cancel;
+            scope.submit = submit;
 
             scope.vm = {
                 can_submit: false,
@@ -134,6 +136,35 @@ angular.module('tcp').directive('imgUpload', [
 
                 scope.vm.can_submit = true;
                 scope.$apply();
+            }
+
+            function submit() {
+                assert(img_file || img_data);
+
+                // img_file;
+                // img_data;
+                // Webcam;
+                // upload;
+                // debugger;
+
+                if (img_file) {
+                    upload.uploadFile(img_file);
+
+                    upload.on('complete', function () {
+                        console.log('img_file complete');
+                    });
+
+                    upload.on('success', function () {
+                        console.log('img_file success');
+                    });
+
+                    upload.on('error', function () {
+                        console.log('img_file error');
+                    });
+                } else if (img_data) {
+                }
+
+                cancel();
             }
 
             function cancel() {
