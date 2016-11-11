@@ -90,6 +90,8 @@ app.use((req, res, next) => {
     res.cookie('lang', normalize_i18n(req.query.lang), {
         expires: new Date('2099-01-01') });
 
+    res.cookie('cp_theme', req.query.cp_theme);
+
     next();
 });
 
