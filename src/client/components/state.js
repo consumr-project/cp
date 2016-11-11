@@ -3,7 +3,8 @@ angular.module('tcp').directive('tcpState', [
     'Navigation',
     '$rootScope',
     'lodash',
-    function (Session, Navigation, $rootScope, lodash) {
+    'Cookie',
+    function (Session, Navigation, $rootScope, lodash, Cookie) {
         'use strict';
 
         var REGEX_PAGE = /^page--.+/;
@@ -42,6 +43,7 @@ angular.module('tcp').directive('tcpState', [
                 Session.on(Session.EVENT.ERROR, manage_login_class($elem, false));
                 $rootScope.$on('$locationChangeStart', update_current_location($elem));
                 $elem.addClass('state--theme-' + get_curr_theme());
+                $elem.addClass('state--cp_theme-' + Cookie.get('cp_theme'));
             }
         };
     }
