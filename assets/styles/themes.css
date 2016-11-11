@@ -1,0 +1,17 @@
+.state--cp_theme-test1 .timeline .imgview--warning,
+.state--cp_theme-test1 .timeline .imgview--sources {
+    display: none;
+}
+
+.timeline__event__info__sources_text {
+    display: none;
+    padding-top: var(--spacing-small);
+    font-size: var(--font-size-small);
+    letter-spacing: var(--letter-spacing-small);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.state--cp_theme-test1 .timeline__event__info__sources_text {
+    display: block;
+}

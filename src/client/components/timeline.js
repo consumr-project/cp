@@ -117,6 +117,8 @@ angular.module('tcp').directive('timeline', [
                 '        <span ng-show="::event.needs_sources" class="right margin-right-small imgview imgview--warning"></span>',
                 '    </div>',
                 '    <div class="timeline__event__title copy">{{::event.title}}</div>',
+                '    <div class="timeline__event__info__sources_text"',
+                '        i18n="event/source_count" data="{ count: event.source_count }"></div>',
                 '    <div ng-if="::event.user_tags.length" class="timeline__event__tags">',
                 '        <tags show-hide="false">',
                 '            <tag class="keyword" label="{{::tag.label}}"',
