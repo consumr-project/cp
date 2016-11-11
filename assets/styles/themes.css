@@ -15,3 +15,7 @@
 .state--cp_theme-test1 .timeline__event__info__sources_text {
     display: block;
 }
+
+.state--cp_theme-test1 .timeline__event.timeline__event--special .timeline__event__info__sources_text {
+    display: none;
+}
