@@ -18,13 +18,15 @@ export const ERR_MSG_INVALID_PARTS = (parts: string[]) =>
 // @link https://tools.ietf.org/html/rfc7231
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 export class HttpError extends Error {
+    static code = 500;
     code = 500;
     name = 'Internal Server Error';
     message: string;
 
     constructor(message?: string) {
         super(message);
-        this.message = message || this.message || this.name;
+        this.code = this.constructor['code'];
+        this.message = message || this.constructor['message'] || this.name;
     }
 }
 
@@ -33,7 +35,7 @@ export class HttpError extends Error {
 // deceptive request routing).
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#400
 export class BadRequestError extends HttpError {
-    code = 400;
+    static code = 400;
     name = 'Bad Request';
 }
 
@@ -41,7 +43,7 @@ export class BadRequestError extends HttpError {
 // required and has failed or has not yet been provided.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#401
 export class UnauthorizedError extends HttpError {
-    code = 401;
+    static code = 401;
     name = 'Unauthorized';
     message = 'Must be logged in to take this action.';
 }
@@ -51,7 +53,7 @@ export class UnauthorizedError extends HttpError {
 // the necessary permissions for the resource.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#403
 export class ForbiddenError extends HttpError {
-    code = 403;
+    static code = 403;
     name = 'Forbidden';
 }
 
@@ -59,23 +61,41 @@ export class ForbiddenError extends HttpError {
 // future. subsequent requests by the client are permissible.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#404
 export class NotFoundError extends HttpError {
-    code = 404;
+    static code = 404;
     name = 'Not Found';
+}
+
+// the server timed out waiting for the request. according to HTTP
+// specifications: "The client did not produce a request within the time that
+// the server was prepared to wait. The client MAY repeat the request without
+// modifications at any later time."
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#408
+export class RequestTimeoutError extends HttpError {
+    static code = 408;
+    name = 'Request Time-out';
 }
 
 // indicates that the request could not be processed because of conflict in the
 // request, such as an edit conflict between multiple simultaneous updates.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#409
 export class ConflictError extends HttpError {
-    code = 409;
+    static code = 409;
     name = 'Conflict Error';
+}
+
+// the request is larger than the server is willing or able to process.
+// previously called "Request Entity Too Large".
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#413
+export class PayloadTooLargeError extends HttpError {
+    static code = 413;
+    name = 'Payload Too Large';
 }
 
 // A generic error message, given when an unexpected condition was encountered
 // and no more specific message is suitable.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#500
 export class InternalServerError extends HttpError {
-    code = 500;
+    static code = 500;
     name = 'Internal Server';
 }
 
@@ -83,7 +103,7 @@ export class InternalServerError extends HttpError {
 // from the upstream server.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#502
 export class BadGatewayError extends HttpError {
-    code = 502;
+    static code = 502;
     name = 'Bad Gateway';
 }
 
@@ -91,7 +111,7 @@ export class BadGatewayError extends HttpError {
 // maintenance). Generally, this is a temporary state.
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#503
 export class ServiceUnavailableError extends HttpError {
-    code = 503;
+    static code = 503;
     name = 'Service Unavailable';
     message = 'Service is currently unavailable.';
 }
