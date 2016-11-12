@@ -4,7 +4,7 @@ export const en_US = load_i18n('en-US');
 export const lolcat_US = load_i18n('lolcat-US');
 
 export interface I18n {
-    get(key: string, data: Object): string;
+    get(key: string, data?: Object): string;
 }
 
 export const LANG: Dictionary<string> = {
