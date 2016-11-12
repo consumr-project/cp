@@ -51,6 +51,7 @@
     "express-rate-limit": "2.4.0",
     "express-session": "1.11.3",
     "glob": "6.0.1",
+    "image-type": "2.1.0",
     "imgur": "0.1.7",
     "jquery": "2.1.4",
     "js-cookie": "2.0.4",
