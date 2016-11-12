@@ -5,6 +5,7 @@ import * as querystring from 'querystring';
 import * as config from 'acm';
 import * as md5 from 'md5';
 import * as imgur from 'imgur';
+import * as image_type from 'image-type';
 
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
@@ -13,6 +14,9 @@ const IMGUR_ALBUM_ID = config('files.avatars.imgur.album_id');
 const IMGUR_CLIENT_ID = config('files.avatars.imgur.client_id');
 const IMGUR_PASSWORD = config('files.avatars.imgur.password');
 const IMGUR_USERNAME = config('files.avatars.imgur.username');
+
+const IMAGE_JPG = 'jpg';
+const IMAGE_PNG = 'png';
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
@@ -29,6 +33,11 @@ export enum SIZE {
     MEDIUM = 1024,
     LARGE = 1536,
     FULL = 2048,
+}
+
+export function valid_image_type(buff: Buffer): boolean {
+    var { ext } = image_type(buff);
+    return ext === IMAGE_JPG || ext ===  IMAGE_PNG;
 }
 
 export function generate_gravatar_url(
