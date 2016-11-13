@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as multer from 'multer';
 
+import { ErrorHandler } from '../lang';
 import { upload, url, valid_image_type, SUPPORTED_MIMES } from '../user/avatar';
 import { service_handler, service_redirect } from '../http';
 import { UnprocessableEntityError, BadRequestError,
@@ -35,6 +36,14 @@ app.get('/avatar', service_redirect((req, res, next) => {
 
     return url(query, req.query.size, req.query.rating);
 }));
+
+app.post('/upload', (req, res, next) => {
+    if (req.body.data) {
+        service_handler(req => upload(req.body.data))(req, res, <ErrorHandler>next);
+    } else {
+        next();
+    }
+});
 
 app.post('/upload',
     uploader.single('file'),
