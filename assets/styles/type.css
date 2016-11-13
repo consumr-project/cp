@@ -145,3 +145,23 @@ a.a--action,
     font-weight: bold;
     text-transform: uppercase;
 }
+
+.status--error,
+.status--message,
+.status--success {
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status--error {
+    color: var(--color-failure);
+}
+
+.status--message {
+    color: var(--color-neutral);
+}
+
+.status--success {
+    color: var(--color-success);
+}
