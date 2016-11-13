@@ -151,12 +151,6 @@ angular.module('tcp').directive('imgUpload', [
             function submit() {
                 assert(img_file || img_data);
 
-                // img_file;
-                // img_data;
-                // Webcam;
-                // upload;
-                // debugger;
-
                 scope.vm.can_submit = false;
                 scope.vm.error_msg = null;
                 scope.vm.success_msg = null;
