@@ -18,6 +18,8 @@ const IMGUR_USERNAME = config('files.avatars.imgur.username');
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
 
+export const SUPPORTED_MIMES = ['image/jpeg'];
+
 export enum RATING {
     G = <any>'g',
     PG = <any>'pg',
@@ -33,7 +35,7 @@ export enum SIZE {
 }
 
 export function valid_image_type(file: { mimetype: string }): boolean {
-    return includes(['image/jpeg'], file.mimetype);
+    return includes(SUPPORTED_MIMES, file.mimetype);
 }
 
 export function generate_gravatar_url(
