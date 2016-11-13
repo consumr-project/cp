@@ -28,8 +28,8 @@ export class HttpError extends Error {
 
     constructor(message?: string) {
         super(message);
-        this.code = this.constructor['code'];
-        this.message = message || this.constructor['message'] || this.name;
+        this.code = (<any>this.constructor).code;
+        this.message = message || (<any>this.constructor).message || this.name;
     }
 }
 
