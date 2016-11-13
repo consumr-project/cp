@@ -1,6 +1,7 @@
 /**
  */
 angular.module('tcp').directive('imgUpload', [
+    'Services',
     'Dropzone',
     'Webcam',
     'i18n',
@@ -8,7 +9,7 @@ angular.module('tcp').directive('imgUpload', [
     'utils2',
     'assert',
     'messages',
-    function (Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
+    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
         'use strict';
 
         var UPLOAD_CONFIG = {
@@ -20,8 +21,8 @@ angular.module('tcp').directive('imgUpload', [
         };
 
         var WEBCAM_CONFIG = {
-            dest_width: 640,
-            dest_height: 480,
+            dest_height: 240,
+            dest_width: 320,
         };
 
         var template = [
@@ -195,7 +196,6 @@ angular.module('tcp').directive('imgUpload', [
 
                 if (img_file) {
                     upload.on('complete', function () {
-                        console.log('img_file complete');
                         scope.vm.loading_msg = null;
                         scope.vm.can_submit = true;
                         scope.$apply();
@@ -211,7 +211,19 @@ angular.module('tcp').directive('imgUpload', [
                     });
 
                     upload.uploadFile(img_file);
-                // } else if (img_data) {
+                } else if (img_data) {
+                    Services.user.upload_avatar(img_data)
+                        .then(function () {
+                            scope.vm.loading_msg = null;
+                            scope.vm.can_submit = true;
+                            scope.vm.success_msg = i18n.get('user/uploaded_photo');
+                        })
+                        .catch(function (res) {
+                            console.log(res);
+                            scope.vm.loading_msg = null;
+                            scope.vm.can_submit = true;
+                            scope.vm.error_msg = messages.from_http_error(i18n, res.status);
+                        });
                 }
             }
 
