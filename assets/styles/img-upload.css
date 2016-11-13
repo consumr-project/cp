@@ -94,8 +94,7 @@
     opacity: .1;
 }
 
-.img-upload__upload .img-upload__act__preview img {
-    transform: rotate(90deg);
+.img-upload__act__preview img {
     width: 250px;
 }
 
