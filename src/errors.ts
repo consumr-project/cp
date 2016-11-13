@@ -12,6 +12,9 @@ export const ERR_MSG_RBAC_FAILURE = (role: string, action: string, resource: str
 export const ERR_MSG_MISSING_FIELDS = (fields: string[]) =>
     `Missing fields. Required: ${fields.join(', ')}`;
 
+export const ERR_MSG_INVALID_ENTITY_TYPE = (supplied: string, supported: string[]) =>
+    `Invalid entity type (${supplied}) supplied. Supported types: ${supported.join(', ')}`;
+
 export const ERR_MSG_INVALID_PARTS = (parts: string[]) =>
     `Invalid part(s): ${parts.join(', ')}`;
 
@@ -89,6 +92,14 @@ export class ConflictError extends HttpError {
 export class PayloadTooLargeError extends HttpError {
     static code = 413;
     name = 'Payload Too Large';
+}
+
+// the request was well-formed but was unable to be followed due to semantic
+// errors.
+// @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#422
+export class UnprocessableEntityError extends HttpError {
+    static code = 422;
+    name = 'Unprocessable Entity';
 }
 
 // A generic error message, given when an unexpected condition was encountered
