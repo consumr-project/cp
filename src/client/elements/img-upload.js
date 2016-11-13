@@ -139,13 +139,19 @@ angular.module('tcp').directive('imgUpload', [
                 img_data = null;
             }
 
+            /**
+             * @return {jQuery}
+             */
+            function reset_snapshot_image() {
+                return elem.find('.img-upload__webcam .img-upload__act__preview')
+                    .empty();
+            }
+
             function set_snapshot_data(data) {
                 var img = angular.element('<img />')
                     .attr('src', data);
 
-                elem.find('.img-upload__webcam .img-upload__act__preview')
-                    .empty()
-                    .append(img);
+                reset_snapshot_image().append(img);
             }
 
             /**
