@@ -585,9 +585,3 @@ declare module 'nodemailer-html-to-text' {
     }
     export = html_to_text;
 }
-
-declare module 'image-type' {
-    function fn(buff: Buffer): { ext: string; mime: string; };
-    namespace fn {}
-    export = fn;
-}
