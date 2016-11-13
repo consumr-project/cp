@@ -1,5 +1,6 @@
 import { filter, get, reduce, groupBy as group_by } from 'lodash';
 import { I18n } from '../../strings';
+import { try_func } from '../../utilities';
 
 import Message, { MessagePresentation, NOTIFICATION, OTYPE } from '../../notification/message';
 
@@ -132,6 +133,11 @@ export function condence(i18n: I18n, messages: Message[]): MessagePresentation {
         is_completed: !filter(messages, { completed: false }).length,
         href: link(messages[0]),
     };
+}
+
+export function from_http_error(i18n: I18n, status_code: number): string {
+    var [, msg] = try_func(() => i18n.get(`errors/http_${status_code}`));
+    return msg || i18n.get('errors/http_default');
 }
 
 export function prep(i18n: I18n, messages: Message[]): MessagePresentation[] {
