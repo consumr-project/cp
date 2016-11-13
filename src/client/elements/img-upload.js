@@ -53,6 +53,8 @@ angular.module('tcp').directive('imgUpload', [
             '                    <div class="img-upload__info_text" i18n="user/take_photo"></div>',
             '                    <div class="img-upload__info_desc" i18n="user/take_photo_desc"></div>',
             '                </div>',
+
+            '                <div class="img-upload__act__preview" ng-show="!vm.running_cam"></div>',
             '            </td>',
             '        </tr>',
             '        <tr ng-show="vm.show_controls">',
@@ -116,16 +118,45 @@ angular.module('tcp').directive('imgUpload', [
                 Webcam.attach(webcam_node);
             }
 
+            function stop_cam() {
+                scope.vm.running_cam = false;
+                Webcam.reset();
+            }
+
             function take_photo() {
                 Webcam.snap(set_img_data);
+            }
+
+            function reset_images() {
+                utils2.try_func(function () {
+                    upload.removeFile(img_file);
+                });
+
+                elem.find('.img-upload__webcam .img-upload__act__preview')
+                    .empty();
+
+                img_file = null;
+                img_data = null;
+            }
+
+            function set_snapshot_data(data) {
+                var img = angular.element('<img />')
+                    .attr('src', data);
+
+                elem.find('.img-upload__webcam .img-upload__act__preview')
+                    .empty()
+                    .append(img);
             }
 
             /**
              * @param {string} data
              */
             function set_img_data(data) {
+                reset_images();
+                stop_cam();
+                set_snapshot_data(data);
+
                 img_data = data;
-                img_file = null;
 
                 scope.vm.can_submit = true;
                 scope.vm.show_controls = true;
@@ -136,12 +167,9 @@ angular.module('tcp').directive('imgUpload', [
              * @param {File} file
              */
             function set_img_file(file) {
-                utils2.try_func(function () {
-                    upload.removeFile(img_file);
-                });
+                reset_images();
 
                 img_file = file;
-                img_data = null;
 
                 scope.vm.can_submit = true;
                 scope.vm.show_controls = true;
@@ -183,7 +211,7 @@ angular.module('tcp').directive('imgUpload', [
             }
 
             function cancel() {
-                Webcam.reset();
+                stop_cam();
                 upload.removeAllFiles(true);
                 scope.vm.can_submit = false;
                 scope.vm.show_controls = false;
