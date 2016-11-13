@@ -10,7 +10,7 @@ import { app as version_endpoints } from './version';
 
 import { KEY_SESSION } from '../keys';
 import { ServiceResponseV1 } from '../http';
-import { HttpError } from '../errors';
+import { HttpError, RequestTimeoutError } from '../errors';
 import { normalize_i18n } from '../strings';
 import { logger } from '../log';
 import * as auth_service from './auth';
@@ -110,6 +110,8 @@ app.use((err: any, req, res, next) => {
     if (!res.headersSent) {
         if (err instanceof HttpError) {
             res.status(err.code);
+        } else if (err.code === 'ETIMEDOUT') {
+            res.status(RequestTimeoutError.code);
         } else {
             res.status(500);
         }

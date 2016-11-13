@@ -75,7 +75,7 @@ export class NotFoundError extends HttpError {
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#408
 export class RequestTimeoutError extends HttpError {
     static code = 408;
-    name = 'Request Time-out';
+    name = 'Request Timeout';
 }
 
 // indicates that the request could not be processed because of conflict in the
