@@ -160,7 +160,7 @@ angular.module('tcp').directive('imgUpload', [
                 scope.vm.can_submit = false;
                 scope.vm.error_msg = null;
                 scope.vm.success_msg = null;
-                scope.vm.loading_msg = i18n.get('user/uploading_photo')
+                scope.vm.loading_msg = i18n.get('user/uploading_photo');
 
                 upload.off('complete');
                 upload.off('success');
@@ -175,7 +175,7 @@ angular.module('tcp').directive('imgUpload', [
                     });
 
                     upload.on('success', function () {
-                        scope.vm.success_msg = i18n.get('user/uploaded_photo')
+                        scope.vm.success_msg = i18n.get('user/uploaded_photo');
                     });
 
                     upload.on('error', function (file, body, res) {
