@@ -94,6 +94,11 @@
     opacity: .1;
 }
 
+.img-upload__upload .img-upload__act__preview img {
+    transform: rotate(90deg);
+    width: 250px;
+}
+
 .img-upload__upload.dz-drag-hover .img-upload__info_text,
 .img-upload__upload.dz-drag-hover .img-upload__info_icon,
 .img-upload__act:hover .img-upload__info_text,
