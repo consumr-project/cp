@@ -132,8 +132,7 @@ angular.module('tcp').directive('imgUpload', [
                     upload.removeFile(img_file);
                 });
 
-                elem.find('.img-upload__webcam .img-upload__act__preview')
-                    .empty();
+                reset_snapshot_image();
 
                 img_file = null;
                 img_data = null;
