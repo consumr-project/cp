@@ -10,6 +10,7 @@ angular.module('tcp').service('Services', [
             notificationService = {},
             extractService = {},
             searchService = {},
+            userService = {},
             queryService = {};
 
         /**
@@ -605,11 +606,20 @@ angular.module('tcp').service('Services', [
             return del('/service/notification/modify/' + id);
         };
 
+        /**
+         * @param {String} data
+         * @return {Promise}
+         */
+        userService.upload_avatar = function (data) {
+            return post('/service/user/upload', {data: data});
+        };
+
         return {
             auth: authService,
             extract: extractService,
             notification: notificationService,
             search: searchService,
+            user: userService,
             query: queryService
         };
     }
