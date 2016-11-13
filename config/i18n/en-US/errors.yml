@@ -1,2 +1,3 @@
 http_default: Error making request
 http_408: Error making request, try again
+http_413: This file is too large! Try a smaller one pls.
