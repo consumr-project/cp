@@ -12,6 +12,8 @@ angular.module('tcp').directive('imgUpload', [
     function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
         'use strict';
 
+        var BASE64_CLEAN = /^data:image\/(png|jpg|jpeg);base64,/;
+
         var UPLOAD_CONFIG = {
             url: '/service/user/upload',
             previewTemplate: '<span class="img-upload__act__preview"><img data-dz-thumbnail /></span>',
@@ -21,6 +23,8 @@ angular.module('tcp').directive('imgUpload', [
         };
 
         var WEBCAM_CONFIG = {
+            height: 240,
+            width: 320,
             dest_height: 240,
             dest_width: 320,
         };
@@ -147,11 +151,22 @@ angular.module('tcp').directive('imgUpload', [
                     .empty();
             }
 
+            /**
+             * @param {string} data
+             */
             function set_snapshot_data(data) {
                 var img = angular.element('<img />')
                     .attr('src', data);
 
                 reset_snapshot_image().append(img);
+            }
+
+            /**
+             * @param {string} data_url
+             * @return {string}
+             */
+            function clean_img_data(data_url) {
+                return data_url.replace(BASE64_CLEAN, '');
             }
 
             /**
@@ -212,7 +227,7 @@ angular.module('tcp').directive('imgUpload', [
 
                     upload.uploadFile(img_file);
                 } else if (img_data) {
-                    Services.user.upload_avatar(img_data)
+                    Services.user.upload_avatar(clean_img_data(img_data))
                         .then(function () {
                             scope.vm.loading_msg = null;
                             scope.vm.can_submit = true;
