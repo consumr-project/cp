@@ -1,11 +1,13 @@
-import { Record } from '../device/models';
+import { Record, User } from '../device/models';
 import { UserMessage } from '../record/models/user';
 
 export function set_user_avatar(user: Record, url: string): Promise<UserMessage> {
     return new Promise((resolve, reject) => {
-        resolve({
-            id: user.id,
-            avatar_url: url,
-        });
+        User.update(
+            { avatar_url: url },
+            { where: { id: user.id } }
+        )
+            .then(() => resolve({ id: user.id, avatar_url: url }))
+            .catch(err => reject(err));
     });
 }
