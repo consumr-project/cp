@@ -37,3 +37,11 @@ export function can(action: string, resource: string): ServiceRequestHandler {
             .catch(next);
     };
 }
+
+export const loggedin: ServiceRequestHandler = function (req, res, next) {
+    if (!req.user || !req.user.id) {
+        next(new UnauthorizedError());
+    } else {
+        next();
+    }
+};

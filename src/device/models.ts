@@ -1,5 +1,7 @@
 import { default as gen_models } from '../record/models';
 
+import { UUID } from '../lang';
+
 import gen_user from '../record/models/user';
 import connect from './dbms';
 
@@ -27,3 +29,7 @@ export const Token = models.Token;
 export const User = gen_user(conn);
 export const UserFollower = models.UserFollower;
 export const UserReport = models.UserReport;
+
+export interface Record {
+    id: UUID;
+}

@@ -2,12 +2,16 @@ import * as express from 'express';
 import * as multer from 'multer';
 
 import { ErrorHandler } from '../lang';
+import { loggedin } from '../auth/permissions';
+import { set_user_avatar } from '../repository/user';
 import { upload, url, valid_image_type, SUPPORTED_MIMES } from '../user/avatar';
 import { service_handler, service_redirect } from '../http';
+
 import { UnprocessableEntityError, BadRequestError,
     ERR_MSG_MISSING_FIELDS, ERR_MSG_INVALID_ENTITY_TYPE } from '../errors';
 
-export const app = express();
+export
+const app = express();
 const storage = multer.memoryStorage();
 const uploader = multer({ storage, fileFilter: filter });
 
@@ -37,15 +41,28 @@ app.get('/avatar', service_redirect((req, res, next) => {
     return url(query, req.query.size, req.query.rating);
 }));
 
+app.post('/upload', loggedin);
+
 app.post('/upload', (req, res, next) => {
-    if (req.body.data) {
-        service_handler(req => upload(req.body.data))(req, res, <ErrorHandler>next);
-    } else {
+    if (!req.body.data) {
         next();
+        return;
     }
+
+    service_handler(req =>
+        upload(req.body.data)
+            .then(url => set_user_avatar({
+                id: req.user.id,
+            }, url))
+    )(req, res, <ErrorHandler>next);
 });
 
 app.post('/upload',
     uploader.single('file'),
-    service_handler(req => upload(req.file.buffer.toString('base64')))
+    service_handler(req =>
+        upload(req.file.buffer.toString('base64'))
+            .then(url => set_user_avatar({
+                id: req.user.id,
+            }, url))
+    )
 );
