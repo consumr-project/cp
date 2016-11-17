@@ -1,7 +1,5 @@
 import { Sequelize, Model } from 'sequelize';
 
-import gen_user from './models/user';
-
 let model = (name: string, conn: Sequelize): Model<any, any> =>
     require('./models/' + name)(conn, require('sequelize/lib/data-types'));
 
