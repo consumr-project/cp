@@ -1,9 +1,36 @@
 import { CONFIG, TRACKING, merge } from '../utils';
+import { UUID, Date2, } from '../../lang';
 import { DataTypes } from 'sequelize';
 
 const Type: DataTypes = require('sequelize/lib/data-types');
 
-export = sequelize =>
+export enum Role {
+    admin = <any>'admin',
+    user = <any>'user',
+}
+
+export enum Language {
+    en = <any>'en',
+}
+
+export interface UserMessage {
+    id?: UUID;
+    name?: string;
+    email?: string;
+    title?: string;
+    company_name?: string;
+    role?: Role;
+    lang?: Language;
+    summary?: string;
+    member_number?: number;
+    avatar_url?: string;
+    linkedin_url?: string;
+    last_login_date?: Date2;
+    auth_linkedin_id?: string;
+    auth_apikey?: string;
+}
+
+export default sequelize =>
     sequelize.define('user', merge(TRACKING(), {
         id: {
             type: Type.UUID,

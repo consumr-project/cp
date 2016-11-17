@@ -1,10 +1,12 @@
 import { CONFIG, TRACKING, merge } from '../utils';
 import { DataTypes } from 'sequelize';
 
+import gen_user from './user';
+
 const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
-    var User = require('./user')(sequelize),
+    var User = gen_user(sequelize),
         Question = require('./question')(sequelize);
 
     var QuestionVote = sequelize.define('question_vote', merge(TRACKING(), {

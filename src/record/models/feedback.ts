@@ -1,11 +1,13 @@
 import { CONFIG, TRACKING, merge } from '../utils';
 import { DataTypes } from 'sequelize';
 
+import gen_user from './user';
+
 const STAMP = require('../../../dist/stamp.json');
 const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
-    var User = require('./user')(sequelize);
+    var User = gen_user(sequelize);
 
     var Feedback = sequelize.define('feedback', merge(TRACKING(), {
         id: {

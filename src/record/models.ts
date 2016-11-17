@@ -1,5 +1,7 @@
 import { Sequelize, Model } from 'sequelize';
 
+import gen_user from './models/user';
+
 let model = (name: string, conn: Sequelize): Model<any, any> =>
     require('./models/' + name)(conn, require('sequelize/lib/data-types'));
 
@@ -23,7 +25,7 @@ export default (conn) => {
         Tag: model('tag', conn),
         TagFollower: model('tag_follower', conn),
         Token: model('token', conn),
-        User: model('user', conn),
+        User: gen_user(conn),
         UserFollower: model('user_follower', conn),
         UserReport: model('user_report', conn),
     };
