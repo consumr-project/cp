@@ -9,7 +9,8 @@ angular.module('tcp').directive('imgUpload', [
     'utils2',
     'assert',
     'messages',
-    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
+    '$window',
+    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages, $window) {
         'use strict';
 
         var BASE64_CLEAN = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -23,10 +24,10 @@ angular.module('tcp').directive('imgUpload', [
         };
 
         var WEBCAM_CONFIG = {
-            height: 240,
-            width: 320,
-            dest_height: 240,
-            dest_width: 320,
+            height: 320,
+            width: 350,
+            dest_height: 320,
+            dest_width: 350,
         };
 
         var template = [
@@ -218,6 +219,7 @@ angular.module('tcp').directive('imgUpload', [
 
                     upload.on('success', function () {
                         scope.vm.success_msg = i18n.get('user/uploaded_photo');
+                        reload();
                     });
 
                     upload.on('error', function (file, body, res) {
@@ -232,6 +234,7 @@ angular.module('tcp').directive('imgUpload', [
                             scope.vm.loading_msg = null;
                             scope.vm.can_submit = true;
                             scope.vm.success_msg = i18n.get('user/uploaded_photo');
+                            reload();
                         })
                         .catch(function (res) {
                             console.log(res);
@@ -240,6 +243,12 @@ angular.module('tcp').directive('imgUpload', [
                             scope.vm.error_msg = messages.from_http_error(i18n, res.status);
                         });
                 }
+            }
+
+            function reload() {
+                setTimeout(function () {
+                    $window.location.reload();
+                }, 3000);
             }
 
             function cancel() {
