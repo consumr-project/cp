@@ -18,7 +18,11 @@ const IMGUR_USERNAME = config('files.avatars.imgur.username');
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
 
-export const SUPPORTED_MIMES = ['image/jpeg'];
+export const SUPPORTED_MIMES = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+];
 
 export enum RATING {
     G = <any>'g',
