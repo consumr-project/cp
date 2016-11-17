@@ -25,7 +25,6 @@ export default (conn) => {
         Tag: model('tag', conn),
         TagFollower: model('tag_follower', conn),
         Token: model('token', conn),
-        User: gen_user(conn),
         UserFollower: model('user_follower', conn),
         UserReport: model('user_report', conn),
     };

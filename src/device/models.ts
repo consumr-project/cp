@@ -1,4 +1,6 @@
 import { default as gen_models } from '../record/models';
+
+import gen_user from '../record/models/user';
 import connect from './dbms';
 
 export const conn = connect();
@@ -22,6 +24,6 @@ export const ReviewUsefulness = models.ReviewUsefulness;
 export const Tag = models.Tag;
 export const TagFollower = models.TagFollower;
 export const Token = models.Token;
-export const User = models.User;
+export const User = gen_user(conn);
 export const UserFollower = models.UserFollower;
 export const UserReport = models.UserReport;
