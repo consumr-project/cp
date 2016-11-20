@@ -225,6 +225,7 @@ angular.module('tcp').directive('user', [
 
             $scope.nav = Navigation;
             $scope.vm = {
+                upload_photo: {},
                 stats: null,
                 cur_stat: null,
                 exp_stat: null,
@@ -321,8 +322,17 @@ angular.module('tcp').directive('user', [
             },
             template: [
                 '<div class="user-component">',
+                '    <popover',
+                '        with-close-x',
+                '        with-backdrop',
+                '        api="vm.upload_photo" ',
+                '        class="popover--with-content">',
+                '            <img-upload></img-upload>',
+                '    </popover>',
+
                 '    <center ng-if="vm.user.id" class="margin-top-large">',
                 '        <avatar class="avatar--block"',
+                // '            ng-click="vm.upload_photo.show()"',
                 '            title="{{::vm.user.title}}" name="{{::vm.user.name}}"',
                 '            email="{{::vm.user.email}}"></avatar>',
 
