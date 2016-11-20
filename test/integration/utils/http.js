@@ -5,7 +5,6 @@ const CP_PURGE_KEY = process.env.CP_PURGE_KEY || '';
 
 const tape = require('tape');
 const superagent = require('superagent');
-const cli = require('../../../script/cli');
 
 ['put', 'post'].forEach(name => {
     superagent.agent.prototype[name] = function (url, data) {
@@ -21,14 +20,10 @@ const cli = require('../../../script/cli');
 });
 
 tape('setup', t => {
-    t.plan(1);
+    t.plan(2);
 
-    cli.cp_ascii(console.log);
-
-    t.comment(`service url: "${INSTANCE_URL}"`);
-    t.comment(`purge key: "${CP_PURGE_KEY}"`);
-
-    t.ok(INSTANCE_URL, 'service url is set (process.env.CP_TEST_INSTANCE_URL)');
+    t.ok(INSTANCE_URL, `service url: "${INSTANCE_URL}"`);
+    t.ok(CP_PURGE_KEY, `purge key: "${CP_PURGE_KEY}"`);
 
     if (!INSTANCE_URL) {
         process.exit(1);
