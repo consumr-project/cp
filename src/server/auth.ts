@@ -11,7 +11,10 @@ import apikey_auth from '../auth/apikey';
 import { h, dispatch_event } from '../html';
 import { Day } from '../lang';
 import { Manager } from '../auth/token';
-import { service_handler } from '../http';
+import { service_handler, service_response } from '../http';
+
+import { decrypt } from '../crypto';
+import { KEY_USER_EMAIL } from '../keys';
 
 export var app = express();
 export { passport };
@@ -26,6 +29,7 @@ passport.use(linkedin.strategy);
 passport.use(apikey.strategy);
 
 app.get('/user', (req, res) => res.json(req.user || {}));
+app.get('/user/email', (req, res) => res.json(service_response(decrypt(req.user.email, KEY_USER_EMAIL))));
 app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
 
 app.get('/linkedin', linkedin.setup, linkedin.login);

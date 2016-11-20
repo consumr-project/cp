@@ -27,7 +27,6 @@ tape('setup', t => {
 
     t.comment(`service url: "${INSTANCE_URL}"`);
     t.comment(`purge key: "${CP_PURGE_KEY}"`);
-    t.comment('');
 
     t.ok(INSTANCE_URL, 'service url is set (process.env.CP_TEST_INSTANCE_URL)');
 
