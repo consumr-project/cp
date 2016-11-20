@@ -1,10 +1,7 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, tracking, merge } from '../utils';
 
 export = sequelize =>
-    sequelize.define('event', merge(TRACKING(), {
+    sequelize.define('event', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -24,4 +21,4 @@ export = sequelize =>
             type: Type.STRING,
             allowNull: false
         },
-    }), CONFIG);
+    }), Config);

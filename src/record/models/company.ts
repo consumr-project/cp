@@ -1,10 +1,7 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, tracking, merge } from '../utils';
 
 export = sequelize =>
-    sequelize.define('company', merge(TRACKING(), {
+    sequelize.define('company', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -35,4 +32,4 @@ export = sequelize =>
         twitter_handle: {
             type: Type.TEXT
         },
-    }), CONFIG);
+    }), Config);

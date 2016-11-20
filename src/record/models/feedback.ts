@@ -1,15 +1,12 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
+import { Config, Type, tracking, merge } from '../utils';
 import gen_user from './user';
 
 const STAMP = require('../../../dist/stamp.json');
-const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
     var User = gen_user(sequelize);
 
-    var Feedback = sequelize.define('feedback', merge(TRACKING(), {
+    var Feedback = sequelize.define('feedback', merge(tracking(), {
         id: {
             type: Type.UUID,
             allowNull: false,
@@ -39,7 +36,7 @@ export = sequelize => {
                 len: [1, 1000]
             },
         },
-    }), merge(CONFIG, {
+    }), merge(Config, {
         tableName: 'feedback',
         instanceMethods: {
             gen_name: function () {

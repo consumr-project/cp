@@ -1,10 +1,7 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, tracking, merge } from '../utils';
 
 export = sequelize =>
-    sequelize.define('beta_email_invite', merge(TRACKING(), {
+    sequelize.define('beta_email_invite', merge(tracking(), {
         email: {
             type: Type.STRING,
             allowNull: false,
@@ -26,4 +23,4 @@ export = sequelize =>
             type: Type.DATE,
             allowNull: true,
         },
-    }), CONFIG);
+    }), Config);

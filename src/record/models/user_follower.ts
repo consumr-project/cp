@@ -1,8 +1,4 @@
-import { CONFIG, merge } from '../utils';
-// XXX import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, merge /* tracking */ } from '../utils';
 
 export = sequelize => {
     var UserFollower = sequelize.define('user_follower', merge({
@@ -24,7 +20,7 @@ export = sequelize => {
                 fields: ['f_user_id', 'user_id']
             }
         ]
-    }, CONFIG));
+    }, Config));
 
     UserFollower.removeAttribute('id');
 

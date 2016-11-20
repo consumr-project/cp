@@ -1,13 +1,13 @@
 import { merge as lmerge } from 'lodash';
 import { DataTypes } from 'sequelize';
 
-const Type: DataTypes = require('sequelize/lib/data-types');
+export const Type: DataTypes = require('sequelize/lib/data-types');
 
 export function merge(...args: Object[]): Object {
     return lmerge.apply(null, args.reverse());
 }
 
-export const CONFIG: Object = {
+export const Config: Object = {
     underscored: true,
     paranoid: true,
     deletedAt: 'deleted_date',
@@ -15,7 +15,7 @@ export const CONFIG: Object = {
     updatedAt: 'updated_date',
 };
 
-export const TRACKING = () => {
+export const tracking = () => {
     return {
         created_by: {
             type: Type.UUID,

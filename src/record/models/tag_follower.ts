@@ -1,10 +1,5 @@
-import { CONFIG, merge } from '../utils';
-// XXX import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
+import { Config, Type, merge /* tracking */ } from '../utils';
 import gen_user from './user';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
     var User = gen_user(sequelize),
@@ -20,7 +15,7 @@ export = sequelize => {
             type: Type.UUID,
             allowNull: false
         }
-    }), CONFIG);
+    }), Config);
 
     Tag.belongsToMany(User, { through: TagFollower });
     User.belongsToMany(Tag, { through: TagFollower });

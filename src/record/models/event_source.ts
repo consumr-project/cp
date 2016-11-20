@@ -1,12 +1,9 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, tracking, merge } from '../utils';
 
 export = sequelize => {
     var Event = require('./event')(sequelize);
 
-    var EventSource = sequelize.define('event_source', merge(TRACKING(), {
+    var EventSource = sequelize.define('event_source', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -29,7 +26,7 @@ export = sequelize => {
         summary: {
             type: Type.TEXT
         }
-    }), CONFIG);
+    }), Config);
 
     EventSource.belongsTo(Event);
 

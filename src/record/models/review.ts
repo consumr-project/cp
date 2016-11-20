@@ -1,15 +1,11 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
+import { Config, Type, tracking, merge } from '../utils';
 import gen_user from './user';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
 
 export = sequelize => {
     var User = gen_user(sequelize),
         Company = require('./company')(sequelize);
 
-    var Review = sequelize.define('review', merge(TRACKING(), {
+    var Review = sequelize.define('review', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -47,7 +43,7 @@ export = sequelize => {
                 len: [1, 5000]
             },
         },
-    }), CONFIG);
+    }), Config);
 
     Review.belongsTo(User);
     Review.belongsTo(Company);

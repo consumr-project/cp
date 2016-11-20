@@ -1,8 +1,4 @@
-import { CONFIG, merge } from '../utils';
-// XXX import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, merge /* tracking */ } from '../utils';
 
 export = sequelize => {
     var Event = require('./event')(sequelize),
@@ -18,7 +14,7 @@ export = sequelize => {
             type: Type.UUID,
             allowNull: false
         }
-    }), CONFIG);
+    }), Config);
 
     Event.belongsToMany(Tag, { through: EventTag });
     Tag.belongsToMany(Event, { through: EventTag });

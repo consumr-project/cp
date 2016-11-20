@@ -1,8 +1,5 @@
-import { CONFIG, TRACKING, merge } from '../utils';
+import { Config, Type, tracking, merge } from '../utils';
 import { UUID, Date2, } from '../../lang';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
 
 export enum Role {
     admin = <any>'admin',
@@ -31,7 +28,7 @@ export interface UserMessage {
 }
 
 export default sequelize =>
-    sequelize.define('user', merge(TRACKING(), {
+    sequelize.define('user', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -94,4 +91,4 @@ export default sequelize =>
         auth_apikey: {
             type: Type.STRING
         }
-    }), CONFIG);
+    }), Config);

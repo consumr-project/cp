@@ -1,12 +1,9 @@
-import { CONFIG, TRACKING, merge } from '../utils';
-import { DataTypes } from 'sequelize';
-
-const Type: DataTypes = require('sequelize/lib/data-types');
+import { Config, Type, tracking, merge } from '../utils';
 
 export = sequelize => {
     var Company = require('./company')(sequelize);
 
-    var Question = sequelize.define('question', merge(TRACKING(), {
+    var Question = sequelize.define('question', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true
@@ -56,7 +53,7 @@ export = sequelize => {
             type: Type.DATE,
             allowNull: true,
         },
-    }), CONFIG);
+    }), Config);
 
     Question.belongsTo(Company);
 
