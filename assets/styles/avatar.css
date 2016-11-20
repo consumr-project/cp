@@ -21,6 +21,7 @@ avatar:not(.avatar--block) {
 
 avatar.avatar--block {
     text-align: center;
+    white-space: pre;
 }
 
 .avatar__name {
@@ -56,12 +57,11 @@ avatar.avatar--block .avatar__image {
 avatar.avatar--block .avatar__name,
 avatar.avatar--block .avatar__title,
 avatar.avatar--block .avatar__summary {
-    margin: 15px 0 0 0;
+    margin: 20px 0 0 0;
     white-space: pre-wrap;
 }
 
 avatar.avatar--block .avatar__image,
-avatar.avatar--block .avatar__name,
 avatar.avatar--block .avatar__summary {
     margin-top: 30px;
     display: block;
@@ -69,6 +69,7 @@ avatar.avatar--block .avatar__summary {
 
 avatar.avatar--block .avatar__name,
 avatar.avatar--block .avatar__title {
+    display: inline-block;
     font-size: var(--font-size-xxlarge);
     font-weight: normal;
     line-height: var(--font-height-large);
@@ -76,6 +77,11 @@ avatar.avatar--block .avatar__title {
 
 avatar.avatar--block .avatar__title {
     font-style: italic;
+}
+
+avatar.avatar--block .avatar__name::after {
+    content: ', ';
+    margin-right: 2px;
 }
 
 avatar.avatar--block .avatar__summary {
