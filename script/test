@@ -1,7 +1,12 @@
 #!/bin/bash
 
 tape=./node_modules/.bin/tape
+tap_diff=./node_modules/.bin/tap-diff
 protractor=./node_modules/.bin/protractor
+
+tatatape() {
+    $tape $@ | $tap_diff
+}
 
 case "$1" in
     e2e)
@@ -9,19 +14,19 @@ case "$1" in
         ;;
 
     unit)
-        $tape $(find test/src -name "*.js")
+        tatatape $(find test/src -name "*.js")
         ;;
 
     external)
-        $tape $(find test/external -name "*.js")
+        tatatape $(find test/external -name "*.js")
         ;;
 
     integration)
-        $tape $(find test/integration -name "*.js")
+        tatatape $(find test/integration -name "*.js")
         ;;
 
     *)
-        $tape \
+        tatatape \
             $(find test/external -name "*.js") \
             $(find test/integration -name "*.js") \
             $(find test/src -name "*.js")
