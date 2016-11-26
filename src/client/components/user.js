@@ -2,11 +2,12 @@ angular.module('tcp').directive('user', [
     'Services',
     'Session',
     'Navigation',
-    'utils',
+    'assert',
+    'utils2',
     '$q',
     '$location',
     '$routeParams',
-    function (Services, Session, Navigation, utils, $q, $location, $routeParams) {
+    function (Services, Session, Navigation, assert, utils2, $q, $location, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -245,10 +246,12 @@ angular.module('tcp').directive('user', [
                     $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
 
                     Services.query.users.stats(id)
-                        .then(utils.scope.set($scope, 'vm.stats'))
-                        .then(utils.scope.set($scope, 'vm.cur_stat', loc.cur_stat))
-                        .then(utils.scope.set($scope, 'vm.exp_stat', loc.exp_stat))
-                        .then($scope.load_stat.bind(null, loc.exp_stat));
+                        .then(utils2.curr_set($scope, 'vm.stats'));
+
+                    $scope.vm.cur_stat = loc.cur_stat;
+                    $scope.vm.exp_stat = loc.exp_stat;
+
+                    $scope.load_stat(loc.exp_stat);
                 });
             }
 
@@ -257,7 +260,14 @@ angular.module('tcp').directive('user', [
              */
             function update_actionable_items() {
                 $scope.vm.loggedin = !!Session.USER.id;
-                $scope.vm.myself = $scope.id === Session.USER.id;
+                $scope.vm.myself = viewing_myself();
+            }
+
+            /**
+             * @return {boolean}
+             */
+            function viewing_myself() {
+                return $scope.id === Session.USER.id;
             }
 
             /**
@@ -265,12 +275,12 @@ angular.module('tcp').directive('user', [
              * @return {Promise}
              */
             $scope.on_start_following = function (user_id) {
-                utils.assert(user_id);
-                utils.assert(Session.USER, 'must be logged in');
-                utils.assert(Session.USER.id, 'must be logged in');
+                assert(user_id, 'nothing to follow');
+                assert(Session.USER, 'must be logged in');
+                assert(Session.USER.id, 'must be logged in');
 
                 return Services.query.users.followers.upsert(user_id, { user_id: Session.USER.id })
-                    .then(utils.scope.set($scope, 'vm.followed_by_me', true))
+                    .then(utils2.curr_set($scope, 'vm.followed_by_me', true))
                     .then(Services.notification.notify.follow.bind(null, user_id));
             };
 
@@ -279,12 +289,12 @@ angular.module('tcp').directive('user', [
              * @return {Promise}
              */
             $scope.on_stop_following = function (user_id) {
-                utils.assert(user_id);
-                utils.assert(Session.USER, 'must be logged in');
-                utils.assert(Session.USER.id, 'must be logged in');
+                assert(user_id, 'nothing to unfollow');
+                assert(Session.USER, 'must be logged in');
+                assert(Session.USER.id, 'must be logged in');
 
                 return Services.query.users.followers.delete(user_id, Session.USER.id)
-                    .then(utils.scope.set($scope, 'vm.followed_by_me', false))
+                    .then(utils2.curr_set($scope, 'vm.followed_by_me', false))
                     .then(Services.notification.notify.unfollow.bind(null, user_id));
             };
 
@@ -296,7 +306,7 @@ angular.module('tcp').directive('user', [
 
                 $scope.vm.cur_stat = STAT_MAP[stat];
                 $scope.vm.exp_stat = STAT_CHILD_MAP[stat];
-                req.then(utils.scope.set($scope, 'vm.stats_data'));
+                req.then(utils2.curr_set($scope, 'vm.stats_data'));
 
                 if (stat === STAT_CONTRIBUTIONS_EVENTS) {
                     return;
