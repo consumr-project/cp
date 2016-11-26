@@ -9,7 +9,6 @@ import { app as user_endpoints } from './user';
 import { app as version_endpoints } from './version';
 
 import { KEY_SESSION } from '../keys';
-import { ServiceResponseV1 } from '../http';
 import { HttpError, RequestTimeoutError } from '../errors';
 import { normalize_i18n } from '../strings';
 import { logger } from '../log';
