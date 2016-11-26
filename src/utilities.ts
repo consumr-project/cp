@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Dictionary } from 'lodash';
+import { Dictionary, curryRight, set, get } from 'lodash';
 
 export type None = Object;
 export type Maybe<T> = T;
@@ -93,4 +93,19 @@ export function make_link(link?: string): string {
     } else {
         return link.indexOf('http') === 0 ? link : 'http://' + link;
     }
+}
+
+export function nil(val?: any): boolean {
+    return val === null || val === undefined;
+}
+
+export function curr_set<T, V>(obj: T, path: string[] | string, def?: V): (val: V) => T {
+    return (val: V) => {
+        set(obj, path, !nil(def) ? def : val);
+        return obj;
+    };
+}
+
+export function curr_get<T, V>(path: string[] | string): (obj: T) => V {
+    return curryRight(get, 2)(path);
 }
