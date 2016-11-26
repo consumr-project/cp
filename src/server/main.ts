@@ -115,23 +115,13 @@ app.use((err: any, req, res, next) => {
         } else {
             res.status(500);
         }
-
-        if (/^\/service\//.test(req.url)) {
-            res.json(<ServiceResponseV1<void>>{
-                meta: {
-                    ok: false,
-                    message: err.message,
-                },
-                body: {}
-            });
-        } else {
-            res.render('index', {
-                err,
-                debugging: CLIENT_DEBUG_INFO,
-                lang: normalize_i18n(req.query.lang),
-            });
-        }
     }
+
+    res.render('index', {
+        err,
+        debugging: CLIENT_DEBUG_INFO,
+        lang: normalize_i18n(req.query.lang),
+    });
 });
 
 // view handler
