@@ -130,7 +130,6 @@ angular.module('tcp').directive('search', [
                 '        <div class="search__result animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
                 '            ng-repeat="company in vm.results.companies">',
                 '            <h2>{{::company.name}}</h2>',
-                '            <p>{{::company.summary || company.name}}</p>',
                 '        </div>',
 
                 '        <div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
