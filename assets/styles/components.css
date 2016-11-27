@@ -25,6 +25,50 @@ tag-view {
     display: none;
 }
 
+.user-component avatar [ng-transclude="logo"],
+.user-component avatar avatar-logo {
+    border-radius: 200px;
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.user-component avatar .user-component__email {
+    margin-top: var(--spacing-medium);
+}
+
+.user-component avatar .user-component__logo::before,
+.user-component avatar .user-component__logo::after,
+.user-component avatar .user-component__email::before,
+.user-component avatar .user-component__email::after {
+    content: "     ";
+    opacity: 0;
+    transition: opacity var(--speed-fast);
+}
+
+.user-component avatar [ng-transclude="logo"]:hover .user-component__logo::after,
+.user-component avatar .user-component__email:hover::after {
+    opacity: 1;
+}
+
+.user-component avatar .user-component__logo::after,
+.user-component avatar .user-component__email::after {
+    background-image: url(/assets/images/pencil.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    position: relative;
+}
+
+.user-component avatar .user-component__logo::after {
+    left: 63px;
+    top: -21px;
+}
+
+.user-component avatar .user-component__email::after {
+    left: 6px;
+    top: 1px;
+}
+
 .topmost .notifications {
     max-height: 450px;
     max-width: 400px;
