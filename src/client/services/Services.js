@@ -491,8 +491,15 @@ angular.module('tcp').service('Services', [
         /**
          * @return {Promise}
          */
-        authService.user_email = function () {
-            return $http.get('/service/auth/user/email').then(pluck_data);
+        authService.get_user_email = function () {
+            return get('/service/auth/user/email');
+        };
+
+        /**
+         * @return {Promise}
+         */
+        authService.set_user_email = function (email) {
+            return put('/service/uath/user/email', { email: email });
         };
 
         /**
