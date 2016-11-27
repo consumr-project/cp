@@ -243,7 +243,14 @@ angular.module('tcp').directive('user', [
 
                 return Services.query.users.retrieve(id, ['followers']).then(function (user) {
                     $scope.vm.user = user;
+                    $scope.vm.user.raw_email = ' ';
                     $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
+
+                    if (viewing_myself()) {
+                        Services.auth.user_email()
+                            .then(utils2.curr_get('body'))
+                            .then(utils2.curr_set($scope, 'vm.user.raw_email'));
+                    }
 
                     Services.query.users.stats(id)
                         .then(utils2.curr_set($scope, 'vm.stats'));
@@ -342,9 +349,17 @@ angular.module('tcp').directive('user', [
 
                 '    <center ng-if="vm.user.id" class="margin-top-large">',
                 '        <avatar class="avatar--block"',
-                // '            ng-click="vm.upload_photo.show()"',
                 '            title="{{::vm.user.title}}" name="{{::vm.user.name}}"',
-                '            email="{{::vm.user.email}}"></avatar>',
+                '            email="{{::vm.user.email}}"',
+                '        >',
+                '            <avatar-logo ng-if="vm.myself" ng-click="vm.upload_photo.show()">',
+                '                <div class="user-component__logo"></div>',
+                '            </avatar-logo>',
+                '            <avatar-body ng-if="vm.myself">',
+                '                <div class="user-component__email"',
+                '                    ng-click="vm.change_email()">{{vm.user.raw_email}}</div>',
+                '            </avatar-body>',
+                '        </avatar>',
 
                 '        <p class="uppercase" i18n="user/member_number"',
                 '            data="{num: vm.user.member_number}"></p>',
