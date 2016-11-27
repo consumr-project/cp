@@ -28,14 +28,17 @@ tag-view {
 .user-component avatar [ng-transclude="logo"],
 .user-component avatar avatar-logo {
     border-radius: 200px;
-    height: 100%;
-    width: 100%;
     display: block;
+    height: 100%;
+    outline: none;
+    width: 100%;
 }
 
 .user-component avatar .user-component__email {
+    cursor: text;
     display: inline-block;
     margin-top: var(--spacing-medium);
+    outline: none;
 }
 
 .user-component avatar .user-component__logo::before,
