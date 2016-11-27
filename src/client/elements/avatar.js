@@ -73,7 +73,6 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
 
     return {
         restrict: 'E',
-        transclude: true,
         template: template,
         link: link,
         transclude: {
