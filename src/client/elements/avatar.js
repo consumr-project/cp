@@ -2,8 +2,11 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
     'use strict';
 
     var template =
-        '<div class="avatar__image animated fadeIn" afkl-lazy-image="{{src}}" afkl-lazy-image-options="{background: true}">' +
-            '<ng-transclude></ng-transclude>' +
+        '<div>' +
+            '<div class="avatar__image animated fadeIn" afkl-lazy-image="{{src}}" afkl-lazy-image-options="{background: true}">' +
+                '<div ng-transclude="logo"></div>' +
+            '</div>' +
+            '<div ng-transclude="body"></div>' +
         '</div>';
 
     /**
@@ -69,11 +72,16 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
     }
 
     return {
+        restrict: 'E',
         transclude: true,
         template: template,
         link: link,
+        transclude: {
+            logo: '?avatarLogo',
+            body: '?avatarBody',
+        },
         scope: {
-            src: '@'
+            src: '@',
         }
     };
 }]);
