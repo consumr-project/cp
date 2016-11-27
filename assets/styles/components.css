@@ -34,6 +34,7 @@ tag-view {
 }
 
 .user-component avatar .user-component__email {
+    display: inline-block;
     margin-top: var(--spacing-medium);
 }
 
