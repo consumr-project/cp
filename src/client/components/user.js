@@ -357,7 +357,8 @@ angular.module('tcp').directive('user', [
                 '            </avatar-logo>',
                 '            <avatar-body ng-if="vm.myself">',
                 '                <div class="user-component__email"',
-                '                    ng-click="vm.change_email()">{{vm.user.raw_email}}</div>',
+                '                    ng-contenteditable="true"',
+                '                    ng-model="vm.user.raw_email"></div>',
                 '            </avatar-body>',
                 '        </avatar>',
 
