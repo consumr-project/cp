@@ -499,7 +499,7 @@ angular.module('tcp').service('Services', [
          * @return {Promise}
          */
         authService.set_user_email = function (email) {
-            return put('/service/uath/user/email', { email: email });
+            return put('/service/auth/user/email', { email: email });
         };
 
         /**
