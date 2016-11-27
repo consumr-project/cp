@@ -11,10 +11,8 @@ import Rbac = require('rbac');
 const RULES = clone(config<Configuration>('rbac'));
 const ROLES = make_enum(RULES.roles);
 
-
 export const rbac = new Rbac(RULES);
 export const roles = ROLES;
-
 
 export function check(role: string, action: string, resource: string) {
     return new Promise<Boolean>((resolve, reject) => {

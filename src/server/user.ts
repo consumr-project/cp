@@ -3,7 +3,7 @@ import * as multer from 'multer';
 
 import { ErrorHandler } from '../lang';
 import { loggedin } from '../auth/permissions';
-import { set_user_avatar } from '../repository/user';
+import { update_user } from '../repository/user';
 import { upload, url, valid_image_type, SUPPORTED_MIMES } from '../user/avatar';
 import { service_handler, service_redirect } from '../http';
 
@@ -51,9 +51,9 @@ app.post('/upload', (req, res, next) => {
 
     service_handler(req =>
         upload(req.body.data)
-            .then(url => set_user_avatar({
+            .then(avatar_url => update_user({
                 id: req.user.id,
-            }, url))
+            }, { avatar_url }))
     )(req, res, <ErrorHandler>next);
 });
 
@@ -61,8 +61,8 @@ app.post('/upload',
     uploader.single('file'),
     service_handler(req =>
         upload(req.file.buffer.toString('base64'))
-            .then(url => set_user_avatar({
+            .then(avatar_url => update_user({
                 id: req.user.id,
-            }, url))
+            }, { avatar_url }))
     )
 );

@@ -1,13 +1,14 @@
+import { merge } from 'lodash';
+
 import { Record, User } from '../device/models';
 import { UserMessage } from '../record/models/user';
 
-export function set_user_avatar(user: Record, url: string): Promise<UserMessage> {
+export function update_user(user: Record, update: UserMessage): Promise<UserMessage> {
+    var { id } = user;
+
     return new Promise((resolve, reject) => {
-        User.update(
-            { avatar_url: url },
-            { where: { id: user.id } }
-        )
-            .then(() => resolve({ id: user.id, avatar_url: url }))
+        User.update(update, { where: { id } })
+            .then(() => resolve(merge(update, { id })))
             .catch(err => reject(err));
     });
 }
