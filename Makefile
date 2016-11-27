@@ -241,3 +241,4 @@ build-client-src:
 	$(js_min) src/client/services/Session.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
 	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
+	$(js_min) src/client/vendor/angular/ngContenteditable.js >> $(build_client_js)
