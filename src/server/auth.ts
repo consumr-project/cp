@@ -28,7 +28,7 @@ passport.deserializeUser(deserialize);
 passport.use(linkedin.strategy);
 passport.use(apikey.strategy);
 
-app.get('/user', (req, res) => res.json(req.user || {}));
+app.get('/user', (req, res) => res.json(service_response(req.user || {})));
 app.get('/user/email', (req, res) => res.json(service_response(decrypt(req.user.email, KEY_USER_EMAIL))));
 app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
 

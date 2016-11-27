@@ -485,7 +485,7 @@ angular.module('tcp').service('Services', [
          * @return {Promise}
          */
         authService.user = function () {
-            return $http.get('/service/auth/user').then(pluck_data);
+            return get('/service/auth/user');
         };
 
         /**
