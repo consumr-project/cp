@@ -3,8 +3,9 @@ import { User as UserMessage } from 'cp/record';
 
 import * as express from 'express';
 import * as passport from 'passport';
+import { update_user } from '../repository/user';
 import { User, Token } from '../device/models';
-import { can, roles } from '../auth/permissions';
+import { can, roles, loggedin } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
 import apikey_auth from '../auth/apikey';
@@ -28,9 +29,17 @@ passport.deserializeUser(deserialize);
 passport.use(linkedin.strategy);
 passport.use(apikey.strategy);
 
-app.get('/user', (req, res) => res.json(service_response(req.user || {})));
-app.get('/user/email', (req, res) => res.json(service_response(decrypt(req.user.email, KEY_USER_EMAIL))));
-app.get('/logout', (req, res, next) => { req.logout(); next(); }, js_update_client_auth);
+app.get('/user', (req, res) =>
+    res.json(service_response(req.user || {})));
+
+app.get('/user/email', loggedin, (req, res) =>
+    res.json(service_response(decrypt(req.user.email, KEY_USER_EMAIL))));
+
+app.put('/user/email', loggedin, service_handler(req =>
+    update_user({ id: req.user.id }, { email: req.body.email })));
+
+app.get('/logout', (req, res, next) => { req.logout(); next(); },
+    js_update_client_auth);
 
 app.get('/linkedin', linkedin.setup, linkedin.login);
 app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
