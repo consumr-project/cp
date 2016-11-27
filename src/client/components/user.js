@@ -4,10 +4,11 @@ angular.module('tcp').directive('user', [
     'Navigation',
     'assert',
     'utils2',
+    'lodash',
     '$q',
     '$location',
     '$routeParams',
-    function (Services, Session, Navigation, assert, utils2, $q, $location, $routeParams) {
+    function (Services, Session, Navigation, assert, utils2, lodash, $q, $location, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -205,6 +206,8 @@ angular.module('tcp').directive('user', [
         }
 
         function controller($scope) {
+            var update_email = lodash.debounce(update_email_now, 300);
+
             $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
             $scope.STAT_FOLLOWING = STAT_FOLLOWING;
 
@@ -226,6 +229,7 @@ angular.module('tcp').directive('user', [
 
             $scope.nav = Navigation;
             $scope.vm = {
+                user: {},
                 upload_photo: {},
                 stats: null,
                 cur_stat: null,
@@ -247,9 +251,11 @@ angular.module('tcp').directive('user', [
                     $scope.vm.followed_by_me = user.followers['@meta'].instead.includes_me;
 
                     if (viewing_myself()) {
-                        Services.auth.user_email()
-                            .then(utils2.curr_get('body'))
-                            .then(utils2.curr_set($scope, 'vm.user.raw_email'));
+                        Services.auth.get_user_email()
+                            .then(function (email) {
+                                $scope.vm.user.raw_email = email;
+                                $scope.vm.user.raw_email_curr = email;
+                            });
                     }
 
                     Services.query.users.stats(id)
@@ -275,6 +281,31 @@ angular.module('tcp').directive('user', [
              */
             function viewing_myself() {
                 return $scope.id === Session.USER.id;
+            }
+
+            /**
+             * @param {string} new_email
+             * @return {void}
+             */
+            function email_updated(new_email) {
+                var old_email;
+
+                old_email = normalized_email($scope.vm.user.raw_email_curr);
+                new_email = normalized_email(new_email);
+
+                if (new_email && new_email !== old_email) {
+                    $scope.vm.user.raw_email_curr = new_email;
+                    update_email(new_email);
+                }
+            }
+
+            /**
+             * @param {string} email
+             * @return {Promise<UserMessage>}
+             */
+            function update_email_now(email) {
+                console.log('updating user email to %s', email);
+                return Services.auth.set_user_email(email);
             }
 
             /**
@@ -327,8 +358,20 @@ angular.module('tcp').directive('user', [
                 load($scope.id);
             }
 
+            if ($scope.id && viewing_myself()) {
+                $scope.$watch('vm.user.raw_email', email_updated);
+            }
+
             Session.on(Session.EVENT.LOGIN, update_actionable_items);
             Session.on(Session.EVENT.LOGOUT, update_actionable_items);
+        }
+
+        /**
+         * @param {string} str
+         * @return {string}
+         */
+        function normalized_email(str) {
+            return !str ? '' : str.toLowerCase().trim();
         }
 
         return {
