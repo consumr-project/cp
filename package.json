@@ -52,7 +52,7 @@
     "express-session": "1.11.3",
     "glob": "6.0.1",
     "imgur": "0.1.7",
-    "jquery": "2.1.4",
+    "jquery": "2.2.0",
     "js-cookie": "2.0.4",
     "jtils": "minond/jtils#e78280ffa09477da6a398b3801d9a6abae37982a",
     "lodash": "4.0.0",
