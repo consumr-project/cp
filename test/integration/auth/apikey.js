@@ -20,7 +20,7 @@ tapes('guest', t => {
 
         http.get('/service/auth/user').end((err, res) => {
             st.error(err, 'can get the active user');
-            st.equal(res.body.id, fixtures.user.admin.id, 'same user id');
+            st.equal(res.body.body.id, fixtures.user.admin.id, 'same user id');
             st.notEqual(res.body.email, fixtures.user.admin.raw_email, 'no raw email');
         });
     });

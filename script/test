@@ -25,6 +25,10 @@ case "$1" in
         tatatape $(find test/integration -name "*.js")
         ;;
 
+    test/*)
+        tatatape "$@"
+        ;;
+
     *)
         tatatape \
             $(find test/external -name "*.js") \
