@@ -1,3 +1,5 @@
+const EMAIL = /\b[a-zA-Z0-9\u00C0-\u017F._%+-]+@[a-zA-Z0-9\u00C0-\u017F.-]+\.[a-zA-Z]{2,}\b/;
+
 type Dict<T> = { [index: string]: T; };
 type CheckedProps = Dict<boolean>;
 type DefinedProps = Dict<() => boolean>;
@@ -10,6 +12,10 @@ type Validator = {
 
 function checks(): CheckedProps {
     return {};
+}
+
+export function email(str: string): boolean {
+    return EMAIL.test(str);
 }
 
 export default function validator(props: DefinedProps, run: boolean = false): Validator {

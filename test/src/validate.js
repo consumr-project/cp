@@ -1,9 +1,21 @@
 'use strict';
 
 const test = require('tape');
+const email = require('../../build/src/validate').email;
 const validate = require('../../build/src/validate').default;
 
-test('validate', t => {
+test('validate emails', t => {
+    t.plan(6);
+
+    t.notok(email('not'), 'invalid: not');
+    t.notok(email('not@'), 'invalid: not@');
+    t.notok(email('not@hi'), 'invalid: not@hi');
+    t.ok(email('not@hi.com'), 'valid: not@hi.com');
+    t.ok(email('test.fdsa+test@gmail.com'), 'valid: test.fdsa+test@gmail.com');
+    t.ok(email('test.fdsa+test@google.co.uk'), 'valid: test.fdsa+test@google.co.uk');
+});
+
+test('validate state machine', t => {
     var validation, value1, value2;
 
     t.plan(16);
