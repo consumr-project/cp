@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const email = require('../../build/src/validate').email;
-const validate = require('../../build/src/validate').default;
+const validator = require('../../build/src/validate').validator;
 
 test('validate emails', t => {
     t.plan(6);
@@ -15,12 +15,12 @@ test('validate emails', t => {
     t.ok(email('test.fdsa+test@google.co.uk'), 'valid: test.fdsa+test@google.co.uk');
 });
 
-test('validate state machine', t => {
+test('validator state machine', t => {
     var validation, value1, value2;
 
     t.plan(16);
 
-    validation = validate({
+    validation = validator({
         value: () => false,
     });
     t.equal(undefined, validation.checks.value, 'starts out as undefined');
@@ -28,14 +28,14 @@ test('validate state machine', t => {
 
     t.equal(false, validation.checks.value, 'is updated on validate call');
 
-    validation = validate({
+    validation = validator({
         fail: () => false,
         pass: () => true,
     }, true);
     t.equal(true, validation.checks.pass, 'can run validation on creation (1)');
     t.equal(false, validation.checks.fail, 'can run validation on creation (2)');
 
-    validation = validate({
+    validation = validator({
         fail: () => false,
         pass: () => true,
     });
@@ -48,7 +48,7 @@ test('validate state machine', t => {
     t.equal(undefined, validation.checks.fail, 'removed after reset (2)');
 
     value1 = true;
-    validation = validate({
+    validation = validator({
         value1: () => !!value1,
     }, true);
     t.equal(true, validation.checks.value1, 'initial check is set');
@@ -60,7 +60,7 @@ test('validate state machine', t => {
     validation.validate();
     t.equal(false, validation.checks.value1, 'only calling validate function does');
 
-    validation = validate({
+    validation = validator({
         value1: () => !!value1,
         value2: () => !!value2,
     });

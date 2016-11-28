@@ -7,7 +7,8 @@ import * as utils from './services/Utilities';
 import * as messages from './services/messages';
 import * as utils2 from '../utilities';
 import * as EVENTS from '../events';
-import validator from '../validate';
+import { validator } from '../validate';
+import * as validate from '../validate';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
 import * as analytics from 'universal-analytics/index';
@@ -139,6 +140,7 @@ namespace tcp {
         .value('slug', slug)
         .value('utils', utils)
         .value('utils2', utils2)
+        .value('validate', validate)
         .value('validator', validator);
 
     angular.module('tcp').config([

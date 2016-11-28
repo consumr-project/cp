@@ -18,7 +18,7 @@ export function email(str: string): boolean {
     return EMAIL.test(str);
 }
 
-export default function validator(props: DefinedProps, run: boolean = false): Validator {
+export function validator(props: DefinedProps, run: boolean = false): Validator {
     var checker = { checks: checks(), validate, reset };
 
     function reduce_set(reducer) {
