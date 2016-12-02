@@ -1,8 +1,10 @@
 import { Config, Type, merge /* tracking */ } from '../utils';
 
-export = sequelize => {
+import gen_company from './company';
+
+export default sequelize => {
     var Product = require('./product')(sequelize),
-        Company = require('./company')(sequelize);
+        Company = gen_company(sequelize);
 
     var CompanyProduct = sequelize.define('company_products', merge({
         company_id: {

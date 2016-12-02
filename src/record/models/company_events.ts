@@ -2,6 +2,7 @@ import { Config, Type, merge /* tracking */ } from '../utils';
 import { IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_event from './event';
+import gen_company from './company';
 
 export interface CompanyEventMessage extends IdentifiableMessage, StampedMessage {
     event_id: string;
@@ -10,7 +11,7 @@ export interface CompanyEventMessage extends IdentifiableMessage, StampedMessage
 
 export default sequelize => {
     var Event = gen_event(sequelize),
-        Company = require('./company')(sequelize);
+        Company = gen_company(sequelize);
 
     var CompanyEvent = sequelize.define('company_event', merge({
         company_id: {

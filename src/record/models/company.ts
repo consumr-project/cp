@@ -1,6 +1,16 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { IdentifiableMessage, StampedMessage } from '../message';
 
-export = sequelize =>
+export interface CompanyMessage extends IdentifiableMessage, StampedMessage {
+    name: string;
+    summary?: string;
+    guid: string;
+    website_url?: string;
+    wikipedia_url?: string;
+    twitter_handle?: string;
+}
+
+export default sequelize =>
     sequelize.define('company', merge(tracking(), {
         id: {
             type: Type.UUID,

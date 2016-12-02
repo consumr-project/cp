@@ -26,15 +26,6 @@ declare module 'cp/record' {
         id: string;
     }
 
-    export interface Company extends IdentifiableModel {
-        name: string;
-        summary: string;
-        guid: string;
-        website_url: string;
-        wikipedia_url: string;
-        twitter_handle: string;
-    }
-
     export enum FeedbackType {
         question,
         suggestion,

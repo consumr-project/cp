@@ -4,7 +4,10 @@ import { UUID } from '../lang';
 
 import connect from './dbms';
 import gen_beta_email_invite from '../record/models/beta_email_invite';
+import gen_company from '../record/models/company';
 import gen_company_event from '../record/models/company_events';
+import gen_company_follower from '../record/models/company_followers';
+import gen_company_product from '../record/models/company_products';
 import gen_event from '../record/models/event';
 import gen_event_source from '../record/models/event_source';
 import gen_event_tag from '../record/models/event_tag';
@@ -15,10 +18,10 @@ export const conn = connect();
 export const models = gen_models(conn);
 
 export const BetaEmailInvite = gen_beta_email_invite(conn);
-export const Company = models.Company;
+export const Company = gen_company(conn);
 export const CompanyEvent = gen_company_event(conn);
-export const CompanyFollower = models.CompanyFollower;
-export const CompanyProduct = models.CompanyProduct;
+export const CompanyFollower = gen_company_follower(conn);
+export const CompanyProduct = gen_company_product(conn);
 export const Event = gen_event(conn);
 export const EventBookmark = models.EventBookmark;
 export const EventSource = gen_event_source(conn);

@@ -5,9 +5,6 @@ let model = (name: string, conn: Sequelize): Model<any, any> =>
 
 export default (conn) => {
     return {
-        Company: model('company', conn),
-        CompanyFollower: model('company_followers', conn),
-        CompanyProduct: model('company_products', conn),
         EventBookmark: model('event_bookmarks', conn),
         Feedback: model('feedback', conn),
         Product: model('product', conn),
