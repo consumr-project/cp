@@ -12,3 +12,7 @@ export interface StampedMessage {
 export interface IdentifiableMessage {
     id?: UUID;
 }
+
+export interface Message {
+    id: UUID;
+}

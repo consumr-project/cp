@@ -1,6 +1,5 @@
-import { UUID } from '../lang';
-
 import connect from './dbms';
+
 import gen_beta_email_invite from '../record/models/beta_email_invite';
 import gen_company from '../record/models/company';
 import gen_feedback from '../record/models/feedback';
@@ -46,7 +45,3 @@ export const Token = gen_token(conn);
 export const User = gen_user(conn);
 export const UserFollower = gen_user_follower(conn);
 export const UserReport = gen_user_report(conn);
-
-export interface Record {
-    id: UUID;
-}

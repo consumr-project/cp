@@ -1,6 +1,7 @@
 import { clone, merge } from 'lodash';
 
-import { Record, User } from '../device/models';
+import { User } from '../device/models';
+import { Message } from '../record/message';
 import { UserMessage } from '../record/models/user';
 import { encrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
@@ -16,7 +17,7 @@ function prep(update: UserMessage): UserMessage {
     return update;
 }
 
-export function update_user(user: Record, update: UserMessage): Promise<UserMessage> {
+export function update_user(user: Message, update: UserMessage): Promise<UserMessage> {
     var { id } = user;
 
 
