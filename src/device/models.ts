@@ -12,6 +12,7 @@ import gen_event from '../record/models/event';
 import gen_event_bookmark from '../record/models/event_bookmarks';
 import gen_event_source from '../record/models/event_source';
 import gen_event_tag from '../record/models/event_tag';
+import gen_tag from '../record/models/tag';
 import gen_token from '../record/models/token';
 import gen_user from '../record/models/user';
 
@@ -33,7 +34,7 @@ export const Question = models.Question;
 export const QuestionVote = models.QuestionVote;
 export const Review = models.Review;
 export const ReviewUsefulness = models.ReviewUsefulness;
-export const Tag = models.Tag;
+export const Tag = gen_tag(conn);
 export const TagFollower = models.TagFollower;
 export const Token = gen_token(conn);
 export const User = gen_user(conn);
