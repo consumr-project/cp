@@ -1,3 +1,6 @@
+/**
+ * @attribute avatarTitle {string|boolean}
+ */
 angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
     'use strict';
 
@@ -49,10 +52,10 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
                 .appendTo(elem);
         }
 
-        if (attrs.title) {
-            title.push(attrs.title);
+        if (attrs.title || attrs.description) {
+            title.push(attrs.title || attrs.description);
             angular.element('<div class="avatar__title"></div>')
-                .text(attrs.title)
+                .text(attrs.title || attrs.description)
                 .appendTo(elem);
         }
 
@@ -68,7 +71,9 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
                 .click(Navigation.user.bind(null, attrs.userId));
         }
 
-        elem.attr('title', title.join(' - '));
+        if (attrs.avatarTitle !== 'false') {
+            elem.attr('title', title.join(' - '));
+        }
     }
 
     return {
