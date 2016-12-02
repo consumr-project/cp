@@ -9,8 +9,7 @@ angular.module('tcp').directive('imgUpload', [
     'utils2',
     'assert',
     'messages',
-    '$window',
-    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages, $window) {
+    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
         'use strict';
 
         var BASE64_CLEAN = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -219,7 +218,7 @@ angular.module('tcp').directive('imgUpload', [
 
                     upload.on('success', function () {
                         scope.vm.success_msg = i18n.get('user/uploaded_photo');
-                        reload();
+                        refresh();
                     });
 
                     upload.on('error', function (file, body, res) {
@@ -234,7 +233,7 @@ angular.module('tcp').directive('imgUpload', [
                             scope.vm.loading_msg = null;
                             scope.vm.can_submit = true;
                             scope.vm.success_msg = i18n.get('user/uploaded_photo');
-                            reload();
+                            refresh();
                         })
                         .catch(function (res) {
                             console.log(res);
@@ -245,10 +244,14 @@ angular.module('tcp').directive('imgUpload', [
                 }
             }
 
-            function reload() {
-                setTimeout(function () {
-                    $window.location.reload();
-                }, 3000);
+            function refresh() {
+                angular.element('.avatar__image').each(function () {
+                    var $this = angular.element(this);
+                    var image = $this.css('background-image');
+                    var url = image.substring(5, image.length - 2) + '&' + Date.now();
+                    var new_image = ['url("', url, '")'].join('');
+                    $this.css('background-image', new_image);
+                });
             }
 
             function cancel() {
