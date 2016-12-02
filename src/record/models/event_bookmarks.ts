@@ -2,7 +2,7 @@ import { Config, Type, merge /* tracking */ } from '../utils';
 import gen_user from './user';
 import gen_event from './event';
 
-export = sequelize => {
+export default sequelize => {
     var User = gen_user(sequelize),
         Event = gen_event(sequelize);
 

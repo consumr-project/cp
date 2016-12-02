@@ -5,7 +5,6 @@ let model = (name: string, conn: Sequelize): Model<any, any> =>
 
 export default (conn) => {
     return {
-        EventBookmark: model('event_bookmarks', conn),
         Feedback: model('feedback', conn),
         Product: model('product', conn),
         Question: model('question', conn),
