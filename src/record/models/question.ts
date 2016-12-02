@@ -1,7 +1,9 @@
 import { Config, Type, tracking, merge } from '../utils';
 
-export = sequelize => {
-    var Company = require('./company')(sequelize);
+import gen_company from './company';
+
+export default sequelize => {
+    var Company = gen_company(sequelize);
 
     var Question = sequelize.define('question', merge(tracking(), {
         id: {

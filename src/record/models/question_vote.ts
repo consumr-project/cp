@@ -1,9 +1,11 @@
 import { Config, Type, tracking, merge } from '../utils';
-import gen_user from './user';
 
-export = sequelize => {
+import gen_user from './user';
+import gen_question from './question';
+
+export default sequelize => {
     var User = gen_user(sequelize),
-        Question = require('./question')(sequelize);
+        Question = gen_question(sequelize);
 
     var QuestionVote = sequelize.define('question_vote', merge(tracking(), {
         question_id: {
