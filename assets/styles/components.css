@@ -47,7 +47,6 @@ tag-view {
 .user-component avatar .user-component__email::after {
     content: "     ";
     opacity: 0;
-    transition: opacity var(--speed-fast);
 }
 
 .user-component avatar [ng-transclude="logo"]:hover .user-component__logo::after,
@@ -71,6 +70,21 @@ tag-view {
 .user-component avatar .user-component__email::after {
     left: 6px;
     top: 1px;
+}
+
+.user-component avatar .user-component__email.user-component__email--loading::after,
+.user-component avatar .user-component__email.user-component__email--updated::after {
+    background-position: center center;
+    background-size: 14px;
+    opacity: 1;
+}
+
+.user-component avatar .user-component__email.user-component__email--loading::after {
+    background-image: url(/assets/images/loading-spin.svg);
+}
+
+.user-component avatar .user-component__email.user-component__email--updated::after {
+    background-image: url(/assets/images/check-mark.svg);
 }
 
 .topmost .notifications {
