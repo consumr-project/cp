@@ -1,6 +1,6 @@
 import { Config, Type, tracking, merge } from '../utils';
 
-export = sequelize =>
+export default sequelize =>
     sequelize.define('product', merge(tracking(), {
         id: {
             type: Type.UUID,

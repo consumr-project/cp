@@ -6,6 +6,5 @@ let model = (name: string, conn: Sequelize): Model<any, any> =>
 export default (conn) => {
     return {
         Feedback: model('feedback', conn),
-        Product: model('product', conn),
     };
 };
