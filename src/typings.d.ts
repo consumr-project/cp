@@ -12,32 +12,6 @@ declare module 'cp/record' {
         findById?(id: string): Promise<Model>;
         findOrCreate?(options: FindOrCreate): Promise<Model>;
     }
-
-    export interface StampedModel {
-        created_by?: string;
-        created_date?: Date | number;
-        updated_by?: string;
-        updated_date?: Date | number;
-        deleted_by?: string;
-        deleted_date?: Date | number;
-    }
-
-    export interface IdentifiableModel extends StampedModel {
-        id: string;
-    }
-
-    export enum FeedbackType {
-        question,
-        suggestion,
-        problem
-    }
-
-    export interface Feedback extends IdentifiableModel {
-        user_id: string;
-        message: string;
-        referrer: string;
-        type: FeedbackType;
-    }
 }
 
 declare module 'acm' {
