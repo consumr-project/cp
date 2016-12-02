@@ -73,6 +73,7 @@ tag-view {
 }
 
 .user-component avatar .user-component__email.user-component__email--loading::after,
+.user-component avatar .user-component__email.user-component__email--invalid::after,
 .user-component avatar .user-component__email.user-component__email--updated::after {
     background-position: center center;
     background-size: 14px;
@@ -85,6 +86,10 @@ tag-view {
 
 .user-component avatar .user-component__email.user-component__email--updated::after {
     background-image: url(/assets/images/check-mark.svg);
+}
+
+.user-component avatar .user-component__email.user-component__email--invalid::after {
+    background-image: url(/assets/images/warning.svg);
 }
 
 .topmost .notifications {
