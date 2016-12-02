@@ -11,7 +11,5 @@ export default (conn) => {
         QuestionVote: model('question_vote', conn),
         Review: model('review', conn),
         ReviewUsefulness: model('review_usefulness', conn),
-        TagFollower: model('tag_follower', conn),
-        UserFollower: model('user_follower', conn),
     };
 };

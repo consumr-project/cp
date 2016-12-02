@@ -1,6 +1,6 @@
 import { Config, Type, merge /* tracking */ } from '../utils';
 
-export = sequelize => {
+export default sequelize => {
     var UserFollower = sequelize.define('user_follower', merge({
         f_user_id: {
             type: Type.UUID,

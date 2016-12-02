@@ -1,9 +1,11 @@
 import { Config, Type, merge /* tracking */ } from '../utils';
-import gen_user from './user';
 
-export = sequelize => {
+import gen_user from './user';
+import gen_tag from './tag';
+
+export default sequelize => {
     var User = gen_user(sequelize),
-        Tag = require('./tag')(sequelize);
+        Tag = gen_tag(sequelize);
 
     var TagFollower = sequelize.define('tag_follower', merge({
         tag_id: {
