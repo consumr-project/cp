@@ -5,12 +5,13 @@ import { v4 } from 'node-uuid';
 import { difference } from 'lodash';
 
 import { UserMessage } from '../record/models/user';
-import { Event as IEvent, EventTag as IEventTag, EventSource as IEventSource,
+import { EventMessage } from '../record/models/event';
+import { EventTag as IEventTag, EventSource as IEventSource,
     CompanyEvent as ICompanyEvent } from 'cp/record';
 
 import { CompanyEvent, EventSource, EventTag, Event } from '../device/models';
 
-interface EventMessage extends IEvent {
+interface EventClientPayload extends EventMessage {
     _force_create?: boolean;
     sources: any[];
     tags: any[];
@@ -35,7 +36,7 @@ function where(val: string, label: string = 'id'): WhereOptions {
 }
 
 function get_sources_for_event(
-    ev: IEvent,
+    ev: EventMessage,
     transaction: Transaction
 ): Promise<IEventSource[]> {
     return EventSource.findAll({
@@ -46,10 +47,10 @@ function get_sources_for_event(
 }
 
 function upsert_event(
-    raw_data: EventMessage,
-    ev_data: IEvent,
+    raw_data: EventClientPayload,
+    ev_data: EventMessage,
     transaction: Transaction
-): Promise<IEvent> {
+): Promise<EventMessage> {
     return !raw_data.id || raw_data._force_create ?
         Event.create(ev_data, {
             transaction
@@ -60,7 +61,7 @@ function upsert_event(
         }).then(() => ev_data);
 }
 
-function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[], company_ids: UUID[]): EventMessage {
+function build_event_message(ev: EventMessage, sources: IEventSource[], tag_ids: UUID[], company_ids: UUID[]): EventClientPayload {
     return {
         id: ev.id,
         title: ev.title,
@@ -80,8 +81,8 @@ function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[
     };
 }
 
-function build_event(data: EventMessage, user: UserMessage): IEvent {
-    var ev: IEvent = {
+function build_event(data: EventClientPayload, user: UserMessage): EventMessage {
+    var ev: EventMessage = {
         id: data.id,
         title: data.title,
         date: data.date,
@@ -99,7 +100,7 @@ function build_event(data: EventMessage, user: UserMessage): IEvent {
     return ev;
 }
 
-function build_event_source(ev: IEvent, source: IEventSource, user: UserMessage): IEventSource {
+function build_event_source(ev: EventMessage, source: IEventSource, user: UserMessage): IEventSource {
     var source: IEventSource = {
         id: source.id,
         event_id: ev.id,
@@ -120,7 +121,7 @@ function build_event_source(ev: IEvent, source: IEventSource, user: UserMessage)
     return source;
 }
 
-function build_event_company(ev: IEvent, company_id: string, user: UserMessage): ICompanyEvent {
+function build_event_company(ev: EventMessage, company_id: string, user: UserMessage): ICompanyEvent {
     return {
         id: v4(),
         event_id: ev.id,
@@ -132,7 +133,7 @@ function build_event_company(ev: IEvent, company_id: string, user: UserMessage):
     };
 }
 
-function build_event_tag(ev: IEvent, tag_id: string, user: UserMessage): IEventTag {
+function build_event_tag(ev: EventMessage, tag_id: string, user: UserMessage): IEventTag {
     return {
         id: v4(),
         event_id: ev.id,
@@ -145,7 +146,7 @@ function build_event_tag(ev: IEvent, tag_id: string, user: UserMessage): IEventT
 }
 
 function get_companies_for_event(
-    ev: IEvent,
+    ev: EventMessage,
     transaction: Transaction
 ): Promise<ICompanyEvent[]> {
     return CompanyEvent.findAll({
@@ -156,7 +157,7 @@ function get_companies_for_event(
 }
 
 function get_tags_for_event(
-    ev: IEvent,
+    ev: EventMessage,
     transaction: Transaction
 ): Promise<IEventTag[]> {
     return EventTag.findAll({
@@ -167,8 +168,8 @@ function get_tags_for_event(
 }
 
 function set_event_tags(
-    ev: IEvent,
-    data: EventMessage,
+    ev: EventMessage,
+    data: EventClientPayload,
     user: UserMessage,
     transaction: Transaction
 ): Promise<UUID[]> {
@@ -203,8 +204,8 @@ function set_event_tags(
 }
 
 function set_event_companies(
-    ev: IEvent,
-    data: EventMessage,
+    ev: EventMessage,
+    data: EventClientPayload,
     user: UserMessage,
     transaction: Transaction
 ): Promise<UUID[]> {
@@ -239,8 +240,8 @@ function set_event_companies(
 }
 
 function set_event_sources(
-    ev: IEvent,
-    data: EventMessage,
+    ev: EventMessage,
+    data: EventClientPayload,
     user: UserMessage,
     transaction: Transaction
 ): Promise<IEventSource[]> {
@@ -278,7 +279,7 @@ function set_event_sources(
 
 export function save_event(
     conn: Sequelize,
-    data: EventMessage,
+    data: EventClientPayload,
     you: UserMessage
 ) {
     const ev_data = build_event(data, you);
@@ -289,7 +290,7 @@ export function save_event(
 
     return new Promise<EventMessage>((resolve, reject) => {
         conn.transaction((transaction: Transaction) => {
-            return upsert_event(data, ev_data, transaction).then((ev: IEvent) => {
+            return upsert_event(data, ev_data, transaction).then((ev: EventMessage) => {
                 // get all active sources and figure out which ones need to be deleted and
                 // upsert the reset
                 return set_event_sources(ev, data, you, transaction).then(sources => {

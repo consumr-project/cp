@@ -1,7 +1,9 @@
 import { Config, Type, tracking, merge } from '../utils';
 
+import gen_event from './event';
+
 export = sequelize => {
-    var Event = require('./event')(sequelize);
+    var Event = gen_event(sequelize);
 
     var EventSource = sequelize.define('event_source', merge(tracking(), {
         id: {

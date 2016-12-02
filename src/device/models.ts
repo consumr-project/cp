@@ -3,6 +3,7 @@ import { default as gen_models } from '../record/models';
 import { UUID } from '../lang';
 
 import gen_user from '../record/models/user';
+import gen_event from '../record/models/event';
 import connect from './dbms';
 
 export const conn = connect();
@@ -13,7 +14,7 @@ export const Company = models.Company;
 export const CompanyEvent = models.CompanyEvent;
 export const CompanyFollower = models.CompanyFollower;
 export const CompanyProduct = models.CompanyProduct;
-export const Event = models.Event;
+export const Event = gen_event(conn);
 export const EventBookmark = models.EventBookmark;
 export const EventSource = models.EventSource;
 export const EventTag = models.EventTag;

@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as config from 'acm';
-import * as Schema from 'cp/record';
 import { Event } from '../device/models';
+import { EventMessage } from '../record/models/event';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
 import { has_all_fields, runtime_purge_allowed } from '../utilities';
@@ -17,11 +17,11 @@ import connect from '../device/mongo';
 export var app = express();
 
 connect(config('mongo.collections.notifications'), (err, coll) => {
-    function get_event_and_act_upon_message(id: string, action: Function, processor: (ev: Schema.Event) => Message) {
+    function get_event_and_act_upon_message(id: string, action: Function, processor: (ev: EventMessage) => Message) {
         // XXX check this isn't our own event
         return new Promise<Message | DeleteWriteOpResultObject>((resolve, reject) =>
             Event.findById(id)
-                .then((ev: Schema.Event) => {
+                .then((ev: EventMessage) => {
                     var msg = processor(ev);
                     msg.sign();
 

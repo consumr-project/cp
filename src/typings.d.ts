@@ -26,12 +26,6 @@ declare module 'cp/record' {
         id: string;
     }
 
-    export interface Event extends IdentifiableModel {
-        title: string;
-        date: Date | number;
-        logo: string;
-    }
-
     export interface EventSource extends IdentifiableModel {
         event_id: string;
         title: string;
