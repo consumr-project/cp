@@ -1,4 +1,5 @@
 /**
+ * @attribute {Object} api populated with functions
  */
 angular.module('tcp').directive('imgUpload', [
     'Services',
@@ -86,7 +87,7 @@ angular.module('tcp').directive('imgUpload', [
          * @return {void}
          */
         function link(scope, elem, attrs) {
-            var img_file, img_data;
+            var api, img_file, img_data;
 
             var upload_node = elem.find('.img-upload__upload').get(0);
             var webcam_node = elem.find('.img-upload__webcam__holder').get(0);
@@ -261,6 +262,34 @@ angular.module('tcp').directive('imgUpload', [
                 scope.vm.show_controls = false;
                 scope.vm.running_cam = false;
             }
+
+            if (attrs.api) {
+                api = deep(scope, attrs.api) || deep(scope, '$parent.' + attrs.api) || {};
+                api.reset = function () {
+                    reset_images();
+                };
+            }
+        }
+
+        /**
+         * @param {Object} obj
+         * @param {String} property path
+         * @param {*} [val]
+         * @return {*}
+         */
+        function deep(obj, prop, val) {
+            var parts = prop.split('.'),
+                ref = obj;
+
+            for (var i = 0, len = parts.length; i < len; i++) {
+                if (!(parts[i] in ref)) {
+                    return;
+                }
+
+                ref = ref[parts[i]];
+            }
+
+            return val === undefined ? ref : ref = val;
         }
 
         return {

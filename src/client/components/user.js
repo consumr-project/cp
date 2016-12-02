@@ -234,6 +234,7 @@ angular.module('tcp').directive('user', [
             $scope.vm = {
                 user: {},
                 upload_photo: {},
+                img_upload: {},
                 stats: null,
                 cur_stat: null,
                 exp_stat: null,
@@ -376,6 +377,11 @@ angular.module('tcp').directive('user', [
                 $location.path(path, false);
             };
 
+            $scope.upload_photo_show = function () {
+                $scope.vm.img_upload.reset();
+                $scope.vm.upload_photo.show();
+            };
+
             if ($scope.id) {
                 update_actionable_items();
                 load($scope.id);
@@ -410,7 +416,7 @@ angular.module('tcp').directive('user', [
                 '        with-backdrop',
                 '        api="vm.upload_photo" ',
                 '        class="popover--with-content">',
-                '            <img-upload></img-upload>',
+                '            <img-upload api="vm.img_upload"></img-upload>',
                 '    </popover>',
 
                 '    <center ng-if="vm.user.id" class="margin-top-large">',
@@ -418,7 +424,7 @@ angular.module('tcp').directive('user', [
                 '            description="{{::vm.user.title}}" name="{{::vm.user.name}}"',
                 '            email="{{::vm.user.email}}"',
                 '        >',
-                '            <avatar-logo ng-if="vm.myself" ng-click="vm.upload_photo.show()">',
+                '            <avatar-logo ng-if="vm.myself" ng-click="upload_photo_show()">',
                 '                <div class="user-component__logo"></div>',
                 '            </avatar-logo>',
                 '            <avatar-body ng-if="vm.myself">',
