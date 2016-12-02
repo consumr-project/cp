@@ -8,7 +8,7 @@ import { UserMessage } from '../record/models/user';
 import { EventMessage } from '../record/models/event';
 import { EventSourceMessage } from '../record/models/event_source';
 import { EventTagMessage } from '../record/models/event_tag';
-import { CompanyEventMessage } from '../record/models/company_events';
+import { CompanyEventMessage } from '../record/models/company_event';
 
 import { CompanyEvent, EventSource, EventTag, Event } from '../device/models';
 
