@@ -47,7 +47,7 @@ setup:
 
 run: clean build server
 
-dirty-build: build-css build-strings build-client build-server build-worker
+dirty-build: init build-css build-strings build-client build-server build-worker
 build: clean dirty-build
 
 test:
@@ -68,6 +68,9 @@ reset: clean
 clean:
 	-rm -r $(build_dir)
 	mkdir $(build_dir)
+
+init:
+	-mkdir $(build_dir)
 
 check:
 	-./node_modules/.bin/snyk test
