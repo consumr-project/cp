@@ -8,7 +8,7 @@ avatar:not(.avatar--block) {
     border-radius: 200px;
 }
 
-.avatar__image {
+.avatar__image_img {
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,7 +28,7 @@ avatar.avatar--block {
     font-weight: bold;
 }
 
-.avatar__image {
+.avatar__image_img {
     background-image: url("/assets/images/avatar.svg");
 }
 
@@ -42,13 +42,14 @@ avatar.avatar--block {
 }
 
 .avatar__image,
+.avatar__image_img,
 .avatar__name,
 .avatar__title {
     display: inline-block;
     vertical-align: middle;
 }
 
-avatar.avatar--block .avatar__image {
+avatar.avatar--block .avatar__image_img {
     height: 150px;
     margin: 0 auto;
     width: 150px;

@@ -5,8 +5,8 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
     'use strict';
 
     var template =
-        '<div>' +
-            '<div class="avatar__image animated fadeIn" afkl-lazy-image="{{src}}" afkl-lazy-image-options="{background: true}">' +
+        '<div class="avatar__image">' +
+            '<div class="avatar__image_img animated fadeIn" afkl-lazy-image="{{src}}" afkl-lazy-image-options="{background: true}">' +
                 '<div ng-transclude="logo"></div>' +
             '</div>' +
             '<div ng-transclude="body"></div>' +
