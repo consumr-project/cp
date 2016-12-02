@@ -1,7 +1,7 @@
 ///<reference path="../typings/main.d.ts" />
 
 declare module 'cp/record' {
-    import { Model as RealModel, Sequelize } from 'sequelize';
+    import { Model as RealModel } from 'sequelize';
 
     type FindOrCreate = { where?: Object, defaults?: Model };
     export type QueryResult = any;
@@ -50,21 +50,6 @@ declare module 'cp/record' {
         tag_id: string;
     }
 
-    export interface User extends IdentifiableModel {
-        role: string;
-        auth_linkedin_id: string;
-        avatar_url: string;
-        company_name: string;
-        email?: string;
-        lang: string;
-        last_login_date: Date | number;
-        linkedin_url: string;
-        member_number?: number;
-        name: string;
-        summary: string;
-        title: string;
-    }
-
     export interface BetaEmailInvite extends IdentifiableModel {
         email: string;
         approved?: boolean;
@@ -101,13 +86,6 @@ declare module 'cp/record' {
         referrer: string;
         type: FeedbackType;
     }
-
-    export var conn: Sequelize;
-
-    export var models: {
-        User: User;
-        Company: Company;
-    };
 }
 
 declare module 'acm' {

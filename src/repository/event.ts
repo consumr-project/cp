@@ -4,8 +4,9 @@ import { is_set } from '../utilities';
 import { v4 } from 'node-uuid';
 import { difference } from 'lodash';
 
+import { UserMessage } from '../record/models/user';
 import { Event as IEvent, EventTag as IEventTag, EventSource as IEventSource,
-    CompanyEvent as ICompanyEvent, User as IUser } from 'cp/record';
+    CompanyEvent as ICompanyEvent } from 'cp/record';
 
 import { CompanyEvent, EventSource, EventTag, Event } from '../device/models';
 
@@ -79,7 +80,7 @@ function build_event_message(ev: IEvent, sources: IEventSource[], tag_ids: UUID[
     };
 }
 
-function build_event(data: EventMessage, user: IUser): IEvent {
+function build_event(data: EventMessage, user: UserMessage): IEvent {
     var ev: IEvent = {
         id: data.id,
         title: data.title,
@@ -98,7 +99,7 @@ function build_event(data: EventMessage, user: IUser): IEvent {
     return ev;
 }
 
-function build_event_source(ev: IEvent, source: IEventSource, user: IUser): IEventSource {
+function build_event_source(ev: IEvent, source: IEventSource, user: UserMessage): IEventSource {
     var source: IEventSource = {
         id: source.id,
         event_id: ev.id,
@@ -119,7 +120,7 @@ function build_event_source(ev: IEvent, source: IEventSource, user: IUser): IEve
     return source;
 }
 
-function build_event_company(ev: IEvent, company_id: string, user: IUser): ICompanyEvent {
+function build_event_company(ev: IEvent, company_id: string, user: UserMessage): ICompanyEvent {
     return {
         id: v4(),
         event_id: ev.id,
@@ -131,7 +132,7 @@ function build_event_company(ev: IEvent, company_id: string, user: IUser): IComp
     };
 }
 
-function build_event_tag(ev: IEvent, tag_id: string, user: IUser): IEventTag {
+function build_event_tag(ev: IEvent, tag_id: string, user: UserMessage): IEventTag {
     return {
         id: v4(),
         event_id: ev.id,
@@ -168,7 +169,7 @@ function get_tags_for_event(
 function set_event_tags(
     ev: IEvent,
     data: EventMessage,
-    user: IUser,
+    user: UserMessage,
     transaction: Transaction
 ): Promise<UUID[]> {
     return new Promise<UUID[]>((resolve, reject) => {
@@ -204,7 +205,7 @@ function set_event_tags(
 function set_event_companies(
     ev: IEvent,
     data: EventMessage,
-    user: IUser,
+    user: UserMessage,
     transaction: Transaction
 ): Promise<UUID[]> {
     return new Promise<UUID[]>((resolve, reject) => {
@@ -240,7 +241,7 @@ function set_event_companies(
 function set_event_sources(
     ev: IEvent,
     data: EventMessage,
-    user: IUser,
+    user: UserMessage,
     transaction: Transaction
 ): Promise<IEventSource[]> {
     return new Promise<IEventSource[]>((resolve, reject) => {
@@ -278,7 +279,7 @@ function set_event_sources(
 export function save_event(
     conn: Sequelize,
     data: EventMessage,
-    you: IUser
+    you: UserMessage
 ) {
     const ev_data = build_event(data, you);
 

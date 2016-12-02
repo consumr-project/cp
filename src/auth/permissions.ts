@@ -2,17 +2,18 @@ import { ServiceRequestHandler } from '../http';
 import { Configuration } from 'rbac-interface';
 
 import { clone } from 'lodash';
-import { make_enum } from '../utilities';
 import { UnauthorizedError, ERR_MSG_RBAC_FAILURE } from '../errors';
 import * as config from 'acm';
 
 import Rbac = require('rbac');
 
-const RULES = clone(config<Configuration>('rbac'));
-const ROLES = make_enum(RULES.roles);
+export enum Role {
+    admin = <any>'admin',
+    user = <any>'user',
+    guest = <any>'guest',
+}
 
-export const rbac = new Rbac(RULES);
-export const roles = ROLES;
+export const rbac = new Rbac(clone(config<Configuration>('rbac')));
 
 export function check(role: string, action: string, resource: string) {
     return new Promise<Boolean>((resolve, reject) => {

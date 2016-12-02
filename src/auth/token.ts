@@ -1,6 +1,7 @@
 import { Model } from 'sequelize';
 import { v4 } from 'node-uuid';
-import { User, Token } from 'cp/record';
+import { Token } from 'cp/record';
+import { UserMessage } from '../record/models/user';
 import { nonce, encrypt } from '../crypto';
 import { KEY_AUTH_TOKEN } from '../keys';
 
@@ -13,7 +14,7 @@ interface PublicToken {
 export class Manager {
     constructor(private conn: Model<Token, Token>) {}
 
-    generate(expiration_date: Date, reason: string, user: User): Promise<PublicToken> {
+    generate(expiration_date: Date, reason: string, user: UserMessage): Promise<PublicToken> {
         let plain_token = nonce(16);
 
         let token = {

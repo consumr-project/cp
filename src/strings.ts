@@ -3,6 +3,10 @@ import { Dictionary } from 'lodash';
 export const en_US = load_i18n('en-US');
 export const lolcat_US = load_i18n('lolcat-US');
 
+export enum Language {
+    en = <any>'en',
+}
+
 export interface I18n {
     get(key: string, data?: Object): string;
 }

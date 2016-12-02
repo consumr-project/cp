@@ -1,17 +1,10 @@
 import { Config, Type, tracking, merge } from '../utils';
-import { UUID, Date2, } from '../../lang';
+import { Date2 } from '../../lang';
+import { IdentifiableMessage, StampedMessage } from '../message';
+import { Language } from '../../strings';
+import { Role } from '../../auth/permissions';
 
-export enum Role {
-    admin = <any>'admin',
-    user = <any>'user',
-}
-
-export enum Language {
-    en = <any>'en',
-}
-
-export interface UserMessage {
-    id?: UUID;
+export interface UserMessage extends IdentifiableMessage, StampedMessage {
     name?: string;
     email?: string;
     title?: string;

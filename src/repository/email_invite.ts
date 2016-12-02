@@ -1,7 +1,8 @@
 import { v4 } from 'node-uuid';
 import { emitter } from '../hooks/emitter';
 import { BetaEmailInvite } from '../device/models';
-import { User as IUser, BetaEmailInvite as IBetaEmailInvite } from 'cp/record';
+import { BetaEmailInvite as IBetaEmailInvite } from 'cp/record';
+import { UserMessage } from '../record/models/user';
 
 import { USER_INVITED } from '../events';
 
@@ -11,7 +12,7 @@ interface BetaEmailInviteMessage {
 
 function create_email_invite(
     msg: BetaEmailInviteMessage,
-    user: IUser, approved: boolean = false
+    user: UserMessage, approved: boolean = false
 ): IBetaEmailInvite {
     return {
         id: v4(),
@@ -26,7 +27,7 @@ function create_email_invite(
     };
 }
 
-export function save_unapproved_email_invite(invite: BetaEmailInviteMessage, you: IUser) {
+export function save_unapproved_email_invite(invite: BetaEmailInviteMessage, you: UserMessage) {
     return new Promise<IBetaEmailInvite>((resolve, reject) => {
         BetaEmailInvite.create(create_email_invite(invite, you, false))
             .then(resolve)
@@ -34,7 +35,7 @@ export function save_unapproved_email_invite(invite: BetaEmailInviteMessage, you
     });
 }
 
-export function save_approved_email_invite(invite: BetaEmailInviteMessage, you: IUser) {
+export function save_approved_email_invite(invite: BetaEmailInviteMessage, you: UserMessage) {
     return new Promise<IBetaEmailInvite>((resolve, reject) => {
         BetaEmailInvite.create(create_email_invite(invite, you, true))
             .then(invite => {
@@ -45,7 +46,7 @@ export function save_approved_email_invite(invite: BetaEmailInviteMessage, you: 
     });
 }
 
-export function approve_email_invite(invite: BetaEmailInviteMessage, you: IUser) {
+export function approve_email_invite(invite: BetaEmailInviteMessage, you: UserMessage) {
     var { email } = invite;
     return new Promise<boolean>((resolve, reject) => {
         BetaEmailInvite.update({

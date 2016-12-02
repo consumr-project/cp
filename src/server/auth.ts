@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { User as UserMessage } from 'cp/record';
+import { UserMessage } from '../record/models/user';
 
 import * as express from 'express';
 import * as passport from 'passport';
 import { update_user } from '../repository/user';
 import { User, Token } from '../device/models';
-import { can, roles, loggedin } from '../auth/permissions';
+import { Role, can, loggedin } from '../auth/permissions';
 import linkedin_auth from '../auth/linkedin';
 import { LOCKEDDOWN, InvalidBetaUserError } from '../auth/lockdown';
 import apikey_auth from '../auth/apikey';
@@ -75,7 +75,7 @@ function deserialize(user_id: string, done: (err: any) => any): Promise<UserMess
 }
 
 export function as_guest(req: Request, res: Response, next: Function): void {
-    req.user = req.user || { role: roles.GUEST };
+    req.user = req.user || { role: Role.guest };
     next();
 }
 

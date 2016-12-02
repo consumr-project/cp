@@ -13,7 +13,7 @@ import { service_handler, service_response, service_middleware,
     service_cache_intercept, ratelimit } from '../http';
 import { recaptcha } from '../auth/recaptcha';
 
-import { User } from 'cp/record';
+import { UserMessage } from '../record/models/user';
 import { shared, quick_save } from '../device/cache';
 import { conn } from '../device/models';
 import * as models from '../device/models';
@@ -388,7 +388,7 @@ post('/beta_email_invites',
     service_middleware(req =>
         recaptcha(req.body.recaptcha, req.headers['x-forwarded-for'] || req.connection.remoteAddress)),
     service_handler(req =>
-        save_unapproved_email_invite({ email: req.body.email }, <User>config('seed.user.root'))
+        save_unapproved_email_invite({ email: req.body.email }, <UserMessage>config('seed.user.root'))
             .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
 post('/beta_email_invites/create_approved',
     can('create', 'emailinvite'),

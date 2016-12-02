@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Dictionary, curryRight, set, get } from 'lodash';
+import { curryRight, set, get } from 'lodash';
 
 export type None = Object;
 export type Maybe<T> = T;
@@ -17,15 +17,6 @@ export function option<T>(val: Maybe<T>): Optional<T> {
     return {
         get_or_else: def => val === undefined || val == null ? def : val
     };
-}
-
-export function make_enum_entry(store: Dictionary<string>, val: string): Object {
-    store[val.toUpperCase()] = val;
-    return store;
-}
-
-export function make_enum(items: string[]): any {
-    return items.reduce(make_enum_entry, {});
 }
 
 export function get_url_parts(raw: string): string[] {

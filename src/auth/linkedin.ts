@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import * as Schema from 'cp/record';
+import { UserMessage } from '../record/models/user';
+import { Language } from '../strings';
 import { encrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
 
-import { roles } from './permissions';
+import { Role } from '../auth/permissions';
 import { get } from 'lodash';
 import { parse } from 'url';
 import { v4 } from 'node-uuid';
@@ -35,16 +36,16 @@ const PROFILE_FIELDS = [
     'public-profile-url',
 ];
 
-interface UserMessage extends Schema.User {
+interface UserMessageWithEmail extends UserMessage {
     raw_email?: string;
 }
 
-function generate_user(profile: Profile): UserMessage {
+function generate_user(profile: Profile): UserMessageWithEmail {
     var id = v4();
 
     return {
         id: id,
-        role: roles.USER,
+        role: Role.user,
         auth_linkedin_id: profile.id,
         avatar_url: get<string>(profile._json, 'pictureUrls.values.0') || profile._json.pictureUrl,
         company_name: <string>get(profile._json, 'positions.values.0.company.name'),
@@ -52,7 +53,7 @@ function generate_user(profile: Profile): UserMessage {
         created_date: Date.now(),
         email: encrypt(profile._json.emailAddress, KEY_USER_EMAIL),
         raw_email: profile._json.emailAddress,
-        lang: 'en',
+        lang: Language.en,
         last_login_date: Date.now(),
         linkedin_url: profile._json.publicProfileUrl,
         name: profile.displayName || [profile._json.firstName, profile._json.lastName].join(' '),
@@ -67,7 +68,7 @@ function find_user(
     token: string,
     tokenSecret: string,
     profile: Profile,
-    done: (err?: any, user?: Schema.User) => any
+    done: (err?: any, user?: UserMessage) => any
 ): void {
     var user = generate_user(profile);
 

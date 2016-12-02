@@ -1,5 +1,5 @@
 import { WhereOptions } from 'sequelize';
-import { User as UserMessage } from 'cp/record';
+import { UserMessage } from '../record/models/user';
 import { User } from '../device/models';
 import { includes } from 'lodash';
 import * as querystring from 'querystring';
