@@ -1,19 +1,5 @@
 ///<reference path="../typings/main.d.ts" />
 
-declare module 'cp/record' {
-    import { Model as RealModel } from 'sequelize';
-
-    type FindOrCreate = { where?: Object, defaults?: Model };
-    export type QueryResult = any;
-    export type AnyModel = RealModel<any, any>;
-
-    export interface Model {
-        findOne?(query: Object): Promise<Model>;
-        findById?(id: string): Promise<Model>;
-        findOrCreate?(options: FindOrCreate): Promise<Model>;
-    }
-}
-
 declare module 'acm' {
     function config<T>(str: string): T | Object | string | any;
     namespace config {}
