@@ -25,6 +25,7 @@ see [./CONTRIBUTING.md](CONTRIBUTING.md) for details.
 * Edward Boatman for the [face](https://thenounproject.com/search/?q=face&i=67226) icon
 * Edward Boatman for the [shopping cart](https://thenounproject.com/search/?q=shopping+cart&i=355) icon
 * Juan León for the [dead fish](https://thenounproject.com/search/?q=dead+fish&i=95085) icon
+* Kimmi Studio for the [check mark](https://thenounproject.com/search/?q=check&i=702757) icon
 * Lee Mette for the [cactus](https://thenounproject.com/search/?q=broken+cactus&i=103375) icon
 * Leif Michelsen for the [question mark](https://thenounproject.com/search/?q=question+mark&i=447554) icon
 * Lloyd Humphreys for the [information](https://thenounproject.com/search/?q=information&i=96638) icon
