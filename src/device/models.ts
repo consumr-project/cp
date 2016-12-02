@@ -1,10 +1,9 @@
-import { default as gen_models } from '../record/models';
-
 import { UUID } from '../lang';
 
 import connect from './dbms';
 import gen_beta_email_invite from '../record/models/beta_email_invite';
 import gen_company from '../record/models/company';
+import gen_feedback from '../record/models/feedback';
 import gen_company_event from '../record/models/company_events';
 import gen_company_follower from '../record/models/company_followers';
 import gen_company_product from '../record/models/company_products';
@@ -25,7 +24,6 @@ import gen_user_follower from '../record/models/user_follower';
 import gen_user_report from '../record/models/user_report';
 
 export const conn = connect();
-export const models = gen_models(conn);
 
 export const BetaEmailInvite = gen_beta_email_invite(conn);
 export const Company = gen_company(conn);
@@ -36,7 +34,7 @@ export const Event = gen_event(conn);
 export const EventBookmark = gen_event_bookmark(conn);
 export const EventSource = gen_event_source(conn);
 export const EventTag = gen_event_tag(conn);
-export const Feedback = models.Feedback;
+export const Feedback = gen_feedback(conn);
 export const Product = gen_product(conn);
 export const Question = gen_question(conn);
 export const QuestionVote = gen_question_vote(conn);

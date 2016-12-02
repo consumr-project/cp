@@ -1,9 +1,10 @@
 import { Config, Type, tracking, merge } from '../utils';
+
 import gen_user from './user';
 
 const STAMP = require('../../../dist/stamp.json');
 
-export = sequelize => {
+export default sequelize => {
     var User = gen_user(sequelize);
 
     var Feedback = sequelize.define('feedback', merge(tracking(), {
