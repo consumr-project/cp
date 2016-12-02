@@ -1,10 +1,11 @@
 import { Config, Type, tracking, merge } from '../utils';
 
 import gen_user from './user';
+import gen_review from './review';
 
 export default sequelize => {
     var User = gen_user(sequelize),
-        Review = require('./review')(sequelize);
+        Review = gen_review(sequelize);
 
     var ReviewUsefulness = sequelize.define('review_usefulness', merge(tracking(), {
         review_id: {

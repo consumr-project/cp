@@ -2,6 +2,7 @@ import { Config, Type, merge /* tracking */ } from '../utils';
 import { IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_event from './event';
+import gen_tag from './tag';
 
 export interface EventTagMessage extends IdentifiableMessage, StampedMessage {
     event_id: string;
@@ -10,7 +11,7 @@ export interface EventTagMessage extends IdentifiableMessage, StampedMessage {
 
 export default sequelize => {
     var Event = gen_event(sequelize),
-        Tag = require('./tag')(sequelize);
+        Tag = gen_tag(sequelize);
 
     var EventTag = sequelize.define('event_tag', merge({
         event_id: {
