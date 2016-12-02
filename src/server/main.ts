@@ -118,6 +118,7 @@ app.use((err: any, req, res, next) => {
 
     res.render('index', {
         err,
+        cp_url: config('cp_url'),
         debugging: CLIENT_DEBUG_INFO,
         lang: normalize_i18n(req.query.lang),
     });
@@ -126,6 +127,7 @@ app.use((err: any, req, res, next) => {
 // view handler
 app.get('*', (req, res) =>
     res.render('index', {
+        cp_url: config('cp_url'),
         debugging: CLIENT_DEBUG_INFO,
         lang: normalize_i18n(req.query.lang),
     }));
