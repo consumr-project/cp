@@ -1,6 +1,6 @@
 import { Model } from 'sequelize';
 import { v4 } from 'node-uuid';
-import { Token } from 'cp/record';
+import { TokenMessage } from '../record/models/token';
 import { UserMessage } from '../record/models/user';
 import { nonce, encrypt } from '../crypto';
 import { KEY_AUTH_TOKEN } from '../keys';
@@ -12,7 +12,7 @@ interface PublicToken {
 }
 
 export class Manager {
-    constructor(private conn: Model<Token, Token>) {}
+    constructor(private conn: Model<TokenMessage, TokenMessage>) {}
 
     generate(expiration_date: Date, reason: string, user: UserMessage): Promise<PublicToken> {
         let plain_token = nonce(16);
@@ -46,7 +46,7 @@ export class Manager {
         }).then(this.valid);
     }
 
-    valid(token: Token): boolean {
+    valid(token: TokenMessage): boolean {
         return !!token && !token.used && !!token.token &&
             token.expiration_date > new Date();
     }

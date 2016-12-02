@@ -1,6 +1,15 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { IdentifiableMessage, StampedMessage } from '../message';
 
-export = sequelize =>
+export interface TokenMessage extends IdentifiableMessage, StampedMessage {
+    token: string;
+    pub?: string;
+    used?: boolean;
+    used_date?: Date;
+    expiration_date: Date;
+}
+
+export default sequelize =>
     sequelize.define('token', merge(tracking(), {
         id: {
             type: Type.UUID,

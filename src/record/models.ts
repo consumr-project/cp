@@ -17,7 +17,6 @@ export default (conn) => {
         ReviewUsefulness: model('review_usefulness', conn),
         Tag: model('tag', conn),
         TagFollower: model('tag_follower', conn),
-        Token: model('token', conn),
         UserFollower: model('user_follower', conn),
         UserReport: model('user_report', conn),
     };
