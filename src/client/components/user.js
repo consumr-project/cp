@@ -4,11 +4,13 @@ angular.module('tcp').directive('user', [
     'Navigation',
     'assert',
     'utils2',
+    'validate',
     'lodash',
     '$q',
     '$location',
+    '$timeout',
     '$routeParams',
-    function (Services, Session, Navigation, assert, utils2, lodash, $q, $location, $routeParams) {
+    function (Services, Session, Navigation, assert, utils2, validate, lodash, $q, $location, $timeout, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -206,7 +208,8 @@ angular.module('tcp').directive('user', [
         }
 
         function controller($scope) {
-            var update_email = lodash.debounce(update_email_now, 300);
+            var update_email = lodash.debounce(update_email_now, 600);
+            var email_updated = lodash.debounce(email_updated_now, 300);
 
             $scope.STAT_CONTRIBUTIONS = STAT_CONTRIBUTIONS;
             $scope.STAT_FOLLOWING = STAT_FOLLOWING;
@@ -236,6 +239,8 @@ angular.module('tcp').directive('user', [
                 exp_stat: null,
                 stats_data: [],
                 followed_by_me: null,
+                invalid_email: false,
+                updating_email: false,
             };
 
             /**
@@ -287,16 +292,28 @@ angular.module('tcp').directive('user', [
              * @param {string} new_email
              * @return {void}
              */
-            function email_updated(new_email) {
-                var old_email;
+            function email_updated_now(new_email) {
+                var old_email, valid;
+
+                $scope.vm.invalid_email = false;
+                $scope.vm.updated_email = false;
+                $scope.vm.updating_email = false;
 
                 old_email = normalized_email($scope.vm.user.raw_email_curr);
                 new_email = normalized_email(new_email);
+                valid = validate.email(new_email);
 
-                if (new_email && new_email !== old_email) {
-                    $scope.vm.user.raw_email_curr = new_email;
-                    update_email(new_email);
-                }
+                $scope.$apply(function () {
+                    if (!new_email) {
+                        $scope.vm.invalid_email = true;
+                    } else if (!valid) {
+                        $scope.vm.invalid_email = true;
+                    } else if (new_email !== old_email) {
+                        $scope.vm.updating_email = true;
+                        $scope.vm.user.raw_email_curr = new_email;
+                        update_email(new_email);
+                    }
+                });
             }
 
             /**
@@ -304,8 +321,14 @@ angular.module('tcp').directive('user', [
              * @return {Promise<UserMessage>}
              */
             function update_email_now(email) {
-                console.log('updating user email to %s', email);
-                return Services.auth.set_user_email(email);
+                return Services.auth.set_user_email(email).then(function () {
+                    $scope.vm.updated_email = true;
+                    $scope.vm.updating_email = false;
+
+                    $timeout(function () {
+                        $scope.vm.updated_email = false;
+                    }, 2000);
+                });
             }
 
             /**
@@ -391,8 +414,8 @@ angular.module('tcp').directive('user', [
                 '    </popover>',
 
                 '    <center ng-if="vm.user.id" class="margin-top-large">',
-                '        <avatar class="avatar--block"',
-                '            title="{{::vm.user.title}}" name="{{::vm.user.name}}"',
+                '        <avatar avatar-title="false" class="avatar--block"',
+                '            description="{{::vm.user.title}}" name="{{::vm.user.name}}"',
                 '            email="{{::vm.user.email}}"',
                 '        >',
                 '            <avatar-logo ng-if="vm.myself" ng-click="vm.upload_photo.show()">',
@@ -400,6 +423,11 @@ angular.module('tcp').directive('user', [
                 '            </avatar-logo>',
                 '            <avatar-body ng-if="vm.myself">',
                 '                <div class="user-component__email"',
+                '                    ng-class="{',
+                '                        \'user-component__email--loading\': vm.updating_email,',
+                '                        \'user-component__email--updated\': vm.updated_email,',
+                '                        \'user-component__email--invalid\': vm.invalid_email,',
+                '                    }"',
                 '                    ng-contenteditable="true"',
                 '                    ng-model="vm.user.raw_email"></div>',
                 '            </avatar-body>',
