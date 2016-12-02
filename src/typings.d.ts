@@ -26,14 +26,6 @@ declare module 'cp/record' {
         id: string;
     }
 
-    /* interface Token extends IdentifiableModel { */
-    /*     token: string; */
-    /*     pub?: string; */
-    /*     used?: boolean; */
-    /*     used_date?: Date; */
-    /*     expiration_date: Date; */
-    /* } */
-
     export interface Company extends IdentifiableModel {
         name: string;
         summary: string;
