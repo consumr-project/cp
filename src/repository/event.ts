@@ -1,13 +1,14 @@
 import { Sequelize, Transaction, WhereOptions } from 'sequelize';
-import { UUID, Date2 } from '../lang';
+import { UUID } from '../lang';
 import { is_set } from '../utilities';
 import { v4 } from 'node-uuid';
 import { difference } from 'lodash';
 
 import { UserMessage } from '../record/models/user';
 import { EventMessage } from '../record/models/event';
-import { EventTag as IEventTag, EventSource as IEventSource,
-    CompanyEvent as ICompanyEvent } from 'cp/record';
+import { EventSourceMessage } from '../record/models/event_source';
+import { EventTagMessage } from '../record/models/event_tag';
+import { CompanyEventMessage } from '../record/models/company_events';
 
 import { CompanyEvent, EventSource, EventTag, Event } from '../device/models';
 
@@ -18,19 +19,6 @@ interface EventClientPayload extends EventMessage {
     companies: any[];
 }
 
-interface EventSourceMessage {
-    id?: string;
-    event_id?: string;
-    title: string;
-    url: string;
-    published_date: Date2;
-    summary: string;
-}
-
-interface EventTagMessage {
-    id: string;
-}
-
 function where(val: string, label: string = 'id'): WhereOptions {
     return { [label]: val, };
 }
@@ -38,7 +26,7 @@ function where(val: string, label: string = 'id'): WhereOptions {
 function get_sources_for_event(
     ev: EventMessage,
     transaction: Transaction
-): Promise<IEventSource[]> {
+): Promise<EventSourceMessage[]> {
     return EventSource.findAll({
         transaction,
         paranoid: true,
@@ -61,7 +49,7 @@ function upsert_event(
         }).then(() => ev_data);
 }
 
-function build_event_message(ev: EventMessage, sources: IEventSource[], tag_ids: UUID[], company_ids: UUID[]): EventClientPayload {
+function build_event_message(ev: EventMessage, sources: EventSourceMessage[], tag_ids: UUID[], company_ids: UUID[]): EventClientPayload {
     return {
         id: ev.id,
         title: ev.title,
@@ -100,8 +88,8 @@ function build_event(data: EventClientPayload, user: UserMessage): EventMessage 
     return ev;
 }
 
-function build_event_source(ev: EventMessage, source: IEventSource, user: UserMessage): IEventSource {
-    var source: IEventSource = {
+function build_event_source(ev: EventMessage, source: EventSourceMessage, user: UserMessage): EventSourceMessage {
+    var source: EventSourceMessage = {
         id: source.id,
         event_id: ev.id,
         title: source.title,
@@ -121,7 +109,7 @@ function build_event_source(ev: EventMessage, source: IEventSource, user: UserMe
     return source;
 }
 
-function build_event_company(ev: EventMessage, company_id: string, user: UserMessage): ICompanyEvent {
+function build_event_company(ev: EventMessage, company_id: string, user: UserMessage): CompanyEventMessage {
     return {
         id: v4(),
         event_id: ev.id,
@@ -133,7 +121,7 @@ function build_event_company(ev: EventMessage, company_id: string, user: UserMes
     };
 }
 
-function build_event_tag(ev: EventMessage, tag_id: string, user: UserMessage): IEventTag {
+function build_event_tag(ev: EventMessage, tag_id: string, user: UserMessage): EventTagMessage {
     return {
         id: v4(),
         event_id: ev.id,
@@ -148,7 +136,7 @@ function build_event_tag(ev: EventMessage, tag_id: string, user: UserMessage): I
 function get_companies_for_event(
     ev: EventMessage,
     transaction: Transaction
-): Promise<ICompanyEvent[]> {
+): Promise<CompanyEventMessage[]> {
     return CompanyEvent.findAll({
         transaction,
         paranoid: true,
@@ -159,7 +147,7 @@ function get_companies_for_event(
 function get_tags_for_event(
     ev: EventMessage,
     transaction: Transaction
-): Promise<IEventTag[]> {
+): Promise<EventTagMessage[]> {
     return EventTag.findAll({
         transaction,
         paranoid: true,
@@ -174,7 +162,7 @@ function set_event_tags(
     transaction: Transaction
 ): Promise<UUID[]> {
     return new Promise<UUID[]>((resolve, reject) => {
-        get_tags_for_event(ev, transaction).then((tags: IEventTag[]) => {
+        get_tags_for_event(ev, transaction).then((tags: EventTagMessage[]) => {
             var cur_tag_ids = tags.filter(is_set).map(tag => tag.tag_id),
                 msg_tag_ids = data.tags.filter(is_set).map(tag => tag.id),
                 delete_ids = difference<string>(cur_tag_ids, msg_tag_ids),
@@ -210,7 +198,7 @@ function set_event_companies(
     transaction: Transaction
 ): Promise<UUID[]> {
     return new Promise<UUID[]>((resolve, reject) => {
-        get_companies_for_event(ev, transaction).then((companies: ICompanyEvent[]) => {
+        get_companies_for_event(ev, transaction).then((companies: CompanyEventMessage[]) => {
             var cur_company_ids = companies.filter(is_set).map(company => company.company_id),
                 msg_company_ids = data.companies.filter(is_set).map(company => company.id),
                 delete_ids = difference<string>(cur_company_ids, msg_company_ids),
@@ -244,9 +232,9 @@ function set_event_sources(
     data: EventClientPayload,
     user: UserMessage,
     transaction: Transaction
-): Promise<IEventSource[]> {
-    return new Promise<IEventSource[]>((resolve, reject) => {
-        get_sources_for_event(ev, transaction).then((sources: IEventSource[]) => {
+): Promise<EventSourceMessage[]> {
+    return new Promise<EventSourceMessage[]>((resolve, reject) => {
+        get_sources_for_event(ev, transaction).then((sources: EventSourceMessage[]) => {
             var cur_source_ids = sources.filter(is_set).map(source => source.id),
                 msg_source_ids = data.sources.filter(is_set).map(source => source.id),
                 delete_ids = difference<string>(cur_source_ids, msg_source_ids);

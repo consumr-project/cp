@@ -26,24 +26,6 @@ declare module 'cp/record' {
         id: string;
     }
 
-    export interface EventSource extends IdentifiableModel {
-        event_id: string;
-        title: string;
-        url: string;
-        published_date: Date | string;
-        summary: string;
-    }
-
-    export interface CompanyEvent extends IdentifiableModel {
-        event_id: string;
-        company_id: string;
-    }
-
-    export interface EventTag extends IdentifiableModel {
-        event_id: string;
-        tag_id: string;
-    }
-
     export interface BetaEmailInvite extends IdentifiableModel {
         email: string;
         approved?: boolean;

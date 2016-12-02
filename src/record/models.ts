@@ -7,13 +7,9 @@ export default (conn) => {
     return {
         BetaEmailInvite: model('beta_email_invite', conn),
         Company: model('company', conn),
-        CompanyEvent: model('company_events', conn),
         CompanyFollower: model('company_followers', conn),
         CompanyProduct: model('company_products', conn),
-        Event: model('event', conn),
         EventBookmark: model('event_bookmarks', conn),
-        EventSource: model('event_source', conn),
-        EventTag: model('event_tag', conn),
         Feedback: model('feedback', conn),
         Product: model('product', conn),
         Question: model('question', conn),
