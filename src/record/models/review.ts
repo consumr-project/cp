@@ -1,9 +1,11 @@
 import { Config, Type, tracking, merge } from '../utils';
-import gen_user from './user';
 
-export = sequelize => {
+import gen_user from './user';
+import gen_company from './company';
+
+export default sequelize => {
     var User = gen_user(sequelize),
-        Company = require('./company')(sequelize);
+        Company = gen_company(sequelize);
 
     var Review = sequelize.define('review', merge(tracking(), {
         id: {
