@@ -15,6 +15,7 @@ import gen_event_tag from '../record/models/event_tag';
 import gen_tag from '../record/models/tag';
 import gen_token from '../record/models/token';
 import gen_user from '../record/models/user';
+import gen_user_report from '../record/models/user_report';
 
 export const conn = connect();
 export const models = gen_models(conn);
@@ -39,7 +40,7 @@ export const TagFollower = models.TagFollower;
 export const Token = gen_token(conn);
 export const User = gen_user(conn);
 export const UserFollower = models.UserFollower;
-export const UserReport = models.UserReport;
+export const UserReport = gen_user_report(conn);
 
 export interface Record {
     id: UUID;

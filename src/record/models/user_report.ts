@@ -1,7 +1,7 @@
 import { Config, Type, tracking, merge } from '../utils';
 import gen_user from './user';
 
-export = sequelize => {
+export default sequelize => {
     var User = gen_user(sequelize),
         Review = require('./review')(sequelize);
 

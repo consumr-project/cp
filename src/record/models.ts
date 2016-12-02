@@ -13,6 +13,5 @@ export default (conn) => {
         ReviewUsefulness: model('review_usefulness', conn),
         TagFollower: model('tag_follower', conn),
         UserFollower: model('user_follower', conn),
-        UserReport: model('user_report', conn),
     };
 };
