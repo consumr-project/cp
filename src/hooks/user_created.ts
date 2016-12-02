@@ -2,13 +2,13 @@ import { emitter } from './emitter';
 import { logger } from '../log';
 import { send } from '../notification/email';
 
-import { BetaEmailInvite } from 'cp/record';
+import { BetaEmailInviteMessage } from '../record/models/beta_email_invite';
 
 import { USER_INVITED } from '../events';
 
 const log = logger(__filename);
 
-emitter.on(USER_INVITED, (beta_invite: BetaEmailInvite) => {
+emitter.on(USER_INVITED, (beta_invite: BetaEmailInviteMessage) => {
     var { email } = beta_invite;
 
     log.info('sending welcome email to beta invite');

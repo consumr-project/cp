@@ -26,13 +26,6 @@ declare module 'cp/record' {
         id: string;
     }
 
-    export interface BetaEmailInvite extends IdentifiableModel {
-        email: string;
-        approved?: boolean;
-        approved_by?: string;
-        approved_date?: Date | number;
-    }
-
     interface Token extends IdentifiableModel {
         token: string;
         pub?: string;

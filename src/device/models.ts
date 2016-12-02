@@ -2,17 +2,18 @@ import { default as gen_models } from '../record/models';
 
 import { UUID } from '../lang';
 
-import gen_user from '../record/models/user';
+import connect from './dbms';
+import gen_beta_email_invite from '../record/models/beta_email_invite';
+import gen_company_event from '../record/models/company_events';
 import gen_event from '../record/models/event';
 import gen_event_source from '../record/models/event_source';
-import gen_company_event from '../record/models/company_events';
 import gen_event_tag from '../record/models/event_tag';
-import connect from './dbms';
+import gen_user from '../record/models/user';
 
 export const conn = connect();
 export const models = gen_models(conn);
 
-export const BetaEmailInvite = models.BetaEmailInvite;
+export const BetaEmailInvite = gen_beta_email_invite(conn);
 export const Company = models.Company;
 export const CompanyEvent = gen_company_event(conn);
 export const CompanyFollower = models.CompanyFollower;

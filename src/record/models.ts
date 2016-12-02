@@ -5,7 +5,6 @@ let model = (name: string, conn: Sequelize): Model<any, any> =>
 
 export default (conn) => {
     return {
-        BetaEmailInvite: model('beta_email_invite', conn),
         Company: model('company', conn),
         CompanyFollower: model('company_followers', conn),
         CompanyProduct: model('company_products', conn),
