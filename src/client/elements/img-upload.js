@@ -1,5 +1,6 @@
 /**
  * @attribute {Object} api populated with functions
+ * @attribute {Function} onUpload called after successful upload
  */
 angular.module('tcp').directive('imgUpload', [
     'Services',
@@ -220,6 +221,7 @@ angular.module('tcp').directive('imgUpload', [
                     upload.on('success', function () {
                         scope.vm.success_msg = i18n.get('user/uploaded_photo');
                         refresh();
+                        scope.onUpload();
                     });
 
                     upload.on('error', function (file, body, res) {
@@ -235,6 +237,7 @@ angular.module('tcp').directive('imgUpload', [
                             scope.vm.can_submit = true;
                             scope.vm.success_msg = i18n.get('user/uploaded_photo');
                             refresh();
+                            scope.onUpload();
                         })
                         .catch(function (res) {
                             console.log(res);
@@ -266,7 +269,13 @@ angular.module('tcp').directive('imgUpload', [
             if (attrs.api) {
                 api = deep(scope, attrs.api) || deep(scope, '$parent.' + attrs.api) || {};
                 api.reset = function () {
+                    stop_cam();
                     reset_images();
+                    scope.vm.can_submit = false;
+                    scope.vm.show_controls = false;
+                    scope.vm.error_msg = null;
+                    scope.vm.success_msg = null;
+                    scope.vm.loading_msg = null;
                 };
             }
         }
@@ -293,7 +302,9 @@ angular.module('tcp').directive('imgUpload', [
         }
 
         return {
-            scope: true,
+            scope: {
+                onUpload: '&',
+            },
             replace: true,
             link: link,
             template: template,

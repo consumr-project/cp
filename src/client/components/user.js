@@ -382,6 +382,10 @@ angular.module('tcp').directive('user', [
                 $scope.vm.upload_photo.show();
             };
 
+            $scope.on_image_upload = function () {
+                $scope.vm.upload_photo.hide();
+            };
+
             if ($scope.id) {
                 update_actionable_items();
                 load($scope.id);
@@ -416,7 +420,8 @@ angular.module('tcp').directive('user', [
                         'with-backdrop ',
                         'api="vm.upload_photo" ',
                         'class="popover--with-content">',
-                            '<img-upload api="vm.img_upload"></img-upload>',
+                            '<img-upload on-upload="on_image_upload()" api="vm.img_upload">',
+                            '</img-upload>',
                     '</popover>',
 
                     '<center ng-if="vm.user.id" class="margin-top-large">',
