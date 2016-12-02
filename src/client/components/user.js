@@ -453,7 +453,7 @@ angular.module('tcp').directive('user', [
                                 'ng-click="on_start_following(vm.user.id)" ',
                                 'ng-if="vm.followed_by_me === false" ',
                                 'i18n="admin/follow"></button>',
-                            '<button',
+                            '<button ',
                                 'ng-click="on_stop_following(vm.user.id)" ',
                                 'ng-if="vm.followed_by_me === true" ',
                                 'i18n="admin/unfollow"></button>',
