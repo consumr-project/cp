@@ -11,6 +11,7 @@ import { app as version_endpoints } from './version';
 import { KEY_SESSION } from '../keys';
 import { HttpError, RequestTimeoutError } from '../errors';
 import { normalize_i18n } from '../strings';
+import { OG, unfurl } from '../unfurling';
 import { logger } from '../log';
 import * as auth_service from './auth';
 import * as express from 'express';
@@ -125,12 +126,20 @@ app.use((err: any, req, res, next) => {
 });
 
 // view handler
-app.get('*', (req, res) =>
-    res.render('index', {
-        cp_url: config('cp_url'),
-        debugging: CLIENT_DEBUG_INFO,
-        lang: normalize_i18n(req.query.lang),
-    }));
+app.get('*', (req, res) => {
+    unfurl(req.url)
+        .then(unfurled => res.render('index', {
+            unfurled,
+            cp_url: config('cp_url'),
+            debugging: CLIENT_DEBUG_INFO,
+            lang: normalize_i18n(req.query.lang),
+        })).catch(err => res.render('index', {
+            unfurled: OG,
+            cp_url: config('cp_url'),
+            debugging: CLIENT_DEBUG_INFO,
+            lang: normalize_i18n(req.query.lang),
+        }));
+});
 
 log.debug('loading hooks');
 import '../hooks/user_created';
