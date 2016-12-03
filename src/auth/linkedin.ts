@@ -87,7 +87,7 @@ function find_user(
             if (user_found) {
                 // if found, valid
                 User.update({
-                    avatar_url: user.avatar_url,
+                    avatar_url: user_found.avatar_url || user.avatar_url,
                     company_name: user.company_name,
                     last_login_date: Date.now(),
                     name: user.name,
