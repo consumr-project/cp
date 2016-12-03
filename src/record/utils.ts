@@ -1,9 +1,9 @@
 import { merge as lmerge } from 'lodash';
-import { DataTypes } from 'sequelize';
+import { DefineAttributes, DataTypes } from 'sequelize';
 
 export const Type: DataTypes = require('sequelize/lib/data-types');
 
-export function merge(...args: Object[]): Object {
+export function merge(...args: any[]): DefineAttributes {
     return lmerge.apply(null, args.reverse());
 }
 

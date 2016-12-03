@@ -1,14 +1,15 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize as SequelizeInstance } from 'sequelize';
+import * as SequelizeBase from 'sequelize';
 import { logger } from '../log';
+import { Message } from '../record/message';
 import * as config from 'acm';
 import Connection = require('sequelize');
 
 const log = logger(__filename);
-function do_log() {
-    return log.debug.apply(log, arguments);
-}
 
-export type DbmsDevice = Sequelize;
+export type DbmsDevice = SequelizeInstance;
+
+export interface Model<T> extends SequelizeBase.Model<Message & T, T> {}
 
 export default (c = config): DbmsDevice => {
     var env = process.env;
@@ -37,3 +38,7 @@ export default (c = config): DbmsDevice => {
         });
     }
 };
+
+function do_log() {
+    return log.debug.apply(log, arguments);
+}

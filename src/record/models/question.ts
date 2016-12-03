@@ -1,11 +1,25 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID, Date2 } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_company from './company';
 
-export default sequelize => {
-    var Company = gen_company(sequelize);
+export interface QuestionMessage extends IdentifiableMessage, StampedMessage {
+    company_id: UUID;
+    titie: string;
+    andwer: string;
+    answered_by: UUID;
+    answered_date: Date2;
+    approved: boolean;
+    approved_by: UUID;
+    approved_date: Date2;
+}
 
-    var Question = sequelize.define('question', merge(tracking(), {
+export default (device: DbmsDevice) => {
+    var Company = gen_company(device);
+
+    var Question = device.define<Message & QuestionMessage, QuestionMessage>('question', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

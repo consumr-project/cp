@@ -1,13 +1,22 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_user from './user';
 import gen_question from './question';
 
-export default sequelize => {
-    var User = gen_user(sequelize),
-        Question = gen_question(sequelize);
+export interface QuestionMessage extends IdentifiableMessage, StampedMessage {
+    question_id: UUID;
+    user_id: UUID;
+    score: number;
+}
 
-    var QuestionVote = sequelize.define('question_vote', merge(tracking(), {
+export default (device: DbmsDevice) => {
+    var User = gen_user(device),
+        Question = gen_question(device);
+
+    var QuestionVote = device.define<Message & QuestionMessage, QuestionMessage>('question_vote', merge(tracking(), {
         question_id: {
             type: Type.UUID,
             allowNull: false

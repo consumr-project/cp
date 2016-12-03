@@ -1,16 +1,17 @@
 import { Config, Type, tracking, merge } from '../utils';
 import { Date2 } from '../../lang';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 export interface BetaEmailInviteMessage extends IdentifiableMessage, StampedMessage {
-    email: string;
+    email?: string;
     approved?: boolean;
     approved_by?: string;
     approved_date?: Date2;
 }
 
-export default sequelize =>
-    sequelize.define('beta_email_invite', merge(tracking(), {
+export default (device: DbmsDevice) =>
+    device.define<Message & BetaEmailInviteMessage, BetaEmailInviteMessage>('beta_email_invite', merge(tracking(), {
         email: {
             type: Type.STRING,
             allowNull: false,

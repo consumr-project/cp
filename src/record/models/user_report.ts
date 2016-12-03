@@ -1,13 +1,22 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_user from './user';
 import gen_review from './review';
 
-export default sequelize => {
-    var User = gen_user(sequelize),
-        Review = gen_review(sequelize);
+export interface UserReportMessage extends IdentifiableMessage, StampedMessage {
+    user_id: UUID;
+    review_id: UUID;
+    summary: string;
+}
 
-    var UserReport = sequelize.define('user_report', merge(tracking(), {
+export default (device: DbmsDevice) => {
+    var User = gen_user(device),
+        Review = gen_review(device);
+
+    var UserReport = device.define<Message & UserReportMessage, UserReportMessage>('user_report', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

@@ -1,13 +1,29 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_user from './user';
 
+export enum FeedbackType {
+    question = <any>'question',
+    suggestion = <any>'suggestion',
+    problem = <any>'problem'
+}
+
+export interface FeedbackMessage extends IdentifiableMessage, StampedMessage {
+    user_id: UUID;
+    type: FeedbackType;
+    referrer: string;
+    message: string;
+}
+
 const STAMP = require('../../../dist/stamp.json');
 
-export default sequelize => {
-    var User = gen_user(sequelize);
+export default (device: DbmsDevice) => {
+    var User = gen_user(device);
 
-    var Feedback = sequelize.define('feedback', merge(tracking(), {
+    var Feedback = device.define<Message & FeedbackMessage, FeedbackMessage>('feedback', merge(tracking(), {
         id: {
             type: Type.UUID,
             allowNull: false,

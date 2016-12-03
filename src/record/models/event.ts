@@ -1,6 +1,7 @@
 import { Config, Type, tracking, merge } from '../utils';
 import { Date2 } from '../../lang';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 export interface EventMessage extends IdentifiableMessage, StampedMessage {
     title?: string;
@@ -8,8 +9,8 @@ export interface EventMessage extends IdentifiableMessage, StampedMessage {
     logo?: string;
 }
 
-export default sequelize =>
-    sequelize.define('event', merge(tracking(), {
+export default (device: DbmsDevice) =>
+    device.define<Message & EventMessage, EventMessage>('event', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

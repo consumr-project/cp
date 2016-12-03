@@ -1,7 +1,15 @@
 import { Config, Type, merge /* tracking */ } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
-export default sequelize => {
-    var UserFollower = sequelize.define('user_follower', merge({
+export interface UserFollowerMessage extends IdentifiableMessage, StampedMessage {
+    f_user_id: UUID;
+    user_id: UUID;
+}
+
+export default (device: DbmsDevice) => {
+    var UserFollower = device.define<Message & UserFollowerMessage, UserFollowerMessage>('user_follower', merge({
         f_user_id: {
             type: Type.UUID,
             allowNull: false

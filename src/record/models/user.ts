@@ -1,6 +1,7 @@
 import { Config, Type, tracking, merge } from '../utils';
+import { DbmsDevice } from '../../device/dbms';
 import { Date2 } from '../../lang';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 import { Language } from '../../strings';
 import { Role } from '../../auth/permissions';
 
@@ -20,8 +21,8 @@ export interface UserMessage extends IdentifiableMessage, StampedMessage {
     auth_apikey?: string;
 }
 
-export default sequelize =>
-    sequelize.define('user', merge(tracking(), {
+export default (device: DbmsDevice) =>
+    device.define<Message & UserMessage, UserMessage>('user', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

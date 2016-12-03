@@ -1,5 +1,6 @@
 import { Config, Type, tracking, merge } from '../utils';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 export interface TokenMessage extends IdentifiableMessage, StampedMessage {
     token: string;
@@ -9,8 +10,8 @@ export interface TokenMessage extends IdentifiableMessage, StampedMessage {
     expiration_date: Date;
 }
 
-export default sequelize =>
-    sequelize.define('token', merge(tracking(), {
+export default (device: DbmsDevice) =>
+    device.define<Message & TokenMessage, TokenMessage>('token', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

@@ -1,21 +1,22 @@
 import { Config, Type, tracking, merge } from '../utils';
-import { Date2 } from '../../lang';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { Date2, UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_event from './event';
 
 export interface EventSourceMessage extends IdentifiableMessage, StampedMessage {
-    event_id: string;
+    event_id: UUID;
     title: string;
     url: string;
     published_date: Date2;
     summary: string;
 }
 
-export default sequelize => {
-    var Event = gen_event(sequelize);
+export default (device: DbmsDevice) => {
+    var Event = gen_event(device);
 
-    var EventSource = sequelize.define('event_source', merge(tracking(), {
+    var EventSource = device.define<Message & EventSourceMessage, EventSourceMessage>('event_source', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

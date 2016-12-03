@@ -1,19 +1,21 @@
 import { Config, Type, merge /* tracking */ } from '../utils';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { UUID } from '../../lang';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 import gen_event from './event';
 import gen_company from './company';
 
 export interface CompanyEventMessage extends IdentifiableMessage, StampedMessage {
-    event_id: string;
-    company_id: string;
+    event_id: UUID;
+    company_id: UUID;
 }
 
-export default sequelize => {
-    var Event = gen_event(sequelize),
-        Company = gen_company(sequelize);
+export default (device: DbmsDevice) => {
+    var Event = gen_event(device),
+        Company = gen_company(device);
 
-    var CompanyEvent = sequelize.define('company_event', merge({
+    var CompanyEvent = device.define<Message & CompanyEventMessage, CompanyEventMessage>('company_event', merge({
         company_id: {
             type: Type.UUID,
             allowNull: false

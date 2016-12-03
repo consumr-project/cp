@@ -1,5 +1,6 @@
 import { Config, Type, tracking, merge } from '../utils';
-import { IdentifiableMessage, StampedMessage } from '../message';
+import { DbmsDevice } from '../../device/dbms';
+import { Message, IdentifiableMessage, StampedMessage } from '../message';
 
 export interface CompanyMessage extends IdentifiableMessage, StampedMessage {
     name: string;
@@ -10,8 +11,8 @@ export interface CompanyMessage extends IdentifiableMessage, StampedMessage {
     twitter_handle?: string;
 }
 
-export default sequelize =>
-    sequelize.define('company', merge(tracking(), {
+export default (device: DbmsDevice) =>
+    device.define<Message & CompanyMessage, CompanyMessage>('company', merge(tracking(), {
         id: {
             type: Type.UUID,
             primaryKey: true

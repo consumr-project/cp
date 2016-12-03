@@ -127,7 +127,7 @@ function response_handler(res: Response, property?: string): any {
     };
 }
 
-export function upsert(model: Model<any, any>, extra_params: string[] = []): RequestHandler {
+export function upsert(model: any, extra_params: string[] = []): RequestHandler {
     return (req, res) => {
         populate_extra_parameters(req, extra_params);
         error_handler(res, model.upsert(populate_uuids(populate_dates(req.body)))
@@ -139,7 +139,7 @@ export function upsert(model: Model<any, any>, extra_params: string[] = []): Req
  * XXX instead of a callback this should pass the response down so that
  * handlers can just be appended.
  */
-export function create(model: Model<any, any>, extra_params: string[] = [], cb?: (Model) => Promise<Model<any, any>>): RequestHandler {
+export function create(model: any, extra_params: string[] = [], cb?: (Model) => Promise<Model<any, any>>): RequestHandler {
     return (req, res) => {
         populate_extra_parameters(req, extra_params);
         error_handler(res, model.create(populate_uuids(populate_dates(req.body)))
@@ -148,7 +148,7 @@ export function create(model: Model<any, any>, extra_params: string[] = [], cb?:
     };
 }
 
-export function retrieve(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
+export function retrieve(model: any, prop_remap: SDict = ID_MAP): RequestHandler {
     var find: string;
 
     return (req, res) => {
@@ -167,7 +167,7 @@ export function retrieve(model: Model<any, any>, prop_remap: SDict = ID_MAP): Re
     };
 }
 
-export function update(model: Model<any, any>): RequestHandler {
+export function update(model: any): RequestHandler {
     return (req, res) => error_handler(res, model.update(
         populate_uuids(populate_dates(req.body)),
         build_query(ID_MAP, req.params)
@@ -179,7 +179,7 @@ export function update(model: Model<any, any>): RequestHandler {
  * query paramter along with a valid "purge_key" value. this "purge_key" is
  * retrieved from the CP_PURGE_KEY env var.
  */
-export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): RequestHandler {
+export function del(model: any, prop_remap: SDict = ID_MAP): RequestHandler {
     return (req, res, next) => {
         var deleted_by = req.user.id,
             where = { deleted_date: null },
@@ -204,7 +204,7 @@ export function del(model: Model<any, any>, prop_remap: SDict = ID_MAP): Request
     };
 }
 
-export function like(model: Model<any, any>, field): RequestHandler {
+export function like(model: any, field): RequestHandler {
     var filter: FindOptions = { where: { [field]: {} } };
 
     return (req, res) => {
@@ -214,7 +214,7 @@ export function like(model: Model<any, any>, field): RequestHandler {
     };
 }
 
-export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHandler {
+export function parts(model: any, prop_remap, parts_def?): RequestHandler {
     if (!parts_def) {
         parts_def = prop_remap;
         prop_remap = {id: 'id'};
@@ -320,7 +320,7 @@ export function parts(model: Model<any, any>, prop_remap, parts_def?): RequestHa
     };
 }
 
-export function all(model: Model<any, any>): RequestHandler {
+export function all(model: any): RequestHandler {
     return (req, res) =>
         error_handler(res, model.findAll({})
             .then(response_handler(res)));
