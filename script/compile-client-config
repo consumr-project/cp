@@ -12,6 +12,10 @@ varname && console.log('var %s =', varname);
 console.log({
     features: config('features'),
 
+    facebook: {
+        app_id: config('facebook.app_id'),
+    },
+
     beta: {
         lockdown: !!config('cp.auth.lockdown'),
     },
