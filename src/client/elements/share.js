@@ -38,8 +38,38 @@ angular.module('tcp').component('share', {
             '</popover>',
         '</span>',
     ].join(''),
-    controller: [function () {
+    controller: ['lodash', function (lodash) {
         'use strict';
+
+        var URL_TWITTER = 'https://twitter.com/intent/tweet?via=consumrproject';
+
+        /**
+         * @param {Object} overrides
+         * @return {string}
+         */
+        function win_opt(overrides) {
+            return lodash.reduce(lodash.merge({
+                menubar: 'no',
+                location: 'yes',
+                resizable: 'yes',
+                scrollbars: 'yes',
+                status: 'no',
+                height: '800',
+                width: '800',
+                left: '100',
+            }, overrides), function (opts, val, opt) {
+                opts.push(opt + '=' + val);
+                return opts;
+            }, []).join(',');
+        }
+
+        /**
+         * @param {string} provider
+         * @return {string}
+         */
+        function win_name(provider) {
+            return 'cp_share_' + provider;
+        }
 
         this.menu = {
             show: false
@@ -52,6 +82,14 @@ angular.module('tcp').component('share', {
         };
 
         this.share_twitter = function () {
+            var url = URL_TWITTER +
+                '&url=' + encodeURI(this.model.url) +
+                '&text=' + encodeURI(this.model.text);
+
+            window.open(url, win_name('twitter'), win_opt({
+                height: 250,
+                width: 800,
+            }));
         };
     }],
 });
