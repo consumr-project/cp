@@ -1,3 +1,5 @@
+import * as SequelizeBase from 'sequelize';
+import { Message } from '../record/message';
 import connect from './dbms';
 
 import gen_beta_email_invite from '../record/models/beta_email_invite';
@@ -21,6 +23,8 @@ import gen_token from '../record/models/token';
 import gen_user from '../record/models/user';
 import gen_user_follower from '../record/models/user_follower';
 import gen_user_report from '../record/models/user_report';
+
+export interface Model<T> extends SequelizeBase.Model<Message & T, T> {}
 
 export const conn = connect();
 

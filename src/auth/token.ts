@@ -1,7 +1,7 @@
 import { v4 } from 'node-uuid';
 import { TokenMessage } from '../record/models/token';
 import { UserMessage } from '../record/models/user';
-import { Model } from '../device/dbms';
+import { Model } from '../device/models';
 import { nonce, encrypt } from '../crypto';
 import { KEY_AUTH_TOKEN } from '../keys';
 
