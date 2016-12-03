@@ -41,6 +41,7 @@ angular.module('tcp').component('share', {
     controller: ['CONFIG', 'lodash', function (CONFIG, lodash) {
         'use strict';
 
+        var URL_LINKEDIN = 'https://www.linkedin.com/shareArticle?mini=true';
         var URL_TWITTER = 'https://twitter.com/intent/tweet?via=consumrproject';
         var URL_FACEBOOK = 'https://www.facebook.com/dialog/share?display=popup&app_id=' + CONFIG.facebook.app_id;
 
@@ -88,6 +89,14 @@ angular.module('tcp').component('share', {
         };
 
         this.share_linkedin = function () {
+            var url = URL_LINKEDIN +
+                '&url=' + encodeURI(this.model.url) +
+                '&title=' + encodeURI(this.model.text);
+
+            window.open(url, win_name('linkedin'), win_opt({
+                height: 400,
+                width: 550,
+            }));
         };
 
         this.share_twitter = function () {
