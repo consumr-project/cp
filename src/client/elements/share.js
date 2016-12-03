@@ -1,7 +1,15 @@
 /**
+ * @attribute model {ShareModel}
+ *
+ * interface ShareModel {
+ *     text: string;
+ *     url: string;
+ * }
  */
 angular.module('tcp').component('share', {
-    bindings: {},
+    bindings: {
+        model: '=?'
+    },
     template: [
         '<span>',
             '<span data-share-anchor ',
@@ -18,13 +26,13 @@ angular.module('tcp').component('share', {
                 'anchored-left-offset="10" ',
                 'anchored-arrow="true" ',
                 'anchored-auto-hide="true">',
-                '<popover-item>',
+                '<popover-item ng-click="$ctrl.share_twitter()">',
                     '<div class="share__twitter"></div>',
                 '</popover-item>',
-                '<popover-item>',
+                '<popover-item ng-click="$ctrl.share_facebook()">',
                     '<div class="share__facebook"></div>',
                 '</popover-item>',
-                '<popover-item>',
+                '<popover-item ng-click="$ctrl.share_linkedin()">',
                     '<div class="share__linkedin"></div>',
                 '</popover-item>',
             '</popover>',
@@ -35,6 +43,15 @@ angular.module('tcp').component('share', {
 
         this.menu = {
             show: false
+        };
+
+        this.share_facebook = function () {
+        };
+
+        this.share_linkedin = function () {
+        };
+
+        this.share_twitter = function () {
         };
     }],
 });
