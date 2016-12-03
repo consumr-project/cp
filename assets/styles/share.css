@@ -1,0 +1,22 @@
+.share__facebook,
+.share__twitter,
+.share__linkedin {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 120%;
+    height: 25px;
+    width: 25px;
+}
+
+.share__facebook {
+    background-image: url(/assets/images/facebook-black.jpg);
+}
+
+.share__twitter {
+    background-image: url(/assets/images/twitter-black.png);
+}
+
+.share__linkedin {
+    background-image: url(/assets/images/linkedin-black.jpg);
+    background-size: 76%;
+}

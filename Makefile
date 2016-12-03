@@ -200,6 +200,7 @@ build-client-src:
 	$(js_min) src/client/initializers/rollbar-config.js >> $(build_client_js)
 	$(js_min) src/client/initializers/scroll-offset-class.js >> $(build_client_js)
 	$(js_min) src/client/elements/anchored.js >> $(build_client_js)
+	$(js_min) src/client/elements/share.js >> $(build_client_js)
 	$(js_min) src/client/elements/collapsable.js >> $(build_client_js)
 	$(js_min) src/client/elements/pills.js >> $(build_client_js)
 	$(js_min) src/client/elements/chart.js >> $(build_client_js)
