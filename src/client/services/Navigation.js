@@ -68,6 +68,21 @@ angular.module('tcp').service('Navigation', [
             user_me: withoid(BASES.MY_PROFILE),
             event: withoid(BASES.EVENT),
 
+            url: {
+                /**
+                 * @param {string} company id
+                 * @param {string} event id
+                 * @return {string}
+                 */
+                company_event: function (cid, eid) {
+                    return BASES.COMPANY +
+                        BASES.BY_ID +
+                        oappend(cid) +
+                        BASES.EVENT +
+                        oappend(eid);
+                },
+            },
+
             /**
              * @param {String} parent_id
              * @param {String} child_id
