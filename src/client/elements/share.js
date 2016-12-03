@@ -38,10 +38,11 @@ angular.module('tcp').component('share', {
             '</popover>',
         '</span>',
     ].join(''),
-    controller: ['lodash', function (lodash) {
+    controller: ['CONFIG', 'lodash', function (CONFIG, lodash) {
         'use strict';
 
         var URL_TWITTER = 'https://twitter.com/intent/tweet?via=consumrproject';
+        var URL_FACEBOOK = 'https://www.facebook.com/dialog/share?display=popup&app_id=' + CONFIG.facebook.app_id;
 
         /**
          * @param {Object} overrides
@@ -76,6 +77,14 @@ angular.module('tcp').component('share', {
         };
 
         this.share_facebook = function () {
+            var url = URL_FACEBOOK +
+                '&href=' + encodeURI(this.model.url) +
+                '&quote=' + encodeURI(this.model.text);
+
+            window.open(url, win_name('facebook'), win_opt({
+                height: 400,
+                width: 550,
+            }));
         };
 
         this.share_linkedin = function () {
