@@ -4,7 +4,6 @@ import connect from './dbms';
 
 import gen_beta_email_invite from '../record/models/beta_email_invite';
 import gen_company from '../record/models/company';
-import gen_feedback from '../record/models/feedback';
 import gen_company_event from '../record/models/company_event';
 import gen_company_follower from '../record/models/company_follower';
 import gen_company_product from '../record/models/company_product';
@@ -12,6 +11,7 @@ import gen_event from '../record/models/event';
 import gen_event_bookmark from '../record/models/event_bookmark';
 import gen_event_source from '../record/models/event_source';
 import gen_event_tag from '../record/models/event_tag';
+import gen_feedback from '../record/models/feedback';
 import gen_product from '../record/models/product';
 import gen_question from '../record/models/question';
 import gen_question_vote from '../record/models/question_vote';
@@ -25,6 +25,28 @@ import gen_user_follower from '../record/models/user_follower';
 import gen_user_report from '../record/models/user_report';
 
 export interface Model<T> extends SequelizeBase.Model<Message & T, T> {}
+
+export { BetaEmailInviteMessage } from '../record/models/beta_email_invite';
+export { CompanyEventMessage } from '../record/models/company_event';
+export { CompanyFollowerMessage } from '../record/models/company_follower';
+export { CompanyMessage } from '../record/models/company';
+export { CompanyProductMessage } from '../record/models/company_product';
+export { EventBookmarkMessage } from '../record/models/event_bookmark';
+export { EventMessage } from '../record/models/event';
+export { EventSourceMessage } from '../record/models/event_source';
+export { EventTagMessage } from '../record/models/event_tag';
+export { FeedbackMessage } from '../record/models/feedback';
+export { ProductMessage } from '../record/models/product';
+export { QuestionMessage } from '../record/models/question';
+export { QuestionVoteMessage } from '../record/models/question_vote';
+export { ReviewMessage } from '../record/models/review';
+export { ReviewUsefulnessMessage } from '../record/models/review_usefulness';
+export { TagFollowerMessage } from '../record/models/tag_follower';
+export { TagMessage } from '../record/models/tag';
+export { TokenMessage } from '../record/models/token';
+export { UserFollowerMessage } from '../record/models/user_follower';
+export { UserMessage } from '../record/models/user';
+export { UserReportMessage } from '../record/models/user_report';
 
 export const conn = connect();
 

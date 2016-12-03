@@ -1,6 +1,5 @@
 import { Sequelize as SequelizeInstance } from 'sequelize';
 import { logger } from '../log';
-import { Message } from '../record/message';
 import * as config from 'acm';
 import Connection = require('sequelize');
 
