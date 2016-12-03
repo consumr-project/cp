@@ -228,14 +228,6 @@ angular.module('tcp').directive('timeline', [
             /**
              * @return {void}
              */
-            $scope.report_viewing = function () {
-                var ev = $scope.vm.selected_event_to_view;
-                $scope.vm.event_view_menu.show = false;
-            };
-
-            /**
-             * @return {void}
-             */
             $scope.edit_viewing = function () {
                 var ev = $scope.vm.selected_event_to_view;
                 $scope.vm.event_view_menu.show = false;
@@ -392,8 +384,6 @@ angular.module('tcp').directive('timeline', [
                 '    >',
                 '        <popover-item i18n="admin/edit"',
                 '            ng-click="edit_viewing()"></popover-item>',
-                '        <popover-item i18n="admin/report"',
-                '            ng-click="report_viewing()"></popover-item>',
                 '    </popover>',
 
                 '    <div ng-if="events.length"',
