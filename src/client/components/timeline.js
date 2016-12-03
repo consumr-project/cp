@@ -1,5 +1,7 @@
 angular.module('tcp').directive('timeline', [
+    'CONFIG',
     'DOMAIN',
+    'Navigation',
     '$q',
     '$timeout',
     'lodash',
@@ -8,7 +10,7 @@ angular.module('tcp').directive('timeline', [
     'i18n',
     'Services',
     'Session',
-    function (DOMAIN, $q, $timeout, lodash, utils, utils2, i18n, Services, Session) {
+    function (CONFIG, DOMAIN, Navigation, $q, $timeout, lodash, utils, utils2, i18n, Services, Session) {
         'use strict';
 
         /**
@@ -277,6 +279,21 @@ angular.module('tcp').directive('timeline', [
                 }
             };
 
+            /**
+             * @param {Event} ev
+             * @return {ShareModel}
+             */
+            $scope.make_sharable = function (ev) {
+                if (!ev._sharable) {
+                    ev._sharable = {
+                        url: CONFIG.environment.url + Navigation.url.company_event($scope.id, ev.id),
+                        text: ev.title,
+                    };
+                }
+
+                return ev._sharable;
+            };
+
             $scope.api = $scope.api || {};
             $scope.api.refresh = $scope.refresh;
 
@@ -351,7 +368,8 @@ angular.module('tcp').directive('timeline', [
                 '        <div ng-if="vm.selected_event_to_view === event"',
                 '            class="left-align fill-background timeline__event__view">',
                 '            <div class="timeline__event__edit-menu">',
-                '                <span ng-click="vm.event_view_menu.show = true"',
+                '                <share model="make_sharable(event)" class="logged-in-only right margin-left-small"></share>',
+                '                <span data-edit ng-click="vm.event_view_menu.show = true"',
                 '                    class="logged-in-only right imgview imgview--dot-dot-dot no-outline"></span>',
                 '                <span ng-class="{',
                 '                        \'imgview--bookmarks\': !event.bookmarked_by_me,',
@@ -374,7 +392,7 @@ angular.module('tcp').directive('timeline', [
                 '    <popover',
                 '        class="left-align"',
                 '        anchored',
-                '        anchored-element="\'.timeline__event__edit-menu .imgview--dot-dot-dot\'"',
+                '        anchored-element="\'.timeline__event__edit-menu [data-edit]\'"',
                 '        anchored-show="vm.event_view_menu.show"',
                 '        anchored-placement="bottom-right"',
                 '        anchored-top-offset="10"',
