@@ -118,3 +118,16 @@
 .img-upload__info_desc {
     color: var(--color-light-text-color);
 }
+
+@media (--media-content-max-width) {
+    .img-upload__webcam {
+        display: none;
+    }
+
+    .img-upload .status--error,
+    .img-upload .status--success,
+    .img-upload .status--message {
+        margin-top: var(--spacing-small);
+        display: block;
+    }
+}
