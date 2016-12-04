@@ -21,36 +21,36 @@ angular.module('tcp').directive('company', [
                 '<p>{{normalize_summary(company.summary)[0]}}</p>',
                 '<section class="margin-top-medium">',
                     '<label>',
-                        '<h2 ng-show="company.website_url" i18n="company/is_this_website"></h2>',
-                        '<h2 ng-show="!company.website_url" i18n="company/what_is_website"></h2>',
+                        '<h2 ng-show="::company.website_url" i18n="company/is_this_website"></h2>',
+                        '<h2 ng-show="::!company.website_url" i18n="company/what_is_website"></h2>',
                         '<input class="block"',
                             'i18n="common/website"',
                             'prop="placeholder"',
-                            'ng-value="company.website_url" />',
+                            'ng-model="company.website_url" />',
                     '</label>',
                 '</section>',
                 '<section class="margin-top-medium">',
                     '<label>',
-                        '<h2 ng-show="company.wikipedia_url" i18n="company/is_this_wikipedia"></h2>',
-                        '<h2 ng-show="!company.wikipedia_url" i18n="company/what_is_website"></h2>',
+                        '<h2 ng-show="::company.wikipedia_url" i18n="company/is_this_wikipedia"></h2>',
+                        '<h2 ng-show="::!company.wikipedia_url" i18n="company/what_is_wikipedia"></h2>',
                         '<input class="block"',
                             'i18n="common/website"',
                             'prop="placeholder"',
-                            'ng-value="company.wikipedia_url" />',
+                            'ng-model="company.wikipedia_url" />',
                     '</label>',
                 '</section>',
                 '<section class="margin-top-medium">',
                     '<label>',
-                        '<h2 ng-show="company.twitter_handle" i18n="company/is_this_twitter"></h2>',
-                        '<h2 ng-show="!company.twitter_handle" i18n="company/what_is_twitter"></h2>',
+                        '<h2 ng-show="::company.twitter_handle" i18n="company/is_this_twitter"></h2>',
+                        '<h2 ng-show="::!company.twitter_handle" i18n="company/what_is_twitter"></h2>',
                         '<input class="block"',
                             'i18n="common/twitter"',
                             'prop="placeholder"',
-                            'ng-value="company.twitter_handle" />',
+                            'ng-model="company.twitter_handle" />',
                     '</label>',
                 '</section>',
                 '<section class="margin-top-large">',
-                    '<button>save</button>',
+                    '<button i18n="admin/save" ng-click="update()"></button>',
                     '<button class="button--unselected" i18n="admin/cancel" ',
                     'ng-click="onCancel()"></button>',
                 '</section>',
@@ -306,6 +306,10 @@ angular.module('tcp').directive('company', [
             }
         }
 
+        function error_updating_company() {
+            $window.alert(i18n.get('admin/error_updating_company'));
+        }
+
         /**
          * @param {Error} [err]
          */
@@ -321,7 +325,7 @@ angular.module('tcp').directive('company', [
             }
         }
 
-        function controller($scope) {
+        function controller($scope, $attrs) {
             $scope.nav = Navigation;
             $scope.utils2 = utils2;
 
@@ -413,6 +417,18 @@ angular.module('tcp').directive('company', [
                 $scope.vm.show_reviews = false;
                 $scope.vm.show_events = false;
                 $scope.vm.show_qa = true;
+            };
+
+            $scope.update = function () {
+                utils.assert(Session.USER, 'login required for action');
+
+                return Services.query.companies.update($scope.company.id, {
+                    twitter_handle: $scope.company.twitter_handle,
+                    website_url: $scope.company.website_url,
+                    wikipedia_url: $scope.company.wikipedia_url,
+                })
+                    .then($scope.onSaved)
+                    .catch(error_updating_company);
             };
 
             /**
@@ -648,6 +664,10 @@ angular.module('tcp').directive('company', [
                     .then(normalize_company)
                     .then(utils.scope.set($scope, 'company'))
                     .then(function (company) {
+                        if ($attrs.type === 'edit') {
+                            return company;
+                        }
+
                         Services.query.companies.retrieve(company.id, ['products', 'followers'], ['products'])
                             .then(function (company) {
                                 $scope.vm.followed_by_me = company.followers['@meta'].instead.includes_me;
@@ -733,12 +753,13 @@ angular.module('tcp').directive('company', [
 
         return {
             replace: true,
-            controller: ['$scope', controller],
+            controller: ['$scope', '$attrs', controller],
             template: template,
             scope: {
                 model: '=',
                 id: '@',
                 eventId: '@',
+                onSaved: '&',
                 onCancel: '&',
                 guid: '@',
                 create: '@'
