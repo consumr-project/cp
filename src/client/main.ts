@@ -251,6 +251,11 @@ namespace tcp {
                 resolve: { UserCheck, PageView }
             });
 
+            $routeProvider.when('/thx', {
+                template: '<missing-data class="block site-content"></missing-data>',
+                resolve: { UserCheck },
+            });
+
             $routeProvider.when('/admin', {
                 template: '<error-view ng-if="!allowed"></error-view>' +
                     '<admin-view ng-if="allowed" class="block site-content"></admin-view>',
