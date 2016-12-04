@@ -4,6 +4,11 @@
     margin: var(--spacing-medium) 0;
     padding: var(--spacing-large);
     text-align: center;
+    transition: opacity var(--speed-friendly);
+}
+
+.missing-data--active .missing-data__item {
+    opacity: .4;
 }
 
 .missing-data__loading {

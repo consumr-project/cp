@@ -1,13 +1,19 @@
 angular.module('tcp').component('missingData', {
     bindings: {},
     template: [
-        '<div ng-class="{loading: $ctrl.loading}">',
+        '<div ng-class="{loading: $ctrl.loading, \'missing-data--active\': $ctrl.selected}">',
             '<h1 ng-if="$ctrl.allowed" class="missing-data__title" i18n="company/we_need_data"></h1>',
             '<message ng-if="!$ctrl.allowed" type="error" i18n="admin/error_login_to_do_this"></message>',
             '<div class="missing-data__loading loading__only" i18n="common/loading"></div>',
-            '<div class="missing-data__item" ',
-                'ng-repeat="company in $ctrl.companies" ',
-                'ng-click="$ctrl.edit(company)">{{::company.name}}</div>',
+            '<div ng-repeat="company in $ctrl.companies">',
+                '<div class="missing-data__item" ',
+                    'ng-click="$ctrl.edit(company)">{{::company.name}}</div>',
+                '<company type="edit" ',
+                    'class="animated fadeIn" ',
+                    'on-cancel="$ctrl.cancel()" ',
+                    'ng-if="$ctrl.selected === company" ',
+                    'id="{{company.id}}"></company>',
+            '</div',
         '</div>',
     ].join(''),
     controller: [
@@ -18,6 +24,7 @@ angular.module('tcp').component('missingData', {
 
             this.loading = null;
             this.allowed = null;
+            this.selected = null;
 
             this.init = function () {
                 this.loading = true;
@@ -28,8 +35,16 @@ angular.module('tcp').component('missingData', {
                     }.bind(this));
             };
 
+            this.cancel = function () {
+                this.selected = null;
+            };
+
             this.edit = function (company) {
-                console.log(company);
+                if (this.selected === company) {
+                    this.selected = null;
+                } else {
+                    this.selected = company;
+                }
             };
 
             if (!Session.USER || !Session.USER.id) {

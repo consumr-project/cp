@@ -15,6 +15,48 @@ angular.module('tcp').directive('company', [
     function (RUNTIME, EVENTS, DOMAIN, Navigation, Services, Session, utils, utils2, lodash, $q, $window, i18n, slug) {
         'use strict';
 
+        var HTML_EDIT = [
+            '<div>',
+                '<h1>{{company.name}}</h1>',
+                '<p>{{normalize_summary(company.summary)[0]}}</p>',
+                '<section class="margin-top-medium">',
+                    '<label>',
+                        '<h2 ng-show="company.website_url" i18n="company/is_this_website"></h2>',
+                        '<h2 ng-show="!company.website_url" i18n="company/what_is_website"></h2>',
+                        '<input class="block"',
+                            'i18n="common/website"',
+                            'prop="placeholder"',
+                            'ng-value="company.website_url" />',
+                    '</label>',
+                '</section>',
+                '<section class="margin-top-medium">',
+                    '<label>',
+                        '<h2 ng-show="company.wikipedia_url" i18n="company/is_this_wikipedia"></h2>',
+                        '<h2 ng-show="!company.wikipedia_url" i18n="company/what_is_website"></h2>',
+                        '<input class="block"',
+                            'i18n="common/website"',
+                            'prop="placeholder"',
+                            'ng-value="company.wikipedia_url" />',
+                    '</label>',
+                '</section>',
+                '<section class="margin-top-medium">',
+                    '<label>',
+                        '<h2 ng-show="company.twitter_handle" i18n="company/is_this_twitter"></h2>',
+                        '<h2 ng-show="!company.twitter_handle" i18n="company/what_is_twitter"></h2>',
+                        '<input class="block"',
+                            'i18n="common/twitter"',
+                            'prop="placeholder"',
+                            'ng-value="company.twitter_handle" />',
+                    '</label>',
+                '</section>',
+                '<section class="margin-top-large">',
+                    '<button>save</button>',
+                    '<button class="button--unselected" i18n="admin/cancel" ',
+                    'ng-click="onCancel()"></button>',
+                '</section>',
+            '</div>',
+        ].join('');
+
         var HTML_PAGE = [
             '<div class="company-component">',
             '    <error-view class="forced-full-span" ng-if="vm.not_found"></error-view>',
@@ -201,7 +243,7 @@ angular.module('tcp').directive('company', [
             '    </section>',
 
             '    <div ng-if="!vm.existing && vm.step.length > 1" class="animated fadeIn margin-top-large margin-bottom-xlarge">',
-            '        <h1 i18n="company/what_is_the_website" data="{name: company.name}"></h1>',
+            '        <h1 i18n="company/what_is_the_website_for" data="{name: company.name}"></h1>',
             '        <input class="block title"',
             '            i18n="common/website"',
             '            prop="placeholder"',
@@ -252,7 +294,7 @@ angular.module('tcp').directive('company', [
         function template(elem, attrs) {
             switch (attrs.type) {
                 case 'view': return HTML_VIEW;
-                case 'edit': return HTML_VIEW;
+                case 'edit': return HTML_EDIT;
                 default: return HTML_PAGE;
             }
         }
@@ -587,6 +629,14 @@ angular.module('tcp').directive('company', [
             };
 
             /**
+             * @param {string} summary
+             * @return {string[]}
+             */
+            $scope.normalize_summary = function (summary) {
+                return !!summary ? [lodash.head(lodash.filter(summary.split('\n')))] : [];
+            };
+
+            /**
              * @param {String} guid
              * @param {String} [method]
              * @return {Promise}
@@ -646,12 +696,7 @@ angular.module('tcp').directive('company', [
 
                 company.$followed_by = company.$followed_by || [];
                 company.$loaded = true;
-                company.$summary_parts = !company.summary ? [] :
-                    lodash.filter(company.summary.split('\n'));
-
-                if (company.$summary_parts.length) {
-                    company.$summary_parts = [ company.$summary_parts[0] ];
-                }
+                company.$summary_parts = $scope.normalize_summary(company.summary);
 
                 return company;
             }
@@ -694,6 +739,7 @@ angular.module('tcp').directive('company', [
                 model: '=',
                 id: '@',
                 eventId: '@',
+                onCancel: '&',
                 guid: '@',
                 create: '@'
             },
