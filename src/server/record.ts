@@ -210,6 +210,9 @@ del('/tags/:tag_id/followers/:id',
 post('/companies',
     can('create', 'company'),
     create(models.Company));
+get('/companies/missing-data',
+    can('update', 'company'),
+    query(conn, sql('get-companies-missing-data')));
 get('/companies/guid/:id',
     can('retrieve', 'company'),
     retrieve(models.Company, {guid: 'id'}));
