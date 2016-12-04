@@ -29,6 +29,7 @@ error_loading_content: "Error loading content, please try again later."
 
 not_found: Not Found
 create_this: Create "{name}"?
+loading: "Loading..."
 loading_events: "Loading events..."
 loading_event: "Loading event..."
 

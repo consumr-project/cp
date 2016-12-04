@@ -13,3 +13,5 @@ new_company_more_info: "you tagged \"{name}\" and it’s not in our system yet. 
 
 bad_results: "don't see the company you're looking for?"
 create_yourself: "create it yourself"
+
+we_need_data: "We need a few details about the following companies, pick one and make your mark:"
