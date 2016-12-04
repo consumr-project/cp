@@ -217,7 +217,7 @@ declare module 'passport-localapikey' {
     import { Request } from 'express';
 
     export interface Search {
-        (apikey: string, done: (err?: Error) => void): void;
+        <T>(apikey: string, done: (err: Error | null, user: T) => void): void;
     }
 
     export class Strategy {
