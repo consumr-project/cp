@@ -2,7 +2,7 @@ name_placeholder: Company name
 create: Create company
 
 # events
-what_is_the_website: "Great! What is the website for {name}?"
+what_is_the_website_for: "Great! What is the website for {name}?"
 twitter_handle: "What's their twitter handle?"
 what_do_they_do: "Can you describe what {name} does or sells?"
 company_founded: Company founded
@@ -15,3 +15,10 @@ bad_results: "don't see the company you're looking for?"
 create_yourself: "create it yourself"
 
 we_need_data: "We need a few details about the following companies, pick one and make your mark:"
+
+is_this_website: Is this their website?
+what_is_website: What is their website?
+is_this_wikipedia: Is this their wikipedia page url?
+what_is_wikipedia: What is their wikipedia page url?
+is_this_twitter: Is this their twitter handle?
+what_is_twitter: What is their twitter handle?
