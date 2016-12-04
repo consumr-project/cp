@@ -1,0 +1,16 @@
+.missing-data__item {
+    border: 1px solid var(--color-std-border-color);
+    margin: var(--spacing-medium) 0;
+    padding: var(--spacing-medium);
+    text-align: center;
+}
+
+.missing-data__loading {
+    padding-top: var(--spacing-large);
+    text-align: center;
+}
+
+.missing-data__title {
+    margin: var(--spacing-xlarge) 0;
+    text-align: center;
+}
