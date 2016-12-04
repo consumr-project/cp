@@ -2,7 +2,8 @@ angular.module('tcp').component('missingData', {
     bindings: {},
     template: [
         '<div ng-class="{loading: $ctrl.loading}">',
-            '<h1 class="missing-data__title" i18n="company/we_need_data"></h1>',
+            '<h1 ng-if="$ctrl.allowed" class="missing-data__title" i18n="company/we_need_data"></h1>',
+            '<message ng-if="!$ctrl.allowed" type="error" i18n="admin/error_login_to_do_this"></message>',
             '<div class="missing-data__loading loading__only" i18n="common/loading"></div>',
             '<div class="missing-data__item" ',
                 'ng-repeat="company in $ctrl.companies" ',
@@ -11,10 +12,12 @@ angular.module('tcp').component('missingData', {
     ].join(''),
     controller: [
         'Services',
-        function (Services) {
+        'Session',
+        function (Services, Session) {
             'use strict';
 
             this.loading = null;
+            this.allowed = null;
 
             this.init = function () {
                 this.loading = true;
@@ -29,7 +32,12 @@ angular.module('tcp').component('missingData', {
                 console.log(company);
             };
 
-            this.init();
+            if (!Session.USER || !Session.USER.id) {
+                this.allowed = false;
+            } else {
+                this.allowed = true;
+                this.init();
+            }
         }
     ],
 });
