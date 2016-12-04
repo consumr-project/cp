@@ -25,7 +25,10 @@
 }
 
 .close-x {
-    font-size: 25px;
+    color: var(--color-std-header-color);
+    cursor: pointer;
+    font-size: 24px;
+    outline: none;
     position: absolute;
     right: 10px;
     top: 50%;

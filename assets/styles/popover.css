@@ -51,25 +51,6 @@
     z-index: var(--z-index-popover-backdrop);
 }
 
-.popover__x {
-    color: var(--color-std-header-color);
-    cursor: pointer;
-    font-size: 24px;
-    position: absolute;
-    right: 20px;
-    top: 10px;
-}
-
-.popover__x::after {
-    content: "×";
-}
-
-@media (--media-content-max-width) {
-    .popover__x {
-        top: 17px;
-    }
-}
-
 .popover--with-content {
     left: 50%;
     max-height: 80vh;

@@ -60,7 +60,7 @@ angular.module('tcp').directive('popover', [function () {
 
             if ('withCloseX' in attrs) {
                 x_close = $('<div></div>')
-                    .addClass('popover__x')
+                    .addClass('close-x close-x--topright')
                     .appendTo(elem);
 
                 x_close.click(apiHide);
