@@ -212,7 +212,7 @@ post('/companies',
     create(models.Company));
 get('/companies/missing-data',
     can('update', 'company'),
-    query(conn, sql('get-companies-missing-data')));
+    query(conn, sql('get-companies-missing-data'), false, { limit: 50 }));
 get('/companies/guid/:id',
     can('retrieve', 'company'),
     retrieve(models.Company, {guid: 'id'}));

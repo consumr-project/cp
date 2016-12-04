@@ -283,6 +283,14 @@ angular.module('tcp').service('Services', [
                 .then(pluck_data).then(pluck_body);
         };
 
+        queryService.companies.missing_data = function (limit) {
+          return get(url('companies/missing-data'), {
+              params: {
+                  limit: limit
+              }
+          });
+        };
+
         queryService.companies.common = {
             companies: function (guid) {
                 return $http.get(url('companies', guid, 'common/companies'), { cache: true })

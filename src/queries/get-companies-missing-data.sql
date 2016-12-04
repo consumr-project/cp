@@ -8,4 +8,7 @@ and (website_url is null
 or wikipedia_url is null
 or twitter_handle is null)
 
-order by created_date desc;
+order by created_date desc
+limit :limit
+
+;
