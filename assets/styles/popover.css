@@ -64,6 +64,12 @@
     content: "×";
 }
 
+@media (--media-content-max-width) {
+    .popover__x {
+        top: 17px;
+    }
+}
+
 .popover--with-content {
     left: 50%;
     max-height: 80vh;
