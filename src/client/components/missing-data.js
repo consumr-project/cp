@@ -10,6 +10,7 @@ angular.module('tcp').component('missingData', {
                     'ng-click="$ctrl.edit(company)">{{::company.name}}</div>',
                 '<company type="edit" ',
                     'class="animated fadeIn" ',
+                    'on-saved="$ctrl.saved(company)" ',
                     'on-cancel="$ctrl.cancel()" ',
                     'ng-if="$ctrl.selected === company" ',
                     'id="{{company.id}}"></company>',
@@ -19,12 +20,14 @@ angular.module('tcp').component('missingData', {
     controller: [
         'Services',
         'Session',
-        function (Services, Session) {
+        'lodash',
+        function (Services, Session, lodash) {
             'use strict';
 
             this.loading = null;
             this.allowed = null;
             this.selected = null;
+            this.companies = [];
 
             this.init = function () {
                 this.loading = true;
@@ -36,6 +39,11 @@ angular.module('tcp').component('missingData', {
             };
 
             this.cancel = function () {
+                this.selected = null;
+            };
+
+            this.saved = function (company) {
+                this.companies = lodash.without(this.companies, company);
                 this.selected = null;
             };
 
