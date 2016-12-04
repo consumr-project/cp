@@ -100,3 +100,15 @@ export function curr_set<T, V>(obj: T, path: string[] | string, def?: V): (val: 
 export function curr_get<T, V>(path: string[] | string): (obj: T) => V {
     return curryRight(get, 2)(path);
 }
+
+export function preload(
+    url: string,
+    callback: (ev: Event) => void,
+    errback: (ev: ErrorEvent) => void
+): HTMLImageElement {
+    var img = new Image();
+    img.onload = callback;
+    img.onerror = errback;
+    img.src = url;
+    return img;
+}

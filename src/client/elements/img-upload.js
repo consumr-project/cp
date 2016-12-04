@@ -7,11 +7,10 @@ angular.module('tcp').directive('imgUpload', [
     'Dropzone',
     'Webcam',
     'i18n',
-    'utils',
     'utils2',
     'assert',
     'messages',
-    function (Services, Dropzone, Webcam, i18n, utils, utils2, assert, messages) {
+    function (Services, Dropzone, Webcam, i18n, utils2, assert, messages) {
         'use strict';
 
         var BASE64_CLEAN = /^data:image\/(png|jpg|jpeg);base64,/;
@@ -97,7 +96,7 @@ angular.module('tcp').directive('imgUpload', [
 
             Webcam.reset();
             Webcam.set(WEBCAM_CONFIG);
-            utils.preload(Webcam.params.swfURL);
+            utils2.preload(Webcam.params.swfURL);
 
             upload.on('addedfile', set_img_file);
 

@@ -34,11 +34,3 @@ export namespace scope {
         };
     }
 }
-
-export function preload(url: string, callback: any | Function):HTMLImageElement {
-    var img: HTMLImageElement = new Image();
-    img.onload = callback;
-    img.onerror = callback;
-    img.src = url;
-    return img;
-}
