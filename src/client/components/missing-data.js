@@ -13,7 +13,7 @@ angular.module('tcp').component('missingData', {
                     'on-saved="$ctrl.saved(company)" ',
                     'on-cancel="$ctrl.cancel()" ',
                     'ng-if="$ctrl.selected === company" ',
-                    'id="{{company.id}}"></company>',
+                    'model="company"></company>',
             '</div',
         '</div>',
     ].join(''),

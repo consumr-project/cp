@@ -1,4 +1,4 @@
-select id, name
+select id, name, website_url, wikipedia_url, twitter_handle
 
 from companies
 

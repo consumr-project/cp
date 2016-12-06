@@ -17,37 +17,37 @@ angular.module('tcp').directive('company', [
 
         var HTML_EDIT = [
             '<div>',
-                '<div ng-if="company.id">',
-                    '<h1>{{::company.name}}</h1>',
-                    '<p>{{normalize_summary(company.summary)[0]}}</p>',
+                '<div ng-if="model.id">',
+                    '<h1>{{::model.name}}</h1>',
+                    '<p>{{normalize_summary(model.summary)[0]}}</p>',
                     '<section class="margin-top-medium">',
                         '<label>',
-                            '<h2 ng-show="::company.website_url" i18n="company/is_this_website"></h2>',
-                            '<h2 ng-show="::!company.website_url" i18n="company/what_is_website"></h2>',
+                            '<h2 ng-show="::model.website_url" i18n="company/is_this_website"></h2>',
+                            '<h2 ng-show="::!model.website_url" i18n="company/what_is_website"></h2>',
                             '<input class="block"',
                                 'i18n="common/website"',
                                 'prop="placeholder"',
-                                'ng-model="company.website_url" />',
+                                'ng-model="model.website_url" />',
                         '</label>',
                     '</section>',
                     '<section class="margin-top-medium">',
                         '<label>',
-                            '<h2 ng-show="::company.wikipedia_url" i18n="company/is_this_wikipedia"></h2>',
-                            '<h2 ng-show="::!company.wikipedia_url" i18n="company/what_is_wikipedia"></h2>',
+                            '<h2 ng-show="::model.wikipedia_url" i18n="company/is_this_wikipedia"></h2>',
+                            '<h2 ng-show="::!model.wikipedia_url" i18n="company/what_is_wikipedia"></h2>',
                             '<input class="block"',
                                 'i18n="common/website"',
                                 'prop="placeholder"',
-                                'ng-model="company.wikipedia_url" />',
+                                'ng-model="model.wikipedia_url" />',
                         '</label>',
                     '</section>',
                     '<section class="margin-top-medium">',
                         '<label>',
-                            '<h2 ng-show="::company.twitter_handle" i18n="company/is_this_twitter"></h2>',
-                            '<h2 ng-show="::!company.twitter_handle" i18n="company/what_is_twitter"></h2>',
+                            '<h2 ng-show="::model.twitter_handle" i18n="company/is_this_twitter"></h2>',
+                            '<h2 ng-show="::!model.twitter_handle" i18n="company/what_is_twitter"></h2>',
                             '<input class="block"',
                                 'i18n="common/twitter"',
                                 'prop="placeholder"',
-                                'ng-model="company.twitter_handle" />',
+                                'ng-model="model.twitter_handle" />',
                         '</label>',
                     '</section>',
                     '<section class="margin-top-large">',
@@ -664,7 +664,11 @@ angular.module('tcp').directive('company', [
                 return Services.query.companies[method](guid)
                     .then(utils.scope.not_found($scope))
                     .then(normalize_company)
-                    .then(utils.scope.set($scope, 'company'))
+                    .then(function (company) {
+                        $scope.company = company;
+                        $scope.model = company;
+                        return company;
+                    })
                     .then(function (company) {
                         if ($attrs.type === 'edit') {
                             return company;
@@ -758,7 +762,7 @@ angular.module('tcp').directive('company', [
             controller: ['$scope', '$attrs', controller],
             template: template,
             scope: {
-                model: '=',
+                model: '=?',
                 id: '@',
                 eventId: '@',
                 onSaved: '&',
