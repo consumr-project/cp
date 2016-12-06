@@ -113,7 +113,7 @@
     "tape": "4.4.0",
     "tapes": "3.1.0",
     "tslint": "3.10.2",
-    "typescript": "2.2.0-dev.20161204",
+    "typescript": "2.0.0",
     "typings": "0.6.5",
     "uglify-js": "2.6.2"
   }
