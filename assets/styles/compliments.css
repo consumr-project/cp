@@ -1,0 +1,4 @@
+compliments img {
+    margin-top: var(--spacing-xlarge);
+    max-width: 70vw;
+}
