@@ -13,7 +13,7 @@ tapes('avatar', t => {
     t.plan(1);
 
     auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
-        t.error(err);
+        t.error(err, 'authenticated');
     });
 
     t.test('redirect', st => {
@@ -48,7 +48,7 @@ tapes('avatar', t => {
         st.plan(1);
 
         http.get('/service/user/avatar').end((err, res) => {
-            st.equal(400, res.status);
+            st.equal(400, res.status, 'returns 400 status code');
         });
     });
 });
@@ -62,8 +62,8 @@ tapes('avatar', t => {
 function redirects(t, label, url) {
     return (err, res) => {
         t.comment(label);
-        t.equal(302, res.status);
-        t.equal(url, res.request.url);
+        t.equal(302, res.status, 'returned a 302');
+        t.equal(url, res.request.url, 'has the same url');
     };
 }
 

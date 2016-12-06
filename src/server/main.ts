@@ -109,6 +109,7 @@ app.use((err: any, req, res, next) => {
 
     if (!res.headersSent) {
         if (err instanceof HttpError) {
+            log.debug('sending back %s(%s)', err.name, err.code);
             res.status(err.code);
         } else if (err.code === 'ETIMEDOUT' || err.type === 'entity.too.large') {
             res.status(RequestTimeoutError.code);
