@@ -2,7 +2,7 @@ angular.module('tcp').component('missingData', {
     bindings: {},
     template: [
         '<div ng-class="{loading: $ctrl.loading, \'missing-data--active\': $ctrl.selected}">',
-            '<h1 ng-if="$ctrl.allowed" class="missing-data__title" i18n="company/we_need_data"></h1>',
+            '<p ng-if="$ctrl.allowed" class="missing-data__title" i18n="company/we_need_data"></p>',
             '<message ng-if="!$ctrl.allowed" type="error" i18n="admin/error_login_to_do_this"></message>',
             '<div class="missing-data__loading loading__only" i18n="common/loading"></div>',
             '<div ng-repeat="company in $ctrl.companies">',
