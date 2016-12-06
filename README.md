@@ -13,6 +13,7 @@ see [./CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 * Alain LOUBET for the [alert](https://thenounproject.com/search/?q=warning&i=14055) icon
 * Aldric Rodríguez Iborra for the [ice cream](https://thenounproject.com/search/?q=ice+cream&i=422594) icon
+* Aldric Rodríguez for the [doughnut](https://thenounproject.com/search/?q=doughnut&i=732935) icon
 * Andrew Sivko for the [add comment](https://thenounproject.com/search/?q=add%20comment&i=24079) icon
 * ArtWorkStar for the [plus](https://thenounproject.com/search/?q=plus&i=609027) icon
 * Arthur Shlain for the [world](https://thenounproject.com/search/?q=world&i=292103) icon
@@ -30,6 +31,7 @@ see [./CONTRIBUTING.md](CONTRIBUTING.md) for details.
 * Leif Michelsen for the [question mark](https://thenounproject.com/search/?q=question+mark&i=447554) icon
 * Lloyd Humphreys for the [information](https://thenounproject.com/search/?q=information&i=96638) icon
 * Maciej Świerczek for the [hammer](https://thenounproject.com/search/?q=hammer&i=188614) icon
+* Marco Galtarossa for the [popsicle](https://thenounproject.com/search/?q=ice+cream&i=466295) icon
 * Michael Zenaty for the [magnifying glass](https://thenounproject.com/search/?q=search&i=21796) icon
 * Nikita Kozin for the [bell](https://thenounproject.com/search/?q=bell&i=304492) icon
 * Rafaël Massé for the [link](https://thenounproject.com/search/?q=link&i=49479) icon
