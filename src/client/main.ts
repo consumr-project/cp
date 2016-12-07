@@ -176,7 +176,7 @@ namespace tcp {
             }
 
             $routeProvider.when('/', {
-                resolve: { UserCheck, PageView },
+                resolve: { PageView },
                 template: '<home-view></home-view>',
             });
 
