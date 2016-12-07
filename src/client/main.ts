@@ -252,7 +252,7 @@ namespace tcp {
             });
 
             $routeProvider.when('/thx', {
-                template: '<missing-data class="block site-content"></missing-data>',
+                template: '<missing-data class="block site-content site-content--wide"></missing-data>',
                 resolve: { UserCheck },
             });
 
