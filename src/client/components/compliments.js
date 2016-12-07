@@ -1,5 +1,7 @@
 angular.module('tcp').component('compliments', {
-    bindings: {},
+    bindings: {
+        api: '=?'
+    },
     template: [
         '<popover with-close-x class="popover--fullscreen" api="$ctrl.popover">',
             '<div class="site-content site-content--slim-100 site-content--no-header center-align">',
@@ -15,8 +17,7 @@ angular.module('tcp').component('compliments', {
     ].join(''),
     controller: [
         'i18n',
-        '$interval',
-        function (i18n, $interval) {
+        function (i18n) {
             'use strict';
 
             var KEY = 'cp:no_compliments';
@@ -30,10 +31,11 @@ angular.module('tcp').component('compliments', {
                 Object.keys(i18n.strings.compliments) :
                 Object.keys(i18n.def_strings.compliments);
 
-            // filled in by popover component
-            this.popover = {};
             this.image = null;
             this.message = null;
+
+            // filled in by popover component
+            this.popover = {};
 
             this.hide = function () {
                 this.popover.hide();
@@ -43,12 +45,6 @@ angular.module('tcp').component('compliments', {
                 this.hide();
                 localStorage.setItem(KEY, '1');
             };
-
-            $interval(function () {
-                this.image = rand(IMAGES);
-                this.message = i18n.get('compliments/' + rand(STRINGS));
-                this.popover.show();
-            }.bind(this), 3000);
 
             /**
              * @param {T[]} arr
@@ -61,9 +57,21 @@ angular.module('tcp').component('compliments', {
             /**
              * @return {boolean}
              */
-            function can_show_compliments() {
-                return localStorage.getItem(KEY) &&
-                    localStorage.getItem(KEY) === '1';
+            function allowed() {
+                return localStorage.getItem(KEY) !== '1';
+            }
+
+            if (this.api) {
+                this.api.allowed = allowed;
+                this.api.hide = this.hide.bind(this);
+
+                this.api.show = function () {
+                    if (allowed()) {
+                        this.image = rand(IMAGES);
+                        this.message = i18n.get('compliments/' + rand(STRINGS));
+                        this.popover.show();
+                    }
+                }.bind(this);
             }
         }
     ],
