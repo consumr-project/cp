@@ -424,10 +424,10 @@ angular.module('tcp').directive('company', [
             $scope.update = function () {
                 utils.assert(Session.USER, 'login required for action');
 
-                return Services.query.companies.update($scope.company.id, {
-                    twitter_handle: $scope.company.twitter_handle,
-                    website_url: $scope.company.website_url,
-                    wikipedia_url: $scope.company.wikipedia_url,
+                return Services.query.companies.update($scope.model.id, {
+                    twitter_handle: $scope.model.twitter_handle,
+                    website_url: $scope.model.website_url,
+                    wikipedia_url: $scope.model.wikipedia_url,
                 })
                     .then($scope.onSaved)
                     .catch(error_updating_company);
