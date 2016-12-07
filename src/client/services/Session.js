@@ -56,6 +56,13 @@ angular.module('tcp').service('Session', [
         }
 
         /**
+         * @return {void}
+         */
+        function background_refresh() {
+            setTimeout(refresh, 0);
+        }
+
+        /**
          * @param {User} user
          * @return {User}
          */
@@ -72,6 +79,7 @@ angular.module('tcp').service('Session', [
         service.login = login;
         service.logout = logout;
         service.refresh = refresh;
+        service.background_refresh = background_refresh;
         service.set_user = set_user;
 
         $document.on('cp:auth', refresh);

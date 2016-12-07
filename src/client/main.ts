@@ -163,7 +163,7 @@ namespace tcp {
             }];
 
             let UserCheck = ['Session', Session =>
-                Session.refresh()];
+                Session.background_refresh()];
 
             let PageView = ['Visitor', Visitor =>
                 Visitor.pageview(window.location.pathname + window.location.search).send()];
@@ -176,7 +176,7 @@ namespace tcp {
             }
 
             $routeProvider.when('/', {
-                resolve: { PageView },
+                resolve: { UserCheck, PageView },
                 template: '<home-view></home-view>',
             });
 
