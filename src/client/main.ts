@@ -149,6 +149,8 @@ namespace tcp {
         '$compileProvider',
         '$animateProvider',
         function ($routeProvider, $locationProvider, $compileProvider, $animateProvider) {
+            var page_counter = 0;
+
             $animateProvider.classNameFilter(/ng-animated/);
             $locationProvider.html5Mode(true);
             $compileProvider.debugInfoEnabled(DEBUGGING);
@@ -162,8 +164,10 @@ namespace tcp {
                 query.map(prop => $scope[prop] = $location.search()[prop]);
             }];
 
-            let UserCheck = ['Session', Session =>
-                Session.background_refresh()];
+            let UserCheck = ['Session', Session => {
+                if (!page_counter++) return Session.refresh();
+                else return Session.background_refresh();
+            }];
 
             let PageView = ['Visitor', Visitor =>
                 Visitor.pageview(window.location.pathname + window.location.search).send()];
