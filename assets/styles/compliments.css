@@ -1,4 +1,8 @@
 compliments img {
-    margin-top: var(--spacing-xlarge);
+    margin-top: var(--spacing-large);
     max-width: 70vw;
+}
+
+compliments button {
+    margin-bottom: var(--spacing-small);
 }

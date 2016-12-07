@@ -53,6 +53,8 @@ yes: yes
 no: no
 sure: sure
 no_thanks: no thanks
+thanks_keep_going: thanks. I sure love it when you say nice things to me.
+enough_stop_now: I think I got it, thank you. you can stop now.
 
 sort_by_col: "sort by:"
 
