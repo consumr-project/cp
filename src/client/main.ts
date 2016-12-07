@@ -165,8 +165,11 @@ namespace tcp {
             }];
 
             let UserCheck = ['Session', Session => {
-                if (!page_counter++) return Session.refresh();
-                else return Session.background_refresh();
+                if (!page_counter++) {
+                    return Session.refresh();
+                } else {
+                    return Session.background_refresh();
+                }
             }];
 
             let PageView = ['Visitor', Visitor =>
