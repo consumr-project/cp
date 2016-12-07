@@ -92,6 +92,13 @@ angular.module('tcp').service('Navigation', [
             company_edit: child_of(BASES.COMPANY + BASES.BY_ID, BASES.EDIT),
 
             /**
+             * go to the help us out page
+             */
+            help_us_out: function () {
+                $location.url('/thx');
+            },
+
+            /**
              * go to search
              * @param {String} query
              * @param {Event} [event]
