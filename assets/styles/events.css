@@ -327,6 +327,7 @@
 }
 
 .timeline__event__edit-menu {
+    float: left;
     margin-top: -40px;
 }
 
