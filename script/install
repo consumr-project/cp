@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# https://docs.docker.com/engine/installation/linux/ubuntulinux/
+# - Precise 12.04 (LTS)   - deb https://apt.dockerproject.org/repo ubuntu-precise main
+# - Trusty 14.04 (LTS)    - deb https://apt.dockerproject.org/repo ubuntu-trusty main
+# - Wily 15.10            - deb https://apt.dockerproject.org/repo ubuntu-wily main
+# - Xenial 16.04 (LTS)    - deb https://apt.dockerproject.org/repo ubuntu-xenial main
+
 # docker
 sudo apt-get update
 sudo apt-get install git apt-transport-https ca-certificates -y
@@ -21,4 +27,4 @@ exit
 sudo chmod +x /usr/local/bin/docker-compose
 
 # consurm-project
-git clone https://github.com/consumr-project/cp
+# git clone https://github.com/consumr-project/cp
