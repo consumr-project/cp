@@ -1,3 +1,7 @@
+:root {
+    --timeline-title-width: 85%;
+}
+
 .timeline {
     position: relative;
     text-align: center;
@@ -65,7 +69,15 @@
 }
 
 .timeline__event .event-elem--view {
-    margin-top: -var(--spacing-large);
+    margin: var(--spacing-medium) auto var(--spacing-xlarge) auto;
+    width: calc(var(--timeline-title-width) + 40px);
+}
+
+@media (--media-regular-screens) {
+    .timeline__event .event-elem--view {
+        margin: -var(--spacing-large) 0 0 0;
+        width: 100%;
+    }
 }
 
 .timeline__event__tags {
@@ -77,11 +89,6 @@
 }
 
 @media (--media-regular-screens) {
-    /* .timeline__event--last { */
-    /*     position: relative; */
-    /*     top: 70px; */
-    /* } */
-
     .timeline__event .event-elem--view {
         margin-top: 26px;
         padding: calc(var(--spacing-large) * 2) 0;
@@ -156,7 +163,7 @@
     margin-top: var(--spacing-xsmall);
     margin-bottom: var(--spacing-xlarge);
     text-align: left;
-    width: 85%;
+    width: var(--timeline-title-width);
 }
 
 .timeline__event__content--left {
@@ -320,6 +327,11 @@
 }
 
 .timeline__event__edit-menu {
-    float: right;
     margin-top: -40px;
+}
+
+@media (--media-regular-screens) {
+    .timeline__event__edit-menu {
+        float: right;
+    }
 }
