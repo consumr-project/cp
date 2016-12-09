@@ -130,6 +130,10 @@
     }
 }
 
+.timeline__event--selected .timeline__event__content {
+    visibility: hidden;
+}
+
 .event-elem__logo__icon,
 .timeline__event__icon {
     background-position: center center;
