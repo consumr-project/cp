@@ -6,6 +6,7 @@ from event_tags et
 left join tags t on (t.id = et.tag_id)
 
 where et.tag_id != :tag_id
+and et.deleted_date is null
 and et.event_id in (
     select et.event_id
     from event_tags et
