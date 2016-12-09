@@ -97,9 +97,9 @@ environment variable (`make DEBUG=*`) will build parts of the code base in
 development mode and give you things like source maps, unminified code, nicer
 error messages, and that's about it.
 
-### external services
+### services
 
-- hosting: [AWS](https://aws.amazon.com/)
+- hosting: [DigitalOcean](https://www.digitalocean.com/)
 - postgres: [Compose](https://www.compose.com/)
 - mongodb: [mLab](https://mlab.com/)
 - error logs: [Rollbar](https://rollbar.com/)
