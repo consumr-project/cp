@@ -101,13 +101,21 @@ angular.module('tcp').service('Services', [
         }
 
         /**
+         * @return {string}
+         */
+        function rand_id() {
+            return lodash.uniqueId() + '-' + Date.now();
+        }
+
+        /**
          * @param {String} model
          * @param {Array} [associataions]
          * @return {Object}
          */
         function crud(model, associations) {
-            var cache1 = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
-            var cache2 = $cacheFactory(lodash.uniqueId() + '-' + Date.now());
+            var cache1 = $cacheFactory(rand_id());
+            var cache2 = $cacheFactory(rand_id());
+
             return lodash.reduce(associations, function (methods, assoc) {
                 methods[assoc] = {
                     cache: cache2,
@@ -293,27 +301,31 @@ angular.module('tcp').service('Services', [
 
         queryService.companies.common = {
             companies: function (guid) {
-                return $http.get(url('companies', guid, 'common/companies'), { cache: true })
+                return $http.get(url('companies', guid, 'common/companies'), { cache: queryService.companies.common.cache })
                     .then(pluck_data).then(pluck_body);
             },
 
             tags: function (guid) {
-                return $http.get(url('companies', guid, 'common/tags'), { cache: true })
+                return $http.get(url('companies', guid, 'common/tags'), { cache: queryService.companies.common.cache })
                     .then(pluck_data).then(pluck_body);
             },
         };
 
+        queryService.companies.common.cache = $cacheFactory(rand_id());
+
         queryService.tags.common = {
             companies: function (id) {
-                return $http.get(url('tags', id, 'common/companies'), { cache: true })
+                return $http.get(url('tags', id, 'common/companies'), { cache: queryService.tags.common.cache })
                     .then(pluck_data).then(pluck_body);
             },
 
             tags: function (id) {
-                return $http.get(url('tags', id, 'common/tags'), { cache: true })
+                return $http.get(url('tags', id, 'common/tags'), { cache: queryService.tags.common.cache })
                     .then(pluck_data).then(pluck_body);
             },
         };
+
+        queryService.tags.common.cache = $cacheFactory(rand_id());
 
         queryService.tags.mine = function () {
             return get(url('tags/mine'));

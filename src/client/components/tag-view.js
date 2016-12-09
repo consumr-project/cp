@@ -39,6 +39,7 @@ angular.module('tcp').component('tagView', {
             '    <timeline class="component__timeline"',
             '        api="$ctrl.events_timeline"',
             '        on-add="$ctrl.event_popover.show()"',
+            '        on-saved="$ctrl.on_event_was_updated()"',
             '        parent="tags"',
             '        event-id="{{$ctrl.eventId}}"',
             '        id="{{$ctrl.id}}"></timeline>',
@@ -150,6 +151,18 @@ angular.module('tcp').component('tagView', {
             return Services.query.tags.followers.upsert(tag_id, {
                 user_id: Session.USER.id
             }).then(utils.scope.set(this, 'followed_by_me', true));
+        };
+
+        this.on_event_was_updated = function () {
+            Services.query.tags.common.cache.removeAll();
+
+            Services.query.tags.common.companies(this.id).then(function (companies) {
+                this.common_companies = companies;
+            }.bind(this));
+
+            Services.query.tags.common.tags(this.id).then(function (tags) {
+                this.related_tags = tags;
+            }.bind(this));
         };
 
         this.init = function () {

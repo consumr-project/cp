@@ -157,6 +157,7 @@ angular.module('tcp').directive('company', [
             '                parent="companies"',
             '                on-add="vm.add_event.show()"',
             '                on-event="event_handler(type, data)"',
+            '                on-saved="on_event_was_updated()"',
             '                event-id="{{eventId}}"',
             '                id="{{company.id}}"></timeline>',
             '        </section>',
@@ -380,6 +381,16 @@ angular.module('tcp').directive('company', [
                         $scope.vm.new_companies_created = data;
                         break;
                 }
+            };
+
+            $scope.on_event_was_updated = function () {
+                Services.query.companies.common.cache.removeAll();
+
+                Services.query.companies.common.tags($scope.model.id)
+                    .then(utils.scope.set($scope, 'common_tags'));
+
+                Services.query.companies.common.companies($scope.model.id)
+                    .then(utils.scope.set($scope, 'common_companies'));
             };
 
             $scope.show_reviews = function () {

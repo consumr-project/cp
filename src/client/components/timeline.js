@@ -152,6 +152,13 @@ angular.module('tcp').directive('timeline', [
                 $scope.load();
             };
 
+            $scope.saved = function () {
+                $scope.refresh();
+                $scope.vm.add_event.hide();
+                $scope.vm.event_edit_form.reset();
+                $scope.onSaved();
+            };
+
             $scope.init = function () {
                 Services.query.tags.mine().then(function (tags) {
                     $scope.user_tags = tags;
@@ -332,6 +339,7 @@ angular.module('tcp').directive('timeline', [
                 id: '@',
                 onAdd: '&',
                 onEvent: '&',
+                onSaved: '&',
             },
             template: [
                 '<div class="timeline can-load" ng-class="{loading: vm.loading}" ng-init="init()">',
@@ -416,7 +424,7 @@ angular.module('tcp').directive('timeline', [
                 '            ng-if="vm.selected_event_to_edit"',
                 '            id="{{vm.selected_event_to_edit.id}}"',
                 '            api="vm.event_edit_form"',
-                '            on-save="refresh(); vm.add_event.hide(); vm.event_edit_form.reset()"',
+                '            on-save="saved()"',
             '                on-event="onEvent({ type: type, data: data })"',
                 '            on-cancel="vm.event_edit_form.reset(); vm.add_event.hide()"',
                 '        ></event>',
