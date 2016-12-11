@@ -1,7 +1,5 @@
 .PHONY: build install run test clean
 
-pwd = $(shell pwd)
-
 build_dir = build
 build_bundle_js = $(build_dir)/bundle.js
 build_client_js = $(build_dir)/client.js
@@ -9,7 +7,6 @@ build_vendor_js = $(build_dir)/vendor.js
 build_css = $(build_dir)/site.css
 
 npm = npm
-typings = ./node_modules/.bin/typings
 tsc = ./node_modules/.bin/tsc
 ts_lint = ./node_modules/.bin/tslint
 json_lint = ./node_modules/.bin/jsonlint-cli
@@ -18,26 +15,21 @@ svgo = svgo
 browserify = ./node_modules/.bin/browserify
 js_hint = ./node_modules/.bin/jshint
 js_min = ./node_modules/.bin/uglifyjs
-js_sep = @echo ";\n"
+js_sep = echo ";\n"
 
-browserify_options = --external aws4 --ignore unicode/category/So --full-paths
 ts_options =
-build_vars =
+browserify_options = --external aws4 \
+	--ignore unicode/category/So \
+	--full-paths
 
 global_config_varname = TCP_BUILD_CONFIG
 i18n_varname = i18n
-i18n_locale_arguments = --locale $(1) --strings_file 'config/i18n/$(1)/*' \
+i18n_locale_arguments = --locale $(1) \
+	--strings_file 'config/i18n/$(1)/*' \
 	--strings_extra config/i18n/$(1)/
-
-mongodb_os = osx
-mongodb_architecture = x86_64
-mongodb_version = 3.2.1
-rabbitmq_version = 3.5.6
-es_version = 1.7.3
 
 ifdef DEBUG
 	ts_options = --sourceMap
-	build_vars = "DEBUG=*"
 	js_min = cat
 	browserify_options += --debug
 endif
@@ -168,84 +160,29 @@ build-client-bundle:
 		$(js_min) > $(build_bundle_js)
 
 build-client-deps:
-	echo "" > $(build_vendor_js)
-	./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/jquery/dist/jquery.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular/angular.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular-route/angular-route.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular-aria/angular-aria.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular-animate/angular-animate.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular-sanitize/angular-sanitize.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/angular-lazy-image/release/lazy-image.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/q/q.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/rollbar-browser/dist/rollbar.umd.nojson.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/webcamjs/webcam.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
-	$(js_min) node_modules/dropzone/dist/dropzone.js >> $(build_vendor_js)
-	$(js_sep) >> $(build_vendor_js)
+	@echo "" > $(build_vendor_js)
+	@./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
+	@for file in \
+			node_modules/jquery/dist/jquery.js \
+			node_modules/angular/angular.js \
+			node_modules/angular-animate/angular-animate.js \
+			node_modules/angular-aria/angular-aria.js \
+			node_modules/angular-lazy-image/release/lazy-image.js \
+			node_modules/angular-route/angular-route.js \
+			node_modules/angular-sanitize/angular-sanitize.js \
+			node_modules/dropzone/dist/dropzone.js \
+			node_modules/q/q.js \
+			node_modules/rollbar-browser/dist/rollbar.umd.nojson.js \
+			node_modules/webcamjs/webcam.js \
+	; do \
+		$(js_sep) >> $(build_vendor_js); \
+		$(js_min) $$file >> $(build_vendor_js); \
+	done
+	@echo "generated $(build_vendor_js)"
 
 build-client-src:
-	echo "" > $(build_client_js)
-	$(js_min) src/client/initializers/keyboard-shortcuts.js >> $(build_client_js)
-	$(js_min) src/client/initializers/rollbar-config.js >> $(build_client_js)
-	$(js_min) src/client/initializers/scroll-offset-class.js >> $(build_client_js)
-	$(js_min) src/client/elements/anchored.js >> $(build_client_js)
-	$(js_min) src/client/elements/share.js >> $(build_client_js)
-	$(js_min) src/client/elements/collapsable.js >> $(build_client_js)
-	$(js_min) src/client/elements/pills.js >> $(build_client_js)
-	$(js_min) src/client/elements/chart.js >> $(build_client_js)
-	$(js_min) src/client/elements/options.js >> $(build_client_js)
-	$(js_min) src/client/elements/options-item.js >> $(build_client_js)
-	$(js_min) src/client/elements/popover.js >> $(build_client_js)
-	$(js_min) src/client/elements/popover-item.js >> $(build_client_js)
-	$(js_min) src/client/elements/avatar.js >> $(build_client_js)
-	$(js_min) src/client/elements/snav.js >> $(build_client_js)
-	$(js_min) src/client/elements/snav-item.js >> $(build_client_js)
-	$(js_min) src/client/elements/recaptcha.js >> $(build_client_js)
-	$(js_min) src/client/elements/message.js >> $(build_client_js)
-	$(js_min) src/client/elements/indicator.js >> $(build_client_js)
-	$(js_min) src/client/elements/tag.js >> $(build_client_js)
-	$(js_min) src/client/elements/tags.js >> $(build_client_js)
-	$(js_min) src/client/elements/i18n.js >> $(build_client_js)
-	$(js_min) src/client/elements/datepicker.js >> $(build_client_js)
-	$(js_min) src/client/elements/img-upload.js >> $(build_client_js)
-	$(js_min) src/client/elements/infinite-scroll.js >> $(build_client_js)
-	$(js_min) src/client/components/user.js >> $(build_client_js)
-	$(js_min) src/client/components/search.js >> $(build_client_js)
-	$(js_min) src/client/components/notification.js >> $(build_client_js)
-	$(js_min) src/client/components/notifications.js >> $(build_client_js)
-	$(js_min) src/client/components/topmost.js >> $(build_client_js)
-	$(js_min) src/client/components/state.js >> $(build_client_js)
-	$(js_min) src/client/components/trending.js >> $(build_client_js)
-	$(js_min) src/client/components/company.js >> $(build_client_js)
-	$(js_min) src/client/components/home-view.js >> $(build_client_js)
-	$(js_min) src/client/components/error-view.js >> $(build_client_js)
-	$(js_min) src/client/components/tag-view.js >> $(build_client_js)
-	$(js_min) src/client/components/give-us-details.js >> $(build_client_js)
-	$(js_min) src/client/components/admin-view.js >> $(build_client_js)
-	$(js_min) src/client/components/missing-data.js >> $(build_client_js)
-	$(js_min) src/client/components/compliments.js >> $(build_client_js)
-	$(js_min) src/client/components/feedback.js >> $(build_client_js)
-	$(js_min) src/client/components/event.js >> $(build_client_js)
-	$(js_min) src/client/components/source.js >> $(build_client_js)
-	$(js_min) src/client/components/timeline.js >> $(build_client_js)
-	$(js_min) src/client/components/question.js >> $(build_client_js)
-	$(js_min) src/client/components/review.js >> $(build_client_js)
-	$(js_min) src/client/components/reviews.js >> $(build_client_js)
-	$(js_min) src/client/services/Navigation.js >> $(build_client_js)
-	$(js_min) src/client/services/Feature.js >> $(build_client_js)
-	$(js_min) src/client/services/Services.js >> $(build_client_js)
-	$(js_min) src/client/services/Session.js >> $(build_client_js)
-	$(js_min) src/client/vendor/angular/ngFocus.js >> $(build_client_js)
-	$(js_min) src/client/vendor/angular/ngInvisible.js >> $(build_client_js)
-	$(js_min) src/client/vendor/angular/ngContenteditable.js >> $(build_client_js)
+	@echo "" > $(build_client_js)
+	@for file in $(shell find src/ -name "*.js"); do \
+		$(js_min) $$file >> $(build_client_js); \
+	done
+	@echo "generated $(build_client_js)"
