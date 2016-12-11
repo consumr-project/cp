@@ -455,31 +455,6 @@ angular.module('tcp').service('Services', [
         abortable(extractService.wikipedia.infobox);
 
         /**
-         * interface SearchConfiguration {
-         *     index: String (default: entity)
-         *     type: String (default: undefined)
-         *     size: Number (default: 50)
-         *     from: Number (default: 0)
-         * }
-         *
-         * @param {String} str
-         * @param {SearchConfiguration} [config]
-         * @return {Promise}
-         */
-        searchService.fuzzy = function (str, config) {
-            config = config || {};
-            return $http.get('/service/search/fuzzy', {
-                params: {
-                    query: str,
-                    index: config.index || 'entity',
-                    type: config.type,
-                    size: config.size || 50,
-                    from: config.from || 0
-                }
-            });
-        };
-
-        /**
          * @param {String} query "%" wrapped
          * @param {Number} limit (default: 100)
          * @param {Number} offset (default: 0)
