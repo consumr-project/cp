@@ -583,8 +583,8 @@ angular.module('tcp').directive('company', [
             };
 
             $scope.query_products = function (str, done) {
-                Services.query.search.products(RUNTIME.locale, str).then(function (products) {
-                    done(null, lodash.map(products, normalize_product));
+                Services.search.products(str).then(function (res) {
+                    done(null, lodash.map(res.body.results, normalize_product));
                 }).catch(done);
             };
 
@@ -717,9 +717,19 @@ angular.module('tcp').directive('company', [
              * @return {Object}
              */
             function normalize_product(product) {
+                var approved;
+
+                if (product.approved) {
+                    approved = true;
+                } else if (product.source && product.source.approved) {
+                    approved = true;
+                } else {
+                    approved = false;
+                }
+
                 return {
-                    type: 'product-approved-' + product.approved.toString(),
-                    label: product[RUNTIME.locale],
+                    type: 'product-approved-' + approved.toString(),
+                    label: product.name,
                     id: product.id
                 };
             }
