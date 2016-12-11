@@ -460,6 +460,72 @@ angular.module('tcp').service('Services', [
          * @param {Number} offset (default: 0)
          * @return {Promise}
          */
+        searchService.tags = function (query, limit, offset) {
+            limit = limit || 100;
+            offset = offset || 0;
+
+            return $http.get('/service/search/tags', {
+                timeout: abortable(searchService.tags),
+                params: {
+                    q: query,
+                    limit: limit,
+                    offset: offset,
+                }
+            }).then(pluck_data);
+        };
+
+        abortable(searchService.tags);
+
+        /**
+         * @param {String} query "%" wrapped
+         * @param {Number} limit (default: 100)
+         * @param {Number} offset (default: 0)
+         * @return {Promise}
+         */
+        searchService.products = function (query, limit, offset) {
+            limit = limit || 100;
+            offset = offset || 0;
+
+            return $http.get('/service/search/products', {
+                timeout: abortable(searchService.products),
+                params: {
+                    q: query,
+                    limit: limit,
+                    offset: offset,
+                }
+            }).then(pluck_data);
+        };
+
+        abortable(searchService.products);
+
+        /**
+         * @param {String} query "%" wrapped
+         * @param {Number} limit (default: 100)
+         * @param {Number} offset (default: 0)
+         * @return {Promise}
+         */
+        searchService.companies = function (query, limit, offset) {
+            limit = limit || 100;
+            offset = offset || 0;
+
+            return $http.get('/service/search/companies', {
+                timeout: abortable(searchService.companies),
+                params: {
+                    q: query,
+                    limit: limit,
+                    offset: offset,
+                }
+            }).then(pluck_data);
+        };
+
+        abortable(searchService.companies);
+
+        /**
+         * @param {String} query "%" wrapped
+         * @param {Number} limit (default: 100)
+         * @param {Number} offset (default: 0)
+         * @return {Promise}
+         */
         searchService.query = function (query, limit, offset) {
             limit = limit || 100;
             offset = offset || 0;
