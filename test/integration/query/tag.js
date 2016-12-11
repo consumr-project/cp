@@ -33,25 +33,6 @@ tapes('tag', t => {
             }));
     });
 
-    // XXX broken on travis for some reason
-    t.test('like search', st => {
-        st.plan(2);
-        // st.plan(5);
-
-        http.get('/service/record/tags/like?s[]=log').end((err, res) => {
-            st.error(err);
-            // console.log(res);
-            // st.ok(find(res.body.body, { label: 'Logging' }));
-        });
-
-        http.get('/service/record/tags/like?s[]=log&s[]=fish').end((err, res) => {
-            st.error(err);
-            // console.log(res);
-            // st.ok(find(res.body.body, { label: 'Logging' }));
-            // st.ok(find(res.body.body, { label: 'Fishing' }));
-        });
-    });
-
     reset();
 
     function reset() {
