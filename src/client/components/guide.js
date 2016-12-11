@@ -1,11 +1,10 @@
 angular.module('tcp').controller('GuideController', [
-    'RUNTIME',
     '$scope',
     '$timeout',
     '$interval',
     'lodash',
     'Services',
-    function (RUNTIME, $scope, $timeout, $interval, lodash, Services) {
+    function ($scope, $timeout, $interval, lodash, Services) {
         'use strict';
 
         function randombetween(min, max) {
@@ -78,11 +77,11 @@ $scope.create_selection = function (str, done) {
 
 // keep indentation
 $scope.query_selections = function (str, done) {
-    Services.query.search.tags(RUNTIME.locale, str).then(function (tags) {
-        done(null, lodash.map(tags, function (tag) {
+    Services.search.tags(str).then(function (res) {
+        done(null, lodash.map(res.body.results, function (tag) {
             return {
-                type: 'tag-approved-' + tag.approved.toString(),
-                label: tag[RUNTIME.locale],
+                type: 'tag-approved-' + tag.source.approved.toString(),
+                label: tag.name,
                 id: tag.id
             };
         }));
