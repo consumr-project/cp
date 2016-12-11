@@ -22,3 +22,21 @@ app.get('/query', (req, res, next) => {
         query(conn, sql('search'))(req, res, <ErrorHandler>next);
     }
 });
+
+app.get('/tags', service_handler(req => fuzzy(es, {
+    index: INDEX.RECORD,
+    query: req.query.q,
+    type: [TYPE.TAGS],
+}), normalize));
+
+app.get('/products', service_handler(req => fuzzy(es, {
+    index: INDEX.RECORD,
+    query: req.query.q,
+    type: [TYPE.PRODUCTS],
+}), normalize));
+
+app.get('/companies', service_handler(req => fuzzy(es, {
+    index: INDEX.RECORD,
+    query: req.query.q,
+    type: [TYPE.COMPANIES],
+}), normalize));

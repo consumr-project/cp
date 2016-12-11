@@ -15,6 +15,7 @@ export enum INDEX {
 
 export enum TYPE {
     COMPANIES = <any>'companies',
+    PRODUCTS = <any>'products',
     TAGS = <any>'tags',
     USERS = <any>'users',
 }
