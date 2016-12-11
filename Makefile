@@ -163,17 +163,17 @@ build-client-deps:
 	@echo "" > $(build_vendor_js)
 	@./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
 	@for file in \
-			node_modules/jquery/dist/jquery.js \
-			node_modules/angular/angular.js \
-			node_modules/angular-animate/angular-animate.js \
-			node_modules/angular-aria/angular-aria.js \
-			node_modules/angular-lazy-image/release/lazy-image.js \
-			node_modules/angular-route/angular-route.js \
-			node_modules/angular-sanitize/angular-sanitize.js \
-			node_modules/dropzone/dist/dropzone.js \
-			node_modules/q/q.js \
-			node_modules/rollbar-browser/dist/rollbar.umd.nojson.js \
-			node_modules/webcamjs/webcam.js \
+		node_modules/jquery/dist/jquery.js \
+		node_modules/angular/angular.js \
+		node_modules/angular-animate/angular-animate.js \
+		node_modules/angular-aria/angular-aria.js \
+		node_modules/angular-lazy-image/release/lazy-image.js \
+		node_modules/angular-route/angular-route.js \
+		node_modules/angular-sanitize/angular-sanitize.js \
+		node_modules/dropzone/dist/dropzone.js \
+		node_modules/q/q.js \
+		node_modules/rollbar-browser/dist/rollbar.umd.nojson.js \
+		node_modules/webcamjs/webcam.js \
 	; do \
 		$(js_sep) >> $(build_vendor_js); \
 		$(js_min) $$file >> $(build_vendor_js); \
