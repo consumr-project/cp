@@ -268,9 +268,19 @@ angular.module('tcp').directive('event', [
          * @return {Object}
          */
         function normalize_tag(tag) {
+            var approved;
+
+            if (tag.approved) {
+                approved = true;
+            } else if (tag.source && tag.source.approved) {
+                approved = true;
+            } else {
+                approved = false;
+            }
+
             return {
-                type: 'tag-approved-' + tag.approved.toString(),
-                label: tag[RUNTIME.locale],
+                type: 'tag-approved-' + approved.toString(),
+                label: tag[RUNTIME.locale] || tag.name,
                 id: tag.id
             };
         }
@@ -491,8 +501,8 @@ angular.module('tcp').directive('event', [
             };
 
             $scope.vm.query_companies = function (str, done) {
-                Services.query.search.companies('name', str).then(function (companies) {
-                    done(null, lodash.map(companies, normalize_company));
+                Services.search.companies(str).then(function (res) {
+                    done(null, lodash.map(res.body.results, normalize_company));
                 }).catch(done);
             };
 
@@ -513,8 +523,8 @@ angular.module('tcp').directive('event', [
             };
 
             $scope.vm.query_tags = function (str, done) {
-                Services.query.search.tags(RUNTIME.locale, str).then(function (tags) {
-                    done(null, lodash.map(tags, normalize_tag));
+                Services.search.tags(str).then(function (res) {
+                    done(null, lodash.map(res.body.results, normalize_tag));
                 }).catch(done);
             };
 
