@@ -11,6 +11,37 @@ input:not([type="radio"]) {
     word-break: normal;
 }
 
+select-wrapper {
+    display: inline-block;
+    margin-right: var(--spacing-xsmall);
+    position: relative;
+}
+
+select-wrapper select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background: white;
+    border-radius: 200px;
+    border: 1px solid var(--color-std-border-color);
+    padding: var(--input-padding) var(--spacing-medium) var(--input-padding) var(--input-padding);
+    outline: none;
+}
+
+select-wrapper::after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 7px solid var(--color-std-thick-border-color);
+    content: " ";
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    right: var(--spacing-xsmall);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+}
+
 .textarea--inlined {
     border-color: transparent;
     padding: 0;
@@ -77,6 +108,10 @@ form h2 {
     min-width: 100%;
 }
 
+.form--listed input {
+    border-radius: 200px;
+}
+
 .form--listed label input[type="radio"] + span,
 .form--listed label input[type="checkbox"] + span {
     margin-left: 4px;
@@ -85,5 +120,6 @@ form h2 {
 }
 
 .form--listed textarea {
+    border-radius: 20px;
     height: 150px;
 }

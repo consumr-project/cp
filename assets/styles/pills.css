@@ -7,7 +7,7 @@
     border: 1px solid var(--color-std-border-color);
     font-size: var(--font-size-normal);
     min-height: 36px;
-    padding: calc(var(--input-padding) / 4) var(--input-padding);
+    padding: 3px 10px 3px 7px;;
 }
 
 .pills-element__selections {
