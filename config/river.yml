@@ -15,8 +15,10 @@ models:
 
   - name: tags
     label: '"en-US"'
+    fields: [ approved ]
     soft_delete: true
 
   - name: products
     label: '"en-US"'
+    fields: [ approved ]
     soft_delete: true
