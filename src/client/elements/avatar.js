@@ -13,14 +13,6 @@ angular.module('tcp').directive('avatar', ['Navigation', function (Navigation) {
         '</div>';
 
     /**
-     * @param {String} url_str
-     * @return {String}
-     */
-    function url(url_str) {
-        return ['url(', url_str, ')'].join('');
-    }
-
-    /**
      * @param {String} type
      * @param {String} value
      * @return {String}

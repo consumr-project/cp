@@ -62,10 +62,9 @@ angular.module('tcp').directive('collapsable', function () {
     /**
      * @param {angular.Scope} scope
      * @param {jQuery} elem
-     * @param {angular.Attributes} attrs
      * @return {void}
      */
-    function link(scope, elem, attrs) {
+    function link(scope, elem) {
         on(elem).addClass(CLASS_BASE)
             .find(FIELD_TRIGGER_ATTR)
             .addClass(CLASS_TRIGGER)

@@ -235,7 +235,7 @@ tapes('notifications', t => {
         st.plan(ids_to_delete.length + 1);
 
         ids_to_delete.forEach(id => {
-            http.purge(`/service/notification/${id}`).end((err, res) => {
+            http.purge(`/service/notification/${id}`).end((err) => {
                 st.error(err);
             });
         });

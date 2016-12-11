@@ -4,7 +4,6 @@ const tapes = require('tapes');
 const http = require('../utils/http');
 const auth = require('../utils/auth');
 
-const find = require('lodash').find;
 const clone = require('lodash').clone;
 const config = require('acm');
 const fixture = clone(config('fixtures'));

@@ -17,9 +17,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
         ROLE_CREATE = 'create';
 
     var KEY_ENTER = 13,
-        KEY_ARROW_LEFT = 37,
         KEY_ARROW_UP = 38,
-        KEY_ARROW_RIGHT = 39,
         KEY_ARROW_DOWN = 40;
 
     var TYPE_REGULAR = 'regular';

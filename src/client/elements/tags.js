@@ -14,13 +14,11 @@ angular.module('tcp').directive('tags', function () {
 
     return {
         transclude: true,
-        template: function (elem, attrs) {
-            return [
-                '<div class="tags__tags">',
-                    '<ng-transclude></ng-transclude>',
-                '</div>'
-            ].join('');
-        },
+        template: [
+            '<div class="tags__tags">',
+                '<ng-transclude></ng-transclude>',
+            '</div>'
+        ].join(''),
         link: function (scope, elem) {
             var $tags = elem.find('.tags__tags'),
                 state = STATE_SHOWING,

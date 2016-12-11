@@ -350,27 +350,6 @@ angular.module('tcp').directive('event', [
         }
 
         /**
-         * @param {Company} company
-         * @param {Event} ev
-         * @return {MessagePayload}
-         */
-        function get_normalized_missing_information_company_notification(company, ev) {
-            return {
-                id: company.id,
-                name: company.name,
-                type: DOMAIN.model.company,
-                for_type: DOMAIN.model.event,
-                for_id: ev.id,
-                for_name: ev.title,
-                fields: [
-                    DOMAIN.model.company_props.summary,
-                    DOMAIN.model.company_props.wikipedia_url,
-                    DOMAIN.model.company_props.website_url,
-                ],
-            };
-        }
-
-        /**
          * @param {EventSource} source
          * @return {EventSource}
          */
@@ -578,7 +557,7 @@ angular.module('tcp').directive('event', [
             }
         }
 
-        function link($scope, $elem, $attrs) {
+        function link($scope, $elem) {
             $scope.vm = $scope.vm || {};
             $scope.vm.add_source = function () {
                 $scope.ev.$sources.push({});
@@ -589,14 +568,6 @@ angular.module('tcp').directive('event', [
                 $elem.find('.pills-container input').val('');
                 $scope.onCancel();
             };
-
-            // XXX see "event view in timeline animation start" in events css
-            // styles allow event views to have a "slide up" effect this allows
-            // that same event view to be fully displayed without overwriting
-            // the "slide up" logic
-            // if ($attrs.type === 'view') {
-            //     $elem.css('max-height', 'none');
-            // }
         }
 
         function template(elem, attrs) {

@@ -11,7 +11,7 @@ const fixture = clone(config('fixtures'));
 tapes('feedback', t => {
     t.plan(1);
 
-    auth.login(fixture.user.admin.auth_apikey).end((err, res) => {
+    auth.login(fixture.user.admin.auth_apikey).end((err) => {
         t.error(err);
     });
 

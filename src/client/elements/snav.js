@@ -28,9 +28,8 @@ angular.module('tcp').directive('snav', function () {
     /**
      * @param {angular.Scope} scope
      * @param {jQuery} elem
-     * @param {angular.Attributes} attrs
      */
-    function link(scope, elem, attrs) {
+    function link(scope, elem) {
         scope.$watch('value', function (value) {
             setTimeout(function () {
                 select(elem, elem.find(sel_value(value)));

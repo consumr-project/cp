@@ -36,7 +36,7 @@ angular.module('tcp').directive('options', function () {
         scope: {
             onChange: '&',
         },
-        link: function (scope, elem, attrs) {
+        link: function (scope, elem) {
             elem.click(function (ev) {
                 var target = angular.element(ev.target)
                     .closest(CLASS_OPTION_ITEM);

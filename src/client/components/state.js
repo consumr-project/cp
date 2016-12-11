@@ -37,7 +37,7 @@ angular.module('tcp').directive('tcpState', [
         }
 
         return {
-            link: function ($scope, $elem, $attrs) {
+            link: function ($scope, $elem) {
                 Session.on(Session.EVENT.LOGIN, manage_login_class($elem, true));
                 Session.on(Session.EVENT.LOGOUT, manage_login_class($elem, false));
                 Session.on(Session.EVENT.ERROR, manage_login_class($elem, false));

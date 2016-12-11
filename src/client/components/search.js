@@ -52,8 +52,7 @@ angular.module('tcp').directive('search', [
 
             return Services.search.query(query).then(function (res) {
                 var results = res.body.results,
-                    groups = lodash.groupBy(results, 'type'),
-                    result = lodash.head(results);
+                    groups = lodash.groupBy(results, 'type');
 
                 $scope.vm.results.companies = groups.company || groups.companies;
                 $scope.vm.results.users = groups.user || groups.users;

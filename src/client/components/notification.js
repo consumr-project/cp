@@ -19,7 +19,7 @@ angular.module('tcp').directive('notification', [
                 model: '=',
             },
             controller: ['$scope', function ($scope) {
-                $scope.click = function ($ev) {
+                $scope.click = function () {
                     if ($scope.model.href) {
                         Navigation.go_to($scope.model.href);
                         mark_as_completed($scope.model.messages);

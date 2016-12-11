@@ -117,7 +117,7 @@ angular.module('tcp').directive('chart', [
                 case TYPE.heartcount:
                     elem.data(DATA_VALUE_BAK, elem.attr(ATTR_VALUE) || 0);
 
-                    elem.on('mouseleave', CLASS_HEARTCOUNT_ELEM, function (ev) {
+                    elem.on('mouseleave', CLASS_HEARTCOUNT_ELEM, function () {
                         elem.attr(ATTR_VALUE, elem.data(DATA_VALUE_BAK));
                     });
 

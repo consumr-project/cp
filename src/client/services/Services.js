@@ -48,7 +48,7 @@ angular.module('tcp').service('Services', [
          * @param {String} id
          * @return {String}
          */
-        function url(model, id) {
+        function url() {
             return '/service/record/' + lodash.filter(arguments).join('/');
         }
 

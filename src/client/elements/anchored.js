@@ -103,7 +103,6 @@ angular.module('tcp').directive('anchored', [
         function getCoordinates(placement, anchorTo, anchorElement, attrs) {
             var coors = {},
                 total_width = $document.width(),
-                height = anchorElement.outerHeight(),
                 width = anchorElement.outerWidth();
 
             var offset = anchorTo.position(),

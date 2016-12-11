@@ -1,20 +1,14 @@
 angular.module('tcp').directive('notifications', [
-    'DOMAIN',
     'Services',
     'Session',
     'utils',
     'messages',
     'i18n',
     'lodash',
-    function (DOMAIN, Services, Session, utils, messages, i18n, lodash) {
+    function (Services, Session, utils, messages, i18n, lodash) {
         'use strict';
 
         var VIEW_CHECK_DELAY = 50;
-
-        var FILTER_FOLLOWED = {
-            category: DOMAIN.model.message.category.notification,
-            subcategory: DOMAIN.model.message.subcategory.followed,
-        };
 
         function group($scope, notifications) {
             $scope.notifications = messages.prep(i18n, notifications);
@@ -23,10 +17,9 @@ angular.module('tcp').directive('notifications', [
 
         /**
          * @param {Angular.Scope} $scope
-         * @param {String} user_id
          * @return {Promise<Message[]>}
          */
-        function load($scope, user_id) {
+        function load($scope) {
             return Services.notification.get()
                 .then(group.bind(null, $scope));
         }
@@ -81,9 +74,8 @@ angular.module('tcp').directive('notifications', [
         /**
          * @param {Angular.Scope} $scope
          * @param {jQuery} $elem
-         * @param {Angular.Attributes} $attrs
          */
-        function link($scope, $elem, $attrs) {
+        function link($scope, $elem) {
             var checker;
 
             checker = check_if_viewed.bind(null, $elem);
