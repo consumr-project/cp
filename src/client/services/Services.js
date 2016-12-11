@@ -264,28 +264,6 @@ angular.module('tcp').service('Services', [
             return get(url('users', id, 'stats/followers/users'), { cache: true });
         };
 
-        queryService.multi_search = {
-            tags: function (tags) {
-                return $http.get(url('tags/like'), { params: { s: tags } })
-                    .then(pluck_data).then(pluck_body);
-            }
-        };
-
-        queryService.search = {
-            products: function (field, query) {
-                return $http.get(url('search/products', field), { params: { q: query } })
-                    .then(pluck_data).then(pluck_body);
-            },
-            tags: function (field, query) {
-                return $http.get(url('search/tags', field), { params: { q: query } })
-                    .then(pluck_data).then(pluck_body);
-            },
-            companies: function (field, query) {
-                return $http.get(url('search/companies', field), { params: { q: query } })
-                    .then(pluck_data).then(pluck_body);
-            }
-        };
-
         queryService.companies.guid = function (guid) {
             return $http.get(url('companies/guid', guid), { cache: true })
                 .then(pluck_data).then(pluck_body);

@@ -29,7 +29,6 @@ var post = app.post.bind(app),
 
 var all = crud.all,
     create = crud.create,
-    like = crud.like,
     parts = crud.parts,
     remove = crud.del,
     retrieve = crud.retrieve,
@@ -156,20 +155,6 @@ post('/tags',
 get('/tags/mine',
     can('retrieve', 'tag'),
     query(conn, sql('get-your-tags')));
-get('/tags/like',
-    can('retrieve', 'tag'),
-    (req, res, next) => {
-        if (req.query.s && req.query.s) {
-            req.query.s = [].concat(req.query.s);
-            req.query.s.forEach((val, i) => {
-                req.query['slist' + i] = val;
-                req.query['ilist' + i] = '%' + val + '%';
-            });
-        }
-
-        next();
-    },
-    query(conn, sql('get-like-tags')));
 get('/tags/:id',
     can('retrieve', 'tag'),
     parts(models.Tag, {
@@ -404,14 +389,3 @@ put('/beta_email_invites/approve',
     can('approve', 'emailinvite'),
     service_handler(req =>
         approve_email_invite({ email: req.body.email }, req.user)));
-
-// search
-get('/search/products/en-US',
-    can('retrieve', 'product'),
-    like(models.Product, 'en-US'));
-get('/search/tags/en-US',
-    can('retrieve', 'tag'),
-    like(models.Tag, 'en-US'));
-get('/search/companies/name',
-    can('retrieve', 'company'),
-    like(models.Company, 'name'));

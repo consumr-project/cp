@@ -204,16 +204,6 @@ export function del(model: any, prop_remap: SDict = ID_MAP): RequestHandler {
     };
 }
 
-export function like(model: any, field): RequestHandler {
-    var filter: FindOptions = { where: { [field]: {} } };
-
-    return (req, res) => {
-        filter.where[field].$iLike = `%${req.query.q}%`;
-        error_handler(res, model.findAll(filter)
-            .then(response_handler(res)));
-    };
-}
-
 export function parts(model: any, prop_remap, parts_def?): RequestHandler {
     if (!parts_def) {
         parts_def = prop_remap;
