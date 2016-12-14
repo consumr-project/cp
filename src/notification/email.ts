@@ -37,7 +37,13 @@ const CONFIG: SmtpPoolOptions = {
     },
 };
 
+const TEST_CONFIG: SmtpPoolOptions = {
+    port: config('email.service.port'),
+    ignoreTLS: true,
+};
+
 const TRANSPORT = mailer();
+const TEST_TRANSPORT = transport(TEST_CONFIG);
 
 function asset(name: string) {
     return read(`${__dirname}/../../assets/emails/${name}`).toString();
@@ -73,6 +79,10 @@ export function mailer(): Transporter {
     return mail;
 }
 
+export function get_transport(): Transporter {
+    return config('email.use_test_transport') ? TEST_TRANSPORT : TRANSPORT;
+}
+
 export function send(transport: Transporter, msg: Message, lang: string = ''): Promise<SentMessageInfo> {
     var html = generate_body(msg.subcategory, msg.payload, lang);
     var subject = generate_subject(msg.subcategory, msg.payload, lang);
@@ -86,7 +96,11 @@ export function send(transport: Transporter, msg: Message, lang: string = ''): P
 }
 
 export namespace send {
+    export function email(from: string, to: string, subject: string, html: string) {
+        return get_transport().sendMail({ from, to, subject, html });
+    }
+
     export function welcome(to: string, lang: string = '') {
-        return send(TRANSPORT, new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to), lang);
+        return send(get_transport(), new Message(CATEGORY.EMAIL, EMAIL.WELCOME, to), lang);
     }
 }
