@@ -32,12 +32,17 @@ function ok_exit(cmd) {
     }
 }
 
+function guard(func, cmd) {
+    func.then(ok_exit(cmd))
+        .catch(err_exit);
+}
+
 /**
  * @param {Object(to: string, name: string, lang?: string)} cmd
  * @param {Function} email_fn
  * @return {void}
  */
-function send(cmd, email_fn) {
+function send_templated(cmd, email_fn) {
     if (!cmd.to) {
         console.error('"to" value is required');
         err_exit();
@@ -45,11 +50,18 @@ function send(cmd, email_fn) {
         console.error('"name" value is required');
         err_exit();
     } else {
-        email_fn(cmd.to, cmd.name, cmd.lang)
-            .then(ok_exit(cmd))
-            .catch(err_exit);
+        guard(email_fn(cmd.to, cmd.name, cmd.lang), cmd);
     }
 }
+
+program
+    .command('send')
+    .option('-f, --from <email>', 'email address this email should be sent from')
+    .option('-t, --to <email>', 'email address this email should be sent to')
+    .option('-s, --subject <text>', 'your email\'s subject')
+    .option('-c, --html <text>', 'email content')
+    .description('send any email')
+    .action(cmd => guard(email.send.email(cmd.from, cmd.to, cmd.subject, cmd.html), cmd));
 
 program
     .command('welcome')
@@ -57,7 +69,7 @@ program
     .option('-n, --name <name>', 'name of person email is going to')
     .option('-l, --lang [language]', 'use a specific language')
     .description('send a welcome email')
-    .action(cmd => send(cmd, email.send.welcome));
+    .action(cmd => send_templated(cmd, email.send.welcome));
 
 program.parse(process.argv);
 
