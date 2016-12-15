@@ -1,0 +1,3 @@
+smtp:
+  http: { port: 3001 }
+  smtp: { port: 3002 }
