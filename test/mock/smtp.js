@@ -40,5 +40,8 @@ const smtp_server = new Server({
 http_server.get('/inbox', (req, res) =>
     res.json(INBOX.mem));
 
+http_server.delete('/inbox', (req, res) =>
+    res.json(INBOX.mem = {}));
+
 smtp_server.listen(SMTP_PORT);
 http_server.listen(HTTP_PORT);
