@@ -12,7 +12,6 @@ angular.module('tcp').directive('notifications', [
 
         function group($scope, notifications) {
             $scope.notifications = messages.prep(i18n, notifications);
-            $scope.notifications = [];
         }
 
         /**
