@@ -38,7 +38,7 @@ const CONFIG: SmtpPoolOptions = {
 };
 
 const TEST_CONFIG: SmtpPoolOptions = {
-    port: config('email.service.port'),
+    port: config('mock.smtp.smtp.port'),
     ignoreTLS: true,
 };
 
