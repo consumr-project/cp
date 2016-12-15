@@ -42,8 +42,8 @@ const TEST_CONFIG: SmtpPoolOptions = {
     ignoreTLS: true,
 };
 
-const TRANSPORT = mailer();
-const TEST_TRANSPORT = transport(TEST_CONFIG);
+const TRANSPORT = mailer(smtp_pool(CONFIG));
+const TEST_TRANSPORT = mailer(TEST_CONFIG);
 
 function asset(name: string) {
     return read(`${__dirname}/../../assets/emails/${name}`).toString();
@@ -70,8 +70,8 @@ function generate_body(template: EMAIL, payload: PAYLOAD, lang: string) {
     return TEMPLATES.base(data);
 }
 
-export function mailer(): Transporter {
-    var mail = transport(smtp_pool(CONFIG));
+export function mailer(config: SmtpPoolOptions): Transporter {
+    var mail = transport(config);
 
     mail.use('compile', inline_base64);
     mail.use('compile', to_text());
