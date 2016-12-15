@@ -80,7 +80,7 @@ export function mailer(config: SmtpPoolOptions): Transporter {
 }
 
 export function get_transport(): Transporter {
-    return config('email.use_test_transport') ? TEST_TRANSPORT : TRANSPORT;
+    return config('cp.email.use_test_transport') ? TEST_TRANSPORT : TRANSPORT;
 }
 
 export function send(transport: Transporter, msg: Message, lang: string = ''): Promise<SentMessageInfo> {
