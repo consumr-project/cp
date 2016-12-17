@@ -183,6 +183,7 @@ angular.module('tcp').directive('tcpTopmost', [
              * caches user information
              */
             function update_current_user() {
+                $scope.user = Session.USER;
                 $scope.session.email = Session.USER.email;
                 $scope.session.logged_in = true;
                 $scope.vm.show_admin = Session.USER.role === DOMAIN.model.user_props.roles.admin;
