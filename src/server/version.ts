@@ -1,10 +1,10 @@
-import * as express from 'express';
+import { Router } from 'express';
 
-export var app = express();
+export const router = Router();
 
 const STAMP = require('../../dist/stamp.json');
 
-app.use((req, res) => {
+router.use((req, res) => {
     res.json({
         date: STAMP.date,
         head: STAMP.head,

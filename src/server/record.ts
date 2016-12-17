@@ -1,6 +1,6 @@
 import { UniqueConstraintError } from 'sequelize';
 import { UnauthorizedError, ServiceUnavailableError, ConflictError } from '../errors';
-import * as express from 'express';
+import { Router } from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
 import { save_event } from '../repository/event';
@@ -19,13 +19,13 @@ import { conn } from '../device/models';
 import * as models from '../device/models';
 import connect_mongo from '../device/mongo';
 
-export const app = express();
+export const router = Router();
 
-var post = app.post.bind(app),
-    get = app.get.bind(app),
-    put = app.put.bind(app),
-    del = app.delete.bind(app),
-    patch = app.patch.bind(app);
+var post = router.post.bind(router),
+    get = router.get.bind(router),
+    put = router.put.bind(router),
+    del = router.delete.bind(router),
+    patch = router.patch.bind(router);
 
 var all = crud.all,
     create = crud.create,
@@ -36,7 +36,7 @@ var all = crud.all,
     upsert = crud.upsert;
 
 connect_mongo(config('mongo.collections.cache'), (err, coll) => {
-    app.use((req, res, next) => {
+    router.use((req, res, next) => {
         if (err) {
             next(new ServiceUnavailableError());
         } else {

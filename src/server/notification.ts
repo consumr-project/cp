@@ -1,5 +1,5 @@
-import * as express from 'express';
 import * as config from 'acm';
+import { Router } from 'express';
 import { Event } from '../device/models';
 import { EventMessage } from '../record/models/event';
 
@@ -14,7 +14,13 @@ import { save, find, purge, update, purge_signature } from '../repository/notifi
 import { head } from 'lodash';
 import connect from '../device/mongo';
 
-export var app = express();
+export const router = Router();
+
+router.use((req, res, next) => {
+    // 5 minute caching
+    res.setHeader('Cache-Control', 'private, max-age=300000');
+    next();
+});
 
 connect(config('mongo.collections.notifications'), (err, coll) => {
     function get_event_and_act_upon_message(id: string, action: Function, processor: (ev: EventMessage) => Message) {
@@ -32,7 +38,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
                 .catch(err => reject(new InternalServerError(err.message))));
     }
 
-    app.use((req, res, next) => {
+    router.use((req, res, next) => {
         if (!req.user || !req.user.id) {
             next(new UnauthorizedError());
         } else {
@@ -40,7 +46,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         }
     });
 
-    app.use((req, res, next) => {
+    router.use((req, res, next) => {
         if (err) {
             next(new ServiceUnavailableError());
         } else {
@@ -48,7 +54,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         }
     });
 
-    app.get('/', service_handler(req =>
+    router.get('/', service_handler(req =>
         find(coll, req.user.id, CATEGORY.NOTIFICATION, [
             NOTIFICATION.CONTRIBUTED,
             NOTIFICATION.FAVORITED,
@@ -56,12 +62,12 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
             NOTIFICATION.MODIFIED,
         ])));
 
-    app.get('/:id', service_handler((req, res, next) => {
+    router.get('/:id', service_handler((req, res, next) => {
         return find(coll, req.user.id, CATEGORY.NOTIFICATION, [], { id: req.params.id })
             .then(head);
     }));
 
-    app.delete('/:id', service_handler((req, res, next) => {
+    router.delete('/:id', service_handler((req, res, next) => {
         if (runtime_purge_allowed(req)) {
             return purge(coll, req.params.id);
         } else {
@@ -69,13 +75,13 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         }
     }));
 
-    app.put('/completed', service_handler(req =>
+    router.put('/completed', service_handler(req =>
         update(coll, req.body.ids, { $set: { completed: true } })));
 
-    app.put('/viewed', service_handler(req =>
+    router.put('/viewed', service_handler(req =>
         update(coll, req.body.ids, { $set: { viewed: true } })));
 
-    app.post('/follow', service_handler((req, res, next) => {
+    router.post('/follow', service_handler((req, res, next) => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.body.id, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -90,7 +96,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         return save(coll, msg).then(ack => msg);
     }));
 
-    app.delete('/follow/:id', service_handler(req => {
+    router.delete('/follow/:id', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FOLLOWED, req.params.id, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -99,7 +105,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         return purge_signature(coll, msg.signature);
     }));
 
-    app.post('/favorite', service_handler((req, res, next) => {
+    router.post('/favorite', service_handler((req, res, next) => {
         let fields = ['id', 'p_id', 'p_otype'];
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, null, {
             id: req.user.id,
@@ -127,7 +133,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
     }));
 
-    app.delete('/favorite/:id', service_handler(req => {
+    router.delete('/favorite/:id', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.FAVORITED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -141,7 +147,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
     }));
 
-    app.post('/contribute', service_handler((req, res, next) => {
+    router.post('/contribute', service_handler((req, res, next) => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -163,7 +169,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
     }));
 
-    app.delete('/contribute/:id', service_handler(req => {
+    router.delete('/contribute/:id', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.CONTRIBUTED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -177,7 +183,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
     }));
 
-    app.post('/modify', service_handler((req, res, next) => {
+    router.post('/modify', service_handler((req, res, next) => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.MODIFIED, null, {
             id: req.user.id,
             otype: OTYPE.USER,
@@ -199,7 +205,7 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         });
     }));
 
-    app.delete('/modify/:id', service_handler(req => {
+    router.delete('/modify/:id', service_handler(req => {
         let msg = new Message(CATEGORY.NOTIFICATION, NOTIFICATION.MODIFIED, null, {
             id: req.user.id,
             otype: OTYPE.USER,

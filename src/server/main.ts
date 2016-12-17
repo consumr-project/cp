@@ -1,12 +1,12 @@
 require('dotenv').config();
 
-import { app as auth_endpoints } from './auth';
-import { app as extract_endpoints } from './extract';
-import { app as notification_endpoints } from './notification';
-import { app as record_endpoints } from './record';
-import { app as search_endpoints } from './search';
-import { app as user_endpoints } from './user';
-import { app as version_endpoints } from './version';
+import { router as auth_endpoints } from './auth';
+import { router as extract_endpoints } from './extract';
+import { router as notification_endpoints } from './notification';
+import { router as record_endpoints } from './record';
+import { router as search_endpoints } from './search';
+import { router as user_endpoints } from './user';
+import { router as version_endpoints } from './version';
 
 import { KEY_SESSION } from '../keys';
 import { HttpError, RequestTimeoutError } from '../errors';
@@ -44,6 +44,12 @@ if (SERVER_JIT_COMPRESSION) {
     log.info('server jit compression');
     app.use(compression());
 }
+
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'public, max-age=7200000');
+    res.setHeader('X-Powered-By', '<3');
+    next();
+});
 
 app.use('/build', express.static('build'));
 app.use('/src/client', express.static('src/client'));

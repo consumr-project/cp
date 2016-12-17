@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
 import { UserMessage } from '../record/models/user';
 
-import * as express from 'express';
 import * as passport from 'passport';
 import { update_user } from '../repository/user';
 import { User, Token } from '../device/models';
@@ -17,7 +16,7 @@ import { service_handler, service_response } from '../http';
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
 
-export var app = express();
+export const router = Router();
 export { passport };
 
 const token = new Manager(Token);
@@ -29,21 +28,27 @@ passport.deserializeUser(deserialize);
 passport.use(linkedin.strategy);
 passport.use(apikey.strategy);
 
-app.get('/user', (req, res) =>
+router.use((req, res, next) => {
+    // 2 hour caching
+    res.setHeader('Cache-Control', 'private, max-age=0');
+    next();
+});
+
+router.get('/user', (req, res) =>
     res.json(service_response(req.user || {})));
 
-app.get('/user/email', loggedin, (req, res) =>
+router.get('/user/email', loggedin, (req, res) =>
     res.json(service_response(decrypt(req.user.email, KEY_USER_EMAIL))));
 
-app.put('/user/email', loggedin, service_handler(req =>
+router.put('/user/email', loggedin, service_handler(req =>
     update_user({ id: req.user.id }, { email: req.body.email })));
 
-app.get('/logout', (req, res, next) => { req.logout(); next(); },
+router.get('/logout', (req, res, next) => { req.logout(); next(); },
     js_update_client_auth);
 
-app.get('/linkedin', linkedin.setup, linkedin.login);
-app.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
-app.use((err: any, req, res, next) => {
+router.get('/linkedin', linkedin.setup, linkedin.login);
+router.get('/linkedin/callback', linkedin.callback, js_update_client_auth);
+router.use((err: any, req, res, next) => {
     if (err instanceof InvalidBetaUserError && LOCKEDDOWN) {
         req.logout();
         js_update_client_auth_locked_down(req, res);
@@ -52,7 +57,7 @@ app.use((err: any, req, res, next) => {
     }
 });
 
-app.post('/token',
+router.post('/token',
     can('create', 'token'),
     service_handler(req => token.generate(
         new Date(req.body.expiration_date || Date.now() + Day * 30),
@@ -61,7 +66,7 @@ app.post('/token',
     )));
 
 if (process.env.CP_ALLOW_APIKEY_AUTH) {
-    app.post('/key', apikey.login, (req, res) => res.json(req.user || {}));
+    router.post('/key', apikey.login, (req, res) => res.json(req.user || {}));
 }
 
 function serialize(user: UserMessage, done: Function): void {
