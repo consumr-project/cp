@@ -21,80 +21,71 @@
         <feedback class="logged-in-only"></feedback>
         <footer class="site-content"></footer>
         <script async src="https://www.google.com/recaptcha/api.js"></script>
-        {% if err %}
-        <script>window.ERRORED = true;</script>
-        {% endif %}
-        {% if debugging %}
-        <script>window.DEBUGGING = true;</script>
-        {% endif %}
-        <script src="build/vendor.js"></script>
-        <script src="build/i18n.en-US.js"></script>
-        <script src="build/bundle.js"></script>
-        {% if lang and lang != 'en-US' %}
-        <script src="build/i18n.{{lang}}.js"></script>
-        {% endif %}
-        {% if not debugging %}
-        <script src="build/client.js"></script>
-        {% else %}
-        <script src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
-        <script src="src/client/initializers/perf-stats.js"></script>
-        <script src="src/client/initializers/keyboard-shortcuts.js"></script>
-        <script src="src/client/initializers/rollbar-config.js"></script>
-        <script src="src/client/initializers/scroll-offset-class.js"></script>
-        <script src="src/client/elements/anchored.js"></script>
-        <script src="src/client/elements/share.js"></script>
-        <script src="src/client/elements/collapsable.js"></script>
-        <script src="src/client/elements/pills.js"></script>
-        <script src="src/client/elements/chart.js"></script>
-        <script src="src/client/elements/options.js"></script>
-        <script src="src/client/elements/options-item.js"></script>
-        <script src="src/client/elements/popover.js"></script>
-        <script src="src/client/elements/popover-item.js"></script>
-        <script src="src/client/elements/avatar.js"></script>
-        <script src="src/client/elements/snav.js"></script>
-        <script src="src/client/elements/snav-item.js"></script>
-        <script src="src/client/elements/recaptcha.js"></script>
-        <script src="src/client/elements/message.js"></script>
-        <script src="src/client/elements/indicator.js"></script>
-        <script src="src/client/elements/tag.js"></script>
-        <script src="src/client/elements/tags.js"></script>
-        <script src="src/client/elements/i18n.js"></script>
-        <script src="src/client/elements/datepicker.js"></script>
-        <script src="src/client/elements/img-upload.js"></script>
-        <script src="src/client/elements/infinite-scroll.js"></script>
-        <script src="src/client/components/user.js"></script>
-        <script src="src/client/components/search.js"></script>
-        <script src="src/client/components/notification.js"></script>
-        <script src="src/client/components/notifications.js"></script>
-        <script src="src/client/components/topmost.js"></script>
-        <script src="src/client/components/state.js"></script>
-        <script src="src/client/components/trending.js"></script>
-        <script src="src/client/components/company.js"></script>
-        <script src="src/client/components/home-view.js"></script>
-        <script src="src/client/components/error-view.js"></script>
-        <script src="src/client/components/tag-view.js"></script>
-        <script src="src/client/components/give-us-details.js"></script>
-        <script src="src/client/components/admin-view.js"></script>
-        <script src="src/client/components/missing-data.js"></script>
-        <script src="src/client/components/compliments.js"></script>
-        <script src="src/client/components/feedback.js"></script>
-        <script src="src/client/components/event.js"></script>
-        <script src="src/client/components/source.js"></script>
-        <script src="src/client/components/timeline.js"></script>
-        <script src="src/client/components/question.js"></script>
-        <script src="src/client/components/review.js"></script>
-        <script src="src/client/components/reviews.js"></script>
-        <script src="src/client/services/Feature.js"></script>
-        <script src="src/client/services/Services.js"></script>
-        <script src="src/client/services/Navigation.js"></script>
-        <script src="src/client/services/Session.js"></script>
-        <script src="src/client/vendor/angular/ngFocus.js"></script>
-        <script src="src/client/vendor/angular/ngInvisible.js"></script>
-        <script src="src/client/vendor/angular/ngContenteditable.js"></script>
-        <script src="src/client/components/guide.js"></script>
-        <script src="node_modules/rector/rector.js"></script>
-        <link rel="stylesheet" href="node_modules/rector/rector.css">
-        {% endif %}
+        {% if err %}<script>window.ERRORED = true;</script>{% endif %}
+        {% if debugging %}<script>window.DEBUGGING = true;</script>{% endif %}
+        <script defer src="build/vendor.js"></script>
+        <script defer src="build/i18n.en-US.js"></script>
+        <script defer src="build/bundle.js"></script>
+        {% if lang and lang != 'en-US' %}<script defer src="build/i18n.{{lang}}.js"></script>{% endif %}
+        {% if not debugging %}<script defer src="build/client.js"></script>{% else %}
+        <script defer src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
+        <script defer src="src/client/initializers/perf-stats.js"></script>
+        <script defer src="src/client/initializers/keyboard-shortcuts.js"></script>
+        <script defer src="src/client/initializers/rollbar-config.js"></script>
+        <script defer src="src/client/initializers/scroll-offset-class.js"></script>
+        <script defer src="src/client/elements/anchored.js"></script>
+        <script defer src="src/client/elements/share.js"></script>
+        <script defer src="src/client/elements/collapsable.js"></script>
+        <script defer src="src/client/elements/pills.js"></script>
+        <script defer src="src/client/elements/chart.js"></script>
+        <script defer src="src/client/elements/options.js"></script>
+        <script defer src="src/client/elements/options-item.js"></script>
+        <script defer src="src/client/elements/popover.js"></script>
+        <script defer src="src/client/elements/popover-item.js"></script>
+        <script defer src="src/client/elements/avatar.js"></script>
+        <script defer src="src/client/elements/snav.js"></script>
+        <script defer src="src/client/elements/snav-item.js"></script>
+        <script defer src="src/client/elements/recaptcha.js"></script>
+        <script defer src="src/client/elements/message.js"></script>
+        <script defer src="src/client/elements/indicator.js"></script>
+        <script defer src="src/client/elements/tag.js"></script>
+        <script defer src="src/client/elements/tags.js"></script>
+        <script defer src="src/client/elements/i18n.js"></script>
+        <script defer src="src/client/elements/datepicker.js"></script>
+        <script defer src="src/client/elements/img-upload.js"></script>
+        <script defer src="src/client/elements/infinite-scroll.js"></script>
+        <script defer src="src/client/components/user.js"></script>
+        <script defer src="src/client/components/search.js"></script>
+        <script defer src="src/client/components/notification.js"></script>
+        <script defer src="src/client/components/notifications.js"></script>
+        <script defer src="src/client/components/topmost.js"></script>
+        <script defer src="src/client/components/state.js"></script>
+        <script defer src="src/client/components/trending.js"></script>
+        <script defer src="src/client/components/company.js"></script>
+        <script defer src="src/client/components/home-view.js"></script>
+        <script defer src="src/client/components/error-view.js"></script>
+        <script defer src="src/client/components/tag-view.js"></script>
+        <script defer src="src/client/components/give-us-details.js"></script>
+        <script defer src="src/client/components/admin-view.js"></script>
+        <script defer src="src/client/components/missing-data.js"></script>
+        <script defer src="src/client/components/compliments.js"></script>
+        <script defer src="src/client/components/feedback.js"></script>
+        <script defer src="src/client/components/event.js"></script>
+        <script defer src="src/client/components/source.js"></script>
+        <script defer src="src/client/components/timeline.js"></script>
+        <script defer src="src/client/components/question.js"></script>
+        <script defer src="src/client/components/review.js"></script>
+        <script defer src="src/client/components/reviews.js"></script>
+        <script defer src="src/client/services/Feature.js"></script>
+        <script defer src="src/client/services/Services.js"></script>
+        <script defer src="src/client/services/Navigation.js"></script>
+        <script defer src="src/client/services/Session.js"></script>
+        <script defer src="src/client/vendor/angular/ngFocus.js"></script>
+        <script defer src="src/client/vendor/angular/ngInvisible.js"></script>
+        <script defer src="src/client/vendor/angular/ngContenteditable.js"></script>
+        <script defer src="src/client/components/guide.js"></script>
+        <script defer src="node_modules/rector/rector.js"></script>
+        <link rel="stylesheet" href="node_modules/rector/rector.css">{% endif %}
     </body>
 {% if err and debugging %}
 <!--
