@@ -321,4 +321,13 @@ namespace tcp {
             };
         }
     ]);
+
+    angular.module('tcp').factory('State', [function () {
+        let not_implemented = name => () => console.error(`Not implemented: ${name}`);
+
+        return {
+            show_login: not_implemented('State.show_login'),
+        };
+    }]);
+
 }

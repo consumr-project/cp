@@ -6,11 +6,12 @@ angular.module('tcp').directive('tcpTopmost', [
     'Navigation',
     'Services',
     'Session',
+    'State',
     'utils',
     'Cookie',
     'lodash',
     'validator',
-    function (DOMAIN, $location, $interval, $timeout, Navigation, Services, Session, utils, Cookie, _, validator) {
+    function (DOMAIN, $location, $interval, $timeout, Navigation, Services, Session, State, utils, Cookie, _, validator) {
         'use strict';
 
         var SYNC_INTERVAL = 300000;
@@ -98,6 +99,10 @@ angular.module('tcp').directive('tcpTopmost', [
             sync();
             $interval(sync_if_active, SYNC_INTERVAL);
             $rootScope.$on('$locationChangeStart', update_page_view_status);
+
+            State.show_login = function () {
+                $scope.login.show();
+            };
 
             /**
              * @return {string}

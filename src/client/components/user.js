@@ -2,6 +2,7 @@ angular.module('tcp').directive('user', [
     'Services',
     'Session',
     'Navigation',
+    'State',
     'assert',
     'utils2',
     'validate',
@@ -10,7 +11,7 @@ angular.module('tcp').directive('user', [
     '$location',
     '$timeout',
     '$routeParams',
-    function (Services, Session, Navigation, assert, utils2, validate, lodash, $q, $location, $timeout, $routeParams) {
+    function (Services, Session, Navigation, State, assert, utils2, validate, lodash, $q, $location, $timeout, $routeParams) {
         'use strict';
 
         var STAT_MAP = {},
@@ -289,6 +290,13 @@ angular.module('tcp').directive('user', [
                 return $scope.id === Session.USER.id;
             }
 
+            function check_for_myself() {
+                if (Navigation.one_of([Navigation.BASES.MY_PROFILE])) {
+                    $scope.id = Session.USER.id;
+                    load($scope.id);
+                }
+            }
+
             /**
              * @param {string} new_email
              * @return {void}
@@ -394,7 +402,11 @@ angular.module('tcp').directive('user', [
             if ($scope.id && viewing_myself()) {
                 $scope.$watch('vm.user.raw_email', email_updated);
             }
+            if (!$scope.id) {
+                State.show_login();
+            }
 
+            Session.on(Session.EVENT.LOGIN, check_for_myself);
             Session.on(Session.EVENT.LOGIN, update_actionable_items);
             Session.on(Session.EVENT.LOGOUT, update_actionable_items);
         }
