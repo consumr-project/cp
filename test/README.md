@@ -32,4 +32,5 @@ export CP_TEST_INSTANCE_URL=        # absolute url to instance you're testing
 - `e2e` is for end-to-end tests building using protractor (so angular stuff)
 - `extract` is for integration tests for external services (will need internet)
 - `integration` is for integration tests for internal services (won't need internet)
+- `perf` is for performance checks, snapshots, and reports
 - `src` is for unit tests

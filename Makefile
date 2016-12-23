@@ -107,6 +107,9 @@ test-integration:
 test-unit:
 	./script/test unit
 
+test-perf:
+	./script/test perf
+
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/
