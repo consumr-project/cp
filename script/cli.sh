@@ -4,6 +4,11 @@ CACHE_ADDONS=
 CACHE_ENVVAR=
 CACHE_BUILDP=
 
+COL_BOLD=$(tput bold)
+COL_RED=$(tput setaf 1)
+COL_GREEN=$(tput setaf 34)
+COL_RESET=$(tput sgr0)
+
 use() {
     case "$1" in
         heroku:env)
@@ -37,9 +42,9 @@ logstat() {
     [ ! -z "$force" ] && last="$force"
 
     if [ "$last" -eq 0 ]; then
-        echo " [ok]"
+        echo " [${COL_BOLD}${COL_GREEN}ok${COL_RESET}]"
     else
-        echo " [err]"
+        echo " [${COL_BOLD}${COL_RED}err${COL_RESET}]"
     fi
 }
 
