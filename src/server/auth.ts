@@ -29,7 +29,6 @@ passport.use(linkedin.strategy);
 passport.use(apikey.strategy);
 
 router.use((req, res, next) => {
-    // 2 hour caching
     res.setHeader('Cache-Control', 'private, max-age=0');
     next();
 });

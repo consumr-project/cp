@@ -9,6 +9,7 @@ import { router as user_endpoints } from './user';
 import { router as version_endpoints } from './version';
 
 import { KEY_SESSION } from '../keys';
+import { hours } from '../utilities';
 import { HttpError, RequestTimeoutError } from '../errors';
 import { normalize_i18n } from '../strings';
 import { OG, unfurl } from '../unfurling';
@@ -46,7 +47,7 @@ if (SERVER_JIT_COMPRESSION) {
 }
 
 app.use((req, res, next) => {
-    res.setHeader('Cache-Control', 'public, max-age=7200000');
+    res.setHeader('Cache-Control', `public, max-age=${hours(2)}`);
     res.setHeader('X-Powered-By', '<3');
     next();
 });

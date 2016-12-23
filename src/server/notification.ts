@@ -4,7 +4,7 @@ import { Event } from '../device/models';
 import { EventMessage } from '../record/models/event';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
-import { has_all_fields, runtime_purge_allowed } from '../utilities';
+import { has_all_fields, runtime_purge_allowed, minutes } from '../utilities';
 import { service_handler } from '../http';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
@@ -18,7 +18,7 @@ export const router = Router();
 
 router.use((req, res, next) => {
     // 5 minute caching
-    res.setHeader('Cache-Control', 'private, max-age=300000');
+    res.setHeader('Cache-Control', `private, max-age=${minutes(5)}`);
     next();
 });
 

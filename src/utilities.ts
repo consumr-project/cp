@@ -1,17 +1,20 @@
 import { Request } from 'express';
 import { curryRight, set, get } from 'lodash';
+import { Duration, Millisecond, Second, Minute, Hour, Day } from './lang';
 
 export type None = Object;
 export type Maybe<T> = T;
 export type Optional<T> = { get_or_else: (def: T) => T }
 
-export function none(): None {
-    return {};
-}
+export const zero = (): Duration => 0;
+export const milliseconds = (n: number): Duration => n * Millisecond;
+export const seconds = (n: number): Duration => n * Second;
+export const minutes = (n: number): Duration => n * Minute;
+export const hours = (n: number): Duration => n * Hour;
+export const days = (n: number): Duration => n * Day;
 
-export function pass<T>(val: T): T {
-    return val;
-}
+export const none = (): None => ({});
+export const pass = <T>(val: T): T => val;
 
 export function option<T>(val: Maybe<T>): Optional<T> {
     return {
