@@ -24,7 +24,7 @@ slug() {
 perf_snapshot() {
     local url="$1"
     local out_mobile="$out-mobile-$(slug $url).json"
-    local out_desktop="$out-mobile-$(slug $url).json"
+    local out_desktop="$out-desktop-$(slug $url).json"
 
     if [ "$ran" -ne 0 ]; then
         echo
