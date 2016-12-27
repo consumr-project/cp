@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { curryRight, set, get } from 'lodash';
-import { Duration, Millisecond, Second, Minute, Hour, Day } from './lang';
+import { Lambda, Duration, Millisecond, Second, Minute, Hour, Day } from './lang';
 
 export type None = Object;
 export type Maybe<T> = T;
@@ -114,4 +114,12 @@ export function preload(
     img.onerror = errback;
     img.src = url;
     return img;
+}
+
+export function ternary<T, TRUE_T, FALSE_T>(
+    check: Maybe<T>,
+    if_true: Lambda<null, TRUE_T>,
+    if_false: Lambda<null, FALSE_T>
+): TRUE_T | FALSE_T {
+    return !!check ? if_true() : if_false();
 }

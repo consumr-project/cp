@@ -4,6 +4,7 @@ import { Router } from 'express';
 import * as config from 'acm';
 import * as crud from '../record/crud';
 import { save_event } from '../repository/event';
+import { ternary } from '../utilities';
 import { save_unapproved_email_invite, save_approved_email_invite,
     approve_email_invite } from '../repository/email_invite';
 import { sql, query } from '../record/query';
@@ -36,13 +37,10 @@ var all = crud.all,
     upsert = crud.upsert;
 
 connect_mongo(config('mongo.collections.cache'), (err, coll) => {
-    router.use((req, res, next) => {
-        if (err) {
-            next(new ServiceUnavailableError());
-        } else {
-            next();
-        }
-    });
+    get('/stats/trending', (req, res, next) =>
+        next(ternary(err,
+            () => new ServiceUnavailableError(),
+            () => null)));
 
     get('/stats/trending',
         can('retrieve', 'tag'),
@@ -56,13 +54,10 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
 });
 
 get('/stats/mine',
-    (req, res, next) => {
-        if (!req.user || !req.user.id) {
-            next(new UnauthorizedError());
-        } else {
-            next();
-        }
-    },
+    (req, res, next) => next(ternary(!req.user || !req.user.id,
+        () => new UnauthorizedError(),
+        () => null)),
+
     can('retrieve', 'tag'),
     can('retrieve', 'company'),
     can('retrieve', 'event'),
