@@ -3,10 +3,11 @@ import * as config from 'acm';
 import * as RateLimit from 'express-rate-limit';
 import { RateLimitConfiguration } from 'express-rate-limit';
 import { clone } from 'lodash';
+import { Lambda3, ErrorHandler } from './lang';
 import { Cache } from './device/cache';
 
-export type ServiceRequestHandler = (req: Request, res: Response, next: (err?: Error) => {}) => void;
-export type ServiceRequestPromise<T> = (req: Request, res: Response, next: (err?: Error) => {}) => Promise<T>;
+export type ServiceRequestPromise<T> = Lambda3<Request, Response, ErrorHandler, Promise<T>>;
+export type ServiceRequestHandler = Lambda3<Request, Response, ErrorHandler, void>
 
 export interface ServiceResultMetadataParts {
     took?: number;
