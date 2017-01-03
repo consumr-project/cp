@@ -260,12 +260,14 @@ namespace tcp {
 
             $routeProvider.when('/thx', {
                 template: '<missing-data class="block site-content site-content--wide"></missing-data>',
-                resolve: { UserCheck },
+                resolve: { UserCheck, PageView },
             });
 
             $routeProvider.when('/admin', {
-                template: '<error-view ng-if="!allowed"></error-view>' +
-                    '<admin-view ng-if="allowed" class="block site-content"></admin-view>',
+                template:
+                    '<error-view ng-if="!allowed"></error-view>' +
+                    '<admin-view ng-if="allowed" class="block site-content site-content--wide">' +
+                    '</admin-view>',
                 resolve: { UserCheck },
                 controller: ['DOMAIN', 'Session', '$scope', (DOMAIN, Session, $scope) => {
                     $scope.allowed = Session.USER.role === DOMAIN.model.user_props.roles.admin;

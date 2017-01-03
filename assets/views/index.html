@@ -28,7 +28,6 @@
         <script defer src="build/bundle.js"></script>
         {% if lang and lang != 'en-US' %}<script defer src="build/i18n.{{lang}}.js"></script>{% endif %}
         {% if not debugging %}<script defer src="build/client.js"></script>{% else %}
-        <script defer src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
         <script defer src="src/client/initializers/perf-stats.js"></script>
         <script defer src="src/client/initializers/keyboard-shortcuts.js"></script>
         <script defer src="src/client/initializers/rollbar-config.js"></script>
@@ -56,6 +55,7 @@
         <script defer src="src/client/elements/infinite-scroll.js"></script>
         <script defer src="src/client/components/user.js"></script>
         <script defer src="src/client/components/search.js"></script>
+        <script defer src="src/client/components/site-stats.js"></script>
         <script defer src="src/client/components/notification.js"></script>
         <script defer src="src/client/components/notifications.js"></script>
         <script defer src="src/client/components/topmost.js"></script>
@@ -84,6 +84,7 @@
         <script defer src="src/client/vendor/angular/ngInvisible.js"></script>
         <script defer src="src/client/vendor/angular/ngContenteditable.js"></script>
         <script defer src="src/client/components/guide.js"></script>
+        <script defer src="node_modules/ng-stats/dist/ng-stats.min.js"></script>
         <script defer src="node_modules/rector/rector.js"></script>
         <link rel="stylesheet" href="node_modules/rector/rector.css">{% endif %}
     </body>

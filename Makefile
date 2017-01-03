@@ -185,7 +185,7 @@ build-client-deps:
 
 build-client-src:
 	@echo "" > $(build_client_js)
-	@for file in $(shell find src/ -name "*.js"); do \
+	for file in $(shell find src/client -name "*.js"); do \
 		$(js_min) $$file >> $(build_client_js); \
 	done
 	@echo "generated $(build_client_js)"
