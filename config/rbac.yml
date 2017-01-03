@@ -16,6 +16,7 @@ permissions:
   user: [create, retrieve, update, delete, follow]
   token: [create]
   emailinvite: [create, retrieve, approve]
+  sitestats: [retrieve]
 
 grants:
   guest:
@@ -62,3 +63,4 @@ grants:
     - delete_user
     - retrieve_emailinvite
     - retrieve_feedback
+    - retrieve_sitestats

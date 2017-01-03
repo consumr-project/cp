@@ -37,7 +37,10 @@ var all = crud.all,
     upsert = crud.upsert;
 
 connect_mongo(config('mongo.collections.cache'), (err, coll) => {
-    get('/stats/trending', (req, res, next) =>
+    let cache_trending_events = config('cache.collections.trending_events'),
+        cache_site_stats = config('cache.collections.site_stats');
+
+    get('/stats/*', (req, res, next) =>
         next(ternary(err,
             () => new ServiceUnavailableError(),
             () => null)));
@@ -46,10 +49,16 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
         can('retrieve', 'tag'),
         can('retrieve', 'company'),
         can('retrieve', 'event'),
-        service_cache_intercept(shared(coll),
-            config('cache.collections.trending_events')),
+        service_cache_intercept(shared(coll), cache_trending_events),
         query(conn, sql('get-trending-events'), false, {},
-            quick_save(shared(coll), config('cache.collections.trending_events')))
+            quick_save(shared(coll), cache_trending_events))
+    );
+
+    get('/stats/site',
+        can('retrieve', 'sitestats'),
+        service_cache_intercept(shared(coll), cache_site_stats),
+        query(conn, sql('get-site-stats'), true, {},
+            quick_save(shared(coll), cache_site_stats))
     );
 });
 

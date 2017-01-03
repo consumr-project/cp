@@ -370,7 +370,11 @@ angular.module('tcp').service('Services', [
                 create_approved: function (email) {
                     return post(url('beta_email_invites/create_approved'), { email: email });
                 }
-            }
+            },
+
+            site_stats: function () {
+                return get(url('stats/site'));
+            },
         };
 
         /**
