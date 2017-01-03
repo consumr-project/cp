@@ -18,7 +18,7 @@ a.snav__item,
 .snav__item {
     display: inline-block;
     outline: none;
-    padding: var(--spacing-xsmall);
+    padding: var(--spacing-small);
     text-transform: uppercase;
     transition: color var(--speed-fast);
 
@@ -28,8 +28,12 @@ a.snav__item,
     letter-spacing: 1px;
 }
 
-.snav .snav__item {
-    padding: var(--spacing-small);
+.snav__item:first-child {
+    padding-left: 0;
+}
+
+.snav__item:last-child {
+    padding-right: 0;
 }
 
 .snav__item:hover,
