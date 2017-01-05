@@ -1,8 +1,11 @@
 'use strict';
 
 const tapes = require('tapes');
-const http = require('../utils/http');
-const auth = require('../utils/auth');
+const create_http = require('../utils/http').create;
+const create_auth = require('../utils/auth').create;
+
+const http = create_http();
+const auth = create_auth(http);
 
 const clone = require('lodash').clone;
 const config = require('acm');
@@ -11,16 +14,8 @@ const fixture = clone(config('fixtures'));
 tapes('site stats', t => {
     t.plan(1);
 
-    auth.logout().end(err => {
-        t.error(err, 'session reset');
-    });
-
-    t.test('access', st => {
-        st.plan(1);
-
-        http.get('/service/record/stats/site').end((err, res) => {
-            st.equal(res.status, 401, 'requires admin rights');
-        });
+    http.get('/service/record/stats/site').end((err, res) => {
+        t.equal(res.status, 401, 'requires admin rights');
     });
 
     t.test('properties', st => {
