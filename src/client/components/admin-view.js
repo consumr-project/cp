@@ -3,14 +3,14 @@ angular.module('tcp').component('adminView', {
     template: [
         '<snav value="$ctrl.selection" class="snav--borderless">',
             '<snav-item ',
-                'value="beta_email_invites" ',
-                'ng-click="$ctrl.select_section(\'beta_email_invites\')" ',
-                'i18n="admin/beta_email_invites">',
-            '</snav-item>',
-            '<snav-item ',
                 'value="stats" ',
                 'ng-click="$ctrl.select_section(\'stats\')" ',
                 'i18n="admin/stats">',
+            '</snav-item>',
+            '<snav-item ',
+                'value="beta_email_invites" ',
+                'ng-click="$ctrl.select_section(\'beta_email_invites\')" ',
+                'i18n="admin/beta_email_invites">',
             '</snav-item>',
         '</snav>',
 
@@ -78,7 +78,7 @@ angular.module('tcp').component('adminView', {
             this.ERROR_UNIQUE = 'errunique';
             this.ERROR_REQ_EMAIL = 'errreqemail';
 
-            this.selection = 'beta_email_invites';
+            this.selection = 'stats';
             this.error_view = null;
 
             /**
