@@ -14,7 +14,7 @@ angular.module('tcp').component('siteStats', {
 
             this.$onInit = function () {
                 Services.query.admin.site_stats()
-                    .then(utils2.curr_set(this, 'stats'))
+                    .then(utils2.curr_set(this, 'stats'));
             };
         }
     ],
