@@ -6,6 +6,7 @@ import { Duration } from '../lang';
 import { logger } from '../log';
 import { nonce } from '../crypto';
 import * as config from 'acm';
+import * as toes from '../toe';
 
 const log = logger(__filename);
 const models: LinkDefinition[] = config('river.models').map((def: LinkConfiguration) =>
@@ -48,7 +49,9 @@ export function interval(since: Duration): NodeJS.Timer {
     let identity = nonce(5);
     let counter = 0;
 
-    let wrapped_run = () => run(since, identity, ++counter);
+    let wrapped_run = () =>
+        toes.initialize(toes.get().session, () =>
+            run(since, identity, ++counter));
 
     log.info('registering river timer', { identity, wait_time });
     wrapped_run();

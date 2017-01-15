@@ -1,3 +1,3 @@
 transports:
   - type: Console
-    format: "{{time}} [{{level}}] [{{name}}] {{str}}"
+    format: "{{time}} [{{level}}] [{{name}}] [toe: {{toe}}] {{str}}"

@@ -475,3 +475,9 @@ declare module 'nodemailer-html-to-text' {
     }
     export = html_to_text;
 }
+
+declare namespace Express {
+    export interface Request {
+        sessionID?: string;
+    }
+}

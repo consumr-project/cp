@@ -14,6 +14,7 @@ import { HttpError, RequestTimeoutError } from '../errors';
 import { normalize_i18n } from '../strings';
 import { OG, unfurl } from '../unfurling';
 import { logger } from '../log';
+import * as toes from '../toe';
 import * as auth_service from './auth';
 import * as express from 'express';
 import * as config from 'acm';
@@ -80,6 +81,17 @@ app.use(session({
         path: `${__dirname}/../../build/session.db`
     }),
 }));
+
+app.use((req, res, next) => {
+    if (!res.headersSent && req.sessionID) {
+        toes.initialize(req.sessionID, (err, toe) => {
+            res.header('X-CP-Toe', toe.toString());
+            next();
+        });
+    } else {
+        next();
+    }
+});
 
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());

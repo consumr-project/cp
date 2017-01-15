@@ -1,6 +1,7 @@
 import { Logger, LoggerInstance, TransportInstance,
     TransportOptions, transports } from 'winston';
 
+import * as toes from './toe';
 import { empty } from './utilities';
 import { sep } from 'path';
 import { template, padEnd as pad } from 'lodash';
@@ -38,6 +39,7 @@ function formatter(filename: string, format: string) {
         var message = opt.message || '';
         var meta = empty(opt.meta) ? JSON.stringify(opt.meta) : '';
         var str = [message, meta].join(' ').trim();
+        var toe = toes.get().toString();
 
         return log({
             name,
@@ -46,6 +48,7 @@ function formatter(filename: string, format: string) {
             message,
             meta,
             str,
+            toe,
         });
     };
 }
