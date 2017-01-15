@@ -236,14 +236,14 @@ angular.module('tcp').directive('tcpTopmost', [
              */
             function cache_session(session) {
                 console.info('caching %o in session', Object.keys(session));
-                return Cookie.set('client:session', session);
+                return Cookie.set('cp.client', session);
             }
 
             /**
              * @return {Object}
              */
             function get_session() {
-                return Cookie.getJSON('client:session') || {
+                return Cookie.getJSON('cp.client') || {
                     email: null,
                     has_notifications: false,
                     logged_in: false,

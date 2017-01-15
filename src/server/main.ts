@@ -72,6 +72,7 @@ app.use(body_parser.json());
 app.use(cookie(process.env.CP_COOKIE_KEY));
 
 app.use(session({
+    name: 'cp.session',
     secret: KEY_SESSION,
     saveUninitialized: false,
     resave: false,
