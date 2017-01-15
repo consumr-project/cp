@@ -36,5 +36,7 @@ export default (c = config): DbmsDevice => {
 };
 
 function do_log() {
-    return log.debug.apply(log, arguments);
+    if (config('logging.enable.sql')) {
+        return log.debug.apply(log, arguments);
+    }
 }

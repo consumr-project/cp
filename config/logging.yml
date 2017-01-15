@@ -1,3 +1,6 @@
 transports:
   - type: Console
     format: "{{time}} [{{level}}] [{{name}}] [toe: {{toe}}] {{str}}"
+
+enable:
+  sql: false
