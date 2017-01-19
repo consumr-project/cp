@@ -1,19 +1,14 @@
 import { WhereOptions } from 'sequelize';
 import { UserMessage } from '../record/models/user';
 import { User } from '../device/models';
+import { save, Model, Payload } from '../device/upload';
 import { includes } from 'lodash';
 import * as querystring from 'querystring';
 import * as config from 'acm';
 import * as md5 from 'md5';
-import * as imgur from 'imgur';
 
 import { decrypt } from '../crypto';
 import { KEY_USER_EMAIL } from '../keys';
-
-const IMGUR_ALBUM_ID = config('files.avatars.imgur.album_id');
-const IMGUR_CLIENT_ID = config('files.avatars.imgur.client_id');
-const IMGUR_PASSWORD = config('files.avatars.imgur.password');
-const IMGUR_USERNAME = config('files.avatars.imgur.username');
 
 const FALLBACK = config('experience.fallback_avatar');
 const GRAVATAR_URL = 'http://www.gravatar.com/avatar/';
@@ -71,10 +66,6 @@ export function url(
 }
 
 export function upload(base64: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-        imgur.setCredentials(IMGUR_USERNAME, IMGUR_PASSWORD, IMGUR_CLIENT_ID);
-        imgur.uploadBase64(base64, IMGUR_ALBUM_ID)
-            .then(res => resolve(res.data.link))
-            .catch(reject);
-    });
+    return save(new Payload.ImgurImage(base64))
+        .then((res: Model.ImgurImage) => res.link);
 }
