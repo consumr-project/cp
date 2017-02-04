@@ -93,6 +93,11 @@ app.use((req, res, next) => {
     }
 });
 
+app.use((req, res, next) => {
+    log.info('routing %s %s', req.method, req.url);
+    next();
+});
+
 app.use(auth_service.passport.initialize());
 app.use(auth_service.passport.session());
 app.use(auth_service.as_guest);
@@ -132,6 +137,7 @@ app.use((err: any, req, res, next) => {
             log.debug('sending back %s(%s)', err.name, err.code);
             res.status(err.code);
         } else if (err.code === 'ETIMEDOUT' || err.type === 'entity.too.large') {
+            log.debug('sending back Request Timeout(408)');
             res.status(RequestTimeoutError.code);
         } else {
             res.status(500);
