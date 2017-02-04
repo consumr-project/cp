@@ -24,13 +24,20 @@ export interface ServiceResponseV1<T> {
     meta: ServiceResultMetadata;
 }
 
-export function service_response<T>(body: T, ok: boolean = true, parts: ServiceResultMetadataParts = {}): ServiceResponseV1<T> {
+export function service_response<T>(
+    body: T,
+    ok: boolean = true,
+    parts: ServiceResultMetadataParts = {}
+): ServiceResponseV1<T> {
     var meta = <ServiceResultMetadata>clone(parts);
     meta.ok = ok;
     return { body, meta };
 }
 
-export function service_handler<T>(from_req: ServiceRequestPromise<T>, builder = service_response): ServiceRequestHandler {
+export function service_handler<T>(
+    from_req: ServiceRequestPromise<T>,
+    builder = service_response
+): ServiceRequestHandler {
     return (req, res, next) => {
         var pro = from_req(req, res, next);
 
@@ -41,7 +48,9 @@ export function service_handler<T>(from_req: ServiceRequestPromise<T>, builder =
     };
 }
 
-export function service_middleware<T>(from_req: ServiceRequestPromise<T>): ServiceRequestHandler {
+export function service_middleware<T>(
+    from_req: ServiceRequestPromise<T>
+): ServiceRequestHandler {
     return (req, res, next) => {
         var pro = from_req(req, res, next);
 
@@ -52,7 +61,9 @@ export function service_middleware<T>(from_req: ServiceRequestPromise<T>): Servi
     };
 }
 
-export function service_redirect(from_req: ServiceRequestPromise<string>): ServiceRequestHandler {
+export function service_redirect(
+    from_req: ServiceRequestPromise<string>
+): ServiceRequestHandler {
     return (req, res, next) => {
         from_req(req, res, next)
             .then(url => res.redirect(url))
@@ -60,7 +71,10 @@ export function service_redirect(from_req: ServiceRequestPromise<string>): Servi
     };
 }
 
-export function service_cache_intercept<T>(cache: Cache<T>, name: string): ServiceRequestHandler {
+export function service_cache_intercept<T>(
+    cache: Cache<T>,
+    name: string
+): ServiceRequestHandler {
     return (req, res, next) => {
         cache.get(name)
             .then(rec => rec ? res.json(service_response(rec, true, { from_cache: true })) : next())
