@@ -4,12 +4,11 @@ import { Logger, LoggerInstance, TransportInstance,
 import * as toes from './toe';
 import { empty } from './utilities';
 import { sep } from 'path';
-import { template, padEnd as pad } from 'lodash';
+import { template } from 'lodash';
 import * as config from 'acm';
 
 const CWD = process.cwd() + sep;
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
-const PAD_LEN_LEVEL = 7;
 
 declare module 'winston' {
     interface Transports {
@@ -35,7 +34,7 @@ function formatter(filename: string, format: string) {
 
     return function (opt: LogItem) {
         var time = new Date().toISOString();
-        var level = pad(opt.level.toUpperCase(), PAD_LEN_LEVEL);
+        var level = opt.level.toUpperCase();
         var message = opt.message || '';
         var meta = empty(opt.meta) ? JSON.stringify(opt.meta) : '';
         var str = [message, meta].join(' ').trim();
