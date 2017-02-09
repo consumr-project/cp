@@ -17,6 +17,7 @@ router.get('/query', (req, res, next) => {
             index: INDEX.RECORD,
             query: req.query.q,
             type: [TYPE.COMPANIES, TYPE.USERS, TYPE.TAGS],
+            suggest: true,
         }), normalize)(req, res, <ErrorHandler>next);
     } else {
         query(conn, sql('search'))(req, res, <ErrorHandler>next);

@@ -1,11 +1,15 @@
 import { ServiceResponseV1 } from '../http';
 import { head, map, omit } from 'lodash';
 import { option } from '../utilities';
+import { logger } from '../log';
 import * as config from 'acm';
 
 import { Client as Elasticsearch, Results, Hit, Suggestion,
     QueryBody } from 'elasticsearch';
 
+const log = logger(__filename);
+
+const ALL = '_all';
 const SUGGESTION_LABEL = 'query';
 export const IDX_RECORD = 'record';
 
@@ -31,6 +35,7 @@ interface Query {
     query: string;
     size?: number;
     type?: TYPE[];
+    suggest?: boolean;
 }
 
 interface Result {
@@ -63,8 +68,9 @@ export function normalize(res: Results): ServiceResponseV1<SearchResults> {
         },
         body: {
             results: map<Hit, Result>(res.hits.hits, hit_to_result),
-            suggestions: option(head(res.suggest[SUGGESTION_LABEL]))
-                .get_or_else({ options: [] }).options,
+            suggestions: !res.suggest ? [] :
+                option(head(res.suggest[SUGGESTION_LABEL]))
+                    .get_or_else({ options: [] }).options,
         },
     };
 }
@@ -78,7 +84,7 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
                     multi_match: {
                         fuzziness: config('elasticsearch.fuzziness'),
                         query: query.query,
-                        fields: ['_all'],
+                        fields: [ALL],
                     }
                 },
 
@@ -105,7 +111,11 @@ export function fuzzy(es: Elasticsearch, query: Query): Promise<Results> {
     });
 }
 
-export function search(es: Elasticsearch, query_req: Query, query: QueryBody): Promise<Results> {
+export function search(
+    es: Elasticsearch,
+    query_req: Query,
+    query: QueryBody
+): Promise<Results> {
     var from = query_req.from;
     var size = query_req.size;
 
@@ -118,16 +128,22 @@ export function search(es: Elasticsearch, query_req: Query, query: QueryBody): P
             term: {
                 min_word_length: config('elasticsearch.suggest_size'),
                 size: config('elasticsearch.suggest_min_word_length'),
-                field: '_all',
+                field: ALL,
             }
         }
     };
+
+    var body = query_req.suggest ?
+        { query, suggest } :
+        { query };
+
+    log.info('searching index: %s, type: %s, query:', index, type, query);
 
     return es.search({
         index,
         type,
         from,
         size,
-        body: { query, suggest }
+        body,
     });
 }
