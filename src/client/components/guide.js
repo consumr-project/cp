@@ -11,6 +11,14 @@ angular.module('tcp').controller('GuideController', [
             return Math.floor(Math.random()*(max-min+1)+min);
         }
 
+        function pill(label) {
+            return {
+                id: Math.random().toString(),
+                label: label,
+                suggestion: Math.random() > .7,
+            };
+        }
+
         function generate(max, thecount) {
             var r = [];
             var currsum = 0;
@@ -27,6 +35,23 @@ angular.module('tcp').controller('GuideController', [
         $scope.counter = 42;
         $scope.tags = [];
         $scope.dates = [new Date()];
+
+        $scope.selections = [
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+            pill(Math.random().toString().substr(2, 15)),
+        ];
 
         $scope.menu = {
             show: false
