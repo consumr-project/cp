@@ -15,6 +15,15 @@ angular.module('tcp').service('Services', [
 
         /**
          * @param {Function} fn
+         * @return {Angular.Cache?}
+         */
+        function cacheable(fn) {
+            fn.cache = fn.cache || $cacheFactory(rand_id());
+            return fn.cache;
+        }
+
+        /**
+         * @param {Function} fn
          * @return {Promise}
          */
         function abortable(fn) {
@@ -448,6 +457,7 @@ angular.module('tcp').service('Services', [
 
             return $http.get('/service/search/tags', {
                 timeout: abortable(searchService.tags),
+                cache: cacheable(searchService.tags),
                 params: {
                     q: query,
                     limit: limit,
@@ -457,6 +467,7 @@ angular.module('tcp').service('Services', [
         };
 
         abortable(searchService.tags);
+        cacheable(searchService.tags);
 
         /**
          * @param {String} query "%" wrapped
