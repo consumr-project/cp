@@ -20,7 +20,9 @@ function gen_query(db: DbmsDevice, def: LinkDefinition): string {
         def.field_label ? `${def.field_label} as __label` : '',
     ].concat(def.fields).filter(x => !!x);
 
-    return query({
+    var generator = def.query_file ? sql(def.query_file) : query;
+
+    return generator({
         name: def.name,
         fields: fields,
     });

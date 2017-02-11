@@ -10,8 +10,13 @@ import * as toes from '../toe';
 
 const log = logger(__filename);
 const models: LinkDefinition[] = config('river.models').map((def: LinkConfiguration) =>
-    new LinkDefinition(def.name, def.fields, def.soft_delete,
-        def.primary_key, def.label));
+    new LinkDefinition(
+        def.name,
+        def.fields,
+        def.query_file,
+        def.soft_delete,
+        def.primary_key,
+        def.label));
 
 export function run(since: Duration, identity: string, counter: number): Promise<UpdaterAck[]> {
     var db: DbmsDevice;
