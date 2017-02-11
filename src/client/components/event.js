@@ -15,6 +15,10 @@ angular.module('tcp').directive('event', [
     function (RUNTIME, EVENTS, DOMAIN, $q, $window, lodash, utils, Services, Session, shasum, i18n, validator, slug) {
         'use strict';
 
+        var head = lodash.head,
+            map = lodash.map,
+            uniq = lodash.uniqBy;
+
         var HTML_VIEW = [
             '<div class="event-elem--view" ng-class="{loading: vm.loading}">',
                 '<div class="loading__only center-align" ',
@@ -193,7 +197,31 @@ angular.module('tcp').directive('event', [
                     .value()
             ).then(function (contents) {
                 lodash.each(contents, populate_source_from_content);
-                populate_event(ev, contents[0]);
+                populate_event(ev, head(contents));
+                populate_tags(ev, head(contents));
+            });
+        }
+
+        /**
+         * @param {Event} ev
+         * @param {extract.PageExtract} [content]
+         */
+        function populate_tags(ev, content) {
+            var query;
+
+            if (!content || !content.keywords || !content.keywords.length) {
+                return;
+            }
+
+            query = content.keywords.slice(0, 10).join(' ');
+            Services.search.tags(query).then(function (res) {
+                var suggested_tags = map(res.body.results, function (raw) {
+                    var tag = normalize_tag(raw);
+                    tag.suggestion = true;
+                    return tag;
+                });
+
+                ev.$tags = uniq(ev.$tags.concat(suggested_tags), 'id');
             });
         }
 
@@ -366,6 +394,14 @@ angular.module('tcp').directive('event', [
         }
 
         /**
+         * @param {Object} obj
+         * @return {boolean}
+         */
+        function is_not_suggestion(obj) {
+            return !!!obj.suggestion;
+        }
+
+        /**
          * @param {EventTag} tag
          * @return {EventTag}
          */
@@ -449,8 +485,12 @@ angular.module('tcp').directive('event', [
                 var ev = get_normalized_event($scope.ev);
 
                 ev.sources = lodash.map($scope.ev.$sources, get_normalized_event_source);
-                ev.tags = lodash.map($scope.ev.$tags, get_normalized_event_tag);
                 ev.companies = lodash.map($scope.ev.$companies, get_normalized_company_event);
+
+                ev.tags = lodash($scope.ev.$tags)
+                    .filter(is_not_suggestion)
+                    .map(get_normalized_event_tag)
+                    .value();
 
                 if ($scope.ev.id && Session.USER.id !== $scope.ev.created_by) {
                     // new source added notification (do it in the server?)
