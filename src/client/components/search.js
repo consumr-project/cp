@@ -22,6 +22,7 @@ angular.module('tcp').directive('search', [
                 recent: [],
                 results: {
                     companies: [],
+                    events: [],
                     users: [],
                     tags: [],
                 }
@@ -55,6 +56,7 @@ angular.module('tcp').directive('search', [
                     groups = lodash.groupBy(results, 'type');
 
                 $scope.vm.results.companies = groups.company || groups.companies;
+                $scope.vm.results.events = groups.event || groups.events;
                 $scope.vm.results.users = groups.user || groups.users;
                 $scope.vm.results.tags = groups.tag || groups.tags;
 
@@ -129,6 +131,11 @@ angular.module('tcp').directive('search', [
                 '        <div class="search__result animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
                 '            ng-repeat="company in vm.results.companies">',
                 '            <h2>{{::company.name}}</h2>',
+                '        </div>',
+
+                '        <div class="search__result animated fadeIn" ',
+                '            ng-repeat="event in vm.results.events">',
+                '            <h2>{{::event.name}}</h2>',
                 '        </div>',
 
                 '        <div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
