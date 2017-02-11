@@ -16,7 +16,7 @@ router.get('/query', (req, res, next) => {
         service_handler(req => fuzzy(es, {
             index: INDEX.RECORD,
             query: req.query.q,
-            type: [TYPE.COMPANIES, TYPE.USERS, TYPE.TAGS],
+            type: [TYPE.COMPANIES, TYPE.USERS, TYPE.TAGS, TYPE.EVENTS],
             suggest: true,
         }), normalize)(req, res, <ErrorHandler>next);
     } else {

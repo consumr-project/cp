@@ -21,6 +21,7 @@ export enum TYPE {
     COMPANIES = <any>'companies',
     PRODUCTS = <any>'products',
     TAGS = <any>'tags',
+    EVENTS = <any>'events',
     USERS = <any>'users',
 }
 
