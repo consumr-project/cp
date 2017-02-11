@@ -14,7 +14,8 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
 
     var ROLE_REMOVE = 'remove',
         ROLE_SELECT = 'select',
-        ROLE_CREATE = 'create';
+        ROLE_CREATE = 'create',
+        ROLE_SAVE = 'save';
 
     var KEY_ENTER = 13,
         KEY_ARROW_UP = 38,
@@ -81,13 +82,14 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
             typeAttr = attr(config, 'type'),
             idAttr = attr(config, 'id');
 
-        return _.map(selections, function (selection) {
+        return _.uniqBy(_.map(selections, function (selection) {
             return {
                 id: selection[idAttr],
                 type: selection[typeAttr],
-                label: selection[labelAttr]
+                label: selection[labelAttr],
+                suggestion: selection.suggestion,
             };
-        });
+        }), 'id');
     }
 
     /**
@@ -99,7 +101,7 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
     function without(selections, id, config) {
         return _.without(selections,
             _.find(selections,
-                _.zipObject([attr(config, 'id')],[id])));
+                _.zipObject([attr(config, 'id')], [id])));
     }
 
     /**
@@ -160,6 +162,20 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
      */
     function command($scope, $attrs, $elem, $input, $ev) {
         switch ($ev.target.dataset.pillsRole) {
+            case ROLE_SAVE:
+                _($scope.selections.concat($scope.pills))
+                    .filter(function (selection) {
+                        return selection.id === $ev.target.dataset.pillsData;
+                    })
+                    .each(function (selection) {
+                        selection.suggestion = false;
+                    })
+                    .value();
+
+                $scope.$apply();
+
+                break;
+
             case ROLE_REMOVE:
                 $scope.selections = without(
                     $scope.selections,
@@ -321,15 +337,19 @@ angular.module('tcp').directive('pills', ['$document', 'i18n', 'lodash', functio
                 '<div class="pills-element">',
                     '<div class="pills-element__selections">',
                         '<div class="pills-element__selections__placeholder">{{placeholder}}</div>',
-                            // 'ng-show="empty">{{placeholder}}</div>',
                         '<div ',
                             'class="pills-element__pill" ',
                             'ng-repeat="pill in pills" ',
                             'data-pill-id="{{::pill.id}}" ',
-                            'data-pill-type="{{::pill.type || \'regular\'}}"',
+                            'data-pill-type="{{::pill.type || \'regular\'}}" ',
+                            'data-pill-suggestion="{{pill.suggestion}}" ',
                         '>',
                             '<span class="pills-element__pill__label">{{::pill.label}}</span>',
+                            '<span data-pills-role="save" data-pills-data="{{::pill.id}}" ',
+                                'ng-if="pill.suggestion" ',
+                                'class="pills-element__pill__save"></span>',
                             '<span data-pills-role="remove" data-pills-data="{{::pill.id}}" ',
+                                'ng-if="!pill.suggestion" ',
                                 'class="pills-element__pill__remove"></span>',
                         '</div>',
                     '</div>',
