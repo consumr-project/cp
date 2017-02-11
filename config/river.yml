@@ -3,7 +3,8 @@ models:
     soft_delete: true
 
   - name: events
-    label: title
+    fields: [ tags ]
+    query_file: sync-events
 
   - name: event_sources
     label: title
