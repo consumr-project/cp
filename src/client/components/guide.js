@@ -15,7 +15,7 @@ angular.module('tcp').controller('GuideController', [
             return {
                 id: Math.random().toString(),
                 label: label,
-                suggestion: Math.random() > .7,
+                suggestion: Math.random() > 0.7,
             };
         }
 
