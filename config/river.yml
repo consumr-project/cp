@@ -3,7 +3,7 @@ models:
     soft_delete: true
 
   - name: events
-    fields: [ tags ]
+    fields: [ tags, companies ]
     query_file: sync-events
 
   - name: event_sources
