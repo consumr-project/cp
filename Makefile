@@ -1,4 +1,5 @@
 .PHONY: build install run test clean
+.SILENT: build-client-src build-client-deps
 
 build_dir = build
 build_bundle_js = $(build_dir)/bundle.js
@@ -88,14 +89,9 @@ analize:
 	discify build/bundle.js > build/analize/disk.html
 
 test-start-webdriver:
-	if [ ! -d bin ]; then mkdir bin; fi
-	if [ ! -d bin/node_modules/protractor ]; then \
-		cd bin; \
-		npm init -y; \
-		npm install protractor@3.1.1; \
-		node_modules/.bin/webdriver-manager update; \
-	fi
-	bin/node_modules/.bin/webdriver-manager start
+	cd test/e2e; \
+	npm install; \
+	npm start
 
 test-e2e:
 	./script/test e2e
@@ -163,9 +159,9 @@ build-client-bundle:
 		$(js_min) > $(build_bundle_js)
 
 build-client-deps:
-	@echo "" > $(build_vendor_js)
-	@./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
-	@for file in \
+	echo "" > $(build_vendor_js)
+	./script/compile-client-config $(global_config_varname) >> $(build_vendor_js)
+	for file in \
 		node_modules/jquery/dist/jquery.js \
 		node_modules/angular/angular.js \
 		node_modules/angular-animate/angular-animate.js \
@@ -181,11 +177,11 @@ build-client-deps:
 		$(js_sep) >> $(build_vendor_js); \
 		$(js_min) $$file >> $(build_vendor_js); \
 	done
-	@echo "generated $(build_vendor_js)"
+	echo "generated $(build_vendor_js)"
 
 build-client-src:
-	@echo "" > $(build_client_js)
+	echo "" > $(build_client_js)
 	for file in $(shell find src/client -name "*.js"); do \
 		$(js_min) $$file >> $(build_client_js); \
 	done
-	@echo "generated $(build_client_js)"
+	echo "generated $(build_client_js)"
