@@ -17,6 +17,7 @@ import { logger } from '../log';
 import * as toes from '../toe';
 import * as auth_service from './auth';
 import * as express from 'express';
+import { static as serve } from 'express';
 import * as config from 'acm';
 
 const index = require('serve-index');
@@ -53,10 +54,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/build', express.static('build'));
-app.use('/src/client', express.static('src/client'));
-app.use('/assets', express.static('assets'));
-app.use('/node_modules', express.static('node_modules'));
+app.use('/manifest.json', serve('assets/resources/manifest.json'));
+app.use('/build', serve('build'));
+app.use('/src/client', serve('src/client'));
+app.use('/assets', serve('assets'));
+app.use('/node_modules', serve('node_modules'));
 app.use(favicon(`${__dirname}/../../assets/images/favicon.png`));
 
 if (CLIENT_DEBUG_INFO) {

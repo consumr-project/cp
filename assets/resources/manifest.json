@@ -1,0 +1,16 @@
+{
+  "name": "consumr project",
+  "short_name": "consumr project",
+  "description": "a crowd sourced platform to help us all learn a little bit more about the things we buy, sell, and consume every day.",
+  "icons": [
+    {
+      "src":"/assets/images/brand/consumrproject-black-stamp.png",
+      "sizes": "107x107",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#000",
+  "theme_color": "#27b8e8",
+  "display": "standalone"
+}
