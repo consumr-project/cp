@@ -1,54 +1,11 @@
 #!/bin/bash
 
-source $(dirname "$0")/cli.sh
-
-psi="./node_modules/.bin/psi --format json --key $GOOGLE_PUBLIC_API_KEY --strategy"
-out="test/perf/snapshots/psi-$(date +%s)"
-ran=0
-
 tape=./node_modules/.bin/tape
 tap_diff=./node_modules/.bin/tap-diff
 protractor=./test/e2e/node_modules/.bin/protractor
 
 tatatape() {
     $tape $@ | $tap_diff
-}
-
-slug() {
-    echo "$1" | \
-        iconv -t ascii//TRANSLIT | \
-        sed -E s/[^a-zA-Z0-9]+/-/g | \
-        sed -E s/^-+\|-+$//g | tr A-Z a-z
-}
-
-perf_snapshot() {
-    local url="$1"
-    local out_mobile="$out-mobile-$(slug $url).json"
-    local out_desktop="$out-desktop-$(slug $url).json"
-
-    if [ "$ran" -ne 0 ]; then
-        echo
-    fi
-
-    ((ran++))
-
-    log "testing $url on mobile"
-    echo
-    log "saving results to $out_mobile"
-    echo
-    log "running"
-    $psi mobile $url > $out_mobile 2> /dev/null
-    logstat
-
-    echo
-
-    log "testing $url on desktop"
-    echo
-    log "saving results to $out_desktop"
-    echo
-    log "running"
-    $psi desktop $url > $out_desktop 2> /dev/null
-    logstat
 }
 
 case "$1" in
@@ -66,15 +23,6 @@ case "$1" in
 
     integration)
         tatatape $(find test/integration -name "*.js")
-        ;;
-
-    perf)
-        perf_snapshot 'http://consumr-project.herokuapp.com/'
-        perf_snapshot 'http://consumr-project.herokuapp.com/company/id/1ebe93ba-1c4b-4e06-8244-cc6e2f104c20'
-        perf_snapshot 'http://consumr-project.herokuapp.com/tag/cbe7af61-d3ee-413a-9704-844b084cdb25'
-        perf_snapshot 'http://consumrproject.org/'
-        perf_snapshot 'http://consumrproject.org/company/id/87fd1e35-2bee-48cf-b480-ad756bc6694e'
-        perf_snapshot 'http://consumrproject.org/tag/aa28bb37-62a5-4f8c-8f98-c3ca6125ef75'
         ;;
 
     test/*)
