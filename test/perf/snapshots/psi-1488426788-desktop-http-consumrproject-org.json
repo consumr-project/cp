@@ -1,0 +1,32 @@
+{
+  "overview": {
+    "URL": "consumrproject.org",
+    "Strategy": "desktop",
+    "Speed": 95
+  },
+  "statistics": {
+    "cssResponseBytes": "49.34 kB",
+    "htmlResponseBytes": "2.03 kB",
+    "imageResponseBytes": "13.97 kB",
+    "javascriptResponseBytes": "2.89 MB",
+    "numberCssResources": 1,
+    "numberHosts": 4,
+    "numberJsResources": 8,
+    "numberResources": 24,
+    "numberStaticResources": 17,
+    "otherResponseBytes": "31.65 kB",
+    "totalRequestBytes": "1.72 kB"
+  },
+  "ruleResults": {
+    "AvoidLandingPageRedirects": 0,
+    "EnableGzipCompression": 0,
+    "LeverageBrowserCaching": 0,
+    "MainResourceServerResponseTime": 0,
+    "MinifyCss": 0,
+    "MinifyHTML": 0,
+    "MinifyJavaScript": 0,
+    "MinimizeRenderBlockingResources": 2,
+    "OptimizeImages": 0.41,
+    "PrioritizeVisibleContent": 2
+  }
+}

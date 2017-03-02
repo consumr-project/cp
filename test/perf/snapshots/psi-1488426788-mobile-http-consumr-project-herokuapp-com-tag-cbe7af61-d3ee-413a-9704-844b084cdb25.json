@@ -1,0 +1,38 @@
+{
+  "overview": {
+    "URL": "consumr-project.herokuapp.com/tag/cbe7af61-d3ee-413a-9704-844b084cdb25",
+    "Strategy": "mobile",
+    "Speed": 78,
+    "Usability": 100
+  },
+  "statistics": {
+    "cssResponseBytes": "50.5 kB",
+    "htmlResponseBytes": "6.35 kB",
+    "imageResponseBytes": "23.16 kB",
+    "javascriptResponseBytes": "3.09 MB",
+    "numberCssResources": 2,
+    "numberHosts": 4,
+    "numberJsResources": 70,
+    "numberResources": 94,
+    "numberStaticResources": 88,
+    "otherResponseBytes": "21.21 kB",
+    "totalRequestBytes": "8.17 kB"
+  },
+  "ruleResults": {
+    "AvoidLandingPageRedirects": 0,
+    "AvoidPlugins": 0,
+    "ConfigureViewport": 0,
+    "EnableGzipCompression": 0.62,
+    "LeverageBrowserCaching": 0,
+    "MainResourceServerResponseTime": 0,
+    "MinifyCss": 0,
+    "MinifyHTML": 0,
+    "MinifyJavaScript": 1.41,
+    "MinimizeRenderBlockingResources": 16,
+    "OptimizeImages": 0,
+    "PrioritizeVisibleContent": 8,
+    "SizeContentToViewport": 0,
+    "SizeTapTargetsAppropriately": 0,
+    "UseLegibleFontSizes": 0
+  }
+}

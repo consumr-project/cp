@@ -1,0 +1,32 @@
+{
+  "overview": {
+    "URL": "consumr-project.herokuapp.com/company/id/1ebe93ba-1c4b-4e06-8244-cc6e2f104c20",
+    "Strategy": "desktop",
+    "Speed": 91
+  },
+  "statistics": {
+    "cssResponseBytes": "50.5 kB",
+    "htmlResponseBytes": "8.99 kB",
+    "imageResponseBytes": "27.59 kB",
+    "javascriptResponseBytes": "3.11 MB",
+    "numberCssResources": 2,
+    "numberHosts": 4,
+    "numberJsResources": 72,
+    "numberResources": 100,
+    "numberStaticResources": 94,
+    "otherResponseBytes": "21.21 kB",
+    "totalRequestBytes": "8.81 kB"
+  },
+  "ruleResults": {
+    "AvoidLandingPageRedirects": 0,
+    "EnableGzipCompression": 0.64,
+    "LeverageBrowserCaching": 0,
+    "MainResourceServerResponseTime": 0,
+    "MinifyCss": 0,
+    "MinifyHTML": 0,
+    "MinifyJavaScript": 1.41,
+    "MinimizeRenderBlockingResources": 4,
+    "OptimizeImages": 0.41,
+    "PrioritizeVisibleContent": 2
+  }
+}

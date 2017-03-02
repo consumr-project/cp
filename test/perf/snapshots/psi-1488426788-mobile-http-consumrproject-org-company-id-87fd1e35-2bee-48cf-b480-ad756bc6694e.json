@@ -1,0 +1,38 @@
+{
+  "overview": {
+    "URL": "consumrproject.org/company/id/87fd1e35-2bee-48cf-b480-ad756bc6694e",
+    "Strategy": "mobile",
+    "Speed": 85,
+    "Usability": 100
+  },
+  "statistics": {
+    "cssResponseBytes": "49.34 kB",
+    "htmlResponseBytes": "3.73 kB",
+    "imageResponseBytes": "23.28 kB",
+    "javascriptResponseBytes": "2.9 MB",
+    "numberCssResources": 1,
+    "numberHosts": 4,
+    "numberJsResources": 14,
+    "numberResources": 36,
+    "numberStaticResources": 30,
+    "otherResponseBytes": "21.2 kB",
+    "totalRequestBytes": "2.87 kB"
+  },
+  "ruleResults": {
+    "AvoidLandingPageRedirects": 0,
+    "AvoidPlugins": 0,
+    "ConfigureViewport": 0,
+    "EnableGzipCompression": 0,
+    "LeverageBrowserCaching": 0,
+    "MainResourceServerResponseTime": 0,
+    "MinifyCss": 0,
+    "MinifyHTML": 0,
+    "MinifyJavaScript": 0,
+    "MinimizeRenderBlockingResources": 8,
+    "OptimizeImages": 0,
+    "PrioritizeVisibleContent": 8,
+    "SizeContentToViewport": 0,
+    "SizeTapTargetsAppropriately": 0,
+    "UseLegibleFontSizes": 0
+  }
+}
