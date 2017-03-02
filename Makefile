@@ -106,6 +106,9 @@ test-unit:
 perf-pages:
 	./script/perf pages
 
+perf-disc:
+	./script/perf disc
+
 optimize:
 	$(imageoptim) assets/images/*.png assets/images/*/*.png
 	$(svgo) assets/images/

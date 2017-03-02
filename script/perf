@@ -13,7 +13,7 @@ slug() {
         sed -E s/^-+\|-+$//g | tr A-Z a-z
 }
 
-perf_snapshot() {
+page_snapshot() {
     local url="$1"
     local out_mobile="$out-mobile-$(slug $url).json"
     local out_desktop="$out-desktop-$(slug $url).json"
@@ -45,16 +45,30 @@ perf_snapshot() {
 
 case "$1" in
     pages)
-        perf_snapshot 'http://consumr-project.herokuapp.com/'
-        perf_snapshot 'http://consumr-project.herokuapp.com/company/id/1ebe93ba-1c4b-4e06-8244-cc6e2f104c20'
-        perf_snapshot 'http://consumr-project.herokuapp.com/tag/cbe7af61-d3ee-413a-9704-844b084cdb25'
-        perf_snapshot 'http://consumrproject.org/'
-        perf_snapshot 'http://consumrproject.org/company/id/87fd1e35-2bee-48cf-b480-ad756bc6694e'
-        perf_snapshot 'http://consumrproject.org/tag/aa28bb37-62a5-4f8c-8f98-c3ca6125ef75'
+        page_snapshot 'http://consumr-project.herokuapp.com/'
+        page_snapshot 'http://consumr-project.herokuapp.com/company/id/1ebe93ba-1c4b-4e06-8244-cc6e2f104c20'
+        page_snapshot 'http://consumr-project.herokuapp.com/tag/cbe7af61-d3ee-413a-9704-844b084cdb25'
+        page_snapshot 'http://consumrproject.org/'
+        page_snapshot 'http://consumrproject.org/company/id/87fd1e35-2bee-48cf-b480-ad756bc6694e'
+        page_snapshot 'http://consumrproject.org/tag/aa28bb37-62a5-4f8c-8f98-c3ca6125ef75'
+        ;;
+
+    disc)
+        log "building bundle"
+        make build-client-bundle &> /dev/null
+        logstat
+
+        log "running discify"
+        ./node_modules/.bin/discify build/bundle.js > disc.html
+        logstat
+
+        log "opening disc.html"
+        open disc.html
+        logstat
         ;;
 
     *)
-        echo "wat?"
+        echo "wat? options: pages, disc"
         exit 1
         ;;
 esac
