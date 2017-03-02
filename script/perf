@@ -3,8 +3,12 @@
 source $(dirname "$0")/cli.sh
 
 psi="./node_modules/.bin/psi --format json --key $GOOGLE_PUBLIC_API_KEY --strategy"
-out="test/perf/snapshots/psi-$(date +%s)"
 ran=0
+
+out_snapshot="test/perf/snapshots/psi-$(date +%s)"
+out_disc="test/perf/bundles/disc-$(date +%s)"
+
+tmp_disc="disc.html"
 
 slug() {
     echo "$1" | \
@@ -15,8 +19,8 @@ slug() {
 
 page_snapshot() {
     local url="$1"
-    local out_mobile="$out-mobile-$(slug $url).json"
-    local out_desktop="$out-desktop-$(slug $url).json"
+    local out_mobile="$out_snapshot-mobile-$(slug $url).json"
+    local out_desktop="$out_snapshot-desktop-$(slug $url).json"
 
     if [ "$ran" -ne 0 ]; then
         echo
@@ -59,16 +63,27 @@ case "$1" in
         logstat
 
         log "running discify"
-        ./node_modules/.bin/discify build/bundle.js > disc.html
+        ./node_modules/.bin/discify build/bundle.js > $tmp_disc
         logstat
 
-        log "opening disc.html"
-        open disc.html
+        log "opening $tmp_disc"
+        open $tmp_disc
         logstat
         ;;
 
+    save-disc)
+        log "moving $tmp_disc"
+
+        if [ -f $tmp_disc ]; then
+            mv $tmp_disc "$out_disc-$(git log -1 --format="%H").html"
+            logstat
+        else
+            logstat 1
+        fi
+        ;;
+
     *)
-        echo "wat? options: pages, disc"
+        echo "wat? options: pages, disc, save-disc"
         exit 1
         ;;
 esac

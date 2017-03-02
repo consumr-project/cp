@@ -21,6 +21,11 @@ js_sep = echo ";\n"
 ts_options =
 browserify_options = --external aws4 \
 	--ignore unicode/category/So \
+	--ignore mime-db \
+	--ignore sshpk \
+	--ignore pako \
+	--ignore q \
+	--ignore elliptic \
 	--full-paths
 
 global_config_varname = TCP_BUILD_CONFIG
