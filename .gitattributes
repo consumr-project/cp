@@ -1,0 +1,2 @@
+test/perf/bundles/* linguist-vendored
+test/perf/snapshots/* linguist-vendored
