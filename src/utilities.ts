@@ -61,7 +61,7 @@ export function try_func<T>(action: () => T): [Error, T] {
     return [ err, res ];
 }
 
-export function empty<T>(obj: Object | Array<T> | undefined): boolean {
+export function empty<T>(obj: Object | T[] | undefined): boolean {
     if (!obj) {
         return true;
     } else {
@@ -77,7 +77,7 @@ export function ellipsis(str: string, max_len: number, suffix: string = '...'): 
     return str;
 }
 
-export function truthy(val: string | Boolean): Boolean {
+export function truthy(val: string | boolean): boolean {
     return val && (val.toString() === 'true' || val.toString() === '1');
 }
 

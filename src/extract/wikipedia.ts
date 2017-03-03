@@ -38,7 +38,7 @@ function normalize_search_result(obj: WikipediaResponsePage): WikipediaSearchRes
     };
 }
 
-function api<T>(params: WikipediaRequest, parser: (WikipediaResult) => T) {
+function api<T>(params: WikipediaRequest, parser: (res: WikipediaResult) => T) {
     return new Promise<T>((resolve, reject) => {
         params.action = 'query';
         params.format = 'json';

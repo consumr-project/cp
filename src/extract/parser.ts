@@ -47,7 +47,7 @@ function prep_lines(markup: string): string[] {
         .map(line => line.trim());
 }
 
-function contains(str: string, needle: string): Boolean {
+function contains(str: string, needle: string): boolean {
     return str.indexOf(needle) !== -1;
 }
 

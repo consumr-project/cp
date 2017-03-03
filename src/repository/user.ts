@@ -20,7 +20,6 @@ function prep(update: UserMessage): UserMessage {
 export function update_user(user: Message, update: UserMessage): Promise<UserMessage> {
     var { id } = user;
 
-
     return new Promise((resolve, reject) => {
         User.update(prep(update), { where: { id } })
             .then(() => resolve(merge(update, { id })))

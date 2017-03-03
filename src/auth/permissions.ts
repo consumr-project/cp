@@ -16,7 +16,7 @@ export enum Role {
 export const rbac = new Rbac(clone(config<Configuration>('rbac')));
 
 export function check(role: string, action: string, resource: string) {
-    return new Promise<Boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
         rbac.can(role, action, resource, (err, can) => {
             if (err) {
                 reject(err);
