@@ -40,10 +40,8 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
     let cache_trending_events = config('cache.collections.trending_events'),
         cache_site_stats = config('cache.collections.site_stats');
 
-    get('/stats/*', (req, res, next) =>
-        next(ternary(err,
-            () => new ServiceUnavailableError(),
-            () => null)));
+    get('/stats/*', (req, res, next) => next(ternary(err,
+        () => new ServiceUnavailableError())));
 
     get('/stats/trending',
         can('retrieve', 'tag'),
@@ -64,8 +62,7 @@ connect_mongo(config('mongo.collections.cache'), (err, coll) => {
 
 get('/stats/mine',
     (req, res, next) => next(ternary(!req.user || !req.user.id,
-        () => new UnauthorizedError(),
-        () => null)),
+        () => new UnauthorizedError())),
 
     can('retrieve', 'tag'),
     can('retrieve', 'company'),

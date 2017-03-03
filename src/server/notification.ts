@@ -4,7 +4,7 @@ import { Event } from '../device/models';
 import { EventMessage } from '../record/models/event';
 
 import { DeleteWriteOpResultObject } from 'mongodb';
-import { has_all_fields, runtime_purge_allowed, minutes } from '../utilities';
+import { has_all_fields, runtime_purge_allowed, minutes, ternary } from '../utilities';
 import { service_handler } from '../http';
 import { ServiceUnavailableError, UnauthorizedError, BadRequestError,
     InternalServerError, ERR_MSG_MISSING_FIELDS } from '../errors';
@@ -46,13 +46,8 @@ connect(config('mongo.collections.notifications'), (err, coll) => {
         }
     });
 
-    router.use((req, res, next) => {
-        if (err) {
-            next(new ServiceUnavailableError());
-        } else {
-            next();
-        }
-    });
+    router.use((req, res, next) => next(ternary(err,
+        () => new ServiceUnavailableError())));
 
     router.get('/', service_handler(req =>
         find(coll, req.user.id, CATEGORY.NOTIFICATION, [

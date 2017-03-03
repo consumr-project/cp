@@ -119,7 +119,7 @@ export function preload(
 export function ternary<T, TRUE_T, FALSE_T>(
     check: Maybe<T>,
     if_true: Lambda<null, TRUE_T>,
-    if_false: Lambda<null, FALSE_T>
+    if_false: Lambda<null, FALSE_T> = () => undefined
 ): TRUE_T | FALSE_T {
     return !!check ? if_true() : if_false();
 }
