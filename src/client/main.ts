@@ -192,7 +192,7 @@ namespace tcp {
                 reloadOnSearch: false,
                 controller: PropSetterController([], ['q']),
                 template:
-                    '<div class="site-content site-content--wide">' +
+                    '<div class="site-content site-content--wider">' +
                     '    <search query="{{q}}"></search>' +
                     '</div>'
             });

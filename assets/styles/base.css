@@ -121,6 +121,10 @@ hr {
     max-width: var(--content-wide-width);
 }
 
+.site-content.site-content--wider {
+    max-width: var(--content-wider-width);
+}
+
 .site-content.site-content--span {
     max-width: none;
 }
