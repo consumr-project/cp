@@ -14,6 +14,12 @@ toes.initialize(Math.random().toString(), () => {
             river_interval(rate);
             break;
 
+        case 'river:reindex':
+            river_run(Date.now(), 'reindex', 0)
+                .then(() => process.exit(0))
+                .catch(() => process.exit(1));
+            break;
+
         case 'river':
             river_run(rate, 'oneoff', 0)
                 .then(() => process.exit(0))
