@@ -31,7 +31,9 @@ input.search__input {
 }
 
 .page--search .search__input {
-    width: 50%;
+    background-image: url(/assets/images/magnifying-class-black.svg);
+    border-color: var(--color-std-thick-border-color);
+    width: 100%;
 }
 
 .search__main,
@@ -56,5 +58,9 @@ input.search__input {
 
     .search__side {
         display: inline-block;
+    }
+
+    .page--search .search__input {
+        width: 60%;
     }
 }
