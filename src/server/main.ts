@@ -35,6 +35,7 @@ const app = express();
 
 const SERVER_JIT_COMPRESSION = !!config('SERVER_JIT_COMPRESSION');
 const SERVER_VIEW_CACHING = !!config('SERVER_VIEW_CACHING');
+const SERVER_ROBOTS_TXT = !!config('server.robots.txt');
 const CLIENT_DEBUG_INFO = !!config('CLIENT_DEBUG_INFO');
 
 app.set('x-powered-by', false);
@@ -60,6 +61,12 @@ app.use('/src/client', serve('src/client'));
 app.use('/assets', serve('assets'));
 app.use('/node_modules', serve('node_modules'));
 app.use(favicon(`${__dirname}/../../assets/images/favicon.png`));
+
+if (SERVER_ROBOTS_TXT) {
+    app.use('/robots.txt', serve('assets/resources/robots.txt'));
+} else {
+    app.use('/robots.txt', serve('assets/resources/nobots.txt'));
+}
 
 if (CLIENT_DEBUG_INFO) {
     app.use('/app', index('app'));
