@@ -20,6 +20,7 @@ angular.module('tcp').service('Navigation', [
 
         var PAGE_MAP = {};
         PAGE_MAP[BASES.HOME] = 'home';
+        PAGE_MAP[BASES.SEARCH] = 'search';
 
         /**
          * optional append

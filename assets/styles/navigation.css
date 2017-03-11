@@ -6,11 +6,16 @@
     white-space: nowrap;
 }
 
-.snav:not(.snav--borderless) {
+.snav:not(.snav--borderless):not(.snav--bottomborder) {
     border-top: 1px solid var(--color-std-border-color);
 }
 
 .snav--borderless {
+    border-top: none;
+}
+
+.snav--bottomborder {
+    border-bottom: 1px solid var(--color-std-border-color);
     border-top: none;
 }
 
