@@ -77,7 +77,7 @@ lint:
 	$(ts_lint) --config config/tslint.json $(shell find src -name "*.ts")
 	$(js_hint) --config config/jshint.json --reporter unix --show-non-errors \
 		$(shell find src -name "*.js") \
-		$(shell find test -name "*.js") \
+		$(shell find test \( -iname "*.js" ! -path "*node_modules*" \)) \
 		$(shell find config -name "*.js") \
 		$(shell find config/migrations -name "*.js") \
 		$(shell find assets -name "*.js") \
