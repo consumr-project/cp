@@ -3,7 +3,7 @@ models:
     soft_delete: true
 
   - name: events
-    fields: [ tags, companies, summary, date, logo ]
+    fields: [ tags, companies, summary, date, logo, company_id ]
     query_file: sync-events
 
   - name: users
