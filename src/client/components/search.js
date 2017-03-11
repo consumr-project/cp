@@ -60,10 +60,22 @@ angular.module('tcp').directive('search', [
                 $scope.vm.results.users = groups.user || groups.users;
                 $scope.vm.results.tags = groups.tag || groups.tags;
 
+                $scope.vm.results.events = lodash.map($scope.vm.results.events, normalize_event);
+
                 $scope.vm.empty = !results || !results.length;
                 $scope.vm.loading = false;
                 $scope.vm.recent = track_search(query, res);
             });
+        }
+
+        function normalize_event(ev) {
+            return {
+                id: ev.id,
+                title: ev.name,
+                date: ev.source.date,
+                logo: ev.source.logo,
+                summary: ev.summary,
+            };
         }
 
         /**
@@ -121,11 +133,9 @@ angular.module('tcp').directive('search', [
                             '<span class="desktop-only">',
                                 '<div class="snav__item block">Articles</div>',
                             '</span>',
-                            '<div class="search__result animated fadeIn" ',
-                                'ng-repeat="event in vm.results.events">',
-                                '<h2>{{::event.name}}</h2>',
-                                '<p>{{::event.summary}}</p>',
-                            '</div>',
+                            '<event type="small" model="event" ',
+                                'class="search__result animated fadeIn" ',
+                                'ng-repeat="event in vm.results.events"></event>',
                         '</div>',
 
                         '<div class="search__side">',

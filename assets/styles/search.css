@@ -48,12 +48,13 @@ input.search__input {
 
 .search__side {
     display: none;
-    width: 30%;
+    width: 35%;
 }
 
 @media (--media-regular-screens) {
     .search__main {
-        width: 70%;
+        padding-right: var(--spacing-medium);
+        width: 65%;
     }
 
     .search__side {

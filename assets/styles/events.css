@@ -106,11 +106,16 @@
         transform: scale(1.6);
     }
 
+    .event-elem--small .event-elem__title,
     .timeline__event--highlight .timeline__event__title {
         font-family: Times;
         font-size: var(--font-size-xxlarge);
         font-style: italic;
         line-height: var(--font-height-large);
+    }
+
+    .event-elem--small .event-elem__title {
+        color: var(--color-light-text-color: #868686);
     }
 
     .timeline__event__content {
@@ -151,6 +156,22 @@
 
 .event-elem__logo__icon {
     margin: 0 auto var(--spacing-large) auto;
+}
+
+.event-elem--small {
+    margin-top: var(--spacing-medium);
+}
+
+.event-elem--small .event-elem__container {
+    padding-left: 55px;
+}
+
+.event-elem--small .event-elem__logo__icon {
+    display: inline-block;
+    float: left;
+    margin-right: var(--spacing-small);
+    position: relative;
+    top: -var(--spacing-xsmall);
 }
 
 .timeline__event__icon {

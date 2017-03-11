@@ -36,6 +36,18 @@ angular.module('tcp').directive('event', [
             '</div>',
         ].join('');
 
+        var HTML_SMALL = [
+            '<div class="event-elem--small">',
+                '<div class="event-elem__logo__icon event-elem__logo__icon--{{::model.logo}}"></div>',
+                '<div class="event-elem__container">',
+                    '<i18n class="event-elem__date" date="{{::model.date}}" ',
+                        'format="D MMM, YYYY"></i18n>',
+                    '<h2 class="event-elem__title">{{::model.title}}</h2>',
+                    '<p>{{::model.summary}}</p>',
+                '</div>',
+            '</div>',
+        ].join('');
+
         var HTML_EDIT = [
             '<form class="event-elem form--listed">',
                 '<h2 class="italic" i18n="event/add"></h2>',
@@ -613,7 +625,11 @@ angular.module('tcp').directive('event', [
         }
 
         function template(elem, attrs) {
-            return attrs.type === 'view' ? HTML_VIEW : HTML_EDIT;
+            switch (attrs.type) {
+                case 'view': return HTML_VIEW;
+                case 'small': return HTML_SMALL;
+                default: return HTML_EDIT;
+            }
         }
 
         return {
@@ -623,8 +639,9 @@ angular.module('tcp').directive('event', [
             link: link,
             scope: {
                 id: '@',
-                api: '=',
-                tiedTo: '=',
+                api: '=?',
+                tiedTo: '=?',
+                model: '=?',
                 onCancel: '&',
                 onEvent: '&',
                 onSave: '&',
