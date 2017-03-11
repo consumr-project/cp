@@ -70,11 +70,15 @@ angular.module('tcp').directive('search', [
 
         function normalize_event(ev) {
             return {
+                // for event
                 id: ev.id,
                 title: ev.name,
                 date: ev.source.date,
                 logo: ev.source.logo,
                 summary: ev.summary,
+
+                // for search
+                company_id: ev.source.company_id,
             };
         }
 
@@ -133,9 +137,12 @@ angular.module('tcp').directive('search', [
                             '<span class="desktop-only">',
                                 '<div class="snav__item block">Articles</div>',
                             '</span>',
-                            '<event type="small" model="event" ',
-                                'class="search__result animated fadeIn" ',
-                                'ng-repeat="event in vm.results.events"></event>',
+                            '<a href="/company/id/{{::event.company_id}}/event/{{::event.id}}" ',
+                                'ng-repeat="event in vm.results.events" ',
+                                'class="a--unstyled">',
+                                '<event type="small" model="event" ',
+                                    'class="search__result animated fadeIn"></event>',
+                            '</a>',
                         '</div>',
 
                         '<div class="search__side">',

@@ -120,7 +120,7 @@ a:visited {
     text-decoration: none;
 }
 
-a:hover {
+a:hover:not(.a--unstyled) {
     text-decoration: underline;
 }
 
