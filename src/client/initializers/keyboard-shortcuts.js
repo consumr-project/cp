@@ -10,7 +10,7 @@ $(function () {
         switch (ev.keyCode) {
             // forward-slash
             case 191:
-                $('input[i18n="admin/search_placeholder"]').focus();
+                $('.search__input').focus();
                 ev.preventDefault();
                 break;
         }
