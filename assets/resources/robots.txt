@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /assets
+Disallow: /build
+Disallow: /node_modules
+Disallow: /ping
+Disallow: /search
+Disallow: /service
+Disallow: /src
+Disallow: /version
