@@ -3,23 +3,14 @@ models:
     soft_delete: true
 
   - name: events
-    fields: [ tags, companies ]
+    fields: [ tags, companies, summary, date, logo ]
     query_file: sync-events
-
-  - name: event_sources
-    label: title
-    fields: [ summary ]
 
   - name: users
     fields: [ title, company_name ]
     soft_delete: true
 
   - name: tags
-    label: '"en-US"'
-    fields: [ approved ]
-    soft_delete: true
-
-  - name: products
     label: '"en-US"'
     fields: [ approved ]
     soft_delete: true
