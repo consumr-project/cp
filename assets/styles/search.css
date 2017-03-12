@@ -42,6 +42,11 @@ input.search__input {
     width: 100%;
 }
 
+.search__main .snav__item,
+.search__side .snav__item {
+    margin-bottom: var(--spacing-small);
+}
+
 .search__side {
     display: none;
     width: 35%;
