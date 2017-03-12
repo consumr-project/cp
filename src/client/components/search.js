@@ -11,12 +11,18 @@ angular.module('tcp').directive('search', [
     function (DOMAIN, Services, Navigation, RecentSearches, lodash) {
         'use strict';
 
+        var SECT_COMPANIES = 'companies',
+            SECT_EVENTS = 'events',
+            SECT_TAGS = 'tags',
+            SECT_USERS = 'users';
+
         /**
          * get a blank slate state
          * @return {Object}
          */
         function new_state() {
             return {
+                cur_section: SECT_EVENTS,
                 empty: false,
                 loading: false,
                 recent: [],
@@ -88,6 +94,11 @@ angular.module('tcp').directive('search', [
          * @return {void}
          */
         function controller($scope) {
+            $scope.SECT_COMPANIES = SECT_COMPANIES;
+            $scope.SECT_EVENTS = SECT_EVENTS;
+            $scope.SECT_TAGS = SECT_TAGS;
+            $scope.SECT_USERS = SECT_USERS;
+
             $scope.nav = Navigation;
             $scope.vm = new_state();
 
@@ -95,6 +106,10 @@ angular.module('tcp').directive('search', [
                 Navigation.BASES.HOME,
                 Navigation.BASES.SEARCH,
             ]) ? 'admin/search_long_placeholder' : 'admin/search_placeholder';
+
+            $scope.show_section = function (sect) {
+                $scope.vm.cur_section = sect;
+            };
 
             $scope.search = lodash.debounce(function (query, $event) {
                 if (!query) {
@@ -127,11 +142,11 @@ angular.module('tcp').directive('search', [
                     '</form>',
 
                     '<div ng-if="query && !redirects" class="can-load margin-top-medium" ng-class="{loading: vm.loading}">',
-                        '<snav class="block snav--borderless">',
-                            '<snav-item i18n="pages/events"></snav-item>',
-                            '<snav-item i18n="pages/people"></snav-item>',
-                            '<snav-item i18n="pages/companies"></snav-item>',
-                            '<snav-item i18n="pages/tags"></snav-item>',
+                        '<snav value="vm.cur_section" class="block snav--borderless">',
+                            '<snav-item value="{{SECT_EVENTS}}" ng-click="show_section(SECT_EVENTS)" i18n="pages/events"></snav-item>',
+                            '<snav-item value="{{SECT_USERS}}" ng-click="show_section(SECT_USERS)" i18n="pages/people"></snav-item>',
+                            '<snav-item value="{{SECT_COMPANIES}}" ng-click="show_section(SECT_COMPANIES)" i18n="pages/companies"></snav-item>',
+                            '<snav-item value="{{SECT_TAGS}}" ng-click="show_section(SECT_TAGS)" i18n="pages/tags"></snav-item>',
                         '</snav>',
                         '<hr class="margin-top-xsmall">',
 
