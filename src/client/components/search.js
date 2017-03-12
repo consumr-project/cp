@@ -148,7 +148,7 @@ angular.module('tcp').directive('search', [
                         '</div>',
 
                         '<div class="search__side">',
-                            '<section ng-if="vm.results.tags.length" class="line-separated spaced">',
+                            '<section ng-if="vm.results.tags.length" class="line-separated spaced-xlarge">',
                                 '<div class="snav__item block" i18n="pages/tags"></div>',
                                 '<tags>',
                                     '<tag class="keyword animated fadeIn" ng-click="nav.tag(tag.id)" ',
@@ -157,7 +157,7 @@ angular.module('tcp').directive('search', [
                                 '</tags>',
                             '</section>',
 
-                            '<section ng-if="vm.results.users.length" class="line-separated spaced">',
+                            '<section ng-if="vm.results.users.length" class="line-separated spaced-xlarge">',
                                 '<div class="snav__item block" i18n="pages/people"></div>',
                                 '<avatar name="{{::user.name}}" ',
                                     'class="avatar--medium" ',
@@ -167,9 +167,9 @@ angular.module('tcp').directive('search', [
                                     'title="{{::user.source.title}}"></avatar>',
                             '</section>',
 
-                            '<section ng-if="vm.results.companies.length" class="line-separated spaced">',
+                            '<section ng-if="vm.results.companies.length" class="line-separated spaced-xlarge">',
                                 '<div class="snav__item block" i18n="pages/companies"></div>',
-                                '<div class="animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
+                                '<div class="animated fadeIn spaced-medium" ng-click="nav.company_by_id(company.id)" ',
                                     'ng-repeat="company in vm.results.companies">',
                                     '<h2>{{::company.name}}</h2>',
                                 '</div>',

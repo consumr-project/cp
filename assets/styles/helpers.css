@@ -53,10 +53,6 @@
     border-top: 1px solid var(--color-std-thin-border-color);
 }
 
-.spaced ~ .spaced {
-    margin-top: 60px;
-}
-
 .fill-background {
     background-color: var(--color-std-background-color);
 }
@@ -277,6 +273,12 @@
 .font-size-large { font-size: var(--font-size-large); }
 .font-size-xlarge { font-size: var(--font-size-xlarge); }
 .font-size-xxlarge { font-size: var(--font-size-xxlarge); }
+
+.spaced-xsmall ~ .spaced-xsmall { margin-top: var(--spacing-xsmall); }
+.spaced-small ~ .spaced-small { margin-top: var(--spacing-small); }
+.spaced-medium ~ .spaced-medium { margin-top: var(--spacing-medium); }
+.spaced-large ~ .spaced-large { margin-top: var(--spacing-large); }
+.spaced-xlarge ~ .spaced-xlarge { margin-top: var(--spacing-xlarge); }
 
 .screen-small-only {
     display: initial;
