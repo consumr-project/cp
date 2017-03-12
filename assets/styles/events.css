@@ -158,12 +158,9 @@
     margin: 0 auto var(--spacing-large) auto;
 }
 
-.event-elem--small {
-    margin-top: var(--spacing-medium);
-}
-
 .event-elem--small .event-elem__container {
     padding-left: 55px;
+    padding-top: var(--spacing-xsmall);
 }
 
 .event-elem--small .event-elem__logo__icon {
@@ -171,7 +168,7 @@
     float: left;
     margin-right: var(--spacing-small);
     position: relative;
-    top: -var(--spacing-xsmall);
+    top: 0;
 }
 
 .timeline__event__icon {

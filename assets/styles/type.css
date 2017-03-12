@@ -139,6 +139,10 @@ a.a--action,
     text-decoration: underline;
 }
 
+a.a--unstyled {
+    color: initial;
+}
+
 .status--error {
     color: var(--color-failure);
     font-size: var(--font-size-small);

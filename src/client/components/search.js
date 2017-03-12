@@ -143,7 +143,7 @@ angular.module('tcp').directive('search', [
                                 'ng-repeat="event in vm.results.events" ',
                                 'class="a--unstyled">',
                                 '<event type="small" model="event" ',
-                                    'class="search__result animated fadeIn"></event>',
+                                    'class="animated fadeIn"></event>',
                             '</a>',
                         '</div>',
 
@@ -159,7 +159,7 @@ angular.module('tcp').directive('search', [
 
                             '<span ng-if="vm.results.users.length">',
                                 '<div class="snav__item block" i18n="pages/people"></div>',
-                                '<div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
+                                '<div class="animated fadeIn" ng-click="nav.user(user.id)" ',
                                     'ng-repeat="user in vm.results.users">',
                                     '<avatar name="{{::user.name}}" ',
                                         'user-id="{{::user.id}}" ',
@@ -169,7 +169,7 @@ angular.module('tcp').directive('search', [
 
                             '<span ng-if="vm.results.companies.length">',
                                 '<div class="snav__item block" i18n="pages/companies"></div>',
-                                '<div class="search__result animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
+                                '<div class="animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
                                     'ng-repeat="company in vm.results.companies">',
                                     '<h2>{{::company.name}}</h2>',
                                 '</div>',
