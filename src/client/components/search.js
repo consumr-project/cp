@@ -75,6 +75,7 @@ angular.module('tcp').directive('search', [
                 title: ev.name,
                 date: ev.source.date,
                 logo: ev.source.logo,
+                url: ev.source.url,
                 summary: ev.summary,
 
                 // for search
