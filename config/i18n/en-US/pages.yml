@@ -1,7 +1,10 @@
-profile: Profile
-users: Users
-companies: Companies
 admin: Admin
+companies: Companies
+events: Events
+people: People
+profile: Profile
+tags: Tags
+users: Users
 
 # followed by directive
 followed_by_others: This page is being followed by {count} {count, plural, one {person} other {people}}.

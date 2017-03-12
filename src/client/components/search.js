@@ -128,16 +128,16 @@ angular.module('tcp').directive('search', [
 
                     '<div ng-if="query && !redirects" class="can-load margin-top-medium" ng-class="{loading: vm.loading}">',
                         '<snav class="block snav--borderless">',
-                            '<snav-item>Articles</snav-item>',
-                            '<snav-item>People</snav-item>',
-                            '<snav-item>Companies</snav-item>',
-                            '<snav-item>Tags</snav-item>',
+                            '<snav-item i18n="pages/events"></snav-item>',
+                            '<snav-item i18n="pages/people"></snav-item>',
+                            '<snav-item i18n="pages/companies"></snav-item>',
+                            '<snav-item i18n="pages/tags"></snav-item>',
                         '</snav>',
                         '<hr class="margin-top-xsmall">',
 
                         '<div class="search__main">',
                             '<span class="desktop-only">',
-                                '<div class="snav__item block">Articles</div>',
+                                '<div class="snav__item block" i18n="pages/events"></div>',
                             '</span>',
                             '<a href="/company/id/{{::event.company_id}}/event/{{::event.id}}" ',
                                 'ng-repeat="event in vm.results.events" ',
@@ -149,7 +149,7 @@ angular.module('tcp').directive('search', [
 
                         '<div class="search__side">',
                             '<span ng-if="vm.results.tags.length">',
-                                '<div class="snav__item block">Tags</div>',
+                                '<div class="snav__item block" i18n="pages/tags"></div>',
                                 '<tags>',
                                     '<tag class="keyword animated fadeIn" ng-click="nav.tag(tag.id)" ',
                                         'label="{{::tag.name}}" ',
@@ -158,7 +158,7 @@ angular.module('tcp').directive('search', [
                             '</span>',
 
                             '<span ng-if="vm.results.users.length">',
-                                '<div class="snav__item block">Users</div>',
+                                '<div class="snav__item block" i18n="pages/people"></div>',
                                 '<div class="search__result animated fadeIn" ng-click="nav.user(user.id)" ',
                                     'ng-repeat="user in vm.results.users">',
                                     '<avatar name="{{::user.name}}" ',
@@ -168,7 +168,7 @@ angular.module('tcp').directive('search', [
                             '</span>',
 
                             '<span ng-if="vm.results.companies.length">',
-                                '<div class="snav__item block">Companies</div>',
+                                '<div class="snav__item block" i18n="pages/companies"></div>',
                                 '<div class="search__result animated fadeIn" ng-click="nav.company_by_id(company.id)" ',
                                     'ng-repeat="company in vm.results.companies">',
                                     '<h2>{{::company.name}}</h2>',

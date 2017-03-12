@@ -33,6 +33,7 @@ input.search__input {
 .page--search .search__input {
     background-image: url(/assets/images/magnifying-class-black.svg);
     border-color: var(--color-std-thick-border-color);
+    color: var(--color-std-text-color);
     width: 100%;
 }
 

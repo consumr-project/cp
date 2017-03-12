@@ -1,7 +1,10 @@
-profile: profile
-users: users
-companies: companiez
 admin: admin
+companies: companiez
+events: events
+people: People
+profile: profile
+tags: tags
+users: users
 followed_by_others: 'dis paeg iz bean followd by {count} {count, plural, one {person} other {people}}.'
 followed_by_you: 'dis paeg iz bean followd by u.'
 followed_by_you_and_others: 'dis paeg iz bean followd by u an {countMinusOne} other {countMinusOne, plural, one {person} other {people}}.'
