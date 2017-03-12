@@ -136,7 +136,7 @@ angular.module('tcp').directive('search', [
                         '<hr class="margin-top-xsmall">',
 
                         '<div class="search__main">',
-                            '<span class="desktop-only">',
+                            '<span class="desktop-only" ng-if="vm.results.events.length">',
                                 '<div class="snav__item block" i18n="pages/events"></div>',
                             '</span>',
                             '<a href="/company/id/{{::event.company_id}}/event/{{::event.id}}" ',
@@ -160,7 +160,7 @@ angular.module('tcp').directive('search', [
                             '<section ng-if="vm.results.users.length" class="line-separated spaced-xlarge">',
                                 '<div class="snav__item block" i18n="pages/people"></div>',
                                 '<avatar name="{{::user.name}}" ',
-                                    'class="avatar--medium" ',
+                                    'class="avatar--medium animated fadeIn" ',
                                     'ng-click="nav.user(user.id)" ',
                                     'ng-repeat="user in vm.results.users" ',
                                     'user-id="{{::user.id}}" ',
