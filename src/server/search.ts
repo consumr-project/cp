@@ -8,6 +8,9 @@ import { fuzzy, normalize, INDEX, TYPE } from '../search/searcher';
 import { service_handler } from '../http';
 import { ErrorHandler } from '../lang';
 
+const MAX_RESULTS = 200;
+const min = Math.min;
+
 export const router = Router();
 const es = es_connect();
 
@@ -17,6 +20,8 @@ router.get('/query', (req, res, next) => {
             index: INDEX.RECORD,
             query: req.query.q,
             type: [TYPE.COMPANIES, TYPE.USERS, TYPE.TAGS, TYPE.EVENTS],
+            from: req.query.offset,
+            size: min(MAX_RESULTS, req.query.limit),
             suggest: true,
         }), normalize)(req, res, <ErrorHandler>next);
     } else {

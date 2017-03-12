@@ -138,13 +138,9 @@ export function search(
         { query, suggest } :
         { query };
 
-    log.info('searching index: %s, type: %s, query:', index, type, query);
+    var payload = { index, type, from, size, body };
 
-    return es.search({
-        index,
-        type,
-        from,
-        size,
-        body,
-    });
+    log.info('searching', payload);
+
+    return es.search(payload);
 }
