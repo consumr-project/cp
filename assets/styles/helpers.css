@@ -53,6 +53,10 @@
     border-top: 1px solid var(--color-std-thin-border-color);
 }
 
+.spaced ~ .spaced {
+    margin-top: 60px;
+}
+
 .fill-background {
     background-color: var(--color-std-background-color);
 }
