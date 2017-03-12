@@ -54,7 +54,7 @@ input.search__input {
 
 @media (--media-regular-screens) {
     .search__main {
-        padding-right: var(--spacing-medium);
+        padding-right: var(--spacing-xlarge);
         width: 65%;
     }
 
