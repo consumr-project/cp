@@ -1,6 +1,7 @@
 with source as (
     select distinct on (es.event_id)
         es.event_id,
+        es.url,
         substring(es.summary from 0 for 300) as summary
 
     from event_sources es
@@ -27,6 +28,7 @@ select distinct on (e.id)
 
     cc.company_id,
     max(distinct s.summary) as summary,
+    max(distinct s.url) as url,
 
     date,
     logo
