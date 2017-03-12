@@ -8,6 +8,10 @@ avatar:not(.avatar--block) {
     border-radius: 200px;
 }
 
+.avatar--medium ~ .avatar--medium {
+    margin-top: var(--spacing-medium);
+}
+
 .avatar__image_img {
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -47,6 +51,29 @@ avatar.avatar--block {
 .avatar__title {
     display: inline-block;
     vertical-align: middle;
+}
+
+avatar.avatar--medium .avatar__name,
+avatar.avatar--medium .avatar__title {
+    display: block;
+    margin-left: calc(var(--avatar-size-medium) + var(--spacing-xsmall));
+}
+
+avatar.avatar--medium .avatar__name {
+    margin-top: 22px;
+}
+
+avatar.avatar--medium .avatar__title {
+    margin-top: 2px;
+}
+
+avatar.avatar--medium .avatar__image {
+    float: left;
+}
+
+avatar.avatar--medium .avatar__image_img {
+    height: var(--avatar-size-medium);
+    width: var(--avatar-size-medium);
 }
 
 avatar.avatar--block .avatar__image_img {

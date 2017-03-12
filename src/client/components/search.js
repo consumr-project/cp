@@ -159,12 +159,12 @@ angular.module('tcp').directive('search', [
 
                             '<section ng-if="vm.results.users.length" class="line-separated spaced">',
                                 '<div class="snav__item block" i18n="pages/people"></div>',
-                                '<div class="animated fadeIn" ng-click="nav.user(user.id)" ',
-                                    'ng-repeat="user in vm.results.users">',
-                                    '<avatar name="{{::user.name}}" ',
-                                        'user-id="{{::user.id}}" ',
-                                        'title="{{::user.source.title}}"></avatar>',
-                                '</div>',
+                                '<avatar name="{{::user.name}}" ',
+                                    'class="avatar--medium" ',
+                                    'ng-click="nav.user(user.id)" ',
+                                    'ng-repeat="user in vm.results.users" ',
+                                    'user-id="{{::user.id}}" ',
+                                    'title="{{::user.source.title}}"></avatar>',
                             '</section>',
 
                             '<section ng-if="vm.results.companies.length" class="line-separated spaced">',

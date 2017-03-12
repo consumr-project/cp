@@ -86,6 +86,7 @@
     --z-index-popover: 3;
 
     --avatar-size: 40px;
+    --avatar-size-medium: 60px;
 }
 
 @custom-media --media-content-max-width (max-width: 700px);
