@@ -5,7 +5,7 @@ with source as (
         substring(es.summary from 0 for 300) as summary
 
     from event_sources es
-    where es.summary is not null
+    where es.url is not null
     and es.deleted_date is null
 ),
 
