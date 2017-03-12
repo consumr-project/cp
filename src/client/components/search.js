@@ -127,12 +127,13 @@ angular.module('tcp').directive('search', [
                     '</form>',
 
                     '<div ng-if="query && !redirects" class="can-load margin-top-medium" ng-class="{loading: vm.loading}">',
-                        '<snav class="block margin-bottom-small snav--bottomborder">',
+                        '<snav class="block snav--borderless">',
                             '<snav-item>Articles</snav-item>',
                             '<snav-item>People</snav-item>',
                             '<snav-item>Companies</snav-item>',
                             '<snav-item>Tags</snav-item>',
                         '</snav>',
+                        '<hr class="margin-top-xsmall">',
 
                         '<div class="search__main">',
                             '<span class="desktop-only">',
