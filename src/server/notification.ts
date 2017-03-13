@@ -18,7 +18,7 @@ export const router = Router();
 
 router.use((req, res, next) => {
     // 5 minute caching
-    res.setHeader('Cache-Control', `private, max-age=${minutes(5)}`);
+    res.setHeader('Cache-Control', `private, max-age=${minutes(5) / 1000}`);
     next();
 });
 

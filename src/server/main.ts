@@ -52,7 +52,7 @@ if (SERVER_JIT_COMPRESSION) {
 }
 
 app.use((req, res, next) => {
-    res.setHeader('Cache-Control', `public, max-age=${hours(2)}`);
+    res.setHeader('Cache-Control', `public, max-age=${hours(2) / 1000}`);
     res.setHeader('X-Powered-By', '<3');
     next();
 });
