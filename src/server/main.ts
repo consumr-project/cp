@@ -6,7 +6,7 @@ import { router as notification_endpoints } from './notification';
 import { router as record_endpoints } from './record';
 import { router as search_endpoints } from './search';
 import { router as user_endpoints } from './user';
-import { router as version_endpoints, STAMP as version } from './version';
+import { router as version_endpoints } from './version';
 
 import { KEY_SESSION } from '../keys';
 import { hours } from '../utilities';
@@ -29,8 +29,6 @@ const session = require('express-session');
 const LokiStore = require('connect-loki')(session);
 const compression = require('compression');
 const swig = require('swig');
-
-const stamp = version.head;
 
 const log = logger(__filename);
 const app = express();
@@ -157,7 +155,6 @@ app.use((err: any, req, res, next) => {
 
     res.render('index', {
         err,
-        stamp,
         cp_url: config('cp_url'),
         debugging: CLIENT_DEBUG_INFO,
         lang: normalize_i18n(req.query.lang),
@@ -169,13 +166,11 @@ app.get('*', (req, res) => {
     unfurl(req.url)
         .then(unfurled => res.render('index', {
             unfurled,
-            stamp,
             cp_url: config('cp_url'),
             debugging: CLIENT_DEBUG_INFO,
             lang: normalize_i18n(req.query.lang),
         })).catch(err => res.render('index', {
             unfurled: OG,
-            stamp,
             cp_url: config('cp_url'),
             debugging: CLIENT_DEBUG_INFO,
             lang: normalize_i18n(req.query.lang),
