@@ -4,6 +4,7 @@
     max-width: 100%;
     overflow-x: auto;
     white-space: nowrap;
+    width: 100%;
 }
 
 .snav:not(.snav--borderless):not(.snav--bottomborder) {
