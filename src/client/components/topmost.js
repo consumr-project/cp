@@ -270,8 +270,9 @@ angular.module('tcp').directive('tcpTopmost', [
             controller: ['$rootScope', '$scope', controller],
             template: [
                 '<div class="topmost">',
-                '    <popover class="popover--fullscreen" api="login">',
-                '        <div class="site-content site-content--slim-100 site-content--no-header center-align">',
+                '    <popover ng-if="!session.logged_in" class="popover--fullscreen" api="login">',
+                '        <div ng-if="login.showing" class="site-content site-content--slim-100 site-content--no-header center-align">',
+                '            <script async src="https://www.google.com/recaptcha/api.js"></script>',
                 '            <div class="close-x close-x--topright" ng-click="login.hide()"></div>',
                 '            <h2 i18n="common/welcome_beta" class="italic font-size-xlarge"></h2>',
 

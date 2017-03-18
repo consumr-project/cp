@@ -77,8 +77,16 @@ angular.module('tcp').directive('popover', [function () {
 
             if (attrs.api) {
                 api = deep(scope, attrs.api, deep(scope, attrs.api) || {});
-                api.hide = apiHide;
-                api.show = apiShow;
+
+                api.hide = function () {
+                    api.showing = false;
+                    apiHide();
+                };
+
+                api.show = function () {
+                    api.showing = true;
+                    apiShow();
+                };
             }
 
             if (api && api.showNow) {
