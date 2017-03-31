@@ -11,14 +11,16 @@ import { validator } from '../validate';
 import * as validate from '../validate';
 import { Cache, LocalStorageListCache } from 'jtils/dist/cache';
 import * as jQuery from 'jquery';
-import * as analytics from 'universal-analytics/index';
+import * as analytics from 'universal-analytics';
 import * as assert from 'assert';
 
 import shasum = require('shasum');
 
-declare var i18n: {
-    get(key: string, data?: Object): string;
-};
+// what?
+declare var analytics: any;
+declare var angular: any;
+
+declare var i18n: { get(key: string, data?: Object): string; };
 
 declare var TCP_BUILD_CONFIG: {
     features: {

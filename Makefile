@@ -61,7 +61,7 @@ pm:
 	./node_modules/.bin/pm2 start config/processes.yml --no-daemon
 
 reset: clean
-	-rm -fr node_modules typings
+	-rm -fr node_modules
 
 clean:
 	-rm -r $(build_dir)

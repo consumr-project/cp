@@ -12,11 +12,10 @@
   },
   "cacheDirectories": [
     "node_modules",
-    "build",
-    "typings"
+    "build"
   ],
   "scripts": {
-    "postinstall": "typings install --no-insight; make dirty-build",
+    "postinstall": "make dirty-build",
     "start": "make server"
   },
   "repository": {
@@ -149,7 +148,6 @@
     "tapes": "3.1.0",
     "tslint": "3.10.2",
     "typescript": "2.3.0-dev.20170331",
-    "typings": "0.6.5",
     "uglify-js": "2.6.2"
   }
 }
