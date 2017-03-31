@@ -23,6 +23,11 @@
 ///<reference path="../node_modules/@types/mongodb/index.d.ts" />
 ///<reference path="../node_modules/@types/multer/index.d.ts" />
 ///<reference path="../node_modules/@types/passport/index.d.ts" />
+///<reference path="../node_modules/@types/serve-static/index.d.ts" />
+///<reference path="../node_modules/@types/validator/index.d.ts" />
+///<reference path="../node_modules/@types/when/index.d.ts" />
+///<reference path="../node_modules/@types/winston/index.d.ts" />
+///<reference path="../node_modules/@types/yamljs/index.d.ts" />
 
 declare module 'acm' {
     function config<T>(str: string): T | Object | string | any;
