@@ -135,7 +135,8 @@ export default function () {
         callbackURL: '',
     };
 
-    var login = passport.authenticate('linkedin', { state: '____' }),
+    // NOTE: using <any> here because passport.AuthenticateOptions is not extendable
+    var login = passport.authenticate('linkedin', <any>{ state: '____' }),
         callback = passport.authenticate('linkedin', { failureRedirect: '/error?with=linkedin-login' }),
         strategy = new Strategy(configuration, find_user),
         setup = set_callback_url.bind(null, strategy);
