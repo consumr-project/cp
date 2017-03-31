@@ -501,40 +501,9 @@ declare module 'nodemailer-html-to-text' {
 }
 
 declare namespace Express {
-    // type UUID = string;
-    // type Date2 = Date | number;
-    //
-    // interface StampedMessage {
-    //     created_by?: string;
-    //     created_date?: Date2;
-    //     updated_by?: string;
-    //     updated_date?: Date2;
-    //     deleted_by?: string;
-    //     deleted_date?: Date2;
-    // }
-    //
-    // interface IdentifiableMessage {
-    //     id?: UUID;
-    // }
-    //
-    // export interface UserMessage extends IdentifiableMessage, StampedMessage {
-    //     name?: string;
-    //     email?: string;
-    //     title?: string;
-    //     company_name?: string;
-    //     role?: any;
-    //     lang?: any;
-    //     summary?: string;
-    //     member_number?: number;
-    //     avatar_url?: string;
-    //     linkedin_url?: string;
-    //     last_login_date?: Date2;
-    //     auth_linkedin_id?: string;
-    //     auth_apikey?: string;
-    // }
-
     export interface Request {
         sessionID?: string;
+        // NOTE brought in by passport
         // user: UserMessage;
     }
 }
