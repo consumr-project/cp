@@ -1,4 +1,4 @@
-///<reference path="../typings/main.d.ts" />
+///<reference path="./promise.d.ts" />
 ///<reference path="../node_modules/moment/moment.d.ts" />
 ///<reference path="../node_modules/@types/node/index.d.ts" />
 ///<reference path="../node_modules/@types/slug/index.d.ts" />
@@ -28,6 +28,8 @@
 ///<reference path="../node_modules/@types/when/index.d.ts" />
 ///<reference path="../node_modules/@types/winston/index.d.ts" />
 ///<reference path="../node_modules/@types/yamljs/index.d.ts" />
+///<reference path="../node_modules/@types/q/index.d.ts" />
+///<reference path="../node_modules/@types/sequelize/index.d.ts" />
 
 declare module 'acm' {
     function config<T>(str: string): T | Object | string | any;
