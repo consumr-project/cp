@@ -142,15 +142,18 @@ app.use((err: any, req, res, next) => {
     log.error('catching request handler error', err);
 
     if (!res.headersSent) {
-        if (err instanceof HttpError) {
+        if (err instanceof HttpError || (isFinite(err.code) && err.name)) {
             log.debug('sending back %s(%s)', err.name, err.code);
             res.status(err.code);
         } else if (err.code === 'ETIMEDOUT' || err.type === 'entity.too.large') {
             log.debug('sending back Request Timeout(408)');
             res.status(RequestTimeoutError.code);
         } else {
+            log.debug('sending back generic 500');
             res.status(500);
         }
+    } else {
+        log.debug('headers already sent. no updates to response');
     }
 
     res.render('index', {

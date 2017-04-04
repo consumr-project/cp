@@ -20,18 +20,20 @@ export const ERR_MSG_INVALID_PARTS = (parts: string[]) =>
 
 // @link https://tools.ietf.org/html/rfc7231
 // @link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-export class HttpError extends Error {
+export class HttpError {
     static code = 500;
     code = 500;
     name = 'Internal Server Error';
     message: string;
 
     constructor(message?: string) {
-        super(message);
         this.code = (<any>this.constructor).code;
         this.message = message || (<any>this.constructor).message || this.name;
+        Error.apply(this, arguments);
     }
 }
+
+HttpError.prototype = <HttpError>(new Error());
 
 // the server cannot or will not process the request due to an apparent client
 // error (e.g., malformed request syntax, invalid request message framing, or
