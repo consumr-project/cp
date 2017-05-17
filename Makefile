@@ -23,6 +23,7 @@ browserify_options = --external aws4 \
 	--ignore unicode/category/So \
 	--ignore mime-db \
 	--ignore sshpk \
+	--ignore crypto-browserify \
 	--ignore pako \
 	--ignore q \
 	--ignore elliptic \
