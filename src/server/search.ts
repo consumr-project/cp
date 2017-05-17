@@ -25,7 +25,17 @@ router.get('/query', (req, res, next) => {
             suggest: true,
         }), normalize)(req, res, <ErrorHandler>next);
     } else {
-        query(conn, sql('search'))(req, res, <ErrorHandler>next);
+        let query_processor = x => x;
+        let response_processor = results => ({results});
+        let one_row = false;
+        let defaults = {};
+
+        req.query.q = `%${req.query.q}%`;
+
+        let handler = query(conn, sql('search'), one_row, defaults,
+            query_processor, response_processor);
+
+        handler(req, res, <ErrorHandler>next);
     }
 });
 

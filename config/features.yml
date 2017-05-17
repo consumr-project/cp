@@ -13,4 +13,4 @@ mind_giving_company_details:
   enabled: false
 
 search_with_elasticsearch:
-  enabled: true
+  enabled: false

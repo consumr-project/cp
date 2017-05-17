@@ -66,10 +66,12 @@ export function query(
     sql: TemplateFunction,
     one_row: boolean = false,
     defaults: MergeFields = {},
-    processor?: (value: Object) => Object
+    processor: (value: object) => object = pass,
+    response_processor: (value: object) => object = pass
 ): ServiceRequestHandler {
     return (req, res, next) => {
         exec(conn, sql, { user: req.user }, merge(req.query, req.params), defaults, one_row, processor)
+            .then(response_processor)
             .then(service_response)
             .then(response => res.json(response))
             .catch(next);

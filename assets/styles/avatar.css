@@ -8,6 +8,10 @@ avatar:not(.avatar--block) {
     border-radius: 200px;
 }
 
+.avatar--medium {
+    width: 100%;
+}
+
 .avatar--medium ~ .avatar--medium {
     margin-top: var(--spacing-medium);
 }
