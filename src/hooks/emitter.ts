@@ -21,13 +21,13 @@ export class InvalidEventError extends Error {
 }
 
 export class Emitter extends EventEmitter {
-    on(ev: string, action: Function): this {
+    on(ev: string, action: (...args: any[]) => void): this {
         validate(ev);
         super.on(ev, action);
         return this;
     }
 
-    once(ev: string, action: Function): this {
+    once(ev: string, action: (...args: any[]) => void): this {
         validate(ev);
         super.once(ev, action);
         return this;

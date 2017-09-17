@@ -375,7 +375,7 @@ post('/beta_email_invites',
     ratelimit('add_beta_email_invite'),
     can('create', 'emailinvite'),
     service_middleware(req =>
-        recaptcha(req.body.recaptcha, req.headers['x-forwarded-for'] || req.connection.remoteAddress)),
+        recaptcha(req.body.recaptcha, <string>[req.headers['x-forwarded-for'] || req.connection.remoteAddress].join(''))),
     service_handler(req =>
         save_unapproved_email_invite({ email: req.body.email }, <UserMessage>config('seed.user.root'))
             .catch(err => { throw err instanceof UniqueConstraintError ? new ConflictError(err.message) : err; })));
